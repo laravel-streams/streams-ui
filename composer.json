@@ -1,0 +1,22 @@
+{
+    "name": "anomaly/streams-ui",
+    "description": "The official UI package for Streams.",
+    "authors": [
+        {
+            "name": "Ryan Thompson",
+            "email": "ryan@pyrocms.com"
+        }
+    ],
+    "require": {
+        "anomaly/streams-platform": "2.x-dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Anomaly\\Streams\\Ui\\": "src/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "license": "MIT"
+}
