@@ -16,7 +16,7 @@ All form builders provide a few methods of standard operation.
 
 ### Post
 
-Load form values from post submission data.
+Handle post requests for form actions and filtering.
 
 ```php
 $table = (new TableBuilder([
@@ -24,26 +24,4 @@ $table = (new TableBuilder([
 ]))->build();
 
 $table->post();
-```
-
-### Validate
-
-Validate form posted submissions.
-
-```php
-$table = (new TableBuilder([
-    'stream' => 'examples',
-]))->build();
-
-$table->validate();
-```
-
-### Save
-
-```php
-$table = (new TableBuilder([
-    'stream' => 'examples',
-]))->build();
-
-$table->save();
 ```
