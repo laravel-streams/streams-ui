@@ -4,6 +4,13 @@ category: basics
 intro: Table builders help you quickly build up table components.
 ---
 
+- Introduction
+- Basic Usage
+- Configuring Tables
+
+
+---
+
 All tables accept a standard array of attributes:
 ```php
 $table = (new TableBuilder([
