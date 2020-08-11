@@ -1,5 +1,6 @@
 ---
 title: Builders
+category: basics
 intro: Builders are classes that help you quickly build up UI component objects.
 ---
 

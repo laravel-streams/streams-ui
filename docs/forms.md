@@ -1,5 +1,6 @@
 ---
 title: Forms
+category: basics
 intro: Form builders help you quickly build up form components.
 ---
 
