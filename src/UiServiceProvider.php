@@ -1,6 +1,6 @@
 <?php
 
-namespace Anomaly\Streams\Platform;
+namespace Anomaly\Streams\Ui;
 
 use Exception;
 use Parsedown;
