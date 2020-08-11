@@ -41,7 +41,7 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class StreamsServiceProvider extends ServiceProvider
+class UiServiceProvider extends ServiceProvider
 {
 
     /**
