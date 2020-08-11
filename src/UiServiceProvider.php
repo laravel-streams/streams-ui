@@ -2,37 +2,7 @@
 
 namespace Anomaly\Streams\Ui;
 
-use Exception;
-use Parsedown;
-use Misd\Linkify\Linkify;
-use StringTemplate\Engine;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Illuminate\View\Factory;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\AliasLoader;
-use Illuminate\Translation\Translator;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Support\Arrayable;
-use Anomaly\Streams\Platform\Support\Purifier;
-use Anomaly\Streams\Platform\View\ViewIncludes;
-use Anomaly\Streams\Platform\View\ViewTemplate;
-use Anomaly\Streams\Platform\Asset\Facades\Assets;
-use Anomaly\Streams\Platform\Image\Facades\Images;
-use Anomaly\Streams\Platform\Stream\StreamBuilder;
-use Anomaly\Streams\Platform\Addon\AddonCollection;
-use Anomaly\Streams\Platform\Application\Application;
-use Anomaly\Streams\Platform\Ui\Table\TableComponent;
-use Anomaly\Streams\Platform\Support\Facades\Hydrator;
-use Illuminate\Support\Collection as SupportCollection;
-use Anomaly\Streams\Platform\Http\Controller\EntryController;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 /**
  * Class StreamsServiceProvider
