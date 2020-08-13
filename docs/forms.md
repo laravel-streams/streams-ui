@@ -1,6 +1,6 @@
 ---
 title: Forms
-category: core_concepts
+category: basics
 intro:
 ---
 

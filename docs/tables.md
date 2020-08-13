@@ -1,6 +1,6 @@
 ---
 title: Tables
-category: core_concepts
+category: basics
 intro:
 ---
 
