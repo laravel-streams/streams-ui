@@ -1,8 +1,10 @@
 ---
 title: Forms
 category: basics
-intro: Form builders help you quickly build up form components.
+intro:
 ---
+
+Form builders help you quickly build up form components.
 
 All forms accept a standard array of attributes:
 ```php

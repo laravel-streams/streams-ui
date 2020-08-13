@@ -1,8 +1,10 @@
 ---
 title: Builders
 category: basics
-intro: Builders are classes that help you quickly build up UI component objects.
+intro:
 ---
+
+- Builders are classes that help you quickly build up UI component objects.
 
 All builders accept an array of attributes and return an instance via the `build` method:
 ```php

@@ -1,8 +1,10 @@
 ---
 title: Tables
 category: basics
-intro: Table builders help you quickly build up table components.
+intro:
 ---
+
+Table builders help you quickly build up table components.
 
 - Introduction
 - Basic Usage
