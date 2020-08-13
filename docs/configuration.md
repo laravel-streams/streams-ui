@@ -1,8 +1,7 @@
 ---
-title: Layouts
+title: Configuration
 category: basics
 intro: 
 ---
 
 - Introduction
-- Configuring Layouts
