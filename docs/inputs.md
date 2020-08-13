@@ -1,6 +1,6 @@
 ---
 title: Inputs
-category: basics
+category: core_concepts
 intro:
 ---
 

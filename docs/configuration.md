@@ -1,6 +1,6 @@
 ---
 title: Configuration
-category: basics
+category: getting_started
 intro: 
 ---
 
