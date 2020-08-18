@@ -1,6 +1,6 @@
 ---
 title: Authorization
-category: security
+category: core_concepts
 intro:
-sort: 10
+sort: 40
 ---

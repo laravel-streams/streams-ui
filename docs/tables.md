@@ -1,7 +1,7 @@
 ---
-title: Tables
-category: core_concepts
-sort: 10
+title: Overview
+category: tables
+sort: 0
 ---
 
 Table builders help you quickly build up table components.

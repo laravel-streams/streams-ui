@@ -1,5 +1,5 @@
 ---
 title: Navigation
-category: basics
+category: cp
 sort: 0
 ---

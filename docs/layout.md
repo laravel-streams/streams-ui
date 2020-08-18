@@ -1,6 +1,6 @@
 ---
 title: Layout
-category: basics
+category: forms
 intro:
-sort: 30
+sort: 10
 ---

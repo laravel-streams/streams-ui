@@ -1,8 +1,8 @@
 ---
-title: Forms
-category: core_concepts
+title: Overview
+category: forms
 intro:
-sort: 10
+sort: 0
 ---
 
 Form builders help you quickly build up form components.
