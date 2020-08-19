@@ -1,7 +1,7 @@
 ---
 title: Shortcuts
 category: cp
-sort: 0
+sort: 20
 ---
 
 - **Intro:** Introduce the idea in one sentance.

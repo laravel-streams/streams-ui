@@ -1,7 +1,7 @@
 ---
 title: Navigation
 category: cp
-sort: 0
+sort: 10
 ---
 
 - **Intro:** Introduce the idea in one sentance.

@@ -2,7 +2,7 @@
 title: Filters
 category: tables
 intro:
-sort: 0
+sort: 10
 ---
 
 - **Intro:** Introduce the idea in one sentance.
