@@ -22,20 +22,6 @@ use Anomaly\Streams\Platform\Support\Traits\FiresCallbacks;
     use FiresCallbacks;
 
     /**
-     * Create a new class instance.
-     *
-     * @param array $attributes
-     */
-    public function __construct(array $attributes = [])
-    {
-        $this->setAttributes(array_merge($this->attributes, $attributes));
-
-        $this->buildProperties();
-
-        $this->fill($this->attributes);
-    }
-
-    /**
      * Build and return the instance instance.
      *
      * @return $this
