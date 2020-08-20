@@ -2,11 +2,11 @@
 
 namespace Anomaly\Streams\Ui\Form\Component\Button;
 
-use Anomaly\Streams\Platform\Ui\Form\Component\Button\Guesser\DisabledGuesser;
-use Anomaly\Streams\Platform\Ui\Form\Component\Button\Guesser\EnabledGuesser;
-use Anomaly\Streams\Platform\Ui\Form\Component\Button\Guesser\HrefGuesser;
-use Anomaly\Streams\Platform\Ui\Form\Component\Button\Guesser\TextGuesser;
-use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
+use Anomaly\Streams\Ui\Form\Component\Button\Guesser\DisabledGuesser;
+use Anomaly\Streams\Ui\Form\Component\Button\Guesser\EnabledGuesser;
+use Anomaly\Streams\Ui\Form\Component\Button\Guesser\HrefGuesser;
+use Anomaly\Streams\Ui\Form\Component\Button\Guesser\TextGuesser;
+use Anomaly\Streams\Ui\Form\FormBuilder;
 
 /**
  * Class ButtonGuesser

@@ -3,10 +3,10 @@
 namespace Anomaly\Streams\Ui\Table\Component\View;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Platform\Ui\Table\Component\View\Type\All;
-use Anomaly\Streams\Platform\Ui\Table\Component\View\Type\Trash;
-use Anomaly\Streams\Platform\Ui\Table\Component\View\Type\RecentlyCreated;
-use Anomaly\Streams\Platform\Ui\Table\Component\View\Type\RecentlyModified;
+use Anomaly\Streams\Ui\Table\Component\View\Type\All;
+use Anomaly\Streams\Ui\Table\Component\View\Type\Trash;
+use Anomaly\Streams\Ui\Table\Component\View\Type\RecentlyCreated;
+use Anomaly\Streams\Ui\Table\Component\View\Type\RecentlyModified;
 
 /**
  * Class ViewRegistry

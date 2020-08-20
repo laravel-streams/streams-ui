@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Table\Workflows\Build;
 
-use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
-use Anomaly\Streams\Platform\Ui\Table\Component\Action\Workflows\ActionsWorkflow;
+use Anomaly\Streams\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\Table\Component\Action\Workflows\ActionsWorkflow;
 
 /**
  * Class BuildActions

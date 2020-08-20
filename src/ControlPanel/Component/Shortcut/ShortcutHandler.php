@@ -4,8 +4,8 @@ namespace Anomaly\Streams\Ui\ControlPanel\Component\Shortcut;
 
 use Anomaly\Streams\Platform\Addon\Module\ModuleCollection;
 use Anomaly\Streams\Platform\Support\Facades\Resolver;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Shortcut\Event\GatherShortcuts;
-use Anomaly\Streams\Platform\Ui\ControlPanel\ControlPanelBuilder;
+use Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\Event\GatherShortcuts;
+use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class ShortcutHandler

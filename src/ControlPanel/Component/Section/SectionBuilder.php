@@ -4,11 +4,11 @@ namespace Anomaly\Streams\Ui\ControlPanel\Component\Section;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Gate;
-use Anomaly\Streams\Platform\Ui\ControlPanel\ControlPanelBuilder;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Section\SectionInput;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Section\SectionFactory;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Navigation\NavigationLink;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Section\SectionCollection;
+use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Anomaly\Streams\Ui\ControlPanel\Component\Section\SectionInput;
+use Anomaly\Streams\Ui\ControlPanel\Component\Section\SectionFactory;
+use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\NavigationLink;
+use Anomaly\Streams\Ui\ControlPanel\Component\Section\SectionCollection;
 
 /**
  * Class SectionBuilder

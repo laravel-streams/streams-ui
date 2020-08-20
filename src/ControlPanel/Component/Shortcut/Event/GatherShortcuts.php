@@ -1,6 +1,6 @@
 <?php namespace Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\Event;
 
-use Anomaly\Streams\Platform\Ui\ControlPanel\ControlPanelBuilder;
+use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class GatherShortcuts

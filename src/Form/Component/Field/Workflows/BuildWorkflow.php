@@ -3,10 +3,10 @@
 namespace Anomaly\Streams\Ui\Form\Component\Field\Workflows;
 
 use Anomaly\Streams\Platform\Workflow\Workflow;
-use Anomaly\Streams\Platform\Ui\Support\Workflows\SetStream;
-use Anomaly\Streams\Platform\Ui\Support\Workflows\LoadAssets;
-use Anomaly\Streams\Platform\Ui\Support\Workflows\SetOptions;
-use Anomaly\Streams\Platform\Ui\Support\Workflows\MakeComponent;
+use Anomaly\Streams\Ui\Support\Workflows\SetStream;
+use Anomaly\Streams\Ui\Support\Workflows\LoadAssets;
+use Anomaly\Streams\Ui\Support\Workflows\SetOptions;
+use Anomaly\Streams\Ui\Support\Workflows\MakeComponent;
 
 /**
  * Class BuildWorkflow

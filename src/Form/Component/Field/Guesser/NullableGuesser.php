@@ -3,7 +3,7 @@
 namespace Anomaly\Streams\Ui\Form\Component\Field\Guesser;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
+use Anomaly\Streams\Ui\Form\FormBuilder;
 
 /**
  * Class NullableGuesser

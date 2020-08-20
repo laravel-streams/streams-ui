@@ -3,7 +3,7 @@
 namespace Anomaly\Streams\Ui\Table\Component\Action\Handler;
 
 use Illuminate\Routing\ResponseFactory;
-use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\Table\TableBuilder;
 
 /**
  * Class Export

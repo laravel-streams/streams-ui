@@ -3,7 +3,7 @@
 namespace Anomaly\Streams\Ui\Table\Workflows\Query;
 
 use Illuminate\Support\Facades\App;
-use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\Table\TableBuilder;
 
 /**
  * Class OrderQuery

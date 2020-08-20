@@ -4,7 +4,7 @@ namespace Anomaly\Streams\Ui\ControlPanel\Component\Shortcut;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Gate;
-use Anomaly\Streams\Platform\Ui\ControlPanel\ControlPanelBuilder;
+use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class ShortcutBuilder

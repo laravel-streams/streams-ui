@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Table\Component\Action;
 
-use Anomaly\Streams\Platform\Ui\Button\ButtonCollection;
-use Anomaly\Streams\Platform\Ui\Table\Component\Action\Action;
+use Anomaly\Streams\Ui\Button\ButtonCollection;
+use Anomaly\Streams\Ui\Table\Component\Action\Action;
 
 /**
  * Class ActionCollection

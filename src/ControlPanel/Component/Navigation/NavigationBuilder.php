@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\ControlPanel\Component\Navigation;
 
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Section\SectionBuilder;
-use Anomaly\Streams\Platform\Ui\ControlPanel\ControlPanelBuilder;
+use Anomaly\Streams\Ui\ControlPanel\Component\Section\SectionBuilder;
+use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class NavigationBuilder

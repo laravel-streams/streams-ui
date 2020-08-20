@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Table\Workflows\Build;
 
-use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
-use Anomaly\Streams\Platform\Ui\Table\Component\Header\HeaderBuilder;
+use Anomaly\Streams\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\Table\Component\Header\HeaderBuilder;
 
 /**
  * Class BuildHeaders

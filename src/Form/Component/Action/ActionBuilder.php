@@ -2,9 +2,9 @@
 
 namespace Anomaly\Streams\Ui\Form\Component\Action;
 
-use Anomaly\Streams\Platform\Ui\Support\Builder;
-use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
-use Anomaly\Streams\Platform\Ui\Support\Workflows\BuildWorkflow;
+use Anomaly\Streams\Ui\Support\Builder;
+use Anomaly\Streams\Ui\Form\FormBuilder;
+use Anomaly\Streams\Ui\Support\Workflows\BuildWorkflow;
 
 /**
  * Class ActionBuilder

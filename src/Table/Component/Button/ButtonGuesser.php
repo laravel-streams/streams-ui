@@ -5,11 +5,11 @@ namespace Anomaly\Streams\Ui\Table\Component\Button;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
-use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
-use Anomaly\Streams\Platform\Ui\Table\Component\Button\Guesser\HrefGuesser;
-use Anomaly\Streams\Platform\Ui\Table\Component\Button\Guesser\TextGuesser;
-use Anomaly\Streams\Platform\Ui\Table\Component\Button\Guesser\PolicyGuesser;
-use Anomaly\Streams\Platform\Ui\Table\Component\Button\Guesser\EnabledGuesser;
+use Anomaly\Streams\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\Table\Component\Button\Guesser\HrefGuesser;
+use Anomaly\Streams\Ui\Table\Component\Button\Guesser\TextGuesser;
+use Anomaly\Streams\Ui\Table\Component\Button\Guesser\PolicyGuesser;
+use Anomaly\Streams\Ui\Table\Component\Button\Guesser\EnabledGuesser;
 
 /**
  * Class ButtonGuesser

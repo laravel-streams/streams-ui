@@ -2,15 +2,15 @@
 
 namespace Anomaly\Streams\Ui\Form;
 
-use Anomaly\Streams\Platform\Ui\Support\Builder;
-use Anomaly\Streams\Platform\Ui\Form\Command\SaveForm;
-use Anomaly\Streams\Platform\Ui\Form\Command\ValidateForm;
-use Anomaly\Streams\Platform\Ui\Form\Command\LoadFormValues;
-use Anomaly\Streams\Platform\Ui\Form\Command\FlashFormErrors;
-use Anomaly\Streams\Platform\Ui\Form\Workflows\BuildWorkflow;
-use Anomaly\Streams\Platform\Ui\Form\Workflows\QueryWorkflow;
-use Anomaly\Streams\Platform\Ui\Form\Command\FlashFieldValues;
-use Anomaly\Streams\Platform\Ui\Form\Component\Field\FieldBuilder;
+use Anomaly\Streams\Ui\Support\Builder;
+use Anomaly\Streams\Ui\Form\Command\SaveForm;
+use Anomaly\Streams\Ui\Form\Command\ValidateForm;
+use Anomaly\Streams\Ui\Form\Command\LoadFormValues;
+use Anomaly\Streams\Ui\Form\Command\FlashFormErrors;
+use Anomaly\Streams\Ui\Form\Workflows\BuildWorkflow;
+use Anomaly\Streams\Ui\Form\Workflows\QueryWorkflow;
+use Anomaly\Streams\Ui\Form\Command\FlashFieldValues;
+use Anomaly\Streams\Ui\Form\Component\Field\FieldBuilder;
 
 /**
  * Class FormBuilder

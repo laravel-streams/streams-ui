@@ -2,7 +2,7 @@
 
 namespace Anomaly\Streams\Ui\Support\Workflows;
 
-use Anomaly\Streams\Platform\Ui\Support\Builder;
+use Anomaly\Streams\Ui\Support\Builder;
 
 /**
  * Class ResolveComponents

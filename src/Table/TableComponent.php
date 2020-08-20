@@ -3,7 +3,7 @@
 namespace Anomaly\Streams\Ui\Table;
 
 use Illuminate\View\Component;
-use Anomaly\Streams\Platform\Ui\Table\Table;
+use Anomaly\Streams\Ui\Table\Table;
 
 /**
  * Class TableComponent

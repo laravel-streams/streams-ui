@@ -3,19 +3,19 @@
 namespace Anomaly\Streams\Ui\ControlPanel;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Event\ControlPanelWasBuilt;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Event\ControlPanelIsBuilding;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Button\ButtonBuilder;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Button\ButtonHandler;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Section\SectionBuilder;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Section\SectionHandler;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Shortcut\ShortcutBuilder;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Shortcut\ShortcutHandler;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Navigation\NavigationBuilder;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Navigation\NavigationHandler;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Section\Command\SetActiveSection;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Navigation\Command\SetMainNavigationLinks;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Navigation\Command\SetActiveNavigationLink;
+use Anomaly\Streams\Ui\ControlPanel\Event\ControlPanelWasBuilt;
+use Anomaly\Streams\Ui\ControlPanel\Event\ControlPanelIsBuilding;
+use Anomaly\Streams\Ui\ControlPanel\Component\Button\ButtonBuilder;
+use Anomaly\Streams\Ui\ControlPanel\Component\Button\ButtonHandler;
+use Anomaly\Streams\Ui\ControlPanel\Component\Section\SectionBuilder;
+use Anomaly\Streams\Ui\ControlPanel\Component\Section\SectionHandler;
+use Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\ShortcutBuilder;
+use Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\ShortcutHandler;
+use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\NavigationBuilder;
+use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\NavigationHandler;
+use Anomaly\Streams\Ui\ControlPanel\Component\Section\Command\SetActiveSection;
+use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\Command\SetMainNavigationLinks;
+use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\Command\SetActiveNavigationLink;
 
 /**
  * Class ControlPanelBuilder

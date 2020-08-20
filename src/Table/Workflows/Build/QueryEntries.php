@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Table\Workflows\Build;
 
-use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
-use Anomaly\Streams\Platform\Ui\Table\Workflows\QueryWorkflow;
+use Anomaly\Streams\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\Table\Workflows\QueryWorkflow;
 
 /**
  * Class QueryEntries

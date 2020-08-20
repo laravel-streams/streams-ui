@@ -5,7 +5,7 @@ namespace Anomaly\Streams\Ui\Form\Component\Field;
 use Illuminate\Support\Arr;
 use Illuminate\Translation\Translator;
 use Illuminate\Database\Eloquent\Model;
-use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
+use Anomaly\Streams\Ui\Form\FormBuilder;
 
 /**
  * Class FieldInput
@@ -40,7 +40,7 @@ class FieldInput
     /**
      * Resolve input.
      *
-     * @param \Anomaly\Streams\Platform\Ui\Form\FormBuilder $builder
+     * @param \Anomaly\Streams\Ui\Form\FormBuilder $builder
      */
     protected static function resolve(FormBuilder $builder)
     {
@@ -52,7 +52,7 @@ class FieldInput
     /**
      * Evaluate input.
      *
-     * @param \Anomaly\Streams\Platform\Ui\Form\FormBuilder $builder
+     * @param \Anomaly\Streams\Ui\Form\FormBuilder $builder
      */
     protected static function evaluate(FormBuilder $builder)
     {
@@ -199,7 +199,7 @@ class FieldInput
     /**
      * Parse input.
      *
-     * @param \Anomaly\Streams\Platform\Ui\Form\FormBuilder $builder
+     * @param \Anomaly\Streams\Ui\Form\FormBuilder $builder
      */
     protected static function parse(FormBuilder $builder)
     {
@@ -209,7 +209,7 @@ class FieldInput
     /**
      * Translate input.
      *
-     * @param \Anomaly\Streams\Platform\Ui\Form\FormBuilder $builder
+     * @param \Anomaly\Streams\Ui\Form\FormBuilder $builder
      */
     protected static function translate(FormBuilder $builder)
     {

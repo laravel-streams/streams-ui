@@ -5,8 +5,8 @@ namespace Anomaly\Streams\Ui\ControlPanel\Component\Section\Command;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Anomaly\Streams\Platform\Support\Breadcrumb;
-use Anomaly\Streams\Platform\Ui\ControlPanel\ControlPanelBuilder;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Section\Section;
+use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Anomaly\Streams\Ui\ControlPanel\Component\Section\Section;
 use Illuminate\Support\Facades\Gate;
 
 /**

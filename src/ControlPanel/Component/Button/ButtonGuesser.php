@@ -4,11 +4,11 @@ namespace Anomaly\Streams\Ui\ControlPanel\Component\Button;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Anomaly\Streams\Platform\Ui\ControlPanel\ControlPanelBuilder;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Button\Guesser\HrefGuesser;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Button\Guesser\TextGuesser;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Button\Guesser\TypeGuesser;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Button\Guesser\EnabledGuesser;
+use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Anomaly\Streams\Ui\ControlPanel\Component\Button\Guesser\HrefGuesser;
+use Anomaly\Streams\Ui\ControlPanel\Component\Button\Guesser\TextGuesser;
+use Anomaly\Streams\Ui\ControlPanel\Component\Button\Guesser\TypeGuesser;
+use Anomaly\Streams\Ui\ControlPanel\Component\Button\Guesser\EnabledGuesser;
 
 /**
  * Class ButtonGuesser

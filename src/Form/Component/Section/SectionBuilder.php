@@ -2,7 +2,7 @@
 
 namespace Anomaly\Streams\Ui\Form\Component\Section;
 
-use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
+use Anomaly\Streams\Ui\Form\FormBuilder;
 
 /**
  * Class SectionBuilder

@@ -4,8 +4,8 @@ namespace Anomaly\Streams\Ui\Form\Component\Button\Guesser;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
-use Anomaly\Streams\Platform\Ui\Form\Multiple\MultipleFormBuilder;
+use Anomaly\Streams\Ui\Form\FormBuilder;
+use Anomaly\Streams\Ui\Form\Multiple\MultipleFormBuilder;
 
 /**
  * Class HrefGuesser

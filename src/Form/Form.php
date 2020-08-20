@@ -6,11 +6,11 @@ use Collective\Html\FormFacade;
 use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Request;
-use Anomaly\Streams\Platform\Ui\Support\Component;
-use Anomaly\Streams\Platform\Ui\Button\ButtonCollection;
-use Anomaly\Streams\Platform\Ui\Form\Component\Field\FieldCollection;
-use Anomaly\Streams\Platform\Ui\Form\Component\Action\ActionCollection;
-use Anomaly\Streams\Platform\Ui\Form\Component\Section\SectionCollection;
+use Anomaly\Streams\Ui\Support\Component;
+use Anomaly\Streams\Ui\Button\ButtonCollection;
+use Anomaly\Streams\Ui\Form\Component\Field\FieldCollection;
+use Anomaly\Streams\Ui\Form\Component\Action\ActionCollection;
+use Anomaly\Streams\Ui\Form\Component\Section\SectionCollection;
 
 /**
  * Class Form

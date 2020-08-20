@@ -5,8 +5,8 @@ namespace Anomaly\Streams\Ui\Table\Component\Filter\Query;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Builder;
-use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
-use Anomaly\Streams\Platform\Ui\Table\Component\Filter\Filter;
+use Anomaly\Streams\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\Table\Component\Filter\Filter;
 
 /**
  * Class SearchFilterQuery

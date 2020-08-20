@@ -4,8 +4,8 @@ namespace Anomaly\Streams\Ui\ControlPanel\Component\Section;
 
 use Anomaly\Streams\Platform\Addon\Module\ModuleCollection;
 use Anomaly\Streams\Platform\Support\Facades\Resolver;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Section\Event\GatherSections;
-use Anomaly\Streams\Platform\Ui\ControlPanel\ControlPanelBuilder;
+use Anomaly\Streams\Ui\ControlPanel\Component\Section\Event\GatherSections;
+use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class SectionHandler

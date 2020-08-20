@@ -4,8 +4,8 @@ namespace Anomaly\Streams\Ui\Form\Component\Button\Guesser;
 
 use Anomaly\Streams\Platform\Addon\Module\Module;
 use Anomaly\Streams\Platform\Addon\Module\ModuleCollection;
-use Anomaly\Streams\Platform\Ui\Button\ButtonRegistry;
-use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
+use Anomaly\Streams\Ui\Button\ButtonRegistry;
+use Anomaly\Streams\Ui\Form\FormBuilder;
 
 /**
  * Class TextGuesser

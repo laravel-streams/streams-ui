@@ -3,10 +3,10 @@
 namespace Anomaly\Streams\Ui\Table\Workflows;
 
 use Anomaly\Streams\Platform\Workflow\Workflow;
-use Anomaly\Streams\Platform\Ui\Support\Workflows\StartQuery;
-use Anomaly\Streams\Platform\Ui\Table\Workflows\Query\OrderQuery;
-use Anomaly\Streams\Platform\Ui\Table\Workflows\Query\FilterQuery;
-use Anomaly\Streams\Platform\Ui\Table\Workflows\Query\FinishQuery;
+use Anomaly\Streams\Ui\Support\Workflows\StartQuery;
+use Anomaly\Streams\Ui\Table\Workflows\Query\OrderQuery;
+use Anomaly\Streams\Ui\Table\Workflows\Query\FilterQuery;
+use Anomaly\Streams\Ui\Table\Workflows\Query\FinishQuery;
 
 /**
  * Class QueryWorkflow

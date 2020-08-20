@@ -4,7 +4,7 @@ namespace Anomaly\Streams\Ui\Table\Component\Filter;
 
 use Illuminate\Support\Arr;
 use Anomaly\Streams\Platform\Support\Facades\Hydrator;
-use Anomaly\Streams\Platform\Ui\Table\Component\Filter\Filter;
+use Anomaly\Streams\Ui\Table\Component\Filter\Filter;
 
 /**
  * Class FilterFactory

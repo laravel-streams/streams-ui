@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Table\Component\Action\Workflows\Actions;
 
-use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
-use Anomaly\Streams\Platform\Ui\Support\Normalizer;
+use Anomaly\Streams\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\Support\Normalizer;
 
 /**
  * Class NormalizeActions

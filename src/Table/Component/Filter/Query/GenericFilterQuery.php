@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Table\Component\Filter\Query;
 
-use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
-use Anomaly\Streams\Platform\Ui\Table\Component\Filter\Filter;
+use Anomaly\Streams\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\Table\Component\Filter\Filter;
 use Anomaly\Streams\Platform\Criteria\Contract\CriteriaInterface;
 
 /**

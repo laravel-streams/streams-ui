@@ -2,9 +2,9 @@
 
 namespace Anomaly\Streams\Ui\Table\Component\Button;
 
-use Anomaly\Streams\Platform\Ui\Button\Button;
-use Anomaly\Streams\Platform\Ui\Support\Builder;
-use Anomaly\Streams\Platform\Ui\Support\Workflows\BuildWorkflow;
+use Anomaly\Streams\Ui\Button\Button;
+use Anomaly\Streams\Ui\Support\Builder;
+use Anomaly\Streams\Ui\Support\Workflows\BuildWorkflow;
 
 /**
  * Class ButtonBuilder

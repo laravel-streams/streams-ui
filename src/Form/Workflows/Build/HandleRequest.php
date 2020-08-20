@@ -3,7 +3,7 @@
 namespace Anomaly\Streams\Ui\Form\Workflows\Build;
 
 use Illuminate\Support\Facades\Request;
-use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
+use Anomaly\Streams\Ui\Form\FormBuilder;
 
 /**
  * Class HandleRequest

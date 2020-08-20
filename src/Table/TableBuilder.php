@@ -2,10 +2,10 @@
 
 namespace Anomaly\Streams\Ui\Table;
 
-use Anomaly\Streams\Platform\Ui\Table\Table;
-use Anomaly\Streams\Platform\Ui\Support\Builder;
-use Anomaly\Streams\Platform\Ui\Table\Workflows\BuildWorkflow;
-use Anomaly\Streams\Platform\Ui\Table\Workflows\QueryWorkflow;
+use Anomaly\Streams\Ui\Table\Table;
+use Anomaly\Streams\Ui\Support\Builder;
+use Anomaly\Streams\Ui\Table\Workflows\BuildWorkflow;
+use Anomaly\Streams\Ui\Table\Workflows\QueryWorkflow;
 
 /**
  * Class TableBuilder

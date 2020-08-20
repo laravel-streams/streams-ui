@@ -3,7 +3,7 @@
 namespace Anomaly\Streams\Ui\ControlPanel\Component\Shortcut;
 
 use Illuminate\Support\Collection;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Shortcut\Shortcut;
+use Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\Shortcut;
 
 /**
  * Class ShortcutCollection

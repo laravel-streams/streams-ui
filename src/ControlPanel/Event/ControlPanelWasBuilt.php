@@ -1,10 +1,10 @@
 <?php namespace Anomaly\Streams\Ui\ControlPanel\Event;
 
-use Anomaly\Streams\Platform\Ui\ControlPanel\ControlPanelBuilder;
+use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class ControlPanelWasBuilt
- * @package Anomaly\Streams\Platform\Ui\ControlPanel\Event
+ * @package Anomaly\Streams\Ui\ControlPanel\Event
  */
 class ControlPanelWasBuilt
 {

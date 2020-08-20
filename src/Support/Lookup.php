@@ -3,7 +3,7 @@
 namespace Anomaly\Streams\Ui\Support;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Platform\Ui\Button\ButtonRegistry;
+use Anomaly\Streams\Ui\Button\ButtonRegistry;
 
 /**
  * Registry merger (lookup).

@@ -3,8 +3,8 @@
 namespace Anomaly\Streams\Ui\Form\Component\Field;
 
 use Anomaly\Streams\Platform\Field\Field;
-use Anomaly\Streams\Platform\Ui\Support\Builder;
-use Anomaly\Streams\Platform\Ui\Form\Component\Field\Workflows\BuildWorkflow;
+use Anomaly\Streams\Ui\Support\Builder;
+use Anomaly\Streams\Ui\Form\Component\Field\Workflows\BuildWorkflow;
 
 /**
  * Class FieldTypeBuilder

@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Application;
-use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\Table\TableBuilder;
 use Anomaly\Streams\Platform\Message\Facades\Messages;
 use Anomaly\Streams\Platform\Addon\Module\ModuleCollection;
-use Anomaly\Streams\Platform\Ui\Table\Component\Action\Action;
+use Anomaly\Streams\Ui\Table\Component\Action\Action;
 
 /**
  * Class ActionExecutor

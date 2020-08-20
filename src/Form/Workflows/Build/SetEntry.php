@@ -2,12 +2,12 @@
 
 namespace Anomaly\Streams\Ui\Form\Workflows\Build;
 
-use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
+use Anomaly\Streams\Ui\Form\FormBuilder;
 use Anomaly\Streams\Platform\Asset\Facades\Assets;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Support\Breadcrumb;
 use Anomaly\Streams\Platform\Repository\Contract\RepositoryInterface;
-use Anomaly\Streams\Platform\Ui\Form\Workflows\QueryWorkflow;
+use Anomaly\Streams\Ui\Form\Workflows\QueryWorkflow;
 
 /**
  * Class SetEntry

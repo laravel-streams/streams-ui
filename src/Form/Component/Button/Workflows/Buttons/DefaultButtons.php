@@ -2,7 +2,7 @@
 
 namespace Anomaly\Streams\Ui\Form\Component\Button\Workflows\Buttons;
 
-use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
+use Anomaly\Streams\Ui\Form\FormBuilder;
 
 /**
  * Class DefaultButtons

@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\ControlPanel\Component\Navigation\Command;
 
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Navigation\NavigationLink;
-use Anomaly\Streams\Platform\Ui\ControlPanel\ControlPanelBuilder;
+use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\NavigationLink;
+use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class SetMainNavigationLinks

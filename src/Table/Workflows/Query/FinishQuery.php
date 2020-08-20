@@ -2,7 +2,7 @@
 
 namespace Anomaly\Streams\Ui\Table\Workflows\Query;
 
-use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\Table\TableBuilder;
 
 /**
  * Class FinishQuery

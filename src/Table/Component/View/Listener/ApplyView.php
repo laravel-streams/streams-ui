@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Table\Component\View\Listener;
 
-use Anomaly\Streams\Platform\Ui\Table\Component\View\ViewQuery;
-use Anomaly\Streams\Platform\Ui\Table\Event\TableIsQuerying;
+use Anomaly\Streams\Ui\Table\Component\View\ViewQuery;
+use Anomaly\Streams\Ui\Table\Event\TableIsQuerying;
 
 /**
  * Class ApplyView

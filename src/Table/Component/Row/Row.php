@@ -2,7 +2,7 @@
 
 namespace Anomaly\Streams\Ui\Table\Component\Row;
 
-use Anomaly\Streams\Platform\Ui\Support\Component;
+use Anomaly\Streams\Ui\Support\Component;
 
 /**
  * Class Row

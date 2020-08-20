@@ -2,7 +2,7 @@
 
 namespace Anomaly\Streams\Ui\Form\Component\Action\Workflows\Actions;
 
-use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
+use Anomaly\Streams\Ui\Form\FormBuilder;
 
 /**
  * Class SetActiveAction

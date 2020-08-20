@@ -5,8 +5,8 @@ namespace Anomaly\Streams\Ui\ControlPanel\Component\Navigation;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Translation\Translator;
-use Anomaly\Streams\Platform\Ui\ControlPanel\ControlPanelBuilder;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Navigation\Event\SortNavigation;
+use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\Event\SortNavigation;
 
 /**
  * Class NavigationInput
@@ -34,7 +34,7 @@ class NavigationInput
     /**
      * Resolve input.
      *
-     * @param \Anomaly\Streams\Platform\Ui\ControlPanel\ControlPanelBuilder $builder
+     * @param \Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder $builder
      */
     protected static function resolve(ControlPanelBuilder $builder)
     {
@@ -46,7 +46,7 @@ class NavigationInput
     /**
      * Normalize input.
      *
-     * @param \Anomaly\Streams\Platform\Ui\ControlPanel\ControlPanelBuilder $builder
+     * @param \Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder $builder
      */
     protected static function normalize(ControlPanelBuilder $builder)
     {
@@ -105,7 +105,7 @@ class NavigationInput
     /**
      * Sort input.
      *
-     * @param \Anomaly\Streams\Platform\Ui\ControlPanel\ControlPanelBuilder $builder
+     * @param \Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder $builder
      */
     protected static function sort(ControlPanelBuilder $builder)
     {
@@ -149,7 +149,7 @@ class NavigationInput
     /**
      * Translate input.
      *
-     * @param \Anomaly\Streams\Platform\Ui\ControlPanel\ControlPanelBuilder $builder
+     * @param \Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder $builder
      */
     protected static function translate(ControlPanelBuilder $builder)
     {

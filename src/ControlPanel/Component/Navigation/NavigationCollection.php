@@ -3,7 +3,7 @@
 namespace Anomaly\Streams\Ui\ControlPanel\Component\Navigation;
 
 use Illuminate\Support\Collection;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Navigation\NavigationLink;
+use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\NavigationLink;
 
 /**
  * Class NavigationCollection

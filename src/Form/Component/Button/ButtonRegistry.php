@@ -1,7 +1,7 @@
 <?php namespace Anomaly\Streams\Ui\Form\Component\Button;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Platform\Ui\Button\ButtonRegistry as ButtonButtonRegistry;
+use Anomaly\Streams\Ui\Button\ButtonRegistry as ButtonButtonRegistry;
 
 /**
  * Class ButtonRegistry

@@ -6,9 +6,10 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
-use Anomaly\Streams\Platform\Traits\FiresCallbacks;
+use Illuminate\Contracts\View as ViewInterface;
 use Anomaly\Streams\Platform\Support\Facades\Hydrator;
 use Anomaly\Streams\Platform\Support\Traits\Properties;
+use Anomaly\Streams\Platform\Support\Traits\FiresCallbacks;
 
 /**
  * Class Ui
@@ -17,52 +18,30 @@ use Anomaly\Streams\Platform\Support\Traits\Properties;
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-abstract class Component implements Arrayable, Jsonable
+class Component implements Arrayable, Jsonable
 {
     use Macroable;
     use Properties;
     use FiresCallbacks;
 
-    /**
-     * Render the table.
-     * 
-     * @return View
-     */
-    public function render()
+    public function render(): ViewInterface
     {
-        return View::make("streams::{$this->component}/{$this->component}", [
+        return View::make("ui::{$this->component}/{$this->component}", [
             $this->component => $this,
         ]);
     }
 
-    /**
-     * Return a prefixed target.
-     *
-     * @param string $target
-     * @return string
-     */
-    public function prefix($target = null)
+    public function prefix($target = null): string
     {
         return $this->options->get('prefix') . $target;
     }
 
-    /**
-     * Get the instance as an array.
-     *
-     * @return array
-     */
-    public function toArray()
+    public function toArray(): array
     {
         return Hydrator::dehydrate($this);
     }
 
-    /**
-     * Convert the object to its JSON representation.
-     *
-     * @param int $options
-     * @return string
-     */
-    public function toJson($options = 0)
+    public function toJson($options = 0): string
     {
         return json_encode($this->toArray(), $options);
     }

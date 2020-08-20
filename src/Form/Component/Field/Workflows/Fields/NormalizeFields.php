@@ -3,8 +3,8 @@
 namespace Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
-use Anomaly\Streams\Platform\Ui\Support\Normalizer;
+use Anomaly\Streams\Ui\Form\FormBuilder;
+use Anomaly\Streams\Ui\Support\Normalizer;
 
 /**
  * Class NormalizeFields

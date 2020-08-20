@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Form\Workflows\Build;
 
-use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
-use Anomaly\Streams\Platform\Ui\Form\Component\Button\Workflows\ButtonsWorkflow;
+use Anomaly\Streams\Ui\Form\FormBuilder;
+use Anomaly\Streams\Ui\Form\Component\Button\Workflows\ButtonsWorkflow;
 
 /**
  * Class BuildButtons

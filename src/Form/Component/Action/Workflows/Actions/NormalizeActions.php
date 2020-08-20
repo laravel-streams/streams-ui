@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Form\Component\Action\Workflows\Actions;
 
-use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
-use Anomaly\Streams\Platform\Ui\Support\Normalizer;
+use Anomaly\Streams\Ui\Form\FormBuilder;
+use Anomaly\Streams\Ui\Support\Normalizer;
 
 /**
  * Class NormalizeActions

@@ -1,7 +1,7 @@
 <?php namespace Anomaly\Streams\Ui\Table\Component\View\Type;
 
-use Anomaly\Streams\Platform\Ui\Table\Component\View\Query\TrashQuery;
-use Anomaly\Streams\Platform\Ui\Table\Component\View\View;
+use Anomaly\Streams\Ui\Table\Component\View\Query\TrashQuery;
+use Anomaly\Streams\Ui\Table\Component\View\View;
 
 /**
  * Class Trash

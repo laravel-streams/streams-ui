@@ -3,8 +3,8 @@
 namespace Anomaly\Streams\Ui\Support\Workflows;
 
 use Illuminate\Support\Facades\App;
-use Anomaly\Streams\Platform\Ui\Support\Builder;
-use Anomaly\Streams\Platform\Ui\Support\Component;
+use Anomaly\Streams\Ui\Support\Builder;
+use Anomaly\Streams\Ui\Support\Component;
 
 /**
  * Class MakeInstance

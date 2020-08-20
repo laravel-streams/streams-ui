@@ -3,14 +3,14 @@
 namespace Anomaly\Streams\Ui\Table\Component\Action\Workflows;
 
 use Anomaly\Streams\Platform\Workflow\Workflow;
-use Anomaly\Streams\Platform\Ui\Support\Workflows\BuildComponents;
-use Anomaly\Streams\Platform\Ui\Support\Workflows\MergeComponents;
-use Anomaly\Streams\Platform\Ui\Support\Workflows\ParseComponents;
-use Anomaly\Streams\Platform\Ui\Support\Workflows\ResolveComponents;
-use Anomaly\Streams\Platform\Ui\Support\Workflows\TranslateComponents;
-use Anomaly\Streams\Platform\Ui\Table\Component\Action\Workflows\Actions\DefaultActions;
-use Anomaly\Streams\Platform\Ui\Table\Component\Action\Workflows\Actions\SetActiveAction;
-use Anomaly\Streams\Platform\Ui\Table\Component\Action\Workflows\Actions\NormalizeActions;
+use Anomaly\Streams\Ui\Support\Workflows\BuildComponents;
+use Anomaly\Streams\Ui\Support\Workflows\MergeComponents;
+use Anomaly\Streams\Ui\Support\Workflows\ParseComponents;
+use Anomaly\Streams\Ui\Support\Workflows\ResolveComponents;
+use Anomaly\Streams\Ui\Support\Workflows\TranslateComponents;
+use Anomaly\Streams\Ui\Table\Component\Action\Workflows\Actions\DefaultActions;
+use Anomaly\Streams\Ui\Table\Component\Action\Workflows\Actions\SetActiveAction;
+use Anomaly\Streams\Ui\Table\Component\Action\Workflows\Actions\NormalizeActions;
 
 /**
  * Class ActionsWorkflow

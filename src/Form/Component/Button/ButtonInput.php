@@ -4,9 +4,9 @@ namespace Anomaly\Streams\Ui\Form\Component\Button;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Request;
-use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
-use Anomaly\Streams\Platform\Ui\Support\Normalizer;
-use Anomaly\Streams\Platform\Ui\Button\ButtonRegistry;
+use Anomaly\Streams\Ui\Form\FormBuilder;
+use Anomaly\Streams\Ui\Support\Normalizer;
+use Anomaly\Streams\Ui\Button\ButtonRegistry;
 
 /**
  * Class ButtonInput
@@ -39,7 +39,7 @@ class ButtonInput
     /**
      * Resolve input.
      *
-     * @param \Anomaly\Streams\Platform\Ui\Form\FormBuilder $builder
+     * @param \Anomaly\Streams\Ui\Form\FormBuilder $builder
      */
     protected static function resolve(FormBuilder $builder)
     {
@@ -51,7 +51,7 @@ class ButtonInput
     /**
      * Evaluate input.
      *
-     * @param \Anomaly\Streams\Platform\Ui\Form\FormBuilder $builder
+     * @param \Anomaly\Streams\Ui\Form\FormBuilder $builder
      */
     protected static function evaluate(FormBuilder $builder)
     {
@@ -127,7 +127,7 @@ class ButtonInput
     /**
      * Parse input.
      *
-     * @param \Anomaly\Streams\Platform\Ui\Form\FormBuilder $builder
+     * @param \Anomaly\Streams\Ui\Form\FormBuilder $builder
      */
     protected static function parse(FormBuilder $builder)
     {
@@ -137,7 +137,7 @@ class ButtonInput
     /**
      * Translate input.
      *
-     * @param \Anomaly\Streams\Platform\Ui\Form\FormBuilder $builder
+     * @param \Anomaly\Streams\Ui\Form\FormBuilder $builder
      */
     protected static function translate(FormBuilder $builder)
     {

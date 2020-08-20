@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Support\Workflows;
 
-use Anomaly\Streams\Platform\Ui\Support\Builder;
-use Anomaly\Streams\Platform\Asset\Facades\Assets;
+use Anomaly\Streams\Ui\Support\Builder;
+use Anomaly\Streams\Platform\Support\Facades\Assets;
 
 /**
  * Class LoadAssets
@@ -22,6 +22,10 @@ class LoadAssets
      */
     public function handle(Builder $builder)
     {
+        if (!$builder->assets) {
+            return;
+        }
+
         foreach ($builder->assets as $collection => $assets) {
             Assets::collection($collection)->merge($assets);
         }

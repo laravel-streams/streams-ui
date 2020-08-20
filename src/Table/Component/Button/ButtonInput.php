@@ -3,9 +3,9 @@
 namespace Anomaly\Streams\Ui\Table\Component\Button;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Platform\Ui\Support\Normalizer;
-use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
-use Anomaly\Streams\Platform\Ui\Button\ButtonRegistry;
+use Anomaly\Streams\Ui\Support\Normalizer;
+use Anomaly\Streams\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\Button\ButtonRegistry;
 
 /**
  * Class ButtonInput
@@ -34,7 +34,7 @@ class ButtonInput
     /**
      * Resolve input.
      *
-     * @param \Anomaly\Streams\Platform\Ui\Table\TableBuilder $builder
+     * @param \Anomaly\Streams\Ui\Table\TableBuilder $builder
      */
     protected static function resolve(TableBuilder $builder)
     {
@@ -46,7 +46,7 @@ class ButtonInput
     /**
      * Evaluate input.
      *
-     * @param \Anomaly\Streams\Platform\Ui\Table\TableBuilder $builder
+     * @param \Anomaly\Streams\Ui\Table\TableBuilder $builder
      */
     protected static function evaluate(TableBuilder $builder)
     {

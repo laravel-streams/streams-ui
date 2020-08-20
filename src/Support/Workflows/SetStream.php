@@ -2,9 +2,9 @@
 
 namespace Anomaly\Streams\Ui\Support\Workflows;
 
-use Anomaly\Streams\Platform\Ui\Support\Builder;
+use Anomaly\Streams\Ui\Support\Builder;
+use Anomaly\Streams\Platform\Stream\Stream;
 use Anomaly\Streams\Platform\Support\Facades\Streams;
-use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
 
 /**
  * Class SetStream
@@ -27,15 +27,13 @@ class SetStream
             return;
         }
 
-        if ($builder->stream instanceof StreamInterface) {
+        if ($builder->stream instanceof Stream) {
 
             $builder->instance->stream = $builder->stream;
 
             return;
         }
 
-        $builder->stream = Streams::try($builder->stream);
-
-        $builder->instance->stream = $builder->stream;
+        $builder->instance->stream = $builder->stream = Streams::make($builder->stream);
     }
 }

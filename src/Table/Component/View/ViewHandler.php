@@ -3,8 +3,8 @@
 namespace Anomaly\Streams\Ui\Table\Component\View;
 
 use Illuminate\Support\Facades\App;
-use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
-use Anomaly\Streams\Platform\Ui\Table\Component\View\View;
+use Anomaly\Streams\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\Table\Component\View\View;
 
 /**
  * Class ViewHandler

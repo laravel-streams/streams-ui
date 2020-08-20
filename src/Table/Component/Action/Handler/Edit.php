@@ -3,8 +3,8 @@
 namespace Anomaly\Streams\Ui\Table\Component\Action\Handler;
 
 use Illuminate\Routing\Redirector;
-use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Section\SectionCollection;
+use Anomaly\Streams\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\ControlPanel\Component\Section\SectionCollection;
 
 /**
  * Class EditActionHandler

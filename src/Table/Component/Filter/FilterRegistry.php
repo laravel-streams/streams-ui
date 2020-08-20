@@ -1,11 +1,11 @@
 <?php namespace Anomaly\Streams\Ui\Table\Component\Filter;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Platform\Ui\Table\Component\Filter\Type\FieldFilter;
-use Anomaly\Streams\Platform\Ui\Table\Component\Filter\Type\InputFilter;
-use Anomaly\Streams\Platform\Ui\Table\Component\Filter\Type\SearchFilter;
-use Anomaly\Streams\Platform\Ui\Table\Component\Filter\Type\SelectFilter;
-use Anomaly\Streams\Platform\Ui\Table\Component\Filter\Type\DatetimeFilter;
+use Anomaly\Streams\Ui\Table\Component\Filter\Type\FieldFilter;
+use Anomaly\Streams\Ui\Table\Component\Filter\Type\InputFilter;
+use Anomaly\Streams\Ui\Table\Component\Filter\Type\SearchFilter;
+use Anomaly\Streams\Ui\Table\Component\Filter\Type\SelectFilter;
+use Anomaly\Streams\Ui\Table\Component\Filter\Type\DatetimeFilter;
 
 /**
  * Class FilterRegistry

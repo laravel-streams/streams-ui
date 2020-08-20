@@ -3,7 +3,7 @@
 namespace Anomaly\Streams\Ui\ControlPanel\Component\Section;
 
 use Illuminate\Support\Collection;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Section\Section;
+use Anomaly\Streams\Ui\ControlPanel\Component\Section\Section;
 
 /**
  * Class SectionCollection

@@ -2,10 +2,10 @@
 
 namespace Anomaly\Streams\Ui\ControlPanel\Component\Shortcut;
 
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Shortcut\Guesser\HrefGuesser;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Shortcut\Guesser\PolicyGuesser;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Shortcut\Guesser\TitleGuesser;
-use Anomaly\Streams\Platform\Ui\ControlPanel\ControlPanelBuilder;
+use Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\Guesser\HrefGuesser;
+use Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\Guesser\PolicyGuesser;
+use Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\Guesser\TitleGuesser;
+use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class ShortcutGuesser

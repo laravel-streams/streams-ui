@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Table\Component\Column;
 
-use Anomaly\Streams\Platform\Ui\Support\Builder;
-use Anomaly\Streams\Platform\Ui\Support\Workflows\BuildWorkflow;
+use Anomaly\Streams\Ui\Support\Builder;
+use Anomaly\Streams\Ui\Support\Workflows\BuildWorkflow;
 
 /**
  * Class ColumnBuilder

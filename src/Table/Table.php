@@ -3,10 +3,10 @@
 namespace Anomaly\Streams\Ui\Table;
 
 use Illuminate\Support\Collection;
-use Anomaly\Streams\Platform\Ui\Support\Component;
-use Anomaly\Streams\Platform\Ui\Table\Component\View\ViewCollection;
-use Anomaly\Streams\Platform\Ui\Table\Component\Action\ActionCollection;
-use Anomaly\Streams\Platform\Ui\Table\Component\Filter\FilterCollection;
+use Anomaly\Streams\Ui\Support\Component;
+use Anomaly\Streams\Ui\Table\Component\View\ViewCollection;
+use Anomaly\Streams\Ui\Table\Component\Action\ActionCollection;
+use Anomaly\Streams\Ui\Table\Component\Filter\FilterCollection;
 
 /**
  * Class Table

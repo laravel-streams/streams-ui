@@ -2,9 +2,9 @@
 
 namespace Anomaly\Streams\Ui\Form\Component\Action;
 
-use Anomaly\Streams\Platform\Ui\Form\Component\Action\Contract\ActionHandlerInterface;
-use Anomaly\Streams\Platform\Ui\Form\Component\Action\Action;
-use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
+use Anomaly\Streams\Ui\Form\Component\Action\Contract\ActionHandlerInterface;
+use Anomaly\Streams\Ui\Form\Component\Action\Action;
+use Anomaly\Streams\Ui\Form\FormBuilder;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Facades\App;
 

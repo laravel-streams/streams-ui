@@ -5,7 +5,7 @@ namespace Anomaly\Streams\Ui\Support\Workflows;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\App;
-use Anomaly\Streams\Platform\Ui\Support\Builder;
+use Anomaly\Streams\Ui\Support\Builder;
 
 /**
  * Class MergeComponents
@@ -30,7 +30,7 @@ class MergeComponents
         $parentSegment = Str::studly($builder->component);
         $componentSegment = Str::studly($singular);
 
-        $fallback = "Anomaly\Streams\Platform\Ui\\{$parentSegment}\Component\\{$componentSegment}\\{$componentSegment}Registry";
+        $fallback = "Anomaly\Streams\Ui\\{$parentSegment}\Component\\{$componentSegment}\\{$componentSegment}Registry";
 
         $registry = App::make($builder->{$singular . '_registry'} ?: $fallback, compact('builder'));
 

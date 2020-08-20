@@ -1,7 +1,7 @@
 <?php namespace Anomaly\Streams\Ui\Form\Component\Action;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Platform\Ui\Button\ButtonRegistry;
+use Anomaly\Streams\Ui\Button\ButtonRegistry;
 
 /**
  * Class ActionRegistry

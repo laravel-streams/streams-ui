@@ -2,7 +2,7 @@
 
 namespace Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields;
 
-use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
+use Anomaly\Streams\Ui\Form\FormBuilder;
 
 /**
  * Class DefaultFields

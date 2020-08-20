@@ -5,7 +5,7 @@ namespace Anomaly\Streams\Ui\ControlPanel\Component\Navigation;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Anomaly\Streams\Platform\Support\Facades\Hydrator;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Navigation\NavigationLink;
+use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\NavigationLink;
 
 /**
  * Class NavigationFactory

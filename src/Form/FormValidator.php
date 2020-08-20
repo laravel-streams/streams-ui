@@ -4,9 +4,9 @@ namespace Anomaly\Streams\Ui\Form;
 
 use Illuminate\Support\MessageBag;
 use Illuminate\Validation\Validator;
-use Anomaly\Streams\Platform\Ui\Form\Command\RepopulateFields;
-use Anomaly\Streams\Platform\Ui\Form\Command\SetErrorMessages;
-use Anomaly\Streams\Platform\Ui\Form\Event\FormWasValidated;
+use Anomaly\Streams\Ui\Form\Command\RepopulateFields;
+use Anomaly\Streams\Ui\Form\Command\SetErrorMessages;
+use Anomaly\Streams\Ui\Form\Event\FormWasValidated;
 
 /**
  * Class FormValidator

@@ -4,15 +4,15 @@ namespace Anomaly\Streams\Ui\ControlPanel;
 
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
-use Anomaly\Streams\Platform\Ui\Button\Button;
+use Anomaly\Streams\Ui\Button\Button;
 use Anomaly\Streams\Platform\Support\Facades\Hydrator;
-use Anomaly\Streams\Platform\Ui\Button\ButtonCollection;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Section\Section;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Shortcut\Shortcut;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Navigation\NavigationLink;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Section\SectionCollection;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Shortcut\ShortcutCollection;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Navigation\NavigationCollection;
+use Anomaly\Streams\Ui\Button\ButtonCollection;
+use Anomaly\Streams\Ui\ControlPanel\Component\Section\Section;
+use Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\Shortcut;
+use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\NavigationLink;
+use Anomaly\Streams\Ui\ControlPanel\Component\Section\SectionCollection;
+use Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\ShortcutCollection;
+use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\NavigationCollection;
 
 /**
  * Class ControlPanel

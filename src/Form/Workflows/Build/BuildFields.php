@@ -2,9 +2,9 @@
 
 namespace Anomaly\Streams\Ui\Form\Workflows\Build;
 
-use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
-use Anomaly\Streams\Platform\Ui\Form\Component\Field\FieldCollection;
-use Anomaly\Streams\Platform\Ui\Form\Component\Field\Workflows\FieldsWorkflow;
+use Anomaly\Streams\Ui\Form\FormBuilder;
+use Anomaly\Streams\Ui\Form\Component\Field\FieldCollection;
+use Anomaly\Streams\Ui\Form\Component\Field\Workflows\FieldsWorkflow;
 
 /**
  * Class BuildFields

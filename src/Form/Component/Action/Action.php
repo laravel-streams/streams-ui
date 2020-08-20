@@ -2,7 +2,7 @@
 
 namespace Anomaly\Streams\Ui\Form\Component\Action;
 
-use Anomaly\Streams\Platform\Ui\Button\Button;
+use Anomaly\Streams\Ui\Button\Button;
 
 /**
  * Class Action

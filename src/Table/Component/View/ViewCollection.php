@@ -3,7 +3,7 @@
 namespace Anomaly\Streams\Ui\Table\Component\View;
 
 use Illuminate\Support\Collection;
-use Anomaly\Streams\Platform\Ui\Table\Component\View\View;
+use Anomaly\Streams\Ui\Table\Component\View\View;
 
 /**
  * Class ViewCollection

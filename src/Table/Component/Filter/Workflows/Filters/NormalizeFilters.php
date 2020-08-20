@@ -2,9 +2,9 @@
 
 namespace Anomaly\Streams\Ui\Table\Component\Filter\Workflows\Filters;
 
-use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
-use Anomaly\Streams\Platform\Ui\Support\Normalizer;
-use Anomaly\Streams\Platform\Ui\Table\Component\Filter\Type\FieldFilter;
+use Anomaly\Streams\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\Support\Normalizer;
+use Anomaly\Streams\Ui\Table\Component\Filter\Type\FieldFilter;
 
 /**
  * Class NormalizeFilters

@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\ControlPanel\Component\Button;
 
-use Anomaly\Streams\Platform\Ui\Button\ButtonFactory;
-use Anomaly\Streams\Platform\Ui\ControlPanel\ControlPanelBuilder;
+use Anomaly\Streams\Ui\Button\ButtonFactory;
+use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class ButtonBuilder

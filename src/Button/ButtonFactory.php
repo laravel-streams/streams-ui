@@ -5,7 +5,7 @@ namespace Anomaly\Streams\Ui\Button;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Lang;
-use Anomaly\Streams\Platform\Ui\Button\Button;
+use Anomaly\Streams\Ui\Button\Button;
 use Anomaly\Streams\Platform\Support\Facades\Hydrator;
 
 /**

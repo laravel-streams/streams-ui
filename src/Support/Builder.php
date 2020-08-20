@@ -5,7 +5,12 @@ namespace Anomaly\Streams\Ui\Support;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Traits\Macroable;
+use Anomaly\Streams\Platform\Support\Workflow;
+use Anomaly\Streams\Ui\Support\Workflows\SetStream;
+use Anomaly\Streams\Ui\Support\Workflows\LoadAssets;
+use Anomaly\Streams\Ui\Support\Workflows\SetOptions;
 use Anomaly\Streams\Platform\Support\Traits\Properties;
+use Anomaly\Streams\Ui\Support\Workflows\MakeComponent;
 use Anomaly\Streams\Platform\Support\Traits\FiresCallbacks;
 
 /**
@@ -21,6 +26,15 @@ use Anomaly\Streams\Platform\Support\Traits\FiresCallbacks;
     use Properties;
     use FiresCallbacks;
 
+    protected $workflows = [
+        'build' => [
+            MakeComponent::class,
+            LoadAssets::class,
+            SetStream::class,
+            SetOptions::class,
+        ]
+    ];
+
     /**
      * Build and return the instance instance.
      *
@@ -34,9 +48,11 @@ use Anomaly\Streams\Platform\Support\Traits\FiresCallbacks;
 
         $this->fire('ready', ['builder' => $this]);
 
-        $workflow = new $this->build_workflow;
+        $workflow = (new Workflow($this->workflows['build']))
+            ->setAttribute('name', 'build')
+            ->passThrough($this);
 
-        $this->fire('build', [
+        $this->fire('building', [
             'builder' => $this,
             'workflow' => $workflow
         ]);
@@ -47,7 +63,7 @@ use Anomaly\Streams\Platform\Support\Traits\FiresCallbacks;
 
         $this->built = true;
 
-        return $this;
+        return $this->instance;
     }
 
     /**
@@ -97,7 +113,7 @@ use Anomaly\Streams\Platform\Support\Traits\FiresCallbacks;
      */
     public function request($key, $default = null)
     {
-        return Request::get($this->instance->options->get('prefix') . $key, $default);
+        return Request::get($this->instance->prefix($key), $default);
     }
 
     /**
@@ -109,16 +125,9 @@ use Anomaly\Streams\Platform\Support\Traits\FiresCallbacks;
      */
     public function post($key, $default = null)
     {
-        return Request::post($this->instance->options->get('prefix') . $key, $default);
+        return Request::post($this->instance->prefix($key), $default);
     }
 
-    /**
-     * @todo eventually remove these get/set magics
-     * Dynamically retrieve attributes.
-     *
-     * @param string $key
-     * @return mixed
-     */
     public function __get($key)
     {
 
@@ -129,12 +138,6 @@ use Anomaly\Streams\Platform\Support\Traits\FiresCallbacks;
         return $this->getAttribute($key);
     }
 
-    /**
-     * Dynamically set attributes.
-     *
-     * @param string  $key
-     * @param mixed $value
-     */
     public function __set($key, $value)
     {
         if ($key == 'instance') {

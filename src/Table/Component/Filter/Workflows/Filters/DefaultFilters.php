@@ -2,7 +2,7 @@
 
 namespace Anomaly\Streams\Ui\Table\Component\Filter\Workflows\Filters;
 
-use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\Table\TableBuilder;
 
 /**
  * Class DefaultFilters

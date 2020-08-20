@@ -3,13 +3,13 @@
 namespace Anomaly\Streams\Ui\Form\Component\Field\Workflows;
 
 use Anomaly\Streams\Platform\Workflow\Workflow;
-use Anomaly\Streams\Platform\Ui\Support\Workflows\BuildComponents;
-use Anomaly\Streams\Platform\Ui\Support\Workflows\ParseComponents;
-use Anomaly\Streams\Platform\Ui\Support\Workflows\ResolveComponents;
-use Anomaly\Streams\Platform\Ui\Support\Workflows\TranslateComponents;
-use Anomaly\Streams\Platform\Ui\Form\Component\Field\Workflows\Fields\DefaultFields;
-use Anomaly\Streams\Platform\Ui\Form\Component\Field\Workflows\Fields\PopulateFields;
-use Anomaly\Streams\Platform\Ui\Form\Component\Field\Workflows\Fields\NormalizeFields;
+use Anomaly\Streams\Ui\Support\Workflows\BuildComponents;
+use Anomaly\Streams\Ui\Support\Workflows\ParseComponents;
+use Anomaly\Streams\Ui\Support\Workflows\ResolveComponents;
+use Anomaly\Streams\Ui\Support\Workflows\TranslateComponents;
+use Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields\DefaultFields;
+use Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields\PopulateFields;
+use Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields\NormalizeFields;
 
 /**
  * Class FieldsWorkflow

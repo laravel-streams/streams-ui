@@ -3,7 +3,8 @@
 namespace Anomaly\Streams\Ui\Support\Workflows;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Platform\Ui\Support\Builder;
+use Illuminate\Support\Facades\App;
+use Anomaly\Streams\Ui\Support\Builder;
 use Anomaly\Streams\Platform\Support\Facades\Hydrator;
 
 /**
@@ -26,7 +27,7 @@ class MakeComponent
         $parameters = $builder->getAttributes();
         
         $abstract = Arr::pull($parameters, $builder->component);
-
-        $builder->{$builder->component} = new $abstract($parameters);
+        
+        $builder->{$builder->component} = App::make($abstract, $parameters);
     }
 }

@@ -4,8 +4,8 @@ namespace Anomaly\Streams\Ui\Table\Component\Column\Workflows\Columns;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Anomaly\Streams\Platform\Ui\Support\Normalizer;
-use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\Support\Normalizer;
+use Anomaly\Streams\Ui\Table\TableBuilder;
 
 /**
  * Class NormalizeColumns

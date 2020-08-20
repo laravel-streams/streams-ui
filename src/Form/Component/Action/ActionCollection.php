@@ -2,7 +2,7 @@
 
 namespace Anomaly\Streams\Ui\Form\Component\Action;
 
-use Anomaly\Streams\Platform\Ui\Button\ButtonCollection;
+use Anomaly\Streams\Ui\Button\ButtonCollection;
 
 /**
  * Class ActionCollection

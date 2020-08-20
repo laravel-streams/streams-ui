@@ -4,7 +4,7 @@ namespace Anomaly\Streams\Ui\Button;
 
 use Illuminate\View\View;
 use Illuminate\Support\Collection;
-use Anomaly\Streams\Platform\Ui\Button\Button;
+use Anomaly\Streams\Ui\Button\Button;
 
 /**
  * Class ButtonCollection

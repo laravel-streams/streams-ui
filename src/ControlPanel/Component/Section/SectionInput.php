@@ -4,9 +4,9 @@ namespace Anomaly\Streams\Ui\ControlPanel\Component\Section;
 
 use Illuminate\Support\Arr;
 use Illuminate\Translation\Translator;
-use Anomaly\Streams\Platform\Ui\Support\Normalizer;
-use Anomaly\Streams\Platform\Ui\ControlPanel\ControlPanelBuilder;
-use Anomaly\Streams\Platform\Ui\ControlPanel\Component\Navigation\NavigationLink;
+use Anomaly\Streams\Ui\Support\Normalizer;
+use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\NavigationLink;
 
 /**
  * Class SectionInput

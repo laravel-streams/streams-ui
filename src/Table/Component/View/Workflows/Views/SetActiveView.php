@@ -4,8 +4,8 @@ namespace Anomaly\Streams\Ui\Table\Component\View\Workflows\Views;
 
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Container\Container;
-use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
-use Anomaly\Streams\Platform\Ui\Table\Component\View\ViewHandler;
+use Anomaly\Streams\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\Table\Component\View\ViewHandler;
 
 /**
  * Class SetActiveView

@@ -4,7 +4,7 @@ namespace Anomaly\Streams\Ui\Support\Workflows;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
-use Anomaly\Streams\Platform\Ui\Support\Builder;
+use Anomaly\Streams\Ui\Support\Builder;
 use Exception;
 
 /**

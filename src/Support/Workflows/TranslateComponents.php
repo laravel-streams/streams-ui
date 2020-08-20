@@ -3,7 +3,7 @@
 namespace Anomaly\Streams\Ui\Support\Workflows;
 
 use Illuminate\Translation\Translator;
-use Anomaly\Streams\Platform\Ui\Support\Builder;
+use Anomaly\Streams\Ui\Support\Builder;
 
 /**
  * Class TranslateComponents

@@ -3,8 +3,8 @@
 namespace Anomaly\Streams\Ui\Table\Component\Row\Workflows\Rows;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Platform\Ui\Support\Value;
-use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\Support\Value;
+use Anomaly\Streams\Ui\Table\TableBuilder;
 
 /**
  * Class ValuateRows

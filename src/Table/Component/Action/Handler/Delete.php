@@ -3,7 +3,7 @@
 namespace Anomaly\Streams\Ui\Table\Component\Action\Handler;
 
 use Anomaly\Streams\Platform\Model\EloquentModel;
-use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\Table\TableBuilder;
 
 /**
  * Class DeleteActionHandler
