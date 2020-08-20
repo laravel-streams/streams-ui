@@ -31,7 +31,7 @@ class BuildComponents
 
         $parentSegment = Str::studly($builder->component);
         $componentSegment = Str::studly($singular);
-
+        
         foreach ($builder->{$component} as $key => $parameters) {
 
             $fallback = "Anomaly\Streams\Ui\\{$parentSegment}\Component\\{$componentSegment}\\{$componentSegment}Builder";
@@ -45,9 +45,9 @@ class BuildComponents
                 throw new Exception("Unknown [{$singular}] builder: [{$builder}] ");
             }
 
-            $builder = (new $builder($parameters))->build();
+            $instance = (new $builder($parameters))->build();
 
-            $parent->instance->{$component}->put($key, $builder->instance);
+            $parent->instance->{$component}->put($instance->slug, $instance);
         }
     }
 }

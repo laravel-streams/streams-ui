@@ -27,7 +27,7 @@ class MakeComponent
         $parameters = $builder->getAttributes();
         
         $abstract = Arr::pull($parameters, $builder->component);
-        dd($builder->component);
+        
         $builder->{$builder->component} = App::make($abstract, $parameters);
     }
 }

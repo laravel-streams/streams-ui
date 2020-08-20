@@ -6,6 +6,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Translation\Translator;
 use Anomaly\Streams\Ui\Form\FormBuilder;
+use Anomaly\Streams\Platform\Support\Facades\Resolver;
+use Anomaly\Streams\Platform\Support\Facades\Evaluator;
 
 /**
  * Class SectionInput
@@ -38,9 +40,9 @@ class SectionInput
      */
     protected static function resolve(FormBuilder $builder)
     {
-        $sections = resolver($builder->sections, compact('builder'));
+        $sections = Resolver::resolve($builder->sections, compact('builder'));
 
-        $builder->sections = evaluate($sections ?: $builder->sections, compact('builder'));
+        $builder->sections = Evaluator::evaluate($sections ?: $builder->sections, compact('builder'));
     }
 
     /**
@@ -50,7 +52,7 @@ class SectionInput
      */
     protected static function evaluate(FormBuilder $builder)
     {
-        $builder->sections = evaluate($builder->sections, compact('builder'));
+        $builder->sections = Evaluator::evaluate($builder->sections, compact('builder'));
     }
 
     /**

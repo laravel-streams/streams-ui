@@ -27,7 +27,7 @@ class BuildActions
             return;
         }
 
-        (new ActionsWorkflow)->process([
+        (new ActionsWorkflow)->passThrough($builder)->process([
             'builder' => $builder,
             'component' => 'actions',
         ]);

@@ -3,8 +3,16 @@
 namespace Anomaly\Streams\Ui\Form\Workflows\Build;
 
 use Anomaly\Streams\Ui\Form\FormBuilder;
+use Anomaly\Streams\Platform\Support\Workflow;
+use Anomaly\Streams\Ui\Support\Workflows\BuildComponents;
+use Anomaly\Streams\Ui\Support\Workflows\ParseComponents;
+use Anomaly\Streams\Ui\Support\Workflows\ResolveComponents;
 use Anomaly\Streams\Ui\Form\Component\Field\FieldCollection;
+use Anomaly\Streams\Ui\Support\Workflows\TranslateComponents;
 use Anomaly\Streams\Ui\Form\Component\Field\Workflows\FieldsWorkflow;
+use Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields\DefaultFields;
+use Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields\PopulateFields;
+use Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields\NormalizeFields;
 
 /**
  * Class BuildFields
@@ -27,7 +35,21 @@ class BuildFields
             return;
         }
         
-        (new FieldsWorkflow)->process([
+        (new Workflow([
+            'resolve_fields' => ResolveComponents::class,
+
+            DefaultFields::class,
+            NormalizeFields::class,
+
+            //'merge_fields' => MergeComponents::class,
+
+            'translate_fields' => TranslateComponents::class,
+            'parse_fields' => ParseComponents::class,
+
+            'build_fields' => BuildComponents::class,
+            
+            'populate_fields' => PopulateFields::class,
+        ]))->passThrough($builder)->process([
             'builder' => $builder,
             'component' => 'fields',
         ]);

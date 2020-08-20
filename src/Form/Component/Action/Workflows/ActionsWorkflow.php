@@ -2,7 +2,7 @@
 
 namespace Anomaly\Streams\Ui\Form\Component\Action\Workflows;
 
-use Anomaly\Streams\Platform\Workflow\Workflow;
+use Anomaly\Streams\Platform\Support\Workflow;
 use Anomaly\Streams\Ui\Support\Workflows\BuildComponents;
 use Anomaly\Streams\Ui\Support\Workflows\MergeComponents;
 use Anomaly\Streams\Ui\Support\Workflows\ParseComponents;

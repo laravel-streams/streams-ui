@@ -26,7 +26,7 @@ class BuildButtons
             return;
         }
 
-        (new ButtonsWorkflow)->process([
+        (new ButtonsWorkflow)->passThrough($builder)->process([
             'builder' => $builder,
             'component' => 'buttons',
         ]);

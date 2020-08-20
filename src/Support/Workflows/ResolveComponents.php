@@ -3,6 +3,8 @@
 namespace Anomaly\Streams\Ui\Support\Workflows;
 
 use Anomaly\Streams\Ui\Support\Builder;
+use Anomaly\Streams\Platform\Support\Facades\Evaluator;
+use Anomaly\Streams\Platform\Support\Facades\Resolver;
 
 /**
  * Class ResolveComponents
@@ -14,20 +16,14 @@ use Anomaly\Streams\Ui\Support\Builder;
 class ResolveComponents
 {
 
-    /**
-     * Hand the step.
-     *
-     * @param Builder $builder
-     * @param string $component
-     */
     public function handle(Builder $builder, $component)
     {
-        $resolved = resolver(
+        $resolved = Resolver::resolve(
             $builder->{$component},
             ['builder' => $builder]
         );
 
-        $builder->{$component} = evaluate(
+        $builder->{$component} = Evaluator::evaluate(
             $resolved ?: $builder->{$component},
             ['builder' => $builder]
         );
