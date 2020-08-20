@@ -2,7 +2,7 @@
 
 namespace Anomaly\Streams\Ui\Support\Workflows;
 
-use Anomaly\Streams\Platform\Workflow\Workflow;
+use Anomaly\Streams\Platform\Support\Workflow;
 use Anomaly\Streams\Ui\Support\Workflows\SetStream;
 use Anomaly\Streams\Ui\Support\Workflows\SetOptions;
 use Anomaly\Streams\Ui\Support\Workflows\LoadAssets;

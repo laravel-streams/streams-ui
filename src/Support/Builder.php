@@ -20,7 +20,7 @@ use Anomaly\Streams\Platform\Support\Traits\FiresCallbacks;
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
- class Builder
+class Builder
 {
     use Macroable;
     use Properties;
@@ -42,26 +42,18 @@ use Anomaly\Streams\Platform\Support\Traits\FiresCallbacks;
      */
     public function build()
     {
-        if ($this->built === true) {
-            return $this;
-        }
-
         $this->fire('ready', ['builder' => $this]);
 
-        $workflow = (new Workflow($this->workflows['build']))
-            ->setAttribute('name', 'build')
-            ->passThrough($this);
+        $workflow = $this->newWorkflow('build');
 
         $this->fire('building', [
             'builder' => $this,
             'workflow' => $workflow
         ]);
 
-        $workflow->process(['builder' => $this]);
+        $workflow->process(['builder' => $this, 'workflow' => $workflow]);
 
         $this->fire('built', ['builder' => $this]);
-
-        $this->built = true;
 
         return $this->instance;
     }
@@ -116,16 +108,11 @@ use Anomaly\Streams\Platform\Support\Traits\FiresCallbacks;
         return Request::get($this->instance->prefix($key), $default);
     }
 
-    /**
-     * Get a post value.
-     *
-     * @param $key
-     * @param null $default
-     * @return mixed
-     */
-    public function post($key, $default = null)
+    protected function newWorkflow($name): Workflow
     {
-        return Request::post($this->instance->prefix($key), $default);
+        return (new Workflow($this->workflows[$name]))
+            ->setAttribute('name', $name)
+            ->passThrough($this);
     }
 
     public function __get($key)

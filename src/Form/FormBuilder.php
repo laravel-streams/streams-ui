@@ -6,11 +6,23 @@ use Anomaly\Streams\Ui\Support\Builder;
 use Anomaly\Streams\Ui\Form\Command\SaveForm;
 use Anomaly\Streams\Ui\Form\Command\ValidateForm;
 use Anomaly\Streams\Ui\Form\Command\LoadFormValues;
+use Anomaly\Streams\Ui\Support\Workflows\SetStream;
 use Anomaly\Streams\Ui\Form\Command\FlashFormErrors;
-use Anomaly\Streams\Ui\Form\Workflows\BuildWorkflow;
 use Anomaly\Streams\Ui\Form\Workflows\QueryWorkflow;
+use Anomaly\Streams\Ui\Support\Workflows\LoadAssets;
+use Anomaly\Streams\Ui\Support\Workflows\SetOptions;
 use Anomaly\Streams\Ui\Form\Command\FlashFieldValues;
+use Anomaly\Streams\Ui\Form\Workflows\Build\SetEntry;
+use Anomaly\Streams\Ui\Support\Workflows\MakeComponent;
+use Anomaly\Streams\Ui\Support\Workflows\SetRepository;
+use Anomaly\Streams\Ui\Form\Workflows\Build\BuildFields;
+use Anomaly\Streams\Ui\Support\Workflows\LoadBreadcrumb;
 use Anomaly\Streams\Ui\Form\Component\Field\FieldBuilder;
+use Anomaly\Streams\Ui\Form\Workflows\Build\BuildActions;
+use Anomaly\Streams\Ui\Form\Workflows\Build\BuildButtons;
+use Anomaly\Streams\Ui\Form\Workflows\Build\AuthorizeForm;
+use Anomaly\Streams\Ui\Form\Workflows\Build\BuildSections;
+use Anomaly\Streams\Ui\Form\Workflows\Build\HandleRequest;
 
 /**
  * Class FormBuilder
@@ -21,6 +33,28 @@ use Anomaly\Streams\Ui\Form\Component\Field\FieldBuilder;
  */
 class FormBuilder extends Builder
 {
+
+    protected $workflows = [
+        'build' => [
+            MakeComponent::class,
+            LoadAssets::class,
+            LoadBreadcrumb::class,
+            SetStream::class,
+            SetOptions::class,
+            SetRepository::class,
+
+            SetEntry::class,
+
+            AuthorizeForm::class,
+
+            BuildFields::class,
+            BuildActions::class,
+            BuildButtons::class,
+            BuildSections::class,
+
+            HandleRequest::class,
+        ]
+    ];
 
     /**
      * The builder attributes.
@@ -52,10 +86,10 @@ class FormBuilder extends Builder
         'component' => 'form',
 
         'form' => Form::class,
-        
+
         'field_builder' => FieldBuilder::class,
 
-        'build_workflow' => BuildWorkflow::class,
+        //'build_workflow' => BuildWorkflow::class,
         'query_workflow' => QueryWorkflow::class,
     ];
 
