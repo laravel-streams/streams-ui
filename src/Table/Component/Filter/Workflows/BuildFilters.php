@@ -2,7 +2,7 @@
 
 namespace Anomaly\Streams\Ui\Table\Component\Filter\Workflows;
 
-use Anomaly\Streams\Platform\Workflow\Workflow;
+use Anomaly\Streams\Platform\Support\Workflow;
 use Anomaly\Streams\Ui\Support\Workflows\BuildComponents;
 use Anomaly\Streams\Ui\Support\Workflows\MergeComponents;
 use Anomaly\Streams\Ui\Support\Workflows\ParseComponents;
@@ -13,13 +13,13 @@ use Anomaly\Streams\Ui\Table\Component\Filter\Workflows\Filters\SetActiveFilter;
 use Anomaly\Streams\Ui\Table\Component\Filter\Workflows\Filters\NormalizeFilters;
 
 /**
- * Class FiltersWorkflow
+ * Class BuildFilters
  *
  * @link    http://pyrocms.com/
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
  */
-class FiltersWorkflow extends Workflow
+class BuildFilters extends Workflow
 {
 
     /**

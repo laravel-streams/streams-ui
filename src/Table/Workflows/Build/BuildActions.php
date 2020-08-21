@@ -2,6 +2,7 @@
 
 namespace Anomaly\Streams\Ui\Table\Workflows\Build;
 
+use Illuminate\Support\Arr;
 use Anomaly\Streams\Ui\Table\TableBuilder;
 use Anomaly\Streams\Ui\Table\Component\Action\Workflows\ActionsWorkflow;
 
@@ -26,7 +27,9 @@ class BuildActions
             return;
         }
 
-        (new ActionsWorkflow)->process([
+        $workflow = Arr::get($builder->workflows, 'actions');
+
+        (new $workflow)->setAttribute('name', 'build_actions')->passThrough($builder)->process([
             'builder' => $builder,
             'component' => 'actions',
         ]);

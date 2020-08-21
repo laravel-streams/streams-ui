@@ -29,6 +29,8 @@ class ColumnBuilder extends Builder
 
         'column' => Column::class,
 
-        'build_workflow' => BuildWorkflow::class,
+        'workflows' => [
+            'build' => BuildWorkflow::class,
+        ],
     ];
 }

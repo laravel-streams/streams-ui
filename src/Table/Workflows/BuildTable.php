@@ -8,8 +8,13 @@ use Anomaly\Streams\Ui\Support\Workflows\LoadAssets;
 use Anomaly\Streams\Ui\Support\Workflows\SetOptions;
 use Anomaly\Streams\Ui\Support\Workflows\MakeComponent;
 use Anomaly\Streams\Ui\Support\Workflows\SetRepository;
+use Anomaly\Streams\Ui\Table\Workflows\Build\BuildRows;
 use Anomaly\Streams\Ui\Support\Workflows\LoadBreadcrumb;
 use Anomaly\Streams\Ui\Table\Workflows\Build\BuildViews;
+use Anomaly\Streams\Ui\Table\Workflows\Build\BuildActions;
+use Anomaly\Streams\Ui\Table\Workflows\Build\BuildButtons;
+use Anomaly\Streams\Ui\Table\Workflows\Build\BuildColumns;
+use Anomaly\Streams\Ui\Table\Workflows\Build\BuildFilters;
 use Anomaly\Streams\Ui\Table\Workflows\Build\QueryEntries;
 use Anomaly\Streams\Ui\Table\Workflows\Build\AuthorizeTable;
 
@@ -44,10 +49,10 @@ class BuildTable extends Workflow
         AuthorizeTable::class,
         QueryEntries::class,
 
-        //BuildActions::class,
-        //BuildFilters::class,
-        //BuildColumns::class,
-        //BuildButtons::class,
+        BuildActions::class,
+        BuildFilters::class,
+        BuildColumns::class,
+        BuildButtons::class,
         //BuildRows::class,
     ];
 }

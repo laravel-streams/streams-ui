@@ -30,6 +30,8 @@ class ButtonBuilder extends Builder
 
         'button' => Button::class,
 
-        'build_workflow' => BuildWorkflow::class,
+        'workflows' =>[
+            'build' => BuildWorkflow::class,
+        ],
     ];
 }

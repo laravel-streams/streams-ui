@@ -25,19 +25,10 @@ class BuildWorkflow extends Workflow
      */
     protected $steps = [
 
-        /**
-         * Make the instance.
-         */
         MakeComponent::class,
 
-        /**
-         * Integrate with others.
-         */
         LoadAssets::class,
 
-        /**
-         * Set important things.
-         */
         SetStream::class,
         SetOptions::class,
     ];

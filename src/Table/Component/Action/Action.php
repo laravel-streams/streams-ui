@@ -3,7 +3,7 @@
 namespace Anomaly\Streams\Ui\Table\Component\Action;
 
 use Anomaly\Streams\Ui\Button\Button;
-use Anomaly\Streams\Ui\Form\Component\Action\ActionHandler;
+use Anomaly\Streams\Ui\Table\Component\Action\ActionHandler;
 
 /**
  * Class Action

@@ -2,20 +2,20 @@
 
 namespace Anomaly\Streams\Ui\Table\Component\Column\Workflows;
 
-use Anomaly\Streams\Platform\Workflow\Workflow;
+use Anomaly\Streams\Platform\Support\Workflow;
 use Anomaly\Streams\Ui\Support\Workflows\BuildComponents;
 use Anomaly\Streams\Ui\Support\Workflows\ResolveComponents;
 use Anomaly\Streams\Ui\Table\Component\Column\Workflows\Columns\DefaultColumns;
 use Anomaly\Streams\Ui\Table\Component\Column\Workflows\Columns\NormalizeColumns;
 
 /**
- * Class ColumnsWorkflow
+ * Class BuildColumns
  *
  * @link    http://pyrocms.com/
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
  */
-class ColumnsWorkflow extends Workflow
+class BuildColumns extends Workflow
 {
 
     /**

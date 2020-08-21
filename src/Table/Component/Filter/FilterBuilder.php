@@ -29,6 +29,8 @@ class FilterBuilder extends Builder
 
         'filter' => Filter::class,
 
-        'build_workflow' => BuildWorkflow::class,
+        'workflows' => [
+            'build' => BuildWorkflow::class,
+        ],
     ];
 }

@@ -2,6 +2,7 @@
 
 namespace Anomaly\Streams\Ui\Table\Workflows\Build;
 
+use Illuminate\Support\Arr;
 use Anomaly\Streams\Ui\Table\TableBuilder;
 use Anomaly\Streams\Ui\Table\Component\Button\Workflows\ButtonsWorkflow;
 
@@ -26,7 +27,9 @@ class BuildButtons
             return;
         }
 
-        (new ButtonsWorkflow)->process([
+        $workflow = Arr::get($builder->workflows, 'buttons');
+
+        (new $workflow)->setAttribute('name', 'build_buttons')->passThrough($builder)->process([
             'builder' => $builder,
             'component' => 'buttons',
         ]);

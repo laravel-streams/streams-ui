@@ -7,6 +7,9 @@ use Anomaly\Streams\Ui\Support\Builder;
 use Anomaly\Streams\Ui\Table\Workflows\BuildTable;
 use Anomaly\Streams\Ui\Table\Workflows\QueryTable;
 use Anomaly\Streams\Ui\Table\Component\View\Workflows\BuildViews;
+use Anomaly\Streams\Ui\Table\Component\Action\Workflows\BuildActions;
+use Anomaly\Streams\Ui\Table\Component\Column\Workflows\BuildColumns;
+use Anomaly\Streams\Ui\Table\Component\Filter\Workflows\BuildFilters;
 
 /**
  * Class TableBuilder
@@ -46,6 +49,9 @@ class TableBuilder extends Builder
             'build' => BuildTable::class,
             'query' => QueryTable::class,
             'views' => BuildViews::class,
+            'actions' => BuildActions::class,
+            'filters' => BuildFilters::class,
+            'columns' => BuildColumns::class,
         ],
     ];
 }

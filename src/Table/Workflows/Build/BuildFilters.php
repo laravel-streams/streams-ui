@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Table\Workflows\Build;
 
+use Illuminate\Support\Arr;
 use Anomaly\Streams\Ui\Table\TableBuilder;
-use Anomaly\Streams\Ui\Table\Component\Filter\Workflows\FiltersWorkflow;
 
 /**
  * Class BuildFilters
@@ -26,7 +26,9 @@ class BuildFilters
             return;
         }
 
-        (new FiltersWorkflow)->process([
+        $workflow = Arr::get($builder->workflows, 'filters');
+
+        (new $workflow)->setAttribute('name', 'build_filters')->passThrough($builder)->process([
             'builder' => $builder,
             'component' => 'filters',
         ]);
