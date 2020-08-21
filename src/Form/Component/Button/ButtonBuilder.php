@@ -4,6 +4,7 @@ namespace Anomaly\Streams\Ui\Form\Component\Button;
 
 use Anomaly\Streams\Ui\Button\Button;
 use Anomaly\Streams\Ui\Support\Builder;
+use Anomaly\Streams\Ui\Form\Component\Button\Workflows\BuildButtons;
 use Anomaly\Streams\Ui\Support\Workflows\BuildWorkflow;
 
 /**

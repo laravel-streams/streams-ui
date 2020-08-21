@@ -12,12 +12,12 @@ use Anomaly\Streams\Ui\Form\Command\LoadFormValues;
 use Anomaly\Streams\Ui\Form\Command\FlashFormErrors;
 use Anomaly\Streams\Ui\Form\Command\FlashFieldValues;
 use Anomaly\Streams\Ui\Form\Component\Field\FieldBuilder;
-use Anomaly\Streams\Ui\Form\Workflows\Build\BuildButtons;
 use Anomaly\Streams\Ui\Form\Component\Action\ActionBuilder;
 use Anomaly\Streams\Ui\Form\Component\Button\ButtonBuilder;
 use Anomaly\Streams\Ui\Form\Component\Section\SectionBuilder;
 use Anomaly\Streams\Ui\Form\Component\Field\Workflows\BuildFields;
 use Anomaly\Streams\Ui\Form\Component\Action\Workflows\BuildActions;
+use Anomaly\Streams\Ui\Form\Component\Button\Workflows\BuildButtons;
 use Anomaly\Streams\Ui\Form\Component\Section\Workflows\BuildSections;
 
 /**

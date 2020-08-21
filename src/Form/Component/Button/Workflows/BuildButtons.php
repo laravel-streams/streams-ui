@@ -12,13 +12,13 @@ use Anomaly\Streams\Ui\Form\Component\Button\Workflows\Buttons\DefaultButtons;
 use Anomaly\Streams\Ui\Form\Component\Button\Workflows\Buttons\NormalizeButtons;
 
 /**
- * Class ButtonsWorkflow
+ * Class BuildButtons
  *
  * @link    http://pyrocms.com/
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
  */
-class ButtonsWorkflow extends Workflow
+class BuildButtons extends Workflow
 {
 
     /**

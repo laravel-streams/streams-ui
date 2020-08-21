@@ -23,6 +23,9 @@ class ParseComponents
      */
     public function handle(Builder $builder, $component)
     {
-        $builder->{$component} = Arr::parse($builder->{$component});
+        $builder->{$component} = Arr::parse($builder->{$component}, [
+            'entry' => $builder->instance->entry ? $builder->instance->entry->toArray() : null,
+            'stream' => $builder->stream,
+        ]);
     }
 }

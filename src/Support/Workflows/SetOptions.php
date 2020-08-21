@@ -42,11 +42,7 @@ class SetOptions
          * Fallback for Streams.
          */
         if (!$builder->options) {
-            try {
-                $builder->instance->options = new Collection();
-            } catch(Exception $e) {
-                dd($e->getMessage());
-            }
+            $builder->instance->options = new Collection();
         }
     }
 }

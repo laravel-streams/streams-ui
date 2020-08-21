@@ -20,7 +20,7 @@ class BuildButtons
             return;
         }
 
-        $workflow = Arr::get($builder->workflows, 'fields');
+        $workflow = Arr::get($builder->workflows, 'buttons');
 
         (new $workflow)->setAttribute('name', 'build_buttons')->passThrough($builder)->process([
             'builder' => $builder,
