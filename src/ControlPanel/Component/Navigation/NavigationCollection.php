@@ -43,7 +43,7 @@ class NavigationCollection extends Collection
     {
         /* @var NavigationLink $item */
         foreach ($this->items as $item) {
-            if ($item->slug == $key) {
+            if ($item->handle == $key) {
                 return $item;
             }
         }

@@ -36,7 +36,7 @@ class PolicyGuesser
 
             // @todo revisit will what's a standard non-stream policy path for a custom section?
             // Here? Controller? Validate by config for permissions?
-            //$section['policy'] = $module->getNamespace($section['slug'] . '.*');
+            //$section['policy'] = $module->getNamespace($section['handle'] . '.*');
         }
 
         $builder->setSections($sections);

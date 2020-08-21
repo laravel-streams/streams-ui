@@ -103,7 +103,7 @@ class ControlPanel implements Arrayable, Jsonable
      */
     public function addSection(Section $section)
     {
-        $this->sections->put($section->slug, $section);
+        $this->sections->put($section->handle, $section);
 
         return $this;
     }
@@ -136,7 +136,7 @@ class ControlPanel implements Arrayable, Jsonable
      */
     public function addShortcut(Shortcut $shortcut)
     {
-        $this->shortcuts->put($shortcut->slug, $shortcut);
+        $this->shortcuts->put($shortcut->handle, $shortcut);
 
         return $this;
     }

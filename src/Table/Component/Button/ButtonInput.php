@@ -67,11 +67,11 @@ class ButtonInput
             /*
             * If the button is a string and
             * the key is an integer then use
-            * as the button and slug parameter.
+            * as the button and handle parameter.
             */
             if (is_integer($key) && is_string($button)) {
                 $button = [
-                    'slug'   => $button,
+                    'handle'   => $button,
                     'button' => $button,
                 ];
             }
@@ -98,11 +98,11 @@ class ButtonInput
 
             /*
             * If the key is a string and the button
-            * is an array without a slug param then
+            * is an array without a handle param then
             * move the key into the button as that param.
             */
-            if (!is_integer($key) && !isset($button['slug'])) {
-                $button['slug'] = $key;
+            if (!is_integer($key) && !isset($button['handle'])) {
+                $button['handle'] = $key;
             }
         }
 

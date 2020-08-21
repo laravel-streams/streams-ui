@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\App;
 use Anomaly\Streams\Ui\Support\Builder;
 use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
 use Anomaly\Streams\Platform\Repository\Contract\RepositoryInterface;
+use Anomaly\Streams\Platform\Stream\Stream;
 
 /**
  * Create a new SetRepository instance.
@@ -37,7 +38,7 @@ class SetRepository
         /**
          * Fallback for Streams.
          */
-        if (!$builder->repository && $builder->stream instanceof StreamInterface) {
+        if (!$builder->repository && $builder->stream instanceof Stream) {
             $builder->repository = $builder->stream->repository();
         }
     }

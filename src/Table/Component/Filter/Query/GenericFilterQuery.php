@@ -24,6 +24,6 @@ class GenericFilterQuery
      */
     public function handle(TableBuilder $builder, Filter $filter)
     {
-        $builder->criteria->where($filter->column ?: $filter->slug, 'LIKE', '%' . $filter->getValue() . '%');
+        $builder->criteria->where($filter->column ?: $filter->handle, 'LIKE', '%' . $filter->getValue() . '%');
     }
 }

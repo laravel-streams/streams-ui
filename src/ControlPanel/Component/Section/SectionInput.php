@@ -73,22 +73,22 @@ class SectionInput
         /*
          * Move child sections into main array.
          */
-        foreach ($sections as $slug => &$section) {
+        foreach ($sections as $handle => &$section) {
             if (isset($section['sections'])) {
                 foreach ($section['sections'] as $key => $child) {
 
                     /**
-                     * It's a slug only!
+                     * It's a handle only!
                      */
                     if (is_string($child)) {
 
                         $key = $child;
 
-                        $child = ['slug' => $child];
+                        $child = ['handle' => $child];
                     }
 
-                    $child['parent'] = Arr::get($section, 'slug', $slug);
-                    $child['slug']   = Arr::get($child, 'slug', $key);
+                    $child['parent'] = Arr::get($section, 'handle', $handle);
+                    $child['handle']   = Arr::get($child, 'handle', $key);
 
                     $sections[$key] = $child;
                 }
@@ -99,24 +99,24 @@ class SectionInput
          * Loop over each section and make sense of the input
          * provided for the given module.
          */
-        foreach ($sections as $slug => &$section) {
+        foreach ($sections as $handle => &$section) {
 
             /*
-             * If the slug is not valid and the section
-             * is a string then use the section as the slug.
+             * If the handle is not valid and the section
+             * is a string then use the section as the handle.
              */
-            if (is_numeric($slug) && is_string($section)) {
+            if (is_numeric($handle) && is_string($section)) {
                 $section = [
-                    'slug' => $section,
+                    'handle' => $section,
                 ];
             }
 
             /*
-             * If the slug is a string and the title is not
-             * set then use the slug as the slug.
+             * If the handle is a string and the title is not
+             * set then use the handle as the handle.
              */
-            if (is_string($slug) && !isset($section['slug'])) {
-                $section['slug'] = $slug;
+            if (is_string($handle) && !isset($section['handle'])) {
+                $section['handle'] = $handle;
             }
         }
 

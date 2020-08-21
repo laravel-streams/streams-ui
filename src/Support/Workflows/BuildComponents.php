@@ -23,7 +23,7 @@ class BuildComponents
      * @param Builder $builder
      * @param string $component
      */
-    public function handle(Builder $builder, $component)
+    public function handle(Builder $builder, $component = null)
     {
         $singular = Str::singular($component);
 
@@ -31,23 +31,19 @@ class BuildComponents
 
         $parentSegment = Str::studly($builder->component);
         $componentSegment = Str::studly($singular);
-        
+
+        $fallback = "Anomaly\Streams\Ui\\{$parentSegment}\Component\\{$componentSegment}\\{$componentSegment}Builder";
+
         foreach ($builder->{$component} as $key => $parameters) {
-
-            $fallback = "Anomaly\Streams\Ui\\{$parentSegment}\Component\\{$componentSegment}\\{$componentSegment}Builder";
-
-            $builder = Arr::pull($parameters, 'builder', $parent->{$singular . '_builder'} ?: $fallback);
 
             $parameters['parent'] = $parent;
             $parameters['stream'] = $parent->stream;
 
-            if (!$builder) {
-                throw new Exception("Unknown [{$singular}] builder: [{$builder}] ");
-            }
+            $builder = Arr::pull($parameters, 'builder', Arr::get($parent->builders, $component, $fallback));
 
             $instance = (new $builder($parameters))->build();
 
-            $parent->instance->{$component}->put($instance->slug, $instance);
+            $parent->instance->{$component}->put($instance->handle, $instance);
         }
     }
 }

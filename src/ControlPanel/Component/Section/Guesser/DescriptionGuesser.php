@@ -35,7 +35,7 @@ class DescriptionGuesser
                 continue;
             }
 
-            $description = $module->getNamespace('section.' . $section['slug'] . '.description');
+            $description = $module->getNamespace('section.' . $section['handle'] . '.description');
 
             if (trans()->has($description)) {
                 $section['description'] = $description;

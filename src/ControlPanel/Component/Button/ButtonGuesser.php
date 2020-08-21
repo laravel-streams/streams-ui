@@ -69,8 +69,8 @@ class ButtonGuesser
                     }
                 }
 
-                // Change this to slug for later.
-                $button['slug'] = $button['button'];
+                // Change this to handle for later.
+                $button['handle'] = $button['button'];
 
                 Arr::set($button, 'button', substr($button['button'], 0, 3));
                 Arr::set($button, 'primary', Arr::get($button, 'primary', true));
@@ -85,8 +85,8 @@ class ButtonGuesser
                     $button['text'] = $module->getNamespace('button.' . $button['button']);
                 }
 
-                // Change this to slug for later.
-                $button['slug'] = $button['button'];
+                // Change this to handle for later.
+                $button['handle'] = $button['button'];
 
                 Arr::set($button, 'button', substr($button['button'], 0, 3));
             }
@@ -184,7 +184,7 @@ class ButtonGuesser
                 (!isset($button['text']) || !trans()->has($button['text']))
                 && config('streams.system.lazy_translations')
             ) {
-                $button['text'] = ucwords(humanize(Arr::get($button, 'slug', $button['button'])));
+                $button['text'] = ucwords(humanize(Arr::get($button, 'handle', $button['button'])));
             }
 
             if (!isset($button['text'])) {

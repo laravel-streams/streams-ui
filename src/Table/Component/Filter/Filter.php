@@ -21,7 +21,7 @@ class Filter extends Component
      * @var array
      */
     protected $attributes = [
-        'slug' => null,
+        'handle' => null,
         'field' => null,
         'stream' => null,
         'prefix' => null,
@@ -62,6 +62,6 @@ class Filter extends Component
      */
     public function getInputName()
     {
-        return $this->prefix . 'filter_' . $this->slug;
+        return $this->prefix . 'filter_' . $this->handle;
     }
 }

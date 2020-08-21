@@ -36,7 +36,7 @@ class PolicyGuesser
 
             // @todo revisit best method to lazily register policies like this
             // And what's the naming standard? Override path?
-            //$shortcut['policy'] = $module->getNamespace($shortcut['slug'] . '.*');
+            //$shortcut['policy'] = $module->getNamespace($shortcut['handle'] . '.*');
         }
 
         $builder->setShortcuts($shortcuts);

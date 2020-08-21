@@ -30,7 +30,7 @@ class NavigationHandler
         /* @var Module $module */
         foreach ($modules->enabled()->accessible()->instances() as $module) {
             if ($module->getNavigation()) {
-                $navigation[$module->getSlug()] = $module;
+                $navigation[$module->getHandle()] = $module;
             }
         }
 
@@ -41,8 +41,8 @@ class NavigationHandler
                         'breadcrumb' => $module->getName(),
                         'title'      => $module->getName(),
                         'icon'       => $module->getIcon(),
-                        'slug'       => $module->getNamespace(),
-                        'href'       => 'admin/' . $module->getSlug(),
+                        'handle'       => $module->getNamespace(),
+                        'href'       => 'admin/' . $module->getHandle(),
                     ];
                 },
                 $navigation

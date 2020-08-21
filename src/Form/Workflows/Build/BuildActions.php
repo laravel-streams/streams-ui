@@ -2,9 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Form\Workflows\Build;
 
+use Illuminate\Support\Arr;
 use Anomaly\Streams\Ui\Form\FormBuilder;
-use Anomaly\Streams\Ui\Form\Component\Action\ActionBuilder;
-use Anomaly\Streams\Ui\Form\Component\Action\Workflows\ActionsWorkflow;
 
 /**
  * Class BuildActions
@@ -16,18 +15,15 @@ use Anomaly\Streams\Ui\Form\Component\Action\Workflows\ActionsWorkflow;
 class BuildActions
 {
 
-    /**
-     * Handle the step.
-     * 
-     * @param FormBuilder $builder
-     */
     public function handle(FormBuilder $builder)
     {
         if ($builder->actions === false) {
             return;
         }
 
-        (new ActionsWorkflow)->passThrough($builder)->process([
+        $workflow = Arr::get($builder->workflows, 'actions');
+
+        (new $workflow)->setAttribute('name', 'build_actions')->passThrough($builder)->process([
             'builder' => $builder,
             'component' => 'actions',
         ]);

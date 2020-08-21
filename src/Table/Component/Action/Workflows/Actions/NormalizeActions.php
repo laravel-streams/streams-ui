@@ -28,48 +28,48 @@ class NormalizeActions
             $actions = array_merge(['reorder'], $actions);
         }
 
-        foreach ($actions as $slug => &$action) {
+        foreach ($actions as $handle => &$action) {
 
             /*
-             * If the slug is numeric and the action is
+             * If the handle is numeric and the action is
              * a string then treat the string as both the
-             * action and the slug. This is OK as long as
+             * action and the handle. This is OK as long as
              * there are not multiple instances of this
              * input using the same action which is not likely.
              */
-            if (is_numeric($slug) && is_string($action)) {
+            if (is_numeric($handle) && is_string($action)) {
                 $action = [
-                    'slug' => $action,
+                    'handle' => $action,
                     'action' => $action,
                 ];
             }
 
             /*
-             * If the slug is NOT numeric and the action is a
-             * string then use the slug as the slug and the
+             * If the handle is NOT numeric and the action is a
+             * string then use the handle as the handle and the
              * action as the action.
              */
-            if (!is_numeric($slug) && is_string($action)) {
+            if (!is_numeric($handle) && is_string($action)) {
                 $action = [
-                    'slug' => $slug,
+                    'handle' => $handle,
                     'action' => $action,
                 ];
             }
 
             /*
-             * If the slug is not numeric and the action is an
-             * array without a slug then use the slug for
-             * the slug for the action.
+             * If the handle is not numeric and the action is an
+             * array without a handle then use the handle for
+             * the handle for the action.
              */
-            if (is_array($action) && !isset($action['slug']) && !is_numeric($slug)) {
-                $action['slug'] = $slug;
+            if (is_array($action) && !isset($action['handle']) && !is_numeric($handle)) {
+                $action['handle'] = $handle;
             }
 
             /*
              * Make sure we have a action property.
              */
             if (is_array($action) && !isset($action['action'])) {
-                $action['action'] = $action['slug'];
+                $action['action'] = $action['handle'];
             }
         }
 
@@ -79,7 +79,7 @@ class NormalizeActions
          * Go back over and assume HREFs.
          * @todo reaction this - from guesser
          */
-        foreach ($actions as $slug => &$action) {
+        foreach ($actions as $handle => &$action) {
             //
         }
 

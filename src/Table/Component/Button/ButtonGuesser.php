@@ -72,7 +72,7 @@ class ButtonGuesser
                 case 'restore':
 
                     $button['attributes']['href'] = url(
-                        'entry/handle/restore/' . $stream->location . '/' . $stream->slug . '/{entry.id}'
+                        'entry/handle/restore/' . $stream->location . '/' . $stream->handle . '/{entry.id}'
                     );
 
                     break;
@@ -109,8 +109,8 @@ class ButtonGuesser
         foreach ($buttons as &$button) {
 
             // Skip if set already.
-            if (!isset($button['text']) && isset($button['slug'])) {
-                $button['text'] = $module->getNamespace('button.' . $button['slug']);
+            if (!isset($button['text']) && isset($button['handle'])) {
+                $button['text'] = $module->getNamespace('button.' . $button['handle']);
             }
         }
 
@@ -146,12 +146,12 @@ class ButtonGuesser
             switch (Arr::get($button, 'button')) {
 
                 case 'update':
-                    $button['ability'] = $module->getNamespace($stream->slug . '.write');
+                    $button['ability'] = $module->getNamespace($stream->handle . '.write');
                     break;
 
                 default:
                     $button['ability'] = $module->getNamespace(
-                        $stream->slug . '.' . Arr::get($button, 'slug')
+                        $stream->handle . '.' . Arr::get($button, 'handle')
                     );
                     break;
             }

@@ -25,7 +25,7 @@ class NavigationLink implements Arrayable, Jsonable
      * @var array
      */
     protected $attributes = [
-        'slug' => null,
+        'handle' => null,
         'title' => null,
         'policy' => null,
         'sections' => null,

@@ -29,7 +29,7 @@ class SetActiveView
             return;
         }
 
-        if ($view = $builder->instance->views->findBySlug($request->get($builder->instance->options->get('prefix') . 'view'))) {
+        if ($view = $builder->instance->views->findByHandle($request->get($builder->instance->options->get('prefix') . 'view'))) {
             $view->active = true;
         }
 

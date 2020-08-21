@@ -2,6 +2,7 @@
 
 namespace Anomaly\Streams\Ui\Form\Workflows\Build;
 
+use Illuminate\Support\Arr;
 use Anomaly\Streams\Ui\Form\FormBuilder;
 use Anomaly\Streams\Platform\Support\Workflow;
 use Anomaly\Streams\Ui\Support\Workflows\BuildComponents;
@@ -34,22 +35,10 @@ class BuildFields
         if ($builder->fields === false) {
             return;
         }
-        
-        (new Workflow([
-            'resolve_fields' => ResolveComponents::class,
 
-            DefaultFields::class,
-            NormalizeFields::class,
+        $workflow = Arr::get($builder->workflows, 'fields');
 
-            //'merge_fields' => MergeComponents::class,
-
-            'translate_fields' => TranslateComponents::class,
-            'parse_fields' => ParseComponents::class,
-
-            'build_fields' => BuildComponents::class,
-            
-            'populate_fields' => PopulateFields::class,
-        ]))->passThrough($builder)->process([
+        (new $workflow)->setAttribute('name', 'build_fields')->passThrough($builder)->process([
             'builder' => $builder,
             'component' => 'fields',
         ]);

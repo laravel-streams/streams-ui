@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Form\Workflows\Build;
 
+use Illuminate\Support\Arr;
 use Anomaly\Streams\Ui\Form\FormBuilder;
-use Anomaly\Streams\Ui\Form\Component\Button\Workflows\ButtonsWorkflow;
 
 /**
  * Class BuildButtons
@@ -14,19 +14,15 @@ use Anomaly\Streams\Ui\Form\Component\Button\Workflows\ButtonsWorkflow;
  */
 class BuildButtons
 {
-
-    /**
-     * Handle the step.
-     * 
-     * @param FormBuilder $builder
-     */
     public function handle(FormBuilder $builder)
     {
         if ($builder->buttons === false) {
             return;
         }
 
-        (new ButtonsWorkflow)->passThrough($builder)->process([
+        $workflow = Arr::get($builder->workflows, 'fields');
+
+        (new $workflow)->setAttribute('name', 'build_buttons')->passThrough($builder)->process([
             'builder' => $builder,
             'component' => 'buttons',
         ]);

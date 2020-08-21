@@ -25,7 +25,7 @@ class Section implements Arrayable, Jsonable
      * @var array
      */
     protected $attributes = [
-        'slug' => null,
+        'handle' => null,
         'title' => null,
         'label' => null,
         'parent' => null,

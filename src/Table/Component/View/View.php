@@ -20,7 +20,7 @@ class View extends Component
      * @var array
      */
     protected $attributes = [
-        'slug' => null,
+        'handle' => null,
         'text' => null,
         'icon' => null,
         'label' => null,

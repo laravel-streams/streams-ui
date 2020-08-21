@@ -122,7 +122,7 @@ class NavigationInput
         $navigation = array_combine(
             array_map(
                 function ($item) {
-                    return $item['slug'];
+                    return $item['handle'];
                 },
                 $navigation
             ),

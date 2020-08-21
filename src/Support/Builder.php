@@ -2,19 +2,28 @@
 
 namespace Anomaly\Streams\Ui\Support;
 
+use Illuminate\Support\Arr;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Traits\Macroable;
+use Illuminate\Http\Response as HttpResponse;
 use Anomaly\Streams\Platform\Support\Workflow;
-use Anomaly\Streams\Ui\Support\Workflows\SetStream;
-use Anomaly\Streams\Ui\Support\Workflows\LoadAssets;
-use Anomaly\Streams\Ui\Support\Workflows\SetOptions;
 use Anomaly\Streams\Platform\Support\Traits\Properties;
-use Anomaly\Streams\Ui\Support\Workflows\MakeComponent;
 use Anomaly\Streams\Platform\Support\Traits\FiresCallbacks;
 
 /**
  * Class Builder
+ * 
+ * Builders build component (UI objects) instances.
+ * 
+ * Intended to be instantiated like:
+ * 
+ * $builder = new FormBuilder($attributes);
+ * 
+ * Available Methods
+ * 
  *
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
@@ -26,56 +35,35 @@ class Builder
     use Properties;
     use FiresCallbacks;
 
-    protected $workflows = [
-        'build' => [
-            MakeComponent::class,
-            LoadAssets::class,
-            SetStream::class,
-            SetOptions::class,
-        ]
-    ];
-
-    /**
-     * Build and return the instance instance.
-     *
-     * @return $this
-     */
-    public function build()
+    public function build(): Component
     {
         $this->fire('ready', ['builder' => $this]);
 
-        $workflow = $this->newWorkflow('build');
+        $workflow = $this->workflow('build');
 
         $this->fire('building', [
             'builder' => $this,
             'workflow' => $workflow
         ]);
 
-        $workflow->process(['builder' => $this, 'workflow' => $workflow]);
+        $workflow->process([
+            'builder' => $this,
+            'workflow' => $workflow
+        ]);
 
         $this->fire('built', ['builder' => $this]);
 
         return $this->instance;
     }
 
-    /**
-     * Render the instance.
-     *
-     * @return View
-     */
-    public function render()
+    public function render(): View
     {
         $this->build();
 
         return $this->instance->render();
     }
 
-    /**
-     * Return the instance response.
-     * 
-     * @return Response
-     */
-    public function response()
+    public function response(): HttpResponse
     {
         if ($this->async == true && Request::ajax()) {
             return $this->json();
@@ -84,12 +72,7 @@ class Builder
         return Response::view('streams::default', ['content' => $this->render()]);
     }
 
-    /**
-     * Return a JSON response.
-     *
-     * @return JsonResponse
-     */
-    public function json()
+    public function json(): JsonResponse
     {
         $this->build();
 
@@ -108,16 +91,21 @@ class Builder
         return Request::get($this->instance->prefix($key), $default);
     }
 
-    protected function newWorkflow($name): Workflow
+    protected function workflow($name): Workflow
     {
-        return (new Workflow($this->workflows[$name]))
+        $workflow = Arr::get($this->workflows, $name);
+
+        if (!class_exists($workflow)) {
+            throw new \Exception("Workflow [{$name}] does not exist.");
+        }
+
+        return (new $workflow)
             ->setAttribute('name', $name)
             ->passThrough($this);
     }
 
     public function __get($key)
     {
-
         if ($key == 'instance') {
             $key  = $this->attributes['component'];
         }

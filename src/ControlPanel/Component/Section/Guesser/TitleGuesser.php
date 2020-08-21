@@ -35,20 +35,20 @@ class TitleGuesser
                 continue;
             }
 
-            $title = $module->getNamespace('section.' . $section['slug'] . '.title');
+            $title = $module->getNamespace('section.' . $section['handle'] . '.title');
 
             if (!isset($section['title']) && trans()->has($title)) {
                 $section['title'] = $title;
             }
 
-            $title = $module->getNamespace('addon.section.' . $section['slug']);
+            $title = $module->getNamespace('addon.section.' . $section['handle']);
 
             if (!isset($section['title']) && trans()->has($title)) {
                 $section['title'] = $title;
             }
 
             if (!isset($section['title']) && config('streams.system.lazy_translations')) {
-                $section['title'] = ucwords(humanize($section['slug']));
+                $section['title'] = ucwords(humanize($section['handle']));
             }
 
             if (!isset($section['title'])) {

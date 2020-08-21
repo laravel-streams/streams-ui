@@ -35,20 +35,20 @@ class TitleGuesser
                 continue;
             }
 
-            $title = $module->getNamespace('shortcut.' . $shortcut['slug'] . '.title');
+            $title = $module->getNamespace('shortcut.' . $shortcut['handle'] . '.title');
 
             if (!isset($shortcut['title']) && trans()->has($title)) {
                 $shortcut['title'] = $title;
             }
 
-            $title = $module->getNamespace('addon.shortcut.' . $shortcut['slug']);
+            $title = $module->getNamespace('addon.shortcut.' . $shortcut['handle']);
 
             if (!isset($shortcut['title']) && trans()->has($title)) {
                 $shortcut['title'] = $title;
             }
 
             if (!isset($shortcut['title']) && config('streams.system.lazy_translations')) {
-                $shortcut['title'] = ucwords(humanize($shortcut['slug']));
+                $shortcut['title'] = ucwords(humanize($shortcut['handle']));
             }
 
             if (!isset($shortcut['title'])) {

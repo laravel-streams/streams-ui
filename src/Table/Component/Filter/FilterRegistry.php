@@ -24,7 +24,7 @@ class FilterRegistry
      */
     protected $filters = [
         'search'     => [
-            'slug'        => 'search',
+            'handle'        => 'search',
             'filter'      => SearchFilter::class,
             'placeholder' => 'streams::message.search',
         ],

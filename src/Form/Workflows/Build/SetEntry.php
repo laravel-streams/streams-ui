@@ -2,12 +2,15 @@
 
 namespace Anomaly\Streams\Ui\Form\Workflows\Build;
 
+use Illuminate\Support\Arr;
 use Anomaly\Streams\Ui\Form\FormBuilder;
-use Anomaly\Streams\Platform\Asset\Facades\Assets;
-use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Support\Breadcrumb;
-use Anomaly\Streams\Platform\Repository\Contract\RepositoryInterface;
+use Anomaly\Streams\Platform\Asset\Facades\Assets;
 use Anomaly\Streams\Ui\Form\Workflows\QueryWorkflow;
+use Anomaly\Streams\Platform\Support\Facades\Resolver;
+use Anomaly\Streams\Platform\Support\Facades\Evaluator;
+use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
+use Anomaly\Streams\Platform\Repository\Contract\RepositoryInterface;
 
 /**
  * Class SetEntry
@@ -37,9 +40,9 @@ class SetEntry
             || $builder->entry instanceof \Closure
             ) {
             
-            $entry = resolver($builder->entry, compact('builder'));
+            $entry = Resolver::resolve($builder->entry, compact('builder'));
 
-            $builder->entry = evaluate($entry ?: $builder->entry, compact('builder'));
+            $builder->entry = Evaluator::evaluate($entry ?: $builder->entry, compact('builder'));
 
             return;
         }
@@ -61,8 +64,10 @@ class SetEntry
          */
         if ($builder->repository instanceof RepositoryInterface) {
 
-            (new QueryWorkflow)->process([
-                'builder' => $builder
+            $workflow = Arr::get($builder->workflows, 'query');
+
+            (new $workflow)->setAttribute('name', 'query_form')->passThrough($builder)->process([
+                'builder' => $builder,
             ]);
 
             return;

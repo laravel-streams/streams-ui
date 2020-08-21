@@ -54,7 +54,7 @@ class PlaceholdersGuesser
             /**
              * Try stream specific placeholder.
              */
-            $placeholder = $stream->location('field.' . $field['field'] . '.placeholder.' . $stream->slug);
+            $placeholder = $stream->location('field.' . $field['field'] . '.placeholder.' . $stream->handle);
 
             if (!isset($field['placeholder']) && trans()->has($placeholder)) {
                 $field['placeholder'] = $placeholder;

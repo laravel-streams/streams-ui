@@ -27,7 +27,7 @@ class PopulateFields
         }
 
         $builder->instance->fields->each(function($field) use ($entry) {
-            $field->type()->value = $entry->{$field->handle} ?? null;
+            $field->type()->value = $entry->{$field->handle};
         });
     }
 }

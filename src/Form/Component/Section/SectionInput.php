@@ -64,7 +64,7 @@ class SectionInput
     {
         $sections = $builder->sections;
 
-        foreach ($sections as $slug => &$section) {
+        foreach ($sections as $handle => &$section) {
 
             if (is_string($section)) {
                 $section = [

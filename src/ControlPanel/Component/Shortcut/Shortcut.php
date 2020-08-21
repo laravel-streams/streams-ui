@@ -26,7 +26,7 @@ class Shortcut implements Arrayable, Jsonable
      * @var array
      */
     protected $attributes = [
-        'slug' => null,
+        'handle' => null,
         'title' => null,
         'label' => null,
         'policy' => null,

@@ -2,7 +2,11 @@
 
 namespace Anomaly\Streams\Ui;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
+use Anomaly\Streams\Platform\Stream\Stream;
+use Anomaly\Streams\Platform\Support\Facades\Streams;
+use Anomaly\Streams\Ui\Form\FormBuilder;
 
 /**
  * Class StreamsServiceProvider
@@ -20,7 +24,7 @@ class UiServiceProvider extends ServiceProvider
      * @var array
      */
     public $aliases = [
-        //'UI' => \Anomaly\Streams\Platform\Support\Facades\Streams::class
+        //'UI' => \Anomaly\Streams\Ui\Support\Facades\UI::class
     ];
 
     /**
@@ -38,7 +42,7 @@ class UiServiceProvider extends ServiceProvider
      * @var array
      */
     public $singletons = [
-        //'locator' => \Anomaly\Streams\Platform\Support\Locator::class,
+        //'ui' => \Anomaly\Streams\Ui\Support\Locator::class,
 
 
         \Anomaly\Streams\Ui\Icon\IconRegistry::class                     => \Anomaly\Streams\Ui\Icon\IconRegistry::class,
@@ -57,8 +61,7 @@ class UiServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //$this->registerInputTypes();
-        
+        //$this->registerInputTypes();        
     }
 
     /**
@@ -66,14 +69,29 @@ class UiServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /**
-         * Register publishables.
-         */
-        $this->publishes([
-            base_path('vendor/anomaly/streams-ui/docs') => base_path(
-                implode(DIRECTORY_SEPARATOR, ['docs', 'ui'])
-            )
-        ], ['docs']);
+        Stream::macro('form', function(array $attributes = []) {
+            
+            $attributes['stream'] = $this;
+
+            return new FormBuilder($attributes);
+        });
+        
+        Streams::macro('form', function($attributes) {
+
+            if ($attributes instanceof Stream) {
+                return $attributes->form();
+            }
+
+            if (is_string($attributes)) {
+                $attributes = [
+                    'stream' => $attributes,
+                ];
+            }
+
+            $stream = Arr::pull($attributes, 'stream');
+
+            return Streams::make($stream)->form($attributes);
+        });
     }
 
     /**

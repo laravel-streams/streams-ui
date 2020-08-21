@@ -25,11 +25,11 @@ class ViewRegistry
      */
     protected $views = [
         'all'               => [
-            'slug' => 'all',
+            'handle' => 'all',
             'text' => 'streams::view.all',
         ],
         'trash'             => [
-            'slug'    => 'trash',
+            'handle'    => 'trash',
             'text'    => 'streams::view.trash',
             'view'    => Trash::class,
             'buttons' => [
@@ -43,12 +43,12 @@ class ViewRegistry
             ],
         ],
         'recently_created'  => [
-            'slug' => 'recently_created',
+            'handle' => 'recently_created',
             'text' => 'streams::view.recently_created',
             'view' => RecentlyCreated::class,
         ],
         'recently_modified' => [
-            'slug' => 'recently_modified',
+            'handle' => 'recently_modified',
             'text' => 'streams::view.recently_modified',
             'view' => RecentlyModified::class,
         ],

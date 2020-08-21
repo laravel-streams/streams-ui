@@ -2,9 +2,9 @@
 
 namespace Anomaly\Streams\Ui\Form\Component\Field;
 
-use Anomaly\Streams\Platform\Field\Field;
 use Anomaly\Streams\Ui\Support\Builder;
-use Anomaly\Streams\Ui\Form\Component\Field\Workflows\BuildWorkflow;
+use Anomaly\Streams\Platform\Field\Field;
+use Anomaly\Streams\Ui\Form\Component\Field\Workflows\BuildFields;
 
 /**
  * Class FieldTypeBuilder
@@ -30,6 +30,8 @@ class FieldBuilder extends Builder
 
         'field' => Field::class,
         
-        'build_workflow' => BuildWorkflow::class,
+        'workflows' => [
+            'build' => BuildFields::class,
+        ],
     ];
 }

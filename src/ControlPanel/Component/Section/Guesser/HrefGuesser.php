@@ -34,10 +34,10 @@ class HrefGuesser
                 continue;
             }
 
-            $href = url('admin/' . $module->getSlug());
+            $href = url('admin/' . $module->getHandle());
 
-            if ($index !== 0 && $module->getSlug() !== $section['slug']) {
-                $href .= '/' . $section['slug'];
+            if ($index !== 0 && $module->getHandle() !== $section['handle']) {
+                $href .= '/' . $section['handle'];
             }
 
             $section['attributes']['href'] = $href;

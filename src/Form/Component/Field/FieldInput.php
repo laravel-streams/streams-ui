@@ -80,7 +80,7 @@ class FieldInput
     {
         $fields = $builder->fields;
 
-        foreach ($fields as $slug => &$field) {
+        foreach ($fields as $handle => &$field) {
 
             /*
              * If the field is a wild card marker
@@ -91,23 +91,23 @@ class FieldInput
             }
 
             /*
-             * If the slug is numeric and the field
+             * If the handle is numeric and the field
              * is a string then use the field as is.
              */
-            if (is_numeric($slug) && is_string($field)) {
+            if (is_numeric($handle) && is_string($field)) {
                 $field = [
                     'field' => $field,
                 ];
             }
 
             /*
-             * If the slug is a string and the field
+             * If the handle is a string and the field
              * is a string too then use the field as the
              * type and the field as well.
              */
-            if (!is_numeric($slug) && is_string($slug) && is_string($field)) {
+            if (!is_numeric($handle) && is_string($handle) && is_string($field)) {
                 $field = [
-                    'field' => $slug,
+                    'field' => $handle,
                     'type'  => $field,
                 ];
             }
@@ -115,10 +115,10 @@ class FieldInput
             /*
              * If the field is an array and does not
              * have the field parameter set then
-             * use the slug.
+             * use the handle.
              */
             if (is_array($field) && !isset($field['field'])) {
-                $field['field'] = $slug;
+                $field['field'] = $handle;
             }
 
             /*
@@ -159,7 +159,7 @@ class FieldInput
         /*
          * Fill with everything by default.
          */
-        $fill = $stream->fields->slugs()->all();
+        $fill = $stream->fields->handles()->all();
 
         /*
          * Loop over field configurations and unset

@@ -37,7 +37,7 @@ class Action extends Button
         'save' => true,
         'active' => false,
 
-        'slug' => 'default',
+        'handle' => 'default',
         'handler' => ActionHandler::class,
     ];
 
@@ -50,7 +50,7 @@ class Action extends Button
     {
         return array_merge(parent::attributes(), [
             'class' => $this->class,
-            'value' => $this->slug,
+            'value' => $this->handle,
             'type'  => $this->type,
             'name'  => 'action',
         ], $attributes);

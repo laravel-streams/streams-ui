@@ -2,6 +2,7 @@
 
 namespace Anomaly\Streams\Ui\Form\Workflows\Build;
 
+use Illuminate\Support\Arr;
 use Anomaly\Streams\Ui\Form\FormBuilder;
 use Anomaly\Streams\Ui\Form\Component\Section\SectionBuilder;
 
@@ -26,6 +27,11 @@ class BuildSections
             return;
         }
 
-        SectionBuilder::build($builder);
+        $workflow = Arr::get($builder->workflows, 'sections');
+
+        (new $workflow)->setAttribute('name', 'build_sections')->passThrough($builder)->process([
+            'builder' => $builder,
+            'component' => 'sections',
+        ]);
     }
 }

@@ -3,16 +3,15 @@
 namespace Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields;
 
 use Anomaly\Streams\Ui\Form\FormBuilder;
-use Anomaly\Streams\Ui\Support\Normalizer;
 
 /**
- * Class PopulateFields
+ * Class DefaultFields
  *
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class PopulateFields
+class DefaultFields
 {
 
     /**
@@ -22,12 +21,20 @@ class PopulateFields
      */
     public function handle(FormBuilder $builder)
     {
-        if (!$entry = $builder->instance->entry) {
+        if ($builder->fields) {
             return;
         }
+    
+        /**
+         * If no fields are set and this
+         * is a streams field - we can just
+         * move the fields over and be done.
+         */
+        if ($builder->entry && $builder->stream) {
+            
+            $builder->instance->fields = $builder->stream->fields;
 
-        $builder->instance->fields->each(function($field) use ($entry) {
-            $field->type()->value = $entry->{$field->handle} ?? null;
-        });
+            return;
+        }
     }
 }

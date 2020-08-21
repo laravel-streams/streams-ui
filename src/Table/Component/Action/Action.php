@@ -38,7 +38,7 @@ class Action extends Button
         'save' => true,
         'active' => false,
 
-        'slug' => 'default',
+        'handle' => 'default',
         'handler' => ActionHandler::class,
     ];
 }

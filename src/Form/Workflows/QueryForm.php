@@ -2,9 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Form\Workflows;
 
-use Anomaly\Streams\Platform\Workflow\Workflow;
+use Anomaly\Streams\Platform\Support\Workflow;
 use Anomaly\Streams\Ui\Support\Workflows\StartQuery;
-use Anomaly\Streams\Ui\Form\Workflows\Query\FilterQuery;
 use Anomaly\Streams\Ui\Form\Workflows\Query\FinishQuery;
 
 /**
@@ -14,7 +13,7 @@ use Anomaly\Streams\Ui\Form\Workflows\Query\FinishQuery;
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
  */
-class QueryWorkflow extends Workflow
+class QueryForm extends Workflow
 {
 
     /**

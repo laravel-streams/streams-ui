@@ -24,48 +24,48 @@ class NormalizeButtons
     {
         $buttons = $builder->buttons;
 
-        foreach ($buttons as $slug => &$button) {
+        foreach ($buttons as $handle => &$button) {
 
             /*
-             * If the slug is numeric and the button is
+             * If the handle is numeric and the button is
              * a string then treat the string as both the
-             * button and the slug. This is OK as long as
+             * button and the handle. This is OK as long as
              * there are not multiple instances of this
              * input using the same button which is not likely.
              */
-            if (is_numeric($slug) && is_string($button)) {
+            if (is_numeric($handle) && is_string($button)) {
                 $button = [
-                    'slug' => $button,
+                    'handle' => $button,
                     'button' => $button,
                 ];
             }
 
             /*
-             * If the slug is NOT numeric and the button is a
-             * string then use the slug as the slug and the
+             * If the handle is NOT numeric and the button is a
+             * string then use the handle as the handle and the
              * button as the button.
              */
-            if (!is_numeric($slug) && is_string($button)) {
+            if (!is_numeric($handle) && is_string($button)) {
                 $button = [
-                    'slug' => $slug,
+                    'handle' => $handle,
                     'button' => $button,
                 ];
             }
 
             /*
-             * If the slug is not numeric and the button is an
-             * array without a slug then use the slug for
-             * the slug for the button.
+             * If the handle is not numeric and the button is an
+             * array without a handle then use the handle for
+             * the handle for the button.
              */
-            if (is_array($button) && !isset($button['slug']) && !is_numeric($slug)) {
-                $button['slug'] = $slug;
+            if (is_array($button) && !isset($button['handle']) && !is_numeric($handle)) {
+                $button['handle'] = $handle;
             }
 
             /*
              * Make sure we have a button property.
              */
             if (is_array($button) && !isset($button['button'])) {
-                $button['button'] = $button['slug'];
+                $button['button'] = $button['handle'];
             }
         }
 
@@ -75,7 +75,7 @@ class NormalizeButtons
          * Go back over and assume HREFs.
          * @todo rebutton this - from guesser
          */
-        foreach ($buttons as $slug => &$button) {
+        foreach ($buttons as $handle => &$button) {
             //
         }
 

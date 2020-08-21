@@ -28,15 +28,15 @@ class ViewCollection extends Collection
     }
 
     /**
-     * Find a view by it's slug.
+     * Find a view by it's handle.
      *
-     * @param $slug
+     * @param $handle
      * @return null|View
      */
-    public function findBySlug($slug)
+    public function findByHandle($handle)
     {
-        return $this->first(function ($item) use ($slug) {
-            return $item->slug === $slug;
+        return $this->first(function ($item) use ($handle) {
+            return $item->handle === $handle;
         });
     }
 }

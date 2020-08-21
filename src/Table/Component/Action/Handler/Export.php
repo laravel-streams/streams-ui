@@ -28,7 +28,7 @@ class Export
         $stream = $builder->stream;
 
         $headers = [
-            'Content-Disposition' => 'attachment; filename=' . $stream->slug . '.csv',
+            'Content-Disposition' => 'attachment; filename=' . $stream->handle . '.csv',
             'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0',
             'Content-type'        => 'text/csv',
             'Pragma'              => 'public',

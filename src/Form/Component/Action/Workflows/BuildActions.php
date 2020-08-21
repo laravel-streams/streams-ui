@@ -13,13 +13,13 @@ use Anomaly\Streams\Ui\Form\Component\Action\Workflows\Actions\SetActiveAction;
 use Anomaly\Streams\Ui\Form\Component\Action\Workflows\Actions\NormalizeActions;
 
 /**
- * Class ActionsWorkflow
+ * Class BuildActions
  *
  * @link    http://pyrocms.com/
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
  */
-class ActionsWorkflow extends Workflow
+class BuildActions extends Workflow
 {
 
     /**

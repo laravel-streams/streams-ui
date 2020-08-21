@@ -95,22 +95,22 @@ class ShortcutInput
         /*
          * Move child shortcuts into main array.
          */
-        foreach ($shortcuts as $slug => &$shortcut) {
+        foreach ($shortcuts as $handle => &$shortcut) {
             if (isset($shortcut['shortcuts'])) {
                 foreach ($shortcut['shortcuts'] as $key => $child) {
 
                     /**
-                     * It's a slug only!
+                     * It's a handle only!
                      */
                     if (is_string($child)) {
 
                         $key = $child;
 
-                        $child = ['slug' => $child];
+                        $child = ['handle' => $child];
                     }
 
-                    $child['parent'] = Arr::get($shortcut, 'slug', $slug);
-                    $child['slug']   = Arr::get($child, 'slug', $key);
+                    $child['parent'] = Arr::get($shortcut, 'handle', $handle);
+                    $child['handle']   = Arr::get($child, 'handle', $key);
 
                     $shortcuts[$key] = $child;
                 }
@@ -121,24 +121,24 @@ class ShortcutInput
          * Loop over each shortcut and make sense of the input
          * provided for the given module.
          */
-        foreach ($shortcuts as $slug => &$shortcut) {
+        foreach ($shortcuts as $handle => &$shortcut) {
 
             /*
-             * If the slug is not valid and the shortcut
-             * is a string then use the shortcut as the slug.
+             * If the handle is not valid and the shortcut
+             * is a string then use the shortcut as the handle.
              */
-            if (is_numeric($slug) && is_string($shortcut)) {
+            if (is_numeric($handle) && is_string($shortcut)) {
                 $shortcut = [
-                    'slug' => $shortcut,
+                    'handle' => $shortcut,
                 ];
             }
 
             /*
-             * If the slug is a string and the title is not
-             * set then use the slug as the slug.
+             * If the handle is a string and the title is not
+             * set then use the handle as the handle.
              */
-            if (is_string($slug) && !isset($shortcut['slug'])) {
-                $shortcut['slug'] = $slug;
+            if (is_string($handle) && !isset($shortcut['handle'])) {
+                $shortcut['handle'] = $handle;
             }
         }
 

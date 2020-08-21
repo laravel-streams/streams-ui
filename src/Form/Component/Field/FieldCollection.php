@@ -234,12 +234,12 @@ class FieldCollection extends Collection
     }
 
     /**
-     * Return a unique array of field slugs
+     * Return a unique array of field handles
      * for all the fields in the collection.
      *
      * @return array
      */
-    public function slugs()
+    public function handles()
     {
         return $this->map(function ($field) {
             return $field->field;

@@ -54,7 +54,7 @@ class InstructionsGuesser
             /**
              * Try stream specific instructions.
              */
-            $instructions = $stream->location('field.' . $field['field'] . '.instructions.' . $stream->slug);
+            $instructions = $stream->location('field.' . $field['field'] . '.instructions.' . $stream->handle);
 
             if (!isset($field['instructions']) && trans()->has($instructions)) {
                 $field['instructions'] = $instructions;
