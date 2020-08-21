@@ -29,6 +29,8 @@ class RowBuilder extends Builder
 
         'row' => Row::class,
 
-        'build_workflow' => BuildWorkflow::class,
+        'workflows' => [
+            'build' => BuildWorkflow::class,
+        ],
     ];
 }

@@ -2,20 +2,20 @@
 
 namespace Anomaly\Streams\Ui\Table\Component\Row\Workflows;
 
-use Anomaly\Streams\Platform\Workflow\Workflow;
+use Anomaly\Streams\Platform\Support\Workflow;
 use Anomaly\Streams\Ui\Support\Workflows\BuildComponents;
 use Anomaly\Streams\Ui\Support\Workflows\ResolveComponents;
 use Anomaly\Streams\Ui\Table\Component\Row\Workflows\Rows\DefaultRows;
 use Anomaly\Streams\Ui\Table\Component\Row\Workflows\Rows\ValuateRows;
 
 /**
- * Class RowsWorkflow
+ * Class BuildRows
  *
  * @link    http://pyrocms.com/
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
  */
-class RowsWorkflow extends Workflow
+class BuildRows extends Workflow
 {
 
     /**
@@ -29,6 +29,8 @@ class RowsWorkflow extends Workflow
         DefaultRows::class,
 
         'build_rows' => BuildComponents::class,
+
+        // Load columns
 
         ValuateRows::class,
     ];

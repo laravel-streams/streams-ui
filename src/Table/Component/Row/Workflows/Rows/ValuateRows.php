@@ -5,6 +5,7 @@ namespace Anomaly\Streams\Ui\Table\Component\Row\Workflows\Rows;
 use Illuminate\Support\Arr;
 use Anomaly\Streams\Ui\Support\Value;
 use Anomaly\Streams\Ui\Table\TableBuilder;
+use Illuminate\Support\Collection;
 
 /**
  * Class ValuateRows
@@ -23,16 +24,29 @@ class ValuateRows
      */
     public function handle(TableBuilder $builder)
     {
-        $builder->instance->rows->each(function ($row) {
-            
-            foreach ($row->columns as &$column) {
-                $column->value = Value::make($column->getAttributes(), $row->entry);
+        $builder->instance->rows->each(function ($row) use ($builder) {
+
+            $row->columns = new Collection();
+            $row->buttons = new Collection();
+
+            foreach ($builder->instance->columns as $key => $column) {
+
+                $clone = clone ($column);
+
+                $clone->value = Value::make($column->getAttributes(), $row->entry);
+
+                $row->columns->put($key, $clone);
             }
 
-            foreach ($row->buttons as &$button) {
-                $button->fill(Arr::parse($button->getAttributes(), [
+            foreach ($builder->instance->buttons as $button) {
+
+                $clone = clone ($button);
+
+                $clone->fill(Arr::parse($button->getAttributes(), [
                     'entry' => $row->entry,
                 ]));
+
+                $row->buttons->put($key, $clone);
             }
         });
     }

@@ -2,7 +2,7 @@
 
 namespace Anomaly\Streams\Ui\Table\Component\Button\Workflows;
 
-use Anomaly\Streams\Platform\Workflow\Workflow;
+use Anomaly\Streams\Platform\Support\Workflow;
 use Anomaly\Streams\Ui\Support\Workflows\BuildComponents;
 use Anomaly\Streams\Ui\Support\Workflows\MergeComponents;
 use Anomaly\Streams\Ui\Support\Workflows\ParseComponents;
@@ -12,13 +12,13 @@ use Anomaly\Streams\Ui\Table\Component\Button\Workflows\Buttons\DefaultButtons;
 use Anomaly\Streams\Ui\Table\Component\Button\Workflows\Buttons\NormalizeButtons;
 
 /**
- * Class ButtonsWorkflow
+ * Class BuildButtons
  *
  * @link    http://pyrocms.com/
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
  */
-class ButtonsWorkflow extends Workflow
+class BuildButtons extends Workflow
 {
 
     /**

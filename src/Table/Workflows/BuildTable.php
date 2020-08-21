@@ -53,6 +53,6 @@ class BuildTable extends Workflow
         BuildFilters::class,
         BuildColumns::class,
         BuildButtons::class,
-        //BuildRows::class,
+        BuildRows::class,
     ];
 }

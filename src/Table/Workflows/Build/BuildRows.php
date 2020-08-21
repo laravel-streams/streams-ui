@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Table\Workflows\Build;
 
+use Illuminate\Support\Arr;
 use Anomaly\Streams\Ui\Table\TableBuilder;
-use Anomaly\Streams\Ui\Table\Component\Row\Workflows\RowsWorkflow;
 
 /**
  * Class BuildRows
@@ -30,7 +30,9 @@ class BuildRows
             return;
         }
 
-        (new RowsWorkflow())->process([
+        $workflow = Arr::get($builder->workflows, 'rows');
+
+        (new $workflow)->setAttribute('name', 'build_rows')->passThrough($builder)->process([
             'builder' => $builder,
             'component' => 'rows',
         ]);
