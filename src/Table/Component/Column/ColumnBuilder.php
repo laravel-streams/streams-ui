@@ -3,7 +3,7 @@
 namespace Anomaly\Streams\Ui\Table\Component\Column;
 
 use Anomaly\Streams\Ui\Support\Builder;
-use Anomaly\Streams\Ui\Support\Workflows\BuildWorkflow;
+use Anomaly\Streams\Ui\Support\Workflows\BuildComponent;
 
 /**
  * Class ColumnBuilder
@@ -30,7 +30,7 @@ class ColumnBuilder extends Builder
         'column' => Column::class,
 
         'workflows' => [
-            'build' => BuildWorkflow::class,
+            'build' => BuildComponent::class,
         ],
     ];
 }

@@ -9,13 +9,13 @@ use Anomaly\Streams\Ui\Support\Workflows\LoadAssets;
 use Anomaly\Streams\Ui\Support\Workflows\MakeComponent;
 
 /**
- * Class BuildWorkflow
+ * Class BuildComponent
  *
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class BuildWorkflow extends Workflow
+class BuildComponent extends Workflow
 {
 
     /**
@@ -24,7 +24,6 @@ class BuildWorkflow extends Workflow
      * @var array
      */
     protected $steps = [
-
         MakeComponent::class,
 
         LoadAssets::class,

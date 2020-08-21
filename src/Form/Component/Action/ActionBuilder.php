@@ -4,7 +4,7 @@ namespace Anomaly\Streams\Ui\Form\Component\Action;
 
 use Anomaly\Streams\Ui\Support\Builder;
 use Anomaly\Streams\Ui\Form\Component\Action\Action;
-use Anomaly\Streams\Ui\Support\Workflows\BuildWorkflow;
+use Anomaly\Streams\Ui\Support\Workflows\BuildComponent;
 
 /**
  * Class ActionBuilder
@@ -31,7 +31,7 @@ class ActionBuilder extends Builder
         'action' => Action::class,
         
         'workflows' => [
-            'build' => BuildWorkflow::class,
+            'build' => BuildComponent::class,
         ],
     ];
 }

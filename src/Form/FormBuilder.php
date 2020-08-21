@@ -92,6 +92,7 @@ class FormBuilder extends Builder
      */
     public function validate()
     {
+        dd('Test');
         dispatch_now(new LoadFormValues($this));
         dispatch_now(new ValidateForm($this));
 

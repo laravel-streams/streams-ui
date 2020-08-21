@@ -19,35 +19,15 @@ use Anomaly\Streams\Ui\Form\Workflows\Build\HandleRequest;
 use Anomaly\Streams\Ui\Form\Workflows\Build\SetValidation;
 
 /**
- * Class QueryWorkflow
+ * Class PostForm
  *
  * @link    http://pyrocms.com/
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
  */
-class BuildForm extends Workflow
+class PostForm extends Workflow
 {
     protected $steps = [
-        MakeComponent::class,
         
-        LoadAssets::class,
-        LoadBreadcrumb::class,        
-        
-        SetStream::class,
-        SetOptions::class,
-        
-        SetRepository::class,
-        SetEntry::class,
-        
-        AuthorizeForm::class,
-
-        SetValidation::class,
-        
-        BuildFields::class,
-        BuildActions::class,
-        BuildButtons::class,
-        BuildSections::class,
-        
-        HandleRequest::class,
     ];
 }

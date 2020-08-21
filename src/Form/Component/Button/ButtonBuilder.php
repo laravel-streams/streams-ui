@@ -5,7 +5,7 @@ namespace Anomaly\Streams\Ui\Form\Component\Button;
 use Anomaly\Streams\Ui\Button\Button;
 use Anomaly\Streams\Ui\Support\Builder;
 use Anomaly\Streams\Ui\Form\Component\Button\Workflows\BuildButtons;
-use Anomaly\Streams\Ui\Support\Workflows\BuildWorkflow;
+use Anomaly\Streams\Ui\Support\Workflows\BuildComponent;
 
 /**
  * Class ButtonBuilder
@@ -32,7 +32,7 @@ class ButtonBuilder extends Builder
         'button' => Button::class,
 
         'workflows' => [
-            'build' => BuildWorkflow::class,
+            'build' => BuildComponent::class,
         ],
     ];
 }

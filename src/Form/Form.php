@@ -37,6 +37,9 @@ class Form extends Component
             'values' => new Collection(),
             'options' => new Collection(),
 
+            'rules' => new Collection(),
+            'validators' => new Collection(),
+
             'errors' => new MessageBag(),
 
             'fields' => new FieldCollection(),
@@ -51,6 +54,13 @@ class Form extends Component
             'type' => 'collection',
         ],
         'options' => [
+            'type' => 'collection',
+        ],
+
+        'rules' => [
+            'type' => 'collection',
+        ],
+        'validators' => [
             'type' => 'collection',
         ],
 

@@ -3,7 +3,7 @@
 namespace Anomaly\Streams\Ui\Table\Component\View;
 
 use Anomaly\Streams\Ui\Support\Builder;
-use Anomaly\Streams\Ui\Support\Workflows\BuildWorkflow;
+use Anomaly\Streams\Ui\Support\Workflows\BuildComponent;
 
 /**
  * Class ViewBuilder
@@ -30,7 +30,7 @@ class ViewBuilder extends Builder
         'view' => View::class,
 
         'workflows' => [
-            'build' => BuildWorkflow::class,
+            'build' => BuildComponent::class,
         ],
     ];
 }

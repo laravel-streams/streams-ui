@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Table\Workflows\Build;
 
-use Illuminate\Support\Arr;
 use Anomaly\Streams\Ui\Table\TableBuilder;
+use Anomaly\Streams\Ui\Support\Workflows\BuildChildren;
 
 /**
  * Class BuildFilters
@@ -12,25 +12,10 @@ use Anomaly\Streams\Ui\Table\TableBuilder;
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
  */
-class BuildFilters
+class BuildFilters extends BuildChildren
 {
-
-    /**
-     * Handle the step.
-     * 
-     * @param TableBuilder $builder
-     */
     public function handle(TableBuilder $builder)
     {
-        if ($builder->filters === false) {
-            return;
-        }
-
-        $workflow = Arr::get($builder->workflows, 'filters');
-
-        (new $workflow)->setAttribute('name', 'build_filters')->passThrough($builder)->process([
-            'builder' => $builder,
-            'component' => 'filters',
-        ]);
+        $this->build($builder, 'filters');
     }
 }

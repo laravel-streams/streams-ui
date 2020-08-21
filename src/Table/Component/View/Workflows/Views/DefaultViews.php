@@ -21,15 +21,15 @@ class DefaultViews
      */
     public function handle(TableBuilder $builder)
     {
-        if (!$stream = $builder->stream) {
+        if (!$builder->stream) {
             return;
         }
 
         //if ($stream->trashable && !$builder->views && !$builder->async) {
-        $builder->views = [
-            'all',
-            'trash',
-        ];
+        // $builder->views = [
+        //     'all',
+        //     'trash',
+        // ];
         //}
     }
 }

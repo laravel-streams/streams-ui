@@ -3,7 +3,7 @@
 namespace Anomaly\Streams\Ui\Form\Component\Section;
 
 use Anomaly\Streams\Ui\Support\Builder;
-use Anomaly\Streams\Ui\Support\Workflows\BuildWorkflow;
+use Anomaly\Streams\Ui\Support\Workflows\BuildComponent;
 use Anomaly\Streams\Ui\ControlPanel\Component\Section\Section;
 
 /**
@@ -32,7 +32,7 @@ class SectionBuilder extends Builder
         
         'workflows' => [
             //'build' => BuildSections::class,
-            'build' => BuildWorkflow::class,
+            'build' => BuildComponent::class,
         ],
     ];
 }

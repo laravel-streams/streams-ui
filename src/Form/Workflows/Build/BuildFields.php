@@ -14,6 +14,7 @@ use Anomaly\Streams\Ui\Form\Component\Field\Workflows\FieldsWorkflow;
 use Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields\DefaultFields;
 use Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields\PopulateFields;
 use Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields\NormalizeFields;
+use Anomaly\Streams\Ui\Support\Workflows\BuildChildren;
 
 /**
  * Class BuildFields
@@ -22,25 +23,11 @@ use Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields\NormalizeFields;
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
  */
-class BuildFields
+class BuildFields extends BuildChildren
 {
 
-    /**
-     * Handle the step.
-     * 
-     * @param FormBuilder $builder
-     */
     public function handle(FormBuilder $builder)
     {
-        if ($builder->fields === false) {
-            return;
-        }
-
-        $workflow = Arr::get($builder->workflows, 'fields');
-
-        (new $workflow)->setAttribute('name', 'build_fields')->passThrough($builder)->process([
-            'builder' => $builder,
-            'component' => 'fields',
-        ]);
+        $this->build($builder, 'fields');
     }
 }

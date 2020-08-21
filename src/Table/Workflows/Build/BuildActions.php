@@ -2,9 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Table\Workflows\Build;
 
-use Illuminate\Support\Arr;
 use Anomaly\Streams\Ui\Table\TableBuilder;
-use Anomaly\Streams\Ui\Table\Component\Action\Workflows\ActionsWorkflow;
+use Anomaly\Streams\Ui\Support\Workflows\BuildChildren;
 
 /**
  * Class BuildActions
@@ -13,7 +12,7 @@ use Anomaly\Streams\Ui\Table\Component\Action\Workflows\ActionsWorkflow;
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
  */
-class BuildActions
+class BuildActions extends BuildChildren
 {
 
     /**
@@ -23,15 +22,6 @@ class BuildActions
      */
     public function handle(TableBuilder $builder)
     {
-        if ($builder->actions === false) {
-            return;
-        }
-
-        $workflow = Arr::get($builder->workflows, 'actions');
-
-        (new $workflow)->setAttribute('name', 'build_actions')->passThrough($builder)->process([
-            'builder' => $builder,
-            'component' => 'actions',
-        ]);
+        $this->build($builder, 'actions');
     }
 }

@@ -3,7 +3,7 @@
 namespace Anomaly\Streams\Ui\Table\Component\Filter;
 
 use Anomaly\Streams\Ui\Support\Builder;
-use Anomaly\Streams\Ui\Support\Workflows\BuildWorkflow;
+use Anomaly\Streams\Ui\Support\Workflows\BuildComponent;
 
 /**
  * Class FilterBuilder
@@ -30,7 +30,7 @@ class FilterBuilder extends Builder
         'filter' => Filter::class,
 
         'workflows' => [
-            'build' => BuildWorkflow::class,
+            'build' => BuildComponent::class,
         ],
     ];
 }

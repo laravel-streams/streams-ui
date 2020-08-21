@@ -65,7 +65,7 @@ class SetActiveView
         if ($view->entries) {
             $builder->entries = $view->entries;
         }
-
+dd($view);
         $handler->handle($builder, $view);
     }
 }

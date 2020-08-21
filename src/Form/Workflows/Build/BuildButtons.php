@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Form\Workflows\Build;
 
-use Illuminate\Support\Arr;
 use Anomaly\Streams\Ui\Form\FormBuilder;
+use Anomaly\Streams\Ui\Support\Workflows\BuildChildren;
 
 /**
  * Class BuildButtons
@@ -12,19 +12,10 @@ use Anomaly\Streams\Ui\Form\FormBuilder;
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
  */
-class BuildButtons
+class BuildButtons extends BuildChildren
 {
     public function handle(FormBuilder $builder)
     {
-        if ($builder->buttons === false) {
-            return;
-        }
-
-        $workflow = Arr::get($builder->workflows, 'buttons');
-
-        (new $workflow)->setAttribute('name', 'build_buttons')->passThrough($builder)->process([
-            'builder' => $builder,
-            'component' => 'buttons',
-        ]);
+        $this->build($builder, 'buttons');
     }
 }
