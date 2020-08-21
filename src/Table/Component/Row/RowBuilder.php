@@ -21,6 +21,7 @@ class RowBuilder extends Builder
      * @var array
      */
     protected $attributes = [
+        'entry' => null,
         'parent' => null,
 
         'assets' => [],

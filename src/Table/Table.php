@@ -39,4 +39,41 @@ class Table extends Component
             'filters' => new FilterCollection(),
         ], $attributes));
     }
+
+    protected $properties = [
+        'views' => [
+            'type' => 'collection',
+            'config' => [
+                'abstract' => ViewCollection::class,
+            ],
+        ],
+        'actions' => [
+            'type' => 'collection',
+            'config' => [
+                'abstract' => ActionCollection::class,
+            ],
+        ],
+        'filters' => [
+            'type' => 'collection',
+            'config' => [
+                'abstract' => FilterCollection::class,
+            ],
+        ],
+
+        'rows' => [
+            'type' => 'collection',
+        ],
+        'buttons' => [
+            'type' => 'collection',
+        ],
+        'columns' => [
+            'type' => 'collection',
+        ],
+        'entries' => [
+            'type' => 'collection',
+        ],
+        'options' => [
+            'type' => 'collection',
+        ],
+    ];
 }

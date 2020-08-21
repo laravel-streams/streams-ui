@@ -46,6 +46,47 @@ class Form extends Component
         ], $attributes));
     }
 
+    protected $properties = [
+        'values' => [
+            'type' => 'collection',
+        ],
+        'options' => [
+            'type' => 'collection',
+        ],
+
+        'errors' => [
+            'type' => 'collection',
+            'config' => [
+                'abstract' => MessageBag::class,
+            ],
+        ],
+
+        'fields' => [
+            'type' => 'collection',
+            'config' => [
+                'abstract' => FieldCollection::class,
+            ],
+        ],
+        'actions' => [
+            'type' => 'collection',
+            'config' => [
+                'abstract' => ActionCollection::class,
+            ],
+        ],
+        'buttons' => [
+            'type' => 'collection',
+            'config' => [
+                'abstract' => ButtonCollection::class,
+            ],
+        ],
+        'sections' => [
+            'type' => 'collection',
+            'config' => [
+                'abstract' => SectionCollection::class,
+            ],
+        ],
+    ];
+
     /**
      * Return the opening form tag.
      *

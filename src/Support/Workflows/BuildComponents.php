@@ -2,7 +2,6 @@
 
 namespace Anomaly\Streams\Ui\Support\Workflows;
 
-use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Anomaly\Streams\Ui\Support\Builder;
@@ -34,7 +33,7 @@ class BuildComponents
 
         $fallback = "Anomaly\Streams\Ui\\{$parentSegment}\Component\\{$componentSegment}\\{$componentSegment}Builder";
 
-        foreach ($builder->{$component} as $key => $parameters) {
+        foreach ($builder->{$component} as $parameters) {
 
             $parameters['parent'] = $parent;
             $parameters['stream'] = $parent->stream;

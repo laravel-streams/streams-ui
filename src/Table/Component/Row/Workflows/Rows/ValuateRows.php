@@ -45,7 +45,7 @@ class ValuateRows
                 $clone->fill(Arr::parse($button->getAttributes(), [
                     'entry' => $row->entry,
                 ]));
-
+                
                 $row->buttons->put($key, $clone);
             }
         });

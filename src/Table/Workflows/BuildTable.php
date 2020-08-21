@@ -36,11 +36,11 @@ class BuildTable extends Workflow
     protected $steps = [
         MakeComponent::class,
 
-        LoadAssets::class,
-        LoadBreadcrumb::class,        
-
         SetStream::class,
         SetOptions::class,
+        
+        LoadAssets::class,
+        LoadBreadcrumb::class,        
 
         SetRepository::class,
 
