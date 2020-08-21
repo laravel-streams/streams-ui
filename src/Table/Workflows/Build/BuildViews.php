@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Table\Workflows\Build;
 
+use Illuminate\Support\Arr;
 use Anomaly\Streams\Ui\Table\TableBuilder;
-use Anomaly\Streams\Ui\Table\Component\View\Workflows\ViewsWorkflow;
 
 /**
  * Class BuildViews
@@ -26,7 +26,9 @@ class BuildViews
             return;
         }
 
-        (new ViewsWorkflow)->process([
+        $workflow = Arr::get($builder->workflows, 'views');
+
+        (new $workflow)->setAttribute('name', 'build_views')->passThrough($builder)->process([
             'builder' => $builder,
             'component' => 'views',
         ]);

@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Anomaly\Streams\Platform\Stream\Stream;
 use Anomaly\Streams\Platform\Support\Facades\Streams;
 use Anomaly\Streams\Ui\Form\FormBuilder;
+use Anomaly\Streams\Ui\Table\TableBuilder;
 
 /**
  * Class StreamsServiceProvider
@@ -91,6 +92,32 @@ class UiServiceProvider extends ServiceProvider
             $stream = Arr::pull($attributes, 'stream');
 
             return Streams::make($stream)->form($attributes);
+        });
+
+
+
+        Stream::macro('table', function(array $attributes = []) {
+            
+            $attributes['stream'] = $this;
+
+            return new TableBuilder($attributes);
+        });
+        
+        Streams::macro('table', function($attributes) {
+
+            if ($attributes instanceof Stream) {
+                return $attributes->table();
+            }
+
+            if (is_string($attributes)) {
+                $attributes = [
+                    'stream' => $attributes,
+                ];
+            }
+
+            $stream = Arr::pull($attributes, 'stream');
+
+            return Streams::make($stream)->table($attributes);
         });
     }
 

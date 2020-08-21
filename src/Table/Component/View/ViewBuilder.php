@@ -29,6 +29,8 @@ class ViewBuilder extends Builder
 
         'view' => View::class,
 
-        'build_workflow' => BuildWorkflow::class,
+        'workflows' => [
+            'build' => BuildWorkflow::class,
+        ],
     ];
 }

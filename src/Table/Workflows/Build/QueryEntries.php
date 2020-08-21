@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Table\Workflows\Build;
 
+use Illuminate\Support\Arr;
 use Anomaly\Streams\Ui\Table\TableBuilder;
-use Anomaly\Streams\Ui\Table\Workflows\QueryWorkflow;
 
 /**
  * Class QueryEntries
@@ -31,7 +31,9 @@ class QueryEntries
             return;
         }
 
-        (new QueryWorkflow())->process([
+        $workflow = Arr::get($builder->workflows, 'query');
+
+        (new $workflow)->setAttribute('name', 'query_table')->passThrough($builder)->process([
             'builder' => $builder,
         ]);
     }
