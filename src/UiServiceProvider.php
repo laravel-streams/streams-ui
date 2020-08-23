@@ -73,8 +73,12 @@ class UiServiceProvider extends ServiceProvider
         Lang::addNamespace('ui', base_path('vendor/anomaly/streams-ui/resources/lang'));
         View::addNamespace('ui', base_path('vendor/anomaly/streams-ui/resources/views'));
         
-        Stream::macro('form', function(array $attributes = []) {
+        Stream::macro('form', function($attributes = []) {
             
+            $default = Arr::get($this->ui, 'form', []);
+
+            $attributes = array_merge($attributes, $default);
+
             $attributes['stream'] = $this;
 
             return new FormBuilder($attributes);
@@ -99,8 +103,12 @@ class UiServiceProvider extends ServiceProvider
 
 
 
-        Stream::macro('table', function(array $attributes = []) {
+        Stream::macro('table', function($attributes = []) {
             
+            $default = Arr::get($this->ui, 'table', []);
+
+            $attributes = array_merge($attributes, $default);
+
             $attributes['stream'] = $this;
 
             return new TableBuilder($attributes);
