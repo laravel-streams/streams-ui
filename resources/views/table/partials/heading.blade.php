@@ -1,7 +1,7 @@
-@if ($table->options->get('title') || $table->options->get('description'))
+{{-- @if ($table->options->get('title') || $table->options->get('description')) --}}
 <div>
-    
-    @if ($table->options->get('title'))
+HEADING: Title/Description
+    {{-- @if ($table->options->get('title'))
     <div class="title">
         {{ $table->options->get('title') }}
     </div>
@@ -11,7 +11,7 @@
     <div class="subtitle-1">
         {{ $table->options->get('description') }}
     </div>
-    @endif
+    @endif --}}
 
 </div>
-@endif
+{{-- @endif --}}

@@ -1,3 +1,3 @@
 <form>
-    <input type="text" placeholder="{{ trans('streams::message.search') }}...">
+    <input type="text" placeholder="{{ trans('ui::message.search') }}...">
 </form>

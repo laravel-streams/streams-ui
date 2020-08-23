@@ -26,7 +26,7 @@ class FilterRegistry
         'search'     => [
             'handle'        => 'search',
             'filter'      => SearchFilter::class,
-            'placeholder' => 'streams::message.search',
+            'placeholder' => 'ui::message.search',
         ],
     ];
 

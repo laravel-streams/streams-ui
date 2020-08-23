@@ -23,7 +23,7 @@ class ButtonCollection extends Collection
      */
     public function render()
     {
-        return view('streams::ui/buttons/buttons', ['buttons' => $this]);
+        return view('ui::ui/buttons/buttons', ['buttons' => $this]);
     }
 
     /**

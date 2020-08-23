@@ -49,11 +49,11 @@ class Delete
         }
 
         if ($selected && $count > 0) {
-            $this->messages->success(trans('streams::message.delete_success', compact('count')));
+            $this->messages->success(trans('ui::message.delete_success', compact('count')));
         }
 
         if ($selected && $count === 0) {
-            $this->messages->warning(trans('streams::message.delete_success', compact('count')));
+            $this->messages->warning(trans('ui::message.delete_success', compact('count')));
         }
     }
 }

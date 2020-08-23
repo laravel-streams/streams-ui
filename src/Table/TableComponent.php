@@ -4,6 +4,7 @@ namespace Anomaly\Streams\Ui\Table;
 
 use Illuminate\View\Component;
 use Anomaly\Streams\Ui\Table\Table;
+use Illuminate\Support\Facades\View;
 
 /**
  * Class TableComponent
@@ -39,6 +40,6 @@ class TableComponent extends Component
      */
     public function render()
     {
-        return view('streams::table/component');
+        return View::make('ui::table/component');
     }
 }

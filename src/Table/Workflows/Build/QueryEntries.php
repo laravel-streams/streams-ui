@@ -22,7 +22,6 @@ class QueryEntries
      */
     public function handle(TableBuilder $builder)
     {
-
         if ($builder->entries === false) {
             return;
         }

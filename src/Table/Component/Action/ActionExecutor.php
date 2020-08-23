@@ -63,7 +63,7 @@ class ActionExecutor
          */
         if ($action->policy && !Gate::any((array) $action->policy)) {
 
-            Messages::error('streams::message.403');
+            Messages::error('ui::message.403');
 
             return;
         }
@@ -74,7 +74,7 @@ class ActionExecutor
          */
         if (!$selected = $builder->request('id', [])) {
 
-            messages('warning', trans('streams::message.no_rows_selected'));
+            messages('warning', trans('ui::message.no_rows_selected'));
 
             return;
         }

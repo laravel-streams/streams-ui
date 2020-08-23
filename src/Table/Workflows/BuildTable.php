@@ -47,12 +47,14 @@ class BuildTable extends Workflow
         BuildViews::class,
 
         AuthorizeTable::class,
-        QueryEntries::class,
 
         BuildActions::class,
         BuildFilters::class,
         BuildColumns::class,
         BuildButtons::class,
+
+        QueryEntries::class,
+        
         BuildRows::class,
     ];
 }

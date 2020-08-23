@@ -48,6 +48,6 @@ class Reorder
 
         $builder->fire('reordered', compact('count', 'builder', 'model'));
 
-        $this->messages->success(trans('streams::message.reorder_success', compact('count')));
+        $this->messages->success(trans('ui::message.reorder_success', compact('count')));
     }
 }

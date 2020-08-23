@@ -44,7 +44,7 @@ class ForceDelete
         }
 
         if ($selected) {
-            Messages::success(trans('streams::message.delete_success', compact('count')));
+            Messages::success(trans('ui::message.delete_success', compact('count')));
         }
     }
 }

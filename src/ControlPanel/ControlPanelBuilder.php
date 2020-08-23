@@ -81,7 +81,7 @@ class ControlPanelBuilder
 
         event(new ControlPanelIsBuilding($this));
 
-        assets('scripts.js', 'streams::js/cp/click.js');
+        assets('scripts.js', 'ui::js/cp/click.js');
 
         NavigationBuilder::build($this);
 

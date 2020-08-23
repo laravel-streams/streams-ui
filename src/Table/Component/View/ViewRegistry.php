@@ -26,11 +26,11 @@ class ViewRegistry
     protected $views = [
         'all'               => [
             'handle' => 'all',
-            'text' => 'streams::view.all',
+            'text' => 'ui::view.all',
         ],
         'trash'             => [
             'handle'    => 'trash',
-            'text'    => 'streams::view.trash',
+            'text'    => 'ui::view.trash',
             'view'    => Trash::class,
             'buttons' => [
                 'restore' => [],
@@ -44,12 +44,12 @@ class ViewRegistry
         ],
         'recently_created'  => [
             'handle' => 'recently_created',
-            'text' => 'streams::view.recently_created',
+            'text' => 'ui::view.recently_created',
             'view' => RecentlyCreated::class,
         ],
         'recently_modified' => [
             'handle' => 'recently_modified',
-            'text' => 'streams::view.recently_modified',
+            'text' => 'ui::view.recently_modified',
             'view' => RecentlyModified::class,
         ],
     ];

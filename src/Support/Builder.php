@@ -35,8 +35,12 @@ class Builder
     use Properties;
     use FiresCallbacks;
 
-    public function build(): Component
+    public function build(): Builder
     {
+        if ($this->instance instanceof Component) {
+            $this->instance;
+        }
+
         $this->fire('ready', ['builder' => $this]);
 
         $workflow = $this->workflow('build');
@@ -53,7 +57,7 @@ class Builder
 
         $this->fire('built', ['builder' => $this]);
 
-        return $this->instance;
+        return $this;
     }
 
     public function render(): View
@@ -69,7 +73,7 @@ class Builder
             return $this->json();
         }
 
-        return Response::view('streams::default', ['content' => $this->render()]);
+        return Response::view('ui::default', ['content' => $this->render()]);
     }
 
     public function json(): JsonResponse

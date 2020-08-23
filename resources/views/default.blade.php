@@ -1,4 +1,4 @@
-@extends('admin::layouts/default')
+@extends('layouts/default')
 
 @section('content')
     {!! $content !!}

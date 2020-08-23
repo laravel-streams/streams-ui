@@ -23,9 +23,9 @@
                     {!! parse($tab['html']) !!}
                 @else
                     @if (isset($tab['fields']))
-                        @include('streams::form/partials/fields', ['fields' => $tab['fields']])
+                        @include('ui::form/partials/fields', ['fields' => $tab['fields']])
                     @else
-                        {{ trans('streams::message.no_fields_available') }}
+                        {{ trans('ui::message.no_fields_available') }}
                     @endif
                 @endif
             </div>

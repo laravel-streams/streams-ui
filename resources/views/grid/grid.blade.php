@@ -1,4 +1,4 @@
-{{-- {{ asset_add("scripts.js", "streams::js/grid/grid.js") }}
+{{-- {{ asset_add("scripts.js", "ui::js/grid/grid.js") }}
 
 {% block content %}
 
@@ -22,7 +22,7 @@
         {% else %}
             <div class="panel">
                 <div class="panel-body">
-                    {{ trans(grid.options.get('no_results_message', 'streams::message.no_results')) }}
+                    {{ trans(grid.options.get('no_results_message', 'ui::message.no_results')) }}
                 </div>
             </div>
         {% endif %}

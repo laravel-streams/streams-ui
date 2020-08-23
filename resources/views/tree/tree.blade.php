@@ -1,7 +1,7 @@
-{{-- {# {{ asset_add("scripts.js", "streams::js/tree/jquery-sortable.js") }}
-{{ asset_add("scripts.js", "streams::js/tree/tree.js") }}
+{{-- {# {{ asset_add("scripts.js", "ui::js/tree/jquery-sortable.js") }}
+{{ asset_add("scripts.js", "ui::js/tree/tree.js") }}
 
-{% import "streams::tree/macro" as macro %}
+{% import "ui::tree/macro" as macro %}
 
 {% block content %}
 
@@ -14,7 +14,7 @@
         {% else %}
             <div class="card">
                 <div class="card-block card-body">
-                    {{ trans(tree.options.get('no_results_message', 'streams::message.no_results')) }}
+                    {{ trans(tree.options.get('no_results_message', 'ui::message.no_results')) }}
                 </div>
             </div>
         {% endif %}

@@ -3,10 +3,10 @@
 namespace Anomaly\Streams\Ui\Support;
 
 use Illuminate\Support\Facades\View;
+use Illuminate\View\View as ViewView;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\View as ViewInterface;
 use Anomaly\Streams\Platform\Support\Facades\Hydrator;
 use Anomaly\Streams\Platform\Support\Traits\Properties;
 use Anomaly\Streams\Platform\Support\Traits\FiresCallbacks;
@@ -24,7 +24,7 @@ class Component implements Arrayable, Jsonable
     use Properties;
     use FiresCallbacks;
 
-    public function render(): ViewInterface
+    public function render(): ViewView
     {
         return View::make("ui::{$this->component}/{$this->component}", [
             $this->component => $this,

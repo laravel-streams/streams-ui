@@ -3,11 +3,14 @@
 namespace Anomaly\Streams\Ui;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Anomaly\Streams\Platform\Stream\Stream;
-use Anomaly\Streams\Platform\Support\Facades\Streams;
 use Anomaly\Streams\Ui\Form\FormBuilder;
 use Anomaly\Streams\Ui\Table\TableBuilder;
+use Anomaly\Streams\Platform\Stream\Stream;
+use Anomaly\Streams\Platform\Support\Facades\Streams;
+use Anomaly\Streams\Ui\Table\TableComponent;
 
 /**
  * Class StreamsServiceProvider
@@ -43,12 +46,9 @@ class UiServiceProvider extends ServiceProvider
      * @var array
      */
     public $singletons = [
-        //'ui' => \Anomaly\Streams\Ui\Support\Locator::class,
-
-
         \Anomaly\Streams\Ui\Icon\IconRegistry::class                     => \Anomaly\Streams\Ui\Icon\IconRegistry::class,
+        \Anomaly\Streams\Ui\Support\Breadcrumb::class                     => \Anomaly\Streams\Ui\Support\Breadcrumb::class,
         \Anomaly\Streams\Ui\Button\ButtonRegistry::class                 => \Anomaly\Streams\Ui\Button\ButtonRegistry::class,
-        \Anomaly\Streams\Platform\Support\Breadcrumb::class       => \Anomaly\Streams\Platform\Support\Breadcrumb::class,
         \Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder::class      => \Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder::class,
         \Anomaly\Streams\Ui\Table\Component\View\ViewRegistry::class     => \Anomaly\Streams\Ui\Table\Component\View\ViewRegistry::class,
         \Anomaly\Streams\Ui\Table\Component\Filter\FilterRegistry::class => \Anomaly\Streams\Ui\Table\Component\Filter\FilterRegistry::class,
@@ -63,6 +63,7 @@ class UiServiceProvider extends ServiceProvider
     public function register()
     {
         //$this->registerInputTypes();        
+        View::addNamespace('ui', base_path('vendor/anomaly/streams-ui/resources/views'));
     }
 
     /**
@@ -70,6 +71,9 @@ class UiServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Blade::component('ui-table', TableComponent::class);
+
+
         Stream::macro('form', function(array $attributes = []) {
             
             $attributes['stream'] = $this;

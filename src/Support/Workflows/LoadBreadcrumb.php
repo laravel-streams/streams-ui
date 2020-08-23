@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Support\Workflows;
 
-use Anomaly\Streams\Platform\Support\Breadcrumb;
 use Anomaly\Streams\Ui\Support\Builder;
+use Anomaly\Streams\Ui\Support\Breadcrumb;
 
 /**
  * Class LoadBreadcrumb

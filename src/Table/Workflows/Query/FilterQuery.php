@@ -28,9 +28,9 @@ class FilterQuery
             * If the handler is a callable string or Closure
             * then call it using the IoC container.
             */
-            if (is_string($filter->query) || $filter->query instanceof \Closure) {
-                App::call($filter->query, compact('builder', 'filter'), 'handle');
-            }
+            $query = $filter->query ?: [$filter, 'query'];
+
+            App::call($filter->query, compact('builder', 'filter'), 'handle');
         }
     }
 }

@@ -1,6 +1,6 @@
 <div class="form__layout">
     @if ($form->fields->isEmpty())
-        {{ trans("streams::message.no_fields_available") }}
+        {{ trans("ui::message.no_fields_available") }}
     @else
         @if ($form->sections->isnotEmpty())
             @foreach ($form->sections as $section)
@@ -9,13 +9,13 @@
                 @elseif (isset($section['html']))
                     {!! $section['html'] !!}
                 @elseif (isset($section['tabs']))
-                    @include('streams::form/partials/tabs')
+                    @include('ui::form/partials/tabs')
                 @else
-                    @include('streams::form/partials/section')
+                    @include('ui::form/partials/section')
                 @endif
             @endforeach
         @else
-            @include('streams::form/partials/default')
+            @include('ui::form/partials/default')
         @endif
         
     @endif

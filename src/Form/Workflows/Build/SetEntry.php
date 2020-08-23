@@ -4,7 +4,7 @@ namespace Anomaly\Streams\Ui\Form\Workflows\Build;
 
 use Illuminate\Support\Arr;
 use Anomaly\Streams\Ui\Form\FormBuilder;
-use Anomaly\Streams\Platform\Support\Breadcrumb;
+use Anomaly\Streams\Ui\Support\Breadcrumb;
 use Anomaly\Streams\Platform\Asset\Facades\Assets;
 use Anomaly\Streams\Ui\Form\Workflows\QueryWorkflow;
 use Anomaly\Streams\Platform\Support\Facades\Resolver;

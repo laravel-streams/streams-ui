@@ -4,9 +4,9 @@
     <div class="form__wrapper">
 
         {!! $form->open() !!}
-        @include('streams::form/partials/heading')
-        @include('streams::form/partials/layout')
-        @include('streams::form/partials/controls')
+        @include('ui::form/partials/heading')
+        @include('ui::form/partials/layout')
+        @include('ui::form/partials/controls')
         {!! $form->close() !!}
 
     </div>
