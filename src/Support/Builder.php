@@ -35,7 +35,7 @@ class Builder
     use Properties;
     use FiresCallbacks;
 
-    public function build(): Builder
+    public function build(): Component
     {
         $this->fire('ready', ['builder' => $this]);
 
@@ -53,7 +53,7 @@ class Builder
 
         $this->fire('built', ['builder' => $this]);
 
-        return $this;
+        return $this->instance;
     }
 
     public function render(): View
