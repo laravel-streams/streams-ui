@@ -1,7 +1,6 @@
-<cp-form :form="{{ $form->toJson() }}"></cp-form>
-
-@section('content')
-    <div class="form__wrapper">
+<section>
+    
+    <div class="form__container">
 
         {!! $form->open() !!}
         @include('ui::form/partials/heading')
@@ -10,4 +9,5 @@
         {!! $form->close() !!}
 
     </div>
-@endsection
+
+</section>

@@ -58,20 +58,12 @@ class NormalizeFields
             }
 
             /*
-             * If the field is an array and does not
-             * have the field parameter set then
-             * use the handle.
+             * Tuck the field away since it represents
+             * an attribute as well as the component
+             * handle/name and type like the others.
              */
-            if (is_array($field) && !isset($field['field'])) {
-                $field['field'] = $handle;
-            }
-
-            /*
-             * If the field is required then it must have
-             * the rule as well.
-             */
-            if (Arr::get($field, 'required') === true) {
-                $field['rules'] = array_unique(array_merge(Arr::get($field, 'rules', []), ['required']));
+            if (is_array($field) && !isset($field['stream_field'])) {
+                $field['stream_field'] = $handle;
             }
         }
 

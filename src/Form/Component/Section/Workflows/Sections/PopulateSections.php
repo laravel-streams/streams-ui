@@ -1,18 +1,17 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields;
+namespace Anomaly\Streams\Ui\Form\Component\Field\Workflows\Sections;
 
 use Anomaly\Streams\Ui\Form\FormBuilder;
-use Anomaly\Streams\Ui\Support\Normalizer;
 
 /**
- * Class PopulateFields
+ * Class PopulateSections
  *
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class PopulateFields
+class PopulateSections
 {
 
     /**

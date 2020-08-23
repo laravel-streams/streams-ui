@@ -31,7 +31,6 @@ class SectionBuilder extends Builder
         'section' => Section::class,
         
         'workflows' => [
-            //'build' => BuildSections::class,
             'build' => BuildComponent::class,
         ],
     ];

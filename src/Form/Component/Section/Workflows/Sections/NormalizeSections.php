@@ -1,19 +1,19 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields;
+namespace Anomaly\Streams\Ui\Form\Component\Field\Workflows\Sections;
 
 use Illuminate\Support\Arr;
 use Anomaly\Streams\Ui\Form\FormBuilder;
 use Anomaly\Streams\Ui\Support\Normalizer;
 
 /**
- * Class NormalizeFields
+ * Class NormalizeSections
  *
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class NormalizeFields
+class NormalizeSections
 {
 
     /**

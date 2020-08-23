@@ -1,17 +1,17 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields;
+namespace Anomaly\Streams\Ui\Form\Component\Section\Workflows\Sections;
 
 use Anomaly\Streams\Ui\Form\FormBuilder;
 
 /**
- * Class DefaultFields
+ * Class DefaultSections
  *
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class DefaultFields
+class DefaultSections
 {
 
     /**
@@ -24,16 +24,16 @@ class DefaultFields
         if ($builder->fields) {
             return;
         }
-
+    
         /**
          * If no fields are set and this
          * is a streams field - we can just
          * move the fields over and be done.
          */
         if ($builder->stream) {
-
-            $builder->fields = $builder->stream->fields->toArray();
-
+            
+            $builder->instance->fields = $builder->stream->fields;
+            
             return;
         }
     }

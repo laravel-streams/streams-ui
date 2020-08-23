@@ -1,16 +1,16 @@
-@if ($form->options->has('title') || $form->options->has('description'))
-<div class="form__heading">
+@if ($form->options->hasAny(['title', 'description']))
+<div>
 
-    @if ($form->options->get('title'))
-        <h4>
-            {{ $form->options->get('title') }}
+    @if ($form->options->has('title'))
+    <div>
+        {{ $form->options->get('title') }}
+    </div>
+    @endif
 
-            @if ($form->options->get('description'))
-            <small>
-                {{ $form->options->get('description') }}
-            </small>
-            @endif
-        </h4>
+    @if ($form->options->has('description'))
+    <div>
+        {{ $form->options->get('description') }}
+    </div>
     @endif
 
 </div>
