@@ -1,17 +1,17 @@
-{{-- @if ($table->options->get('title') || $table->options->get('description')) --}}
+@if ($table->options->hasAny(['title', 'description']))
 <div>
-HEADING: Title/Description
-    {{-- @if ($table->options->get('title'))
-    <div class="title">
+
+    @if ($table->options->has('title'))
+    <div>
         {{ $table->options->get('title') }}
     </div>
     @endif
 
-    @if ($table->options->get('description'))
-    <div class="subtitle-1">
+    @if ($table->options->has('description'))
+    <div>
         {{ $table->options->get('description') }}
     </div>
-    @endif --}}
+    @endif
 
 </div>
-{{-- @endif --}}
+@endif

@@ -33,6 +33,8 @@ class BuildComponents
 
         $fallback = "Anomaly\Streams\Ui\\{$parentSegment}\Component\\{$componentSegment}\\{$componentSegment}Builder";
 
+        $parent->instance->{$component} = [];
+
         foreach ($builder->{$component} as $parameters) {
 
             $parameters['parent'] = $parent;

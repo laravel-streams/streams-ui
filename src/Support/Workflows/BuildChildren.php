@@ -3,8 +3,6 @@
 namespace Anomaly\Streams\Ui\Support\Workflows;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Anomaly\Streams\Ui\Support\Builder;
 
 /**
  * Class BuildChildren

@@ -114,7 +114,7 @@ class NormalizeColumns
         foreach ($columns as $key => &$column) {
             //dd($column);
         }
-
+        
         $builder->columns = $columns;
     }
 }

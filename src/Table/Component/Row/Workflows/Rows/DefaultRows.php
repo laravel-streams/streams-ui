@@ -31,10 +31,10 @@ class DefaultRows
 
                     'columns' => $builder->instance->columns->map(function ($column) {
                         return clone ($column);
-                    }), // Collection
+                    }),
                     'buttons' => $builder->instance->buttons->map(function ($button) {
                         return clone ($button);
-                    }), // Collection
+                    }),
                 ];
             })->all();
         }
