@@ -1,18 +1,19 @@
-@if ($table->hasViews())
-<v-container>
+@if ($table->views->isNotEmpty())
+<div>
     <nav>
-        @foreach ($table->getViews() as $view)
-            <a {!! html_attributes($view->attributes()) !!}>
-                {!! $view->icon() !!}
-                {{ $view->getText() }}
+        @foreach ($table->views as $view)
+            {{-- <a {!! html_attributes($view->attributes()) !!}> --}}
+            <a>
+                {{-- {!! $view->icon() !!} --}}
+                {{ $view->text }}
 
-                @if ($view->getLabel())
-                    <span class="{{ $view->getContext() }}">
-                        {{ $view->getLabel() }}
-                    </span>
+                @if ($view->label)
+                <span class="{{ $view->context }}">
+                    {{ $view->label }}
+                </span>
                 @endif
             </a>
         @endforeach
     </nav>
-</v-container>
+</div>
 @endif

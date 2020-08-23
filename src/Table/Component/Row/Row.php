@@ -3,6 +3,7 @@
 namespace Anomaly\Streams\Ui\Table\Component\Row;
 
 use Anomaly\Streams\Ui\Support\Component;
+use Anomaly\Streams\Ui\Button\ButtonCollection;
 
 /**
  * Class Row
@@ -23,7 +24,19 @@ class Row extends Component
         'key' => null,
         'entry' => null,
         'table' => null,
-        'columns' => null, //Collection
-        'buttons' => null, //Collection
+        'columns' => [], //Collection
+        'buttons' => [], //Collection
+    ];
+
+    protected $properties = [
+        'columns' => [
+            'type' => 'collection',
+        ],
+        'buttons' => [
+            'type' => 'collection',
+            'config' => [
+                'abstract' => ButtonCollection::class,
+            ],
+        ],
     ];
 }

@@ -24,10 +24,7 @@ class ViewHandler
      */
     public function handle(TableBuilder $builder, View $view)
     {
-        if (!$handler = $view->handler) {
-            return;
-        }
-
-        //App::call($handler, compact('builder'), 'handle');
+        // @todo: What would they handle?
+        //App::call($view->handler ?: [$view, 'apply'], compact('builder'), 'handle');
     }
 }

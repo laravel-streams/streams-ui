@@ -26,8 +26,8 @@ class ValuateRows
     {
         $builder->instance->rows->each(function ($row) use ($builder) {
 
-            $row->columns = new Collection();
-            $row->buttons = new Collection();
+            $row->columns = [];
+            $row->buttons = [];
 
             foreach ($builder->instance->columns as $key => $column) {
 
@@ -45,7 +45,7 @@ class ValuateRows
                 $clone->fill(Arr::parse($button->getAttributes(), [
                     'entry' => $row->entry,
                 ]));
-                
+
                 $row->buttons->put($key, $clone);
             }
         });

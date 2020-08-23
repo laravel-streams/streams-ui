@@ -24,7 +24,7 @@
         @endforeach
 
         <td class="table__column -actions">
-            {{-- {!! buttons($row->buttons) !!} --}}
+            {!! $row->buttons->render() !!}
         </td>
 
     </tr>

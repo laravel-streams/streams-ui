@@ -4,7 +4,7 @@ namespace Anomaly\Streams\Ui\Button;
 
 use Illuminate\View\View;
 use Illuminate\Support\Collection;
-use Anomaly\Streams\Ui\Button\Button;
+use Illuminate\Support\Facades\View as ViewFacade;
 
 /**
  * Class ButtonCollection
@@ -23,7 +23,7 @@ class ButtonCollection extends Collection
      */
     public function render()
     {
-        return view('ui::ui/buttons/buttons', ['buttons' => $this]);
+        return ViewFacade::make('ui::buttons/buttons', ['buttons' => $this]);
     }
 
     /**

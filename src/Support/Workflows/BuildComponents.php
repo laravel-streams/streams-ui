@@ -42,7 +42,7 @@ class BuildComponents
 
             $builder = Arr::pull($parameters, 'builder', Arr::get($parent->builders, $component, $fallback));
 
-            $instance = (new $builder($parameters))->build();
+            $instance = (new $builder($parameters))->build()->instance;
 
             $parent->instance->{$component}->put($instance->handle, $instance);
         }

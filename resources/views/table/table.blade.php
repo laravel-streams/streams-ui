@@ -1,6 +1,8 @@
 <section>
 
     @include('ui::table/partials/heading')
+    
+    @include('ui::table/partials/views')
     @include('ui::table/partials/filters')
 
     <div class="table__container">

@@ -11,6 +11,7 @@ use Anomaly\Streams\Ui\Support\Workflows\TranslateComponents;
 use Anomaly\Streams\Ui\Table\Component\View\Workflows\Views\DefaultViews;
 use Anomaly\Streams\Ui\Table\Component\View\Workflows\Views\SetActiveView;
 use Anomaly\Streams\Ui\Table\Component\View\Workflows\Views\NormalizeViews;
+use Anomaly\Streams\Ui\Table\Component\View\Workflows\Views\ApplyActiveView;
 
 /**
  * Class BuildViews
@@ -41,5 +42,6 @@ class BuildViews extends Workflow
         'build_views' => BuildComponents::class,
 
         SetActiveView::class,
+        ApplyActiveView::class,
     ];
 }

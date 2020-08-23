@@ -36,36 +36,5 @@ class SetActiveView
         if (!$view && $view = $builder->instance->views->first()) {
             $view->active = true;
         }
-
-        // Nothing to do.
-        if (!$view) {
-            return;
-        }
-
-        if ($view->filters) {
-            $builder->filters = $view->filters;
-        }
-
-        if ($view->columns) {
-            $builder->columns = $view->columns;
-        }
-
-        if ($view->buttons) {
-            $builder->buttons = $view->buttons;
-        }
-
-        if ($view->actions) {
-            $builder->actions = $view->actions;
-        }
-
-        if ($view->options) {
-            $builder->options = $view->options;
-        }
-
-        if ($view->entries) {
-            $builder->entries = $view->entries;
-        }
-dd($view);
-        $handler->handle($builder, $view);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Anomaly\Streams\Ui\Table;
 
+use Anomaly\Streams\Ui\Button\ButtonCollection;
 use Illuminate\Support\Collection;
 use Anomaly\Streams\Ui\Support\Component;
 use Anomaly\Streams\Ui\Table\Component\View\ViewCollection;
@@ -65,6 +66,9 @@ class Table extends Component
         ],
         'buttons' => [
             'type' => 'collection',
+            'config' => [
+                'abstract' => ButtonCollection::class,
+            ],
         ],
         'columns' => [
             'type' => 'collection',

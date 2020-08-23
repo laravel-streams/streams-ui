@@ -40,7 +40,7 @@ class Button extends Component
     public function open(array $attributes = [])
     {
         // @todo extend into the parent when ready
-        return '<' . $this->tag . ' ' . html_attributes($attributes) . '>';
+        return '<' . $this->tag . ' ' . $this->expand('attributes')->htmlAttributes($attributes) . '>';
     }
 
     /**
