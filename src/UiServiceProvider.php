@@ -9,6 +9,7 @@ use Anomaly\Streams\Ui\Form\FormBuilder;
 use Anomaly\Streams\Ui\Table\TableBuilder;
 use Anomaly\Streams\Platform\Stream\Stream;
 use Anomaly\Streams\Platform\Support\Facades\Streams;
+use Illuminate\Support\Facades\Lang;
 
 /**
  * Class StreamsServiceProvider
@@ -61,7 +62,7 @@ class UiServiceProvider extends ServiceProvider
     public function register()
     {
         //$this->registerInputTypes();        
-        View::addNamespace('ui', base_path('vendor/anomaly/streams-ui/resources/views'));
+        
     }
 
     /**
@@ -69,7 +70,9 @@ class UiServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+        Lang::addNamespace('ui', base_path('vendor/anomaly/streams-ui/resources/lang'));
+        View::addNamespace('ui', base_path('vendor/anomaly/streams-ui/resources/views'));
+        
         Stream::macro('form', function(array $attributes = []) {
             
             $attributes['stream'] = $this;
