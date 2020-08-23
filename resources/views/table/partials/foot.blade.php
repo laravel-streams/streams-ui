@@ -33,11 +33,11 @@
     </tr>
     @endif
 
-    @if ($table->options->get('total_results'))
+    @if ($table->options->has('total_results'))
     <tr>
         <td colspan="100%">
             <small class="table__total">
-                {{ $table->pagination->total_results }} {{ trans('ui::message.results') }}
+                {{ $table->options->get('total_results') }} {{ trans('ui::message.results') }}
             </small>
         </td>
     </tr>

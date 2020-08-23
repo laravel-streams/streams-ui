@@ -2,7 +2,6 @@
 
 namespace Anomaly\Streams\Ui\Table\Workflows\Query;
 
-use Illuminate\Support\Facades\App;
 use Anomaly\Streams\Ui\Table\TableBuilder;
 
 /**
@@ -22,10 +21,14 @@ class OrderQuery
      */
     public function handle(TableBuilder $builder)
     {
-        if (!$value = $builder->request('order_by')) {
-            return;
+        if ($name = $builder->request('order_by')) {
+            $builder->criteria->orderBy($name, $builder->request('sort', 'asc'));
         }
 
-        $builder->criteria->orderBy($value, $builder->request('sort', 'asc'));
+        if (!$name && $builder->instance->options->has('order_by')) {
+            foreach ($builder->instance->options->get('order_by') as $name => $sort) {
+                $builder->criteria->orderBy($name, $sort);
+            }
+        }
     }
 }

@@ -21,6 +21,7 @@ class FinishQuery
      */
     public function handle(TableBuilder $builder)
     {
+        $builder->table->options['total_results'] = $builder->criteria->count();
 
         /**
          * @todo This terminology and parameters need reviewed/revisited.
@@ -30,6 +31,7 @@ class FinishQuery
             $builder->table->pagination = $builder->criteria->paginate([
                 'page_name' => $builder->table->options->get('prefix') . 'page',
                 'limit_name' => $builder->table->options->get('limit') . 'limit',
+                'total_results' => $builder->table->options->get('total_results'),
             ]);
 
             $builder->table->entries = $builder->table->pagination->getCollection();
