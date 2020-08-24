@@ -15,7 +15,36 @@ sort: 0
 - **Additional Reading:** Link to related ideas/topics/guides/recipes.
 
 
-All forms accept a standard array of attributes:
+Form configurations can also be @imports for more congiguration
+
+Minimal configuration:
+
+```json
+{
+    "ui": {
+        "form": {},
+        "table": {}
+    }
+}
+```
+
+Full configuration:
+
+```json
+{
+    "ui": {
+        "forms": {
+            "default": {},
+            "{handle}": {}
+        },
+        "tables": {
+            "default": {},
+            "{handle}": {}
+        }
+    }
+}
+```
+
 ```php
 $form = (new FormBuilder([
     'stream' => 'examples',
@@ -23,42 +52,4 @@ $form = (new FormBuilder([
         'field_slug' => 'input_type',
     ],
 ]))->build();
-```
-
-## Methods
-
-All form builders provide a few methods of standard operation.
-
-### Post
-
-Load form values from post submission data.
-
-```php
-$form = (new FormBuilder([
-    'stream' => 'examples',
-]))->build();
-
-$form->post();
-```
-
-### Validate
-
-Validate form posted submissions.
-
-```php
-$form = (new FormBuilder([
-    'stream' => 'examples',
-]))->build();
-
-$form->validate();
-```
-
-### Save
-
-```php
-$form = (new FormBuilder([
-    'stream' => 'examples',
-]))->build();
-
-$form->save();
 ```
