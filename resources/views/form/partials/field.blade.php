@@ -3,7 +3,8 @@
     <label>{{ $field->label ?: $field->handle }}</label>
 
     <div class="field__input">
-        <pre>{{ $field->type()->value }}</pre>
+        <?php // @todo Replace this with $field->input(); // __toString() == $input->render() ?>
+        @include('ui::input/' . ($field->input ?: 'input'), ['input' => $field])
     </div>
 
 </div>
