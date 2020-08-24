@@ -1,4 +1,4 @@
-<div {{ html_attributes(\Illuminate\Support\Arr::get($section, 'attributes', [])) }} class="form__section">
+<div class="form__section">
 
     @include('ui::form/partials/header')
 
