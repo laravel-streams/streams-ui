@@ -7,7 +7,7 @@
                 @if (isset($section['view']))
                     @include($section['view'])
                 @elseif (isset($section['html']))
-                    {!! $section['html'] !!}
+                    {!! View::parse($section['html']) !!}
                 @elseif (isset($section['tabs']))
                     @include('ui::form/partials/tabs')
                 @else
