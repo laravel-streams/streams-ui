@@ -83,7 +83,7 @@ class UiServiceProvider extends ServiceProvider
         Field::macro('input', function () use ($default) {
 
             $attributes = ['field' => $this];
-echo Arr::get($this->input, 'type', $default);
+
             return App::make('streams.input_types.' . Arr::get($this->input, 'type', $default), compact('attributes'));
         });
 
