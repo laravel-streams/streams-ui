@@ -20,9 +20,7 @@ class Textarea extends Component
      * @var array
      */
     protected $attributes = [
+        'template' => 'ui::input/textarea',
         'component' => 'input',
-        //'tag' => 'input',
-        'type' => 'text',
-        'field' => null,
     ];
 }

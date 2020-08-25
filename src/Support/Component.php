@@ -26,7 +26,9 @@ class Component implements Arrayable, Jsonable
 
     public function render(): ViewView
     {
-        return View::make("ui::{$this->component}/{$this->component}", [
+        $fallback = "ui::{$this->component}/{$this->component}";
+        
+        return View::make($this->template ?: $fallback, [
             $this->component => $this,
         ]);
     }

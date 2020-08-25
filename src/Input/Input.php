@@ -20,6 +20,7 @@ class Input extends Component
      * @var array
      */
     protected $attributes = [
+        'template' => 'ui::input/input',
         'component' => 'input',
         //'tag' => 'input',
         'type' => 'text',

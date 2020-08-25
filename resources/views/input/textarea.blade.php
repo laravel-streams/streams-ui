@@ -1,1 +1,1 @@
-<textarea type="{{ $input->type ?: 'text' }}" name="{{ $input->field }}">{{ $input->type()->value }}</textarea>
+<textarea type="{{ $input->type ?: 'text' }}" name="{{ $input->handle }}">{{ $input->field->value }}</textarea>
