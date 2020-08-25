@@ -1,3 +1,7 @@
+@foreach (Messages::pull() as $message)
+<p><strong>{{ $message['type'] }}:</strong> {{ $message['content'] }}</p>    
+@endforeach
+
 <section>
     
     <div class="form__container">

@@ -7,14 +7,7 @@ use Anomaly\Streams\Ui\Support\Builder;
 use Anomaly\Streams\Ui\Form\Command\SaveForm;
 use Anomaly\Streams\Ui\Form\Workflows\BuildForm;
 use Anomaly\Streams\Ui\Form\Workflows\QueryForm;
-use Anomaly\Streams\Ui\Form\Command\ValidateForm;
-use Anomaly\Streams\Ui\Form\Command\LoadFormValues;
-use Anomaly\Streams\Ui\Form\Command\FlashFormErrors;
-use Anomaly\Streams\Ui\Form\Command\FlashFieldValues;
-use Anomaly\Streams\Ui\Form\Component\Field\FieldBuilder;
-use Anomaly\Streams\Ui\Form\Component\Action\ActionBuilder;
-use Anomaly\Streams\Ui\Form\Component\Button\ButtonBuilder;
-use Anomaly\Streams\Ui\Form\Component\Section\SectionBuilder;
+use Anomaly\Streams\Ui\Form\Workflows\ValidateForm;
 use Anomaly\Streams\Ui\Form\Component\Field\Workflows\BuildFields;
 use Anomaly\Streams\Ui\Form\Component\Action\Workflows\BuildActions;
 use Anomaly\Streams\Ui\Form\Component\Button\Workflows\BuildButtons;
@@ -63,41 +56,39 @@ class FormBuilder extends Builder
             'read_only' => false,
         ],
 
-        'builders' => [
-            'fields' => FieldBuilder::class,
-            'actions' => ActionBuilder::class,
-            'buttons' => ButtonBuilder::class,
-            'sections' => SectionBuilder::class,
-        ],
-
         'workflows' => [
             'build' => BuildForm::class,
             'query' => QueryForm::class,
-            
             'fields' => BuildFields::class,
             'actions' => BuildActions::class,
             'buttons' => BuildButtons::class,
             'sections' => BuildSections::class,
+            'validate' => ValidateForm::class,
         ],
     ];
+
+    public function validate(): Builder
+    {
+        $workflow = $this->workflow('validate');
+
+        $this->fire('validating', [
+            'builder' => $this,
+            'workflow' => $workflow
+        ]);
+
+        $workflow->process([
+            'builder' => $this,
+            'workflow' => $workflow
+        ]);
+
+        $this->fire('validated', ['builder' => $this]);
+
+        return $this;
+    }
 
     //---------------------------------------------------------------------
     //-------------------------    Old Shit    ----------------------------
     //---------------------------------------------------------------------
-
-    /**
-     * Validate the form.
-     *
-     * @return $this
-     */
-    public function validate()
-    {
-        dd('Test');
-        dispatch_now(new LoadFormValues($this));
-        dispatch_now(new ValidateForm($this));
-
-        return $this;
-    }
 
     /**
      * Flash form information to be

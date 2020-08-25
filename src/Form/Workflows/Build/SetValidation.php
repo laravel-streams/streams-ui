@@ -47,7 +47,7 @@ class SetValidation
             }
         }
 
-        $builder->rules = $rules;
-        $builder->validators = $validators;
+        $builder->instance->rules = $builder->rules = $rules;
+        $builder->instance->validators = $builder->validators = $validators;
     }
 }

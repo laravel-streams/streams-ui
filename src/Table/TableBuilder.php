@@ -48,14 +48,14 @@ class TableBuilder extends Builder
         'table' => Table::class,
         
         'workflows' => [
+            'rows' => BuildRows::class,
+            'views' => BuildViews::class,
             'build' => BuildTable::class,
             'query' => QueryTable::class,
-            'views' => BuildViews::class,
             'actions' => BuildActions::class,
             'filters' => BuildFilters::class,
             'columns' => BuildColumns::class,
             'buttons' => BuildButtons::class,
-            'rows' => BuildRows::class,
         ],
     ];
 }

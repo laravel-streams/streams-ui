@@ -3,7 +3,6 @@
 namespace Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields;
 
 use Anomaly\Streams\Ui\Form\FormBuilder;
-use Anomaly\Streams\Ui\Support\Normalizer;
 
 /**
  * Class PopulateFields

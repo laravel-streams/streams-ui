@@ -67,13 +67,6 @@ class Form extends Component
             'type' => 'collection',
         ],
 
-        'errors' => [
-            'type' => 'collection',
-            'config' => [
-                'abstract' => MessageBag::class,
-            ],
-        ],
-
         'fields' => [
             'type' => 'collection',
             'config' => [

@@ -58,29 +58,6 @@ class FieldCollection extends Collection
     }
 
     /**
-     * Get a field.
-     *
-     * @param  mixed $key
-     * @param  null $default
-     * @return FieldType
-     */
-    public function get($key, $default = null)
-    {
-        /* @var FieldType $item */
-        foreach ($this->items as $item) {
-            if ($item->getField() == $key) {
-                return $item;
-            }
-        }
-
-        if (!$default) {
-            return $default;
-        }
-
-        return $this->get($default);
-    }
-
-    /**
      * Return only translatable fields.
      *
      * @return FieldCollection
