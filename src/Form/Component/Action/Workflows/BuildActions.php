@@ -8,9 +8,10 @@ use Anomaly\Streams\Ui\Support\Workflows\MergeComponents;
 use Anomaly\Streams\Ui\Support\Workflows\ParseComponents;
 use Anomaly\Streams\Ui\Support\Workflows\ResolveComponents;
 use Anomaly\Streams\Ui\Support\Workflows\TranslateComponents;
-use Anomaly\Streams\Ui\Form\Component\Action\Workflows\Actions\DefaultActions;
-use Anomaly\Streams\Ui\Form\Component\Action\Workflows\Actions\SetActiveAction;
-use Anomaly\Streams\Ui\Form\Component\Action\Workflows\Actions\NormalizeActions;
+use Anomaly\Streams\Ui\Form\Component\Action\Workflows\Build\DefaultActions;
+use Anomaly\Streams\Ui\Form\Component\Action\Workflows\Build\RunActiveAction;
+use Anomaly\Streams\Ui\Form\Component\Action\Workflows\Build\SetActiveAction;
+use Anomaly\Streams\Ui\Form\Component\Action\Workflows\Build\NormalizeActions;
 
 /**
  * Class BuildActions
@@ -41,5 +42,6 @@ class BuildActions extends Workflow
         'build_actions' => BuildComponents::class,
 
         SetActiveAction::class,
+        RunActiveAction::class,
     ];
 }

@@ -22,7 +22,6 @@ class Input extends Component
     protected $attributes = [
         'template' => 'ui::input/input',
         'component' => 'input',
-        //'tag' => 'input',
         'type' => 'text',
         'field' => null,
     ];

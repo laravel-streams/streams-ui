@@ -1,7 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Action\Workflows\Actions;
+namespace Anomaly\Streams\Ui\Form\Component\Action\Workflows\Build;
 
+use Illuminate\Support\Facades\Request;
 use Anomaly\Streams\Ui\Form\FormBuilder;
 
 /**
@@ -21,6 +22,10 @@ class SetActiveAction
      */
     public function handle(FormBuilder $builder)
     {
+        if (!Request::is('post')) {
+            return;
+        }
+        
         if ($builder->instance->actions->active()) {
             return;
         }

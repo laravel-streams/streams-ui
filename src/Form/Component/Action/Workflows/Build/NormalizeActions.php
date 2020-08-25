@@ -1,6 +1,6 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Action\Workflows\Actions;
+namespace Anomaly\Streams\Ui\Form\Component\Action\Workflows\Build;
 
 use Anomaly\Streams\Ui\Form\FormBuilder;
 use Anomaly\Streams\Ui\Support\Normalizer;

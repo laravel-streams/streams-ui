@@ -98,25 +98,6 @@ class UiServiceProvider extends ServiceProvider
             return new FormBuilder($attributes);
         });
 
-        Streams::macro('form', function ($attributes) {
-
-            if ($attributes instanceof Stream) {
-                return $attributes->form();
-            }
-
-            if (is_string($attributes)) {
-                $attributes = [
-                    'stream' => $attributes,
-                ];
-            }
-
-            $stream = Arr::pull($attributes, 'stream');
-
-            return Streams::make($stream)->form($attributes);
-        });
-
-
-
         Stream::macro('table', function ($attributes = []) {
 
             $default = Arr::get($this->ui, 'table', []);
@@ -126,23 +107,6 @@ class UiServiceProvider extends ServiceProvider
             $attributes['stream'] = $this;
 
             return new TableBuilder($attributes);
-        });
-
-        Streams::macro('table', function ($attributes) {
-
-            if ($attributes instanceof Stream) {
-                return $attributes->table();
-            }
-
-            if (is_string($attributes)) {
-                $attributes = [
-                    'stream' => $attributes,
-                ];
-            }
-
-            $stream = Arr::pull($attributes, 'stream');
-
-            return Streams::make($stream)->table($attributes);
         });
     }
 

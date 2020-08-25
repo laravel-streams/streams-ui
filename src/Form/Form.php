@@ -6,6 +6,7 @@ use Collective\Html\FormFacade;
 use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Request;
+use Anomaly\Streams\Ui\Form\FormHandler;
 use Anomaly\Streams\Ui\Support\Component;
 use Anomaly\Streams\Ui\Button\ButtonCollection;
 use Anomaly\Streams\Ui\Form\Component\Field\FieldCollection;
@@ -33,6 +34,8 @@ class Form extends Component
             'mode' => null,
             'entry' => null,
             'component' => 'form',
+            
+            'handler' => FormHandler::class,
 
             'values' => new Collection(),
             'options' => new Collection(),
@@ -130,5 +133,10 @@ class Form extends Component
     public function close()
     {
         return FormFacade::close();
+    }
+
+    public function handle()
+    {
+        dd('Test');
     }
 }
