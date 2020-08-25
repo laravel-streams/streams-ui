@@ -53,3 +53,47 @@ $form = (new FormBuilder([
     ],
 ]))->build();
 ```
+
+
+# Configuration Examples
+
+```json
+{
+    "form": [
+        // Required Configuration
+        "stream",   // The stream the entry belongs to
+        "entry",    // The entry to edit or null to create
+        
+        // Optional Configuration
+        "repository",   // The entry repository
+
+        "builder",  // The form builder to use
+        "form",     // The form component to use
+        
+        "assets",   // Assets to load
+        
+        "fields",   // Form fields configuration
+        "rules",    // Form rules configuration
+        "actions",  // Form actions configuration
+        "buttons",  // Form buttons configuration
+        "options",  // Form options configuration
+        "sections", // Form sections configuration
+        
+        "options"      // Component options array
+    ],
+    "table": [
+        // Required Configuration
+        "stream",   // The stream the entry belongs to
+        
+        // Optional Configuration
+        "repository",   // The entry repository
+
+        "builder",  // The table builder to use
+        "table",    // The table component to use
+        
+        "assets",   // Assets to load
+
+        "options"   // Component options array
+    ]
+}
+```

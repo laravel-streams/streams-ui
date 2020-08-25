@@ -12,7 +12,6 @@ sort: 10
 - **Sections/Features:** Separate sections/sub-sections (h2s/h3s) consistently. This will build the ToC.
     - Configuration
         - stream
-        - 
     - Basic Usage
         - Rendering Components
     - Component Responses
@@ -28,53 +27,20 @@ sort: 10
     - Buttons
     - Icons
 
-All builders accept an array of attributes and return an instance via the `build` method:
-```php
-$instance = (new Builder([
-    'stream' => 'examples',
-]))->build();
-```
 
-## Output
+# Configuration Examples
 
-All builders provide a few methods of standard output.-m-0
+```json
+{
+    "form": [
+        "component",    // The component type handle
+        "{form}",       // The component abstract to use
 
-### Views
+        "template",     // The component view template (falls back to ui::component/component)
+        "assets"        // Assets array by collection to load upon invokation of the component.
+    ],
+    "table": {
 
-```php
-$instance = (new Builder([
-    'stream' => 'examples',
-]))->build();
-
-$instance->render();
-```
-
-### JSON
-
-```php
-$instance = (new Builder([
-    'stream' => 'examples',
-]))->build();
-
-$instance->toJson();
-```
-
-### Array
-
-```php
-$instance = (new Builder([
-    'stream' => 'examples',
-]))->build();
-
-$instance->toArray();
-```
-
-### Response
-
-```php
-$instance = (new Builder([
-    'stream' => 'examples',
-]))->build();
-
-$instance->response();
+    }
+}
 ```
