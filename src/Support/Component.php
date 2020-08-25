@@ -45,4 +45,9 @@ class Component implements Arrayable, Jsonable
     {
         return json_encode($this->toArray(), $options);
     }
+
+    public function __toString()
+    {
+        return (string) $this->render();
+    }
 }

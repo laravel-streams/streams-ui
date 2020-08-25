@@ -1,1 +1,1 @@
-<input type="{{ $input->type ?: 'text' }}" name="{{ $input->field }}" value="{{ $input->type()->value }}">
+<input type="{{ Arr::get($input->config, 'type') ?: 'text' }}" name="{{ $input->field->handle }}" value="{{ $input->field->value }}">

@@ -3,13 +3,17 @@
 namespace Anomaly\Streams\Ui;
 
 use Illuminate\Support\Arr;
+use Anomaly\Streams\Ui\Input\Input;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
+use Anomaly\Streams\Ui\Input\Textarea;
 use Illuminate\Support\ServiceProvider;
 use Anomaly\Streams\Ui\Form\FormBuilder;
+use Anomaly\Streams\Platform\Field\Field;
 use Anomaly\Streams\Ui\Table\TableBuilder;
 use Anomaly\Streams\Platform\Stream\Stream;
 use Anomaly\Streams\Platform\Support\Facades\Streams;
-use Illuminate\Support\Facades\Lang;
 
 /**
  * Class StreamsServiceProvider
@@ -62,7 +66,8 @@ class UiServiceProvider extends ServiceProvider
     public function register()
     {
         //$this->registerInputTypes();        
-        
+        $this->app->bind('streams.input_types.input', Input::class);
+        $this->app->bind('streams.input_types.textarea', Textarea::class);
     }
 
     /**
@@ -72,9 +77,18 @@ class UiServiceProvider extends ServiceProvider
     {
         Lang::addNamespace('ui', base_path('vendor/anomaly/streams-ui/resources/lang'));
         View::addNamespace('ui', base_path('vendor/anomaly/streams-ui/resources/views'));
-        
-        Stream::macro('form', function($attributes = []) {
-            
+
+        $default = 'input';
+
+        Field::macro('input', function () use ($default) {
+
+            $attributes = ['field' => $this];
+echo Arr::get($this->input, 'type', $default);
+            return App::make('streams.input_types.' . Arr::get($this->input, 'type', $default), compact('attributes'));
+        });
+
+        Stream::macro('form', function ($attributes = []) {
+
             $default = Arr::get($this->ui, 'form', []);
 
             $attributes = array_merge($attributes, $default);
@@ -83,8 +97,8 @@ class UiServiceProvider extends ServiceProvider
 
             return new FormBuilder($attributes);
         });
-        
-        Streams::macro('form', function($attributes) {
+
+        Streams::macro('form', function ($attributes) {
 
             if ($attributes instanceof Stream) {
                 return $attributes->form();
@@ -103,8 +117,8 @@ class UiServiceProvider extends ServiceProvider
 
 
 
-        Stream::macro('table', function($attributes = []) {
-            
+        Stream::macro('table', function ($attributes = []) {
+
             $default = Arr::get($this->ui, 'table', []);
 
             $attributes = array_merge($attributes, $default);
@@ -113,8 +127,8 @@ class UiServiceProvider extends ServiceProvider
 
             return new TableBuilder($attributes);
         });
-        
-        Streams::macro('table', function($attributes) {
+
+        Streams::macro('table', function ($attributes) {
 
             if ($attributes instanceof Stream) {
                 return $attributes->table();
