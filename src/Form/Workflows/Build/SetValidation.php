@@ -36,17 +36,6 @@ class SetValidation
             (array) $builder->stream->validators
         );
 
-        foreach ($builder->stream->fields as $key => $field) {
-
-            if ($field->rules) {
-                $rules[$key] = $field->rules;
-            }
-
-            if ($field->validators) {
-                $validators[$key] = $field->validators;
-            }
-        }
-
         $builder->instance->rules = $builder->rules = $rules;
         $builder->instance->validators = $builder->validators = $validators;
     }

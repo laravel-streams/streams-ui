@@ -16,17 +16,6 @@ class SetMessages
 {
     public function handle(FormBuilder $builder)
     {
-        if (!$builder->validator->invalid()) {
-            Messages::success('You win!');
-        }
-
-        if ($builder->validator->invalid()) {
-
-            $builder->instance->errors = $builder->validator->messages();
-
-            foreach ($builder->instance->errors->messages() as $errors) {
-                Messages::error(implode("\n\r", $errors));
-            }
-        }
+        $builder->instance->errors = $builder->validator->messages();
     }
 }

@@ -8,10 +8,10 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Traits\Macroable;
-use Illuminate\Http\Response as HttpResponse;
 use Anomaly\Streams\Platform\Support\Workflow;
 use Anomaly\Streams\Platform\Support\Traits\Properties;
 use Anomaly\Streams\Platform\Support\Traits\FiresCallbacks;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 /**
  * Class Builder
@@ -67,8 +67,14 @@ class Builder
         return $this->instance->render();
     }
 
-    public function response(): HttpResponse
+    public function response(): HttpFoundationResponse
     {
+        $this->build();
+
+        if ($this->response) {
+            return $this->response;
+        }
+
         if ($this->async == true && Request::ajax()) {
             return $this->json();
         }

@@ -17,20 +17,19 @@ use Anomaly\Streams\Ui\Form\FormBuilder;
  */
 class BuildValidator
 {
-    public function handle(FormBuilder $builder, Factory $factory)
+    public function handle(FormBuilder $builder, Factory $factory): void
     {
         $this->extendValidation($builder, $factory);
-        //$this->extendMessages($builder, $factory);
 
         $builder->validator = $factory->make(
             $builder->instance->values->all(),
             $builder->instance->rules->map(function($rules) {
-                return implode('|', $rules);
+                return implode('|', array_unique($rules));
             })->all()
         );
     }
 
-    protected function extendValidation(FormBuilder $builder, Factory $factory)
+    protected function extendValidation(FormBuilder $builder, Factory $factory): void
     {
         foreach ($builder->instance->validators as $rule => $validator) {
 
@@ -42,19 +41,9 @@ class BuildValidator
         }
     }
 
-    /**
-     * Return the validating callback.
-     *
-     * @param string $handler
-     * @param FormBuilder $builder
-     */
-    protected function callback($handler, FormBuilder $builder)
+    protected function callback($handler, FormBuilder $builder): \Closure
     {
         return function ($attribute, $value, $parameters, Validator $validator) use ($handler, $builder) {
-
-            if ($prefix = $builder->instance->options->get('prefix')) {
-                $attribute = preg_replace("/^{$prefix}/", '', $attribute, 1);
-            }
 
             $field = $builder->instance->fields->get($attribute);
 
@@ -71,28 +60,5 @@ class BuildValidator
                 'handle'
             );
         };
-    }
-
-    private function extendMessages(FormBuilder $builder, Factory $factory)
-    {
-        // $messages = [];
-
-        // foreach ($builder->instance->fields as $field) {
-        //     foreach ($field->validators as $rule => $validator) {
-        //         if ($message = Arr::get($validator, 'message')) {
-        //             $messages[$field->getPrefix() . $field->getField() . '.' . $rule] = $message;
-        //         }
-        //     }
-
-        //     foreach ($field->getMessages() as $rule => $message) {
-        //         if ($message && Str::contains($message, '::')) {
-        //             $message = trans($message);
-        //         }
-
-        //         $messages[$field->getPrefix() . $field->getField() . '.' . $rule] = $message;
-        //     }
-        // }
-
-        // return $messages;
     }
 }

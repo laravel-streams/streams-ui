@@ -17,6 +17,8 @@ use Anomaly\Streams\Ui\Form\Workflows\Build\BuildButtons;
 use Anomaly\Streams\Ui\Form\Workflows\Build\ValidateForm;
 use Anomaly\Streams\Ui\Form\Workflows\Build\AuthorizeForm;
 use Anomaly\Streams\Ui\Form\Workflows\Build\BuildSections;
+use Anomaly\Streams\Ui\Form\Workflows\Build\FlashMessages;
+use Anomaly\Streams\Ui\Form\Workflows\Build\HandleRequest;
 use Anomaly\Streams\Ui\Form\Workflows\Build\SetValidation;
 
 /**
@@ -52,5 +54,8 @@ class BuildForm extends Workflow
         LoadValues::class,
         
         ValidateForm::class,
+        FlashMessages::class,
+        
+        HandleRequest::class,
     ];
 }

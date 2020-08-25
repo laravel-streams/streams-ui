@@ -23,6 +23,22 @@ use Anomaly\Streams\Ui\Form\Component\Section\Workflows\BuildSections;
 class FormBuilder extends Builder
 {
 
+    public function getHandlerAttribute()
+    {
+        return function ($builder) {
+            
+            $entry = $builder->instance->entry;
+
+            foreach ($builder->instance->values as $field => $value) {
+                $entry->{$field} = $value;
+            }
+
+            $builder->instance->stream->repository()->save($entry);
+
+            $builder->entry = $builder->instance->entry = $entry;
+        };
+    }
+
     /**
      * The builder attributes.
      *
