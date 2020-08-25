@@ -134,9 +134,4 @@ class Form extends Component
     {
         return FormFacade::close();
     }
-
-    public function handle()
-    {
-        dd('Test');
-    }
 }

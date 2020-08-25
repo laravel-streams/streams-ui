@@ -22,7 +22,7 @@ class SetActiveAction
      */
     public function handle(FormBuilder $builder)
     {
-        if (!Request::is('post')) {
+        if (!Request::isMethod('post')) {
             return;
         }
         

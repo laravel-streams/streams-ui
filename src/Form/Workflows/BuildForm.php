@@ -48,6 +48,6 @@ class BuildForm extends Workflow
         BuildButtons::class,
         BuildSections::class,
         
-        HandleRequest::class,
+        //HandleRequest::class,
     ];
 }
