@@ -3,7 +3,6 @@
 namespace Anomaly\Streams\Ui\Table\Component\Action;
 
 use Anomaly\Streams\Ui\Support\Builder;
-use Anomaly\Streams\Ui\Table\TableBuilder;
 use Anomaly\Streams\Ui\Support\Workflows\BuildComponent;
 
 /**

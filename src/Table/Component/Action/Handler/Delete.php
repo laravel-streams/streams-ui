@@ -23,6 +23,7 @@ class Delete
      */
     public function handle(TableBuilder $builder, array $selected)
     {
+        dd($selected);
         $count = 0;
 
         $model = $builder->actionsTableModel();

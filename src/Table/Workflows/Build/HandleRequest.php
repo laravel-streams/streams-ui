@@ -27,8 +27,12 @@ class HandleRequest
             return;
         }
 
-        foreach ($builder->instance->actions->active() as $action) {
-            App::call($action->handler, compact('builder'));
+        if (!$active = $builder->instance->actions->first()) {
+            return;
         }
+
+        $selected = $builder->request('id');
+
+        App::call($active->handler, compact('builder', 'selected'), 'handle');
     }
 }

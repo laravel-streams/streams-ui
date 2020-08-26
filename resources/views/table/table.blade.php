@@ -7,13 +7,15 @@
 
     <div class="table__container">
         @if ($table->rows->isNotEmpty())
-            <form>
+            {!! Form::open([
+                'method' => 'post'
+            ]) !!}
                 <table {{-- {!! html_attributes($table->attr('attributes', [])) !!} --}}>
                     @include('ui::table/partials/head')
                     @include('ui::table/partials/body')
                     @include('ui::table/partials/foot')
                 </table>
-            </form>
+            {!! Form::close() !!}
         @else
          {{-- @todo view here. --}}
             {{ trans('ui::message.no_results') }}
