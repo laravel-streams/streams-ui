@@ -103,6 +103,12 @@ class NormalizeColumns
              * If there is no value then use NULL
              */
             Arr::set($column, 'value', Arr::get($column, 'value', null));
+
+
+            /**
+             * $column['sortable'] = true;
+             */
+            $column['sortable'] = true;
         }
 
         $columns = Normalizer::attributes($columns);
