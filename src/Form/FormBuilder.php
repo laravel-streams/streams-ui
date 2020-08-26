@@ -47,30 +47,26 @@ class FormBuilder extends Builder
     protected $attributes = [
         'async' => false,
         'handler' => null,
-        'validator' => null,
+        'read_only' => false,
 
         'stream' => null,
         'repository' => null,
 
         'entry' => null,
 
-        'fields' => [],
-        'skips' => [],
         'rules' => [],
+        'validators' => [],
+
+        'fields' => [],
         'assets' => [],
         'actions' => [],
         'buttons' => [],
-        'options' => [],
         'sections' => [],
 
-        'can_save' => true,
+        'options' => [],
 
         'component' => 'form',
         'form' => Form::class,
-
-        'options' => [
-            'read_only' => false,
-        ],
 
         'workflows' => [
             'build' => BuildForm::class,

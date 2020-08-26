@@ -20,25 +20,27 @@ class ButtonRegistry
      * @var array
      */
     protected $buttons = [
+
         /*
          * Default Buttons
          */
         'default'       => [
-            'type' => 'default',
+            'context' => 'default',
         ],
         'cancel'        => [
             'text' => 'ui::button.cancel',
-            'type' => 'default',
+            'context' => 'default',
             'attributes' => [
                 'data-keymap' => 'c',
             ],
         ],
+
         /*
          * Primary Buttons
          */
         'options'       => [
             'text' => 'ui::button.options',
-            'type' => 'primary',
+            'context' => 'primary',
             'icon' => 'cog',
         ],
         'versions'      => [
@@ -57,38 +59,39 @@ class ButtonRegistry
             'data-message' => 'ui::message.confirm_load_message',
         ],
         'primary'       => [
-            'type' => 'primary',
+            'context' => 'primary',
         ],
+        
         /*
          * Success Buttons
          */
         'green'         => [
-            'type' => 'success',
+            'context' => 'success',
         ],
         'success'       => [
             'icon' => 'check',
-            'type' => 'success',
+            'context' => 'success',
         ],
         'save'          => [
             'text' => 'ui::button.save',
             'icon' => 'save',
-            'type' => 'success',
+            'context' => 'success',
         ],
         'update'        => [
             'text' => 'ui::button.save',
             'icon' => 'save',
-            'type' => 'success',
+            'context' => 'success',
         ],
         'create'        => [
             'text' => 'ui::button.create',
             'icon' => 'fa fa-asterisk',
-            'type' => 'success',
+            'context' => 'success',
             'primary' => true,
         ],
         'new'           => [
             'text' => 'ui::button.new',
             'icon' => 'fa fa-plus',
-            'type' => 'success',
+            'context' => 'success',
             'primary' => true,
             'attributes' => [
                 'data-keymap' => 'n',
@@ -97,12 +100,12 @@ class ButtonRegistry
         'new_field'     => [
             'text' => 'ui::button.new_field',
             'icon' => 'fa fa-plus',
-            'type' => 'success',
+            'context' => 'success',
         ],
         'add'           => [
             'text' => 'ui::button.add',
             'icon' => 'fa fa-plus',
-            'type' => 'success',
+            'context' => 'success',
             'attributes' => [
                 'data-keymap' => 'a',
             ],
@@ -110,67 +113,67 @@ class ButtonRegistry
         'add_all'       => [
             'text' => 'ui::button.add_all',
             'icon' => 'fa fa-plus-circle',
-            'type' => 'success',
+            'context' => 'success',
         ],
         'add_field'     => [
             'text' => 'ui::button.add_field',
             'icon' => 'fa fa-plus',
-            'type' => 'success',
+            'context' => 'success',
             'primary' => true,
         ],
         'add_selected'       => [
             'text' => 'ui::button.add_selected',
             'icon' => 'fa fa-check-circle',
-            'type' => 'success',
+            'context' => 'success',
         ],
         'assign_fields' => [
             'text' => 'ui::button.assign_fields',
             'icon' => 'fa fa-plus',
-            'type' => 'success',
+            'context' => 'success',
             'primary' => true,
         ],
         'send'          => [
             'text' => 'ui::button.send',
             'icon' => 'envelope',
-            'type' => 'success',
+            'context' => 'success',
         ],
         'submit'        => [
             'text' => 'ui::button.submit',
-            'type' => 'success',
+            'context' => 'success',
         ],
         'install'       => [
             'text' => 'ui::button.install',
             'icon' => 'download',
-            'type' => 'success',
+            'context' => 'success',
         ],
         'entries'       => [
             'text' => 'ui::button.entries',
             'icon' => 'list-ol',
-            'type' => 'success',
+            'context' => 'success',
         ],
         'done'          => [
             'text' => 'ui::button.done',
-            'type' => 'success',
+            'context' => 'success',
             'icon' => 'check',
         ],
         'select'        => [
             'text' => 'ui::button.select',
-            'type' => 'success',
+            'context' => 'success',
             'icon' => 'check',
         ],
         'restore'       => [
             'text' => 'ui::button.restore',
-            'type' => 'success',
+            'context' => 'success',
             'icon' => 'repeat',
         ],
         'finish'        => [
             'text' => 'ui::button.finish',
-            'type' => 'success',
+            'context' => 'success',
             'icon' => 'check',
         ],
         'finished'      => [
             'text' => 'ui::button.finished',
-            'type' => 'success',
+            'context' => 'success',
             'icon' => 'check',
         ],
 
@@ -178,15 +181,15 @@ class ButtonRegistry
          * Info Buttons
          */
         'blue'          => [
-            'type' => 'info',
+            'context' => 'info',
         ],
         'info'          => [
-            'type' => 'info',
+            'context' => 'info',
         ],
         'information'   => [
             'text' => 'ui::button.info',
             'icon' => 'fa fa-info',
-            'type' => 'info',
+            'context' => 'info',
         ],
         'help'          => [
             'icon'        => 'circle-question-mark',
@@ -198,71 +201,73 @@ class ButtonRegistry
         'view'          => [
             'text' => 'ui::button.view',
             'icon' => 'fa fa-eye',
-            'type' => 'info',
+            'context' => 'info',
         ],
         'export'        => [
             'text' => 'ui::button.export',
             'icon' => 'download',
-            'type' => 'info',
+            'context' => 'info',
         ],
         'fields'        => [
             'text' => 'ui::button.fields',
             'icon' => 'list-alt',
-            'type' => 'info',
+            'context' => 'info',
         ],
         'assignments'   => [
             'text' => 'ui::button.assignments',
             'icon' => 'list-alt',
-            'type' => 'info',
+            'context' => 'info',
         ],
         'settings'      => [
             'text' => 'ui::button.settings',
-            'type' => 'info',
+            'context' => 'info',
             'icon' => 'cog',
         ],
         'preferences'   => [
             'text' => 'ui::button.preferences',
-            'type' => 'info',
+            'context' => 'info',
             'icon' => 'sliders',
         ],
         'configure'     => [
             'text' => 'ui::button.configure',
             'icon' => 'wrench',
-            'type' => 'info',
+            'context' => 'info',
         ],
+
         /*
          * Warning Buttons
          */
         'orange'        => [
-            'type' => 'warning',
+            'context' => 'warning',
         ],
         'warning'       => [
             'icon' => 'warning',
-            'type' => 'warning',
+            'context' => 'warning',
         ],
         'edit'          => [
             'text' => 'ui::button.edit',
             'icon' => 'pencil',
-            'type' => 'warning',
+            'context' => 'warning',
         ],
         'change'        => [
             'text' => 'ui::button.change',
-            'type' => 'warning',
+            'context' => 'warning',
             'icon' => 'cog',
         ],
+        
         /*
          * Danger Buttons
          */
         'red'           => [
-            'type' => 'danger',
+            'context' => 'danger',
         ],
         'danger'        => [
             'icon' => 'fa fa-exclamation-circle',
-            'type' => 'danger',
+            'context' => 'danger',
         ],
         'remove'        => [
             'text' => 'ui::button.remove',
-            'type' => 'danger',
+            'context' => 'danger',
             'icon' => 'ban',
         ],
         'delete'        => [

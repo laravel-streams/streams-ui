@@ -30,6 +30,7 @@ class TableBuilder extends Builder
      */
     protected $attributes = [
         'async' => false,
+        // 'editable' => false,
 
         'stream' => null,
         'entries' => null,
@@ -41,10 +42,10 @@ class TableBuilder extends Builder
         'columns' => [],
         'buttons' => [],
         'actions' => [],
+        
         'options' => [],
 
         'component' => 'table',
-
         'table' => Table::class,
         
         'workflows' => [

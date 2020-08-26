@@ -60,19 +60,16 @@ class Builder
         return $this;
     }
 
-    public function render(): View
-    {
-        $this->build();
-
-        return $this->instance->render();
-    }
-
     public function response(): HttpFoundationResponse
     {
         $this->build();
 
         if ($this->response) {
             return $this->response;
+        }
+
+        if (!$this->async && Request::ajax()) {
+            return Response::view($this->render());
         }
 
         if ($this->async == true && Request::ajax()) {
@@ -82,6 +79,13 @@ class Builder
         return Response::view('ui::default', ['content' => $this->render()]);
     }
 
+    public function render(): View
+    {
+        $this->build();
+
+        return $this->instance->render();
+    }
+
     public function json(): JsonResponse
     {
         $this->build();
@@ -89,17 +93,6 @@ class Builder
         return Response::json($this->instance->toJson());
     }
 
-    /**
-     * Get a request value.
-     *
-     * @param $key
-     * @param null $default
-     * @return mixed
-     */
-    public function request($key, $default = null)
-    {
-        return Request::get($this->instance->prefix($key), $default);
-    }
 
     protected function workflow($name): Workflow
     {
@@ -130,5 +123,14 @@ class Builder
         }
 
         $this->setAttribute($key, $value);
+    }
+
+    public function __call($method, $parameters)
+    {
+        if (method_exists($this->instance, $method)) {
+            return call_user_func_array([$this->instance, $method], $parameters);
+        }
+
+        throw new \Exception("Method [{$method}] does not exist.");
     }
 }

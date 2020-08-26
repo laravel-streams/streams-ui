@@ -4,22 +4,19 @@ namespace Anomaly\Streams\Ui\Form\Workflows\Build;
 
 use Illuminate\Support\Arr;
 use Anomaly\Streams\Ui\Form\FormBuilder;
-use Anomaly\Streams\Ui\Support\Breadcrumb;
-use Anomaly\Streams\Platform\Asset\Facades\Assets;
-use Anomaly\Streams\Ui\Form\Workflows\QueryWorkflow;
 use Anomaly\Streams\Platform\Support\Facades\Resolver;
 use Anomaly\Streams\Platform\Support\Facades\Evaluator;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Repository\Contract\RepositoryInterface;
 
 /**
- * Class SetEntry
+ * Class QueryEntry
  *
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class SetEntry
+class QueryEntry
 {
 
     /**

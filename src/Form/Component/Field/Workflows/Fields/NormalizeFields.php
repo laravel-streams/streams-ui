@@ -41,7 +41,7 @@ class NormalizeFields
              */
             if (is_numeric($handle) && is_string($field)) {
                 $field = [
-                    'field' => $field,
+                    'handle' => $field,
                 ];
             }
 
@@ -52,18 +52,9 @@ class NormalizeFields
              */
             if (!is_numeric($handle) && is_string($handle) && is_string($field)) {
                 $field = [
-                    'field' => $handle,
+                    'handle' => $handle,
                     'type'  => $field,
                 ];
-            }
-
-            /*
-             * Tuck the field away since it represents
-             * an attribute as well as the component
-             * handle/name and type like the others.
-             */
-            if (is_array($field) && !isset($field['stream_field'])) {
-                $field['stream_field'] = $handle;
             }
         }
 

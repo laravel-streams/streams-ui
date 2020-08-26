@@ -4,6 +4,7 @@ namespace Anomaly\Streams\Ui\Support;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\View\View as ViewView;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
@@ -27,10 +28,15 @@ class Component implements Arrayable, Jsonable
     public function render(): ViewView
     {
         $fallback = "ui::{$this->component}/{$this->component}";
-        
+
         return View::make($this->template ?: $fallback, [
             $this->component => $this,
         ]);
+    }
+
+    public function request($key, $default = null)
+    {
+        return Request::get($this->prefix($key), $default);
     }
 
     public function prefix($target = null): string

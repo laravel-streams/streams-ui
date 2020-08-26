@@ -27,12 +27,6 @@ use Anomaly\Streams\Ui\Table\Workflows\Build\AuthorizeTable;
  */
 class BuildTable extends Workflow
 {
-
-    /**
-     * The build steps.
-     *
-     * @var array
-     */
     protected $steps = [
         MakeComponent::class,
 
@@ -45,16 +39,16 @@ class BuildTable extends Workflow
         SetRepository::class,
 
         BuildViews::class,
-
         AuthorizeTable::class,
 
-        BuildActions::class,
         BuildFilters::class,
-        BuildColumns::class,
-        BuildButtons::class,
-
         QueryEntries::class,
-        
+
+        BuildActions::class,
+        HandleRequest::class,
+
+        BuildButtons::class,
+        BuildColumns::class,
         BuildRows::class,
     ];
 }

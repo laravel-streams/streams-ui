@@ -3,7 +3,6 @@
 namespace Anomaly\Streams\Ui\Form\Component\Field\Workflows;
 
 use Anomaly\Streams\Platform\Support\Workflow;
-use Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields\ApplyFields;
 use Anomaly\Streams\Ui\Support\Workflows\BuildComponents;
 use Anomaly\Streams\Ui\Support\Workflows\ParseComponents;
 use Anomaly\Streams\Ui\Support\Workflows\ResolveComponents;
@@ -31,8 +30,6 @@ class BuildFields extends Workflow
         'parse_fields' => ParseComponents::class,
 
         'build_fields' => BuildComponents::class,
-
-        ApplyFields::class,
 
         'populate_fields' => PopulateFields::class,
     ];
