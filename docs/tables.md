@@ -16,27 +16,31 @@ sort: 0
 - **Additional Reading:** Link to related ideas/topics/guides/recipes.
 
 
----
+# Configuration Examples
 
-All tables accept a standard array of attributes:
-```php
-$table = (new TableBuilder([
-    'stream' => 'examples',
-]))->build();
-```
+```json
+{
+    "form": [
+        // Required Configuration
+        "stream",   // The stream the entry belongs to
+        
+        // Optional Configuration
+        "repository",   // The entry repository
 
-## Methods
-
-All form builders provide a few methods of standard operation.
-
-### Post
-
-Handle post requests for form actions and filtering.
-
-```php
-$table = (new TableBuilder([
-    'stream' => 'examples',
-]))->build();
-
-$table->post();
+        "builder",  // The table builder to use
+        "table",    // The table component to use
+        
+        "assets",   // Assets to load
+        
+        "views",        // Table views configuration
+        "filters",      // Table filters configuration
+        "columns",      // Table columns configuration
+        "actions",      // Table actions configuration
+        "buttons",      // Table buttons configuration
+        
+        "options": [    // Component options array
+            "sortable" // Enable sortable functionality
+        ]
+    ],
+}
 ```

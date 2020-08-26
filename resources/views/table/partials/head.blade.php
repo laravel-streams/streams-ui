@@ -1,38 +1,40 @@
-<thead class="table__head"> 
-<tr>
+<thead class="table__head">
+    <tr>
 
-    @if ($table->options->get('sortable'))
-    <th class="table__handle"></th>
-    @endif
-    
-    @if ($table->actions->isNotEmpty())
-    <th class="table__checkbox">
-        <input type="checkbox">
-    </th>
-    @endif
+        @if ($table->options->get('sortable'))
+        <th class="table__handle"></th>
+        @endif
 
-    @foreach ($table->columns as $column)
+        @if ($table->actions->isNotEmpty())
+        <th class="table__checkbox">
+            <input type="checkbox">
+        </th>
+        @endif
+
+        @foreach ($table->columns as $column)
         {{-- <th {!! html_attributes() !!}> --}}
         <th {!! $column->expand('attributes')->htmlAttributes() !!}>
-            {!! $column->heading !!}
+
             @if ($column->sortable)
-
-                {{-- {!! html_link(url()->current() . '?order_by=' . $column->field . '&sort=' . ($column->direction == 'asc' ? 'desc' : 'asc'), $column->heading) !!} --}}
-                
+            <a
+                href="{{ URL::current() . '?order_by=' . $column->field . '&sort=' . (Request::get($table->prefix('sort')) == 'asc' ? 'desc' : 'asc') }}">
+                {!! $column->heading !!}
                 @if ($column->direction == 'asc')
-                    {{-- {!! icon('sort-ascending') !!} --}}
-                    (ASC)
+                {{-- {!! icon('sort-ascending') !!} --}}
+                (ASC)
                 @elseif ($column->direction == 'desc')
-                    {{-- {!! icon('sort-descending') !!} --}}
-                    (DESC)
+                {{-- {!! icon('sort-descending') !!} --}}
+                (DESC)
                 @else
-                    {{-- {!! icon('sortable') !!} --}}
-                    (--)
+                {{-- {!! icon('sortable') !!} --}}
+                (--)
                 @endif
-            @endif
+                @else
+                {!! $column->heading !!}
+                @endif
         </th>
-    @endforeach
+        @endforeach
 
-    <th></th>
-</tr>
+        <th></th>
+    </tr>
 </thead>

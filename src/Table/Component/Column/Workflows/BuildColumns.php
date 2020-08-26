@@ -5,6 +5,7 @@ namespace Anomaly\Streams\Ui\Table\Component\Column\Workflows;
 use Anomaly\Streams\Platform\Support\Workflow;
 use Anomaly\Streams\Ui\Support\Workflows\BuildComponents;
 use Anomaly\Streams\Ui\Support\Workflows\ResolveComponents;
+use Anomaly\Streams\Ui\Table\Component\Column\Workflows\Columns\ExpandColumns;
 use Anomaly\Streams\Ui\Table\Component\Column\Workflows\Columns\DefaultColumns;
 use Anomaly\Streams\Ui\Table\Component\Column\Workflows\Columns\NormalizeColumns;
 
@@ -28,6 +29,7 @@ class BuildColumns extends Workflow
 
         DefaultColumns::class,
         NormalizeColumns::class,
+        ExpandColumns::class,
 
         //'merge_columns' => MergeComponents::class,
 

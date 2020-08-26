@@ -76,24 +76,11 @@ $form = (new FormBuilder([
         "rules",    // Form rules configuration
         "actions",  // Form actions configuration
         "buttons",  // Form buttons configuration
-        "options",  // Form options configuration
         "sections", // Form sections configuration
         
-        "options"      // Component options array
+        "options": [      // Component options array
+            ""
+        ]
     ],
-    "table": [
-        // Required Configuration
-        "stream",   // The stream the entry belongs to
-        
-        // Optional Configuration
-        "repository",   // The entry repository
-
-        "builder",  // The table builder to use
-        "table",    // The table component to use
-        
-        "assets",   // Assets to load
-
-        "options"   // Component options array
-    ]
 }
 ```
