@@ -56,7 +56,7 @@ class ButtonFactory
      * @return ButtonInterface
      */
     public function make(array $parameters)
-    {
+    {dd('Test');
         $button = Arr::get($parameters, 'button');
 
         if ($button && $registered = $this->buttons->get($button)) {

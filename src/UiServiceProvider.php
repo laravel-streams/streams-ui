@@ -83,7 +83,7 @@ class UiServiceProvider extends ServiceProvider
 
             $attributes = ['field' => $this];
 
-            return App::make('streams.input_types.' . $this->input ?: $default, compact('attributes'));
+            return App::make('streams.input_types.' . ($this->input ?: $default), compact('attributes'));
         });
 
         Stream::macro('form', function ($attributes = []) {
