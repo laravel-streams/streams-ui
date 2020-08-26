@@ -29,7 +29,7 @@ class ExecuteAction
 
         dd('ExecuteAction not implemented yet.');
 
-        $actions = $builder->table->getActions();
+        $actions = $builder->instance->getActions();
 
         if ($action = $actions->active()) {
             $executor->execute($builder, $action);

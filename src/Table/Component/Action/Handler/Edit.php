@@ -25,13 +25,13 @@ class Edit
      */
     public function handle(SectionCollection $sections, Redirector $redirector, TableBuilder $builder, array $selected)
     {
-        $prefix = $builder->table->options->get('prefix');
+        $prefix = $builder->instance->options->get('prefix');
 
         $edit = array_shift($selected);
         $ids  = implode(',', $selected);
 
         if ($section = $sections->active()) {
-            $builder->table->response = $redirector->to(
+            $builder->instance->response = $redirector->to(
                 $section->getHref('edit/' . $edit . '?' . $prefix . 'edit_next=' . $ids)
             );
         }

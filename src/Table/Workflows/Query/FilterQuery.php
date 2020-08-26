@@ -22,7 +22,7 @@ class FilterQuery
      */
     public function handle(TableBuilder $builder)
     {
-        foreach ($builder->table->filters->active() as $filter) {
+        foreach ($builder->instance->filters->active() as $filter) {
 
             /*
             * If the handler is a callable string or Closure

@@ -41,7 +41,7 @@ class ApplyView
     {
         $builder = $event->getBuilder();
 
-        if ($view = $builder->table->views->active()) {
+        if ($view = $builder->instance->views->active()) {
             $this->query->handle($event->getBuilder(), $event->getCriteria(), $view);
         }
         dd('View');

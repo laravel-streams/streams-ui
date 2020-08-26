@@ -26,7 +26,7 @@ class TableAuthorizer
          * take precedense over the 
          * model policy.
          */
-        $policy = $builder->table->options->get('policy');
+        $policy = $builder->instance->options->get('policy');
 
         if ($policy && !Gate::any((array) $policy)) {
             abort(403);
