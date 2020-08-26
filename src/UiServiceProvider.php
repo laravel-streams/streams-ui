@@ -13,7 +13,6 @@ use Anomaly\Streams\Ui\Form\FormBuilder;
 use Anomaly\Streams\Platform\Field\Field;
 use Anomaly\Streams\Ui\Table\TableBuilder;
 use Anomaly\Streams\Platform\Stream\Stream;
-use Anomaly\Streams\Platform\Support\Facades\Streams;
 
 /**
  * Class StreamsServiceProvider
@@ -84,7 +83,7 @@ class UiServiceProvider extends ServiceProvider
 
             $attributes = ['field' => $this];
 
-            return App::make('streams.input_types.' . Arr::get($this->input, 'type', $default), compact('attributes'));
+            return App::make('streams.input_types.' . $this->input ?: $default, compact('attributes'));
         });
 
         Stream::macro('form', function ($attributes = []) {
