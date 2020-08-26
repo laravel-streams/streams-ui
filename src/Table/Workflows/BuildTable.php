@@ -16,6 +16,7 @@ use Anomaly\Streams\Ui\Table\Workflows\Build\BuildButtons;
 use Anomaly\Streams\Ui\Table\Workflows\Build\BuildColumns;
 use Anomaly\Streams\Ui\Table\Workflows\Build\BuildFilters;
 use Anomaly\Streams\Ui\Table\Workflows\Build\QueryEntries;
+use Anomaly\Streams\Ui\Table\Workflows\Build\HandleRequest;
 use Anomaly\Streams\Ui\Table\Workflows\Build\AuthorizeTable;
 
 /**
