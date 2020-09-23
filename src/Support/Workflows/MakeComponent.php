@@ -22,7 +22,7 @@ class MakeComponent
      */
     public function handle(Builder $builder)
     {
-        $parameters = $builder->getAttributes();
+        $parameters = $builder->getPrototypeAttributes();
         
         $abstract = Arr::pull($parameters, $builder->component);
         

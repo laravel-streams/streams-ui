@@ -33,7 +33,7 @@ class ValuateRows
 
                 $clone = clone ($column);
 
-                $clone->value = Value::make($column->getAttributes(), $row->entry);
+                $clone->value = Value::make($column->getPrototypeAttributes(), $row->entry);
 
                 $row->columns->put($key, $clone);
             }
@@ -42,7 +42,7 @@ class ValuateRows
 
                 $clone = clone ($button);
 
-                $clone->fill(Arr::parse($button->getAttributes(), [
+                $clone->setPrototypeAttributes(Arr::parse($button->getPrototypeAttributes(), [
                     'entry' => $row->entry,
                     'stream' => $builder->stream,
                 ]));

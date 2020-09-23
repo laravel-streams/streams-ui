@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Traits\Macroable;
 use Anomaly\Streams\Platform\Support\Workflow;
-use Anomaly\Streams\Platform\Support\Traits\Properties;
+use Anomaly\Streams\Platform\Support\Traits\Prototype;
 use Anomaly\Streams\Platform\Support\Traits\FiresCallbacks;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
@@ -32,7 +32,7 @@ use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 class Builder
 {
     use Macroable;
-    use Properties;
+    use Prototype;
     use FiresCallbacks;
 
     public function build(): Builder

@@ -4,7 +4,7 @@ namespace Anomaly\Streams\Ui\ControlPanel\Component\Navigation;
 
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
-use Anomaly\Streams\Platform\Support\Traits\Properties;
+use Anomaly\Streams\Platform\Support\Traits\Prototype;
 use Anomaly\Streams\Platform\Support\Facades\Hydrator;
 
 /**
@@ -17,7 +17,7 @@ use Anomaly\Streams\Platform\Support\Facades\Hydrator;
 class NavigationLink implements Arrayable, Jsonable
 {
 
-    use Properties;
+    use Prototype;
 
     /**
      * The link attributes.

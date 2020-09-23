@@ -61,11 +61,11 @@ class SetActiveNavigationLink
              * Get the HREF for both the active
              * and loop iteration link.
              */
-            $href       = Arr::get($link->getAttributes(), 'href');
+            $href       = Arr::get($link->getPrototypeAttributes(), 'href');
             $activeHref = '';
 
             if ($active && $active instanceof NavigationLinkInterface) {
-                $activeHref = Arr::get($active->getAttributes(), 'href');
+                $activeHref = Arr::get($active->getPrototypeAttributes(), 'href');
             }
 
             /*
