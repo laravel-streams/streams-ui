@@ -42,7 +42,7 @@ class Shortcut implements Arrayable, Jsonable
      */
     public function href($path = null)
     {
-        return $this->attr('attributes.href') . ($path ? '/' . $path : $path);
+        return $this->getPrototypeAttribute('attributes.href') . ($path ? '/' . $path : $path);
     }
 
     /**
@@ -74,7 +74,7 @@ class Shortcut implements Arrayable, Jsonable
      */
     public function __get($key)
     {
-        return $this->getAttribute($key);
+        return $this->getPrototypeAttribute($key);
     }
 
     /**

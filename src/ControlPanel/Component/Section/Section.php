@@ -50,7 +50,7 @@ class Section implements Arrayable, Jsonable
      */
     public function href($path = null)
     {
-        return $this->attr('attributes.href') . ($path ? '/' . $path : $path);
+        return $this->getPrototypeAttribute('attributes.href') . ($path ? '/' . $path : $path);
     }
 
     /**

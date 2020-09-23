@@ -14,7 +14,7 @@
             {!! Form::open([
                 'method' => 'post'
             ]) !!}
-                <table {{-- {!! html_attributes($table->attr('attributes', [])) !!} --}}>
+                <table {{-- {!! html_attributes($table->getPrototypeAttribute('attributes', [])) !!} --}}>
                     @include('ui::table/partials/head')
                     @include('ui::table/partials/body')
                     @include('ui::table/partials/foot')

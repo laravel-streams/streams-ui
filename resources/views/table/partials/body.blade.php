@@ -1,6 +1,6 @@
 <tbody class="table__body">
     @foreach ($table->rows as $row)
-    {{-- <tr {!! html_attributes($row->attr('attributes', [])) !!}> --}}
+    {{-- <tr {!! html_attributes($row->getPrototypeAttribute('attributes', [])) !!}> --}}
     <tr>
 
         @if ($table->options->get('sortable'))
@@ -17,7 +17,7 @@
         @endif
 
         @foreach ($row->columns as $column)
-        {{-- <td {{ html_attributes($column->attr('attributes', [])) }}> --}}
+        {{-- <td {{ html_attributes($column->getPrototypeAttribute('attributes', [])) }}> --}}
         <td>
             {!! $column->value !!}
         </td>

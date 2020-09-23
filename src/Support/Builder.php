@@ -113,7 +113,7 @@ class Builder
             $key  = $this->attributes['component'];
         }
 
-        return $this->getAttribute($key);
+        return $this->getPrototypeAttribute($key);
     }
 
     public function __set($key, $value)
