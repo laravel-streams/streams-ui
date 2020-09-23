@@ -21,7 +21,7 @@ class BuildChildren
 
         $workflow = Arr::get($builder->workflows, $component);
 
-        (new $workflow)->setAttribute('name', 'build_' . $component)->passThrough($builder)->process([
+        (new $workflow)->setPrototypeAttribute('name', 'build_' . $component)->passThrough($builder)->process([
             'builder' => $builder,
             'component' => $component,
         ]);

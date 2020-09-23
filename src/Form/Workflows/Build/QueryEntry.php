@@ -63,7 +63,7 @@ class QueryEntry
 
             $workflow = Arr::get($builder->workflows, 'query');
 
-            (new $workflow)->setAttribute('name', 'query_form')->passThrough($builder)->process([
+            (new $workflow)->setPrototypeAttribute('name', 'query_form')->passThrough($builder)->process([
                 'builder' => $builder,
             ]);
 

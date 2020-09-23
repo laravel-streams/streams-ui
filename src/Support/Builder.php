@@ -103,7 +103,7 @@ class Builder
         }
 
         return (new $workflow)
-            ->setAttribute('name', $name)
+            ->setPrototypeAttribute('name', $name)
             ->passThrough($this);
     }
 
@@ -122,7 +122,7 @@ class Builder
             $key  = $this->attributes['component'];
         }
 
-        $this->setAttribute($key, $value);
+        $this->setPrototypeAttribute($key, $value);
     }
 
     public function __call($method, $parameters)
