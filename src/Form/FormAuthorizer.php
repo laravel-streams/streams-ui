@@ -3,7 +3,6 @@
 namespace Anomaly\Streams\Ui\Form;
 
 use Illuminate\Support\Facades\Gate;
-use Anomaly\Streams\Platform\Addon\Module\ModuleCollection;
 
 /**
  * Class FormAuthorizer

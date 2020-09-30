@@ -15,15 +15,19 @@ class Column extends Component
 {
 
     /**
-     * The button attributes.
+     * Initialize the prototype.
      *
-     * @var array
+     * @param array $attributes
+     * @return $this
      */
-    protected $attributes = [
-        'view' => null,
-        'value' => null,
-        'entry' => null,
-        'heading' => null,
-        'wrapper' => null,
-    ];
+    protected function initializePrototype(array $attributes)
+    {
+        return parent::initializePrototype(array_merge([
+            'view' => null,
+            'value' => null,
+            'entry' => null,
+            'heading' => null,
+            'wrapper' => null,
+        ], $attributes));
+    }
 }

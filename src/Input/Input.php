@@ -15,14 +15,18 @@ class Input extends Component
 {
 
     /**
-     * The input attributes.
+     * Initialize the prototype.
      *
-     * @var array
+     * @param array $attributes
+     * @return $this
      */
-    protected $attributes = [
-        'template' => 'ui::input/input',
-        'component' => 'input',
-        'type' => 'text',
-        'field' => null,
-    ];
+    protected function initializePrototype(array $attributes)
+    {
+        return parent::initializePrototype(array_merge([
+            'template' => 'ui::input/input',
+            'component' => 'input',
+            'type' => 'text',
+            'field' => null,
+        ], $attributes));
+    }
 }

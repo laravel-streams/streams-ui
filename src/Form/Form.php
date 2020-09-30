@@ -24,13 +24,55 @@ class Form extends Component
 {
 
     /**
-     * Create a new class instance.
+     * Initialize the prototype.
      *
      * @param array $attributes
+     * @return $this
      */
-    public function __construct(array $attributes = [])
+    protected function initializePrototype(array $attributes)
     {
-        parent::__construct(array_merge([
+        $this->loadPrototypeProperties([
+            'values' => [
+                'type' => 'collection',
+            ],
+            'options' => [
+                'type' => 'collection',
+            ],
+    
+            'rules' => [
+                'type' => 'collection',
+            ],
+            'validators' => [
+                'type' => 'collection',
+            ],
+    
+            'fields' => [
+                'type' => 'collection',
+                'config' => [
+                    'abstract' => FieldCollection::class,
+                ],
+            ],
+            'actions' => [
+                'type' => 'collection',
+                'config' => [
+                    'abstract' => ActionCollection::class,
+                ],
+            ],
+            'buttons' => [
+                'type' => 'collection',
+                'config' => [
+                    'abstract' => ButtonCollection::class,
+                ],
+            ],
+            'sections' => [
+                'type' => 'collection',
+                'config' => [
+                    'abstract' => SectionCollection::class,
+                ],
+            ],
+        ]);
+        
+        return parent::initializePrototype(array_merge([
             'mode' => null,
             'entry' => null,
             'component' => 'form',
@@ -51,47 +93,6 @@ class Form extends Component
             'sections' => new SectionCollection(),
         ], $attributes));
     }
-
-    protected $properties = [
-        'values' => [
-            'type' => 'collection',
-        ],
-        'options' => [
-            'type' => 'collection',
-        ],
-
-        'rules' => [
-            'type' => 'collection',
-        ],
-        'validators' => [
-            'type' => 'collection',
-        ],
-
-        'fields' => [
-            'type' => 'collection',
-            'config' => [
-                'abstract' => FieldCollection::class,
-            ],
-        ],
-        'actions' => [
-            'type' => 'collection',
-            'config' => [
-                'abstract' => ActionCollection::class,
-            ],
-        ],
-        'buttons' => [
-            'type' => 'collection',
-            'config' => [
-                'abstract' => ButtonCollection::class,
-            ],
-        ],
-        'sections' => [
-            'type' => 'collection',
-            'config' => [
-                'abstract' => SectionCollection::class,
-            ],
-        ],
-    ];
 
     /**
      * Return the opening form tag.

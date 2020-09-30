@@ -15,21 +15,25 @@ class Button extends Component
 {
 
     /**
-     * The button attributes.
+     * Initialize the prototype.
      *
-     * @var array
+     * @param array $attributes
+     * @return $this
      */
-    protected $attributes = [
-        'tag' => 'a',
-        'url' => null,
-        'text' => null,
-        'entry' => null,
-        'policy' => null,
-        'enabled' => true,
-        'primary' => false,
-        'disabled' => false,
-        'type' => 'default',
-    ];
+    protected function initializePrototype(array $attributes)
+    {
+        return parent::initializePrototype(array_merge([
+            'tag' => 'a',
+            'url' => null,
+            'text' => null,
+            'entry' => null,
+            'policy' => null,
+            'enabled' => true,
+            'primary' => false,
+            'disabled' => false,
+            'type' => 'default',
+        ], $attributes));
+    }
 
     /**
      * Return the open tag.
@@ -39,7 +43,7 @@ class Button extends Component
      */
     public function open(array $attributes = [])
     {
-        return '<' . $this->tag . ' ' . $this->expand('attributes')->htmlAttributes($attributes) . '>';
+        return '<' . $this->tag . ' ' . $this->expandPrototypeAttribute('attributes')->htmlAttributes($attributes) . '>';
     }
 
     /**

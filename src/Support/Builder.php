@@ -110,7 +110,7 @@ class Builder
     public function __get($key)
     {
         if ($key == 'instance') {
-            $key  = $this->attributes['component'];
+            $key  = $this->__prototype['attributes']['component'];
         }
 
         return $this->getPrototypeAttribute($key);
@@ -119,7 +119,7 @@ class Builder
     public function __set($key, $value)
     {
         if ($key == 'instance') {
-            $key  = $this->attributes['component'];
+            $key  = $this->__prototype['attributes']['component'];
         }
 
         $this->setPrototypeAttribute($key, $value);

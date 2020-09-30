@@ -20,13 +20,54 @@ class Table extends Component
 {
 
     /**
-     * Create a new class instance.
+     * Initialize the prototype.
      *
      * @param array $attributes
+     * @return $this
      */
-    public function __construct(array $attributes = [])
+    protected function initializePrototype(array $attributes)
     {
-        parent::__construct(array_merge([
+        $this->loadPrototypeProperties([
+            'views' => [
+                'type' => 'collection',
+                'config' => [
+                    'abstract' => ViewCollection::class,
+                ],
+            ],
+            'actions' => [
+                'type' => 'collection',
+                'config' => [
+                    'abstract' => ActionCollection::class,
+                ],
+            ],
+            'filters' => [
+                'type' => 'collection',
+                'config' => [
+                    'abstract' => FilterCollection::class,
+                ],
+            ],
+    
+            'rows' => [
+                'type' => 'collection',
+            ],
+            'buttons' => [
+                'type' => 'collection',
+                'config' => [
+                    'abstract' => ButtonCollection::class,
+                ],
+            ],
+            'columns' => [
+                'type' => 'collection',
+            ],
+            'entries' => [
+                'type' => 'collection',
+            ],
+            'options' => [
+                'type' => 'collection',
+            ],
+        ]);
+
+        parent::initializePrototype(array_merge([
             'component' => 'table',
 
             'rows' => new Collection(),
@@ -40,44 +81,4 @@ class Table extends Component
             'filters' => new FilterCollection(),
         ], $attributes));
     }
-
-    protected $properties = [
-        'views' => [
-            'type' => 'collection',
-            'config' => [
-                'abstract' => ViewCollection::class,
-            ],
-        ],
-        'actions' => [
-            'type' => 'collection',
-            'config' => [
-                'abstract' => ActionCollection::class,
-            ],
-        ],
-        'filters' => [
-            'type' => 'collection',
-            'config' => [
-                'abstract' => FilterCollection::class,
-            ],
-        ],
-
-        'rows' => [
-            'type' => 'collection',
-        ],
-        'buttons' => [
-            'type' => 'collection',
-            'config' => [
-                'abstract' => ButtonCollection::class,
-            ],
-        ],
-        'columns' => [
-            'type' => 'collection',
-        ],
-        'entries' => [
-            'type' => 'collection',
-        ],
-        'options' => [
-            'type' => 'collection',
-        ],
-    ];
 }

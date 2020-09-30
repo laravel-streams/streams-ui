@@ -16,26 +16,31 @@ class Filter extends Component
 {
 
     /**
-     * Undocumented variable
+     * Initialize the prototype.
      *
-     * @var array
+     * @param array $attributes
+     * @return $this
      */
-    protected $attributes = [
-        'handle' => null,
-        'field' => null,
-        'stream' => null,
-        'prefix' => null,
-        'column' => null,
+    protected function initializePrototype(array $attributes)
+    {
+        return parent::initializePrototype(array_merge([
+            'handle' => null,
+            'field' => null,
+            'stream' => null,
+            'prefix' => null,
+            'column' => null,
 
-        'placeholder' => null,
+            'placeholder' => null,
 
-        'active' => false,
-        'exact' => false,
+            'active' => false,
+            'exact' => false,
 
-        'query' => GenericFilterQuery::class,
-    ];
+            'query' => GenericFilterQuery::class,
+        ], $attributes));
+    }
 
     /**
+     * @todo finish this
      * Get the filter input.
      *
      * @return null|string

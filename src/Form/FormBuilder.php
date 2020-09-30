@@ -23,10 +23,54 @@ use Anomaly\Streams\Ui\Form\Component\Section\Workflows\BuildSections;
 class FormBuilder extends Builder
 {
 
+    /**
+     * Initialize the prototype.
+     *
+     * @param array $attributes
+     * @return $this
+     */
+    protected function initializePrototype(array $attributes)
+    {
+        return parent::initializePrototype(array_merge([
+            'async' => false,
+            'handler' => null,
+            'read_only' => false,
+
+            'stream' => null,
+            'repository' => null,
+
+            'entry' => null,
+
+            'rules' => [],
+            'validators' => [],
+
+            'fields' => [],
+            'assets' => [],
+            'actions' => [],
+            'buttons' => [],
+            'sections' => [],
+
+            'options' => [],
+
+            'component' => 'form',
+            'form' => Form::class,
+
+            'workflows' => [
+                'build' => BuildForm::class,
+                'query' => QueryForm::class,
+                'fields' => BuildFields::class,
+                'actions' => BuildActions::class,
+                'buttons' => BuildButtons::class,
+                'sections' => BuildSections::class,
+                'validate' => ValidateForm::class,
+            ],
+        ], $attributes));
+    }
+
     public function getHandlerAttribute()
     {
         return function ($builder) {
-            
+
             $entry = $builder->instance->entry;
 
             foreach ($builder->instance->values as $field => $value) {
@@ -38,46 +82,6 @@ class FormBuilder extends Builder
             $builder->entry = $builder->instance->entry = $entry;
         };
     }
-
-    /**
-     * The builder attributes.
-     *
-     * @var array
-     */
-    protected $attributes = [
-        'async' => false,
-        'handler' => null,
-        'read_only' => false,
-
-        'stream' => null,
-        'repository' => null,
-
-        'entry' => null,
-
-        'rules' => [],
-        'validators' => [],
-
-        'fields' => [],
-        'assets' => [],
-        'actions' => [],
-        'buttons' => [],
-        'sections' => [],
-
-        'options' => [],
-
-        'component' => 'form',
-        'form' => Form::class,
-
-        'workflows' => [
-            'build' => BuildForm::class,
-            'query' => QueryForm::class,
-            'fields' => BuildFields::class,
-            'actions' => BuildActions::class,
-            'buttons' => BuildButtons::class,
-            'sections' => BuildSections::class,
-            'validate' => ValidateForm::class,
-        ],
-    ];
 
     public function validate(): Builder
     {

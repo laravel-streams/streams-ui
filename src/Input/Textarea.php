@@ -15,12 +15,16 @@ class Textarea extends Component
 {
 
     /**
-     * The input attributes.
+     * Initialize the prototype.
      *
-     * @var array
+     * @param array $attributes
+     * @return $this
      */
-    protected $attributes = [
-        'template' => 'ui::input/textarea',
-        'component' => 'input',
-    ];
+    protected function initializePrototype(array $attributes)
+    {
+        return parent::initializePrototype(array_merge([
+            'template' => 'ui::input/textarea',
+            'component' => 'input',
+        ], $attributes));
+    }
 }

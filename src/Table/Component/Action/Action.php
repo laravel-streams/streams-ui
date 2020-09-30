@@ -16,29 +16,33 @@ class Action extends Button
 {
 
     /**
-     * The button attributes.
+     * Initialize the prototype.
      *
-     * @var array
+     * @param array $attributes
+     * @return $this
      */
-    protected $attributes = [
-        'tag' => 'button',
-        'url' => null,
-        'text' => null,
-        'entry' => null,
-        'policy' => null,
-        'enabled' => true,
-        'primary' => false,
-        'disabled' => false,
-        'type' => 'default',
-
-        // Extended
-        'prefix' => null,
-        'redirect' => null,
-
-        'save' => true,
-        'active' => false,
-
-        'handle' => 'default',
-        'handler' => ActionHandler::class,
-    ];
+    protected function initializePrototype(array $attributes)
+    {
+        return parent::initializePrototype(array_merge([
+            'tag' => 'button',
+            'url' => null,
+            'text' => null,
+            'entry' => null,
+            'policy' => null,
+            'enabled' => true,
+            'primary' => false,
+            'disabled' => false,
+            'type' => 'default',
+    
+            // Extended
+            'prefix' => null,
+            'redirect' => null,
+    
+            'save' => true,
+            'active' => false,
+    
+            'handle' => 'default',
+            'handler' => ActionHandler::class,
+        ], $attributes));
+    }
 }

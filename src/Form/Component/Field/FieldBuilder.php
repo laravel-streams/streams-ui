@@ -17,21 +17,25 @@ class FieldBuilder extends Builder
 {
 
     /**
-     * The builder attributes.
+     * Initialize the prototype.
      *
-     * @var array
+     * @param array $attributes
+     * @return $this
      */
-    protected $attributes = [
-        'parent' => null,
+    protected function initializePrototype(array $attributes)
+    {
+        return parent::initializePrototype(array_merge([
+            'parent' => null,
 
-        'assets' => [],
+            'assets' => [],
 
-        'component' => 'field',
+            'component' => 'field',
 
-        'field' => Field::class,
-        
-        'workflows' => [
-            'build' => BuildComponent::class,
-        ],
-    ];
+            'field' => Field::class,
+
+            'workflows' => [
+                'build' => BuildComponent::class,
+            ],
+        ], $attributes));
+    }
 }

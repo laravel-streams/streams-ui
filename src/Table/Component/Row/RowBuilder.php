@@ -16,22 +16,26 @@ class RowBuilder extends Builder
 {
 
     /**
-     * The builder attributes.
+     * Initialize the prototype.
      *
-     * @var array
+     * @param array $attributes
+     * @return $this
      */
-    protected $attributes = [
-        'entry' => null,
-        'parent' => null,
+    protected function initializePrototype(array $attributes)
+    {
+        return parent::initializePrototype(array_merge([
+            'entry' => null,
+            'parent' => null,
 
-        'assets' => [],
+            'assets' => [],
 
-        'component' => 'row',
+            'component' => 'row',
 
-        'row' => Row::class,
+            'row' => Row::class,
 
-        'workflows' => [
-            'build' => BuildComponent::class,
-        ],
-    ];
+            'workflows' => [
+                'build' => BuildComponent::class,
+            ],
+        ], $attributes));
+    }
 }

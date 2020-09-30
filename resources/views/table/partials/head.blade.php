@@ -13,7 +13,7 @@
 
         @foreach ($table->columns as $column)
         {{-- <th {!! html_attributes() !!}> --}}
-        <th {!! $column->expand('attributes')->htmlAttributes() !!}>
+        <th {!! $column->expandPrototypeAttribute('attributes')->htmlAttributes() !!}>
 
             @if ($column->sortable)
             <a

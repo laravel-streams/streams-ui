@@ -16,21 +16,25 @@ class ActionBuilder extends Builder
 {
 
     /**
-     * The builder attributes.
+     * Initialize the prototype.
      *
-     * @var array
+     * @param array $attributes
+     * @return $this
      */
-    protected $attributes = [
-        'parent' => null,
-
-        'assets' => [],
-
-        'component' => 'action',
-
-        'action' => Action::class,
-        
-        'workflows' =>[
-            'build' => BuildComponent::class,
-        ],
-    ];
+    protected function initializePrototype(array $attributes)
+    {
+        return parent::initializePrototype(array_merge([
+            'parent' => null,
+    
+            'assets' => [],
+    
+            'component' => 'action',
+    
+            'action' => Action::class,
+            
+            'workflows' =>[
+                'build' => BuildComponent::class,
+            ],
+        ], $attributes));
+    }
 }

@@ -24,39 +24,43 @@ class TableBuilder extends Builder
 {
 
     /**
-     * The builder attributes.
+     * Initialize the prototype.
      *
-     * @var array
+     * @param array $attributes
+     * @return $this
      */
-    protected $attributes = [
-        'async' => false,
-        // 'editable' => false,
+    protected function initializePrototype(array $attributes)
+    {
+        return parent::initializePrototype(array_merge([
+            'async' => false,
+            // 'editable' => false,
 
-        'stream' => null,
-        'entries' => null,
-        'repository' => null,
+            'stream' => null,
+            'entries' => null,
+            'repository' => null,
 
-        'views' => [],
-        'assets' => [],
-        'filters' => [],
-        'columns' => [],
-        'buttons' => [],
-        'actions' => [],
-        
-        'options' => [],
+            'views' => [],
+            'assets' => [],
+            'filters' => [],
+            'columns' => [],
+            'buttons' => [],
+            'actions' => [],
 
-        'component' => 'table',
-        'table' => Table::class,
-        
-        'workflows' => [
-            'rows' => BuildRows::class,
-            'views' => BuildViews::class,
-            'build' => BuildTable::class,
-            'query' => QueryTable::class,
-            'actions' => BuildActions::class,
-            'filters' => BuildFilters::class,
-            'columns' => BuildColumns::class,
-            'buttons' => BuildButtons::class,
-        ],
-    ];
+            'options' => [],
+
+            'component' => 'table',
+            'table' => Table::class,
+
+            'workflows' => [
+                'rows' => BuildRows::class,
+                'views' => BuildViews::class,
+                'build' => BuildTable::class,
+                'query' => QueryTable::class,
+                'actions' => BuildActions::class,
+                'filters' => BuildFilters::class,
+                'columns' => BuildColumns::class,
+                'buttons' => BuildButtons::class,
+            ],
+        ], $attributes));
+    }
 }

@@ -15,29 +15,33 @@ class View extends Component
 {
 
     /**
-     * The object attributes.
+     * Initialize the prototype.
      *
-     * @var array
+     * @param array $attributes
+     * @return $this
      */
-    protected $attributes = [
-        'handle' => null,
-        'text' => null,
-        'icon' => null,
-        'label' => null,
-        'query' => null,
-        'prefix' => null,
-        'actions' => null,
-        'buttons' => null,
-        'columns' => null,
-        'entries' => null,
-        'filters' => null,
-        'handler' => null,
-        'options' => null,
-        'active' => false,
-        'attributes' => [],
-        'context' => 'danger',
+    protected function initializePrototype(array $attributes)
+    {
+        return parent::initializePrototype(array_merge([
+            'handle' => null,
+            'text' => null,
+            'icon' => null,
+            'label' => null,
+            'query' => null,
+            'prefix' => null,
+            'actions' => null,
+            'buttons' => null,
+            'columns' => null,
+            'entries' => null,
+            'filters' => null,
+            'handler' => null,
+            'options' => null,
+            'active' => false,
+            'attributes' => [],
+            'context' => 'danger',
 
-        'query' => ViewQuery::class,
-        'handler' => ViewHandler::class,
-    ];
+            'query' => ViewQuery::class,
+            'handler' => ViewHandler::class,
+        ], $attributes));
+    }
 }

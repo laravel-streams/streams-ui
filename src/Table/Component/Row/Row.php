@@ -4,6 +4,7 @@ namespace Anomaly\Streams\Ui\Table\Component\Row;
 
 use Anomaly\Streams\Ui\Support\Component;
 use Anomaly\Streams\Ui\Button\ButtonCollection;
+use Illuminate\Support\Collection;
 
 /**
  * Class Row
@@ -16,17 +17,33 @@ class Row extends Component
 {
 
     /**
-     * The object attributes.
+     * Initialize the prototype.
      *
-     * @var array
+     * @param array $attributes
+     * @return $this
      */
-    protected $attributes = [
-        'key' => null,
-        'entry' => null,
-        'table' => null,
-        'columns' => [], //Collection
-        'buttons' => [], //Collection
-    ];
+    protected function initializePrototype(array $attributes)
+    {
+        $this->loadPrototypeProperties([
+            'columns' => [
+                'type' => 'collection',
+            ],
+            'buttons' => [
+                'type' => 'collection',
+                'config' => [
+                    'abstract' => ButtonCollection::class,
+                ],
+            ],
+        ]);
+        
+        return parent::initializePrototype(array_merge([
+            'key' => null,
+            'entry' => null,
+            'table' => null,
+            'columns' => Collection::class, //Collection
+            'buttons' => ButtonCollection::class, //Collection
+        ], $attributes));
+    }
 
     protected $properties = [
         'columns' => [
