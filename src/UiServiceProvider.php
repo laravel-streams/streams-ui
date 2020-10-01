@@ -14,6 +14,7 @@ use Anomaly\Streams\Platform\Field\Field;
 use Anomaly\Streams\Platform\Field\Type\Template;
 use Anomaly\Streams\Ui\Table\TableBuilder;
 use Anomaly\Streams\Platform\Stream\Stream;
+use Anomaly\Streams\Platform\Support\Facades\Assets;
 use Anomaly\Streams\Platform\View\ViewTemplate;
 use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
 
@@ -79,6 +80,7 @@ class UiServiceProvider extends ServiceProvider
     {
         $this->extendLang();
         $this->extendView();
+        $this->extendAssets();
 
         $this->extendStream();
         $this->extendField();
@@ -154,5 +156,13 @@ class UiServiceProvider extends ServiceProvider
         });
 
         View::addNamespace('ui', base_path('vendor/anomaly/streams-ui/resources/views'));
+    }
+
+    /**
+     * Extend asset support.
+     */
+    protected function extendASsets()
+    {
+        Assets::addPath('ui', base_path('vendor/anomaly/streams-ui/resources'));
     }
 }

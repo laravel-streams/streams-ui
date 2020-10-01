@@ -58,7 +58,7 @@
                         <nav class="px-2 space-y-1">
                             @foreach ($cp->navigation as $item)
                             <a href="/ui/{{ $item->stream->handle }}/table"
-                                class="group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md {{ $item->stream->handle == request()->segment(2) ? 'text-white' : '' }} bg-indigo-900 focus:outline-none focus:bg-indigo-700 transition ease-in-out duration-150">
+                                class="group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md {{ $item->stream->handle == request()->segment(2) ? 'text-white' : '' }} transition ease-in-out duration-150">
                                 {{ $item->title }}
                             </a>    
                             @endforeach
@@ -77,7 +77,7 @@
         </div>
 
         <!-- Static sidebar for desktop -->
-        <div class="hidden md:flex md:flex-shrink-0">
+        <div class="_hidden md:flex md:flex-shrink-0">
             <div class="flex flex-col w-64">
 
                 <!-- Sidebar component, swap this element with another sidebar if you like -->
@@ -85,10 +85,10 @@
                     <div class="mt-5 flex-1 flex flex-col">
 
                         @section('navigation')
-                        <nav class="flex-1 px-2 bg-indigo-800 space-y-1">
+                        <nav class="flex-1 px-2 space-y-1">
                             @foreach ($cp->navigation as $key => $item)
                             <a href="/ui/{{ $item->stream->handle }}/table"
-                                class="group flex items-center px-2 py-2 text-sm leading-5 font-medium {{ $item->stream->handle == request()->segment(2) ? 'text-white' : '' }} rounded-md bg-indigo-900 focus:outline-none focus:bg-indigo-700 transition ease-in-out duration-150">
+                                class="group flex items-center px-2 py-2 text-sm leading-5 font-medium {{ $item->stream->handle == request()->segment(2) ? 'text-white' : '' }} rounded-md focus:outline-none transition ease-in-out duration-150">
                                 {{ $item->title }}
                             </a>
                             @endforeach
