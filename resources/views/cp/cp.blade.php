@@ -199,7 +199,7 @@
 
     @include('ui::cp/partials/assets')
 
-    <hello></hello>
+    <Hello/>
 
 </body>
 
