@@ -11,8 +11,11 @@ use Anomaly\Streams\Ui\Input\Textarea;
 use Illuminate\Support\ServiceProvider;
 use Anomaly\Streams\Ui\Form\FormBuilder;
 use Anomaly\Streams\Platform\Field\Field;
+use Anomaly\Streams\Platform\Field\Type\Template;
 use Anomaly\Streams\Ui\Table\TableBuilder;
 use Anomaly\Streams\Platform\Stream\Stream;
+use Anomaly\Streams\Platform\View\ViewTemplate;
+use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class StreamsServiceProvider
@@ -74,6 +77,10 @@ class UiServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        View::composer('ui::default', function($view) {
+            $view->with('cp', (new ControlPanelBuilder())->build());
+        });
+
         Lang::addNamespace('ui', base_path('vendor/anomaly/streams-ui/resources/lang'));
         View::addNamespace('ui', base_path('vendor/anomaly/streams-ui/resources/views'));
 
