@@ -50,7 +50,7 @@ class QueryEntry
          */
         if ($builder->entry instanceof EntryInterface) {
 
-            $builder->table->entry = $builder->entry;
+            $builder->instance->entry = $builder->entry;
 
             return;
         }
