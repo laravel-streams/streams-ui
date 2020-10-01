@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
 use Anomaly\Streams\Platform\Support\Traits\Prototype;
 use Anomaly\Streams\Platform\Support\Facades\Hydrator;
+use Anomaly\Streams\Ui\Support\Component;
 
 /**
  * Class NavigationLink
@@ -14,70 +15,29 @@ use Anomaly\Streams\Platform\Support\Facades\Hydrator;
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class NavigationLink implements Arrayable, Jsonable
+class NavigationLink extends Component
 {
 
-    use Prototype;
-
     /**
-     * The link attributes.
+     * Initialize the prototype.
      *
-     * @var array
+     * @param array $attributes
+     * @return $this
      */
-    protected $attributes = [
-        'handle' => null,
-        'title' => null,
-        'policy' => null,
-        'sections' => null,
-        'breadcrumb' => null,
-
-        'active' => false,
-        'favorite' => false,
-
-        'class' => [],
-        'attributes' => [],
-    ];
-
-    /**
-     * Get the instance as an array.
-     *
-     * @return array
-     */
-    public function toArray()
+    protected function initializePrototype(array $attributes)
     {
-        return Hydrator::dehydrate($this);
-    }
+        return parent::initializePrototype(array_merge([
+            'handle' => null,
+            'title' => null,
+            'policy' => null,
+            'sections' => null,
+            'breadcrumb' => null,
 
-    /**
-     * Convert the object to its JSON representation.
-     *
-     * @param  int  $options
-     * @return string
-     */
-    public function toJson($options = 0)
-    {
-        return json_encode($this->toArray(), $options);
-    }
+            'active' => false,
+            'favorite' => false,
 
-    /**
-     * Dynamically retrieve attributes.
-     *
-     * @param  string $key
-     * @return mixed
-     */
-    public function __get($key)
-    {
-        return $this->getPrototypeAttribute($key);
-    }
-
-    /**
-     * Dynamically set attributes.
-     *
-     * @param  string  $key
-     * @param  mixed $value
-     */
-    public function __set($key, $value)
-    {
-        $this->setPrototypeAttribute($key, $value);
+            'class' => [],
+            'attributes' => [],
+        ], $attributes));
     }
 }

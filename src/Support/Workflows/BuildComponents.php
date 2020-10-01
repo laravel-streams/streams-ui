@@ -38,7 +38,7 @@ class BuildComponents
         foreach ($builder->{$component} as $parameters) {
 
             $parameters['parent'] = $parent;
-            $parameters['stream'] = $parent->stream;
+            $parameters['stream'] = Arr::get($parameters, 'stream', $parent->stream);
 
             $builder = Arr::pull($parameters, 'builder', Arr::get($parent->builders, $component, $fallback));
 
