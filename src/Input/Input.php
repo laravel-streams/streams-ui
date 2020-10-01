@@ -25,6 +25,7 @@ class Input extends Component
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/input',
             'component' => 'input',
+            'classes' => ['input'],
             'type' => 'text',
             'field' => null,
         ], $attributes));

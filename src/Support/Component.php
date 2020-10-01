@@ -22,8 +22,24 @@ use Anomaly\Streams\Platform\Support\Traits\FiresCallbacks;
 class Component implements Arrayable, Jsonable
 {
     use Macroable;
-    use Prototype;
     use FiresCallbacks;
+    use Prototype {
+        Prototype::initializePrototype as private initializePrototypeTrait;
+    }
+
+    /**
+     * Initialize the prototype.
+     *
+     * @param array $attributes
+     * @return $this
+     */
+    protected function initializePrototype(array $attributes)
+    {
+        return $this->initializePrototypeTrait(array_merge([
+            'template' => null,
+            'component' => null,
+        ], $attributes));
+    }
 
     public function render(): ViewView
     {

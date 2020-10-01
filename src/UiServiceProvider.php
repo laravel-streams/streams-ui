@@ -78,6 +78,12 @@ class UiServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->publishes([
+            base_path('vendor/anomaly/streams-ui/resources/public') => public_path(
+                implode(DIRECTORY_SEPARATOR, ['vendor', 'anomaly', 'ui'])
+            )
+        ], ['public']);
+
         $this->extendLang();
         $this->extendView();
         $this->extendAssets();

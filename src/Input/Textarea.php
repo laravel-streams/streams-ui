@@ -25,6 +25,7 @@ class Textarea extends Component
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/textarea',
             'component' => 'input',
+            'classes' => ['input'],
         ], $attributes));
     }
 }

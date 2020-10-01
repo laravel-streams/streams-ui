@@ -10,6 +10,7 @@
 
 <!-- Favicon -->
 {{-- {!! favicons('public::img/favicon.png') !!} --}}
+<link rel="icon" type="image/png" href="/vendor/anomaly/streams/ui/img/favicon.png"/>
 
 <!-- CSS -->
 <link href="{{ mix('/css/theme.css') }}" rel="stylesheet">
