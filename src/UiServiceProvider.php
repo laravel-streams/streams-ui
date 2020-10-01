@@ -77,22 +77,29 @@ class UiServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('ui::default', function($view) {
-            $view->with('cp', (new ControlPanelBuilder())->build()->instance);
-        });
+        $this->extendLang();
+        $this->extendView();
 
-        Lang::addNamespace('ui', base_path('vendor/anomaly/streams-ui/resources/lang'));
-        View::addNamespace('ui', base_path('vendor/anomaly/streams-ui/resources/views'));
+        $this->extendStream();
+        $this->extendField();
+    }
 
-        $default = 'input';
+    /**
+     * Register the input types.
+     */
+    protected function registerInputTypes()
+    {
+        $this->app->bind('text', \Anomaly\Streams\Platform\Field\Type\Text::class);
+        $this->app->bind('bool', \Anomaly\Streams\Platform\Field\Type\Boolean::class);
+        $this->app->bind('boolean', \Anomaly\Streams\Platform\Field\Type\Boolean::class);
+        $this->app->bind('textarea', \Anomaly\Streams\Platform\Field\Type\Textarea::class);
+    }
 
-        Field::macro('input', function () use ($default) {
-
-            $attributes = ['field' => $this];
-
-            return App::make('streams.input_types.' . ($this->input ?: $default), compact('attributes'));
-        });
-
+    /**
+     * Extend stream objects.
+     */
+    protected function extendStream()
+    {
         Stream::macro('form', function ($attributes = []) {
 
             $default = Arr::get($this->ui, 'form', []);
@@ -117,13 +124,35 @@ class UiServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the field types.
+     * Extend stream fields.
      */
-    protected function registerInputTypes()
+    protected function extendField()
     {
-        $this->app->bind('text', \Anomaly\Streams\Platform\Field\Type\Text::class);
-        $this->app->bind('bool', \Anomaly\Streams\Platform\Field\Type\Boolean::class);
-        $this->app->bind('boolean', \Anomaly\Streams\Platform\Field\Type\Boolean::class);
-        $this->app->bind('textarea', \Anomaly\Streams\Platform\Field\Type\Textarea::class);
+        Field::macro('input', function () {
+
+            $attributes = ['field' => $this];
+
+            return App::make('streams.input_types.' . ($this->input ?: 'input'), compact('attributes'));
+        });
+    }
+
+    /**
+     * Extend lang support.
+     */
+    protected function extendLang()
+    {
+        Lang::addNamespace('ui', base_path('vendor/anomaly/streams-ui/resources/lang'));
+    }
+
+    /**
+     * Extend view support.
+     */
+    protected function extendView()
+    {
+        View::composer('ui::default', function ($view) {
+            $view->with('cp', (new ControlPanelBuilder())->build()->instance);
+        });
+
+        View::addNamespace('ui', base_path('vendor/anomaly/streams-ui/resources/views'));
     }
 }
