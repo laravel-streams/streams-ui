@@ -20,7 +20,10 @@ class BuildValidator
     public function handle(FormBuilder $builder, Factory $factory): void
     {
         if ($builder->instance->rules->isEmpty() && $builder->instance->stream) {
-            return $builder->instance->stream->validator($builder->instance->input);
+
+            $builder->validator = $builder->instance->stream->validator($builder->instance->values);
+
+            return;
         }
 
         $this->extendValidation($builder, $factory);
