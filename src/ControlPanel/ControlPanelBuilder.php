@@ -4,6 +4,7 @@ namespace Anomaly\Streams\Ui\ControlPanel;
 
 use Anomaly\Streams\Ui\Support\Builder;
 use Anomaly\Streams\Ui\ControlPanel\Workflows\BuildControlPanel;
+use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\Workflows\BuildNavigation;
 
 /**
  * Class ControlPanelBuilder
@@ -27,19 +28,15 @@ class ControlPanelBuilder extends Builder
             'assets' => [],
 
             'options' => [],
+            
+            'navigation' => [],
 
             'component' => 'control_panel',
             'control_panel' => ControlPanel::class,
 
             'workflows' => [
-                //'rows' => BuildRows::class,
-                //'views' => BuildViews::class,
                 'build' => BuildControlPanel::class,
-                //'query' => QueryTable::class,
-                //'actions' => BuildActions::class,
-                //'filters' => BuildFilters::class,
-                //'columns' => BuildColumns::class,
-                //'buttons' => BuildButtons::class,
+                'navigation' => BuildNavigation::class,
             ],
         ], $attributes));
     }

@@ -3,6 +3,10 @@
 namespace Anomaly\Streams\Ui\ControlPanel;
 
 use Anomaly\Streams\Ui\Support\Component;
+use Anomaly\Streams\Ui\Button\ButtonCollection;
+use Anomaly\Streams\Ui\ControlPanel\Component\Section\SectionCollection;
+use Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\ShortcutCollection;
+use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\NavigationCollection;
 
 /**
  * Class ControlPanel
@@ -14,31 +18,28 @@ use Anomaly\Streams\Ui\Support\Component;
 class ControlPanel extends Component
 {
 
-    // /**
-    //  * The section buttons.
-    //  *
-    //  * @var ButtonCollection
-    //  */
-    // public $buttons;
+    /**
+     * Initialize the prototype.
+     *
+     * @param array $attributes
+     * @return $this
+     */
+    protected function initializePrototype(array $attributes)
+    {
+        $this->loadPrototypeProperties([
+            'navigation' => [
+                'type' => 'collection',
+                'config' => [
+                    'abstract' => NavigationCollection::class,
+                ],
+            ],
+        ]);
 
-    // /**
-    //  * The section collection.
-    //  *
-    //  * @var SectionCollection
-    //  */
-    // public $sections;
-
-    // /**
-    //  * The shortcut collection.
-    //  *
-    //  * @var ShortcutCollection
-    //  */
-    // public $shortcuts;
-
-    // /**
-    //  * The navigation collection.
-    //  *
-    //  * @var NavigationCollection
-    //  */
-    // public $navigation;
+        return parent::initializePrototype(array_merge([
+            'buttons' => ButtonCollection::class,
+            'sections' => SectionCollection::class,
+            'shortcuts' => ShortcutCollection::class,
+            'navigation' => NavigationCollection::class,
+        ], $attributes));
+    }
 }

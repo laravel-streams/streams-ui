@@ -2,8 +2,8 @@
 
 namespace Anomaly\Streams\Ui\ControlPanel\Component\Navigation;
 
-use Anomaly\Streams\Ui\ControlPanel\Component\Section\SectionBuilder;
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Anomaly\Streams\Ui\Support\Builder;
+use Anomaly\Streams\Ui\Support\Workflows\BuildComponent;
 
 /**
  * Class NavigationBuilder
@@ -12,27 +12,28 @@ use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class NavigationBuilder
+class NavigationBuilder extends Builder
 {
-
     /**
-     * Build the navigation.
+     * Initialize the prototype.
      *
-     * @param ControlPanelBuilder $builder
+     * @param array $attributes
+     * @return $this
      */
-    public static function build(ControlPanelBuilder $builder)
+    protected function initializePrototype(array $attributes)
     {
-        $controlPanel = $builder->getControlPanel();
+        return parent::initializePrototype(array_merge([
+            'parent' => null,
 
-        $factory = app(NavigationFactory::class);
+            'assets' => [],
 
-        NavigationInput::read($builder);
+            'component' => 'navigation_link',
 
-        foreach ($builder->getNavigation() as $link) {
+            'navigation_link' => NavigationLink::class,
 
-            SectionBuilder::build($builder, $link = $factory->make($link));
-
-            $controlPanel->addNavigationLink($link);
-        }
+            'workflows' => [
+                'build' => BuildComponent::class,
+            ],
+        ], $attributes));
     }
 }

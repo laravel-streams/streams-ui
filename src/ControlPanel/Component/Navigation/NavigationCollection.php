@@ -16,38 +16,14 @@ class NavigationCollection extends Collection
 {
 
     /**
-     * Return the active link.
+     * Return the active navigation item.
      *
-     * @return null|NavigationLinkInterface
+     * @return null|Action
      */
     public function active()
     {
-        /* @var NavigationLink $item */
-        foreach ($this->items as $item) {
-            if ($item->active) {
-                return $item;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Get a navigation link.
-     *
-     * @param  mixed $key
-     * @param  null  $default
-     * @return NavigationLinkInterface
-     */
-    public function get($key, $default = null)
-    {
-        /* @var NavigationLink $item */
-        foreach ($this->items as $item) {
-            if ($item->handle == $key) {
-                return $item;
-            }
-        }
-
-        return $default ? $this->get($default) : null;
+        return $this->first(function ($item) {
+            return $item->active;
+        });
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Anomaly\Streams\Ui\ControlPanel\Workflows\Build;
 
+use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\NavigationCollection;
 use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
 use Anomaly\Streams\Ui\Support\Workflows\BuildChildren;
 
@@ -21,8 +22,7 @@ class BuildNavigation extends BuildChildren
      * @param ControlPanelBuilder $builder
      */
     public function handle(ControlPanelBuilder $builder)
-    {//dd('Test');
-        return;
+    {
         $this->build($builder, 'navigation');
     }
 }

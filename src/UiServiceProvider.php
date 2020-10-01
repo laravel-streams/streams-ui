@@ -78,7 +78,7 @@ class UiServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('ui::default', function($view) {
-            $view->with('cp', (new ControlPanelBuilder())->build());
+            $view->with('cp', (new ControlPanelBuilder())->build()->instance);
         });
 
         Lang::addNamespace('ui', base_path('vendor/anomaly/streams-ui/resources/lang'));
