@@ -30,6 +30,6 @@ mix.options({
 //mix.version();
 
 // Purge css 
-if (mix.inProduction()) {
-    mix.sourceMaps().version();
-}
+// if (mix.inProduction()) {
+//     mix.sourceMaps().version();
+// }
