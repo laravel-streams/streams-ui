@@ -199,6 +199,8 @@
 
     @include('ui::cp/partials/assets')
 
+    <hello></hello>
+
 </body>
 
 </html>
