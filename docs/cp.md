@@ -1,6 +1,7 @@
 ---
 title: Overview
 category: cp
+intro: The Swiss-army control panel.
 sort: 0
 ---
 
