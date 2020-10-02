@@ -3,7 +3,7 @@ module.exports = {
         purgeLayersByDefault: true,
         removeDeprecatedGapUtilities: true,
     },
-    purge: [],
+    purge: false,
     target: 'relaxed',
     prefix: '',
     important: false,

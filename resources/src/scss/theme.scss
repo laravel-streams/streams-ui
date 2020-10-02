@@ -1,12 +1,7 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans|Ubuntu:500&display=swap");
-
 @tailwind base;
 @tailwind screens;
 @tailwind utilities;
 @tailwind components;
-
-//@import "../../node_modules/noty/lib/noty.css";
-//@import "../../node_modules/tingle.js/src/tingle.css";
 
 @import "root";
 
@@ -30,8 +25,6 @@
 @import "layout/actions";
 @import "layout/content";
 @import "layout/sidebar";
-
-@import "plugins/tingle";
 
 
 .svg-fill-white {
