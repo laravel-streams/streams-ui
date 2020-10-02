@@ -8,75 +8,7 @@
 <body>
 
     <div class="h-screen flex overflow-hidden bg-gray-100">
-        <!-- Off-canvas menu for mobile -->
-        <div class="md:hidden">
-            <div class="fixed inset-0 flex z-40">
-                <!--
-          Off-canvas menu overlay, show/hide based on off-canvas menu state.
-  
-          Entering: "transition-opacity ease-linear duration-300"
-            From: "opacity-0"
-            To: "opacity-100"
-          Leaving: "transition-opacity ease-linear duration-300"
-            From: "opacity-100"
-            To: "opacity-0"
-        -->
-                <div class="fixed inset-0">
-                    <div class="absolute inset-0 bg-gray-600 opacity-75"></div>
-                </div>
-                <!--
-          Off-canvas menu, show/hide based on off-canvas menu state.
-  
-          Entering: "transition ease-in-out duration-300 transform"
-            From: "-translate-x-full"
-            To: "translate-x-0"
-          Leaving: "transition ease-in-out duration-300 transform"
-            From: "translate-x-0"
-            To: "-translate-x-full"
-        -->
-                <div class="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-indigo-800">
-                    
-                    <div class="absolute top-0 right-0 -mr-14 p-1">
-                        <button
-                            class="flex items-center justify-center h-12 w-12 rounded-full focus:outline-none focus:bg-gray-600"
-                            aria-label="Close sidebar">
-                            <svg class="h-6 w-6 text-white" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
-                    
-                    {{-- <div class="flex-shrink-0 flex items-center px-4">
-                        <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-logo-on-brand.svg"
-                            alt="Workflow">
-                    </div> --}}
-                    
-                    <div class="mt-5 flex-1 h-0 overflow-y-auto">
-
-                        @section('navigation')
-                        <nav class="px-2 space-y-1" x-data="{}">
-                            @foreach ($cp->navigation as $item)
-                            <a href="/ui/{{ $item->stream->handle }}/table"
-                                x-on:click="app.alert('/ui/{{ $item->stream->handle }}/table');"
-                                class="group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md {{ $item->stream->handle == request()->segment(2) ? 'text-white' : '' }} transition ease-in-out duration-150">
-                                {{ $item->title }}
-                            </a>    
-                            @endforeach
-                        </nav>
-                        @show
-
-                    </div>
-
-                </div>
-                
-                <div class="flex-shrink-0 w-14">
-                    <!-- Dummy element to force sidebar to shrink to fit close icon -->
-                </div>
-
-            </div>
-        </div>
-
+        
         <!-- Static sidebar for desktop -->
         <div class="_hidden md:flex md:flex-shrink-0">
             <div class="flex flex-col w-64">
@@ -102,6 +34,7 @@
             </div>
         </div>
 
+        {{-- Top Bar --}}
         <div class="flex flex-col w-0 flex-1 overflow-hidden">
             <div class="relative z-10 flex-shrink-0 flex h-16 bg-white shadow">
                 
@@ -143,10 +76,14 @@
 
 
                         {{-- Profile dropdown --}}
-                        <div class="ml-3 relative">
+                        <div class="ml-3 relative" x-data="{
+                            show: false
+                        }">
 
                             <div>
                                 <button
+                                    x-on:click="show == true ? show = false : show = true"
+                                    x-on:blur="show = false"
                                     class="max-w-xs flex items-center text-sm rounded-full focus:outline-none focus:shadow-outline"
                                     id="user-menu" aria-label="User menu" aria-haspopup="true">
                                     <img class="h-8 w-8 rounded-full"
@@ -156,7 +93,7 @@
 
                             {{-- Dropdown --}}
                             {{-- ---------------------------------- --}}
-                            <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
+                            <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg" x-show="show">
                                 <div class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical"
                                     aria-labelledby="user-menu">
                                     <a href="#"
@@ -181,7 +118,7 @@
                 </div>
             </div>
 
-            
+            {{-- Main Wrapper --}}
             <main class="flex-1 relative overflow-y-auto focus:outline-none" tabindex="0">
                 <div class="pt-2 pb-6 md:py-6">
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
