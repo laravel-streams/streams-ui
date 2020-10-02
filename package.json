@@ -10,8 +10,10 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "dependencies": {
+        "alpinejs": "^2.7.0",
         "inversify": "^5.0.1",
         "laravel-mix-svelte": "github:wewowweb/laravel-mix-svelte",
+        "livewire": "^0.6.1",
         "svelte-loader": "^2.13.6"
     },
     "devDependencies": {

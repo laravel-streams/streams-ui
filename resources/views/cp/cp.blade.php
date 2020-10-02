@@ -55,9 +55,10 @@
                     <div class="mt-5 flex-1 h-0 overflow-y-auto">
 
                         @section('navigation')
-                        <nav class="px-2 space-y-1">
+                        <nav class="px-2 space-y-1" x-data="{}">
                             @foreach ($cp->navigation as $item)
                             <a href="/ui/{{ $item->stream->handle }}/table"
+                                x-on:click="app.alert('/ui/{{ $item->stream->handle }}/table');"
                                 class="group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md {{ $item->stream->handle == request()->segment(2) ? 'text-white' : '' }} transition ease-in-out duration-150">
                                 {{ $item->title }}
                             </a>    
@@ -129,7 +130,7 @@
                         </form> --}}
                     </div>
                     <div class="ml-4 flex items-center md:ml-6">
-                        
+
                         {{-- Notifications --}}
                         <button
                             class="p-1 text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:shadow-outline focus:text-gray-500"
@@ -198,8 +199,6 @@
     </div>
 
     @include('ui::cp/partials/assets')
-
-    <Hello/>
 
 </body>
 

@@ -1,13 +1,8 @@
 const mix = require('laravel-mix');
 const tailwindcss = require('tailwindcss');
 
-require('laravel-mix-svelte');
-
-mix.disableSuccessNotifications();
-
 mix.js('resources/src/index.js', 'resources/public/js')
-    .sass('resources/src/scss/theme.scss', 'resources/public/css')
-    .svelte();
+    .sass('resources/src/scss/theme.scss', 'resources/public/css');
 
 mix.copyDirectory('resources/public', '../../../public/vendor/anomaly/streams/ui')
 
