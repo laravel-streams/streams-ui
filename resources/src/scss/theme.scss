@@ -3,6 +3,8 @@
 @tailwind utilities;
 @tailwind components;
 
+@import '~easymde/dist/easymde.min.css';
+
 @import "root";
 
 @import "core/fonts";

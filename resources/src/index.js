@@ -1,6 +1,5 @@
 //import 'reflect-metadata'
 import 'alpinejs'
-import EasyMDE from 'easymde'
 
 //export * from './app';
 //import App from './components/App.js';
@@ -10,3 +9,4 @@ import { Application } from './Application';
 //import App from './App.svelte';
 
 window.app = new Application();
+window.EasyMDE = require('EasyMDE');

@@ -13,4 +13,4 @@
 <!-- Main JS -->
 {!! Assets::script('public::assets/js/main.js') !!} --}}
 
-<script src="/vendor/anomaly/streams/ui/js/index.js"></script>
+{{-- <script src="/vendor/anomaly/streams/ui/js/index.js"></script> --}}

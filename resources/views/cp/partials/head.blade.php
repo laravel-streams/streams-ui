@@ -18,3 +18,5 @@
 
 <link href="/vendor/anomaly/streams/ui/css/theme.css" rel="stylesheet">
 {{-- {!! Assets::collection('head')->add('ui::css/theme.css')->styles() !!} --}}
+
+<script src="/vendor/anomaly/streams/ui/js/index.js"></script>
