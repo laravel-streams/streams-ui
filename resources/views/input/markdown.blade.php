@@ -4,7 +4,7 @@
 <script>
     (function (window, document) {
         var editor = new EasyMDE({
-            element: document.getElementById("body")
+            element: document.getElementById("{{ $input->field->handle }}")
         });
     })(window, document);
 </script>
