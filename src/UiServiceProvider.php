@@ -18,6 +18,7 @@ use Anomaly\Streams\Platform\Support\Facades\Assets;
 use Anomaly\Streams\Platform\Support\Facades\Streams;
 use Anomaly\Streams\Platform\View\ViewTemplate;
 use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Anomaly\Streams\Ui\Input\Markdown;
 
 /**
  * Class StreamsServiceProvider
@@ -72,6 +73,7 @@ class UiServiceProvider extends ServiceProvider
         //$this->registerInputTypes();        
         $this->app->bind('streams.input_types.input', Input::class);
         $this->app->bind('streams.input_types.textarea', Textarea::class);
+        $this->app->bind('streams.input_types.markdown', Markdown::class);
     }
 
     /**
@@ -112,6 +114,7 @@ class UiServiceProvider extends ServiceProvider
         $this->app->bind('bool', \Anomaly\Streams\Platform\Field\Type\Boolean::class);
         $this->app->bind('boolean', \Anomaly\Streams\Platform\Field\Type\Boolean::class);
         $this->app->bind('textarea', \Anomaly\Streams\Platform\Field\Type\Textarea::class);
+        $this->app->bind('markdown', \Anomaly\Streams\Platform\Field\Type\Markdown::class);
     }
 
     /**
