@@ -2,11 +2,7 @@
 
 namespace Anomaly\Streams\Ui\ControlPanel\Component\Navigation\Workflows\Build;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Anomaly\Streams\Ui\Form\FormBuilder;
-use Anomaly\Streams\Ui\Support\Normalizer;
-use Anomaly\Streams\Platform\Support\Facades\Streams;
 use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**

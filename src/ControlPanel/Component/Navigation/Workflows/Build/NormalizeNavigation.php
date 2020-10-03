@@ -4,8 +4,8 @@ namespace Anomaly\Streams\Ui\ControlPanel\Component\Navigation\Workflows\Build;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Anomaly\Streams\Ui\Form\FormBuilder;
 use Anomaly\Streams\Ui\Support\Normalizer;
+use Anomaly\Streams\Platform\Stream\Stream;
 use Anomaly\Streams\Platform\Support\Facades\Streams;
 use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
 
@@ -44,7 +44,9 @@ class NormalizeNavigation
             /*
              * Set/move the stream.
              */
-            if ($item['stream'] = Arr::get($item, 'stream', $handle)) {
+            $item['stream'] = Arr::get($item, 'stream', $handle);
+
+            if ($item['stream'] && !$item['stream'] instanceof Stream) {
                 $item['stream'] = Streams::make($item['stream']);
             }
 
@@ -85,5 +87,6 @@ class NormalizeNavigation
         $navigation = Normalizer::attributes($navigation);
 
         $builder->navigation = $navigation;
+        dd($builder->navigation);
     }
 }

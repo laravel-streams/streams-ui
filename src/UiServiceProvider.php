@@ -15,6 +15,7 @@ use Anomaly\Streams\Platform\Field\Type\Template;
 use Anomaly\Streams\Ui\Table\TableBuilder;
 use Anomaly\Streams\Platform\Stream\Stream;
 use Anomaly\Streams\Platform\Support\Facades\Assets;
+use Anomaly\Streams\Platform\Support\Facades\Streams;
 use Anomaly\Streams\Platform\View\ViewTemplate;
 use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
 
@@ -82,6 +83,17 @@ class UiServiceProvider extends ServiceProvider
             base_path('vendor/anomaly/streams-ui/resources/public')
             => public_path('vendor/anomaly/streams/ui')
         ], ['public']);
+
+        Streams::register([
+            'handle' => 'cp.navigation',
+            'source' => [
+                'path' => 'streams/cp/navigation',
+                'format' => 'json',
+            ],
+            'fields' => [
+                'title' => 'string',
+            ],
+        ]);
 
         $this->extendLang();
         $this->extendView();

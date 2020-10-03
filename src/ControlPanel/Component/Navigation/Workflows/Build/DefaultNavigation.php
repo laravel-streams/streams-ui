@@ -31,6 +31,6 @@ class DefaultNavigation
          * then make a navigation
          * item for each stream.
          */
-        $builder->navigation = Streams::collection()->keys()->all();
+        $builder->navigation = Streams::entries('cp.navigation')->get()->toArray();
     }
 }
