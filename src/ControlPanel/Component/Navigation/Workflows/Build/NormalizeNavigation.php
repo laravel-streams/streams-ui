@@ -87,6 +87,5 @@ class NormalizeNavigation
         $navigation = Normalizer::attributes($navigation);
 
         $builder->navigation = $navigation;
-        dd($builder->navigation);
     }
 }
