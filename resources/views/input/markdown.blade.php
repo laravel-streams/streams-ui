@@ -2,7 +2,9 @@
     rows="10">{{ $input->field->value }}</textarea>
 
 <script>
-    var editor = new EasyMDE({
-        element: document.getElementById("body")
-    });
+    (function (window, document) {
+        var editor = new EasyMDE({
+            element: document.getElementById("body")
+        });
+    })(window, document);
 </script>
