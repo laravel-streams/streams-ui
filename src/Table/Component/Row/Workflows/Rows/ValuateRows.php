@@ -47,7 +47,7 @@ class ValuateRows
                     'stream' => $builder->stream,
                 ]));
 
-                $row->buttons->put($key, $clone);
+                $row->buttons->put($clone->handle, $clone);
             }
         });
     }
