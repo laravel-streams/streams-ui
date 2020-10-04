@@ -13,7 +13,6 @@
 <link rel="icon" type="image/png" href="/vendor/anomaly/streams/ui/img/favicon.png"/>
 
 <!-- CSS -->
-<link href="{{ mix('/css/theme.css') }}" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
 
 <link href="/vendor/anomaly/streams/ui/css/theme.css" rel="stylesheet">
