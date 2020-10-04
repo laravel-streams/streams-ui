@@ -6,7 +6,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\View;
 use Illuminate\Contracts\Support\Arrayable;
-use Anomaly\Streams\Platform\Support\Facades\Decorator;
 use Anomaly\Streams\Platform\Support\Facades\Evaluator;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 
@@ -86,16 +85,6 @@ class Value
         }
 
         /*
-         * Parse the value with the entry.
-         */
-        if ($wrapper = Arr::get($parameters, 'wrapper')) {
-            $value = Str::parse(
-                $wrapper,
-                ['value' => $value, $term => $entry]
-            );
-        }
-
-        /*
          * Parse the value with the value too.
          */
         if (is_string($value)) {
@@ -133,6 +122,16 @@ class Value
          */
         if (is_string($value) && Str::contains($value, ['{{', '<?php'])) {
             $value = (string) View::parse($value, [$term => $entry]);
+        }
+
+        /*
+         * Parse the value with the entry.
+         */
+        if ($wrapper = Arr::get($parameters, 'wrapper')) {
+            $value = Str::parse(
+                $wrapper,
+                ['value' => $value, $term => $entry]
+            );
         }
 
         return $value;

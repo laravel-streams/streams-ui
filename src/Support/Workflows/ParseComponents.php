@@ -25,7 +25,7 @@ class ParseComponents
     {
         $builder->{$component} = Arr::parse($builder->{$component}, [
             'entry' => $builder->instance->entry ? $builder->instance->entry->toArray() : null,
-            'stream' => $builder->stream,
+            'stream' => $builder->stream ? $builder->stream->toArray() : null,
         ]);
     }
 }
