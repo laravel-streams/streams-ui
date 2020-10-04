@@ -5,20 +5,19 @@ namespace Anomaly\Streams\Ui;
 use Illuminate\Support\Arr;
 use Anomaly\Streams\Ui\Input\Input;
 use Illuminate\Support\Facades\App;
+use Anomaly\Streams\Ui\Input\Color;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
 use Anomaly\Streams\Ui\Input\Textarea;
+use Anomaly\Streams\Ui\Input\Markdown;
 use Illuminate\Support\ServiceProvider;
 use Anomaly\Streams\Ui\Form\FormBuilder;
 use Anomaly\Streams\Platform\Field\Field;
-use Anomaly\Streams\Platform\Field\Type\Template;
 use Anomaly\Streams\Ui\Table\TableBuilder;
 use Anomaly\Streams\Platform\Stream\Stream;
 use Anomaly\Streams\Platform\Support\Facades\Assets;
 use Anomaly\Streams\Platform\Support\Facades\Streams;
-use Anomaly\Streams\Platform\View\ViewTemplate;
 use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
-use Anomaly\Streams\Ui\Input\Markdown;
 
 /**
  * Class StreamsServiceProvider
@@ -70,8 +69,8 @@ class UiServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //$this->registerInputTypes();        
         $this->app->bind('streams.input_types.input', Input::class);
+        $this->app->bind('streams.input_types.color', Color::class);
         $this->app->bind('streams.input_types.textarea', Textarea::class);
         $this->app->bind('streams.input_types.markdown', Markdown::class);
     }
@@ -103,18 +102,6 @@ class UiServiceProvider extends ServiceProvider
 
         $this->extendStream();
         $this->extendField();
-    }
-
-    /**
-     * Register the input types.
-     */
-    protected function registerInputTypes()
-    {
-        $this->app->bind('text', \Anomaly\Streams\Platform\Field\Type\Text::class);
-        $this->app->bind('bool', \Anomaly\Streams\Platform\Field\Type\Boolean::class);
-        $this->app->bind('boolean', \Anomaly\Streams\Platform\Field\Type\Boolean::class);
-        $this->app->bind('textarea', \Anomaly\Streams\Platform\Field\Type\Textarea::class);
-        $this->app->bind('markdown', \Anomaly\Streams\Platform\Field\Type\Markdown::class);
     }
 
     /**
