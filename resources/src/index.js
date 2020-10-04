@@ -10,4 +10,4 @@ import { Application } from './Application';
 
 window.app = new Application();
 window.EasyMDE = require('EasyMDE');
-window.flatpickr = require('flatpickr');
+//window.flatpickr = require('flatpickr');

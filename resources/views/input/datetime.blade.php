@@ -1,7 +1,2 @@
-<input type="text" name="{{ $input->field->handle }}" class="{{ implode(' ', $input->classes) }}" />
-
-<script>
-    (function (window, document) {
-        var input = flatpickr(document.getElementById("{{ $input->field->handle }}"));
-    })(window, document);
-</script>
+<input type="datetime-local" name="{{ $input->field->handle }}"
+value="{{ $input->field->value }}" class="{{ implode(' ', $input->classes) }}" />
