@@ -1,18 +1,18 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Navigation\Workflows\Build;
+namespace Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\Workflows\Build;
 
 use Illuminate\Support\Str;
 use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
- * Class GuessNavigation
+ * Class ExpandShortcut
  *
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class GuessNavigation
+class ExpandShortcut
 {
 
     /**
@@ -30,9 +30,6 @@ class GuessNavigation
                 continue;
             }
 
-            /**
-             * Guess the title.
-             */
             if (!isset($item['title']) && $item['stream']) {
                 $item['title'] = $item['stream']->name ?: ucwords(Str::humanize($item['stream']->handle));
             }

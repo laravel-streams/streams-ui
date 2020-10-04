@@ -1,18 +1,18 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Navigation\Workflows\Build;
+namespace Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\Workflows\Build;
 
 use Anomaly\Streams\Platform\Support\Facades\Streams;
 use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
- * Class DefaultNavigation
+ * Class DefaultShortcut
  *
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class DefaultNavigation
+class DefaultShortcut
 {
 
     /**
@@ -31,7 +31,7 @@ class DefaultNavigation
          * then make a navigation
          * item for each stream.
          */
-        $builder->navigation = Streams::entries('cp.navigation')
+        $builder->navigation = Streams::entries('cp.shortcuts')
             ->orderBy('sort_order', 'asc')
             ->get()
             ->toArray();
