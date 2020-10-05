@@ -3,11 +3,14 @@
 namespace Anomaly\Streams\Ui;
 
 use Illuminate\Support\Arr;
+use Anomaly\Streams\Ui\Input\Slug;
 use Anomaly\Streams\Ui\Input\Input;
 use Illuminate\Support\Facades\App;
 use Anomaly\Streams\Ui\Input\Color;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
+use Anomaly\Streams\Ui\Input\Integer;
+use Anomaly\Streams\Ui\Input\Datetime;
 use Anomaly\Streams\Ui\Input\Textarea;
 use Anomaly\Streams\Ui\Input\Markdown;
 use Illuminate\Support\ServiceProvider;
@@ -18,8 +21,6 @@ use Anomaly\Streams\Platform\Stream\Stream;
 use Anomaly\Streams\Platform\Support\Facades\Assets;
 use Anomaly\Streams\Platform\Support\Facades\Streams;
 use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
-use Anomaly\Streams\Ui\Input\Datetime;
-use Anomaly\Streams\Ui\Input\Integer;
 
 /**
  * Class StreamsServiceProvider
@@ -76,6 +77,7 @@ class UiServiceProvider extends ServiceProvider
         $this->app->bind('streams.input_types.string', Input::class);
         
         
+        $this->app->bind('streams.input_types.slug', Slug::class);
         $this->app->bind('streams.input_types.color', Color::class);
         $this->app->bind('streams.input_types.integer', Integer::class);
         $this->app->bind('streams.input_types.datetime', Datetime::class);
