@@ -4,11 +4,15 @@ namespace Anomaly\Streams\Ui;
 
 use Illuminate\Support\Arr;
 use Anomaly\Streams\Ui\Input\Slug;
+use Anomaly\Streams\Ui\Input\Date;
+use Anomaly\Streams\Ui\Input\Time;
 use Anomaly\Streams\Ui\Input\Input;
-use Illuminate\Support\Facades\App;
 use Anomaly\Streams\Ui\Input\Color;
+use Anomaly\Streams\Ui\Input\Radio;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
+use Anomaly\Streams\Ui\Input\Select;
 use Anomaly\Streams\Ui\Input\Integer;
 use Anomaly\Streams\Ui\Input\Datetime;
 use Anomaly\Streams\Ui\Input\Textarea;
@@ -21,8 +25,7 @@ use Anomaly\Streams\Platform\Stream\Stream;
 use Anomaly\Streams\Platform\Support\Facades\Assets;
 use Anomaly\Streams\Platform\Support\Facades\Streams;
 use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
-use Anomaly\Streams\Ui\Input\Radio;
-use Anomaly\Streams\Ui\Input\Select;
+use Anomaly\Streams\Ui\Input\Range;
 
 /**
  * Class StreamsServiceProvider
@@ -78,13 +81,16 @@ class UiServiceProvider extends ServiceProvider
         $this->app->bind('streams.input_types.input', Input::class);
         $this->app->bind('streams.input_types.string', Input::class);
         
+        $this->app->bind('streams.input_types.date', Date::class);
+        $this->app->bind('streams.input_types.time', Time::class);
+        $this->app->bind('streams.input_types.datetime', Datetime::class);
         
         $this->app->bind('streams.input_types.slug', Slug::class);
         $this->app->bind('streams.input_types.color', Color::class);
         $this->app->bind('streams.input_types.radio', Radio::class);
+        $this->app->bind('streams.input_types.range', Range::class);
         $this->app->bind('streams.input_types.select', Select::class);
         $this->app->bind('streams.input_types.integer', Integer::class);
-        $this->app->bind('streams.input_types.datetime', Datetime::class);
         $this->app->bind('streams.input_types.textarea', Textarea::class);
         $this->app->bind('streams.input_types.markdown', Markdown::class);
     }
