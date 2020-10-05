@@ -21,6 +21,7 @@ use Anomaly\Streams\Platform\Stream\Stream;
 use Anomaly\Streams\Platform\Support\Facades\Assets;
 use Anomaly\Streams\Platform\Support\Facades\Streams;
 use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Anomaly\Streams\Ui\Input\Select;
 
 /**
  * Class StreamsServiceProvider
@@ -79,6 +80,7 @@ class UiServiceProvider extends ServiceProvider
         
         $this->app->bind('streams.input_types.slug', Slug::class);
         $this->app->bind('streams.input_types.color', Color::class);
+        $this->app->bind('streams.input_types.select', Select::class);
         $this->app->bind('streams.input_types.integer', Integer::class);
         $this->app->bind('streams.input_types.datetime', Datetime::class);
         $this->app->bind('streams.input_types.textarea', Textarea::class);
