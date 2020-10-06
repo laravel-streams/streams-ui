@@ -1,6 +1,8 @@
 @section('navigation')
 <nav class="flex-1 px-2 space-y-1">
-    @foreach ($cp->navigation->where('parent', null) as $key => $item)
+    @foreach ($cp->navigation->filter(function($item) {
+        return !$item->parent;
+    }) as $key => $item)
     <x-streams::cp.navigation-link href="/ui/{{ $item->id }}/table" :link="$item"/>
     @endforeach
 </nav>
