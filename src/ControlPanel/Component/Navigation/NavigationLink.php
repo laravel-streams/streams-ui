@@ -2,10 +2,6 @@
 
 namespace Anomaly\Streams\Ui\ControlPanel\Component\Navigation;
 
-use Illuminate\Contracts\Support\Jsonable;
-use Illuminate\Contracts\Support\Arrayable;
-use Anomaly\Streams\Platform\Support\Traits\Prototype;
-use Anomaly\Streams\Platform\Support\Facades\Hydrator;
 use Anomaly\Streams\Ui\Support\Component;
 
 /**
@@ -27,6 +23,9 @@ class NavigationLink extends Component
     protected function initializePrototype(array $attributes)
     {
         return parent::initializePrototype(array_merge([
+            'component' => 'navigation_link',
+            'template' => 'ui::components.cp.navigation_link',
+
             'handle' => null,
             'title' => null,
             'policy' => null,

@@ -2,6 +2,7 @@
 
 namespace Anomaly\Streams\Ui\Support;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\View;
 use Illuminate\View\View as ViewView;
 use Illuminate\Support\Facades\Request;
@@ -43,10 +44,10 @@ class Component implements Arrayable, Jsonable
 
     public function render(): ViewView
     {
-        $fallback = "ui::{$this->component}/{$this->component}";
+        $fallback = "components/{$this->component}";
 
         return View::make($this->template ?: $fallback, [
-            $this->component => $this,
+            Str::camel($this->component) => $this,
         ]);
     }
 
