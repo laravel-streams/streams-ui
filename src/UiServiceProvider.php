@@ -119,16 +119,13 @@ class UiServiceProvider extends ServiceProvider
             ],
         ]);
 
-        Blade::componentNamespace('Anomaly\\Streams\\Ui\\View\\Component', 'streams');
-        // Blade::components([
-        //     Cp\Navigation::class => 'navigation',
-        // ], 'streams');
-
         $this->extendLang();
         $this->extendAssets();
 
         $this->extendStream();
         $this->extendField();
+
+        Blade::componentNamespace('Anomaly\\Streams\\Ui\\View\\Component', 'streams');
     }
 
     /**
