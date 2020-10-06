@@ -3,20 +3,22 @@
 namespace Anomaly\Streams\Ui;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Ui\Input\Slug;
 use Anomaly\Streams\Ui\Input\Date;
+use Anomaly\Streams\Ui\Input\Slug;
 use Anomaly\Streams\Ui\Input\Time;
-use Anomaly\Streams\Ui\Input\Input;
 use Anomaly\Streams\Ui\Input\Color;
+use Anomaly\Streams\Ui\Input\Input;
 use Anomaly\Streams\Ui\Input\Radio;
+use Anomaly\Streams\Ui\Input\Range;
 use Illuminate\Support\Facades\App;
+use Anomaly\Streams\Ui\Input\Select;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
-use Anomaly\Streams\Ui\Input\Select;
 use Anomaly\Streams\Ui\Input\Integer;
+use Illuminate\Support\Facades\Blade;
 use Anomaly\Streams\Ui\Input\Datetime;
-use Anomaly\Streams\Ui\Input\Textarea;
 use Anomaly\Streams\Ui\Input\Markdown;
+use Anomaly\Streams\Ui\Input\Textarea;
 use Illuminate\Support\ServiceProvider;
 use Anomaly\Streams\Ui\Form\FormBuilder;
 use Anomaly\Streams\Platform\Field\Field;
@@ -25,7 +27,7 @@ use Anomaly\Streams\Platform\Stream\Stream;
 use Anomaly\Streams\Platform\Support\Facades\Assets;
 use Anomaly\Streams\Platform\Support\Facades\Streams;
 use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
-use Anomaly\Streams\Ui\Input\Range;
+use Anomaly\Streams\Ui\View\Component\Cp;
 
 /**
  * Class StreamsServiceProvider
@@ -115,6 +117,11 @@ class UiServiceProvider extends ServiceProvider
                 'title' => 'string',
             ],
         ]);
+
+        //Blade::componentNamespace('Anomaly\\Streams\\Ui\\View\\Component', 'streams');
+        // Blade::components([
+        //     Cp\Navigation::class => 'navigation',
+        // ], 'streams');
 
         $this->extendLang();
         $this->extendView();
