@@ -11,6 +11,8 @@ use Illuminate\Support\Traits\Macroable;
 use Anomaly\Streams\Platform\Support\Workflow;
 use Anomaly\Streams\Platform\Support\Traits\Prototype;
 use Anomaly\Streams\Platform\Support\Traits\FiresCallbacks;
+use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Illuminate\Support\Facades\View as FacadesView;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 /**
@@ -75,6 +77,8 @@ class Builder
         if ($this->async == true && Request::ajax()) {
             return $this->json();
         }
+
+        FacadesView::share('cp', (new ControlPanelBuilder())->build()->instance);
 
         return Response::view('ui::default', ['content' => $this->render()]);
     }

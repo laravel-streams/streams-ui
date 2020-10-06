@@ -27,7 +27,6 @@ use Anomaly\Streams\Platform\Stream\Stream;
 use Anomaly\Streams\Platform\Support\Facades\Assets;
 use Anomaly\Streams\Platform\Support\Facades\Streams;
 use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
-use Anomaly\Streams\Ui\View\Component\Cp;
 
 /**
  * Class StreamsServiceProvider
@@ -79,6 +78,8 @@ class UiServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->extendView();
+        
         $this->app->bind('streams.input_types.text', Input::class);
         $this->app->bind('streams.input_types.input', Input::class);
         $this->app->bind('streams.input_types.string', Input::class);
@@ -118,13 +119,12 @@ class UiServiceProvider extends ServiceProvider
             ],
         ]);
 
-        //Blade::componentNamespace('Anomaly\\Streams\\Ui\\View\\Component', 'streams');
+        Blade::componentNamespace('Anomaly\\Streams\\Ui\\View\\Component', 'streams');
         // Blade::components([
         //     Cp\Navigation::class => 'navigation',
         // ], 'streams');
 
         $this->extendLang();
-        $this->extendView();
         $this->extendAssets();
 
         $this->extendStream();
@@ -185,10 +185,6 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function extendView()
     {
-        View::composer('ui::default', function ($view) {
-            $view->with('cp', (new ControlPanelBuilder())->build()->instance);
-        });
-
         View::addNamespace('ui', base_path('vendor/anomaly/streams-ui/resources/views'));
     }
 
