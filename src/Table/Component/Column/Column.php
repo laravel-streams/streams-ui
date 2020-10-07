@@ -2,6 +2,8 @@
 
 namespace Anomaly\Streams\Ui\Table\Component\Column;
 
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Request;
 use Anomaly\Streams\Ui\Support\Component;
 
 /**
@@ -29,5 +31,25 @@ class Column extends Component
             'heading' => null,
             'wrapper' => null,
         ], $attributes));
+    }
+
+    /**
+     * Return the column sorted URL.
+     */
+    public function href()
+    {
+        $direction = null;
+
+        $current = Request::get($this->table->prefix('sort'));
+
+        if (!$current) {
+            $direction = 'asc';
+        }
+
+        if ($current == 'asc') {
+            $direction = 'desc';
+        }
+
+        return URL::current() . '?order_by=' . $this->field . '&sort=' . $direction;
     }
 }

@@ -38,9 +38,9 @@ class ExpandActions
 
     protected function guessText(Stream $stream, array &$action, $key)
     {
-        if (\Illuminate\Support\Facades\App::make(\Illuminate\Translation\Translator::class)->has('ui::button.' . $action['handle'])) {
+        if (\Illuminate\Support\Facades\App::make(\Illuminate\Translation\Translator::class)->has('ui::buttons.' . $action['handle'])) {
             
-            $action['text'] = 'ui::button.' . $action['handle'];
+            $action['text'] = 'ui::buttons.' . $action['handle'];
 
             return;
         }

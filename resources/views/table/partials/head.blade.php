@@ -16,8 +16,7 @@
         <th {!! $column->expandPrototypeAttribute('attributes')->htmlAttributes() !!}>
 
             @if ($column->sortable)
-            <a
-                href="{{ URL::current() . '?order_by=' . $column->field . '&sort=' . (Request::get($table->prefix('sort')) == 'asc' ? 'desc' : 'asc') }}">
+            <a href="{{ $column->href() }}">
                 {!! $column->heading !!}
                 @if ($column->direction == 'asc')
                 {{-- {!! icon('sort-ascending') !!} --}}
@@ -29,9 +28,10 @@
                 {{-- {!! icon('sortable') !!} --}}
                 (--)
                 @endif
-                @else
-                {!! $column->heading !!}
-                @endif
+            </a>
+            @else
+            {!! $column->heading !!}
+            @endif
         </th>
         @endforeach
 

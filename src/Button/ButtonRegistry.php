@@ -28,7 +28,7 @@ class ButtonRegistry
             'context' => 'default',
         ],
         'cancel'        => [
-            'text' => 'ui::button.cancel',
+            'text' => 'ui::buttons.cancel',
             'context' => 'default',
             'attributes' => [
                 'data-keymap' => 'c',
@@ -39,12 +39,12 @@ class ButtonRegistry
          * Primary Buttons
          */
         'options'       => [
-            'text' => 'ui::button.options',
+            'text' => 'ui::buttons.options',
             'context' => 'primary',
             'icon' => 'cog',
         ],
         'versions'      => [
-            'text'    => 'ui::button.versions',
+            'text'    => 'ui::buttons.versions',
             'type'    => 'primary',
             'icon'    => 'history',
             'enabled' => 'edit',
@@ -54,7 +54,7 @@ class ButtonRegistry
             'data-icon'    => 'warning',
             'data-toggle'  => 'confirm',
             'type'         => 'primary',
-            'text'         => 'ui::button.load',
+            'text'         => 'ui::buttons.load',
             'data-title'   => 'ui::message.confirm_load_title',
             'data-message' => 'ui::message.confirm_load_message',
         ],
@@ -73,23 +73,23 @@ class ButtonRegistry
             'context' => 'success',
         ],
         'save'          => [
-            'text' => 'ui::button.save',
+            'text' => 'ui::buttons.save',
             'icon' => 'save',
             'context' => 'success',
         ],
         'update'        => [
-            'text' => 'ui::button.save',
+            'text' => 'ui::buttons.save',
             'icon' => 'save',
             'context' => 'success',
         ],
         'create'        => [
-            'text' => 'ui::button.create',
+            'text' => 'ui::buttons.create',
             'icon' => 'fa fa-asterisk',
             'context' => 'success',
             'primary' => true,
         ],
         'new'           => [
-            'text' => 'ui::button.new',
+            'text' => 'ui::buttons.new',
             'icon' => 'fa fa-plus',
             'context' => 'success',
             'primary' => true,
@@ -98,12 +98,12 @@ class ButtonRegistry
             ],
         ],
         'new_field'     => [
-            'text' => 'ui::button.new_field',
+            'text' => 'ui::buttons.new_field',
             'icon' => 'fa fa-plus',
             'context' => 'success',
         ],
         'add'           => [
-            'text' => 'ui::button.add',
+            'text' => 'ui::buttons.add',
             'icon' => 'fa fa-plus',
             'context' => 'success',
             'attributes' => [
@@ -111,68 +111,68 @@ class ButtonRegistry
             ],
         ],
         'add_all'       => [
-            'text' => 'ui::button.add_all',
+            'text' => 'ui::buttons.add_all',
             'icon' => 'fa fa-plus-circle',
             'context' => 'success',
         ],
         'add_field'     => [
-            'text' => 'ui::button.add_field',
+            'text' => 'ui::buttons.add_field',
             'icon' => 'fa fa-plus',
             'context' => 'success',
             'primary' => true,
         ],
         'add_selected'       => [
-            'text' => 'ui::button.add_selected',
+            'text' => 'ui::buttons.add_selected',
             'icon' => 'fa fa-check-circle',
             'context' => 'success',
         ],
         'assign_fields' => [
-            'text' => 'ui::button.assign_fields',
+            'text' => 'ui::buttons.assign_fields',
             'icon' => 'fa fa-plus',
             'context' => 'success',
             'primary' => true,
         ],
         'send'          => [
-            'text' => 'ui::button.send',
+            'text' => 'ui::buttons.send',
             'icon' => 'envelope',
             'context' => 'success',
         ],
         'submit'        => [
-            'text' => 'ui::button.submit',
+            'text' => 'ui::buttons.submit',
             'context' => 'success',
         ],
         'install'       => [
-            'text' => 'ui::button.install',
+            'text' => 'ui::buttons.install',
             'icon' => 'download',
             'context' => 'success',
         ],
         'entries'       => [
-            'text' => 'ui::button.entries',
+            'text' => 'ui::buttons.entries',
             'icon' => 'list-ol',
             'context' => 'success',
         ],
         'done'          => [
-            'text' => 'ui::button.done',
+            'text' => 'ui::buttons.done',
             'context' => 'success',
             'icon' => 'check',
         ],
         'select'        => [
-            'text' => 'ui::button.select',
+            'text' => 'ui::buttons.select',
             'context' => 'success',
             'icon' => 'check',
         ],
         'restore'       => [
-            'text' => 'ui::button.restore',
+            'text' => 'ui::buttons.restore',
             'context' => 'success',
             'icon' => 'repeat',
         ],
         'finish'        => [
-            'text' => 'ui::button.finish',
+            'text' => 'ui::buttons.finish',
             'context' => 'success',
             'icon' => 'check',
         ],
         'finished'      => [
-            'text' => 'ui::button.finished',
+            'text' => 'ui::buttons.finished',
             'context' => 'success',
             'icon' => 'check',
         ],
@@ -187,49 +187,49 @@ class ButtonRegistry
             'context' => 'info',
         ],
         'information'   => [
-            'text' => 'ui::button.info',
+            'text' => 'ui::buttons.info',
             'icon' => 'fa fa-info',
             'context' => 'info',
         ],
         'help'          => [
             'icon'        => 'circle-question-mark',
-            'text'        => 'ui::button.help',
+            'text'        => 'ui::buttons.help',
             'type'        => 'info',
             'data-toggle' => 'modal',
             'data-target' => '#modal',
         ],
         'view'          => [
-            'text' => 'ui::button.view',
+            'text' => 'ui::buttons.view',
             'icon' => 'fa fa-eye',
             'context' => 'info',
         ],
         'export'        => [
-            'text' => 'ui::button.export',
+            'text' => 'ui::buttons.export',
             'icon' => 'download',
             'context' => 'info',
         ],
         'fields'        => [
-            'text' => 'ui::button.fields',
+            'text' => 'ui::buttons.fields',
             'icon' => 'list-alt',
             'context' => 'info',
         ],
         'assignments'   => [
-            'text' => 'ui::button.assignments',
+            'text' => 'ui::buttons.assignments',
             'icon' => 'list-alt',
             'context' => 'info',
         ],
         'settings'      => [
-            'text' => 'ui::button.settings',
+            'text' => 'ui::buttons.settings',
             'context' => 'info',
             'icon' => 'cog',
         ],
         'preferences'   => [
-            'text' => 'ui::button.preferences',
+            'text' => 'ui::buttons.preferences',
             'context' => 'info',
             'icon' => 'sliders',
         ],
         'configure'     => [
-            'text' => 'ui::button.configure',
+            'text' => 'ui::buttons.configure',
             'icon' => 'wrench',
             'context' => 'info',
         ],
@@ -245,12 +245,12 @@ class ButtonRegistry
             'context' => 'warning',
         ],
         'edit'          => [
-            'text' => 'ui::button.edit',
+            'text' => 'ui::buttons.edit',
             'icon' => 'pencil',
             'context' => 'warning',
         ],
         'change'        => [
-            'text' => 'ui::button.change',
+            'text' => 'ui::buttons.change',
             'context' => 'warning',
             'icon' => 'cog',
         ],
@@ -266,14 +266,14 @@ class ButtonRegistry
             'context' => 'danger',
         ],
         'remove'        => [
-            'text' => 'ui::button.remove',
+            'text' => 'ui::buttons.remove',
             'context' => 'danger',
             'icon' => 'ban',
         ],
         'delete'        => [
             'icon'       => 'trash',
             'type'       => 'danger',
-            'text'       => 'ui::button.delete',
+            'text'       => 'ui::buttons.delete',
             'attributes' => [
                 'data-toggle'  => 'confirm',
                 'data-icon'    => 'warning',
@@ -285,7 +285,7 @@ class ButtonRegistry
             'icon'       => 'trash',
             'type'       => 'danger',
             'segment'    => 'delete',
-            'text'       => 'ui::button.delete',
+            'text'       => 'ui::buttons.delete',
             'attributes' => [
                 'data-match'   => 'yes',
                 'data-toggle'  => 'prompt',
@@ -297,7 +297,7 @@ class ButtonRegistry
         'uninstall'     => [
             'type'       => 'danger',
             'icon'       => 'times-circle',
-            'text'       => 'ui::button.uninstall',
+            'text'       => 'ui::buttons.uninstall',
             'attributes' => [
                 'data-toggle'  => 'prompt',
                 'data-icon'    => 'warning',

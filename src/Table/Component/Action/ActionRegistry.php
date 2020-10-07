@@ -33,20 +33,20 @@ class ActionRegistry
         'force_delete' => [
             'button'  => 'prompt',
             'handler' => ForceDelete::class,
-            'text'    => 'ui::button.force_delete',
+            'text'    => 'ui::buttons.force_delete',
         ],
         'export'       => [
             'button'  => 'info',
             'icon'    => 'download',
             'handler' => Export::class,
-            'text'    => 'ui::button.export',
+            'text'    => 'ui::buttons.export',
         ],
         'edit'         => [
             'handler' => Edit::class,
         ],
         'reorder'      => [
             'handler'    => Reorder::class,
-            'text'       => 'ui::button.reorder',
+            'text'       => 'ui::buttons.reorder',
             'icon'       => 'fa fa-sort-amount-asc',
             'class'      => 'reorder',
             'type'       => 'success',

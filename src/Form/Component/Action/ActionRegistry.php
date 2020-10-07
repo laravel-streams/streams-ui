@@ -21,31 +21,31 @@ class ActionRegistry
     protected $actions = [
         'save'         => [
             'button' => 'save',
-            'text'   => 'ui::button.save',
+            'text'   => 'ui::buttons.save',
         ],
         'update'         => [
             'button' => 'update',
-            'text'   => 'ui::button.update',
+            'text'   => 'ui::buttons.update',
         ],
         'save_exit'      => [
             'button' => 'save',
-            'text'   => 'ui::button.save_exit',
+            'text'   => 'ui::buttons.save_exit',
         ],
         'save_edit'      => [
             'button' => 'save',
-            'text'   => 'ui::button.save_edit',
+            'text'   => 'ui::buttons.save_edit',
         ],
         'save_create'    => [
             'button' => 'save',
-            'text'   => 'ui::button.save_create',
+            'text'   => 'ui::buttons.save_create',
         ],
         'save_continue'  => [
             'button' => 'save',
-            'text'   => 'ui::button.save_continue',
+            'text'   => 'ui::buttons.save_continue',
         ],
         'save_edit_next' => [
             'button' => 'save',
-            'text'   => 'ui::button.save_edit_next',
+            'text'   => 'ui::buttons.save_edit_next',
         ],
     ];
 
