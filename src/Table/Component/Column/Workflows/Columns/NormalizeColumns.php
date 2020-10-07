@@ -26,6 +26,8 @@ class NormalizeColumns
     {
         $columns = $builder->columns;
 
+        $stream = $builder->stream;
+
         foreach ($columns as $key => &$column) {
 
             /*
@@ -47,6 +49,15 @@ class NormalizeColumns
                     'field' => $key,
                     'value'  => $column,
                 ];
+            }
+
+            if (is_array($column) && !isset($column['field']) && !is_numeric($key) && $stream) {
+                $column['field'] = $key;
+                $column['value'] = $key;
+            }
+
+            if (is_array($column) && !isset($column['value']) && isset($column['field'])) {
+                $column['value'] = $column['field'];
             }
         }
 
