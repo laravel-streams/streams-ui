@@ -15,7 +15,6 @@ use Anomaly\Streams\Ui\Input\Select;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
 use Anomaly\Streams\Ui\Input\Integer;
-use Illuminate\Support\Facades\Blade;
 use Anomaly\Streams\Ui\Input\Datetime;
 use Anomaly\Streams\Ui\Input\Markdown;
 use Anomaly\Streams\Ui\Input\Textarea;
@@ -26,7 +25,6 @@ use Anomaly\Streams\Ui\Table\TableBuilder;
 use Anomaly\Streams\Platform\Stream\Stream;
 use Anomaly\Streams\Platform\Support\Facades\Assets;
 use Anomaly\Streams\Platform\Support\Facades\Streams;
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class StreamsServiceProvider
@@ -124,8 +122,6 @@ class UiServiceProvider extends ServiceProvider
 
         $this->extendStream();
         $this->extendField();
-
-        Blade::componentNamespace('Anomaly\\Streams\\Ui\\View\\Component', 'streams');
     }
 
     /**
