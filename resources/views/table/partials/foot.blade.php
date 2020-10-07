@@ -16,9 +16,9 @@
                             {{ $table->options->get('limit', $table->pagination->perPage()) == $item ? 'selected' : '' }}
                             value="{{ url()->current() }}?{{ http_build_query([($table->prefix('limit')) => $item] + request()->query()) }}">
                             @if ($item == 'all')
-                            {{ trans('ui::message.show_all') }}</option>
+                            {{ trans('ui::labels.show_all') }}</option>
                         @else
-                        {{ $item }} {{ trans('ui::message.results') }}</option>
+                        {{ $item }} {{ trans_choice('ui::labels.results', $item) }}</option>
                         @endif
                         @endforeach
                     </select>
