@@ -6,13 +6,6 @@ use Illuminate\Routing\Redirector;
 use Anomaly\Streams\Ui\Table\TableBuilder;
 use Anomaly\Streams\Ui\ControlPanel\Component\Section\SectionCollection;
 
-/**
- * Class EditActionHandler
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
 class Edit
 {
 
@@ -23,10 +16,10 @@ class Edit
      * @param TableBuilder      $builder
      * @param array             $selected
      */
-    public function handle(SectionCollection $sections, Redirector $redirector, TableBuilder $builder, array $selected)
+    public function handle(TableBuilder $builder, array $selected = [])
     {
         $prefix = $builder->instance->options->get('prefix');
-
+dd($prefix);
         $edit = array_shift($selected);
         $ids  = implode(',', $selected);
 

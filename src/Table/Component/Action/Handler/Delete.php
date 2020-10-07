@@ -3,6 +3,7 @@
 namespace Anomaly\Streams\Ui\Table\Component\Action\Handler;
 
 use Anomaly\Streams\Platform\Model\EloquentModel;
+use Anomaly\Streams\Platform\Support\Facades\Messages;
 use Anomaly\Streams\Ui\Table\TableBuilder;
 
 /**
@@ -21,40 +22,21 @@ class Delete
      * @param TableBuilder $builder
      * @param array        $selected
      */
-    public function handle(TableBuilder $builder, array $selected)
+    public function handle(TableBuilder $builder, array $selected = [])
     {
-        dd($selected);
-        $count = 0;
-
-        $model = $builder->actionsTableModel();
+        $count = count($selected);
 
         foreach ($selected as $id) {
 
-            $entry = $model->find($id);
-
-            $deletable = true;
-
-            // if ($entry instanceof EloquentModel) {
-            //     $deletable = $entry->isDeletable();
-            // }
-
-            if ($entry && $deletable && $entry->delete()) {
-                $builder->fire('row_deleted', compact('builder', 'model', 'entry'));
-
-                $count++;
+            if (!$entry = $builder->repository->find($id)) {
+                continue;
             }
+
+            $entry->delete();
         }
 
-        if ($count) {
-            $builder->fire('rows_deleted', compact('count', 'builder', 'model'));
-        }
-
-        if ($selected && $count > 0) {
-            $this->messages->success(trans('ui::message.delete_success', compact('count')));
-        }
-
-        if ($selected && $count === 0) {
-            $this->messages->warning(trans('ui::message.delete_success', compact('count')));
-        }
+        Messages::success(trans_choice('ui::messages.delete_success', $count, [
+            'count' => $count
+        ]));
     }
 }

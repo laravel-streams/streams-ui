@@ -1,7 +1,3 @@
-@foreach (Messages::pull() as $message)
-<p><strong>{{ $message['type'] }}:</strong> {{ $message['content'] }}</p>    
-@endforeach
-
 <section>
 
     @include('ui::table/partials/heading')

@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'delete_success' => ':count row was deleted.|:count rows were deleted.',
+
     'help'                      => 'Help',
     'search'                    => 'Search',
     'system'                    => 'System',
@@ -12,7 +14,7 @@ return [
     'no_fields_available'       => 'No fields available.',
     'delete_restrict'           => 'Unable to delete :name because it is restricted. Delete related ":relation" first.',
     'move_success'              => ':count entry was moved successfully.|:count entries were moved successfully.',
-    'delete_success'            => ':count row(s) were deleted successfully.',
+    
     'reorder_success'           => ':count row(s) were reordered successfully.',
     'csrf_token_mismatch'       => 'Your security token has expired. Please submit the form again.',
     'form_expired'              => 'The form has expired. Please try again.',

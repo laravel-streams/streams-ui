@@ -37,7 +37,7 @@
     <tr>
         <td colspan="100%">
             <small class="table__total">
-                {{ $table->options->get('total_results') }} {{ trans('ui::message.results') }}
+                {{ $table->options->get('total_results') }} {{ trans_choice('ui::labels.results', $table->options->get('total_results')) }}
             </small>
         </td>
     </tr>
