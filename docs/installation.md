@@ -8,7 +8,7 @@ enabled: true
 The Streams UI package is added to existing Laravel projects as a dependency by requiring it with Composer.
 
 ```bash
-composer require anomaly/streams-ui
+composer require streams/ui
 ```
 
 You might consider starting with the [Streams starter application](/docs/installation).
@@ -18,7 +18,7 @@ You might consider starting with the [Streams starter application](/docs/install
 From within your project, use Composer to update individual packages:
 
 ```bash
-composer update anomaly/streams-ui --with-dependencies
+composer update streams/ui --with-dependencies
 ```
 
 You can, of course, update your entire project using `composer update`.
