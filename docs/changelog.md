@@ -25,4 +25,4 @@ Deprecated features will generally be removed in the next `minor` update unless 
 
 ### Unreleased
 #### Changed
-- Updated `anomaly/streams-platform` to `~2.0.0`.
+- Updated `streams/core` to `~2.0.0`.
