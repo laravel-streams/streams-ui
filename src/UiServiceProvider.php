@@ -77,15 +77,15 @@ class UiServiceProvider extends ServiceProvider
     public function register()
     {
         $this->extendView();
-        
+
         $this->app->bind('streams.input_types.text', Input::class);
         $this->app->bind('streams.input_types.input', Input::class);
         $this->app->bind('streams.input_types.string', Input::class);
-        
+
         $this->app->bind('streams.input_types.date', Date::class);
         $this->app->bind('streams.input_types.time', Time::class);
         $this->app->bind('streams.input_types.datetime', Datetime::class);
-        
+
         $this->app->bind('streams.input_types.slug', Slug::class);
         $this->app->bind('streams.input_types.color', Color::class);
         $this->app->bind('streams.input_types.radio', Radio::class);
@@ -184,8 +184,8 @@ class UiServiceProvider extends ServiceProvider
     /**
      * Extend asset support.
      */
-    protected function extendASsets()
+    protected function extendAssets()
     {
-        Assets::addPath('ui', base_path('vendor/anomaly/streams-ui/resources'));
+        Assets::addPath('ui', 'vendor/anomaly/streams/ui');
     }
 }
