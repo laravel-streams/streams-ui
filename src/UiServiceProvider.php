@@ -102,8 +102,8 @@ class UiServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            base_path('vendor/anomaly/streams-ui/resources/public')
-            => public_path('vendor/anomaly/streams/ui')
+            base_path('vendor/streams/ui/resources/public')
+            => public_path('vendor/streams/ui')
         ], ['public']);
 
         Streams::register([
@@ -170,7 +170,7 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function extendLang()
     {
-        Lang::addNamespace('ui', base_path('vendor/anomaly/streams-ui/resources/lang'));
+        Lang::addNamespace('ui', base_path('vendor/streams/ui/resources/lang'));
     }
 
     /**
@@ -178,7 +178,7 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function extendView()
     {
-        View::addNamespace('ui', base_path('vendor/anomaly/streams-ui/resources/views'));
+        View::addNamespace('ui', base_path('vendor/streams/ui/resources/views'));
     }
 
     /**
@@ -186,6 +186,6 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function extendAssets()
     {
-        Assets::addPath('ui', 'vendor/anomaly/streams/ui');
+        Assets::addPath('ui', 'vendor/streams/ui');
     }
 }
