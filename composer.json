@@ -1,6 +1,6 @@
 {
-    "name": "anomaly/streams-ui",
-    "description": "The official UI package for Streams.",
+    "name": "streams/ui",
+    "description": "The official UI package for Laravel Streams.",
     "authors": [
         {
             "name": "Ryan Thompson",
