@@ -9,7 +9,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Anomaly\\Streams\\Ui\\": "src/"
+            "Streams\\Ui\\": "src/"
         }
     },
     "config": {
