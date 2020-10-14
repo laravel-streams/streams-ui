@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Action;
+namespace Streams\Ui\Table\Component\Action;
 
-use Anomaly\Streams\Ui\Support\Builder;
-use Anomaly\Streams\Ui\Support\Workflows\BuildComponent;
+use Streams\Ui\Support\Builder;
+use Streams\Ui\Support\Workflows\BuildComponent;
 
 /**
  * Class ActionBuilder

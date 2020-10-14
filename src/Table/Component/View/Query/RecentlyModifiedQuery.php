@@ -1,7 +1,7 @@
-<?php namespace Anomaly\Streams\Ui\Table\Component\View\Query;
+<?php namespace Streams\Ui\Table\Component\View\Query;
 
-use Anomaly\Streams\Ui\Table\Component\View\Contract\ViewQueryInterface;
-use Anomaly\Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Table\Component\View\Contract\ViewQueryInterface;
+use Streams\Ui\Table\TableBuilder;
 use Illuminate\Database\Eloquent\Builder;
 
 /**

@@ -1,12 +1,12 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Support\Workflows;
+namespace Streams\Ui\Support\Workflows;
 
-use Anomaly\Streams\Platform\Support\Workflow;
-use Anomaly\Streams\Ui\Support\Workflows\SetStream;
-use Anomaly\Streams\Ui\Support\Workflows\SetOptions;
-use Anomaly\Streams\Ui\Support\Workflows\LoadAssets;
-use Anomaly\Streams\Ui\Support\Workflows\MakeComponent;
+use Streams\Core\Support\Workflow;
+use Streams\Ui\Support\Workflows\SetStream;
+use Streams\Ui\Support\Workflows\SetOptions;
+use Streams\Ui\Support\Workflows\LoadAssets;
+use Streams\Ui\Support\Workflows\MakeComponent;
 
 /**
  * Class BuildComponent

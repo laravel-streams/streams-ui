@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Filter\Query;
+namespace Streams\Ui\Table\Component\Filter\Query;
 
-use Anomaly\Streams\Ui\Table\TableBuilder;
-use Anomaly\Streams\Ui\Table\Component\Filter\Filter;
-use Anomaly\Streams\Platform\Criteria\Contract\CriteriaInterface;
+use Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Table\Component\Filter\Filter;
+use Streams\Core\Criteria\Contract\CriteriaInterface;
 
 /**
  * Class GenericFilterQuery

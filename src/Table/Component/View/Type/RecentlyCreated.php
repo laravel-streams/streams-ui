@@ -1,7 +1,7 @@
-<?php namespace Anomaly\Streams\Ui\Table\Component\View\Type;
+<?php namespace Streams\Ui\Table\Component\View\Type;
 
-use Anomaly\Streams\Ui\Table\Component\View\Query\RecentlyCreatedQuery;
-use Anomaly\Streams\Ui\Table\Component\View\View;
+use Streams\Ui\Table\Component\View\Query\RecentlyCreatedQuery;
+use Streams\Ui\Table\Component\View\View;
 
 /**
  * Class RecentlyCreated

@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Navigation\Workflows\Build;
+namespace Streams\Ui\ControlPanel\Component\Navigation\Workflows\Build;
 
-use Anomaly\Streams\Platform\Support\Facades\Streams;
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Core\Support\Facades\Streams;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class DefaultNavigation

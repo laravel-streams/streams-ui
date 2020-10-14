@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\View\Listener;
+namespace Streams\Ui\Table\Component\View\Listener;
 
-use Anomaly\Streams\Ui\Table\Component\View\ViewQuery;
-use Anomaly\Streams\Ui\Table\Event\TableIsQuerying;
+use Streams\Ui\Table\Component\View\ViewQuery;
+use Streams\Ui\Table\Event\TableIsQuerying;
 
 /**
  * Class ApplyView

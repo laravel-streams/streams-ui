@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Filter\Workflows\Filters;
+namespace Streams\Ui\Table\Component\Filter\Workflows\Filters;
 
-use Anomaly\Streams\Ui\Table\TableBuilder;
-use Anomaly\Streams\Ui\Support\Normalizer;
-use Anomaly\Streams\Ui\Table\Component\Filter\Type\FieldFilter;
+use Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Support\Normalizer;
+use Streams\Ui\Table\Component\Filter\Type\FieldFilter;
 
 /**
  * Class NormalizeFilters

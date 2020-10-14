@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Workflows\Build;
+namespace Streams\Ui\Form\Workflows\Build;
 
 use Illuminate\Support\Facades\Request;
-use Anomaly\Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Form\FormBuilder;
 
 /**
  * Class ValidateForm
@@ -18,7 +18,7 @@ class ValidateForm
     /**
      * Handle the step
      *
-     * @param \Anomaly\Streams\Ui\Form\FormBuilder $builder
+     * @param \Streams\Ui\Form\FormBuilder $builder
      */
     public function handle(FormBuilder $builder)
     {

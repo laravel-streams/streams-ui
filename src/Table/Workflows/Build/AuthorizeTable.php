@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Workflows\Build;
+namespace Streams\Ui\Table\Workflows\Build;
 
-use Anomaly\Streams\Ui\Table\TableBuilder;
-use Anomaly\Streams\Ui\Table\TableAuthorizer;
+use Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Table\TableAuthorizer;
 
 /**
  * Class AuthorizeTable

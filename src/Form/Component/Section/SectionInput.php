@@ -1,13 +1,13 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Section;
+namespace Streams\Ui\Form\Component\Section;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Translation\Translator;
-use Anomaly\Streams\Ui\Form\FormBuilder;
-use Anomaly\Streams\Platform\Support\Facades\Resolver;
-use Anomaly\Streams\Platform\Support\Facades\Evaluator;
+use Streams\Ui\Form\FormBuilder;
+use Streams\Core\Support\Facades\Resolver;
+use Streams\Core\Support\Facades\Evaluator;
 
 /**
  * Class SectionInput
@@ -36,7 +36,7 @@ class SectionInput
     /**
      * Resolve input.
      *
-     * @param \Anomaly\Streams\Ui\Form\FormBuilder $builder
+     * @param \Streams\Ui\Form\FormBuilder $builder
      */
     protected static function resolve(FormBuilder $builder)
     {
@@ -48,7 +48,7 @@ class SectionInput
     /**
      * Evaluate input.
      *
-     * @param \Anomaly\Streams\Ui\Form\FormBuilder $builder
+     * @param \Streams\Ui\Form\FormBuilder $builder
      */
     protected static function evaluate(FormBuilder $builder)
     {
@@ -102,7 +102,7 @@ class SectionInput
     /**
      * Translate input.
      *
-     * @param \Anomaly\Streams\Ui\Form\FormBuilder $builder
+     * @param \Streams\Ui\Form\FormBuilder $builder
      */
     protected static function translate(FormBuilder $builder)
     {
@@ -112,7 +112,7 @@ class SectionInput
     /**
      * Parse input.
      *
-     * @param \Anomaly\Streams\Ui\Form\FormBuilder $builder
+     * @param \Streams\Ui\Form\FormBuilder $builder
      */
     protected static function parse(FormBuilder $builder)
     {

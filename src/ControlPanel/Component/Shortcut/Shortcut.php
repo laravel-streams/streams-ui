@@ -1,12 +1,12 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Shortcut;
+namespace Streams\Ui\ControlPanel\Component\Shortcut;
 
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
-use Anomaly\Streams\Platform\Support\Traits\Prototype;
-use Anomaly\Streams\Platform\Support\Facades\Hydrator;
-use Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\Shortcut;
+use Streams\Core\Support\Traits\Prototype;
+use Streams\Core\Support\Facades\Hydrator;
+use Streams\Ui\ControlPanel\Component\Shortcut\Shortcut;
 
 /**
  * Class Shortcut

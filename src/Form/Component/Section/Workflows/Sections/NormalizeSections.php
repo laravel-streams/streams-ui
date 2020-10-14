@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Field\Workflows\Sections;
+namespace Streams\Ui\Form\Component\Field\Workflows\Sections;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Ui\Form\FormBuilder;
-use Anomaly\Streams\Ui\Support\Normalizer;
+use Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Support\Normalizer;
 
 /**
  * Class NormalizeSections

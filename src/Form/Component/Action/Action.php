@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Action;
+namespace Streams\Ui\Form\Component\Action;
 
-use Anomaly\Streams\Ui\Button\Button;
+use Streams\Ui\Button\Button;
 
 /**
  * Class Action

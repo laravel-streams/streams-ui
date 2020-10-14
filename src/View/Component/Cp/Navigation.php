@@ -1,6 +1,6 @@
 <?php
 
-namespace Anomaly\Streams\Ui\View\Component\Cp;
+namespace Streams\Ui\View\Component\Cp;
 
 use Illuminate\View\Component;
 

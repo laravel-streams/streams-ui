@@ -1,12 +1,12 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Button;
+namespace Streams\Ui\ControlPanel\Component\Button;
 
 use Illuminate\Support\Arr;
 use Illuminate\Translation\Translator;
-use Anomaly\Streams\Ui\Support\Normalizer;
-use Anomaly\Streams\Ui\Button\ButtonRegistry;
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Ui\Support\Normalizer;
+use Streams\Ui\Button\ButtonRegistry;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class ButtonInput
@@ -39,7 +39,7 @@ class ButtonInput
     /**
      * Resolve input.
      *
-     * @param \Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder $builder
+     * @param \Streams\Ui\ControlPanel\ControlPanelBuilder $builder
      */
     protected static function resolve(ControlPanelBuilder $builder)
     {
@@ -129,7 +129,7 @@ class ButtonInput
     /**
      * Parse input.
      *
-     * @param \Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder $builder
+     * @param \Streams\Ui\ControlPanel\ControlPanelBuilder $builder
      */
     protected static function parse(ControlPanelBuilder $builder)
     {
@@ -139,7 +139,7 @@ class ButtonInput
     /**
      * Translate input.
      *
-     * @param \Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder $builder
+     * @param \Streams\Ui\ControlPanel\ControlPanelBuilder $builder
      */
     protected static function translate(ControlPanelBuilder $builder)
     {

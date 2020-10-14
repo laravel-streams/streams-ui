@@ -1,6 +1,6 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Button;
+namespace Streams\Ui\Button;
 
 use Illuminate\View\View;
 use Illuminate\Support\Collection;

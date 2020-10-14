@@ -1,17 +1,17 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form;
+namespace Streams\Ui\Form;
 
 use Collective\Html\FormFacade;
 use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Request;
-use Anomaly\Streams\Ui\Form\FormHandler;
-use Anomaly\Streams\Ui\Support\Component;
-use Anomaly\Streams\Ui\Button\ButtonCollection;
-use Anomaly\Streams\Ui\Form\Component\Field\FieldCollection;
-use Anomaly\Streams\Ui\Form\Component\Action\ActionCollection;
-use Anomaly\Streams\Ui\Form\Component\Section\SectionCollection;
+use Streams\Ui\Form\FormHandler;
+use Streams\Ui\Support\Component;
+use Streams\Ui\Button\ButtonCollection;
+use Streams\Ui\Form\Component\Field\FieldCollection;
+use Streams\Ui\Form\Component\Action\ActionCollection;
+use Streams\Ui\Form\Component\Section\SectionCollection;
 
 /**
  * Class Form

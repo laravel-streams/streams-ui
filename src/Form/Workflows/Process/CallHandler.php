@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Workflows\Process;
+namespace Streams\Ui\Form\Workflows\Process;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Request;
-use Anomaly\Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Form\FormBuilder;
 
 /**
  * Class CallHandler

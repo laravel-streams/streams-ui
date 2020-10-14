@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Button;
+namespace Streams\Ui\Button;
 
-use Anomaly\Streams\Ui\Support\Component;
+use Streams\Ui\Support\Component;
 
 /**
  * Class Button

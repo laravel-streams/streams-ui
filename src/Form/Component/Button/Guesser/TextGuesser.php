@@ -1,11 +1,11 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Button\Guesser;
+namespace Streams\Ui\Form\Component\Button\Guesser;
 
-use Anomaly\Streams\Platform\Addon\Module\Module;
-use Anomaly\Streams\Platform\Addon\Module\ModuleCollection;
-use Anomaly\Streams\Ui\Button\ButtonRegistry;
-use Anomaly\Streams\Ui\Form\FormBuilder;
+use Streams\Core\Addon\Module\Module;
+use Streams\Core\Addon\Module\ModuleCollection;
+use Streams\Ui\Button\ButtonRegistry;
+use Streams\Ui\Form\FormBuilder;
 
 /**
  * Class TextGuesser

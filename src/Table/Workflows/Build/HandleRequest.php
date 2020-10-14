@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Workflows\Build;
+namespace Streams\Ui\Table\Workflows\Build;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Request;
-use Anomaly\Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Table\TableBuilder;
 
 /**
  * Class HandleRequest

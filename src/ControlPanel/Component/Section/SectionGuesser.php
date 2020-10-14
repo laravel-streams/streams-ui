@@ -1,12 +1,12 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Section;
+namespace Streams\Ui\ControlPanel\Component\Section;
 
-use Anomaly\Streams\Ui\ControlPanel\Component\Section\Guesser\DescriptionGuesser;
-use Anomaly\Streams\Ui\ControlPanel\Component\Section\Guesser\HrefGuesser;
-use Anomaly\Streams\Ui\ControlPanel\Component\Section\Guesser\PolicyGuesser;
-use Anomaly\Streams\Ui\ControlPanel\Component\Section\Guesser\TitleGuesser;
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Ui\ControlPanel\Component\Section\Guesser\DescriptionGuesser;
+use Streams\Ui\ControlPanel\Component\Section\Guesser\HrefGuesser;
+use Streams\Ui\ControlPanel\Component\Section\Guesser\PolicyGuesser;
+use Streams\Ui\ControlPanel\Component\Section\Guesser\TitleGuesser;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class SectionGuesser

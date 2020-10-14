@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Filter;
+namespace Streams\Ui\Table\Component\Filter;
 
-use Anomaly\Streams\Ui\Support\Builder;
-use Anomaly\Streams\Ui\Support\Workflows\BuildComponent;
+use Streams\Ui\Support\Builder;
+use Streams\Ui\Support\Workflows\BuildComponent;
 
 /**
  * Class FilterBuilder

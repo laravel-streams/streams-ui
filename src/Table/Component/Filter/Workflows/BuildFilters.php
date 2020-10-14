@@ -1,16 +1,16 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Filter\Workflows;
+namespace Streams\Ui\Table\Component\Filter\Workflows;
 
-use Anomaly\Streams\Platform\Support\Workflow;
-use Anomaly\Streams\Ui\Support\Workflows\BuildComponents;
-use Anomaly\Streams\Ui\Support\Workflows\MergeComponents;
-use Anomaly\Streams\Ui\Support\Workflows\ParseComponents;
-use Anomaly\Streams\Ui\Support\Workflows\ResolveComponents;
-use Anomaly\Streams\Ui\Support\Workflows\TranslateComponents;
-use Anomaly\Streams\Ui\Table\Component\Filter\Workflows\Filters\DefaultFilters;
-use Anomaly\Streams\Ui\Table\Component\Filter\Workflows\Filters\SetActiveFilter;
-use Anomaly\Streams\Ui\Table\Component\Filter\Workflows\Filters\NormalizeFilters;
+use Streams\Core\Support\Workflow;
+use Streams\Ui\Support\Workflows\BuildComponents;
+use Streams\Ui\Support\Workflows\MergeComponents;
+use Streams\Ui\Support\Workflows\ParseComponents;
+use Streams\Ui\Support\Workflows\ResolveComponents;
+use Streams\Ui\Support\Workflows\TranslateComponents;
+use Streams\Ui\Table\Component\Filter\Workflows\Filters\DefaultFilters;
+use Streams\Ui\Table\Component\Filter\Workflows\Filters\SetActiveFilter;
+use Streams\Ui\Table\Component\Filter\Workflows\Filters\NormalizeFilters;
 
 /**
  * Class BuildFilters

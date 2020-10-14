@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\View;
+namespace Streams\Ui\Table\Component\View;
 
 use Illuminate\Support\Collection;
-use Anomaly\Streams\Ui\Table\Component\View\View;
+use Streams\Ui\Table\Component\View\View;
 
 /**
  * Class ViewCollection

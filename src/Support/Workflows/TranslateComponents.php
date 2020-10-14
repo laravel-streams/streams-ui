@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Support\Workflows;
+namespace Streams\Ui\Support\Workflows;
 
 use Illuminate\Translation\Translator;
-use Anomaly\Streams\Ui\Support\Builder;
+use Streams\Ui\Support\Builder;
 
 /**
  * Class TranslateComponents

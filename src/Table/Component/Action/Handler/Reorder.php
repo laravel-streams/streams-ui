@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Action\Handler;
+namespace Streams\Ui\Table\Component\Action\Handler;
 
 use Illuminate\Http\Request;
-use Anomaly\Streams\Platform\Entry\EntryRepository;
-use Anomaly\Streams\Ui\Table\TableBuilder;
+use Streams\Core\Entry\EntryRepository;
+use Streams\Ui\Table\TableBuilder;
 
 /**
  * Class ReorderActionHandler

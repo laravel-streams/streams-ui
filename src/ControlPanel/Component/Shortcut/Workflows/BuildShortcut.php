@@ -1,15 +1,15 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\Workflows;
+namespace Streams\Ui\ControlPanel\Component\Shortcut\Workflows;
 
-use Anomaly\Streams\Platform\Support\Workflow;
-use Anomaly\Streams\Ui\Support\Workflows\BuildComponents;
-use Anomaly\Streams\Ui\Support\Workflows\ParseComponents;
-use Anomaly\Streams\Ui\Support\Workflows\ResolveComponents;
-use Anomaly\Streams\Ui\Support\Workflows\TranslateComponents;
-use Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\Workflows\Build\ExpandShortcut;
-use Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\Workflows\Build\DefaultShortcut;
-use Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\Workflows\Build\NormalizeShortcut;
+use Streams\Core\Support\Workflow;
+use Streams\Ui\Support\Workflows\BuildComponents;
+use Streams\Ui\Support\Workflows\ParseComponents;
+use Streams\Ui\Support\Workflows\ResolveComponents;
+use Streams\Ui\Support\Workflows\TranslateComponents;
+use Streams\Ui\ControlPanel\Component\Shortcut\Workflows\Build\ExpandShortcut;
+use Streams\Ui\ControlPanel\Component\Shortcut\Workflows\Build\DefaultShortcut;
+use Streams\Ui\ControlPanel\Component\Shortcut\Workflows\Build\NormalizeShortcut;
 
 /**
  * Class BuildShortcut

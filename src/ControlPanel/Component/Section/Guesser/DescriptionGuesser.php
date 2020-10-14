@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Section\Guesser;
+namespace Streams\Ui\ControlPanel\Component\Section\Guesser;
 
-use Anomaly\Streams\Platform\Addon\Module\ModuleCollection;
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Core\Addon\Module\ModuleCollection;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class DescriptionGuesser

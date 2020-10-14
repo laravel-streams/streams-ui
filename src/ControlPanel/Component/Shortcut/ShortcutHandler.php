@@ -1,11 +1,11 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Shortcut;
+namespace Streams\Ui\ControlPanel\Component\Shortcut;
 
-use Anomaly\Streams\Platform\Addon\Module\ModuleCollection;
-use Anomaly\Streams\Platform\Support\Facades\Resolver;
-use Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\Event\GatherShortcuts;
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Core\Addon\Module\ModuleCollection;
+use Streams\Core\Support\Facades\Resolver;
+use Streams\Ui\ControlPanel\Component\Shortcut\Event\GatherShortcuts;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class ShortcutHandler

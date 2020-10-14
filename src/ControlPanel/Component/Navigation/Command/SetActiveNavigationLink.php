@@ -1,13 +1,13 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Navigation\Command;
+namespace Streams\Ui\ControlPanel\Component\Navigation\Command;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use Anomaly\Streams\Ui\Support\Breadcrumb;
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Ui\Support\Breadcrumb;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class SetActiveNavigationLink

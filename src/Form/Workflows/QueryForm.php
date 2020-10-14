@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Workflows;
+namespace Streams\Ui\Form\Workflows;
 
-use Anomaly\Streams\Platform\Support\Workflow;
-use Anomaly\Streams\Ui\Support\Workflows\StartQuery;
-use Anomaly\Streams\Ui\Form\Workflows\Query\FinishQuery;
+use Streams\Core\Support\Workflow;
+use Streams\Ui\Support\Workflows\StartQuery;
+use Streams\Ui\Form\Workflows\Query\FinishQuery;
 
 /**
  * Class QueryWorkflow

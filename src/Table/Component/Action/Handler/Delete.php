@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Action\Handler;
+namespace Streams\Ui\Table\Component\Action\Handler;
 
-use Anomaly\Streams\Platform\Model\EloquentModel;
-use Anomaly\Streams\Platform\Support\Facades\Messages;
-use Anomaly\Streams\Ui\Table\TableBuilder;
+use Streams\Core\Model\EloquentModel;
+use Streams\Core\Support\Facades\Messages;
+use Streams\Ui\Table\TableBuilder;
 
 /**
  * Class DeleteActionHandler

@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Row;
+namespace Streams\Ui\Table\Component\Row;
 
-use Anomaly\Streams\Ui\Support\Builder;
-use Anomaly\Streams\Ui\Support\Workflows\BuildComponent;
+use Streams\Ui\Support\Builder;
+use Streams\Ui\Support\Workflows\BuildComponent;
 
 /**
  * Class RowBuilder

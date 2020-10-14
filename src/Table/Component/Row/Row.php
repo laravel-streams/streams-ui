@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Row;
+namespace Streams\Ui\Table\Component\Row;
 
-use Anomaly\Streams\Ui\Support\Component;
-use Anomaly\Streams\Ui\Button\ButtonCollection;
+use Streams\Ui\Support\Component;
+use Streams\Ui\Button\ButtonCollection;
 use Illuminate\Support\Collection;
 
 /**

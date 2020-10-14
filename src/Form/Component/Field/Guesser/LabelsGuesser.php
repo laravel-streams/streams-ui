@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Field\Guesser;
+namespace Streams\Ui\Form\Component\Field\Guesser;
 
-use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
-use Anomaly\Streams\Ui\Form\FormBuilder;
+use Streams\Core\Stream\Contract\StreamInterface;
+use Streams\Ui\Form\FormBuilder;
 
 /**
  * Class LabelsGuesser

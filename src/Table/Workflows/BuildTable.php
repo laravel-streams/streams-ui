@@ -1,23 +1,23 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Workflows;
+namespace Streams\Ui\Table\Workflows;
 
-use Anomaly\Streams\Platform\Support\Workflow;
-use Anomaly\Streams\Ui\Support\Workflows\SetStream;
-use Anomaly\Streams\Ui\Support\Workflows\LoadAssets;
-use Anomaly\Streams\Ui\Support\Workflows\SetOptions;
-use Anomaly\Streams\Ui\Support\Workflows\MakeComponent;
-use Anomaly\Streams\Ui\Support\Workflows\SetRepository;
-use Anomaly\Streams\Ui\Table\Workflows\Build\BuildRows;
-use Anomaly\Streams\Ui\Support\Workflows\LoadBreadcrumb;
-use Anomaly\Streams\Ui\Table\Workflows\Build\BuildViews;
-use Anomaly\Streams\Ui\Table\Workflows\Build\BuildActions;
-use Anomaly\Streams\Ui\Table\Workflows\Build\BuildButtons;
-use Anomaly\Streams\Ui\Table\Workflows\Build\BuildColumns;
-use Anomaly\Streams\Ui\Table\Workflows\Build\BuildFilters;
-use Anomaly\Streams\Ui\Table\Workflows\Build\QueryEntries;
-use Anomaly\Streams\Ui\Table\Workflows\Build\HandleRequest;
-use Anomaly\Streams\Ui\Table\Workflows\Build\AuthorizeTable;
+use Streams\Core\Support\Workflow;
+use Streams\Ui\Support\Workflows\SetStream;
+use Streams\Ui\Support\Workflows\LoadAssets;
+use Streams\Ui\Support\Workflows\SetOptions;
+use Streams\Ui\Support\Workflows\MakeComponent;
+use Streams\Ui\Support\Workflows\SetRepository;
+use Streams\Ui\Table\Workflows\Build\BuildRows;
+use Streams\Ui\Support\Workflows\LoadBreadcrumb;
+use Streams\Ui\Table\Workflows\Build\BuildViews;
+use Streams\Ui\Table\Workflows\Build\BuildActions;
+use Streams\Ui\Table\Workflows\Build\BuildButtons;
+use Streams\Ui\Table\Workflows\Build\BuildColumns;
+use Streams\Ui\Table\Workflows\Build\BuildFilters;
+use Streams\Ui\Table\Workflows\Build\QueryEntries;
+use Streams\Ui\Table\Workflows\Build\HandleRequest;
+use Streams\Ui\Table\Workflows\Build\AuthorizeTable;
 
 /**
  * Class BuildTable

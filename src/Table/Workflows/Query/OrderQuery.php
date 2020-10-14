@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Workflows\Query;
+namespace Streams\Ui\Table\Workflows\Query;
 
-use Anomaly\Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Table\TableBuilder;
 
 /**
  * Class OrderQuery

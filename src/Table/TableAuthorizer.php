@@ -1,6 +1,6 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table;
+namespace Streams\Ui\Table;
 
 use Illuminate\Support\Facades\Gate;
 

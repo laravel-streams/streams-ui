@@ -1,11 +1,11 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Section;
+namespace Streams\Ui\ControlPanel\Component\Section;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Illuminate\Contracts\Container\Container;
-use Anomaly\Streams\Platform\Support\Facades\Hydrator;
+use Streams\Core\Support\Facades\Hydrator;
 
 /**
  * Class SectionFactory

@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Filter;
+namespace Streams\Ui\Table\Component\Filter;
 
-use Anomaly\Streams\Ui\Table\Component\Filter\Filter;
+use Streams\Ui\Table\Component\Filter\Filter;
 use Illuminate\Support\Collection;
 
 /**

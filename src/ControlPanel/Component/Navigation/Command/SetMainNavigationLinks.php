@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Navigation\Command;
+namespace Streams\Ui\ControlPanel\Component\Navigation\Command;
 
-use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\NavigationLink;
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Ui\ControlPanel\Component\Navigation\NavigationLink;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class SetMainNavigationLinks

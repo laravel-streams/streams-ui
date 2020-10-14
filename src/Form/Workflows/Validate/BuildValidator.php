@@ -1,12 +1,12 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Workflows\Validate;
+namespace Streams\Ui\Form\Workflows\Validate;
 
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Factory;
 use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Validator;
-use Anomaly\Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Form\FormBuilder;
 
 /**
  * Class BuildValidator

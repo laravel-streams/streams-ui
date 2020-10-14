@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Filter;
+namespace Streams\Ui\Table\Component\Filter;
 
-use Anomaly\Streams\Ui\Support\Component;
-use Anomaly\Streams\Ui\Table\Component\Filter\Query\GenericFilterQuery;
+use Streams\Ui\Support\Component;
+use Streams\Ui\Table\Component\Filter\Query\GenericFilterQuery;
 
 /**
  * Class Filter

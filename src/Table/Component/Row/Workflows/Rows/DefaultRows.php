@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Row\Workflows\Rows;
+namespace Streams\Ui\Table\Component\Row\Workflows\Rows;
 
-use Anomaly\Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Table\TableBuilder;
 
 /**
  * Class DefaultRows

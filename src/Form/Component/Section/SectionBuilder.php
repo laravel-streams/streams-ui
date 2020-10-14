@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Section;
+namespace Streams\Ui\Form\Component\Section;
 
-use Anomaly\Streams\Ui\Support\Builder;
-use Anomaly\Streams\Ui\Support\Workflows\BuildComponent;
-use Anomaly\Streams\Ui\ControlPanel\Component\Section\Section;
+use Streams\Ui\Support\Builder;
+use Streams\Ui\Support\Workflows\BuildComponent;
+use Streams\Ui\ControlPanel\Component\Section\Section;
 
 /**
  * Class SectionBuilder

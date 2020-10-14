@@ -3,28 +3,28 @@
 namespace Anomaly\Streams\Ui;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Ui\Input\Date;
-use Anomaly\Streams\Ui\Input\Slug;
-use Anomaly\Streams\Ui\Input\Time;
-use Anomaly\Streams\Ui\Input\Color;
-use Anomaly\Streams\Ui\Input\Input;
-use Anomaly\Streams\Ui\Input\Radio;
-use Anomaly\Streams\Ui\Input\Range;
+use Streams\Ui\Input\Date;
+use Streams\Ui\Input\Slug;
+use Streams\Ui\Input\Time;
+use Streams\Ui\Input\Color;
+use Streams\Ui\Input\Input;
+use Streams\Ui\Input\Radio;
+use Streams\Ui\Input\Range;
 use Illuminate\Support\Facades\App;
-use Anomaly\Streams\Ui\Input\Select;
+use Streams\Ui\Input\Select;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
-use Anomaly\Streams\Ui\Input\Integer;
-use Anomaly\Streams\Ui\Input\Datetime;
-use Anomaly\Streams\Ui\Input\Markdown;
-use Anomaly\Streams\Ui\Input\Textarea;
+use Streams\Ui\Input\Integer;
+use Streams\Ui\Input\Datetime;
+use Streams\Ui\Input\Markdown;
+use Streams\Ui\Input\Textarea;
 use Illuminate\Support\ServiceProvider;
-use Anomaly\Streams\Ui\Form\FormBuilder;
-use Anomaly\Streams\Platform\Field\Field;
-use Anomaly\Streams\Ui\Table\TableBuilder;
-use Anomaly\Streams\Platform\Stream\Stream;
-use Anomaly\Streams\Platform\Support\Facades\Assets;
-use Anomaly\Streams\Platform\Support\Facades\Streams;
+use Streams\Ui\Form\FormBuilder;
+use Streams\Core\Field\Field;
+use Streams\Ui\Table\TableBuilder;
+use Streams\Core\Stream\Stream;
+use Streams\Core\Support\Facades\Assets;
+use Streams\Core\Support\Facades\Streams;
 
 /**
  * Class StreamsServiceProvider
@@ -42,7 +42,7 @@ class UiServiceProvider extends ServiceProvider
      * @var array
      */
     public $aliases = [
-        //'UI' => \Anomaly\Streams\Ui\Support\Facades\UI::class
+        //'UI' => \Streams\Ui\Support\Facades\UI::class
     ];
 
     /**
@@ -51,7 +51,7 @@ class UiServiceProvider extends ServiceProvider
      * @var array
      */
     public $bindings = [
-        //\Anomaly\Streams\Platform\Stream\Contract\StreamRepositoryInterface::class  => \Anomaly\Streams\Platform\Stream\StreamRepository::class,
+        //\Streams\Core\Stream\Contract\StreamRepositoryInterface::class  => \Streams\Core\Stream\StreamRepository::class,
     ];
 
     /**
@@ -60,13 +60,12 @@ class UiServiceProvider extends ServiceProvider
      * @var array
      */
     public $singletons = [
-        \Anomaly\Streams\Ui\Icon\IconRegistry::class                     => \Anomaly\Streams\Ui\Icon\IconRegistry::class,
-        \Anomaly\Streams\Ui\Support\Breadcrumb::class                     => \Anomaly\Streams\Ui\Support\Breadcrumb::class,
-        \Anomaly\Streams\Ui\Button\ButtonRegistry::class                 => \Anomaly\Streams\Ui\Button\ButtonRegistry::class,
-        \Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder::class      => \Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder::class,
-        \Anomaly\Streams\Ui\Table\Component\View\ViewRegistry::class     => \Anomaly\Streams\Ui\Table\Component\View\ViewRegistry::class,
-        \Anomaly\Streams\Ui\Table\Component\Filter\FilterRegistry::class => \Anomaly\Streams\Ui\Table\Component\Filter\FilterRegistry::class,
-
+        \Streams\Ui\Icon\IconRegistry::class => \Streams\Ui\Icon\IconRegistry::class,
+        \Streams\Ui\Support\Breadcrumb::class => \Streams\Ui\Support\Breadcrumb::class,
+        \Streams\Ui\Button\ButtonRegistry::class => \Streams\Ui\Button\ButtonRegistry::class,
+        \Streams\Ui\ControlPanel\ControlPanelBuilder::class => \Streams\Ui\ControlPanel\ControlPanelBuilder::class,
+        \Streams\Ui\Table\Component\View\ViewRegistry::class => \Streams\Ui\Table\Component\View\ViewRegistry::class,
+        \Streams\Ui\Table\Component\Filter\FilterRegistry::class => \Streams\Ui\Table\Component\Filter\FilterRegistry::class,
     ];
 
     /**

@@ -1,15 +1,15 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Button;
+namespace Streams\Ui\Table\Component\Button;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
-use Anomaly\Streams\Ui\Table\TableBuilder;
-use Anomaly\Streams\Ui\Table\Component\Button\Guesser\HrefGuesser;
-use Anomaly\Streams\Ui\Table\Component\Button\Guesser\TextGuesser;
-use Anomaly\Streams\Ui\Table\Component\Button\Guesser\PolicyGuesser;
-use Anomaly\Streams\Ui\Table\Component\Button\Guesser\EnabledGuesser;
+use Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Table\Component\Button\Guesser\HrefGuesser;
+use Streams\Ui\Table\Component\Button\Guesser\TextGuesser;
+use Streams\Ui\Table\Component\Button\Guesser\PolicyGuesser;
+use Streams\Ui\Table\Component\Button\Guesser\EnabledGuesser;
 
 /**
  * Class ButtonGuesser

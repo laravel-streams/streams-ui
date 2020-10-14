@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Action\Workflows\Actions;
+namespace Streams\Ui\Table\Component\Action\Workflows\Actions;
 
-use Anomaly\Streams\Ui\Table\TableBuilder;
-use Anomaly\Streams\Ui\Support\Normalizer;
+use Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Support\Normalizer;
 
 /**
  * Class NormalizeActions

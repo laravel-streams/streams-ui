@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\View\Workflows\Views;
+namespace Streams\Ui\Table\Component\View\Workflows\Views;
 
-use Anomaly\Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Table\TableBuilder;
 
 /**
  * Class DefaultViews

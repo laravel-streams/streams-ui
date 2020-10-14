@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Action\Workflows\Actions;
+namespace Streams\Ui\Table\Component\Action\Workflows\Actions;
 
 use Illuminate\Support\Str;
-use Anomaly\Streams\Ui\Table\TableBuilder;
-use Anomaly\Streams\Platform\Stream\Stream;
+use Streams\Ui\Table\TableBuilder;
+use Streams\Core\Stream\Stream;
 
 /**
  * Class ExpandActions

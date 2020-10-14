@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields;
+namespace Streams\Ui\Form\Component\Field\Workflows\Fields;
 
-use Anomaly\Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Form\FormBuilder;
 
 /**
  * Class DefaultFields

@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Field\Guesser;
+namespace Streams\Ui\Form\Component\Field\Guesser;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Form\FormBuilder;
 
 /**
  * Class EnabledGuesser

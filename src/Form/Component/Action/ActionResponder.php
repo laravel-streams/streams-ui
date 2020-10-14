@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Action;
+namespace Streams\Ui\Form\Component\Action;
 
-use Anomaly\Streams\Ui\Form\Component\Action\Contract\ActionHandlerInterface;
-use Anomaly\Streams\Ui\Form\Component\Action\Action;
-use Anomaly\Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Form\Component\Action\Contract\ActionHandlerInterface;
+use Streams\Ui\Form\Component\Action\Action;
+use Streams\Ui\Form\FormBuilder;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Facades\App;
 

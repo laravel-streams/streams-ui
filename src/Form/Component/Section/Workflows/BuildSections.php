@@ -1,15 +1,15 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Section\Workflows;
+namespace Streams\Ui\Form\Component\Section\Workflows;
 
-use Anomaly\Streams\Platform\Support\Workflow;
-use Anomaly\Streams\Ui\Support\Workflows\BuildComponents;
-use Anomaly\Streams\Ui\Support\Workflows\ParseComponents;
-use Anomaly\Streams\Ui\Support\Workflows\ResolveComponents;
-use Anomaly\Streams\Ui\Support\Workflows\TranslateComponents;
-use Anomaly\Streams\Ui\Form\Component\Section\Workflows\Sections\DefaultSections;
-use Anomaly\Streams\Ui\Form\Component\Section\Workflows\Sections\PopulateSections;
-use Anomaly\Streams\Ui\Form\Component\Section\Workflows\Sections\NormalizeSections;
+use Streams\Core\Support\Workflow;
+use Streams\Ui\Support\Workflows\BuildComponents;
+use Streams\Ui\Support\Workflows\ParseComponents;
+use Streams\Ui\Support\Workflows\ResolveComponents;
+use Streams\Ui\Support\Workflows\TranslateComponents;
+use Streams\Ui\Form\Component\Section\Workflows\Sections\DefaultSections;
+use Streams\Ui\Form\Component\Section\Workflows\Sections\PopulateSections;
+use Streams\Ui\Form\Component\Section\Workflows\Sections\NormalizeSections;
 
 /**
  * Class BuildSections

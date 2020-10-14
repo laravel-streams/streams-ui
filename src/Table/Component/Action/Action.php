@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Action;
+namespace Streams\Ui\Table\Component\Action;
 
-use Anomaly\Streams\Ui\Button\Button;
-use Anomaly\Streams\Ui\Table\Component\Action\ActionHandler;
+use Streams\Ui\Button\Button;
+use Streams\Ui\Table\Component\Action\ActionHandler;
 
 /**
  * Class Action

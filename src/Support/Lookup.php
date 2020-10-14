@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Support;
+namespace Streams\Ui\Support;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Ui\Button\ButtonRegistry;
+use Streams\Ui\Button\ButtonRegistry;
 
 /**
  * Registry merger (lookup).

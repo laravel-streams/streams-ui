@@ -1,12 +1,12 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Row\Workflows;
+namespace Streams\Ui\Table\Component\Row\Workflows;
 
-use Anomaly\Streams\Platform\Support\Workflow;
-use Anomaly\Streams\Ui\Support\Workflows\BuildComponents;
-use Anomaly\Streams\Ui\Support\Workflows\ResolveComponents;
-use Anomaly\Streams\Ui\Table\Component\Row\Workflows\Rows\DefaultRows;
-use Anomaly\Streams\Ui\Table\Component\Row\Workflows\Rows\ValuateRows;
+use Streams\Core\Support\Workflow;
+use Streams\Ui\Support\Workflows\BuildComponents;
+use Streams\Ui\Support\Workflows\ResolveComponents;
+use Streams\Ui\Table\Component\Row\Workflows\Rows\DefaultRows;
+use Streams\Ui\Table\Component\Row\Workflows\Rows\ValuateRows;
 
 /**
  * Class BuildRows

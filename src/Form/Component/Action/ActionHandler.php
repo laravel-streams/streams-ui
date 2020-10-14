@@ -1,6 +1,6 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Action;
+namespace Streams\Ui\Form\Component\Action;
 
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use Illuminate\Session\Store;
 use Illuminate\Routing\Redirector;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\Support\Arrayable;
-use Anomaly\Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Form\FormBuilder;
 
 /**
  * Class ActionHandler

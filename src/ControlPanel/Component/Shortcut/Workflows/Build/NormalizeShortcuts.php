@@ -1,13 +1,13 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\Workflows\Build;
+namespace Streams\Ui\ControlPanel\Component\Shortcut\Workflows\Build;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Anomaly\Streams\Ui\Support\Normalizer;
-use Anomaly\Streams\Platform\Stream\Stream;
-use Anomaly\Streams\Platform\Support\Facades\Streams;
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Ui\Support\Normalizer;
+use Streams\Core\Stream\Stream;
+use Streams\Core\Support\Facades\Streams;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class NormalizeShortcut

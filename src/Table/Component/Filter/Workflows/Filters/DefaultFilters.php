@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Filter\Workflows\Filters;
+namespace Streams\Ui\Table\Component\Filter\Workflows\Filters;
 
-use Anomaly\Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Table\TableBuilder;
 
 /**
  * Class DefaultFilters

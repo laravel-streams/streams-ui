@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Action\Workflows\Actions;
+namespace Streams\Ui\Table\Component\Action\Workflows\Actions;
 
-use Anomaly\Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Table\TableBuilder;
 
 /**
  * Class SetActiveAction

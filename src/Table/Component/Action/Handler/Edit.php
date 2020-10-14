@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Action\Handler;
+namespace Streams\Ui\Table\Component\Action\Handler;
 
 use Illuminate\Routing\Redirector;
-use Anomaly\Streams\Ui\Table\TableBuilder;
-use Anomaly\Streams\Ui\ControlPanel\Component\Section\SectionCollection;
+use Streams\Ui\Table\TableBuilder;
+use Streams\Ui\ControlPanel\Component\Section\SectionCollection;
 
 class Edit
 {

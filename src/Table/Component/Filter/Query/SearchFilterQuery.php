@@ -1,12 +1,12 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Filter\Query;
+namespace Streams\Ui\Table\Component\Filter\Query;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Builder;
-use Anomaly\Streams\Ui\Table\TableBuilder;
-use Anomaly\Streams\Ui\Table\Component\Filter\Filter;
+use Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Table\Component\Filter\Filter;
 
 /**
  * Class SearchFilterQuery

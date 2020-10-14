@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Field;
+namespace Streams\Ui\Form\Component\Field;
 
-use Anomaly\Streams\Ui\Support\Builder;
-use Anomaly\Streams\Platform\Field\Field;
-use Anomaly\Streams\Ui\Support\Workflows\BuildComponent;
+use Streams\Ui\Support\Builder;
+use Streams\Core\Field\Field;
+use Streams\Ui\Support\Workflows\BuildComponent;
 
 /**
  * Class FieldTypeBuilder

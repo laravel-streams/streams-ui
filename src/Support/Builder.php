@@ -1,6 +1,6 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Support;
+namespace Streams\Ui\Support;
 
 use Illuminate\Support\Arr;
 use Illuminate\Http\JsonResponse;
@@ -8,10 +8,10 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Traits\Macroable;
-use Anomaly\Streams\Platform\Support\Workflow;
-use Anomaly\Streams\Platform\Support\Traits\Prototype;
-use Anomaly\Streams\Platform\Support\Traits\FiresCallbacks;
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Core\Support\Workflow;
+use Streams\Core\Support\Traits\Prototype;
+use Streams\Core\Support\Traits\FiresCallbacks;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
 use Illuminate\Support\Facades\View as FacadesView;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 

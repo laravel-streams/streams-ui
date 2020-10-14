@@ -1,11 +1,11 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\View\Workflows\Views;
+namespace Streams\Ui\Table\Component\View\Workflows\Views;
 
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Container\Container;
-use Anomaly\Streams\Ui\Table\TableBuilder;
-use Anomaly\Streams\Ui\Table\Component\View\ViewHandler;
+use Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Table\Component\View\ViewHandler;
 
 /**
  * Class SetActiveView

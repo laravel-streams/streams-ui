@@ -1,17 +1,17 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Action\Workflows;
+namespace Streams\Ui\Table\Component\Action\Workflows;
 
-use Anomaly\Streams\Platform\Support\Workflow;
-use Anomaly\Streams\Ui\Support\Workflows\BuildComponents;
-use Anomaly\Streams\Ui\Support\Workflows\MergeComponents;
-use Anomaly\Streams\Ui\Support\Workflows\ParseComponents;
-use Anomaly\Streams\Ui\Support\Workflows\ResolveComponents;
-use Anomaly\Streams\Ui\Support\Workflows\TranslateComponents;
-use Anomaly\Streams\Ui\Table\Component\Action\Workflows\Actions\ExpandActions;
-use Anomaly\Streams\Ui\Table\Component\Action\Workflows\Actions\DefaultActions;
-use Anomaly\Streams\Ui\Table\Component\Action\Workflows\Actions\SetActiveAction;
-use Anomaly\Streams\Ui\Table\Component\Action\Workflows\Actions\NormalizeActions;
+use Streams\Core\Support\Workflow;
+use Streams\Ui\Support\Workflows\BuildComponents;
+use Streams\Ui\Support\Workflows\MergeComponents;
+use Streams\Ui\Support\Workflows\ParseComponents;
+use Streams\Ui\Support\Workflows\ResolveComponents;
+use Streams\Ui\Support\Workflows\TranslateComponents;
+use Streams\Ui\Table\Component\Action\Workflows\Actions\ExpandActions;
+use Streams\Ui\Table\Component\Action\Workflows\Actions\DefaultActions;
+use Streams\Ui\Table\Component\Action\Workflows\Actions\SetActiveAction;
+use Streams\Ui\Table\Component\Action\Workflows\Actions\NormalizeActions;
 
 /**
  * Class BuildActions

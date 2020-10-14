@@ -1,26 +1,26 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Workflows;
+namespace Streams\Ui\Form\Workflows;
 
-use Anomaly\Streams\Platform\Support\Workflow;
-use Anomaly\Streams\Ui\Support\Workflows\SetStream;
-use Anomaly\Streams\Ui\Support\Workflows\LoadAssets;
-use Anomaly\Streams\Ui\Support\Workflows\SetOptions;
-use Anomaly\Streams\Ui\Form\Workflows\Build\SetEntry;
-use Anomaly\Streams\Ui\Form\Workflows\Build\LoadValues;
-use Anomaly\Streams\Ui\Form\Workflows\Build\QueryEntry;
-use Anomaly\Streams\Ui\Support\Workflows\MakeComponent;
-use Anomaly\Streams\Ui\Support\Workflows\SetRepository;
-use Anomaly\Streams\Ui\Form\Workflows\Build\BuildFields;
-use Anomaly\Streams\Ui\Support\Workflows\LoadBreadcrumb;
-use Anomaly\Streams\Ui\Form\Workflows\Build\BuildActions;
-use Anomaly\Streams\Ui\Form\Workflows\Build\BuildButtons;
-use Anomaly\Streams\Ui\Form\Workflows\Build\ValidateForm;
-use Anomaly\Streams\Ui\Form\Workflows\Build\AuthorizeForm;
-use Anomaly\Streams\Ui\Form\Workflows\Build\BuildSections;
-use Anomaly\Streams\Ui\Form\Workflows\Build\FlashMessages;
-use Anomaly\Streams\Ui\Form\Workflows\Build\HandleRequest;
-use Anomaly\Streams\Ui\Form\Workflows\Build\SetValidation;
+use Streams\Core\Support\Workflow;
+use Streams\Ui\Support\Workflows\SetStream;
+use Streams\Ui\Support\Workflows\LoadAssets;
+use Streams\Ui\Support\Workflows\SetOptions;
+use Streams\Ui\Form\Workflows\Build\SetEntry;
+use Streams\Ui\Form\Workflows\Build\LoadValues;
+use Streams\Ui\Form\Workflows\Build\QueryEntry;
+use Streams\Ui\Support\Workflows\MakeComponent;
+use Streams\Ui\Support\Workflows\SetRepository;
+use Streams\Ui\Form\Workflows\Build\BuildFields;
+use Streams\Ui\Support\Workflows\LoadBreadcrumb;
+use Streams\Ui\Form\Workflows\Build\BuildActions;
+use Streams\Ui\Form\Workflows\Build\BuildButtons;
+use Streams\Ui\Form\Workflows\Build\ValidateForm;
+use Streams\Ui\Form\Workflows\Build\AuthorizeForm;
+use Streams\Ui\Form\Workflows\Build\BuildSections;
+use Streams\Ui\Form\Workflows\Build\FlashMessages;
+use Streams\Ui\Form\Workflows\Build\HandleRequest;
+use Streams\Ui\Form\Workflows\Build\SetValidation;
 
 /**
  * Class BuildForm

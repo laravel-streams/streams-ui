@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Workflows;
+namespace Streams\Ui\Form\Workflows;
 
-use Anomaly\Streams\Platform\Support\Workflow;
-use Anomaly\Streams\Ui\Form\Workflows\Validate\SetMessages;
-use Anomaly\Streams\Ui\Form\Workflows\Validate\BuildValidator;
+use Streams\Core\Support\Workflow;
+use Streams\Ui\Form\Workflows\Validate\SetMessages;
+use Streams\Ui\Form\Workflows\Validate\BuildValidator;
 
 /**
  * Class ValidateForm

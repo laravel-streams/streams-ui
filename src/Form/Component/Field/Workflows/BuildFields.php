@@ -1,15 +1,15 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Field\Workflows;
+namespace Streams\Ui\Form\Component\Field\Workflows;
 
-use Anomaly\Streams\Platform\Support\Workflow;
-use Anomaly\Streams\Ui\Support\Workflows\BuildComponents;
-use Anomaly\Streams\Ui\Support\Workflows\ParseComponents;
-use Anomaly\Streams\Ui\Support\Workflows\ResolveComponents;
-use Anomaly\Streams\Ui\Support\Workflows\TranslateComponents;
-use Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields\DefaultFields;
-use Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields\PopulateFields;
-use Anomaly\Streams\Ui\Form\Component\Field\Workflows\Fields\NormalizeFields;
+use Streams\Core\Support\Workflow;
+use Streams\Ui\Support\Workflows\BuildComponents;
+use Streams\Ui\Support\Workflows\ParseComponents;
+use Streams\Ui\Support\Workflows\ResolveComponents;
+use Streams\Ui\Support\Workflows\TranslateComponents;
+use Streams\Ui\Form\Component\Field\Workflows\Fields\DefaultFields;
+use Streams\Ui\Form\Component\Field\Workflows\Fields\PopulateFields;
+use Streams\Ui\Form\Component\Field\Workflows\Fields\NormalizeFields;
 
 /**
  * Class BuildFields

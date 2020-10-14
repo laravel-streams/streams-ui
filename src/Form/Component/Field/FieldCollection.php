@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Field;
+namespace Streams\Ui\Form\Component\Field;
 
-use Anomaly\Streams\Platform\Addon\FieldType\FieldType;
+use Streams\Core\Addon\FieldType\FieldType;
 use Illuminate\Support\Collection;
 
 /**

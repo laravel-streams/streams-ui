@@ -1,6 +1,6 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Support\Workflows;
+namespace Streams\Ui\Support\Workflows;
 
 use Illuminate\Support\Arr;
 

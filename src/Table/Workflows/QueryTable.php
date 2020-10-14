@@ -1,12 +1,12 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Workflows;
+namespace Streams\Ui\Table\Workflows;
 
-use Anomaly\Streams\Platform\Support\Workflow;
-use Anomaly\Streams\Ui\Support\Workflows\StartQuery;
-use Anomaly\Streams\Ui\Table\Workflows\Query\OrderQuery;
-use Anomaly\Streams\Ui\Table\Workflows\Query\FilterQuery;
-use Anomaly\Streams\Ui\Table\Workflows\Query\FinishQuery;
+use Streams\Core\Support\Workflow;
+use Streams\Ui\Support\Workflows\StartQuery;
+use Streams\Ui\Table\Workflows\Query\OrderQuery;
+use Streams\Ui\Table\Workflows\Query\FilterQuery;
+use Streams\Ui\Table\Workflows\Query\FinishQuery;
 
 /**
  * Class QueryTable

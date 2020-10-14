@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Support\Workflows;
+namespace Streams\Ui\Support\Workflows;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Ui\Support\Builder;
+use Streams\Ui\Support\Builder;
 
 /**
  * Class MakeComponent

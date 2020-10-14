@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Column\Workflows\Columns;
+namespace Streams\Ui\Table\Component\Column\Workflows\Columns;
 
-use Anomaly\Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Table\TableBuilder;
 
 /**
  * Class DefaultColumns

@@ -1,11 +1,11 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Button\Guesser;
+namespace Streams\Ui\Form\Component\Button\Guesser;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Anomaly\Streams\Ui\Form\FormBuilder;
-use Anomaly\Streams\Ui\Form\Multiple\MultipleFormBuilder;
+use Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Form\Multiple\MultipleFormBuilder;
 
 /**
  * Class HrefGuesser

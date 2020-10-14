@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\View;
+namespace Streams\Ui\Table\Component\View;
 
-use Anomaly\Streams\Ui\Support\Component;
+use Streams\Ui\Support\Component;
 
 /**
  * Class View

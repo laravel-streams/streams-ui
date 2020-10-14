@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Row\Workflows\Rows;
+namespace Streams\Ui\Table\Component\Row\Workflows\Rows;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Ui\Support\Value;
-use Anomaly\Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Support\Value;
+use Streams\Ui\Table\TableBuilder;
 use Illuminate\Support\Collection;
 
 /**

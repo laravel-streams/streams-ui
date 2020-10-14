@@ -1,12 +1,12 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Support\Workflows;
+namespace Streams\Ui\Support\Workflows;
 
 use Illuminate\Support\Facades\App;
-use Anomaly\Streams\Ui\Support\Builder;
-use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
-use Anomaly\Streams\Platform\Repository\Contract\RepositoryInterface;
-use Anomaly\Streams\Platform\Stream\Stream;
+use Streams\Ui\Support\Builder;
+use Streams\Core\Stream\Contract\StreamInterface;
+use Streams\Core\Repository\Contract\RepositoryInterface;
+use Streams\Core\Stream\Stream;
 
 /**
  * Create a new SetRepository instance.

@@ -1,6 +1,6 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Support;
+namespace Streams\Ui\Support;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\View;
@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
-use Anomaly\Streams\Platform\Support\Facades\Hydrator;
-use Anomaly\Streams\Platform\Support\Traits\Prototype;
-use Anomaly\Streams\Platform\Support\Traits\FiresCallbacks;
+use Streams\Core\Support\Facades\Hydrator;
+use Streams\Core\Support\Traits\Prototype;
+use Streams\Core\Support\Traits\FiresCallbacks;
 
 /**
  * Class Ui

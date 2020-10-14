@@ -1,13 +1,13 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Workflows\Build;
+namespace Streams\Ui\Form\Workflows\Build;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Ui\Form\FormBuilder;
-use Anomaly\Streams\Platform\Support\Facades\Resolver;
-use Anomaly\Streams\Platform\Support\Facades\Evaluator;
-use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
-use Anomaly\Streams\Platform\Repository\Contract\RepositoryInterface;
+use Streams\Ui\Form\FormBuilder;
+use Streams\Core\Support\Facades\Resolver;
+use Streams\Core\Support\Facades\Evaluator;
+use Streams\Core\Entry\Contract\EntryInterface;
+use Streams\Core\Repository\Contract\RepositoryInterface;
 
 /**
  * Class QueryEntry

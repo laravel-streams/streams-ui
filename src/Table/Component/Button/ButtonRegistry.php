@@ -1,12 +1,12 @@
-<?php namespace Anomaly\Streams\Ui\Table\Component\Button;
+<?php namespace Streams\Ui\Table\Component\Button;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Ui\Table\Component\Action\Handler\Edit;
-use Anomaly\Streams\Ui\Table\Component\Action\Handler\Delete;
-use Anomaly\Streams\Ui\Table\Component\Action\Handler\Export;
-use Anomaly\Streams\Ui\Table\Component\Action\Handler\Reorder;
-use Anomaly\Streams\Ui\Table\Component\Action\Handler\ForceDelete;
-use Anomaly\Streams\Ui\Button\ButtonRegistry as ButtonButtonRegistry;
+use Streams\Ui\Table\Component\Action\Handler\Edit;
+use Streams\Ui\Table\Component\Action\Handler\Delete;
+use Streams\Ui\Table\Component\Action\Handler\Export;
+use Streams\Ui\Table\Component\Action\Handler\Reorder;
+use Streams\Ui\Table\Component\Action\Handler\ForceDelete;
+use Streams\Ui\Button\ButtonRegistry as ButtonButtonRegistry;
 
 /**
  * Class ButtonRegistry

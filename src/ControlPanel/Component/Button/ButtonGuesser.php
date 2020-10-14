@@ -1,14 +1,14 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Button;
+namespace Streams\Ui\ControlPanel\Component\Button;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
-use Anomaly\Streams\Ui\ControlPanel\Component\Button\Guesser\HrefGuesser;
-use Anomaly\Streams\Ui\ControlPanel\Component\Button\Guesser\TextGuesser;
-use Anomaly\Streams\Ui\ControlPanel\Component\Button\Guesser\TypeGuesser;
-use Anomaly\Streams\Ui\ControlPanel\Component\Button\Guesser\EnabledGuesser;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Ui\ControlPanel\Component\Button\Guesser\HrefGuesser;
+use Streams\Ui\ControlPanel\Component\Button\Guesser\TextGuesser;
+use Streams\Ui\ControlPanel\Component\Button\Guesser\TypeGuesser;
+use Streams\Ui\ControlPanel\Component\Button\Guesser\EnabledGuesser;
 
 /**
  * Class ButtonGuesser

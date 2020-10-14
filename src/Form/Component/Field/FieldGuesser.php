@@ -1,20 +1,20 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Field;
+namespace Streams\Ui\Form\Component\Field;
 
-use Anomaly\Streams\Ui\Form\Component\Field\Guesser\DisabledGuesser;
-use Anomaly\Streams\Ui\Form\Component\Field\Guesser\EnabledGuesser;
-use Anomaly\Streams\Ui\Form\Component\Field\Guesser\InstructionsGuesser;
-use Anomaly\Streams\Ui\Form\Component\Field\Guesser\LabelsGuesser;
-use Anomaly\Streams\Ui\Form\Component\Field\Guesser\PlaceholdersGuesser;
-use Anomaly\Streams\Ui\Form\Component\Field\Guesser\PrefixesGuesser;
-use Anomaly\Streams\Ui\Form\Component\Field\Guesser\ReadOnlyGuesser;
-use Anomaly\Streams\Ui\Form\Component\Field\Guesser\RequiredGuesser;
-use Anomaly\Streams\Ui\Form\Component\Field\Guesser\TranslatableGuesser;
-use Anomaly\Streams\Ui\Form\Component\Field\Guesser\UniqueGuesser;
-use Anomaly\Streams\Ui\Form\Component\Field\Guesser\WarningsGuesser;
-use Anomaly\Streams\Ui\Form\Component\Field\Guesser\NullableGuesser;
-use Anomaly\Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Form\Component\Field\Guesser\DisabledGuesser;
+use Streams\Ui\Form\Component\Field\Guesser\EnabledGuesser;
+use Streams\Ui\Form\Component\Field\Guesser\InstructionsGuesser;
+use Streams\Ui\Form\Component\Field\Guesser\LabelsGuesser;
+use Streams\Ui\Form\Component\Field\Guesser\PlaceholdersGuesser;
+use Streams\Ui\Form\Component\Field\Guesser\PrefixesGuesser;
+use Streams\Ui\Form\Component\Field\Guesser\ReadOnlyGuesser;
+use Streams\Ui\Form\Component\Field\Guesser\RequiredGuesser;
+use Streams\Ui\Form\Component\Field\Guesser\TranslatableGuesser;
+use Streams\Ui\Form\Component\Field\Guesser\UniqueGuesser;
+use Streams\Ui\Form\Component\Field\Guesser\WarningsGuesser;
+use Streams\Ui\Form\Component\Field\Guesser\NullableGuesser;
+use Streams\Ui\Form\FormBuilder;
 
 class FieldGuesser
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\View;
+namespace Streams\Ui\Table\Component\View;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Builder;
-use Anomaly\Streams\Ui\Table\TableBuilder;
-use Anomaly\Streams\Ui\Table\Component\View\View;
+use Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Table\Component\View\View;
 
 /**
  * Class ViewQuery

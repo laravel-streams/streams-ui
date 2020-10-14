@@ -1,6 +1,6 @@
-<?php namespace Anomaly\Streams\Ui\ControlPanel\Component\Section\Event;
+<?php namespace Streams\Ui\ControlPanel\Component\Section\Event;
 
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class GatherSections

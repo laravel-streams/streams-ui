@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Button\Workflows\Buttons;
+namespace Streams\Ui\Table\Component\Button\Workflows\Buttons;
 
-use Anomaly\Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Table\TableBuilder;
 
 /**
  * Class DefaultButtons

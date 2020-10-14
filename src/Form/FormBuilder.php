@@ -1,17 +1,17 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form;
+namespace Streams\Ui\Form;
 
-use Anomaly\Streams\Ui\Form\Form;
-use Anomaly\Streams\Ui\Support\Builder;
-use Anomaly\Streams\Ui\Form\Command\SaveForm;
-use Anomaly\Streams\Ui\Form\Workflows\BuildForm;
-use Anomaly\Streams\Ui\Form\Workflows\QueryForm;
-use Anomaly\Streams\Ui\Form\Workflows\ValidateForm;
-use Anomaly\Streams\Ui\Form\Component\Field\Workflows\BuildFields;
-use Anomaly\Streams\Ui\Form\Component\Action\Workflows\BuildActions;
-use Anomaly\Streams\Ui\Form\Component\Button\Workflows\BuildButtons;
-use Anomaly\Streams\Ui\Form\Component\Section\Workflows\BuildSections;
+use Streams\Ui\Form\Form;
+use Streams\Ui\Support\Builder;
+use Streams\Ui\Form\Command\SaveForm;
+use Streams\Ui\Form\Workflows\BuildForm;
+use Streams\Ui\Form\Workflows\QueryForm;
+use Streams\Ui\Form\Workflows\ValidateForm;
+use Streams\Ui\Form\Component\Field\Workflows\BuildFields;
+use Streams\Ui\Form\Component\Action\Workflows\BuildActions;
+use Streams\Ui\Form\Component\Button\Workflows\BuildButtons;
+use Streams\Ui\Form\Component\Section\Workflows\BuildSections;
 
 /**
  * Class FormBuilder

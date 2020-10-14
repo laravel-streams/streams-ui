@@ -1,12 +1,12 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Column\Workflows\Columns;
+namespace Streams\Ui\Table\Component\Column\Workflows\Columns;
 
-use Anomaly\Streams\Platform\Stream\Stream;
+use Streams\Core\Stream\Stream;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Anomaly\Streams\Ui\Support\Normalizer;
-use Anomaly\Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Support\Normalizer;
+use Streams\Ui\Table\TableBuilder;
 
 /**
  * Class ExpandColumns

@@ -1,12 +1,12 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel;
+namespace Streams\Ui\ControlPanel;
 
-use Anomaly\Streams\Ui\Support\Component;
-use Anomaly\Streams\Ui\Button\ButtonCollection;
-use Anomaly\Streams\Ui\ControlPanel\Component\Section\SectionCollection;
-use Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\ShortcutCollection;
-use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\NavigationCollection;
+use Streams\Ui\Support\Component;
+use Streams\Ui\Button\ButtonCollection;
+use Streams\Ui\ControlPanel\Component\Section\SectionCollection;
+use Streams\Ui\ControlPanel\Component\Shortcut\ShortcutCollection;
+use Streams\Ui\ControlPanel\Component\Navigation\NavigationCollection;
 
 /**
  * Class ControlPanel

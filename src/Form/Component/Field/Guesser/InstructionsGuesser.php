@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Field\Guesser;
+namespace Streams\Ui\Form\Component\Field\Guesser;
 
-use Anomaly\Streams\Platform\Assignment\Contract\AssignmentInterface;
-use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
-use Anomaly\Streams\Ui\Form\FormBuilder;
+use Streams\Core\Assignment\Contract\AssignmentInterface;
+use Streams\Core\Stream\Contract\StreamInterface;
+use Streams\Ui\Form\FormBuilder;
 
 /**
  * Class InstructionsGuesser

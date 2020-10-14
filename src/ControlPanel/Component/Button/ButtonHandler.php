@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Button;
+namespace Streams\Ui\ControlPanel\Component\Button;
 
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class ButtonHandler

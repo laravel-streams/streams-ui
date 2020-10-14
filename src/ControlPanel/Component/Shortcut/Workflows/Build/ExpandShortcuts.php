@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\Workflows\Build;
+namespace Streams\Ui\ControlPanel\Component\Shortcut\Workflows\Build;
 
 use Illuminate\Support\Str;
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class ExpandShortcut

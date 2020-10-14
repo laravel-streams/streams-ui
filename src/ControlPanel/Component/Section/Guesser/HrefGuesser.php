@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Section\Guesser;
+namespace Streams\Ui\ControlPanel\Component\Section\Guesser;
 
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class HrefGuesser

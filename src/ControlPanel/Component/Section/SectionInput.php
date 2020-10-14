@@ -1,12 +1,12 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Section;
+namespace Streams\Ui\ControlPanel\Component\Section;
 
 use Illuminate\Support\Arr;
 use Illuminate\Translation\Translator;
-use Anomaly\Streams\Ui\Support\Normalizer;
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
-use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\NavigationLink;
+use Streams\Ui\Support\Normalizer;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Ui\ControlPanel\Component\Navigation\NavigationLink;
 
 /**
  * Class SectionInput

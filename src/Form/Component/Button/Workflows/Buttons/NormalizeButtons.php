@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Button\Workflows\Buttons;
+namespace Streams\Ui\Form\Component\Button\Workflows\Buttons;
 
-use Anomaly\Streams\Ui\Form\FormBuilder;
-use Anomaly\Streams\Ui\Support\Normalizer;
+use Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Support\Normalizer;
 
 /**
  * Class NormalizeButtons

@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Support\Workflows;
+namespace Streams\Ui\Support\Workflows;
 
-use Anomaly\Streams\Ui\Support\Builder;
-use Anomaly\Streams\Platform\Stream\Stream;
-use Anomaly\Streams\Platform\Support\Facades\Streams;
+use Streams\Ui\Support\Builder;
+use Streams\Core\Stream\Stream;
+use Streams\Core\Support\Facades\Streams;
 
 /**
  * Class SetStream

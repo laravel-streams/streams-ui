@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Support\Workflows;
+namespace Streams\Ui\Support\Workflows;
 
-use Anomaly\Streams\Ui\Support\Builder;
-use Anomaly\Streams\Platform\Support\Facades\Evaluator;
-use Anomaly\Streams\Platform\Support\Facades\Resolver;
+use Streams\Ui\Support\Builder;
+use Streams\Core\Support\Facades\Evaluator;
+use Streams\Core\Support\Facades\Resolver;
 
 /**
  * Class ResolveComponents

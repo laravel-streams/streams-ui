@@ -1,4 +1,4 @@
-<?php namespace Anomaly\Streams\Ui\Form;
+<?php namespace Streams\Ui\Form;
 
 /**
  * Class FormHandler

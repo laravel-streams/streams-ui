@@ -1,13 +1,13 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Field;
+namespace Streams\Ui\Form\Component\Field;
 
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
-use Anomaly\Streams\Platform\Support\Facades\Hydrator;
-use Anomaly\Streams\Platform\Addon\FieldType\FieldType;
-use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
-use Anomaly\Streams\Platform\Addon\FieldType\FieldTypeBuilder;
+use Streams\Core\Support\Facades\Hydrator;
+use Streams\Core\Addon\FieldType\FieldType;
+use Streams\Core\Stream\Contract\StreamInterface;
+use Streams\Core\Addon\FieldType\FieldTypeBuilder;
 
 /**
  * Class FieldFactory

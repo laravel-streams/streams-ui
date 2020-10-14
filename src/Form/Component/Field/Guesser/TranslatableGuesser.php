@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Field\Guesser;
+namespace Streams\Ui\Form\Component\Field\Guesser;
 
-use Anomaly\Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Form\FormBuilder;
 use Illuminate\Database\Eloquent\Model;
 
 /**

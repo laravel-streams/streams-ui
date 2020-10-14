@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Column;
+namespace Streams\Ui\Table\Component\Column;
 
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Request;
-use Anomaly\Streams\Ui\Support\Component;
+use Streams\Ui\Support\Component;
 
 /**
  * Class Column

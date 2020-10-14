@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Filter;
+namespace Streams\Ui\Table\Component\Filter;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Platform\Support\Facades\Hydrator;
-use Anomaly\Streams\Ui\Table\Component\Filter\Filter;
+use Streams\Core\Support\Facades\Hydrator;
+use Streams\Ui\Table\Component\Filter\Filter;
 
 /**
  * Class FilterFactory

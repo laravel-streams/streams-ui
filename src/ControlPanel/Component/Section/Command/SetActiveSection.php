@@ -1,12 +1,12 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Section\Command;
+namespace Streams\Ui\ControlPanel\Component\Section\Command;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Anomaly\Streams\Ui\Support\Breadcrumb;
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
-use Anomaly\Streams\Ui\ControlPanel\Component\Section\Section;
+use Streams\Ui\Support\Breadcrumb;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Ui\ControlPanel\Component\Section\Section;
 use Illuminate\Support\Facades\Gate;
 
 /**

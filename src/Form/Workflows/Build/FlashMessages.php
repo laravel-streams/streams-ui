@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Workflows\Build;
+namespace Streams\Ui\Form\Workflows\Build;
 
-use Anomaly\Streams\Ui\Form\FormBuilder;
-use Anomaly\Streams\Platform\Support\Facades\Messages;
+use Streams\Ui\Form\FormBuilder;
+use Streams\Core\Support\Facades\Messages;
 
 /**
  * Class FlashMessages

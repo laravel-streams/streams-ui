@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Shortcut;
+namespace Streams\Ui\ControlPanel\Component\Shortcut;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Gate;
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class ShortcutBuilder

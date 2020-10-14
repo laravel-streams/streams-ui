@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Navigation;
+namespace Streams\Ui\ControlPanel\Component\Navigation;
 
-use Anomaly\Streams\Ui\Support\Component;
+use Streams\Ui\Support\Component;
 
 /**
  * Class NavigationLink

@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Workflows\Build;
+namespace Streams\Ui\ControlPanel\Workflows\Build;
 
-use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\NavigationCollection;
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
-use Anomaly\Streams\Ui\Support\Workflows\BuildChildren;
+use Streams\Ui\ControlPanel\Component\Navigation\NavigationCollection;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Ui\Support\Workflows\BuildChildren;
 
 /**
  * Class BuildNavigation

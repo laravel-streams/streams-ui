@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Action;
+namespace Streams\Ui\Form\Component\Action;
 
-use Anomaly\Streams\Ui\Support\Builder;
-use Anomaly\Streams\Ui\Form\Component\Action\Action;
-use Anomaly\Streams\Ui\Support\Workflows\BuildComponent;
+use Streams\Ui\Support\Builder;
+use Streams\Ui\Form\Component\Action\Action;
+use Streams\Ui\Support\Workflows\BuildComponent;
 
 /**
  * Class ActionBuilder

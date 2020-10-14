@@ -1,13 +1,13 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Column\Workflows;
+namespace Streams\Ui\Table\Component\Column\Workflows;
 
-use Anomaly\Streams\Platform\Support\Workflow;
-use Anomaly\Streams\Ui\Support\Workflows\BuildComponents;
-use Anomaly\Streams\Ui\Support\Workflows\ResolveComponents;
-use Anomaly\Streams\Ui\Table\Component\Column\Workflows\Columns\ExpandColumns;
-use Anomaly\Streams\Ui\Table\Component\Column\Workflows\Columns\DefaultColumns;
-use Anomaly\Streams\Ui\Table\Component\Column\Workflows\Columns\NormalizeColumns;
+use Streams\Core\Support\Workflow;
+use Streams\Ui\Support\Workflows\BuildComponents;
+use Streams\Ui\Support\Workflows\ResolveComponents;
+use Streams\Ui\Table\Component\Column\Workflows\Columns\ExpandColumns;
+use Streams\Ui\Table\Component\Column\Workflows\Columns\DefaultColumns;
+use Streams\Ui\Table\Component\Column\Workflows\Columns\NormalizeColumns;
 
 /**
  * Class BuildColumns

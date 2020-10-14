@@ -1,13 +1,13 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\Filter;
+namespace Streams\Ui\Table\Component\Filter;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Builder;
-use Anomaly\Streams\Ui\Table\TableBuilder;
-use Anomaly\Streams\Ui\Table\Component\Filter\Filter;
-use Anomaly\Streams\Platform\Criteria\Contract\CriteriaInterface;
+use Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Table\Component\Filter\Filter;
+use Streams\Core\Criteria\Contract\CriteriaInterface;
 
 /**
  * Class FilterQuery

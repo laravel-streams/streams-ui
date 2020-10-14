@@ -1,6 +1,6 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form;
+namespace Streams\Ui\Form;
 
 class Testing
 {

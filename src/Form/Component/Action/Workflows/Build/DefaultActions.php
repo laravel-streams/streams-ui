@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Action\Workflows\Build;
+namespace Streams\Ui\Form\Component\Action\Workflows\Build;
 
-use Anomaly\Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Form\FormBuilder;
 
 /**
  * Class DefaultActions

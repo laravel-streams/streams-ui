@@ -1,12 +1,12 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Button;
+namespace Streams\Ui\Form\Component\Button;
 
-use Anomaly\Streams\Ui\Form\Component\Button\Guesser\DisabledGuesser;
-use Anomaly\Streams\Ui\Form\Component\Button\Guesser\EnabledGuesser;
-use Anomaly\Streams\Ui\Form\Component\Button\Guesser\HrefGuesser;
-use Anomaly\Streams\Ui\Form\Component\Button\Guesser\TextGuesser;
-use Anomaly\Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Form\Component\Button\Guesser\DisabledGuesser;
+use Streams\Ui\Form\Component\Button\Guesser\EnabledGuesser;
+use Streams\Ui\Form\Component\Button\Guesser\HrefGuesser;
+use Streams\Ui\Form\Component\Button\Guesser\TextGuesser;
+use Streams\Ui\Form\FormBuilder;
 
 /**
  * Class ButtonGuesser

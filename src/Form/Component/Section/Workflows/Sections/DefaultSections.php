@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Section\Workflows\Sections;
+namespace Streams\Ui\Form\Component\Section\Workflows\Sections;
 
-use Anomaly\Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Form\FormBuilder;
 
 /**
  * Class DefaultSections

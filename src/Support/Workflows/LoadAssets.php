@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Support\Workflows;
+namespace Streams\Ui\Support\Workflows;
 
-use Anomaly\Streams\Ui\Support\Builder;
-use Anomaly\Streams\Platform\Support\Facades\Assets;
+use Streams\Ui\Support\Builder;
+use Streams\Core\Support\Facades\Assets;
 
 /**
  * Class LoadAssets

@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Support\Workflows;
+namespace Streams\Ui\Support\Workflows;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Anomaly\Streams\Ui\Support\Builder;
+use Streams\Ui\Support\Builder;
 
 /**
  * Class BuildComponents
@@ -31,7 +31,7 @@ class BuildComponents
         $parentSegment = Str::studly($builder->component);
         $componentSegment = Str::studly($singular);
 
-        $fallback = "Anomaly\Streams\Ui\\{$parentSegment}\Component\\{$componentSegment}\\{$componentSegment}Builder";
+        $fallback = "Streams\Ui\\{$parentSegment}\Component\\{$componentSegment}\\{$componentSegment}Builder";
 
         $parent->instance->{$component} = [];
 

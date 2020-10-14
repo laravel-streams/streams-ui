@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Support\Workflows;
+namespace Streams\Ui\Support\Workflows;
 
-use Anomaly\Streams\Ui\Support\Builder;
-use Anomaly\Streams\Ui\Support\Breadcrumb;
+use Streams\Ui\Support\Builder;
+use Streams\Ui\Support\Breadcrumb;
 
 /**
  * Class LoadBreadcrumb

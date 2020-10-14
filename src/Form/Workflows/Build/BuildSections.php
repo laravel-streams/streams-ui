@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Workflows\Build;
+namespace Streams\Ui\Form\Workflows\Build;
 
 use Illuminate\Support\Facades\Request;
-use Anomaly\Streams\Ui\Form\FormBuilder;
-use Anomaly\Streams\Ui\Support\Workflows\BuildChildren;
+use Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Support\Workflows\BuildChildren;
 
 /**
  * Class BuildSections

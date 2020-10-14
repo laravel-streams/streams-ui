@@ -1,12 +1,12 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Component\View;
+namespace Streams\Ui\Table\Component\View;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Ui\Table\Component\View\Type\All;
-use Anomaly\Streams\Ui\Table\Component\View\Type\Trash;
-use Anomaly\Streams\Ui\Table\Component\View\Type\RecentlyCreated;
-use Anomaly\Streams\Ui\Table\Component\View\Type\RecentlyModified;
+use Streams\Ui\Table\Component\View\Type\All;
+use Streams\Ui\Table\Component\View\Type\Trash;
+use Streams\Ui\Table\Component\View\Type\RecentlyCreated;
+use Streams\Ui\Table\Component\View\Type\RecentlyModified;
 
 /**
  * Class ViewRegistry

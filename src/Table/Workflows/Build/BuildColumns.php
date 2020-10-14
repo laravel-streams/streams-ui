@@ -1,9 +1,9 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Workflows\Build;
+namespace Streams\Ui\Table\Workflows\Build;
 
-use Anomaly\Streams\Ui\Table\TableBuilder;
-use Anomaly\Streams\Ui\Support\Workflows\BuildChildren;
+use Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Support\Workflows\BuildChildren;
 
 /**
  * Class BuildColumns

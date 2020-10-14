@@ -1,13 +1,13 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Support;
+namespace Streams\Ui\Support;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\View;
 use Illuminate\Contracts\Support\Arrayable;
-use Anomaly\Streams\Platform\Support\Facades\Evaluator;
-use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
+use Streams\Core\Support\Facades\Evaluator;
+use Streams\Core\Entry\Contract\EntryInterface;
 
 /**
  * Class Value

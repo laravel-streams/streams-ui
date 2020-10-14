@@ -1,11 +1,11 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Button;
+namespace Streams\Ui\Form\Component\Button;
 
-use Anomaly\Streams\Ui\Button\Button;
-use Anomaly\Streams\Ui\Support\Builder;
-use Anomaly\Streams\Ui\Form\Component\Button\Workflows\BuildButtons;
-use Anomaly\Streams\Ui\Support\Workflows\BuildComponent;
+use Streams\Ui\Button\Button;
+use Streams\Ui\Support\Builder;
+use Streams\Ui\Form\Component\Button\Workflows\BuildButtons;
+use Streams\Ui\Support\Workflows\BuildComponent;
 
 /**
  * Class ButtonBuilder

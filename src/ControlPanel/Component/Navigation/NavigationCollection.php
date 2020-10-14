@@ -1,6 +1,6 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Navigation;
+namespace Streams\Ui\ControlPanel\Component\Navigation;
 
 use Illuminate\Support\Collection;
 

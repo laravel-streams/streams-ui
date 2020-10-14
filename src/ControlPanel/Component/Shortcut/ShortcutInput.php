@@ -1,11 +1,11 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Shortcut;
+namespace Streams\Ui\ControlPanel\Component\Shortcut;
 
 use Illuminate\Support\Arr;
 use Illuminate\Translation\Translator;
-use Anomaly\Streams\Ui\Support\Normalizer;
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Ui\Support\Normalizer;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class ShortcutInput
@@ -39,7 +39,7 @@ class ShortcutInput
     /**
      * Resolve input.
      *
-     * @param \Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder $builder
+     * @param \Streams\Ui\ControlPanel\ControlPanelBuilder $builder
      */
     protected static function resolve(ControlPanelBuilder $builder)
     {
@@ -51,7 +51,7 @@ class ShortcutInput
     /**
      * Evaluate input.
      *
-     * @param \Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder $builder
+     * @param \Streams\Ui\ControlPanel\ControlPanelBuilder $builder
      */
     protected static function evaluate(ControlPanelBuilder $builder)
     {
@@ -61,7 +61,7 @@ class ShortcutInput
     /**
      * Default input.
      *
-     * @param \Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder $builder
+     * @param \Streams\Ui\ControlPanel\ControlPanelBuilder $builder
      */
     protected static function defaults(ControlPanelBuilder $builder)
     {
@@ -150,7 +150,7 @@ class ShortcutInput
     /**
      * Parse input.
      *
-     * @param \Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder $builder
+     * @param \Streams\Ui\ControlPanel\ControlPanelBuilder $builder
      */
     protected static function parse(ControlPanelBuilder $builder)
     {
@@ -160,7 +160,7 @@ class ShortcutInput
     /**
      * Translate input.
      *
-     * @param \Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder $builder
+     * @param \Streams\Ui\ControlPanel\ControlPanelBuilder $builder
      */
     protected static function translate(ControlPanelBuilder $builder)
     {

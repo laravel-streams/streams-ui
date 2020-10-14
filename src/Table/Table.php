@@ -1,13 +1,13 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table;
+namespace Streams\Ui\Table;
 
-use Anomaly\Streams\Ui\Button\ButtonCollection;
+use Streams\Ui\Button\ButtonCollection;
 use Illuminate\Support\Collection;
-use Anomaly\Streams\Ui\Support\Component;
-use Anomaly\Streams\Ui\Table\Component\View\ViewCollection;
-use Anomaly\Streams\Ui\Table\Component\Action\ActionCollection;
-use Anomaly\Streams\Ui\Table\Component\Filter\FilterCollection;
+use Streams\Ui\Support\Component;
+use Streams\Ui\Table\Component\View\ViewCollection;
+use Streams\Ui\Table\Component\Action\ActionCollection;
+use Streams\Ui\Table\Component\Filter\FilterCollection;
 
 /**
  * Class Table

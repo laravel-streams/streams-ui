@@ -1,4 +1,4 @@
-<?php namespace Anomaly\Streams\Ui\Form\Component\Section;
+<?php namespace Streams\Ui\Form\Component\Section;
 
 use Illuminate\Support\Collection;
 

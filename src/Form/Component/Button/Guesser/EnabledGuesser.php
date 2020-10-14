@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Button\Guesser;
+namespace Streams\Ui\Form\Component\Button\Guesser;
 
-use Anomaly\Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Form\FormBuilder;
 use Illuminate\Http\Request;
 
 /**

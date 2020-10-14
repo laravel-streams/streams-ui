@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Table\Workflows;
+namespace Streams\Ui\Table\Workflows;
 
-use Anomaly\Streams\Platform\Support\Workflow;
+use Streams\Core\Support\Workflow;
 
 /**
  * Class PostTable

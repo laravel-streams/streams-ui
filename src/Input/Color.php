@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Input;
+namespace Streams\Ui\Input;
 
-use Anomaly\Streams\Ui\Support\Component;
+use Streams\Ui\Support\Component;
 
 /**
  * Class Color

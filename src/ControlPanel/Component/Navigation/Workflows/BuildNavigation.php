@@ -1,15 +1,15 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Navigation\Workflows;
+namespace Streams\Ui\ControlPanel\Component\Navigation\Workflows;
 
-use Anomaly\Streams\Platform\Support\Workflow;
-use Anomaly\Streams\Ui\Support\Workflows\BuildComponents;
-use Anomaly\Streams\Ui\Support\Workflows\ParseComponents;
-use Anomaly\Streams\Ui\Support\Workflows\ResolveComponents;
-use Anomaly\Streams\Ui\Support\Workflows\TranslateComponents;
-use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\Workflows\Build\ExpandNavigation;
-use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\Workflows\Build\DefaultNavigation;
-use Anomaly\Streams\Ui\ControlPanel\Component\Navigation\Workflows\Build\NormalizeNavigation;
+use Streams\Core\Support\Workflow;
+use Streams\Ui\Support\Workflows\BuildComponents;
+use Streams\Ui\Support\Workflows\ParseComponents;
+use Streams\Ui\Support\Workflows\ResolveComponents;
+use Streams\Ui\Support\Workflows\TranslateComponents;
+use Streams\Ui\ControlPanel\Component\Navigation\Workflows\Build\ExpandNavigation;
+use Streams\Ui\ControlPanel\Component\Navigation\Workflows\Build\DefaultNavigation;
+use Streams\Ui\ControlPanel\Component\Navigation\Workflows\Build\NormalizeNavigation;
 
 /**
  * Class BuildNavigation

@@ -1,10 +1,10 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Field\Guesser;
+namespace Streams\Ui\Form\Component\Field\Guesser;
 
 use Illuminate\Support\Arr;
-use Anomaly\Streams\Ui\Form\FormBuilder;
-use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
+use Streams\Ui\Form\FormBuilder;
+use Streams\Core\Entry\Contract\EntryInterface;
 
 /**
  * Class RequiredGuesser

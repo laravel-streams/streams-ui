@@ -1,11 +1,11 @@
 <?php
 
-namespace Anomaly\Streams\Ui\ControlPanel\Component\Shortcut;
+namespace Streams\Ui\ControlPanel\Component\Shortcut;
 
-use Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\Guesser\HrefGuesser;
-use Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\Guesser\PolicyGuesser;
-use Anomaly\Streams\Ui\ControlPanel\Component\Shortcut\Guesser\TitleGuesser;
-use Anomaly\Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Ui\ControlPanel\Component\Shortcut\Guesser\HrefGuesser;
+use Streams\Ui\ControlPanel\Component\Shortcut\Guesser\PolicyGuesser;
+use Streams\Ui\ControlPanel\Component\Shortcut\Guesser\TitleGuesser;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class ShortcutGuesser

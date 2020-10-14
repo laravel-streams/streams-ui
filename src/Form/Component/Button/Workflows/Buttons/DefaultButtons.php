@@ -1,8 +1,8 @@
 <?php
 
-namespace Anomaly\Streams\Ui\Form\Component\Button\Workflows\Buttons;
+namespace Streams\Ui\Form\Component\Button\Workflows\Buttons;
 
-use Anomaly\Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Form\FormBuilder;
 
 /**
  * Class DefaultButtons
