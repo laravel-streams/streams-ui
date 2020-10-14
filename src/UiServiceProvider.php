@@ -1,6 +1,6 @@
 <?php
 
-namespace Anomaly\Streams\Ui;
+namespace Streams\Ui;
 
 use Illuminate\Support\Arr;
 use Streams\Ui\Input\Date;
