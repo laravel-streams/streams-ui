@@ -11,13 +11,6 @@ use Streams\Core\Message\Facades\Messages;
 use Streams\Core\Addon\Module\ModuleCollection;
 use Streams\Ui\Table\Component\Action\Action;
 
-/**
- * Class ActionExecutor
- *
- * @link          http://anomaly.is/streams-plattable
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
 class ActionExecutor
 {
 
