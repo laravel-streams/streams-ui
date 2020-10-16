@@ -19,14 +19,12 @@ class Edit
     public function handle(TableBuilder $builder, array $selected = [])
     {
         $prefix = $builder->instance->options->get('prefix');
-dd($prefix);
+
         $edit = array_shift($selected);
         $ids  = implode(',', $selected);
 
-        if ($section = $sections->active()) {
-            $builder->instance->response = $redirector->to(
-                $section->getHref('edit/' . $edit . '?' . $prefix . 'edit_next=' . $ids)
-            );
-        }
+        $builder->response = redirect(
+            url(url()->current() . '/' . $edit . '?' . $prefix . 'edit_next=' . $ids)
+        );
     }
 }

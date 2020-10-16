@@ -67,6 +67,7 @@ class Button extends Component
     {
         return array_filter(array_merge([
             'name' => $this->name,
+            'value' => $this->value,
             'class' => $this->class,
         ], $this->getPrototypeAttribute('attributes', []), $attributes));
     }

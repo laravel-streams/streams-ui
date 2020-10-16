@@ -33,6 +33,7 @@ class Action extends Button
             'primary' => false,
             'disabled' => false,
             'type' => 'default',
+            'name' => 'action',
     
             // Extended
             'prefix' => null,

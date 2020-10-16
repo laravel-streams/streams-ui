@@ -38,11 +38,11 @@ class ExpandActions
             }
 
             /**
-             * If no name is set then
+             * If no value is set then
              * guess it from the handle.
              */
-            if (!isset($action['name'])) {
-                $action['name'] = $action['handle'];
+            if (!isset($action['value'])) {
+                $action['value'] = $action['handle'];
             }
         }
 
