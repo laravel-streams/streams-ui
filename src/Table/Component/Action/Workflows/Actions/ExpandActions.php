@@ -3,8 +3,9 @@
 namespace Streams\Ui\Table\Component\Action\Workflows\Actions;
 
 use Illuminate\Support\Str;
-use Streams\Ui\Table\TableBuilder;
 use Streams\Core\Stream\Stream;
+use Streams\Ui\Table\TableBuilder;
+use Illuminate\Support\Facades\App;
 
 /**
  * Class ExpandActions
@@ -28,8 +29,20 @@ class ExpandActions
 
         foreach ($actions as $key => &$action) {
 
+            /**
+             * If no text is set then
+             * guess it from the handle.
+             */
             if (!isset($action['text'])) {
                 $this->guessText($stream, $action, $key);
+            }
+
+            /**
+             * If no name is set then
+             * guess it from the handle.
+             */
+            if (!isset($action['name'])) {
+                $action['name'] = $action['handle'];
             }
         }
 
@@ -38,7 +51,7 @@ class ExpandActions
 
     protected function guessText(Stream $stream, array &$action, $key)
     {
-        if (\Illuminate\Support\Facades\App::make(\Illuminate\Translation\Translator::class)->has('ui::buttons.' . $action['handle'])) {
+        if (App::make('translator')->has('ui::buttons.' . $action['handle'])) {
             
             $action['text'] = 'ui::buttons.' . $action['handle'];
 

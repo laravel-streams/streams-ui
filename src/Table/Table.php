@@ -59,6 +59,9 @@ class Table extends Component
             'columns' => [
                 'type' => 'collection',
             ],
+            'headers' => [
+                'type' => 'collection',
+            ],
             'entries' => [
                 'type' => 'collection',
             ],

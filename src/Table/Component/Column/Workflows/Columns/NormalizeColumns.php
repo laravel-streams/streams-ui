@@ -63,14 +63,6 @@ class NormalizeColumns
 
         $columns = Normalizer::attributes($columns);
 
-        /**
-         * Go back over and assume HREFs.
-         * @todo recolumn this - from guesser
-         */
-        foreach ($columns as $key => &$column) {
-            //dd($column);
-        }
-
         $builder->columns = $columns;
     }
 }

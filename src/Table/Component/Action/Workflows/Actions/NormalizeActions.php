@@ -75,14 +75,6 @@ class NormalizeActions
 
         $actions = Normalizer::attributes($actions);
 
-        /**
-         * Go back over and assume HREFs.
-         * @todo reaction this - from guesser
-         */
-        foreach ($actions as $handle => &$action) {
-            //
-        }
-
         $builder->actions = $actions;
     }
 }

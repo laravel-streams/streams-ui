@@ -76,6 +76,7 @@ class Form extends Component
             'mode' => null,
             'entry' => null,
             'component' => 'form',
+            'template' => 'ui::components.form.index',
             
             'handler' => FormHandler::class,
 

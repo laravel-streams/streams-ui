@@ -43,6 +43,7 @@ class TableBuilder extends Builder
             'assets' => [],
             'filters' => [],
             'columns' => [],
+            'headers' => [],
             'buttons' => [],
             'actions' => [],
 
