@@ -8,6 +8,7 @@ use Streams\Ui\Support\Workflows\MergeComponents;
 use Streams\Ui\Support\Workflows\ParseComponents;
 use Streams\Ui\Support\Workflows\ResolveComponents;
 use Streams\Ui\Support\Workflows\TranslateComponents;
+use Streams\Ui\Form\Component\Button\Workflows\Buttons\ExpandButtons;
 use Streams\Ui\Form\Component\Button\Workflows\Buttons\DefaultButtons;
 use Streams\Ui\Form\Component\Button\Workflows\Buttons\NormalizeButtons;
 
@@ -31,6 +32,7 @@ class BuildButtons extends Workflow
 
         DefaultButtons::class,
         NormalizeButtons::class,
+        ExpandButtons::class,
 
         'merge_buttons' => MergeComponents::class,
 
