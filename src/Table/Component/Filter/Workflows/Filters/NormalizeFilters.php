@@ -24,6 +24,7 @@ class NormalizeFilters
     public function handle(TableBuilder $builder)
     {
         $filters = $builder->filters;
+        $stream = $builder->stream;
 
         if ($builder->instance->options->get('sortable')) {
             $filters = array_merge(['reorder'], $filters);
@@ -70,19 +71,15 @@ class NormalizeFilters
              * Make sure we have a filter property.
              */
             if (is_array($filter) && !isset($filter['filter'])) {
-                $filter['filter'] = $filter['handle'];
+                $filter['field'] = $filter['handle'];
+            }
+
+            if (is_array($filter) && !isset($column['field']) && !is_numeric($handle) && $stream) {
+                $column['field'] = $handle;
             }
         }
 
         $filters = Normalizer::attributes($filters);
-
-        /**
-         * Go back over and assume HREFs.
-         * @todo refilter this - from guesser
-         */
-        foreach ($filters as $handle => &$filter) {
-            //
-        }
 
         $builder->filters = $filters;
     }

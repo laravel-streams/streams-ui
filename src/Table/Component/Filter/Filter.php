@@ -24,6 +24,9 @@ class Filter extends Component
     protected function initializePrototype(array $attributes)
     {
         return parent::initializePrototype(array_merge([
+            'component' => 'filter',
+            'template' => 'ui::table.partials.filter',
+
             'handle' => null,
             'field' => null,
             'stream' => null,

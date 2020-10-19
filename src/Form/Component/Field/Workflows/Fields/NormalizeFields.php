@@ -2,7 +2,6 @@
 
 namespace Streams\Ui\Form\Component\Field\Workflows\Fields;
 
-use Illuminate\Support\Arr;
 use Streams\Ui\Form\FormBuilder;
 use Streams\Ui\Support\Normalizer;
 

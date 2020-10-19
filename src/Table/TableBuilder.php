@@ -32,9 +32,6 @@ class TableBuilder extends Builder
     protected function initializePrototype(array $attributes)
     {
         return parent::initializePrototype(array_merge([
-            'async' => false,
-            // 'editable' => false,
-
             'stream' => null,
             'entries' => null,
             'repository' => null,

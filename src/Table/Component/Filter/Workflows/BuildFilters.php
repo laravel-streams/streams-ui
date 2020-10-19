@@ -8,6 +8,7 @@ use Streams\Ui\Support\Workflows\MergeComponents;
 use Streams\Ui\Support\Workflows\ParseComponents;
 use Streams\Ui\Support\Workflows\ResolveComponents;
 use Streams\Ui\Support\Workflows\TranslateComponents;
+use Streams\Ui\Table\Component\Filter\Workflows\Filters\ExpandFilters;
 use Streams\Ui\Table\Component\Filter\Workflows\Filters\DefaultFilters;
 use Streams\Ui\Table\Component\Filter\Workflows\Filters\SetActiveFilter;
 use Streams\Ui\Table\Component\Filter\Workflows\Filters\NormalizeFilters;
@@ -32,6 +33,7 @@ class BuildFilters extends Workflow
 
         DefaultFilters::class,
         NormalizeFilters::class,
+        ExpandFilters::class,
 
         'merge_filters' => MergeComponents::class,
 

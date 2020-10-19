@@ -30,7 +30,7 @@ class FilterQuery
             */
             $query = $filter->query ?: [$filter, 'query'];
 
-            App::call($filter->query, compact('builder', 'filter'), 'handle');
+            App::call($query, compact('builder', 'filter'), 'handle');
         }
     }
 }

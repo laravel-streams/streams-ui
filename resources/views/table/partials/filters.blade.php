@@ -1,5 +1,11 @@
-{{-- @if ($table->filters->isNotEmpty()) --}}
+@if ($table->filters->isNotEmpty())
 <div>
-    FILTERS: Use filter form builder?
+    {!! Form::open([
+        'method' => 'get'
+    ]) !!}
+    @foreach ($table->filters as $filter)
+        {!! $filter->render() !!}
+    @endforeach
+    {!! Form::close() !!}
 </div>
-{{-- @endif --}}
+@endif
