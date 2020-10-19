@@ -25,4 +25,23 @@ class NavigationCollection extends Collection
             return $item->active;
         });
     }
+
+    /**
+     * Return the children of
+     * the provided parent item.
+     *
+     * @param NavigationItem $parent
+     * @return $this
+     */
+    public function children($parent)
+    {
+        return $this->filter(function ($item) use ($parent) {
+
+            if (!$item->parent) {
+                return false;
+            }
+
+            return $item->parent == $parent->handle;
+        });
+    }
 }

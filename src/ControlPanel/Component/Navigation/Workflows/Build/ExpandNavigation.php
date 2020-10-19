@@ -33,8 +33,16 @@ class ExpandNavigation
             if (!isset($item['title']) && $item['stream']) {
                 $item['title'] = $item['stream']->name ?: ucwords(Str::humanize($item['stream']->handle));
             }
+
+            if (!isset($item['handle']) && !is_numeric($handle)) {
+                $item['handle'] = $handle;
+            }
+
+            if (!isset($item['handle']) && isset($item['id'])) {
+                $item['handle'] = $item['id'];
+            }
         }
-        
+
         $builder->navigation = $navigation;
     }
 }

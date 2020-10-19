@@ -113,6 +113,10 @@ class UiServiceProvider extends ServiceProvider
             ],
             'fields' => [
                 'title' => 'string',
+                'parent' => [
+                    'type' => 'relationship',
+                    'related' => 'cp.navigation',
+                ],
             ],
         ]);
 

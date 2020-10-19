@@ -50,6 +50,13 @@ class NormalizeNavigation
                 $item['stream'] = Streams::make($item['stream']);
             }
 
+            /**
+             * Move the handle in.
+             */
+            if (!isset($item['handle']) && !is_numeric($handle)) {
+                $item['handle'] = $handle;
+            }
+
             /*
              * Make sure we have attributes.
              */

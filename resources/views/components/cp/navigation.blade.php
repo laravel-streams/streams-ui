@@ -3,5 +3,20 @@
         return !$link->parent;
     }) as $link)
     {!! $link->render() !!}
+
+    @php
+        $children = $cp->navigation->children($link);
+    @endphp
+
+    @if ($children->isNotEmpty())
+    <ul class="ml-2">
+        @foreach ($children as $child)
+            <li>
+                {!! $child->render() !!}
+            </li>
+        @endforeach
+    </ul>        
+    @endif
+
     @endforeach
 </nav>
