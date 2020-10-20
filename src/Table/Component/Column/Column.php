@@ -30,6 +30,7 @@ class Column extends Component
             'entry' => null,
             'heading' => null,
             'wrapper' => null,
+            'classes' => ['table__column'],
         ], $attributes));
     }
 
