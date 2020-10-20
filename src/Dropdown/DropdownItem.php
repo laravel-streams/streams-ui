@@ -1,18 +1,19 @@
 <?php
 
-namespace Streams\Ui\Button;
+namespace Streams\Ui\Dropdown;
 
+use Illuminate\Support\Arr;
 use Streams\Ui\Support\Component;
 use Streams\Ui\Support\Traits\HtmlTag;
 
 /**
- * Class Button
+ * Class DropdownItem
  *
  * @link    http://pyrocms.com/
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
  */
-class Button extends Component
+class DropdownItem extends Component
 {
 
     use HtmlTag;
@@ -26,6 +27,9 @@ class Button extends Component
     protected function initializePrototype(array $attributes)
     {
         return parent::initializePrototype(array_merge([
+            'template' => 'ui::dropdown/item',
+            'component' => 'dropdown_item',
+
             'tag' => 'a',
             'url' => null,
             'text' => null,
@@ -35,21 +39,7 @@ class Button extends Component
             'primary' => false,
             'disabled' => false,
             'type' => 'default',
-            'classes' => ['button'],
+            'classes' => ['dropdown__item'],
         ], $attributes));
-    }
-
-    /**
-     * Return the button attributes array.
-     *
-     * @param array $attributes
-     */
-    public function attributes(array $attributes = [])
-    {
-        return parent::attributes(array_filter(array_merge([
-            'name' => $this->name,
-            'value' => $this->value,
-            'class' => $this->class(),
-        ], $attributes)));
     }
 }
