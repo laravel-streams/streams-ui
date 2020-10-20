@@ -73,10 +73,11 @@ class Form extends Component
         ]);
         
         return parent::initializePrototype(array_merge([
+            'component' => 'form',
+            'template' => 'ui::forms.form',
+
             'mode' => null,
             'entry' => null,
-            'component' => 'form',
-            'template' => 'ui::components.form.index',
             
             'handler' => FormHandler::class,
 

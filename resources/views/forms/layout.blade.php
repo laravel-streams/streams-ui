@@ -9,13 +9,13 @@
                 @elseif (isset($section['html']))
                     {!! View::parse($section['html']) !!}
                 @elseif (isset($section['tabs']))
-                    @include('ui::form/partials/tabs')
+                    @include('ui::forms.tabs')
                 @else
-                    @include('ui::form/partials/section')
+                    @include('ui::forms.section')
                 @endif
             @endforeach
         @else
-            @include('ui::form/partials/default')
+            @include('ui::forms.default')
         @endif
         
     @endif

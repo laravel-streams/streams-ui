@@ -24,7 +24,7 @@ class NavigationLink extends Component
     {
         return parent::initializePrototype(array_merge([
             'component' => 'navigation_link',
-            'template' => 'ui::components.cp.navigation_link',
+            'template' => 'ui::cp.navigation_link',
 
             'handle' => null,
             'title' => null,

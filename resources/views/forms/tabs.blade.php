@@ -20,7 +20,7 @@
             @elseif (isset($tab['html']))
                 {!! View::parse($tab['html']) !!}
             @else
-                @include('ui::form/partials/fields', ['fields' => $tab['fields']])
+                @include('ui::forms.fields', ['fields' => $tab['fields']])
             @endif
         </div>
         @endforeach
