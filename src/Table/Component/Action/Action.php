@@ -25,6 +25,7 @@ class Action extends Button
     {
         return parent::initializePrototype(array_merge([
             'tag' => 'button',
+            'as' => 'button',
             'url' => null,
             'text' => null,
             'entry' => null,

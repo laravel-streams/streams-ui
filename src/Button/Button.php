@@ -26,6 +26,9 @@ class Button extends Component
     protected function initializePrototype(array $attributes)
     {
         return parent::initializePrototype(array_merge([
+            'component' => 'button',
+            'template' => 'ui::buttons.button',
+
             'tag' => 'a',
             'url' => null,
             'text' => null,

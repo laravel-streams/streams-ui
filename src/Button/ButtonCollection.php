@@ -19,13 +19,14 @@ class ButtonCollection extends Collection
     /**
      * Render the buttons.
      * 
-     * @return View
+     * @return string
      */
     public function render()
     {
-        return ViewFacade::make('ui::buttons/buttons', ['buttons' => $this]);
+        return (string) $this->map(function($item) {
+            return (string) $item->render();
+        })->implode('');
     }
-
     /**
      * Render the actions.
      *
@@ -33,6 +34,6 @@ class ButtonCollection extends Collection
      */
     public function __toString()
     {
-        return (string) $this->render();
+        return $this->render();
     }
 }

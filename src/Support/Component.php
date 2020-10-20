@@ -69,11 +69,15 @@ class Component implements Arrayable, Jsonable
 
     public function render(): ViewView
     {
-        $fallback = "components/{$this->component}";
-
-        return View::make($this->template ?: $fallback, [
+        $payload = [
             Str::camel($this->component) => $this,
-        ]);
+        ];
+
+        if ($this->as) {
+            $payload[$this->as] = $this;
+        }
+
+        return View::make($this->template, $payload);
     }
 
     public function request($key, $default = null)
