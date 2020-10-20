@@ -34,9 +34,6 @@ class NavigationLink extends Component
 
             'active' => false,
             'favorite' => false,
-
-            'class' => [],
-            'attributes' => [],
         ], $attributes));
     }
 }

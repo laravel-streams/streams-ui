@@ -2,9 +2,9 @@
 
 namespace Streams\Ui\ControlPanel\Component\Shortcut;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Gate;
-use Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Ui\Support\Builder;
+use Streams\Ui\Support\Workflows\BuildComponent;
+use Streams\Ui\ControlPanel\Component\Shortcut\Shortcut;
 
 /**
  * Class ShortcutBuilder
@@ -13,29 +13,27 @@ use Streams\Ui\ControlPanel\ControlPanelBuilder;
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class ShortcutBuilder
+class ShortcutBuilder extends Builder
 {
 
     /**
-     * Build the shortcuts and push them to the control_panel.
+     * Initialize the prototype.
      *
-     * @param ControlPanelBuilder $builder
+     * @param array $attributes
+     * @return $this
      */
-    public static function build(ControlPanelBuilder $builder)
+    protected function initializePrototype(array $attributes)
     {
-        $controlPanel = $builder->getControlPanel();
+        return parent::initializePrototype(array_merge([
+            'assets' => [],
 
-        $factory = app(ShortcutFactory::class);
+            'component' => 'shortcut',
 
-        ShortcutInput::read($builder);
+            'shortcut' => Shortcut::class,
 
-        foreach ($builder->getShortcuts() as $shortcut) {
-
-            if (($policy = Arr::get($shortcut, 'policy')) && !Gate::any((array) $policy)) {
-                continue;
-            }
-
-            $controlPanel->addShortcut($factory->make($shortcut));
-        }
+            'workflows' => [
+                'build' => BuildComponent::class,
+            ],
+        ], $attributes));
     }
 }

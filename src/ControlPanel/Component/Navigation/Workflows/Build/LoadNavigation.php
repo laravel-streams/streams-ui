@@ -6,13 +6,13 @@ use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
- * Class DefaultNavigation
+ * Class LoadNavigation
  *
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class DefaultNavigation
+class LoadNavigation
 {
 
     /**
@@ -33,6 +33,7 @@ class DefaultNavigation
          */
         $builder->navigation = Streams::entries('cp.navigation')
             ->orderBy('sort_order', 'asc')
+            ->orderBy('handle', 'asc')
             ->get()
             ->toArray();
     }

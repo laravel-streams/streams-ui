@@ -2,9 +2,7 @@
 
 namespace Streams\Ui\Table\Component\Action\Handler;
 
-use Streams\Core\Model\EloquentModel;
-use Streams\Core\Support\Facades\Messages;
-use Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Table\TableBuilder;use Streams\Core\Support\Facades\Messages;
 
 /**
  * Class DeleteActionHandler

@@ -6,13 +6,13 @@ use Streams\Ui\Support\Workflows\BuildChildren;
 use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
- * Class BuildNavigation
+ * Class BuildShortcuts
  *
  * @link    http://pyrocms.com/
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
  */
-class BuildNavigation extends BuildChildren
+class BuildShortcuts extends BuildChildren
 {
 
     /**
@@ -22,6 +22,6 @@ class BuildNavigation extends BuildChildren
      */
     public function handle(ControlPanelBuilder $builder)
     {
-        $this->build($builder, 'navigation');
+        $this->build($builder, 'shortcuts');
     }
 }

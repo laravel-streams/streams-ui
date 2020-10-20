@@ -2,8 +2,10 @@
 
 namespace Streams\Ui\Button;
 
+use Illuminate\Support\Arr;
 use Collective\Html\HtmlFacade;
 use Streams\Ui\Support\Component;
+use Streams\Core\Field\Value\ArrValue;
 
 /**
  * Class Button
@@ -33,7 +35,7 @@ class Button extends Component
             'primary' => false,
             'disabled' => false,
             'type' => 'default',
-            'class' => 'button',
+            'classes' => ['button'],
         ], $attributes));
     }
 
@@ -45,7 +47,9 @@ class Button extends Component
      */
     public function open(array $attributes = [])
     {
-        return '<' . $this->tag . ' ' . HtmlFacade::attributes($this->attributes($attributes)) . '>';
+        $attributes = Arr::htmlAttributes($this->attributes($attributes));
+
+        return '<' . $this->tag . ' ' . $attributes . '>';
     }
 
     /**
@@ -65,10 +69,10 @@ class Button extends Component
      */
     public function attributes(array $attributes = [])
     {
-        return array_filter(array_merge([
+        return parent::attributes(array_filter(array_merge([
             'name' => $this->name,
             'value' => $this->value,
-            'class' => $this->class,
-        ], $this->getPrototypeAttribute('attributes', []), $attributes));
+            'class' => $this->class(),
+        ], $attributes)));
     }
 }

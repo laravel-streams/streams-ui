@@ -6,13 +6,13 @@ use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
- * Class DefaultShortcut
+ * Class LoadShortcuts
  *
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class DefaultShortcut
+class LoadShortcuts
 {
 
     /**
@@ -22,16 +22,16 @@ class DefaultShortcut
      */
     public function handle(ControlPanelBuilder $builder)
     {
-        if ($builder->navigation) {
+        if ($builder->shortcuts) {
             return;
         }
 
         /**
-         * If no navigation is set
-         * then make a navigation
+         * If no shortcuts is set
+         * then make a shortcuts
          * item for each stream.
          */
-        $builder->navigation = Streams::entries('cp.shortcuts')
+        $builder->shortcuts = Streams::entries('cp.shortcuts')
             ->orderBy('sort_order', 'asc')
             ->get()
             ->toArray();

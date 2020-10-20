@@ -7,8 +7,8 @@ use Streams\Ui\Support\Workflows\BuildComponents;
 use Streams\Ui\Support\Workflows\ParseComponents;
 use Streams\Ui\Support\Workflows\ResolveComponents;
 use Streams\Ui\Support\Workflows\TranslateComponents;
+use Streams\Ui\ControlPanel\Component\Navigation\Workflows\Build\LoadNavigation;
 use Streams\Ui\ControlPanel\Component\Navigation\Workflows\Build\ExpandNavigation;
-use Streams\Ui\ControlPanel\Component\Navigation\Workflows\Build\DefaultNavigation;
 use Streams\Ui\ControlPanel\Component\Navigation\Workflows\Build\NormalizeNavigation;
 
 /**
@@ -23,10 +23,10 @@ class BuildNavigation extends Workflow
     protected $steps = [
         'resolve_navigation' => ResolveComponents::class,
 
-        DefaultNavigation::class,
+        LoadNavigation::class,
         NormalizeNavigation::class,
         ExpandNavigation::class,
-        
+
         'translate_navigation' => TranslateComponents::class,
         'parse_navigation' => ParseComponents::class,
 

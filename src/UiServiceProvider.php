@@ -111,12 +111,31 @@ class UiServiceProvider extends ServiceProvider
                 'path' => 'streams/cp/navigation',
                 'format' => 'json',
             ],
+            'config' => [
+                'prototype' => 'Streams\\Ui\\ControlPanel\\Component\\Navigation\\NavigationLink',
+            ],
             'fields' => [
                 'title' => 'string',
                 'parent' => [
                     'type' => 'relationship',
                     'related' => 'cp.navigation',
                 ],
+            ],
+        ]);
+
+        Streams::register([
+            'handle' => 'cp.shortcuts',
+            'source' => [
+                'path' => 'streams/cp/shortcuts',
+                'format' => 'json',
+            ],
+            'config' => [
+                'prototype' => 'Streams\\Ui\\ControlPanel\\Component\\Shortcut\\Shortcut',
+            ],
+            'fields' => [
+                'title' => 'string',
+                'icon' => 'string',
+                'svg' => 'string',
             ],
         ]);
 

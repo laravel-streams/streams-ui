@@ -2,11 +2,7 @@
 
 namespace Streams\Ui\ControlPanel\Component\Shortcut;
 
-use Illuminate\Contracts\Support\Jsonable;
-use Illuminate\Contracts\Support\Arrayable;
-use Streams\Core\Support\Traits\Prototype;
-use Streams\Core\Support\Facades\Hydrator;
-use Streams\Ui\ControlPanel\Component\Shortcut\Shortcut;
+use Streams\Ui\Support\Component;
 
 /**
  * Class Shortcut
@@ -15,76 +11,29 @@ use Streams\Ui\ControlPanel\Component\Shortcut\Shortcut;
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class Shortcut implements Arrayable, Jsonable
+class Shortcut extends Component
 {
 
-    use Prototype;
-
     /**
-     * The shortcut attributes.
+     * Initialize the prototype.
      *
-     * @var array
+     * @param array $attributes
+     * @return $this
      */
-    protected $attributes = [
-        'handle' => null,
-        'title' => null,
-        'label' => null,
-        'policy' => null,
-        'highlighted' => false,
-        'context' => 'danger',
-    ];
-
-    /**
-     * Return the HREF.
-     *
-     * @param  null $path
-     * @return string
-     */
-    public function href($path = null)
+    protected function initializePrototype(array $attributes)
     {
-        return $this->getPrototypeAttribute('attributes.href') . ($path ? '/' . $path : $path);
-    }
+        return parent::initializePrototype(array_merge([
+            'component' => 'shortcut',
+            'template' => 'ui::components.cp.shortcut',
 
-    /**
-     * Get the instance as an array.
-     *
-     * @return array
-     */
-    public function toArray()
-    {
-        return Hydrator::dehydrate($this);
-    }
+            'handle' => null,
+            'title' => null,
+            'policy' => null,
+            'sections' => null,
+            'breadcrumb' => null,
 
-    /**
-     * Convert the object to its JSON representation.
-     *
-     * @param  int  $options
-     * @return string
-     */
-    public function toJson($options = 0)
-    {
-        return json_encode($this->toArray(), $options);
-    }
-
-    /**
-     * Dynamically retrieve attributes.
-     *
-     * @param  string $key
-     * @return mixed
-     */
-    public function __get($key)
-    {
-        return $this->getPrototypeAttribute($key);
-    }
-
-    /**
-     * Dynamically set attributes.
-     *
-     * @param  string  $key
-     * @param  mixed $value
-     */
-    public function __set($key, $value)
-    {
-        $this->setPrototypeAttribute($key, $value);
+            'active' => false,
+            'favorite' => false,
+        ], $attributes));
     }
 }

@@ -3,6 +3,7 @@
 namespace Streams\Ui\Support\Workflows;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Streams\Ui\Support\Builder;
 
@@ -35,6 +36,22 @@ class BuildComponents
 
         $parent->instance->{$component} = [];
 
+        /**
+         * If a collection is already set
+         * on the builder then just use that to
+         * clone into the intended collection type.
+         */
+        if ($builder->{$component} instanceof Collection) {
+
+            $parent->instance->{$component} = $parent->instance->{$component}->make($builder->{$component});
+
+            return;
+        }
+
+        /**
+         * Foreach array defintion build
+         * a new prototype component.
+         */
         foreach ($builder->{$component} as $parameters) {
 
             $parameters[$parent->component] = $parent;

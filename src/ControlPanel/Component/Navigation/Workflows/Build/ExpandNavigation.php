@@ -3,6 +3,8 @@
 namespace Streams\Ui\ControlPanel\Component\Navigation\Workflows\Build;
 
 use Illuminate\Support\Str;
+use Streams\Core\Stream\Stream;
+use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
@@ -26,23 +28,29 @@ class ExpandNavigation
 
         foreach ($navigation as $handle => &$item) {
 
-            if (!$item['stream']) {
-                continue;
+            // Load the stream.
+            if (isset($item['stream']) && !$item['stream'] instanceof Stream) {
+                $item['stream'] = Streams::make($item['stream']);
             }
 
-            if (!isset($item['title']) && $item['stream']) {
-                $item['title'] = $item['stream']->name ?: ucwords(Str::humanize($item['stream']->handle));
-            }
-
-            if (!isset($item['handle']) && !is_numeric($handle)) {
-                $item['handle'] = $handle;
-            }
-
-            if (!isset($item['handle']) && isset($item['id'])) {
-                $item['handle'] = $item['id'];
+            // Guess the title from the stream.
+            if (!isset($item['title'])) {
+                $this->guessTitle($item, $handle);
             }
         }
 
         $builder->navigation = $navigation;
+    }
+
+    public function guessTitle($item, $handle)
+    {
+        if (isset($item['stream'])) {
+
+            $item['title'] = $item['stream']->name ?: Str::title($item['stream']->handle);
+
+            return;
+        }
+
+        $item['title'] = Str::title($handle);
     }
 }

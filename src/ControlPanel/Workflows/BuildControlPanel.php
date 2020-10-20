@@ -9,6 +9,7 @@ use Streams\Ui\Support\Workflows\SetOptions;
 use Streams\Ui\Support\Workflows\MakeComponent;
 use Streams\Ui\Support\Workflows\LoadBreadcrumb;
 use Streams\Ui\ControlPanel\Workflows\Build\BuildNavigation;
+use Streams\Ui\ControlPanel\Workflows\Build\BuildShortcuts;
 
 /**
  * Class BuildControlPanel
@@ -29,5 +30,6 @@ class BuildControlPanel extends Workflow
         LoadBreadcrumb::class,        
 
         BuildNavigation::class,
+        BuildShortcuts::class,
     ];
 }

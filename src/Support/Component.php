@@ -39,7 +39,20 @@ class Component implements Arrayable, Jsonable
         return $this->initializePrototypeTrait(array_merge([
             'template' => null,
             'component' => null,
+            'classes' => [],
         ], $attributes));
+    }
+
+    public function class(array $classes = [])
+    {
+        return trim(implode(' ', array_merge($this->classes ?: [], $classes))) ?: null;
+    }
+
+    public function attributes(array $attributes = [])
+    {
+        return array_filter(array_merge([
+            'class' => $this->class(),
+        ], $this->getPrototypeAttribute('attributes', []), $attributes));
     }
 
     public function render(): ViewView

@@ -33,6 +33,12 @@ class ControlPanel extends Component
                     'abstract' => NavigationCollection::class,
                 ],
             ],
+            'shortcuts' => [
+                'type' => 'collection',
+                'config' => [
+                    'abstract' => ShortcutCollection::class,
+                ],
+            ],
         ]);
 
         return parent::initializePrototype(array_merge([

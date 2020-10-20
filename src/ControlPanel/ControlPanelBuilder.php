@@ -4,6 +4,7 @@ namespace Streams\Ui\ControlPanel;
 
 use Streams\Ui\Support\Builder;
 use Streams\Ui\ControlPanel\Workflows\BuildControlPanel;
+use Streams\Ui\ControlPanel\Component\Shortcut\Workflows\BuildShortcuts;
 use Streams\Ui\ControlPanel\Component\Navigation\Workflows\BuildNavigation;
 
 /**
@@ -37,15 +38,8 @@ class ControlPanelBuilder extends Builder
             'workflows' => [
                 'build' => BuildControlPanel::class,
                 'navigation' => BuildNavigation::class,
+                'shortcuts' => BuildShortcuts::class,
             ],
         ], $attributes));
     }
-
-    // NavigationBuilder::build($this);
-    // dispatch_now(new SetActiveNavigationLink($this));
-    // dispatch_now(new SetMainNavigationLinks($this));
-    // SectionBuilder::build($this);
-    // dispatch_now(new SetActiveSection($this));
-    // ShortcutBuilder::build($this);
-    // ButtonBuilder::build($this);
 }

@@ -3,16 +3,18 @@
 namespace Streams\Ui\ControlPanel\Component\Shortcut\Workflows\Build;
 
 use Illuminate\Support\Str;
+use Streams\Core\Stream\Stream;
+use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
- * Class ExpandShortcut
+ * Class ExpandShortcuts
  *
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class ExpandShortcut
+class ExpandShortcuts
 {
 
     /**
@@ -22,19 +24,33 @@ class ExpandShortcut
      */
     public function handle(ControlPanelBuilder $builder)
     {
-        $navigation = $builder->navigation;
+        $shortcuts = $builder->shortcuts;
 
-        foreach ($navigation as $handle => &$item) {
+        foreach ($shortcuts as $handle => &$item) {
 
-            if (!$item['stream']) {
-                continue;
+            // Load the stream.
+            if (isset($item['stream']) && !$item['stream'] instanceof Stream) {
+                $item['stream'] = Streams::make($item['stream']);
             }
 
-            if (!isset($item['title']) && $item['stream']) {
-                $item['title'] = $item['stream']->name ?: ucwords(Str::humanize($item['stream']->handle));
+            // Guess the title from the stream.
+            if (!isset($item['title'])) {
+                $this->guessTitle($item, $handle);
             }
         }
         
-        $builder->navigation = $navigation;
+        $builder->shortcuts = $shortcuts;
+    }
+
+    public function guessTitle($item, $handle)
+    {
+        if (isset($item['stream'])) {
+
+            $item['title'] = $item['stream']->name ?: Str::title($item['stream']->handle);
+
+            return;
+        }
+
+        $item['title'] = Str::title($handle);
     }
 }

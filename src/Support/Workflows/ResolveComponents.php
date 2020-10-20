@@ -3,8 +3,8 @@
 namespace Streams\Ui\Support\Workflows;
 
 use Streams\Ui\Support\Builder;
-use Streams\Core\Support\Facades\Evaluator;
 use Streams\Core\Support\Facades\Resolver;
+use Streams\Core\Support\Facades\Evaluator;
 
 /**
  * Class ResolveComponents
