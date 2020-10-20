@@ -12,6 +12,7 @@ use Illuminate\Contracts\Support\Jsonable;
 use Streams\Core\Support\Facades\Hydrator;
 use Streams\Core\Support\Traits\Prototype;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Collection;
 use Streams\Core\Support\Traits\FiresCallbacks;
 use Streams\Core\Support\Traits\Fluency;
 
@@ -45,6 +46,7 @@ class Component implements Arrayable, Jsonable
             'component' => null,
             'classes' => [],
             'attributes' => [],
+            'data' => new Collection(),
         ], $attributes));
     }
 
