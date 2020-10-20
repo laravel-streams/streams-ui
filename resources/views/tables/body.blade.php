@@ -1,7 +1,6 @@
 <tbody class="table__body">
     @foreach ($table->rows as $row)
-    {{-- <tr {!! html_attributes($row->getPrototypeAttribute('attributes', [])) !!}> --}}
-    <tr>
+    <tr {!! $row->htmlAttributes() !!}>
 
         @if ($table->options->get('sortable'))
         <td class="table__column">
@@ -17,13 +16,14 @@
         @endif
 
         @foreach ($row->columns as $column)
-        {{-- <td {{ html_attributes($column->getPrototypeAttribute('attributes', [])) }}> --}}
-        <td>
+        <td {!! $column->htmlAttributes([
+            'classes' => ['table__column']
+        ]) !!}>
             {!! $column->value !!}
         </td>
         @endforeach
 
-        <td class="table__column -actions">
+        <td class="table__column --buttons">
             {!! $row->buttons->render() !!}
         </td>
 
