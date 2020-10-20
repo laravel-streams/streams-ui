@@ -28,12 +28,16 @@
             {{-- Notifications --}}
             @foreach ($cp->shortcuts as $shortcut)
             <button
-                class="p-1 text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:shadow-outline focus:text-gray-500"
+                {!! $shortcut->htmlAttributes([
+                    'classes' => ['p-1 text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:shadow-outline focus:text-gray-500']
+                ]) !!}
                 aria-label="{{ $shortcut->title }}">
                 @if ($shortcut->svg)
                 {!! $shortcut->svg !!}
                 @elseif ($shortcut->icon)
                 <x-{{ $shortcut->icon }}/>
+                @elseif ($shortcut->image)
+                <img class="h-8 w-8 rounded-full" src="{{ $shortcut->image }}" alt="">
                 @else
                 {{ $shortcut->handle }}
                 @endif

@@ -9,6 +9,7 @@ use Streams\Ui\Support\Workflows\SetOptions;
 use Streams\Ui\Support\Workflows\MakeComponent;
 use Streams\Ui\Support\Workflows\SetRepository;
 use Streams\Ui\Table\Workflows\Build\BuildRows;
+use Streams\Ui\Table\Workflows\Build\ApplyView;
 use Streams\Ui\Support\Workflows\LoadBreadcrumb;
 use Streams\Ui\Table\Workflows\Build\BuildViews;
 use Streams\Ui\Table\Workflows\Build\BuildActions;
@@ -40,6 +41,8 @@ class BuildTable extends Workflow
         SetRepository::class,
 
         BuildViews::class,
+        ApplyView::class,
+        
         AuthorizeTable::class,
 
         BuildFilters::class,

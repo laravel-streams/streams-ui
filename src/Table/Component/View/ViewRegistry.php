@@ -3,7 +3,6 @@
 namespace Streams\Ui\Table\Component\View;
 
 use Illuminate\Support\Arr;
-use Streams\Ui\Table\Component\View\Type\All;
 use Streams\Ui\Table\Component\View\Type\Trash;
 use Streams\Ui\Table\Component\View\Type\RecentlyCreated;
 use Streams\Ui\Table\Component\View\Type\RecentlyModified;
@@ -26,11 +25,11 @@ class ViewRegistry
     protected $views = [
         'all'               => [
             'handle' => 'all',
-            'text' => 'ui::view.all',
+            'text' => 'ui::buttons.all',
         ],
         'trash'             => [
             'handle'    => 'trash',
-            'text'    => 'ui::view.trash',
+            'text'    => 'ui::buttons.trash',
             'view'    => Trash::class,
             'buttons' => [
                 'restore' => [],

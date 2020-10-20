@@ -1,4 +1,4 @@
-<input {!! html_attributes($fieldType->attributes([
+<input {!! $fieldType->htmlAttributes([
     'type' => $fieldType->config('type', 'text'),
     'value' => $fieldType->value,
-])) !!}>
+]) !!}>

@@ -72,7 +72,7 @@ class Table extends Component
 
         parent::initializePrototype(array_merge([
             'component' => 'table',
-            'template' => 'ui::components.table.index',
+            'template' => 'ui::tables.table',
 
             'rows' => new Collection(),
             'buttons' => new Collection(),

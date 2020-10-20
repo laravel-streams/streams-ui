@@ -2,16 +2,18 @@
 
 namespace Streams\Ui\Support;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\View;
 use Illuminate\View\View as ViewView;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Support\Jsonable;
-use Illuminate\Contracts\Support\Arrayable;
 use Streams\Core\Support\Facades\Hydrator;
 use Streams\Core\Support\Traits\Prototype;
+use Illuminate\Contracts\Support\Arrayable;
 use Streams\Core\Support\Traits\FiresCallbacks;
+use Streams\Core\Support\Traits\Fluency;
 
 /**
  * Class Ui
@@ -22,8 +24,10 @@ use Streams\Core\Support\Traits\FiresCallbacks;
  */
 class Component implements Arrayable, Jsonable
 {
+    use Fluency;
     use Macroable;
     use FiresCallbacks;
+
     use Prototype {
         Prototype::initializePrototype as private initializePrototypeTrait;
     }
@@ -40,6 +44,7 @@ class Component implements Arrayable, Jsonable
             'template' => null,
             'component' => null,
             'classes' => [],
+            'attributes' => [],
         ], $attributes));
     }
 
@@ -50,9 +55,16 @@ class Component implements Arrayable, Jsonable
 
     public function attributes(array $attributes = [])
     {
+        $classes = (array) Arr::pull($attributes, 'classes', []);
+
         return array_filter(array_merge([
-            'class' => $this->class(),
-        ], $this->getPrototypeAttribute('attributes', []), $attributes));
+            'class' => $this->class($classes),
+        ], (array) $this->getPrototypeAttribute('attributes', []), $attributes));
+    }
+
+    public function htmlAttributes(array $attributes = [])
+    {
+        return Arr::htmlAttributes($this->attributes($attributes));
     }
 
     public function render(): ViewView
@@ -72,16 +84,6 @@ class Component implements Arrayable, Jsonable
     public function prefix($target = null): string
     {
         return $this->options->get('prefix') . $target;
-    }
-
-    public function toArray(): array
-    {
-        return Hydrator::dehydrate($this);
-    }
-
-    public function toJson($options = 0): string
-    {
-        return json_encode($this->toArray(), $options);
     }
 
     public function __toString()

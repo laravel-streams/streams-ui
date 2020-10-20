@@ -25,7 +25,7 @@ class Filter extends Component
     {
         return parent::initializePrototype(array_merge([
             'component' => 'filter',
-            'template' => 'ui::table.partials.filter',
+            'template' => 'ui::tables.filter',
 
             'handle' => null,
             'field' => null,

@@ -18,7 +18,7 @@
             {!! Form::close() !!}
         @else
          {{-- @todo view here. --}}
-            {{ trans('ui::message.no_results') }}
+            {{ trans('ui::messages.no_results') }}
         @endif
     </div>
     

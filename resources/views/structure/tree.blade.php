@@ -14,7 +14,7 @@
         {% else %}
             <div class="card">
                 <div class="card-block card-body">
-                    {{ trans(tree.options.get('no_results_message', 'ui::message.no_results')) }}
+                    {{ trans(tree.options.get('no_results_message', 'ui::messages.no_results')) }}
                 </div>
             </div>
         {% endif %}
