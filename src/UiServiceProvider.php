@@ -3,6 +3,11 @@
 namespace Streams\Ui;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
+
 use Streams\Ui\Input\Date;
 use Streams\Ui\Input\Slug;
 use Streams\Ui\Input\Time;
@@ -10,19 +15,15 @@ use Streams\Ui\Input\Color;
 use Streams\Ui\Input\Input;
 use Streams\Ui\Input\Radio;
 use Streams\Ui\Input\Range;
-use Illuminate\Support\Facades\App;
 use Streams\Ui\Input\Select;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\View;
 use Streams\Ui\Input\Integer;
+use Streams\Core\Field\Field;
 use Streams\Ui\Input\Datetime;
 use Streams\Ui\Input\Markdown;
 use Streams\Ui\Input\Textarea;
-use Illuminate\Support\ServiceProvider;
-use Streams\Ui\Form\FormBuilder;
-use Streams\Core\Field\Field;
-use Streams\Ui\Table\TableBuilder;
 use Streams\Core\Stream\Stream;
+use Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Table\TableBuilder;
 use Streams\Core\Support\Facades\Assets;
 use Streams\Core\Support\Facades\Streams;
 
