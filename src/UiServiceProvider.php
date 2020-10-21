@@ -139,12 +139,14 @@ class UiServiceProvider extends ServiceProvider
         Route::prefix(Config::get('streams.cp.prefix'))->group(function () {
             
             Route::streams('{stream}', [ // @todo Configure this later
+                'entry' => false,
                 'as' => 'ui::cp.index',
                 'ui.component' => 'table',
                 'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
             ]);
             
             Route::streams('{stream}/create', [ // @todo Configure this later
+                'entry' => false,
                 'as' => 'ui::cp.create',
                 'ui.component' => 'form',
                 'uses' => '\Streams\Ui\Http\Controller\CpController@handle',

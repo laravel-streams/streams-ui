@@ -42,10 +42,6 @@ class ExpandButtons
 
     protected function guessCancelHref(Stream $stream, array &$button, $key)
     {
-        $segments = Request::segments();
-
-        array_pop($segments);
-
-        $button['attributes']['href'] = URL::to(implode('/', $segments));
+        $button['attributes']['href'] = URL::route('ui::cp.index', ['stream' => $stream->handle]);
     }
 }
