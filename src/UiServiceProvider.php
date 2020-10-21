@@ -2,28 +2,30 @@
 
 namespace Streams\Ui;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\ServiceProvider;
-
 use Streams\Ui\Input\Date;
 use Streams\Ui\Input\Slug;
 use Streams\Ui\Input\Time;
+use Illuminate\Support\Arr;
 use Streams\Ui\Input\Color;
 use Streams\Ui\Input\Input;
+
 use Streams\Ui\Input\Radio;
 use Streams\Ui\Input\Range;
 use Streams\Ui\Input\Select;
-use Streams\Ui\Input\Integer;
 use Streams\Core\Field\Field;
+use Streams\Ui\Input\Integer;
 use Streams\Ui\Input\Datetime;
 use Streams\Ui\Input\Markdown;
 use Streams\Ui\Input\Textarea;
 use Streams\Core\Stream\Stream;
 use Streams\Ui\Form\FormBuilder;
 use Streams\Ui\Table\TableBuilder;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
 use Streams\Core\Support\Facades\Streams;
 
@@ -78,6 +80,8 @@ class UiServiceProvider extends ServiceProvider
     {
         $this->extendView();
 
+        $this->mergeConfigFrom(__DIR__ . '/../resources/config/cp.php', 'streams.cp');
+
         $this->app->bind('streams.input_types.text', Input::class);
         $this->app->bind('streams.input_types.input', Input::class);
         $this->app->bind('streams.input_types.string', Input::class);
@@ -94,17 +98,6 @@ class UiServiceProvider extends ServiceProvider
         $this->app->bind('streams.input_types.integer', Integer::class);
         $this->app->bind('streams.input_types.textarea', Textarea::class);
         $this->app->bind('streams.input_types.markdown', Markdown::class);
-    }
-
-    /**
-     * Boot the service provider.
-     */
-    public function boot()
-    {
-        $this->publishes([
-            base_path('vendor/streams/ui/resources/public')
-            => public_path('vendor/streams/ui')
-        ], ['public']);
 
         Streams::register([
             'handle' => 'cp.navigation',
@@ -139,6 +132,22 @@ class UiServiceProvider extends ServiceProvider
                 'svg' => 'string',
             ],
         ]);
+
+
+        Route::any(Config::get('streams.cp.prefix') . '/{stream}', function ($stream) {
+            die($stream . ' CP');
+        });
+    }
+
+    /**
+     * Boot the service provider.
+     */
+    public function boot()
+    {
+        $this->publishes([
+            base_path('vendor/streams/ui/resources/public')
+            => public_path('vendor/streams/ui')
+        ], ['public']);
 
         $this->extendLang();
         $this->extendAssets();
