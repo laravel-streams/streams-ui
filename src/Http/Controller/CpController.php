@@ -2,6 +2,11 @@
 
 namespace Streams\Ui\Http\Controller;
 
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
+use Streams\Core\Support\Facades\Streams;
 use Streams\Core\Http\Controller\StreamsController;
 
 /**
@@ -22,8 +27,49 @@ class CpController extends StreamsController
         'resolve_response',
     ];
 
-    public function index()
+    /**
+     * Handle the request.
+     * 
+     * @return Response
+     */
+    public function handle()
     {
-        dd(__CLASS__);
+        return parent::handle();
+    }
+
+    /**
+     * Resolve the response.
+     *
+     * @param \Illuminate\Support\Collection $data
+     */
+    public function resolveResponse(Collection $data)
+    {
+        if ($data->has('response')) {
+            return;
+        }
+
+        if (!$stream = $data->get('stream')) {
+            return;
+        }
+
+        $action = Request::route()->action;
+
+        if (isset($action['ui.component'])) {
+
+            $data->put('response', $stream->{$action['ui.component']}(
+                $data->filter()->except('stream')->all()
+            )->response());
+
+            return;
+        }
+
+        parent::resolveResponse($data);
+
+        // if ($redirect = $data->get('redirect')) {
+
+        //     $data->put('response', Redirect::to($redirect, $data->get('status_code', 302)));
+
+        //     return;
+        // }
     }
 }

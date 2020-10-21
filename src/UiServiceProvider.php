@@ -135,19 +135,34 @@ class UiServiceProvider extends ServiceProvider
             ],
         ]);
 
-        
+
+        Route::prefix(Config::get('streams.cp.prefix'))->group(function () {
+            
+            Route::streams('{stream}', [ // @todo Configure this later
+                'as' => 'ui::cp.index',
+                'ui.component' => 'table',
+                'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
+            ]);
+            
+            Route::streams('{stream}/create', [ // @todo Configure this later
+                'as' => 'ui::cp.create',
+                'ui.component' => 'form',
+                'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
+            ]);
+
+            Route::streams('{stream}/update/{entry}', [ // @todo Configure this later
+                'as' => 'ui::cp.update',
+                'ui.component' => 'form',
+                'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
+            ]);
+        });
+
+
         if (file_exists($routes = __DIR__ . '/../../../../routes/cp.php')) {
             Route::prefix(Config::get('streams.cp.prefix'))->group(function () use ($routes) {
                 include $routes;
             });
         }
-
-
-        Route::prefix(Config::get('streams.cp.prefix'))->group(function () {
-            Route::streams('{stream}', [
-                'uses' => '\Streams\Ui\Http\Controller\CpController@index',
-            ]);
-        });
     }
 
     /**
