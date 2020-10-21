@@ -80,6 +80,8 @@ class UiServiceProvider extends ServiceProvider
     {
         $this->extendView();
 
+        $this->registerMiddleware();
+
         $this->mergeConfigFrom(__DIR__ . '/../resources/config/cp.php', 'streams.cp');
 
         $this->app->bind('streams.input_types.text', Input::class);
@@ -133,6 +135,12 @@ class UiServiceProvider extends ServiceProvider
             ],
         ]);
 
+        if (file_exists($routes = __DIR__ . '/../../../../routes/cp.php')) {
+            Route::prefix(Config::get('streams.cp.prefix'))->group(function () use ($routes) {
+                include $routes;
+            });
+        }
+
 
         Route::any(Config::get('streams.cp.prefix') . '/{stream}', function ($stream) {
             die($stream . ' CP');
@@ -154,6 +162,14 @@ class UiServiceProvider extends ServiceProvider
 
         $this->extendStream();
         $this->extendField();
+    }
+
+    /**
+     * Register middleware.
+     */
+    protected function registerMiddleware()
+    {
+        Route::middlewareGroup('cp', Config::get('streams.cp.middleware', ['auth']));
     }
 
     /**
