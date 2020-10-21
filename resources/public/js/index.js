@@ -23574,8 +23574,8 @@ window.EasyMDE = __webpack_require__(/*! EasyMDE */ "./node_modules/EasyMDE/src/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/ryanthompson/Sites/streams.dev/vendor/anomaly/streams-ui/resources/src/index.js */"./resources/src/index.js");
-module.exports = __webpack_require__(/*! /Users/ryanthompson/Sites/streams.dev/vendor/anomaly/streams-ui/resources/src/scss/theme.scss */"./resources/src/scss/theme.scss");
+__webpack_require__(/*! /Users/ryanthompson/Sites/streams.dev/vendor/streams/ui/resources/src/index.js */"./resources/src/index.js");
+module.exports = __webpack_require__(/*! /Users/ryanthompson/Sites/streams.dev/vendor/streams/ui/resources/src/scss/theme.scss */"./resources/src/scss/theme.scss");
 
 
 /***/ }),

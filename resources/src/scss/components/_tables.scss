@@ -22,7 +22,7 @@
     }
 }
 
-.table__container {
+.table__component {
     @apply .section .p-0;
 
     table {
@@ -52,6 +52,12 @@
             tr {
                 &:hover {
                     background: #efefef;
+                }
+
+                td {
+                    &.--buttons {
+                        text-align: right;
+                    }
                 }
             }
         }
