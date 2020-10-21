@@ -2,8 +2,9 @@
 
 namespace Streams\Ui\Table\Component\Action\Handler;
 
-use Illuminate\Routing\Redirector;
 use Streams\Ui\Table\TableBuilder;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Redirect;
 use Streams\Ui\ControlPanel\Component\Section\SectionCollection;
 
 class Edit
@@ -23,8 +24,8 @@ class Edit
         $edit = array_shift($selected);
         $ids  = implode(',', $selected);
 
-        $builder->response = redirect(
-            url(url()->current() . '/' . $edit . '?' . $prefix . 'edit_next=' . $ids)
+        $builder->response = Redirect::to(
+            URL::to(URL::current() . '/' . $edit . '?' . $prefix . 'edit_next=' . $ids)
         );
     }
 }
