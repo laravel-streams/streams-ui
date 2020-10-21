@@ -21,4 +21,9 @@ class CpController extends StreamsController
         'resolve_redirect',
         'resolve_response',
     ];
+
+    public function index()
+    {
+        dd(__CLASS__);
+    }
 }

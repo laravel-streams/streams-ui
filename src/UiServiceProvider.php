@@ -142,8 +142,10 @@ class UiServiceProvider extends ServiceProvider
         }
 
 
-        Route::any(Config::get('streams.cp.prefix') . '/{stream}', function ($stream) {
-            die($stream . ' CP');
+        Route::prefix(Config::get('streams.cp.prefix'))->group(function () {
+            Route::streams('{stream}', [
+                'uses' => '\Streams\Ui\Http\Controller\CpController@index',
+            ]);
         });
     }
 
