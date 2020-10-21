@@ -36,7 +36,7 @@ class ExpandButtons
                 $this->guessCancelHref($stream, $button, $key);
             }
         }
-        
+
         $builder->buttons = $buttons;
     }
 
