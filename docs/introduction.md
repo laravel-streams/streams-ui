@@ -3,10 +3,27 @@ title: Introduction
 intro:
 ---
 
-- **Intro:** Introduce the idea in one sentance.
-- **Explaination:** An elevator pitch that signals the reader to continue or not (keep looking for relavant page).
-- **Sections/Features:** Separate sections/sub-sections (h2s/h3s) consistently. This will build the ToC.
-- **Next Steps:** Next actions to take that are intentional versus simply additional reading.
-- **Code Examples:** Code examples and snippets.
-- **Insights:** Tips, post scriptum, creative links.
-- **Additional Reading:** Link to related ideas/topics/guides/recipes.
+## Introduction
+
+The user's interface, including a control panel, is an optional core component of the Streams platform. The UI system extends the [stream domain information](streams#domain-information).
+
+- [UI Introduction](ui/introduction)
+
+### Input Types
+
+Input types separate the concerns of [data-modeling](domain-entities) vs. data-management and provide a refreshing new layer of flexibility.
+
+- [Input Types](ui/inputs)
+
+### UI Components
+
+Several flexible UI components are available and can be used both within and outside of a control panel. We use a factory-like `builder` pattern and utilize [Svelte](https://svelte.dev/) to provide native JS components where applicable.
+
+- [Builders](ui/builders)
+- [Components](ui/components)
+
+### Control Panel
+
+The Streams platform provides a consistent, user-friendly, and "hella-performant" control panel that puts you in control of every aspect. Zero configuration is necessary by default.
+
+- [Control Panel](ui/cp)
