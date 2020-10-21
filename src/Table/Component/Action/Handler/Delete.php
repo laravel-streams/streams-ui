@@ -2,6 +2,8 @@
 
 namespace Streams\Ui\Table\Component\Action\Handler;
 
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 use Streams\Ui\Table\TableBuilder;use Streams\Core\Support\Facades\Messages;
 
 /**
@@ -36,5 +38,7 @@ class Delete
         Messages::success(trans_choice('ui::messages.delete_success', $count, [
             'count' => $count
         ]));
+
+        $builder->response = Redirect::back();
     }
 }
