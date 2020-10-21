@@ -135,6 +135,7 @@ class UiServiceProvider extends ServiceProvider
             ],
         ]);
 
+        
         if (file_exists($routes = __DIR__ . '/../../../../routes/cp.php')) {
             Route::prefix(Config::get('streams.cp.prefix'))->group(function () use ($routes) {
                 include $routes;
