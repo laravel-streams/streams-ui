@@ -50782,7 +50782,7 @@ select.input {
   margin-right: 0.75rem;
 }
 
-.table__container {
+.table__component {
   padding: 1.25rem;
   --bg-opacity: 1;
   background-color: #fff;
@@ -50792,40 +50792,44 @@ select.input {
   padding: 0;
 }
 
-.table__container table {
+.table__component table {
   width: 100%;
   text-align: left;
 }
 
-.table__container table thead th {
+.table__component table thead th {
   padding: 0.5rem;
   --text-opacity: 1;
   color: #a0aec0;
   color: rgba(160, 174, 192, var(--text-opacity));
 }
 
-.table__container table thead th i {
+.table__component table thead th i {
   margin-left: 0.25rem;
 }
 
-.table__container table thead th i.fa-sort {
+.table__component table thead th i.fa-sort {
   --text-opacity: 1;
   color: #e2e8f0;
   color: rgba(226, 232, 240, var(--text-opacity));
 }
 
-.table__container table thead th.\--sorting a {
+.table__component table thead th.\--sorting a {
   --text-opacity: 1;
   color: #48bb78;
   color: rgba(72, 187, 120, var(--text-opacity));
 }
 
-.table__container table tbody tr:hover {
+.table__component table tbody tr:hover {
   background: #efefef;
 }
 
-.table__container table tbody tr td,
-.table__container table tfoot tr td {
+.table__component table tbody tr td.\--buttons {
+  text-align: right;
+}
+
+.table__component table tbody tr td,
+.table__component table tfoot tr td {
   padding: 0.5rem;
 }
 
