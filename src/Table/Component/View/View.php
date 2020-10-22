@@ -23,6 +23,9 @@ class View extends Component
     protected function initializePrototype(array $attributes)
     {
         return parent::initializePrototype(array_merge([
+            'component' => 'view',
+            'template' => 'ui::tables.view',
+
             'handle' => null,
             'text' => null,
             'icon' => null,
@@ -37,8 +40,10 @@ class View extends Component
             'handler' => null,
             'options' => null,
             'active' => false,
-            'attributes' => [],
             'context' => 'danger',
+            
+            'classes' => ['button'],
+            'attributes' => [],
 
             'query' => ViewQuery::class,
             'handler' => ViewHandler::class,

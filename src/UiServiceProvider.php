@@ -85,6 +85,7 @@ class UiServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../resources/config/cp.php', 'streams.cp');
 
         $this->app->bind('streams.input_types.text', Input::class);
+        $this->app->bind('streams.input_types.hash', Input::class);
         $this->app->bind('streams.input_types.input', Input::class);
         $this->app->bind('streams.input_types.string', Input::class);
 
