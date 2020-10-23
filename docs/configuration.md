@@ -4,7 +4,7 @@ category: getting_started
 intro: 'Streams UI uses Laravel config files and environment variables for application-level settings.'
 sort: 2
 stage: drafting
-enabled: 1
+enabled: true
 ---
 ## Configuration Files
 

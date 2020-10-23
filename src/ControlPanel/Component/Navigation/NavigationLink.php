@@ -29,11 +29,12 @@ class NavigationLink extends Component
             'handle' => null,
             'title' => null,
             'policy' => null,
-            'sections' => null,
             'breadcrumb' => null,
-
+            
             'active' => false,
             'favorite' => false,
+            
+            'buttons' => [],
         ], $attributes));
     }
 }

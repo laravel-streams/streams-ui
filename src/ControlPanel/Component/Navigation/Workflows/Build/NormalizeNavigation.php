@@ -3,8 +3,6 @@
 namespace Streams\Ui\ControlPanel\Component\Navigation\Workflows\Build;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Streams\Core\Stream\Stream;
 use Streams\Ui\Support\Normalizer;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\ControlPanel\ControlPanelBuilder;
@@ -47,6 +45,7 @@ class NormalizeNavigation
         }
 
         $navigation = Normalizer::attributes($navigation);
+        $navigation['buttons'] = Normalizer::buttons(Arr::get($navigation, 'buttons', []));
 
         $builder->navigation = $navigation;
     }

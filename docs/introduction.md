@@ -1,6 +1,7 @@
 ---
 title: Introduction
 intro:
+enabled: true
 ---
 
 ## User Interface

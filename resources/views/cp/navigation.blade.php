@@ -13,6 +13,12 @@
         @foreach ($children as $child)
             <li>
                 {!! $child->render() !!}
+
+                <ul>
+                    @foreach ($child->buttons as $button)
+                        <li>{!! $button->render() !!}</li>
+                    @endforeach
+                </ul>
             </li>
         @endforeach
     </ul>        
