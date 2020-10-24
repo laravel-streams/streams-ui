@@ -31,7 +31,7 @@ class HandleRequest
             return;
         }
 
-        $selected = (array) $builder->request('id');
+        $selected = (array) $builder->request('selected');
 
         App::call($active->handler, compact('builder', 'selected'), 'handle');
     }

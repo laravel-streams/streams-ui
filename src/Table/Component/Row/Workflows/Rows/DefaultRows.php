@@ -22,7 +22,7 @@ class DefaultRows
     public function handle(TableBuilder $builder)
     {
         if (!$builder->rows) {
-            $builder->rows = $builder->instance->entries->map(function ($entry) use ($builder) {
+            $builder->rows = $builder->instance->entries->map(function ($entry) use  ($builder) {
                 return [
                     'key' => $entry->id,
 

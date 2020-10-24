@@ -1,19 +1,18 @@
 <thead class="table__head">
     <tr>
 
-        @if ($table->options->get('sortable'))
+        @if ($table->isSortable())
         <th class="table__handle"></th>
         @endif
 
-        @if ($table->actions->isNotEmpty())
+        @if ($table->isSelectable())
         <th class="table__checkbox">
-            <input type="checkbox">
+        <input type="checkbox" x-on:click="alert('Select all');">
         </th>
         @endif
 
         @foreach ($table->columns as $column)
-        {{-- <th {!! html_attributes() !!}> --}}
-        <th {!! $column->expandPrototypeAttribute('attributes')->htmlAttributes() !!}>
+        <th {!! $column->htmlAttributes() !!}>
 
             @if ($column->sortable)
             <a href="{{ $column->href() }}">

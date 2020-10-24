@@ -44,16 +44,4 @@ class Row extends Component
             'buttons' => ButtonCollection::class, //Collection
         ], $attributes));
     }
-
-    protected $properties = [
-        'columns' => [
-            'type' => 'collection',
-        ],
-        'buttons' => [
-            'type' => 'collection',
-            'config' => [
-                'abstract' => ButtonCollection::class,
-            ],
-        ],
-    ];
 }

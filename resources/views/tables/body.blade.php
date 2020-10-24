@@ -4,18 +4,17 @@
     <tr {!! $row->htmlAttributes() !!}>
 
         @section('handle')
-        @if ($table->options->get('sortable'))
-        <td class="table__column">
-            {{-- {{ icon('fas fa-arrows') }} --}}
-            <input type="hidden" name="{{ $table->prefix('order[]') }}" value="{{ $row->key }}" />
+        @if ($table->isSortable()))
+        <td class="table__handle">
+            <input type="hidden" name="{{ $table->prefix('row[]') }}" value="{{ $row->key }}" />
         </td>
         @endif
         @show
 
         @section('checkbox')
-        @if ($table->actions->isNotEmpty())
+        @if ($table->isSelectable())
         <td class="table__column">
-            <input type="checkbox" name="{{ $table->prefix('id[]') }}" value="{{ $row->key }}" />
+            <input type="checkbox" name="{{ $table->prefix('selected[]') }}" value="{{ $row->key }}" />
         </td>
         @endif
         @show

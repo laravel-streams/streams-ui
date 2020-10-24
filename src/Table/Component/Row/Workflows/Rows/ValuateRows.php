@@ -5,7 +5,6 @@ namespace Streams\Ui\Table\Component\Row\Workflows\Rows;
 use Illuminate\Support\Arr;
 use Streams\Ui\Support\Value;
 use Streams\Ui\Table\TableBuilder;
-use Illuminate\Support\Collection;
 
 /**
  * Class ValuateRows

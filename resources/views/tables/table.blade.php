@@ -1,5 +1,5 @@
 <div class="table__component" x-data="{}">
-
+    
     @section('views')
     @include('ui::tables.views')
     @show

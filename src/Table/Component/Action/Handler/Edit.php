@@ -25,7 +25,7 @@ class Edit
         $ids  = implode(',', $selected);
 
         $builder->response = Redirect::to(
-            URL::to(URL::current() . '/' . $edit . '?' . $prefix . 'edit_next=' . $ids)
+            URL::to(URL::current() . '/update/' . $edit . '?' . $prefix . 'edit_next=' . $ids)
         );
     }
 }

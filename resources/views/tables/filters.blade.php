@@ -1,5 +1,5 @@
 @if ($table->filters->isNotEmpty())
-<div>
+<div class="table__filters">
     {!! Form::open([
         'method' => 'get'
     ]) !!}

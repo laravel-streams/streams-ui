@@ -1,4 +1,4 @@
-<tfoot>
+<tfoot class="table__foot">
     @section('controls')
     {{-- Eventually loop through controls in table.data --}}
     {{-- if table.data.controls.isNotEmpty() --}}
@@ -22,9 +22,9 @@
 
     {{-- if table.data.information.isNotEmpty() --}}
     @if ($table->options->has('total_results'))
-    <tr>
+    <tr class="table__info">
         <td colspan="100%">
-            {{-- Eventually loop through information in table.information --}}
+            {{-- @todo loop through information in table.information --}}
             @include('ui::tables.total')
         </td>
     </tr>

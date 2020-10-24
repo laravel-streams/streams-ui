@@ -46,7 +46,7 @@ class Table extends Component
                     'abstract' => FilterCollection::class,
                 ],
             ],
-    
+
             'rows' => [
                 'type' => 'collection',
             ],
@@ -84,5 +84,15 @@ class Table extends Component
             'actions' => new ActionCollection(),
             'filters' => new FilterCollection(),
         ], $attributes));
+    }
+
+    public function isSelectable(): bool
+    {
+        return ($this->actions->isNotEmpty() || $this->options->get('selectable'));
+    }
+    
+    public function isSortable(): bool
+    {
+        return (bool) $this->options->get('sortable');
     }
 }

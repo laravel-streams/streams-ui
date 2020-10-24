@@ -1,4 +1,4 @@
-<div class="table__limit">
+<div class="table__limiter">
 
     <select onchange="window.location=this.value;">
         @foreach ([5, 10, 15, 25, 50, 75, 100, 150, 'all'] as $item)
