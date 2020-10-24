@@ -110,13 +110,7 @@ class Form extends Component
             $options['url'] = Request::fullUrl();
         }
 
-        // For good measure?
-        // @todo is this a security risk?
-        $options['enctype'] = 'multipart/form-data';
-
-        if ($this->options->get('ajax') === true) {
-            $options['data-async'] = 'true';
-        }
+        $options['files'] = true; // multipart/form-data
 
         return FormFacade::open($options);
     }

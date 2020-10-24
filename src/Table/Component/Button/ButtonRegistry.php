@@ -1,11 +1,6 @@
 <?php namespace Streams\Ui\Table\Component\Button;
 
 use Illuminate\Support\Arr;
-use Streams\Ui\Table\Component\Action\Handler\Edit;
-use Streams\Ui\Table\Component\Action\Handler\Delete;
-use Streams\Ui\Table\Component\Action\Handler\Export;
-use Streams\Ui\Table\Component\Action\Handler\Reorder;
-use Streams\Ui\Table\Component\Action\Handler\ForceDelete;
 use Streams\Ui\Button\ButtonRegistry as ButtonButtonRegistry;
 
 /**

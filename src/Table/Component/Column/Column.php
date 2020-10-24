@@ -25,6 +25,8 @@ class Column extends Component
     protected function initializePrototype(array $attributes)
     {
         return parent::initializePrototype(array_merge([
+            'component' => 'column',
+            
             'view' => null,
             'value' => null,
             'entry' => null,

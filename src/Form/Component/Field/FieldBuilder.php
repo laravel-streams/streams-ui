@@ -3,7 +3,7 @@
 namespace Streams\Ui\Form\Component\Field;
 
 use Streams\Ui\Support\Builder;
-use Streams\Core\Field\Field;
+use Streams\Ui\Form\Component\Field\Field;
 use Streams\Ui\Support\Workflows\BuildComponent;
 
 /**
