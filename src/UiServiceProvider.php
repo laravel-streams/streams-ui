@@ -11,6 +11,7 @@ use Streams\Ui\Input\Input;
 
 use Streams\Ui\Input\Radio;
 use Streams\Ui\Input\Range;
+use Streams\Ui\Input\Toggle;
 use Streams\Ui\Input\Select;
 use Streams\Core\Field\Field;
 use Streams\Ui\Input\Integer;
@@ -99,6 +100,8 @@ class UiServiceProvider extends ServiceProvider
         $this->app->bind('streams.input_types.integer', Integer::class);
         $this->app->bind('streams.input_types.textarea', Textarea::class);
         $this->app->bind('streams.input_types.markdown', Markdown::class);
+        
+        $this->app->bind('streams.input_types.boolean', Toggle::class);
 
         Streams::register([
             'handle' => 'cp.navigation',
