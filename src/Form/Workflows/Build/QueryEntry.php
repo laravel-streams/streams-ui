@@ -35,8 +35,8 @@ class QueryEntry
         if (
             (is_string($builder->entry) && class_exists($builder->entry))
             || $builder->entry instanceof \Closure
-            ) {
-            
+        ) {
+
             $entry = Resolver::resolve($builder->entry, compact('builder'));
 
             $builder->entry = Evaluator::evaluate($entry ?: $builder->entry, compact('builder'));
@@ -48,7 +48,7 @@ class QueryEntry
          * If the builder already has
          * an entry then just use that.
          */
-        if ($builder->entry instanceof EntryInterface) {
+        if ($builder->entry && is_object($builder->entry)) {
 
             $builder->instance->entry = $builder->entry;
 

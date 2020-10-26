@@ -11,7 +11,7 @@
     @if ($table->rows->isNotEmpty())
 
     @section('form')
-    {!! Form::open() !!}
+    {{-- {!! Form::open() !!} --}}
 
     @section('table')
     <table {!! $table->htmlAttributes(['classes' => ['table']]) !!}>
@@ -31,7 +31,7 @@
     </table>
     @show
 
-    {!! Form::close() !!}
+    {{-- {!! Form::close() !!} --}}
     @show
 
     @else
