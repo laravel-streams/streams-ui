@@ -1,4 +1,4 @@
-<div class="form__section -tabbed">
+<div class="form__section --tabbed">
 
     <ul>
         @foreach ($section['tabs'] as $slug => $tab)
@@ -13,7 +13,7 @@
 
     <div class="tabs__content">
         @foreach ($section['tabs'] as $slug => $tab)
-        <div id="{{ $form->options->get('prefix') }}{{ \Illuminate\Support\Arr::get($tab, 'slug', $slug) }}-tab"
+        <div id="{{ $form->options->get('prefix') }}{{ Arr::get($tab, 'slug', $slug) }}-tab"
             class="tabs__pane {{ $loop->first ? 'active' : '' }}">
             @if (isset($tab['view']))
                 @include($tab['view'])

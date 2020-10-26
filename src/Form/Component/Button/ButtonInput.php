@@ -3,10 +3,11 @@
 namespace Streams\Ui\Form\Component\Button;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Request;
 use Streams\Ui\Form\FormBuilder;
 use Streams\Ui\Support\Normalizer;
 use Streams\Ui\Button\ButtonRegistry;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Request;
 
 /**
  * Class ButtonInput
@@ -65,7 +66,7 @@ class ButtonInput
      */
     protected static function defaults(FormBuilder $builder)
     {
-        if ($builder->buttons === [] && Request::segment(1) == 'admin') {
+        if ($builder->buttons === [] && Request::segment(1) == Config::get('ui::cp.prefix')) {
             $builder->buttons[] = 'cancel';
         }
     }

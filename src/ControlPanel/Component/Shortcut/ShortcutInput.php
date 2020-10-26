@@ -76,7 +76,7 @@ class ShortcutInput
                 ],
                 'logout' => [
                     'class' => 'button',
-                    'href'  => 'admin/logout',
+                    'href'  => 'streams::cp.logout',
                     'title' => 'anomaly.theme.flow::control_panel.logout',
                 ],
             ]);
