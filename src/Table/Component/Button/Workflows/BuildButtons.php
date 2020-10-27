@@ -5,7 +5,6 @@ namespace Streams\Ui\Table\Component\Button\Workflows;
 use Streams\Core\Support\Workflow;
 use Streams\Ui\Support\Workflows\BuildComponents;
 use Streams\Ui\Support\Workflows\MergeComponents;
-use Streams\Ui\Support\Workflows\ParseComponents;
 use Streams\Ui\Support\Workflows\ResolveComponents;
 use Streams\Ui\Support\Workflows\TranslateComponents;
 use Streams\Ui\Table\Component\Button\Workflows\Buttons\DefaultButtons;
