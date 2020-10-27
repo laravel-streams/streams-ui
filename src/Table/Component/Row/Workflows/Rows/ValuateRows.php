@@ -27,7 +27,7 @@ class ValuateRows
 
             $row->columns = [];
             $row->buttons = [];
-
+            // Load Columns
             foreach ($builder->instance->columns as $key => $column) {
 
                 $clone = clone ($column);
@@ -37,6 +37,7 @@ class ValuateRows
                 $row->columns->put($key, $clone);
             }
 
+            // Load Buttons
             foreach ($builder->instance->buttons as $button) {
 
                 $clone = clone ($button);

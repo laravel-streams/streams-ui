@@ -30,7 +30,8 @@ class BuildRows extends Workflow
 
         'build_rows' => BuildComponents::class,
 
-        // Load columns
+        // Load Columns
+        // Load Buttons
 
         ValuateRows::class,
     ];
