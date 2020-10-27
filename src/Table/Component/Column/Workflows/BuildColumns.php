@@ -30,13 +30,6 @@ class BuildColumns extends Workflow
         DefaultColumns::class,
         NormalizeColumns::class,
         ExpandColumns::class,
-        
-        /**
-         * Don't do these things because it
-         * depends on the entry data per row.
-         */
-        //'translate_columns' => TranslateComponents::class,
-        //'parse_columns' => ParseComponents::class,
 
         'build_columns' => BuildComponents::class,
     ];
