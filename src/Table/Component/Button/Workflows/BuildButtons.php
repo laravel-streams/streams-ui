@@ -32,10 +32,13 @@ class BuildButtons extends Workflow
         DefaultButtons::class,
         NormalizeButtons::class,
 
-        'merge_buttons' => MergeComponents::class,
-
-        'translate_buttons' => TranslateComponents::class,
-        'parse_buttons' => ParseComponents::class,
+        /**
+         * Don't do these things because it
+         * depends on the entry data per row.
+         */
+        //'merge_buttons' => MergeComponents::class,
+        //'translate_buttons' => TranslateComponents::class,
+        //'parse_buttons' => ParseComponents::class,
 
         'build_buttons' => BuildComponents::class,
     ];

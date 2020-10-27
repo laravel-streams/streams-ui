@@ -71,14 +71,6 @@ class NormalizeButtons
 
         $buttons = Normalizer::attributes($buttons);
 
-        /**
-         * Go back over and assume HREFs.
-         * @todo rebutton this - from guesser
-         */
-        foreach ($buttons as $handle => &$button) {
-            //
-        }
-
         $builder->buttons = $buttons;
     }
 }

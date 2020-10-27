@@ -31,8 +31,11 @@ class BuildColumns extends Workflow
         NormalizeColumns::class,
         ExpandColumns::class,
 
+        /**
+         * Don't do these things because it
+         * depends on the entry data per row.
+         */
         //'merge_columns' => MergeComponents::class,
-
         //'translate_columns' => TranslateComponents::class,
         //'parse_columns' => ParseComponents::class,
 
