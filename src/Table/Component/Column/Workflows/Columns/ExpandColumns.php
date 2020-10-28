@@ -2,10 +2,8 @@
 
 namespace Streams\Ui\Table\Component\Column\Workflows\Columns;
 
-use Streams\Core\Stream\Stream;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Streams\Ui\Support\Normalizer;
+use Streams\Core\Stream\Stream;
 use Streams\Ui\Table\TableBuilder;
 
 /**
@@ -72,7 +70,7 @@ class ExpandColumns
             $column['sortable'] = true; // @todo can field be sortable?
         }
 
-        if (!isset($column['heading'])) {
+        if ($field && !isset($column['heading'])) {
             $column['heading'] = $field->name ?: ucwords(Str::humanize($field->handle));
         }
 
