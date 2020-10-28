@@ -8,7 +8,6 @@ use Streams\Ui\Input\Time;
 use Illuminate\Support\Arr;
 use Streams\Ui\Input\Color;
 use Streams\Ui\Input\Input;
-
 use Streams\Ui\Input\Radio;
 use Streams\Ui\Input\Range;
 use Streams\Ui\Input\Toggle;
@@ -100,7 +99,7 @@ class UiServiceProvider extends ServiceProvider
         $this->app->bind('streams.input_types.integer', Integer::class);
         $this->app->bind('streams.input_types.textarea', Textarea::class);
         $this->app->bind('streams.input_types.markdown', Markdown::class);
-        
+
         $this->app->bind('streams.input_types.boolean', Toggle::class);
 
         Streams::register([
@@ -139,14 +138,14 @@ class UiServiceProvider extends ServiceProvider
 
 
         Route::prefix(Config::get('streams.cp.prefix'))->middleware(['cp'])->group(function () {
-            
+
             Route::streams('{stream}', [ // @todo Configure this later
                 'entry' => false,
                 'as' => 'ui::cp.index',
                 'ui.component' => 'table',
                 'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
             ]);
-            
+
             Route::streams('{stream}/create', [ // @todo Configure this later
                 'entry' => false,
                 'as' => 'ui::cp.create',
@@ -191,11 +190,18 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function extendStream()
     {
-        Stream::macro('form', function ($attributes = []) {
+        Stream::macro('form', function ($form, $attributes = []) {
 
-            $default = Arr::get($this->ui, 'form', []);
+            if (is_array($form)) {
+                $attributes = $form;
+                $form = 'default';
+            }
 
-            $attributes = array_merge($attributes, $default);
+            if (!$configured = Arr::get($this->ui, 'forms.' . $form)) {
+                $configured = Arr::get($this->ui, 'form', []);
+            }
+
+            $attributes = array_merge($attributes, $configured);
 
             $attributes['stream'] = $this;
 
@@ -209,9 +215,11 @@ class UiServiceProvider extends ServiceProvider
                 $table = 'default';
             }
 
-            $configured = Arr::get($this->ui, 'tables.'.$table, []);
+            if (!$configured = Arr::get($this->ui, 'tables.' . $table)) {
+                $configured = Arr::get($this->ui, 'table', []);
+            }
 
-            $attributes = array_merge($attributes, $table);
+            $attributes = array_merge($attributes, $configured);
 
             $attributes['stream'] = $this;
 
