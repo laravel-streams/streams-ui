@@ -62,13 +62,11 @@ class Value
         }
 
         /*
-         * If the entry is an instance of EntryInterface
-         * then try getting the field value from the entry.
+         * If the entry is an object then try
+         * getting the field value from the entry.
          */
-        if ($entry instanceof EntryInterface && $entry->stream()->fields->has($value)) {
-            //$value = $entry->getFieldValue($value);
+        if (is_object($entry) && isset($entry->{$value})) {
             $value = $entry->{$value};
-            //if (is_array($value)) dd($value);
         }
 
         /*
@@ -76,13 +74,6 @@ class Value
          * the evaluator utility and be done with it.
          */
         $value = Evaluator::evaluate($value, $payload);
-
-        /*
-         * Lastly, parse the entry intro the string
-         */
-        if ($entry instanceof Arrayable) {
-            $entry = $entry->toArray();
-        }
 
         /*
          * Parse the value with the value too.
