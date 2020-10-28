@@ -2,11 +2,9 @@
 
 namespace Streams\Ui\Form\Component\Action;
 
-use Streams\Ui\Form\Component\Action\Contract\ActionHandlerInterface;
-use Streams\Ui\Form\Component\Action\Action;
 use Streams\Ui\Form\FormBuilder;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Facades\App;
+use Streams\Ui\Form\Component\Action\Action;
 
 /**
  * Class ActionResponder
@@ -35,14 +33,6 @@ class ActionResponder
          */
         if (is_string($handler) || $handler instanceof \Closure) {
             App::call($handler, compact('builder'), 'handle');
-        }
-
-        /*
-         * If the handle is an instance of ActionHandlerInterface
-         * simply call the handle method on it.
-         */
-        if ($handler instanceof ActionHandlerInterface) {
-            $handler->handle($builder);
         }
     }
 }
