@@ -4,9 +4,7 @@ namespace Streams\Ui\Http\Controller;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
-use Streams\Core\Support\Facades\Streams;
 use Streams\Core\Http\Controller\StreamsController;
 
 /**
@@ -64,12 +62,5 @@ class CpController extends StreamsController
         }
 
         parent::resolveResponse($data);
-
-        // if ($redirect = $data->get('redirect')) {
-
-        //     $data->put('response', Redirect::to($redirect, $data->get('status_code', 302)));
-
-        //     return;
-        // }
     }
 }

@@ -202,11 +202,16 @@ class UiServiceProvider extends ServiceProvider
             return new FormBuilder($attributes);
         });
 
-        Stream::macro('table', function ($attributes = []) {
+        Stream::macro('table', function ($table = null, $attributes = []) {
 
-            $default = Arr::get($this->ui, 'table', []);
+            if (is_array($table)) {
+                $attributes = $table;
+                $table = 'default';
+            }
 
-            $attributes = array_merge($attributes, $default);
+            $configured = Arr::get($this->ui, 'tables.'.$table, []);
+
+            $attributes = array_merge($attributes, $table);
 
             $attributes['stream'] = $this;
 
