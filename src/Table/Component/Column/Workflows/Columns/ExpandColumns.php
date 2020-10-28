@@ -37,6 +37,11 @@ class ExpandColumns
             if (isset($column['field'])) {
                 $this->expandColumn($builder, $stream, $column);
             }
+
+            if (!isset($column['heading']) && $column['value'] == 'id') {
+                $column['heading'] = 'ID';
+                $column['sortable'] = true;
+            }
         }
 
         $builder->columns = $columns;
