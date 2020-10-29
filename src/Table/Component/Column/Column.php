@@ -53,6 +53,10 @@ class Column extends Component
             $direction = 'desc';
         }
 
+        if ($current == 'desc') {
+            return URL::current();
+        }
+
         return URL::current() . '?order_by=' . $this->field . '&sort=' . $direction;
     }
 }

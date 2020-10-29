@@ -26,15 +26,14 @@ class NavigationLink extends Component
             'component' => 'navigation_link',
             'template' => 'ui::cp.navigation_link',
 
-            'handle' => null,
             'title' => null,
-            'policy' => null,
-            'breadcrumb' => null,
+            //'policy' => null,
+            //'breadcrumb' => null,
             
             'active' => false,
-            'favorite' => false,
+            //'favorite' => false,
             
-            'buttons' => [],
+            //'buttons' => [],
         ], $attributes));
     }
 }
