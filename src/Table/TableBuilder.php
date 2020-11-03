@@ -3,10 +3,13 @@
 namespace Streams\Ui\Table;
 
 use Streams\Ui\Table\Table;
+use Streams\Core\Stream\Stream;
 use Streams\Ui\Support\Builder;
+use Illuminate\Support\Facades\App;
 use Streams\Ui\Table\Workflows\BuildTable;
 use Streams\Ui\Table\Workflows\QueryTable;
 use Streams\Ui\Table\Component\Row\Workflows\BuildRows;
+use Streams\Core\Repository\Contract\RepositoryInterface;
 use Streams\Ui\Table\Component\View\Workflows\BuildViews;
 use Streams\Ui\Table\Component\Action\Workflows\BuildActions;
 use Streams\Ui\Table\Component\Button\Workflows\BuildButtons;
@@ -60,5 +63,35 @@ class TableBuilder extends Builder
                 'buttons' => BuildButtons::class,
             ],
         ], $attributes));
+    }
+
+    /**
+     * Return the repository.
+     *
+     * @return RepositoryInterface
+     */
+    public function repository()
+    {
+        if ($this->repository instanceof RepositoryInterface) {
+            return $this->repository;
+        }
+
+        /**
+         * Default to configured.
+         */
+        if ($this->repository) {
+            return $this->repository = App::make($this->repository, [
+                'builder' => $this,
+            ]);
+        }
+
+        /**
+         * Fallback for Streams.
+         */
+        if (!$this->repository && $this->stream instanceof Stream) {
+            return $this->repository = $this->stream->repository();
+        }
+
+        return null;
     }
 }

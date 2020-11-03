@@ -4,7 +4,7 @@
         
         <a {!! $view->htmlAttributes([
             'classes' => []
-        ]) !!}>{{ $view->text }}
+        ]) !!}>{{ __($view->text) }}
         
             @if ($view->label)
             <span class="{{ $view->context }}">

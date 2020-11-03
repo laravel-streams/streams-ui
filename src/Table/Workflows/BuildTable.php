@@ -7,7 +7,6 @@ use Streams\Ui\Support\Workflows\SetStream;
 use Streams\Ui\Support\Workflows\LoadAssets;
 use Streams\Ui\Support\Workflows\SetOptions;
 use Streams\Ui\Support\Workflows\MakeComponent;
-use Streams\Ui\Support\Workflows\SetRepository;
 use Streams\Ui\Table\Workflows\Build\BuildRows;
 use Streams\Ui\Table\Workflows\Build\ApplyView;
 use Streams\Ui\Support\Workflows\LoadBreadcrumb;
@@ -37,8 +36,6 @@ class BuildTable extends Workflow
         
         LoadAssets::class,
         LoadBreadcrumb::class,        
-
-        SetRepository::class,
 
         BuildViews::class,
         ApplyView::class,

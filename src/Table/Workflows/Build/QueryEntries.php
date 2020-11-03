@@ -26,7 +26,7 @@ class QueryEntries
             return;
         }
 
-        if (!$builder->repository) {
+        if (!$builder->repository()) {
             return;
         }
 

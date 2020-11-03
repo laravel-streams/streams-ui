@@ -21,6 +21,6 @@ class StartQuery
      */
     public function handle(Builder $builder)
     {
-        $builder->criteria = $builder->repository->newCriteria();
+        $builder->criteria = $builder->repository()->newCriteria();
     }
 }
