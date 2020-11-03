@@ -27,7 +27,7 @@ class BuildShortcuts extends Workflow
         NormalizeShortcuts::class,
         ExpandShortcuts::class,
         
-        'translate_shortcuts' => TranslateComponents::class,
+        //'translate_shortcuts' => TranslateComponents::class,
         //'parse_shortcuts' => ParseComponents::class,
 
         'build_shortcuts' => BuildComponents::class,

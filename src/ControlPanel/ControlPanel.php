@@ -42,10 +42,10 @@ class ControlPanel extends Component
         ]);
 
         return parent::initializePrototype(array_merge([
-            'buttons' => ButtonCollection::class,
+            'buttons' => [],
             //'sections' => SectionCollection::class,
-            'shortcuts' => ShortcutCollection::class,
-            'navigation' => NavigationCollection::class,
+            'shortcuts' => [],
+            'navigation' => [],
         ], $attributes));
     }
 }

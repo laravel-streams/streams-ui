@@ -46,11 +46,29 @@ class Normalizer
      *
      * @param array $input
      * @param $attribute
+     * @return array
      */
     public static function fillWithKey(array $input, $attribute)
     {
         foreach ($input as $key => &$item) {
             $item[$attribute] = Arr::pull($item, $attribute, $key);
+        }
+
+        return $input;
+    }
+
+    /**
+     * Fill with key replaces the provided attribute
+     * with the key if the attribuet is missing.
+     *
+     * @param array $input
+     * @param $attribute
+     * @return array
+     */
+    public static function fillWithAttribute(array $input, $attribute, $target)
+    {
+        foreach ($input as &$item) {
+            $item[$attribute] = Arr::pull($item, $attribute, Arr::get($item, $target));
         }
 
         return $input;

@@ -74,15 +74,15 @@ class Table extends Component
             'component' => 'table',
             'template' => 'ui::tables.table',
 
-            'rows' => new Collection(),
-            'buttons' => new Collection(),
-            'columns' => new Collection(),
-            'entries' => new Collection(),
-            'options' => new Collection(),
+            'rows' => [],
+            'buttons' => [],
+            'columns' => [],
+            'entries' => [],
+            'options' => [],
 
-            'views' => new ViewCollection(),
-            'actions' => new ActionCollection(),
-            'filters' => new FilterCollection(),
+            'views' => [],
+            'actions' => [],
+            'filters' => [],
         ], $attributes));
     }
 

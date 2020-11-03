@@ -10,6 +10,7 @@ use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\ControlPanel\Component\Navigation\NavigationLink;
 use Streams\Ui\ControlPanel\Component\Shortcut\Workflows\BuildShortcuts;
 use Streams\Ui\ControlPanel\Component\Navigation\Workflows\BuildNavigation;
+use Streams\Ui\ControlPanel\Component\Shortcut\Shortcut;
 
 /**
  * Class ControlPanelBuilder
@@ -41,15 +42,13 @@ class ControlPanelBuilder extends Builder
             'steps' => [
                 [$this, 'make'],
                 [$this, 'buildNavigation'],
-
-                //\Streams\Ui\ControlPanel\Workflows\Build\BuildNavigation::class,
-                \Streams\Ui\ControlPanel\Workflows\Build\BuildShortcuts::class,
+                [$this, 'buildShortcuts'],
             ],
 
             'workflows' => [
                 //'build' => BuildControlPanel::class,
                 'navigation' => BuildNavigation::class,
-                'shortcuts' => BuildShortcuts::class,
+                //'shortcuts' => BuildShortcuts::class,
             ],
         ], $attributes));
     }
@@ -106,7 +105,7 @@ class ControlPanelBuilder extends Builder
 
                     $item['title'] = $item['stream']->name ?: Str::title($item['stream']->handle);
         
-                    return;
+                    continue;
                 }
         
                 $item['title'] = Str::title($handle);
@@ -125,5 +124,71 @@ class ControlPanelBuilder extends Builder
         }
 
         $this->navigation = $navigation;
+    }
+
+    public function buildShortcuts()
+    {
+        if ($this->shortcuts === false) {
+            return;
+        }
+
+        $shortcuts = Streams::entries('cp.shortcuts')
+            ->orderBy('sort_order', 'asc')
+            ->get()
+            ->toArray();
+
+        foreach ($shortcuts as $handle => &$item) {
+
+            // Default the handle.
+            if (!isset($item['handle']) && isset($item['id'])) {
+                $item['handle'] = $item['id'];
+            }
+
+            // Default the handle more.
+            if (!isset($item['handle']) && !is_numeric($handle)) {
+                $item['handle'] = $handle;
+            }
+
+            // Default the stream for now.
+            if (!isset($item['stream']) && Streams::has($item['handle'])) {
+                $item['stream'] = $item['handle'];
+            }
+        }
+
+        $shortcuts = Normalizer::attributes($shortcuts);
+
+        foreach ($shortcuts as $handle => &$item) {
+
+            // Load the stream.
+            if (isset($item['stream']) && !$item['stream'] instanceof Stream) {
+                $item['stream'] = Streams::make($item['stream']);
+            }
+
+            // Guess the title from the stream.
+            if (!isset($item['title'])) {
+                
+                if (isset($item['stream'])) {
+
+                    $item['title'] = $item['stream']->name ?: Str::title($item['stream']->handle);
+        
+                    continue;
+                }
+        
+                $item['title'] = Str::title($handle);
+            }
+        }
+
+        /**
+         * Foreach array defintion build
+         * a new prototype component.
+         */
+        foreach ($shortcuts as $parameters) {
+
+            $instance = new Shortcut($parameters);
+
+            $this->instance->shortcuts->put($instance->handle, $instance);
+        }
+        
+        $this->shortcuts = $shortcuts;
     }
 }
