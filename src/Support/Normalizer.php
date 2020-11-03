@@ -15,6 +15,48 @@ class Normalizer
 {
 
     /**
+     * Normalize the input to get rid of shorthand.
+     *
+     * @param array $input
+     * @param string $keyName
+     */
+    public static function normalize(array $input, $keyName = 'handle')
+    {
+        foreach ($input as $key => &$item) {
+
+            if (is_numeric($key) && is_string($item)) {
+                $item = [
+                    $keyName => $item,
+                ];
+            }
+
+            if (!is_numeric($key) && is_string($item)) {
+                $item = [
+                    $keyName => $key,
+                ];
+            }
+        }
+
+        return $input;
+    }
+
+    /**
+     * Fill with key replaces the provided attribute
+     * with the key if the attribuet is missing.
+     *
+     * @param array $input
+     * @param $attribute
+     */
+    public static function fillWithKey(array $input, $attribute)
+    {
+        foreach ($input as $key => &$item) {
+            $item[$attribute] = Arr::pull($item, $attribute, $key);
+        }
+
+        return $input;
+    }
+
+    /**
      * Normalize buttons.
      *
      * @param array $buttons

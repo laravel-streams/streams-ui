@@ -29,15 +29,15 @@ class BuildViews extends Workflow
      * @var array
      */
     protected $steps = [
-        'resolve_views' => ResolveComponents::class,
+        //'resolve_views' => ResolveComponents::class,
 
         DefaultViews::class,
         NormalizeViews::class,
 
         'merge_views' => MergeComponents::class,
 
-        'translate_views' => TranslateComponents::class,
-        'parse_views' => ParseComponents::class,
+        //'translate_views' => TranslateComponents::class,
+        //'parse_views' => ParseComponents::class,
 
         'build_views' => BuildComponents::class,
 

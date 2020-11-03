@@ -25,7 +25,7 @@ class BuildColumns extends Workflow
      * @var array
      */
     protected $steps = [
-        'resolve_columns' => ResolveComponents::class,
+        //'resolve_columns' => ResolveComponents::class,
 
         DefaultColumns::class,
         NormalizeColumns::class,

@@ -21,14 +21,14 @@ use Streams\Ui\ControlPanel\Component\Navigation\Workflows\Build\NormalizeNaviga
 class BuildNavigation extends Workflow
 {
     protected $steps = [
-        'resolve_navigation' => ResolveComponents::class,
+        //'resolve_navigation' => ResolveComponents::class,
 
         LoadNavigation::class,
         NormalizeNavigation::class,
         ExpandNavigation::class,
 
         'translate_navigation' => TranslateComponents::class,
-        'parse_navigation' => ParseComponents::class,
+        //'parse_navigation' => ParseComponents::class,
 
         'build_navigation' => BuildComponents::class,
     ];

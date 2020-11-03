@@ -29,7 +29,7 @@ class BuildActions extends Workflow
      * @var array
      */
     protected $steps = [
-        'resolve_actions' => ResolveComponents::class,
+        //'resolve_actions' => ResolveComponents::class,
 
         DefaultActions::class,
         NormalizeActions::class,
@@ -37,8 +37,8 @@ class BuildActions extends Workflow
 
         'merge_actions' => MergeComponents::class,
 
-        'translate_actions' => TranslateComponents::class,
-        'parse_actions' => ParseComponents::class,
+        //'translate_actions' => TranslateComponents::class,
+        //'parse_actions' => ParseComponents::class,
 
         'build_actions' => BuildComponents::class,
 

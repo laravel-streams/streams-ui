@@ -29,7 +29,7 @@ class BuildFilters extends Workflow
      * @var array
      */
     protected $steps = [
-        'resolve_filters' => ResolveComponents::class,
+        //'resolve_filters' => ResolveComponents::class,
 
         DefaultFilters::class,
         NormalizeFilters::class,
@@ -37,8 +37,8 @@ class BuildFilters extends Workflow
 
         'merge_filters' => MergeComponents::class,
 
-        'translate_filters' => TranslateComponents::class,
-        'parse_filters' => ParseComponents::class,
+        //'translate_filters' => TranslateComponents::class,
+        //'parse_filters' => ParseComponents::class,
 
         'build_filters' => BuildComponents::class,
 

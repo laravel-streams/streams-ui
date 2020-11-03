@@ -1,4 +1,4 @@
 {!! $button->open() !!}
 {{-- <i v-show="button.icon" :class="button.icon"></i> --}}
-{{ $button->text }}
+{{ __($button->text) }}
 {!! $button->close() !!}

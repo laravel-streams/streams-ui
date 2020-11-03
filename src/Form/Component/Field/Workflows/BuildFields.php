@@ -21,13 +21,13 @@ use Streams\Ui\Form\Component\Field\Workflows\Fields\NormalizeFields;
 class BuildFields extends Workflow
 {
     protected $steps = [
-        'resolve_fields' => ResolveComponents::class,
+        //'resolve_fields' => ResolveComponents::class,
 
         DefaultFields::class,
         NormalizeFields::class,
         
-        'translate_fields' => TranslateComponents::class,
-        'parse_fields' => ParseComponents::class,
+        //'translate_fields' => TranslateComponents::class,
+        //'parse_fields' => ParseComponents::class,
 
         'build_fields' => BuildComponents::class,
 

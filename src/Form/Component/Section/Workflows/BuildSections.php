@@ -21,15 +21,15 @@ use Streams\Ui\Form\Component\Section\Workflows\Sections\NormalizeSections;
 class BuildSections extends Workflow
 {
     protected $steps = [
-        'resolve_sections' => ResolveComponents::class,
+        //'resolve_sections' => ResolveComponents::class,
 
         //DefaultSections::class,
         //NormalizeSections::class,
 
         //'merge_sections' => MergeComponents::class,
 
-        'translate_sections' => TranslateComponents::class,
-        'parse_sections' => ParseComponents::class,
+        //'translate_sections' => TranslateComponents::class,
+        //'parse_sections' => ParseComponents::class,
 
         'build_sections' => BuildComponents::class,
         

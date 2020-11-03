@@ -21,14 +21,14 @@ use Streams\Ui\ControlPanel\Component\Shortcut\Workflows\Build\NormalizeShortcut
 class BuildShortcuts extends Workflow
 {
     protected $steps = [
-        'resolve_shortcuts' => ResolveComponents::class,
+        //'resolve_shortcuts' => ResolveComponents::class,
 
         LoadShortcuts::class,
         NormalizeShortcuts::class,
         ExpandShortcuts::class,
         
         'translate_shortcuts' => TranslateComponents::class,
-        'parse_shortcuts' => ParseComponents::class,
+        //'parse_shortcuts' => ParseComponents::class,
 
         'build_shortcuts' => BuildComponents::class,
     ];

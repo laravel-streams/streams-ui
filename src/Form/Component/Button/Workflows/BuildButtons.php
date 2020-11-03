@@ -28,7 +28,7 @@ class BuildButtons extends Workflow
      * @var array
      */
     protected $steps = [
-        'resolve_buttons' => ResolveComponents::class,
+        //'resolve_buttons' => ResolveComponents::class,
 
         DefaultButtons::class,
         NormalizeButtons::class,
@@ -36,8 +36,8 @@ class BuildButtons extends Workflow
 
         'merge_buttons' => MergeComponents::class,
 
-        'translate_buttons' => TranslateComponents::class,
-        'parse_buttons' => ParseComponents::class,
+        //'translate_buttons' => TranslateComponents::class,
+        //'parse_buttons' => ParseComponents::class,
 
         'build_buttons' => BuildComponents::class,
     ];

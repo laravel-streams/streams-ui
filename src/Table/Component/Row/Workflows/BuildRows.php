@@ -24,7 +24,7 @@ class BuildRows extends Workflow
      * @var array
      */
     protected $steps = [
-        'resolve_rows' => ResolveComponents::class,
+        //'resolve_rows' => ResolveComponents::class,
 
         DefaultRows::class,
 
