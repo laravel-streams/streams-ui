@@ -44,49 +44,33 @@ class ControlPanelBuilder extends Builder
                 [$this, 'buildNavigation'],
                 [$this, 'buildShortcuts'],
             ],
-
-            'workflows' => [
-                //'build' => BuildControlPanel::class,
-                'navigation' => BuildNavigation::class,
-                //'shortcuts' => BuildShortcuts::class,
-            ],
         ], $attributes));
     }
 
     public function buildNavigation()
     {
-        if ($this->navigation === false) {
-            return;
-        }
-
-        /**
-         * If no navigation is set
-         * then make a navigation
-         * item for each stream.
-         */
         $navigation = Streams::entries('cp.navigation')
             ->orderBy('sort_order', 'asc')
             ->orderBy('handle', 'asc')
             ->get()
             ->toArray();
 
-        
-        $navigation = Normalizer::fillWithAttribute($navigation, 'handle', 'id');
 
-        $navigation = Normalizer::attributes($navigation);
-        
+        $navigation = Normalizer::fillWithAttribute($navigation, 'handle', 'id');
+        $navigation = Normalizer::htmlAttributes($navigation);
+
         foreach ($navigation as $handle => &$item) {
 
             // Guess the title from the stream.
             if (!isset($item['title'])) {
-                
+
                 if (isset($item['stream'])) {
 
                     $item['title'] = $item['stream']->name ?: Str::title($item['stream']->handle);
-        
+
                     continue;
                 }
-        
+
                 $item['title'] = Str::title($handle);
             }
         }
@@ -107,30 +91,21 @@ class ControlPanelBuilder extends Builder
 
     public function buildShortcuts()
     {
-        if ($this->shortcuts === false) {
-            return;
-        }
-
         $shortcuts = Streams::entries('cp.shortcuts')
             ->orderBy('sort_order', 'asc')
             ->get()
             ->toArray();
 
         $shortcuts = Normalizer::fillWithAttribute($shortcuts, 'handle', 'id');
+        $shortcuts = Normalizer::htmlAttributes($shortcuts);
 
-        $shortcuts = Normalizer::attributes($shortcuts);
+        array_map(function ($attributes) {
+            $this->instance->shortcuts->put(
+                $attributes['handle'],
+                new Shortcut($attributes)
+            );
+        }, $shortcuts);
 
-        /**
-         * Foreach array defintion build
-         * a new prototype component.
-         */
-        foreach ($shortcuts as $parameters) {
-
-            $instance = new Shortcut($parameters);
-
-            $this->instance->shortcuts->put($instance->handle, $instance);
-        }
-        
         $this->shortcuts = $shortcuts;
     }
 }

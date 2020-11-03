@@ -127,6 +127,18 @@ class Normalizer
      * @param array $default
      * @return array
      */
+    public static function htmlAttributes(array $input, array $default = [])
+    {
+        return self::attributes($input, $default);
+    }
+
+    /**
+     * Normalize HTML attributes.
+     *
+     * @param array $input
+     * @param array $default
+     * @return array
+     */
     public static function attributes(array $input, array $default = [])
     {
         foreach ($input as $key => &$item) {
