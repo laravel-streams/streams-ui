@@ -62,6 +62,15 @@ class Builder
         return $this;
     }
 
+    public function make()
+    {
+        $parameters = $this->getPrototypeAttributes();
+
+        $abstract = Arr::pull($parameters, $this->component);
+
+        $this->{$this->component} = new $abstract($parameters);
+    }
+
     public function response(): HttpFoundationResponse
     {
         $this->build();
@@ -100,10 +109,12 @@ class Builder
 
     protected function workflow($name): Workflow
     {
-        $workflow = Arr::get($this->workflows, $name);
+        $workflow = Arr::get($this->workflows, $name, $name);
 
         if (!class_exists($workflow)) {
-            throw new \Exception("Workflow [{$name}] does not exist.");
+            return (new Workflow($this->steps ?: []))
+                ->setPrototypeAttribute('name', $name)
+                ->passThrough($this);
         }
 
         return (new $workflow)
