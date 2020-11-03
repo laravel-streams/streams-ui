@@ -2,8 +2,12 @@
 
 namespace Streams\Ui\ControlPanel;
 
+use Illuminate\Support\Str;
 use Streams\Ui\Support\Builder;
-use Streams\Ui\ControlPanel\Workflows\BuildControlPanel;
+use Streams\Core\Stream\Stream;
+use Streams\Ui\Support\Normalizer;
+use Streams\Core\Support\Facades\Streams;
+use Streams\Ui\ControlPanel\Component\Navigation\NavigationLink;
 use Streams\Ui\ControlPanel\Component\Shortcut\Workflows\BuildShortcuts;
 use Streams\Ui\ControlPanel\Component\Navigation\Workflows\BuildNavigation;
 
@@ -26,20 +30,100 @@ class ControlPanelBuilder extends Builder
     protected function initializePrototype(array $attributes)
     {
         return parent::initializePrototype(array_merge([
-            'assets' => [],
-
+            'stream' => null,
             'options' => [],
-            
+
             'navigation' => [],
 
             'component' => 'control_panel',
             'control_panel' => ControlPanel::class,
 
+            'steps' => [
+                [$this, 'make'],
+                [$this, 'buildNavigation'],
+
+                //\Streams\Ui\ControlPanel\Workflows\Build\BuildNavigation::class,
+                \Streams\Ui\ControlPanel\Workflows\Build\BuildShortcuts::class,
+            ],
+
             'workflows' => [
-                'build' => BuildControlPanel::class,
+                //'build' => BuildControlPanel::class,
                 'navigation' => BuildNavigation::class,
                 'shortcuts' => BuildShortcuts::class,
             ],
         ], $attributes));
+    }
+
+    public function buildNavigation()
+    {
+        if ($this->navigation === false) {
+            return;
+        }
+
+        /**
+         * If no navigation is set
+         * then make a navigation
+         * item for each stream.
+         */
+        $navigation = Streams::entries('cp.navigation')
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('handle', 'asc')
+            ->get()
+            ->toArray();
+
+        
+        foreach ($navigation as $handle => &$item) {
+
+            // Default the handle.
+            if (!isset($item['handle']) && isset($item['id'])) {
+                $item['handle'] = $item['id'];
+            }
+
+            // Default the handle more.
+            if (!isset($item['handle']) && !is_numeric($handle)) {
+                $item['handle'] = $handle;
+            }
+
+            // Default the stream for now.
+            if (!isset($item['stream']) && Streams::has($item['handle'])) {
+                $item['stream'] = $item['handle'];
+            }
+        }
+
+        $navigation = Normalizer::attributes($navigation);
+        
+        foreach ($navigation as $handle => &$item) {
+
+            // Load the stream.
+            if (isset($item['stream']) && !$item['stream'] instanceof Stream) {
+                $item['stream'] = Streams::make($item['stream']);
+            }
+
+            // Guess the title from the stream.
+            if (!isset($item['title'])) {
+                
+                if (isset($item['stream'])) {
+
+                    $item['title'] = $item['stream']->name ?: Str::title($item['stream']->handle);
+        
+                    return;
+                }
+        
+                $item['title'] = Str::title($handle);
+            }
+        }
+
+        /**
+         * Foreach array defintion build
+         * a new prototype component.
+         */
+        foreach ($navigation as $parameters) {
+
+            $instance = new NavigationLink($parameters);
+
+            $this->instance->navigation->put($instance->handle, $instance);
+        }
+
+        $this->navigation = $navigation;
     }
 }
