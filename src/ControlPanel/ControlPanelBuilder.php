@@ -71,32 +71,11 @@ class ControlPanelBuilder extends Builder
             ->toArray();
 
         
-        foreach ($navigation as $handle => &$item) {
-
-            // Default the handle.
-            if (!isset($item['handle']) && isset($item['id'])) {
-                $item['handle'] = $item['id'];
-            }
-
-            // Default the handle more.
-            if (!isset($item['handle']) && !is_numeric($handle)) {
-                $item['handle'] = $handle;
-            }
-
-            // Default the stream for now.
-            if (!isset($item['stream']) && Streams::has($item['handle'])) {
-                $item['stream'] = $item['handle'];
-            }
-        }
+        $navigation = Normalizer::fillWithAttribute($navigation, 'handle', 'id');
 
         $navigation = Normalizer::attributes($navigation);
         
         foreach ($navigation as $handle => &$item) {
-
-            // Load the stream.
-            if (isset($item['stream']) && !$item['stream'] instanceof Stream) {
-                $item['stream'] = Streams::make($item['stream']);
-            }
 
             // Guess the title from the stream.
             if (!isset($item['title'])) {
@@ -137,46 +116,9 @@ class ControlPanelBuilder extends Builder
             ->get()
             ->toArray();
 
-        foreach ($shortcuts as $handle => &$item) {
-
-            // Default the handle.
-            if (!isset($item['handle']) && isset($item['id'])) {
-                $item['handle'] = $item['id'];
-            }
-
-            // Default the handle more.
-            if (!isset($item['handle']) && !is_numeric($handle)) {
-                $item['handle'] = $handle;
-            }
-
-            // Default the stream for now.
-            if (!isset($item['stream']) && Streams::has($item['handle'])) {
-                $item['stream'] = $item['handle'];
-            }
-        }
+        $shortcuts = Normalizer::fillWithAttribute($shortcuts, 'handle', 'id');
 
         $shortcuts = Normalizer::attributes($shortcuts);
-
-        foreach ($shortcuts as $handle => &$item) {
-
-            // Load the stream.
-            if (isset($item['stream']) && !$item['stream'] instanceof Stream) {
-                $item['stream'] = Streams::make($item['stream']);
-            }
-
-            // Guess the title from the stream.
-            if (!isset($item['title'])) {
-                
-                if (isset($item['stream'])) {
-
-                    $item['title'] = $item['stream']->name ?: Str::title($item['stream']->handle);
-        
-                    continue;
-                }
-        
-                $item['title'] = Str::title($handle);
-            }
-        }
 
         /**
          * Foreach array defintion build
