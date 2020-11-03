@@ -33,7 +33,7 @@ class NavigationLink extends Component
             'active' => false,
             //'favorite' => false,
             
-            //'buttons' => [],
+            'buttons' => [],
         ], $attributes));
     }
 }
