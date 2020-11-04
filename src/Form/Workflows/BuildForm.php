@@ -10,7 +10,6 @@ use Streams\Ui\Form\Workflows\Build\SetEntry;
 use Streams\Ui\Form\Workflows\Build\LoadValues;
 use Streams\Ui\Form\Workflows\Build\QueryEntry;
 use Streams\Ui\Support\Workflows\MakeComponent;
-use Streams\Ui\Support\Workflows\SetRepository;
 use Streams\Ui\Form\Workflows\Build\BuildFields;
 use Streams\Ui\Support\Workflows\LoadBreadcrumb;
 use Streams\Ui\Form\Workflows\Build\BuildActions;
@@ -40,7 +39,6 @@ class BuildForm extends Workflow
         LoadAssets::class,
         LoadBreadcrumb::class,        
         
-        SetRepository::class,
         QueryEntry::class,
         SetEntry::class,
         

@@ -35,9 +35,9 @@ class SetEntry
          * Fallback to using the repository 
          * to get and/or paginate the results.
          */
-        if ($builder->repository instanceof RepositoryInterface) {
+        if ($builder->repository() instanceof RepositoryInterface) {
 
-            $builder->entry = $builder->instance->entry = $builder->repository->newInstance();
+            $builder->entry = $builder->instance->entry = $builder->repository()->newInstance();
 
             return;
         }

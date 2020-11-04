@@ -3,11 +3,14 @@
 namespace Streams\Ui\Form;
 
 use Streams\Ui\Form\Form;
+use Streams\Core\Stream\Stream;
 use Streams\Ui\Support\Builder;
+use Illuminate\Support\Facades\App;
 use Streams\Ui\Form\Command\SaveForm;
 use Streams\Ui\Form\Workflows\BuildForm;
 use Streams\Ui\Form\Workflows\QueryForm;
 use Streams\Ui\Form\Workflows\ValidateForm;
+use Streams\Core\Repository\Contract\RepositoryInterface;
 use Streams\Ui\Form\Component\Field\Workflows\BuildFields;
 use Streams\Ui\Form\Component\Action\Workflows\BuildActions;
 use Streams\Ui\Form\Component\Button\Workflows\BuildButtons;
@@ -81,6 +84,36 @@ class FormBuilder extends Builder
 
             $builder->entry = $builder->instance->entry = $entry;
         };
+    }
+
+    /**
+     * Return the repository.
+     *
+     * @return RepositoryInterface
+     */
+    public function repository()
+    {
+        if ($this->repository instanceof RepositoryInterface) {
+            return $this->repository;
+        }
+
+        /**
+         * Default to configured.
+         */
+        if ($this->repository) {
+            return $this->repository = App::make($this->repository, [
+                'builder' => $this,
+            ]);
+        }
+
+        /**
+         * Fallback for Streams.
+         */
+        if (!$this->repository && $this->stream instanceof Stream) {
+            return $this->repository = $this->stream->repository();
+        }
+
+        return null;
     }
 
     public function validate(): Builder

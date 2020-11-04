@@ -59,7 +59,7 @@ class QueryEntry
          * Fallback to using the repository 
          * to get and/or paginate the results.
          */
-        if ($builder->repository instanceof RepositoryInterface) {
+        if ($builder->repository() instanceof RepositoryInterface) {
 
             $workflow = Arr::get($builder->workflows, 'query');
 
