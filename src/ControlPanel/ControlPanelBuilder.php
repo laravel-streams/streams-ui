@@ -38,74 +38,7 @@ class ControlPanelBuilder extends Builder
 
             'component' => 'control_panel',
             'control_panel' => ControlPanel::class,
-
-            'steps' => [
-                [$this, 'make'],
-                [$this, 'buildNavigation'],
-                [$this, 'buildShortcuts'],
-            ],
+            'workflow' => ControlPanelWorkflow::class,
         ], $attributes));
-    }
-
-    public function buildNavigation()
-    {
-        $navigation = Streams::entries('cp.navigation')
-            ->orderBy('sort_order', 'asc')
-            ->orderBy('handle', 'asc')
-            ->get()
-            ->toArray();
-
-
-        $navigation = Normalizer::fillWithAttribute($navigation, 'handle', 'id');
-        $navigation = Normalizer::htmlAttributes($navigation);
-
-        foreach ($navigation as $handle => &$item) {
-
-            // Guess the title from the stream.
-            if (!isset($item['title'])) {
-
-                if (isset($item['stream'])) {
-
-                    $item['title'] = $item['stream']->name ?: Str::title($item['stream']->handle);
-
-                    continue;
-                }
-
-                $item['title'] = Str::title($handle);
-            }
-        }
-
-        /**
-         * Foreach array defintion build
-         * a new prototype component.
-         */
-        foreach ($navigation as $parameters) {
-
-            $instance = new NavigationLink($parameters);
-
-            $this->instance->navigation->put($instance->handle, $instance);
-        }
-
-        $this->navigation = $navigation;
-    }
-
-    public function buildShortcuts()
-    {
-        $shortcuts = Streams::entries('cp.shortcuts')
-            ->orderBy('sort_order', 'asc')
-            ->get()
-            ->toArray();
-
-        $shortcuts = Normalizer::fillWithAttribute($shortcuts, 'handle', 'id');
-        $shortcuts = Normalizer::htmlAttributes($shortcuts);
-
-        array_map(function ($attributes) {
-            $this->instance->shortcuts->put(
-                $attributes['handle'],
-                new Shortcut($attributes)
-            );
-        }, $shortcuts);
-
-        $this->shortcuts = $shortcuts;
     }
 }

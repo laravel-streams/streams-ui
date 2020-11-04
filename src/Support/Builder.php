@@ -112,6 +112,10 @@ class Builder
         $workflow = Arr::get($this->workflows, $name, $name);
 
         if (!class_exists($workflow)) {
+            $workflow = $this->workflow;
+        }
+
+        if (!$workflow) {
             return (new Workflow($this->steps ?: []))
                 ->setPrototypeAttribute('name', $name)
                 ->passThrough($this);
