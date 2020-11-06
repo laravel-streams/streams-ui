@@ -46,6 +46,12 @@ class Form extends Component
                 'type' => 'collection',
             ],
     
+            'errors' => [
+                'type' => 'collection',
+                'config' => [
+                    'abstract' => MessageBag::class,
+                ],
+            ],
             'fields' => [
                 'type' => 'collection',
                 'config' => [
@@ -79,20 +85,20 @@ class Form extends Component
             'mode' => null,
             'entry' => null,
             
-            'handler' => FormHandler::class,
+            //'handler' => FormHandler::class, // Action sets this
 
-            'values' => new Collection(),
-            'options' => new Collection(),
+            'errors' => [],
 
-            'rules' => new Collection(),
-            'validators' => new Collection(),
+            'values' => [],
+            'options' => [],
 
-            'errors' => new MessageBag(),
+            'rules' => [],
+            'validators' => [],
 
-            'fields' => new FieldCollection(),
-            'actions' => new ActionCollection(),
-            'buttons' => new ButtonCollection(),
-            'sections' => new SectionCollection(),
+            'fields' => [],
+            'actions' => [],
+            'buttons' => [],
+            'sections' => [],
         ], $attributes));
     }
 
