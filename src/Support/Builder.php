@@ -3,12 +3,13 @@
 namespace Streams\Ui\Support;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Http\JsonResponse;
+use Streams\Core\Support\Workflow;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Traits\Macroable;
-use Streams\Core\Support\Workflow;
 use Streams\Core\Support\Traits\Prototype;
 use Streams\Core\Support\Traits\FiresCallbacks;
 use Streams\Ui\ControlPanel\ControlPanelBuilder;
@@ -124,6 +125,16 @@ class Builder
         return (new $workflow)
             ->setPrototypeAttribute('name', $name)
             ->passThrough($this);
+    }
+
+    protected function loadInstanceWith($key, $input, $abstract)
+    {
+        return array_map(function ($attributes) use ($key, $abstract) {
+            
+            $abstract = Arr::pull($attributes, 'abstract', $abstract);
+
+            $this->instance->{$key}->put($attributes['handle'], new $abstract($attributes));
+        }, $input);
     }
 
     public function __get($key)

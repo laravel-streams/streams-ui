@@ -3,6 +3,7 @@
 namespace Streams\Ui\Table;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Streams\Ui\Table\Table;
 use Streams\Ui\Button\Button;
 use Streams\Ui\Support\Value;
@@ -23,10 +24,12 @@ use Streams\Ui\Table\Component\Button\ButtonRegistry;
 use Streams\Ui\Table\Component\Filter\FilterRegistry;
 use Streams\Ui\Table\Component\Row\Workflows\BuildRows;
 use Streams\Core\Repository\Contract\RepositoryInterface;
+use Streams\Ui\Support\Component;
 use Streams\Ui\Table\Component\Action\Workflows\BuildActions;
 use Streams\Ui\Table\Component\Button\Workflows\BuildButtons;
 use Streams\Ui\Table\Component\Column\Workflows\BuildColumns;
 use Streams\Ui\Table\Component\Filter\Workflows\BuildFilters;
+use Streams\Ui\Table\Component\Row\Row;
 
 /**
  * Class TableBuilder
@@ -144,9 +147,7 @@ class TableBuilder extends Builder
             }
         }
 
-        array_map(function ($attributes) {
-            $this->instance->views->put($attributes['handle'], new View($attributes));
-        }, $views);
+        $this->loadInstanceWith('views', $views, View::class);
 
         $this->views = $views;
     }
@@ -239,9 +240,7 @@ class TableBuilder extends Builder
             }
         }
 
-        array_map(function ($attributes) {
-            $this->instance->filters->put($attributes['handle'], new Filter($attributes));
-        }, $filters);
+        $this->loadInstanceWith('filters', $filters, Filter::class);
 
         $this->filters = $filters;
     }
@@ -331,10 +330,8 @@ class TableBuilder extends Builder
             }
         }
 
-        array_map(function ($attributes) {
-            $this->instance->actions->put($attributes['handle'], new Action($attributes));
-        }, $actions);
-
+        $this->loadInstanceWith('actions', $actions, Action::class);
+        
         $this->actions = $actions;
     }
 
@@ -367,9 +364,7 @@ class TableBuilder extends Builder
 
         $buttons = Normalizer::attributes($buttons);
 
-        array_map(function ($attributes) {
-            $this->instance->buttons->put($attributes['handle'], new Button($attributes));
-        }, $buttons);
+        $this->loadInstanceWith('buttons', $buttons, Button::class);
 
         $this->buttons = $buttons;
     }
@@ -392,9 +387,7 @@ class TableBuilder extends Builder
 
         $columns = Normalizer::attributes($columns);
 
-        array_map(function ($attributes) {
-            $this->instance->columns->put($attributes['handle'], new Column($attributes));
-        }, $columns);
+        $this->loadInstanceWith('columns', $columns, Column::class);
 
         $this->columns = $columns;
     }
@@ -420,9 +413,7 @@ class TableBuilder extends Builder
 
         $rows = Normalizer::attributes($rows);
 
-        array_map(function ($attributes) {
-            $this->instance->rows->put($attributes['handle'], new Column($attributes));
-        }, $rows);
+        $this->loadInstanceWith('rows', $rows, Row::class);
 
         $this->instance->rows->each(function ($row) {
             
