@@ -47,48 +47,37 @@ class Value
 
         $value = Arr::get($parameters, 'value');
 
-        /*
-         * If the value is a view path then return a view.
-         */
+        // Return views.
         if ($view = Arr::get($parameters, 'view')) {
-            return view($view, ['value' => $value, $term => $entry])->render();
+            return View::make($view, ['value' => $value, $term => $entry])->render();
         }
 
         /*
          * If the value uses a template then parse it.
          */
         if ($template = Arr::get($parameters, 'template')) {
-            return (string) View::render($template, ['value' => $value, $term => $entry]);
+            return View::parse($template, ['value' => $value, $term => $entry])->render();
         }
 
-        /*
-         * If the entry is an object then try
-         * getting the field value from the entry.
+        /**
+         * Check for basic entry attribute values.
          */
-        if (is_object($entry) && isset($entry->{$value})) {
+        if (is_object($entry) && $entry->{$value}) {
             $value = $entry->{$value};
         }
 
-        /*
-         * By default we can just pass the value through
-         * the evaluator utility and be done with it.
+        /**
+         * If the value is parsable
+         * then try parsing it.
          */
-        $value = Evaluator::evaluate($value, $payload);
+        if (is_string($value) && Str::contains($value, ['{', '.'])) {
 
-        /*
-         * Parse the value with the value too.
-         */
-        if (is_string($value)) {
+            $value = Str::parse($value, [
+                'value' => $value,
+                $term   => $entry,
+            ]);
 
-            $value = Str::parse(
-                $value,
-                [
-                    'value' => $value,
-                    $term   => $entry,
-                ]
-            );
-
-            $value = data_get([$term => $entry], $value, $value);
+            //$value = data_get([$term => $entry], $value, $value);
         }
 
         /*
@@ -99,30 +88,23 @@ class Value
             $value = trans($value);
         }
 
+        /*
+         * Parse the wrapper with 
+         * the value and the entry.
+         */
+        if ($wrapper = Arr::get($parameters, 'wrapper')) {
+            $value = Str::parse($wrapper, [
+                'value' => $value,
+                $term => $entry
+            ]);
+        }
+
         /**
          * If the value is not explicitly marked 
          * safe then escape it automatically.
          */
         if (is_string($value) && Arr::get($parameters, 'is_safe') !== true) {
             $value = Str::purify($value);
-        }
-
-        /*
-         * If the value looks like a render-able
-         * string then render it.
-         */
-        if (is_string($value) && Str::contains($value, ['{{', '<?php'])) {
-            $value = (string) View::parse($value, [$term => $entry]);
-        }
-
-        /*
-         * Parse the value with the entry.
-         */
-        if ($wrapper = Arr::get($parameters, 'wrapper')) {
-            $value = Str::parse(
-                $wrapper,
-                ['value' => $value, $term => $entry]
-            );
         }
 
         return $value;

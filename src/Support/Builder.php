@@ -40,7 +40,7 @@ class Builder
     public function build(): Builder
     {
         if ($this->instance instanceof Component) {
-            $this->instance;
+            return $this;
         }
 
         $this->fire('ready', ['builder' => $this]);
@@ -64,9 +64,9 @@ class Builder
 
     public function make()
     {
-        $parameters = $this->getPrototypeAttributes();
+        $parameters = [];//$this->getPrototypeAttributes();
 
-        $abstract = Arr::pull($parameters, $this->component);
+        $abstract = $this->getPrototypeAttribute($this->component);
 
         $this->{$this->component} = new $abstract($parameters);
     }

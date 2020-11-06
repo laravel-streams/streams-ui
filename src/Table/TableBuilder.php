@@ -2,8 +2,10 @@
 
 namespace Streams\Ui\Table;
 
-use Streams\Ui\Table\Table;
 use Illuminate\Support\Arr;
+use Streams\Ui\Table\Table;
+use Streams\Ui\Button\Button;
+use Streams\Ui\Support\Value;
 use Streams\Core\Stream\Stream;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Support\Normalizer;
@@ -11,17 +13,17 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Request;
 use Streams\Ui\Table\Component\View\View;
 use Streams\Ui\Table\Workflows\QueryTable;
-use Streams\Ui\Table\Component\Filter\Filter;
 use Streams\Ui\Table\Component\Action\Action;
+use Streams\Ui\Table\Component\Column\Column;
+use Streams\Ui\Table\Component\Filter\Filter;
 use Streams\Ui\Table\Component\View\ViewHandler;
 use Streams\Ui\Table\Component\View\ViewRegistry;
 use Streams\Ui\Table\Component\Action\ActionRegistry;
+use Streams\Ui\Table\Component\Button\ButtonRegistry;
 use Streams\Ui\Table\Component\Filter\FilterRegistry;
 use Streams\Ui\Table\Component\Row\Workflows\BuildRows;
 use Streams\Core\Repository\Contract\RepositoryInterface;
-use Streams\Ui\Button\Button;
 use Streams\Ui\Table\Component\Action\Workflows\BuildActions;
-use Streams\Ui\Table\Component\Button\ButtonRegistry;
 use Streams\Ui\Table\Component\Button\Workflows\BuildButtons;
 use Streams\Ui\Table\Component\Column\Workflows\BuildColumns;
 use Streams\Ui\Table\Component\Filter\Workflows\BuildFilters;
@@ -210,6 +212,7 @@ class TableBuilder extends Builder
     public function makeFilters()
     {
         $filters = $this->filters;
+        $stream = $this->stream;
 
         $filters = Normalizer::fillWithKey($filters, 'handle');
         $filters = Normalizer::fillWithKey($filters, 'filter');
@@ -223,17 +226,18 @@ class TableBuilder extends Builder
                 $attributes = array_replace_recursive($registered, $attributes);
             }
         }
+        
+        if ($stream) {
+            
+            foreach ($filters as &$filter) {
 
-        // foreach ($filters as &$filter) {
+                if (!isset($filter['field'])) {
+                    continue;
+                }
 
-        //     if (!$stream) {
-        //         continue;
-        //     }
-
-        //     if (isset($filter['field'])) {
-        //         $filter['field'] = $stream->fields->{$filter['field']};
-        //     }
-        // }
+                $filter['field'] = $stream->fields->{$filter['field']};
+            }
+        }
 
         array_map(function ($attributes) {
             $this->instance->filters->put($attributes['handle'], new Filter($attributes));
@@ -314,10 +318,11 @@ class TableBuilder extends Builder
     public function makeActions()
     {
         $actions = $this->actions;
+
         $actions = Normalizer::normalize($actions);
         $actions = Normalizer::fillWithKey($actions, 'handle');
         $actions = Normalizer::fillWithAttribute($actions, 'action', 'handle');
-        
+
         $registry = app(ActionRegistry::class);
 
         foreach ($actions as &$attributes) {
@@ -325,10 +330,11 @@ class TableBuilder extends Builder
                 $attributes = array_replace_recursive($registered, $attributes);
             }
         }
-        
+
         array_map(function ($attributes) {
             $this->instance->actions->put($attributes['handle'], new Action($attributes));
         }, $actions);
+
         $this->actions = $actions;
     }
 
@@ -362,9 +368,88 @@ class TableBuilder extends Builder
         $buttons = Normalizer::attributes($buttons);
 
         array_map(function ($attributes) {
-            $this->instance->filters->put($attributes['handle'], new Button($attributes));
+            $this->instance->buttons->put($attributes['handle'], new Button($attributes));
         }, $buttons);
-dd($this->buttons);
+
         $this->buttons = $buttons;
+    }
+
+    public function makeColumns()
+    {
+        $columns = $this->columns;
+
+        $columns = Normalizer::normalize($columns);
+        $columns = Normalizer::fillWithKey($columns, 'handle');
+        $columns = Normalizer::fillWithAttribute($columns, 'value', 'handle');
+
+        // $registry = app(ColumnRegistry::class);
+
+        // foreach ($columns as &$attributes) {
+        //     if ($registered = $registry->get(Arr::pull($attributes, 'column'))) {
+        //         $attributes = array_replace_recursive($registered, $attributes);
+        //     }
+        // }
+
+        $columns = Normalizer::attributes($columns);
+
+        array_map(function ($attributes) {
+            $this->instance->columns->put($attributes['handle'], new Column($attributes));
+        }, $columns);
+
+        $this->columns = $columns;
+    }
+
+    public function makeRows()
+    {
+        $this->rows = $rows = $this->instance->entries->map(function ($entry) {
+            return [
+                'handle' => $entry->id,
+                'key' => $entry->id,
+
+                'entry' => $entry,
+                'table' => $this->instance,
+
+                'columns' => $this->instance->columns->map(function ($column) {
+                    return clone ($column);
+                }),
+                'buttons' => $this->instance->buttons->map(function ($button) {
+                    return clone ($button);
+                }),
+            ];
+        })->all();
+
+        $rows = Normalizer::attributes($rows);
+
+        array_map(function ($attributes) {
+            $this->instance->rows->put($attributes['handle'], new Column($attributes));
+        }, $rows);
+
+        $this->instance->rows->each(function ($row) {
+            
+            // Load Columns
+            foreach ($this->instance->columns as $key => $column) {
+
+                $clone = clone ($column);
+
+                $clone->value = Value::make($clone->value, $row->entry);
+
+                $row->columns->put($key, $clone);
+            }
+
+            // Load Buttons
+            foreach ($this->instance->buttons as $button) {
+
+                $clone = clone ($button);
+
+                $clone->setPrototypeAttributes(Arr::parse($button->getPrototypeAttributes(), [
+                    'entry' => $row->entry,
+                    'stream' => $this->stream,
+                ]));
+
+                $row->buttons->put($clone->handle, $clone);
+            }
+        });
+
+        $this->rows = $rows;
     }
 }
