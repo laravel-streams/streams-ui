@@ -153,7 +153,7 @@ class UiServiceProvider extends ServiceProvider
                 'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
             ]);
 
-            Route::streams('{stream}/update/{entry}', [ // @todo Configure this later
+            Route::streams('{stream}/{entry}/edit', [ // @todo Configure this later
                 'as' => 'ui::cp.update',
                 'ui.component' => 'form',
                 'uses' => '\Streams\Ui\Http\Controller\CpController@handle',

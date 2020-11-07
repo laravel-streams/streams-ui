@@ -32,7 +32,7 @@ class Normalizer
 
             if (!is_numeric($key) && is_string($item)) {
                 $item = [
-                    $keyName => $key,
+                    $keyName => $item,
                 ];
             }
         }

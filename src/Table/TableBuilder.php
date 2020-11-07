@@ -300,9 +300,8 @@ class TableBuilder extends Builder
     {
         $actions = $this->actions;
 
-        $actions = Normalizer::normalize($actions);
+        $actions = Normalizer::normalize($actions, 'action');
         $actions = Normalizer::fillWithKey($actions, 'handle');
-        $actions = Normalizer::fillWithAttribute($actions, 'action', 'handle');
 
         $registry = app(ActionRegistry::class);
 
