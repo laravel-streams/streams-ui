@@ -319,7 +319,7 @@ class FormBuilder extends Builder
         }
 
         $this->loadInstanceWith('buttons', $buttons, Button::class);
-
+        
         $this->buttons = $buttons;
     }
 

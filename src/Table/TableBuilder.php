@@ -3,6 +3,7 @@
 namespace Streams\Ui\Table;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Streams\Ui\Table\Table;
 use Streams\Ui\Button\Button;
 use Streams\Ui\Support\Value;
@@ -303,14 +304,19 @@ class TableBuilder extends Builder
     {
         $actions = $this->actions;
 
-        $actions = Normalizer::normalize($actions, 'action');
-        $actions = Normalizer::fillWithKey($actions, 'handle');
+        $actions = Normalizer::normalize($actions, 'handle');
+        $actions = Normalizer::fillWithAttribute($actions, 'action', 'handle');
 
         $registry = app(ActionRegistry::class);
 
         foreach ($actions as &$attributes) {
+            
             if ($registered = $registry->get(Arr::pull($attributes, 'action'))) {
                 $attributes = array_replace_recursive($registered, $attributes);
+            }
+
+            if (!isset($attributes['text'])) {
+                $attributes['text'] = ucwords(Str::humanize($attributes['handle']));
             }
         }
 
