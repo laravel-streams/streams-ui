@@ -3,38 +3,6 @@
 @tailwind utilities;
 @tailwind components;
 
-@import '~easymde/dist/easymde.min.css';
-
 @import "root";
 
-@import "core/fonts";
-@import "core/sections";
-
-@import "components/tabs";
-@import "components/forms";
-@import "components/fields";
-@import "components/inputs";
-@import "components/modals";
-@import "components/tables";
-@import "components/buttons";
-@import "components/messages";
-@import "components/dropdowns";
-
-@import "layout/app";
-@import "layout/main";
-@import "layout/header";
-@import "layout/footer";
-@import "layout/actions";
-@import "layout/content";
-@import "layout/sidebar";
-
-
-.svg-fill-white {
-    path {
-        fill: white;
-    }
-}
-
-button {
-    line-height: 1.15;
-}
+// Do yer thing.
