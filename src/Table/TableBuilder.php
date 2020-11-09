@@ -260,7 +260,10 @@ class TableBuilder extends Builder
             */
             $query = $filter->query ?: [$filter, 'query'];
 
-            App::call($query, compact('builder', 'filter'), 'handle');
+            App::call($query, [
+                'builder' => $this,
+                'filter' => $filter,
+            ], 'handle');
         }
 
         /**
