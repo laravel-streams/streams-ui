@@ -9,6 +9,7 @@ use Streams\Ui\Support\Builder;
 use Streams\Ui\Support\Normalizer;
 use Streams\Ui\Button\ButtonRegistry;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\ControlPanel\ControlPanel;
@@ -143,6 +144,7 @@ class ControlPanelBuilder extends Builder
             return;
         }
 
+        $stream = $active->stream;
         $buttons = $active->buttons;
 
         $buttons = Normalizer::normalize($buttons);
@@ -167,7 +169,7 @@ class ControlPanelBuilder extends Builder
 
             switch ($attributes['handle']) {
                 case 'create':
-                    $attributes['attributes']['href'] = Request::fullUrl() . '/create';
+                    $attributes['attributes']['href'] = $active->url() . '/create';
                     break;
 
                 default:
