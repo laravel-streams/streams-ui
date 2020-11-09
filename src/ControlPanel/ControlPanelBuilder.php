@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\ControlPanel;
 
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Support\Normalizer;
@@ -36,7 +37,10 @@ class ControlPanelBuilder extends Builder
 
             'steps' => [
                 'make_control_panel' => [$this, 'makeControlPanel'],
+                
                 'make_navigation' => [$this, 'makeNavigation'],
+                'detect_navigation' => [$this, 'detectNavigation'],
+
                 'make_shortcuts' => [$this, 'makeShortcuts'],
             ],
 
@@ -73,6 +77,30 @@ class ControlPanelBuilder extends Builder
         }, $navigation);
 
         $this->navigation = $navigation;
+    }
+
+    public function detectNavigation()
+    {
+        $match = null;
+
+        $url = Request::fullUrl();
+
+        foreach ($this->instance->navigation as $link) {
+
+            if (!Str::contains($url, $link->url())) {
+                continue;
+            }
+
+            if ($match && strlen($link->url() > strlen($match->url()))) {
+                $match = $link;
+            }
+
+            $match = $link;
+        }
+
+        if ($match) {
+            $match->active = true;
+        }
     }
 
     public function makeShortcuts()

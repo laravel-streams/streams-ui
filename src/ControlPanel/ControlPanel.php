@@ -27,6 +27,12 @@ class ControlPanel extends Component
     protected function initializePrototype(array $attributes)
     {
         $this->loadPrototypeProperties([
+            'buttons' => [
+                'type' => 'collection',
+                'config' => [
+                    'abstract' => ButtonCollection::class,
+                ],
+            ],
             'navigation' => [
                 'type' => 'collection',
                 'config' => [
