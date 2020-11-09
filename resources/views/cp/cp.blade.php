@@ -21,6 +21,7 @@
     </div>
 
     @include('ui::cp.assets')
+    @include('ui::cp.messages')
 
 </body>
 

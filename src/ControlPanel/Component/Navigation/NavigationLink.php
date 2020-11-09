@@ -17,25 +17,6 @@ class NavigationLink extends Component
 {
 
     /**
-     * Create a new
-     *
-     * @param array $attributes
-     */
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        if ($parent = $this->getPrototypeAttribute('parent')) {
-            
-            $extended = $this->stream->repository()->find($parent);
-
-            $this->setPrototypeAttributes(
-                array_merge($extended->toArray(), $this->toArray())
-            );
-        }
-    }
-
-    /**
      * Initialize the prototype.
      *
      * @param array $attributes

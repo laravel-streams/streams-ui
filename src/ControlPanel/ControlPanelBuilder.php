@@ -142,7 +142,9 @@ class ControlPanelBuilder extends Builder
             return;
         }
 
-        $buttons = $active->buttons;
+        if (!$buttons = $active->buttons && $active->parent) {
+            $buttons = $this->instance->navigation->get($active->parent)->buttons;
+        }
 
         $buttons = Normalizer::normalize($buttons);
         $buttons = Normalizer::fillWithKey($buttons, 'handle');

@@ -9,10 +9,6 @@
         </svg>
     </button>
 
-    <div class="flex px-4 items-center">
-        {!! $cp->buttons !!}
-    </div>
-
     <div class="flex-1 px-4 flex justify-between">
         <div class="flex-1 flex">
             {{-- <form class="w-full flex md:ml-0" action="#" method="GET">
