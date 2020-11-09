@@ -41,6 +41,17 @@ class Action extends Button
             'save' => true,
             'active' => false,
 
+            'classes' => [
+                'py-2',
+                'px-4',
+                'rounded',
+                'border-2',
+                'font-bold',
+                'text-black',
+                'border-black',
+                'inline-block'
+            ],
+
             'handle' => 'default',
             'handler' => ActionHandler::class,
         ], $attributes));
@@ -54,7 +65,6 @@ class Action extends Button
     public function attributes(array $attributes = [])
     {
         return array_merge(parent::attributes(), [
-            'class' => $this->class,
             'value' => $this->handle,
             'type'  => $this->type,
             'name'  => 'action',

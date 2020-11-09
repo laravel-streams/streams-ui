@@ -262,13 +262,7 @@ class FormBuilder extends Builder
     {
         $actions = $this->actions;
 
-        if (!$actions && $this->entry) {
-            $actions = [
-                'update',
-            ];
-        }
-
-        if (!$actions && !$this->entry) {
+        if (!$actions) {
             $actions = [
                 'save',
             ];
@@ -303,6 +297,7 @@ class FormBuilder extends Builder
 
         $buttons = Normalizer::normalize($buttons, 'button');
         $buttons = Normalizer::fillWithKey($buttons, 'handle');
+        $buttons = Normalizer::fillWithKey($buttons, 'button');
         $buttons = Normalizer::attributes($buttons);
 
         foreach ($buttons as &$button) {
