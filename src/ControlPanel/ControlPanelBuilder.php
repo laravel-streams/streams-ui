@@ -9,6 +9,7 @@ use Streams\Ui\Support\Builder;
 use Streams\Ui\Support\Normalizer;
 use Streams\Ui\Button\ButtonRegistry;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\URL;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\ControlPanel\ControlPanel;
 use Streams\Ui\ControlPanel\Component\Shortcut\Shortcut;
@@ -40,7 +41,7 @@ class ControlPanelBuilder extends Builder
 
             'steps' => [
                 'make_control_panel' => [$this, 'makeControlPanel'],
-                
+
                 'make_navigation' => [$this, 'makeNavigation'],
                 'detect_navigation' => [$this, 'detectNavigation'],
 
@@ -135,7 +136,7 @@ class ControlPanelBuilder extends Builder
 
         $this->shortcuts = $shortcuts;
     }
-    
+
     public function makeButtons()
     {
         if (!$active = $this->instance->navigation->active()) {
@@ -157,6 +158,23 @@ class ControlPanelBuilder extends Builder
         }
 
         $buttons = Normalizer::attributes($buttons);
+
+        foreach ($buttons as &$attributes) {
+
+            if (isset($attributes['attributes']['href'])) {
+                continue;
+            }
+
+            switch ($attributes['handle']) {
+                case 'create':
+                    $attributes['attributes']['href'] = Request::fullUrl() . '/create';
+                    break;
+
+                default:
+                    # code...
+                    break;
+            }
+        }
 
         $this->loadInstanceWith('buttons', $buttons, Button::class);
 
