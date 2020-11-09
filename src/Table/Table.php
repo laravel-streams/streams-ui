@@ -83,6 +83,8 @@ class Table extends Component
             'views' => [],
             'actions' => [],
             'filters' => [],
+
+            'classes' => [],
         ], $attributes));
     }
 
