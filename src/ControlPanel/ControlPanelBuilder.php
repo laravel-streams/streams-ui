@@ -2,10 +2,13 @@
 
 namespace Streams\Ui\ControlPanel;
 
-use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Streams\Ui\Button\Button;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Support\Normalizer;
+use Streams\Ui\Button\ButtonRegistry;
+use Illuminate\Support\Facades\Request;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\ControlPanel\ControlPanel;
 use Streams\Ui\ControlPanel\Component\Shortcut\Shortcut;
@@ -42,6 +45,7 @@ class ControlPanelBuilder extends Builder
                 'detect_navigation' => [$this, 'detectNavigation'],
 
                 'make_shortcuts' => [$this, 'makeShortcuts'],
+                'make_buttons' => [$this, 'makeButtons'],
             ],
 
             'component' => 'control_panel',
@@ -130,5 +134,32 @@ class ControlPanelBuilder extends Builder
         }, $shortcuts);
 
         $this->shortcuts = $shortcuts;
+    }
+    
+    public function makeButtons()
+    {
+        if (!$active = $this->instance->navigation->active()) {
+            return;
+        }
+
+        $buttons = $active->buttons;
+
+        $buttons = Normalizer::normalize($buttons);
+        $buttons = Normalizer::fillWithKey($buttons, 'handle');
+        $buttons = Normalizer::fillWithAttribute($buttons, 'button', 'handle');
+
+        $registry = app(ButtonRegistry::class);
+
+        foreach ($buttons as &$attributes) {
+            if ($registered = $registry->get(Arr::pull($attributes, 'button'))) {
+                $attributes = array_replace_recursive($registered, $attributes);
+            }
+        }
+
+        $buttons = Normalizer::attributes($buttons);
+
+        $this->loadInstanceWith('buttons', $buttons, Button::class);
+
+        $this->buttons = $buttons;
     }
 }
