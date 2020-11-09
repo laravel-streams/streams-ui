@@ -10,21 +10,16 @@ use Streams\Ui\Support\Builder;
 use Streams\Ui\Support\Normalizer;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
-use Streams\Ui\Form\Command\SaveForm;
-use Streams\Ui\Form\Workflows\BuildForm;
-use Streams\Ui\Form\Workflows\QueryForm;
+use Illuminate\Support\Facades\Request;
 use Streams\Core\Support\Facades\Resolver;
 use Streams\Ui\Form\Component\Field\Field;
 use Streams\Core\Support\Facades\Evaluator;
-use Streams\Ui\Form\Workflows\ValidateForm;
+use Illuminate\Contracts\Validation\Factory;
 use Streams\Ui\Form\Component\Action\Action;
+use Illuminate\Contracts\Validation\Validator;
 use Streams\Ui\Form\Component\Action\ActionRegistry;
-use Streams\Core\Repository\Contract\RepositoryInterface;
-use Streams\Ui\Form\Component\Field\Workflows\BuildFields;
-use Streams\Ui\Form\Component\Action\Workflows\BuildActions;
 use Streams\Ui\Form\Component\Button\ButtonRegistry;
-use Streams\Ui\Form\Component\Button\Workflows\BuildButtons;
-use Streams\Ui\Form\Component\Section\Workflows\BuildSections;
+use Streams\Core\Repository\Contract\RepositoryInterface;
 
 /**
  * Class FormBuilder
@@ -78,26 +73,13 @@ class FormBuilder extends Builder
                 'set_validation' => [$this, 'setValidation'],
 
                 'make_fields' => [$this, 'makeFields'],
+                'load_fields' => [$this, 'loadFields'],
+
                 'make_actions' => [$this, 'makeActions'],
                 'make_buttons' => [$this, 'makeButtons'],
-                //'make_sections' => [$this, 'makeSections'],
-
-                //'load_values' => [$this, 'loadValues'],
-
-                //'validate_form' => [$this, 'validateForm'],
-                //'flash_messages' => [$this, 'flashMessages'],
-
-                //'handle_request' => [$this, 'handleRequest'],
-            ],
-
-            'workflows' => [
-                //'build' => BuildForm::class,
-                //'query' => QueryForm::class,
-                'fields' => BuildFields::class,
-                'actions' => BuildActions::class,
-                'buttons' => BuildButtons::class,
-                'sections' => BuildSections::class,
-                'validate' => ValidateForm::class,
+                
+                'load_values' => [$this, 'loadValues'],
+                'validate_form' => [$this, 'validateForm'],
             ],
         ], $attributes));
     }
@@ -265,6 +247,17 @@ class FormBuilder extends Builder
         $this->fields = $fields;
     }
 
+    public function loadFields()
+    {
+        if (!$entry = $this->instance->entry) {
+            return;
+        }
+
+        $this->instance->fields->each(function($field) use ($entry) {
+            $field->value = $entry->{$field->handle} ?? null;
+        });
+    }
+
     public function makeActions()
     {
         $actions = $this->actions;
@@ -333,5 +326,70 @@ class FormBuilder extends Builder
         $this->loadInstanceWith('buttons', $buttons, Button::class);
 
         $this->buttons = $buttons;
+    }
+
+    public function loadValues()
+    {
+        if (!Request::is('post')) {
+            return;
+        }
+
+        foreach ($this->instance->fields as $field) {
+            $this->instance->values->put($field->handle, $this->request($field->handle));
+        }
+    }
+
+    public function validateForm(Factory $factory)
+    {
+        if ($this->instance->rules->isEmpty() && $this->instance->stream) {
+
+            $this->validator = $this->instance->stream->validator($this->instance->values);
+
+            return;
+        }
+
+        $this->extendValidation($this, $factory);
+
+        $this->validator = $factory->make(
+            $this->instance->values->all(),
+            $this->instance->rules->map(function($rules) {
+                return implode('|', array_unique($rules));
+            })->all()
+        );
+
+        $this->instance->errors = $this->validator->messages();
+    }
+
+    protected function extendValidation(FormBuilder $builder, Factory $factory): void
+    {
+        foreach ($builder->instance->validators as $rule => $validator) {
+
+            $handler = Arr::get($validator, 'handler');
+
+            $factory->extend($rule, $this->callback($handler, $builder),
+                Arr::get($validator, 'message')
+            );
+        }
+    }
+
+    protected function callback($handler, FormBuilder $builder): \Closure
+    {
+        return function ($attribute, $value, $parameters, Validator $validator) use ($handler, $builder) {
+
+            $field = $builder->instance->fields->get($attribute);
+
+            App::call(
+                $handler,
+                [
+                    'value' => $value,
+                    'field' => $field,
+                    'builder' => $builder,
+                    'attribute' => $attribute,
+                    'validator' => $validator,
+                    'parameters' => $parameters,
+                ],
+                'handle'
+            );
+        };
     }
 }
