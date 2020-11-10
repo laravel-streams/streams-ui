@@ -38,10 +38,10 @@ class Builder
     use Prototype;
     use FiresCallbacks;
 
-    public function build(): Builder
+    public function build(): Component
     {
         if ($this->instance instanceof Component) {
-            return $this;
+            return $this->instance;
         }
 
         $this->fire('ready', ['builder' => $this]);
@@ -60,7 +60,7 @@ class Builder
 
         $this->fire('built', ['builder' => $this]);
 
-        return $this;
+        return $this->instance;
     }
 
     public function make()
@@ -88,7 +88,7 @@ class Builder
             return $this->json();
         }
 
-        FacadesView::share('cp', (new ControlPanelBuilder())->build()->instance);
+        FacadesView::share('cp', (new ControlPanelBuilder())->build());
 
         return Response::view('ui::default', ['content' => $this->render()]);
     }

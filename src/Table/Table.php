@@ -84,7 +84,9 @@ class Table extends Component
             'actions' => [],
             'filters' => [],
 
-            'classes' => [],
+            'classes' => [
+                'min-w-full',
+            ],
         ], $attributes));
     }
 

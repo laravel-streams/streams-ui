@@ -11,6 +11,12 @@ mix.options({
     postCss: [tailwindcss('./tailwind.config.js')],
 });
 
+mix.webpackConfig({
+    plugins: [
+        require('@tailwindcss/ui'),
+    ],
+})
+
 // mix.browserSync({
 //     proxy: process.env.APP_URL,
 //     files: [

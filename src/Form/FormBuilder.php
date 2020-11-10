@@ -218,7 +218,7 @@ class FormBuilder extends Builder
         $fields = $this->fields;
 
         if ($this->stream) {
-            $fields = $this->stream->fields->toArray();
+            $fields = ['id' => 'text'] + $this->stream->fields->toArray();
         }
 
         $fields = Normalizer::normalize($fields, 'type');
