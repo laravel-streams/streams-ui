@@ -67,7 +67,7 @@ class ControlPanelBuilder extends Builder
             ->toArray();
 
         $navigation = Normalizer::fillWithAttribute($navigation, 'handle', 'id');
-        $navigation = Normalizer::htmlAttributes($navigation);
+        $navigation = Normalizer::attributes($navigation);
 
         foreach ($navigation as $handle => &$item) {
 
@@ -127,7 +127,8 @@ class ControlPanelBuilder extends Builder
         // ],
 
         $shortcuts = Normalizer::fillWithAttribute($shortcuts, 'handle', 'id');
-        $shortcuts = Normalizer::htmlAttributes($shortcuts);
+        $shortcuts = Normalizer::attributes($shortcuts);
+        $shortcuts = Normalizer::dropdown($shortcuts);
 
         array_map(function ($attributes) {
             $this->instance->shortcuts->put($attributes['handle'], new Shortcut($attributes));

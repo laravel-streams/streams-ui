@@ -144,18 +144,6 @@ class Normalizer
      * @param array $default
      * @return array
      */
-    public static function htmlAttributes(array $input, array $default = [])
-    {
-        return self::attributes($input, $default);
-    }
-
-    /**
-     * Normalize HTML attributes.
-     *
-     * @param array $input
-     * @param array $default
-     * @return array
-     */
     public static function attributes(array $input, array $default = [])
     {
         foreach ($input as $key => &$item) {
@@ -212,6 +200,32 @@ class Normalizer
             ) {
                 $item['attributes']['href'] = url($item['attributes']['href']);
             }
+        }
+
+        return $input;
+    }
+
+    /**
+     * Normalize dropdown definitions.
+     *
+     * @param array $input
+     * @param array $default
+     * @return array
+     */
+    public static function dropdown(array $input)
+    {
+        foreach ($input as &$item) {
+
+            /**
+             * Make sure dropdown exists.
+             */
+            $dropdown = Arr::get($item, 'dropdown', []);
+
+            $dropdown = self::normalize($dropdown, 'text');
+            $dropdown = self::fillWithKey($dropdown, 'handle');
+            $dropdown = self::attributes($dropdown);
+
+            $item['dropdown'] = $dropdown;
         }
 
         return $input;

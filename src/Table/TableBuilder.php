@@ -120,7 +120,7 @@ class TableBuilder extends Builder
 
         $views = Normalizer::fillWithKey($views, 'handle');
         $views = Normalizer::fillWithKey($views, 'view');
-        $views = Normalizer::htmlAttributes($views);
+        $views = Normalizer::attributes($views);
 
         $registry = app(ViewRegistry::class);
 
@@ -201,7 +201,7 @@ class TableBuilder extends Builder
         $filters = Normalizer::fillWithKey($filters, 'handle');
         $filters = Normalizer::fillWithKey($filters, 'filter');
         $filters = Normalizer::fillWithKey($filters, 'field');
-        $filters = Normalizer::htmlAttributes($filters);
+        $filters = Normalizer::attributes($filters);
 
         $registry = app(FilterRegistry::class);
 

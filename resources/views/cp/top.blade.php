@@ -17,13 +17,39 @@
         
         <div class="ml-4 flex items-center md:ml-6">
 
-            {{-- Notifications --}}
             @foreach ($cp->shortcuts as $shortcut)
-            <button
-                {!! $shortcut->htmlAttributes([
-                    'classes' => ['p-1 text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:shadow-outline focus:text-gray-500']
-                ]) !!}
-                aria-label="{{ $shortcut->title }}">
+            @if ($shortcut->dropdown)
+            <div class="ml-3 relative" x-data="{show: false}">
+
+                <button {!! $shortcut->htmlAttributes() !!} x-on:click="show == true ? show = false : show = true">
+                
+                    @if ($shortcut->svg)
+                    {!! $shortcut->svg !!}
+                    @elseif ($shortcut->icon)
+                    <x-{{ $shortcut->icon }}/>
+                    @elseif ($shortcut->image)
+                    <img class="h-8 w-8 rounded-full" src="{{ $shortcut->image }}" alt="">
+                    @else
+                    {{ $shortcut->handle }}
+                    @endif
+                
+                </button>
+
+                <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg" x-show="show">
+                    <div class="py-1 rounded-md bg-white shadow-xs">
+                        @foreach ($shortcut->dropdown as $item)
+                        <a href="{{ $item['attributes']['href'] }}"
+                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
+                        >{{ $item['text'] }}</a>
+                        @endforeach
+                    </div>
+                </div>
+                {{-- ---------------------------------- --}}
+
+            </div>
+            @else
+            <button {!! $shortcut->htmlAttributes() !!}>
+                
                 @if ($shortcut->svg)
                 {!! $shortcut->svg !!}
                 @elseif ($shortcut->icon)
@@ -33,44 +59,10 @@
                 @else
                 {{ $shortcut->handle }}
                 @endif
+
             </button>
+            @endif
             @endforeach
-
-            {{-- Profile dropdown --}}
-            <div class="ml-3 relative" x-data="{
-                    show: false
-                }">
-
-                <div>
-                    <button x-on:click="show == true ? show = false : show = true" x-on:blur="show = false"
-                        class="max-w-xs flex items-center text-sm rounded-full focus:outline-none focus:shadow-outline"
-                        id="user-menu" aria-label="User menu" aria-haspopup="true">
-                        <img class="h-8 w-8 rounded-full" src="https://source.unsplash.com/hoS3dzgpHzw/256x256" alt="">
-                    </button>
-                </div>
-
-                {{-- Dropdown --}}
-                {{-- ---------------------------------- --}}
-                <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg" x-show="show">
-                    <div class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical"
-                        aria-labelledby="user-menu">
-                        <a href="#"
-                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
-                            role="menuitem">Your Profile</a>
-
-                        <a href="#"
-                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
-                            role="menuitem">Settings</a>
-
-                        <a href="#"
-                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
-                            role="menuitem">Sign out</a>
-                    </div>
-                </div>
-                {{-- ---------------------------------- --}}
-
-            </div>
-
         </div>
         
     </div>
