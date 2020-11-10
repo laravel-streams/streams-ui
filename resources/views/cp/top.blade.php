@@ -21,7 +21,7 @@
             @if ($shortcut->dropdown)
             <div class="ml-3 relative" x-data="{show: false}">
 
-                <button {!! $shortcut->htmlAttributes() !!} x-on:click="show == true ? show = false : show = true">
+                <button {!! Html::attributes($shortcut->attributes) !!} x-on:click="show == true ? show = false : show = true">
                 
                     @if ($shortcut->svg)
                     {!! $shortcut->svg !!}
@@ -38,7 +38,7 @@
                 <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg" x-show="show">
                     <div class="py-1 rounded-md bg-white shadow-xs">
                         @foreach ($shortcut->dropdown as $item)
-                        <a href="{{ $item['attributes']['href'] }}"
+                        <a {!! Html::attributes($item['attributes']) !!}
                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
                         >{{ $item['text'] }}</a>
                         @endforeach
