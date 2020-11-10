@@ -54,9 +54,9 @@ class CpController extends StreamsController
 
         if (isset($action['ui.component'])) {
 
-            $data->put('response', $stream->{$action['ui.component']}(
-                $data->filter()->except('stream')->all()
-            )->response());
+            $component = $stream->{$action['ui.component']}();
+
+            $data->put('response', $component->response());
 
             return;
         }

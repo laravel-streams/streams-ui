@@ -3,7 +3,6 @@
 namespace Streams\Ui\Support;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Illuminate\Http\JsonResponse;
 use Streams\Core\Support\Workflow;
 use Illuminate\Contracts\View\View;
@@ -78,6 +77,10 @@ class Builder
 
         if ($this->response) {
             return $this->response;
+        }
+
+        if (Request::method() == 'POST') {
+            $this->instance->post();
         }
 
         if (!$this->async && Request::ajax()) {

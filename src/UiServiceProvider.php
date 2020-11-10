@@ -190,7 +190,7 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function extendStream()
     {
-        Stream::macro('form', function ($form, $attributes = []) {
+        Stream::macro('form', function ($form = 'default', $attributes = []) {
 
             if (is_array($form)) {
                 $attributes = $form;
@@ -208,7 +208,7 @@ class UiServiceProvider extends ServiceProvider
             return new FormBuilder($attributes);
         });
 
-        Stream::macro('table', function ($table = null, $attributes = []) {
+        Stream::macro('table', function ($table = 'default', $attributes = []) {
 
             if (is_array($table)) {
                 $attributes = $table;

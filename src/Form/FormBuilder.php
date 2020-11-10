@@ -77,9 +77,6 @@ class FormBuilder extends Builder
 
                 'make_actions' => [$this, 'makeActions'],
                 'make_buttons' => [$this, 'makeButtons'],
-                
-                'load_values' => [$this, 'loadValues'],
-                'validate_form' => [$this, 'validateForm'],
             ],
         ], $attributes));
     }
@@ -123,25 +120,6 @@ class FormBuilder extends Builder
         }
 
         return null;
-    }
-
-    public function validate(): Builder
-    {
-        $workflow = $this->workflow('validate');
-
-        $this->fire('validating', [
-            'builder' => $this,
-            'workflow' => $workflow
-        ]);
-
-        $workflow->process([
-            'builder' => $this,
-            'workflow' => $workflow
-        ]);
-
-        $this->fire('validated', ['builder' => $this]);
-
-        return $this;
     }
 
     public function queryEntry()
@@ -321,70 +299,5 @@ class FormBuilder extends Builder
         $this->loadInstanceWith('buttons', $buttons, Button::class);
         
         $this->buttons = $buttons;
-    }
-
-    public function loadValues()
-    {
-        if (!Request::is('post')) {
-            return;
-        }
-
-        foreach ($this->instance->fields as $field) {
-            $this->instance->values->put($field->handle, $this->request($field->handle));
-        }
-    }
-
-    public function validateForm(Factory $factory)
-    {
-        if ($this->instance->rules->isEmpty() && $this->instance->stream) {
-
-            $this->validator = $this->instance->stream->validator($this->instance->values);
-
-            return;
-        }
-
-        $this->extendValidation($this, $factory);
-
-        $this->validator = $factory->make(
-            $this->instance->values->all(),
-            $this->instance->rules->map(function($rules) {
-                return implode('|', array_unique($rules));
-            })->all()
-        );
-
-        $this->instance->errors = $this->validator->messages();
-    }
-
-    protected function extendValidation(FormBuilder $builder, Factory $factory): void
-    {
-        foreach ($builder->instance->validators as $rule => $validator) {
-
-            $handler = Arr::get($validator, 'handler');
-
-            $factory->extend($rule, $this->callback($handler, $builder),
-                Arr::get($validator, 'message')
-            );
-        }
-    }
-
-    protected function callback($handler, FormBuilder $builder): \Closure
-    {
-        return function ($attribute, $value, $parameters, Validator $validator) use ($handler, $builder) {
-
-            $field = $builder->instance->fields->get($attribute);
-
-            App::call(
-                $handler,
-                [
-                    'value' => $value,
-                    'field' => $field,
-                    'builder' => $builder,
-                    'attribute' => $attribute,
-                    'validator' => $validator,
-                    'parameters' => $parameters,
-                ],
-                'handle'
-            );
-        };
     }
 }
