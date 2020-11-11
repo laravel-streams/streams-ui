@@ -74,9 +74,6 @@ class TableBuilder extends Builder
                 'query_entries' => [$this, 'queryEntries'],
 
                 'make_actions' => [$this, 'makeActions'],
-                'detect_action' => [$this, 'detectAction'],
-                // 'handle_request' => [$this, 'handleRequest'],
-
                 'make_buttons' => [$this, 'makeButtons'],
                 'make_columns' => [$this, 'makeColumns'],
                 'make_rows' => [$this, 'makeRows'],
@@ -210,9 +207,9 @@ class TableBuilder extends Builder
                 $attributes = array_replace_recursive($registered, $attributes);
             }
         }
-        
+
         if ($stream) {
-            
+
             foreach ($filters as &$filter) {
 
                 if (!isset($filter['field'])) {
@@ -310,7 +307,7 @@ class TableBuilder extends Builder
         $registry = app(ActionRegistry::class);
 
         foreach ($actions as &$attributes) {
-            
+
             if ($registered = $registry->get(Arr::pull($attributes, 'action'))) {
                 $attributes = array_replace_recursive($registered, $attributes);
             }
@@ -320,20 +317,13 @@ class TableBuilder extends Builder
             }
         }
 
+        $actions = Normalizer::attributes($actions);
+        $actions = Normalizer::fillWithAttribute($actions, 'value', 'handle');
+        $actions = Normalizer::fillWithValue($actions, 'attributes.type', 'submit');
+
         $this->loadInstanceWith('actions', $actions, Action::class);
-        
+
         $this->actions = $actions;
-    }
-
-    public function detectAction()
-    {
-        if (!$this->instance->actions->active()) {
-            return;
-        }
-
-        if ($action = $this->instance->actions->get($this->request('action'))) {
-            $action->active = true;
-        }
     }
 
     public function makeButtons()
@@ -347,7 +337,7 @@ class TableBuilder extends Builder
         $registry = app(ButtonRegistry::class);
 
         foreach ($buttons as &$attributes) {
-            
+
             if ($registered = $registry->get(Arr::pull($attributes, 'button'))) {
                 $attributes = array_replace_recursive($registered, $attributes);
             }
@@ -357,7 +347,7 @@ class TableBuilder extends Builder
         $buttons = Normalizer::dropdown($buttons);
 
         $this->loadInstanceWith('buttons', $buttons, Button::class);
-        
+
         $this->buttons = $buttons;
     }
 
@@ -408,7 +398,7 @@ class TableBuilder extends Builder
         $this->loadInstanceWith('rows', $rows, Row::class);
 
         $this->instance->rows->each(function ($row) {
-            
+
             // Load Columns
             foreach ($this->instance->columns as $key => $column) {
 

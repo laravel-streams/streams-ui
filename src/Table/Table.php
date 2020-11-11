@@ -3,6 +3,8 @@
 namespace Streams\Ui\Table;
 
 use Streams\Ui\Support\Component;
+use Streams\Core\Support\Workflow;
+use Illuminate\Support\Facades\App;
 use Streams\Ui\Button\ButtonCollection;
 use Streams\Ui\Table\Component\View\ViewCollection;
 use Streams\Ui\Table\Component\Action\ActionCollection;
@@ -93,9 +95,58 @@ class Table extends Component
     {
         return ($this->actions->isNotEmpty() || $this->options->get('selectable'));
     }
-    
+
     public function isSortable(): bool
     {
         return (bool) $this->options->get('sortable');
+    }
+
+    public function post()
+    {
+        $workflow = (new Workflow([
+            'detect' => [$this, 'detect'],
+            'handle' => [$this, 'handle'],
+        ]))->passThrough($this);
+
+        $this->fire('posting', [
+            'table' => $this,
+            'workflow' => $workflow
+        ]);
+
+        $workflow->process([
+            'table' => $this,
+            'workflow' => $workflow
+        ]);
+
+        $this->fire('posted', [
+            'table' => $this
+        ]);
+
+        return $this;
+    }
+
+    public function detect()
+    {
+        if ($this->actions->active()) {
+            return;
+        }
+
+        if ($action = $this->actions->get($this->request('action'))) {
+            $action->active = true;
+        }
+    }
+
+    public function handle()
+    {
+        if (!$active = $this->actions->active()) {
+            return;
+        }
+        
+        $selected = (array) $this->request('selected');
+
+        App::call($active->handler, [
+            'table' => $this,
+            'selected' => $selected,
+        ], 'handle');
     }
 }

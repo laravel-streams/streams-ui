@@ -68,7 +68,7 @@ class Normalizer
     public static function fillWithAttribute(array $input, $attribute, $target)
     {
         foreach ($input as &$item) {
-            $item[$attribute] = Arr::pull($item, $attribute, Arr::get($item, $target));
+            Arr::set($item, $attribute, Arr::pull($item, $attribute, Arr::get($item, $target)));
         }
 
         return $input;
@@ -85,7 +85,7 @@ class Normalizer
     public static function fillWithValue(array $input, $attribute, $value)
     {
         foreach ($input as &$item) {
-            $item[$attribute] = Arr::pull($item, $attribute, $value);
+            Arr::set($item, $attribute, Arr::pull($item, $attribute, $value));
         }
 
         return $input;

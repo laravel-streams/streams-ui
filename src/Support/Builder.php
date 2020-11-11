@@ -71,6 +71,8 @@ class Builder
         $this->{$this->component} = new $abstract($parameters);
 
         $this->{$this->component}->stream = $this->stream;
+        
+        //$this->{$this->component}->repository = $this->repository();
     }
 
     public function response(): HttpFoundationResponse
