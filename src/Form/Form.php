@@ -4,14 +4,13 @@ namespace Streams\Ui\Form;
 
 use Illuminate\Support\Arr;
 use Collective\Html\FormFacade;
-use Streams\Ui\Form\FormHandler;
 use Streams\Ui\Support\Component;
-use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
 use Streams\Core\Support\Workflow;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Request;
 use Streams\Ui\Button\ButtonCollection;
+use Streams\Core\Support\Facades\Messages;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
 use Streams\Ui\Form\Component\Field\FieldCollection;
@@ -52,10 +51,10 @@ class Form extends Component
             ],
 
             'errors' => [
-                'type' => 'collection',
-                'config' => [
-                    'abstract' => MessageBag::class,
-                ],
+                //'type' => 'collection',
+                // 'config' => [
+                //     'abstract' => MessageBag::class,
+                // ],
             ],
             'fields' => [
                 'type' => 'collection',
@@ -192,6 +191,21 @@ class Form extends Component
         );
 
         $this->errors = $this->validator->messages();
+
+
+        if (!$this->validator) {
+            return;
+        }
+
+        if (!$this->errors->isEmpty()) {
+            Messages::success('You win!');
+        }
+        
+        if ($this->errors->isNotEmpty()) {
+            foreach ($this->errors->messages() as $errors) {
+                Messages::error(implode("\n\r", $errors));
+            }
+        }
     }
 
     public function handle()

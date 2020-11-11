@@ -136,7 +136,6 @@ class UiServiceProvider extends ServiceProvider
             ],
         ]);
 
-
         Route::prefix(Config::get('streams.cp.prefix'))->middleware(['cp'])->group(function () {
 
             Route::streams('{stream}', [ // @todo Configure this later
@@ -158,14 +157,11 @@ class UiServiceProvider extends ServiceProvider
                 'ui.component' => 'form',
                 'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
             ]);
-        });
 
-
-        if (file_exists($routes = __DIR__ . '/../../../../routes/cp.php')) {
-            Route::prefix(Config::get('streams.cp.prefix'))->middleware(['cp'])->group(function () use ($routes) {
+            if (file_exists($routes = base_path('routes/cp.php'))) {
                 include $routes;
-            });
-        }
+            }
+        });
     }
 
     /**
