@@ -347,15 +347,17 @@ class TableBuilder extends Builder
         $registry = app(ButtonRegistry::class);
 
         foreach ($buttons as &$attributes) {
+            
             if ($registered = $registry->get(Arr::pull($attributes, 'button'))) {
                 $attributes = array_replace_recursive($registered, $attributes);
             }
         }
 
         $buttons = Normalizer::attributes($buttons);
+        $buttons = Normalizer::dropdown($buttons);
 
         $this->loadInstanceWith('buttons', $buttons, Button::class);
-
+        
         $this->buttons = $buttons;
     }
 

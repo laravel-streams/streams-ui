@@ -182,10 +182,15 @@ class Normalizer
             }
 
             /**
-             * Move all data-* keys to attributes.
+             * Move all data-*|x-* keys to attributes.
              */
             foreach ($item as $attribute => $value) {
+                
                 if (Str::is('data-*', $attribute)) {
+                    Arr::set($item, 'attributes.' . $attribute, Arr::pull($item, $attribute));
+                }
+
+                if (Str::is('x-*', $attribute)) {
                     Arr::set($item, 'attributes.' . $attribute, Arr::pull($item, $attribute));
                 }
             }

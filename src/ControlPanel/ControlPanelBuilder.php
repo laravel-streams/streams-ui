@@ -158,7 +158,8 @@ class ControlPanelBuilder extends Builder
         }
 
         $buttons = Normalizer::attributes($buttons);
-
+        $buttons = Normalizer::dropdown($buttons);
+        
         foreach ($buttons as &$attributes) {
 
             if (isset($attributes['attributes']['href'])) {
