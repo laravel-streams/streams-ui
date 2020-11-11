@@ -21,7 +21,7 @@
             @if ($shortcut->dropdown)
             <div class="ml-3 relative" x-data="{show: false}">
 
-                <button {!! Html::attributes($shortcut->attributes) !!} x-on:click="show == true ? show = false : show = true">
+                <button {!! Html::attributes($shortcut->attributes) !!} x-on:click="show == true ? show = false : show = true" x-on:click.away="show = false">
                 
                     @if ($shortcut->svg)
                     {!! $shortcut->svg !!}
