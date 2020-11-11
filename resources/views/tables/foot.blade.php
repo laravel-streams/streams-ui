@@ -4,7 +4,7 @@
     {{-- if table.data.controls.isNotEmpty() --}}
     @if ($table->actions->isNotEmpty() || $table->pagination)
     <tr>
-        <th colspan="100%">
+        <td colspan="100%">
             <div class="table__footer">
 
                 @include('ui::tables.actions')
@@ -15,7 +15,7 @@
                 @endif
                 
             </div>
-        </th>
+        </td>
     </tr>
     @endif
     @show
