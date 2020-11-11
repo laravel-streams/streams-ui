@@ -100,10 +100,9 @@ class Value
         }
 
         /**
-         * If the value is not explicitly marked 
-         * safe then escape it automatically.
+         * Escape if not safe.
          */
-        if (is_string($value) && Arr::get($parameters, 'is_safe') !== true) {
+        if (is_string($value) && Arr::get($parameters, 'is_safe', true) === false) {
             $value = Str::purify($value);
         }
 

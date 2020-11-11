@@ -2,9 +2,8 @@
 
 namespace Streams\Ui\Table;
 
-use Streams\Ui\Button\ButtonCollection;
-use Illuminate\Support\Collection;
 use Streams\Ui\Support\Component;
+use Streams\Ui\Button\ButtonCollection;
 use Streams\Ui\Table\Component\View\ViewCollection;
 use Streams\Ui\Table\Component\Action\ActionCollection;
 use Streams\Ui\Table\Component\Filter\FilterCollection;
