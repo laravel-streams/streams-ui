@@ -51,7 +51,7 @@ class CpController extends StreamsController
         }
 
         $action = Request::route()->action;
-
+        
         if (isset($action['ui.component'])) {
 
             $component = $stream->{$action['ui.component']}([
@@ -59,8 +59,6 @@ class CpController extends StreamsController
             ]);
 
             $data->put('response', $component->response());
-
-            return;
         }
 
         parent::resolveResponse($data);

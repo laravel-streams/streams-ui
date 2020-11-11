@@ -11,7 +11,7 @@ use Streams\Ui\Support\Component;
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
  */
-class Integer extends Component
+class Integer extends Input
 {
 
     /**
@@ -25,7 +25,7 @@ class Integer extends Component
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/integer',
             'component' => 'input',
-            'type' => 'text',
+            'type' => 'number',
             'field' => null,
             'classes' => [
                 'appearance-none',

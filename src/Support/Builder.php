@@ -85,6 +85,10 @@ class Builder
             $this->instance->post();
         }
 
+        if ($this->instance->response) {
+            return $this->instance->response;
+        }
+
         if (!$this->async && Request::ajax()) {
             return Response::view($this->render());
         }

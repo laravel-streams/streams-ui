@@ -208,7 +208,7 @@ class Form extends Component
         return function ($form) {
 
             $entry = $form->entry ?: $form->stream->repository()->newInstance();
-
+            
             foreach ($form->values as $field => $value) {
                 $entry->{$field} = $value;
             }
