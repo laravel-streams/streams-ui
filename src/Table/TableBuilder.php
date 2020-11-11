@@ -422,7 +422,7 @@ class TableBuilder extends Builder
                 $row->buttons->put($clone->handle, $clone);
             }
         });
-
+        
         $this->rows = $rows;
     }
 }
