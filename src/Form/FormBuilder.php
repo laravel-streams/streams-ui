@@ -81,22 +81,6 @@ class FormBuilder extends Builder
         ], $attributes));
     }
 
-    public function getHandlerAttribute()
-    {
-        return function ($builder) {
-
-            $entry = $builder->instance->entry;
-
-            foreach ($builder->instance->values as $field => $value) {
-                $entry->{$field} = $value;
-            }
-
-            $builder->instance->stream->repository()->save($entry);
-
-            $builder->entry = $builder->instance->entry = $entry;
-        };
-    }
-
     public function repository()
     {
         if ($this->repository instanceof RepositoryInterface) {
@@ -201,6 +185,7 @@ class FormBuilder extends Builder
 
         $fields = Normalizer::normalize($fields, 'type');
         $fields = Normalizer::fillWithKey($fields, 'handle');
+        $fields = Normalizer::fillWithAttribute($fields, 'name', 'handle');
 
         foreach ($fields as &$input) {
 
@@ -219,7 +204,7 @@ class FormBuilder extends Builder
                 $input['input'] = $input['type'];
             }
         }
-
+        
         $this->loadInstanceWith('fields', $fields, Field::class);
 
         $this->fields = $fields;

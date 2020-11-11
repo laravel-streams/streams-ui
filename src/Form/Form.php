@@ -141,6 +141,7 @@ class Form extends Component
         $workflow = (new Workflow([
             'load' => [$this, 'load'],
             'validate' => [$this, 'validate'],
+            'handle' => [$this, 'handle'],
         ]))->passThrough($this);
 
         $this->fire('posting', [
@@ -162,8 +163,9 @@ class Form extends Component
 
     public function load()
     {
-        if (!Request::is('post')) {
-            return;
+        // @todo foreach meta fields? ID should be a field.. - marked meta?
+        if ($id = $this->request('id')) {
+            $this->values->put('id', $id);
         }
 
         foreach ($this->fields as $field) {
@@ -184,12 +186,37 @@ class Form extends Component
 
         $this->validator = $factory->make(
             $this->values->all(),
-            $this->rules->map(function($rules) {
+            $this->rules->map(function ($rules) {
                 return implode('|', array_unique($rules));
             })->all()
         );
 
         $this->errors = $this->validator->messages();
+    }
+
+    public function handle()
+    {
+        App::call($this->handler, [
+            'form' => $this,
+        ]);
+
+        $this->response = redirect(request()->fullUrl());
+    }
+
+    public function getHandlerAttribute()
+    {
+        return function ($form) {
+
+            $entry = $form->entry ?: $form->stream->repository()->newInstance();
+
+            foreach ($form->values as $field => $value) {
+                $entry->{$field} = $value;
+            }
+
+            $form->stream->repository()->save($entry);
+
+            $form->entry = $form->entry = $entry;
+        };
     }
 
     protected function extendValidation(Form $form, Factory $factory): void
@@ -198,7 +225,9 @@ class Form extends Component
 
             $handler = Arr::get($validator, 'handler');
 
-            $factory->extend($rule, $this->callback($handler, $form),
+            $factory->extend(
+                $rule,
+                $this->callback($handler, $form),
                 Arr::get($validator, 'message')
             );
         }

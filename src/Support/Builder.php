@@ -69,6 +69,8 @@ class Builder
         $abstract = $this->getPrototypeAttribute($this->component);
 
         $this->{$this->component} = new $abstract($parameters);
+
+        $this->{$this->component}->stream = $this->stream;
     }
 
     public function response(): HttpFoundationResponse

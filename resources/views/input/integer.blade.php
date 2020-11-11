@@ -1,1 +1,1 @@
-<input type="number" name="{{ $input->field->handle }}" value="{{ $input->field->value }}" class="{{ implode(' ', $input->classes) }}">
+<input type="number" value="{{ $input->field->value }}" class="{{ implode(' ', $input->classes) }}">
