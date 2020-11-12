@@ -3,6 +3,8 @@
 namespace Streams\Ui\ControlPanel\Component\Navigation;
 
 use Streams\Ui\Support\Component;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Class NavigationLink
@@ -29,11 +31,20 @@ class NavigationLink extends Component
             'title' => null,
             //'policy' => null,
             //'breadcrumb' => null,
-            
+
             'active' => false,
             //'favorite' => false,
-            
-            //'buttons' => [],
+
+            'buttons' => [],
         ], $attributes));
+    }
+
+    public function url()
+    {
+        if (!$this->getPrototypeAttribute('attribute.href')) {
+            return URL::to(Config::get('streams.cp.prefix', 'cp') . '/' . $this->handle);
+        }
+
+        return $this->url();
     }
 }

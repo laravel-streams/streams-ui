@@ -2,8 +2,8 @@
 
 namespace Streams\Ui\Button;
 
+use Illuminate\Support\Arr;
 use Streams\Ui\Support\Component;
-use Streams\Ui\Support\Traits\HtmlTag;
 
 /**
  * Class Button
@@ -14,8 +14,6 @@ use Streams\Ui\Support\Traits\HtmlTag;
  */
 class Button extends Component
 {
-
-    use HtmlTag;
 
     /**
      * Initialize the prototype.
@@ -38,8 +36,40 @@ class Button extends Component
             'primary' => false,
             'disabled' => false,
             'type' => 'default',
-            'classes' => ['button'],
+            'classes' => [
+                'py-2',
+                'px-4',
+                'rounded',
+                'border-2',
+                'font-bold',
+                'text-black',
+                'border-black',
+                'inline-block'
+            ],
         ], $attributes));
+    }
+
+    /**
+     * Return the open tag.
+     *
+     * @param array $attributes
+     * @return string
+     */
+    public function open(array $attributes = [])
+    {
+        $attributes = Arr::htmlAttributes($this->attributes($attributes));
+
+        return '<' . $this->tag . ' ' . $attributes . '>';
+    }
+
+    /**
+     * Return the close tag.
+     *
+     * @return string
+     */
+    public function close()
+    {
+        return '</' . $this->tag . '>';
     }
 
     /**

@@ -4,11 +4,11 @@ namespace Streams\Ui\Support;
 
 use Illuminate\Support\Arr;
 use Illuminate\Http\JsonResponse;
+use Streams\Core\Support\Workflow;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Traits\Macroable;
-use Streams\Core\Support\Workflow;
 use Streams\Core\Support\Traits\Prototype;
 use Streams\Core\Support\Traits\FiresCallbacks;
 use Streams\Ui\ControlPanel\ControlPanelBuilder;
@@ -37,10 +37,10 @@ class Builder
     use Prototype;
     use FiresCallbacks;
 
-    public function build(): Builder
+    public function build(): Component
     {
         if ($this->instance instanceof Component) {
-            $this->instance;
+            return $this->instance;
         }
 
         $this->fire('ready', ['builder' => $this]);
@@ -59,7 +59,20 @@ class Builder
 
         $this->fire('built', ['builder' => $this]);
 
-        return $this;
+        return $this->instance;
+    }
+
+    public function make()
+    {
+        $parameters = [];//$this->getPrototypeAttributes();
+
+        $abstract = $this->getPrototypeAttribute($this->component);
+
+        $this->{$this->component} = new $abstract($parameters);
+
+        $this->{$this->component}->stream = $this->stream;
+        
+        //$this->{$this->component}->repository = $this->repository();
     }
 
     public function response(): HttpFoundationResponse
@@ -70,6 +83,14 @@ class Builder
             return $this->response;
         }
 
+        if (Request::method() == 'POST') {
+            $this->instance->post();
+        }
+
+        if ($this->instance->response) {
+            return $this->instance->response;
+        }
+
         if (!$this->async && Request::ajax()) {
             return Response::view($this->render());
         }
@@ -78,7 +99,7 @@ class Builder
             return $this->json();
         }
 
-        FacadesView::share('cp', (new ControlPanelBuilder())->build()->instance);
+        FacadesView::share('cp', (new ControlPanelBuilder())->build());
 
         return Response::view('ui::default', ['content' => $this->render()]);
     }
@@ -100,15 +121,31 @@ class Builder
 
     protected function workflow($name): Workflow
     {
-        $workflow = Arr::get($this->workflows, $name);
+        $workflow = Arr::get($this->workflows, $name, $name);
 
         if (!class_exists($workflow)) {
-            throw new \Exception("Workflow [{$name}] does not exist.");
+            $workflow = $this->workflow;
+        }
+
+        if (!$workflow) {
+            return (new Workflow($this->steps ?: []))
+                ->setPrototypeAttribute('name', $name)
+                ->passThrough($this);
         }
 
         return (new $workflow)
             ->setPrototypeAttribute('name', $name)
             ->passThrough($this);
+    }
+
+    protected function loadInstanceWith($key, $input, $abstract)
+    {
+        return array_map(function ($attributes) use ($key, $abstract) {
+            
+            $abstract = Arr::pull($attributes, 'abstract', $abstract);
+
+            $this->instance->{$key}->put($attributes['handle'], new $abstract($attributes));
+        }, $input);
     }
 
     public function __get($key)

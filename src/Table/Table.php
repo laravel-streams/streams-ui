@@ -2,9 +2,10 @@
 
 namespace Streams\Ui\Table;
 
-use Streams\Ui\Button\ButtonCollection;
-use Illuminate\Support\Collection;
 use Streams\Ui\Support\Component;
+use Streams\Core\Support\Workflow;
+use Illuminate\Support\Facades\App;
+use Streams\Ui\Button\ButtonCollection;
 use Streams\Ui\Table\Component\View\ViewCollection;
 use Streams\Ui\Table\Component\Action\ActionCollection;
 use Streams\Ui\Table\Component\Filter\FilterCollection;
@@ -74,15 +75,19 @@ class Table extends Component
             'component' => 'table',
             'template' => 'ui::tables.table',
 
-            'rows' => new Collection(),
-            'buttons' => new Collection(),
-            'columns' => new Collection(),
-            'entries' => new Collection(),
-            'options' => new Collection(),
+            'rows' => [],
+            'buttons' => [],
+            'columns' => [],
+            'entries' => [],
+            'options' => [],
 
-            'views' => new ViewCollection(),
-            'actions' => new ActionCollection(),
-            'filters' => new FilterCollection(),
+            'views' => [],
+            'actions' => [],
+            'filters' => [],
+
+            'classes' => [
+                'min-w-full',
+            ],
         ], $attributes));
     }
 
@@ -90,9 +95,58 @@ class Table extends Component
     {
         return ($this->actions->isNotEmpty() || $this->options->get('selectable'));
     }
-    
+
     public function isSortable(): bool
     {
         return (bool) $this->options->get('sortable');
+    }
+
+    public function post()
+    {
+        $workflow = (new Workflow([
+            'detect' => [$this, 'detect'],
+            'handle' => [$this, 'handle'],
+        ]))->passThrough($this);
+
+        $this->fire('posting', [
+            'table' => $this,
+            'workflow' => $workflow
+        ]);
+
+        $workflow->process([
+            'table' => $this,
+            'workflow' => $workflow
+        ]);
+
+        $this->fire('posted', [
+            'table' => $this
+        ]);
+
+        return $this;
+    }
+
+    public function detect()
+    {
+        if ($this->actions->active()) {
+            return;
+        }
+
+        if ($action = $this->actions->get($this->request('action'))) {
+            $action->active = true;
+        }
+    }
+
+    public function handle()
+    {
+        if (!$active = $this->actions->active()) {
+            return;
+        }
+        
+        $selected = (array) $this->request('selected');
+
+        App::call($active->handler, [
+            'table' => $this,
+            'selected' => $selected,
+        ], 'handle');
     }
 }

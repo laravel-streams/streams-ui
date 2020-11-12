@@ -3,8 +3,8 @@
 namespace Streams\Ui\Table\Component\Row;
 
 use Streams\Ui\Support\Component;
-use Streams\Ui\Button\ButtonCollection;
 use Illuminate\Support\Collection;
+use Streams\Ui\Button\ButtonCollection;
 
 /**
  * Class Row

@@ -51,14 +51,14 @@ class CpController extends StreamsController
         }
 
         $action = Request::route()->action;
-
+        
         if (isset($action['ui.component'])) {
 
-            $data->put('response', $stream->{$action['ui.component']}(
-                $data->filter()->except('stream')->all()
-            )->response());
+            $component = $stream->{$action['ui.component']}([
+                'entry' => $data->get('entry')
+            ]);
 
-            return;
+            $data->put('response', $component->response());
         }
 
         parent::resolveResponse($data);

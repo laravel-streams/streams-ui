@@ -2,13 +2,17 @@
 
 namespace Streams\Ui\Form;
 
+use Illuminate\Support\Arr;
 use Collective\Html\FormFacade;
-use Illuminate\Support\Collection;
-use Illuminate\Support\MessageBag;
-use Illuminate\Support\Facades\Request;
-use Streams\Ui\Form\FormHandler;
 use Streams\Ui\Support\Component;
+use Illuminate\Support\MessageBag;
+use Streams\Core\Support\Workflow;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Request;
 use Streams\Ui\Button\ButtonCollection;
+use Streams\Core\Support\Facades\Messages;
+use Illuminate\Contracts\Validation\Factory;
+use Illuminate\Contracts\Validation\Validator;
 use Streams\Ui\Form\Component\Field\FieldCollection;
 use Streams\Ui\Form\Component\Action\ActionCollection;
 use Streams\Ui\Form\Component\Section\SectionCollection;
@@ -38,14 +42,20 @@ class Form extends Component
             'options' => [
                 'type' => 'collection',
             ],
-    
+
             'rules' => [
                 'type' => 'collection',
             ],
             'validators' => [
                 'type' => 'collection',
             ],
-    
+
+            'errors' => [
+                //'type' => 'collection',
+                // 'config' => [
+                //     'abstract' => MessageBag::class,
+                // ],
+            ],
             'fields' => [
                 'type' => 'collection',
                 'config' => [
@@ -71,28 +81,28 @@ class Form extends Component
                 ],
             ],
         ]);
-        
+
         return parent::initializePrototype(array_merge([
             'component' => 'form',
             'template' => 'ui::forms.form',
 
             'mode' => null,
             'entry' => null,
-            
-            'handler' => FormHandler::class,
 
-            'values' => new Collection(),
-            'options' => new Collection(),
+            //'handler' => FormHandler::class, // Action sets this
 
-            'rules' => new Collection(),
-            'validators' => new Collection(),
+            'errors' => [],
 
-            'errors' => new MessageBag(),
+            'values' => [],
+            'options' => [],
 
-            'fields' => new FieldCollection(),
-            'actions' => new ActionCollection(),
-            'buttons' => new ButtonCollection(),
-            'sections' => new SectionCollection(),
+            'rules' => [],
+            'validators' => [],
+
+            'fields' => [],
+            'actions' => [],
+            'buttons' => [],
+            'sections' => [],
         ], $attributes));
     }
 
@@ -123,5 +133,138 @@ class Form extends Component
     public function close()
     {
         return FormFacade::close();
+    }
+
+    public function post()
+    {
+        $workflow = (new Workflow([
+            'load' => [$this, 'load'],
+            'validate' => [$this, 'validate'],
+            'handle' => [$this, 'handle'],
+        ]))->passThrough($this);
+
+        $this->fire('posting', [
+            'form' => $this,
+            'workflow' => $workflow
+        ]);
+
+        $workflow->process([
+            'form' => $this,
+            'workflow' => $workflow
+        ]);
+
+        $this->fire('posted', [
+            'form' => $this
+        ]);
+
+        return $this;
+    }
+
+    public function load()
+    {
+        // @todo foreach meta fields? ID should be a field.. - marked meta?
+        if ($id = $this->request('id')) {
+            $this->values->put('id', $id);
+        }
+
+        foreach ($this->fields as $field) {
+            $this->values->put($field->handle, $this->request($field->handle));
+        }
+    }
+
+    public function validate(Factory $factory)
+    {
+        if ($this->rules->isEmpty() && $this->stream) {
+
+            $this->validator = $this->stream->validator($this->values);
+
+            return;
+        }
+
+        $this->extendValidation($this, $factory);
+
+        $this->validator = $factory->make(
+            $this->values->all(),
+            $this->rules->map(function ($rules) {
+                return implode('|', array_unique($rules));
+            })->all()
+        );
+
+        $this->errors = $this->validator->messages();
+
+
+        if (!$this->validator) {
+            return;
+        }
+
+        if (!$this->errors->isEmpty()) {
+            Messages::success('You win!');
+        }
+        
+        if ($this->errors->isNotEmpty()) {
+            foreach ($this->errors->messages() as $errors) {
+                Messages::error(implode("\n\r", $errors));
+            }
+        }
+    }
+
+    public function handle()
+    {
+        App::call($this->handler, [
+            'form' => $this,
+        ]);
+
+        $this->response = redirect(request()->fullUrl());
+    }
+
+    public function getHandlerAttribute()
+    {
+        return function ($form) {
+
+            $entry = $form->entry ?: $form->stream->repository()->newInstance();
+            
+            foreach ($form->values as $field => $value) {
+                $entry->{$field} = $value;
+            }
+
+            $form->stream->repository()->save($entry);
+
+            $form->entry = $form->entry = $entry;
+        };
+    }
+
+    protected function extendValidation(Form $form, Factory $factory): void
+    {
+        foreach ($form->validators as $rule => $validator) {
+
+            $handler = Arr::get($validator, 'handler');
+
+            $factory->extend(
+                $rule,
+                $this->callback($handler, $form),
+                Arr::get($validator, 'message')
+            );
+        }
+    }
+
+    protected function callback($handler, Form $form): \Closure
+    {
+        return function ($attribute, $value, $parameters, Validator $validator) use ($handler, $form) {
+
+            $field = $form->fields->get($attribute);
+
+            App::call(
+                $handler,
+                [
+                    'form' => $form,
+                    'value' => $value,
+                    'field' => $field,
+                    'attribute' => $attribute,
+                    'validator' => $validator,
+                    'parameters' => $parameters,
+                ],
+                'handle'
+            );
+        };
     }
 }

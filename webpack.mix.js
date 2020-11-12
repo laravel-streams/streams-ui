@@ -4,12 +4,18 @@ const tailwindcss = require('tailwindcss');
 mix.js('resources/src/index.js', 'resources/public/js')
     .sass('resources/src/scss/theme.scss', 'resources/public/css');
 
-mix.copyDirectory('resources/public', '../../../public/vendor/anomaly/streams/ui')
+mix.copyDirectory('resources/public', '../../../public/vendor/streams/ui')
 
 mix.options({
     processCssUrls: false,
     postCss: [tailwindcss('./tailwind.config.js')],
 });
+
+mix.webpackConfig({
+    plugins: [
+        require('@tailwindcss/ui'),
+    ],
+})
 
 // mix.browserSync({
 //     proxy: process.env.APP_URL,

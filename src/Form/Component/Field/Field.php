@@ -51,6 +51,8 @@ class Field extends Component
     {
         $attributes = ['field' => $this];
 
+        $attributes['name'] = $this->name;
+
         return App::make('streams.input_types.' . ($this->input ?: 'input'), compact('attributes'));
     }
 

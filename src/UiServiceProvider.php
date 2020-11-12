@@ -136,7 +136,6 @@ class UiServiceProvider extends ServiceProvider
             ],
         ]);
 
-
         Route::prefix(Config::get('streams.cp.prefix'))->middleware(['cp'])->group(function () {
 
             Route::streams('{stream}', [ // @todo Configure this later
@@ -153,19 +152,16 @@ class UiServiceProvider extends ServiceProvider
                 'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
             ]);
 
-            Route::streams('{stream}/update/{entry}', [ // @todo Configure this later
+            Route::streams('{stream}/{entry}/edit', [ // @todo Configure this later
                 'as' => 'ui::cp.update',
                 'ui.component' => 'form',
                 'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
             ]);
-        });
 
-
-        if (file_exists($routes = __DIR__ . '/../../../../routes/cp.php')) {
-            Route::prefix(Config::get('streams.cp.prefix'))->middleware(['cp'])->group(function () use ($routes) {
+            if (file_exists($routes = base_path('routes/cp.php'))) {
                 include $routes;
-            });
-        }
+            }
+        });
     }
 
     /**
@@ -190,7 +186,7 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function extendStream()
     {
-        Stream::macro('form', function ($form, $attributes = []) {
+        Stream::macro('form', function ($form = 'default', $attributes = []) {
 
             if (is_array($form)) {
                 $attributes = $form;
@@ -208,7 +204,7 @@ class UiServiceProvider extends ServiceProvider
             return new FormBuilder($attributes);
         });
 
-        Stream::macro('table', function ($table = null, $attributes = []) {
+        Stream::macro('table', function ($table = 'default', $attributes = []) {
 
             if (is_array($table)) {
                 $attributes = $table;

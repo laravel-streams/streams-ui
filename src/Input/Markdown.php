@@ -11,7 +11,7 @@ use Streams\Ui\Support\Component;
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
  */
-class Markdown extends Component
+class Markdown extends Input
 {
 
     /**

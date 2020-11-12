@@ -42,7 +42,13 @@ class View extends Component
             'active' => false,
             'context' => 'danger',
             
-            'classes' => ['button'],
+            'classes' => [
+                'py-2',
+                'px-4',
+                'font-bold',
+                'text-black',
+                'inline-block'
+            ],
             'attributes' => [],
 
             'query' => ViewQuery::class,

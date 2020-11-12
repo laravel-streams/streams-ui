@@ -15,6 +15,83 @@ class Normalizer
 {
 
     /**
+     * Normalize the input to get rid of shorthand.
+     *
+     * @param array $input
+     * @param string $keyName
+     */
+    public static function normalize(array $input, $keyName = 'handle')
+    {
+        foreach ($input as $key => &$item) {
+
+            if (is_numeric($key) && is_string($item)) {
+                $item = [
+                    $keyName => $item,
+                ];
+            }
+
+            if (!is_numeric($key) && is_string($item)) {
+                $item = [
+                    $keyName => $item,
+                ];
+            }
+        }
+
+        return $input;
+    }
+
+    /**
+     * Fill with key replaces the provided attribute
+     * with the key if the attribuet is missing.
+     *
+     * @param array $input
+     * @param $attribute
+     * @return array
+     */
+    public static function fillWithKey(array $input, $attribute)
+    {
+        foreach ($input as $key => &$item) {
+            $item[$attribute] = Arr::pull($item, $attribute, $key);
+        }
+
+        return $input;
+    }
+
+    /**
+     * Fill with key replaces the provided attribute
+     * with the key if the attribuet is missing.
+     *
+     * @param array $input
+     * @param $attribute
+     * @return array
+     */
+    public static function fillWithAttribute(array $input, $attribute, $target)
+    {
+        foreach ($input as &$item) {
+            Arr::set($item, $attribute, Arr::pull($item, $attribute, Arr::get($item, $target)));
+        }
+
+        return $input;
+    }
+
+    /**
+     * Fill with key replaces the provided attribute
+     * with the key if the attribuet is missing.
+     *
+     * @param array $input
+     * @param $attribute
+     * @return array
+     */
+    public static function fillWithValue(array $input, $attribute, $value)
+    {
+        foreach ($input as &$item) {
+            Arr::set($item, $attribute, Arr::pull($item, $attribute, $value));
+        }
+
+        return $input;
+    }
+
+    /**
      * Normalize buttons.
      *
      * @param array $buttons
@@ -105,10 +182,15 @@ class Normalizer
             }
 
             /**
-             * Move all data-* keys to attributes.
+             * Move all data-*|x-* keys to attributes.
              */
             foreach ($item as $attribute => $value) {
+                
                 if (Str::is('data-*', $attribute)) {
+                    Arr::set($item, 'attributes.' . $attribute, Arr::pull($item, $attribute));
+                }
+
+                if (Str::is('x-*', $attribute)) {
                     Arr::set($item, 'attributes.' . $attribute, Arr::pull($item, $attribute));
                 }
             }
@@ -123,6 +205,32 @@ class Normalizer
             ) {
                 $item['attributes']['href'] = url($item['attributes']['href']);
             }
+        }
+
+        return $input;
+    }
+
+    /**
+     * Normalize dropdown definitions.
+     *
+     * @param array $input
+     * @param array $default
+     * @return array
+     */
+    public static function dropdown(array $input)
+    {
+        foreach ($input as &$item) {
+
+            /**
+             * Make sure dropdown exists.
+             */
+            $dropdown = Arr::get($item, 'dropdown', []);
+
+            $dropdown = self::normalize($dropdown, 'text');
+            $dropdown = self::fillWithKey($dropdown, 'handle');
+            $dropdown = self::attributes($dropdown);
+
+            $item['dropdown'] = $dropdown;
         }
 
         return $input;

@@ -5,6 +5,7 @@ namespace Streams\Ui\Table\Component\Action\Handler;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Streams\Ui\Table\TableBuilder;use Streams\Core\Support\Facades\Messages;
+use Streams\Ui\Table\Table;
 
 /**
  * Class DeleteActionHandler
@@ -19,16 +20,16 @@ class Delete
     /**
      * Delete the selected entries.
      *
-     * @param TableBuilder $builder
+     * @param TableBuilder $table
      * @param array        $selected
      */
-    public function handle(TableBuilder $builder, array $selected = [])
+    public function handle(Table $table, array $selected = [])
     {
         $count = count($selected);
 
         foreach ($selected as $id) {
 
-            if (!$entry = $builder->repository->find($id)) {
+            if (!$entry = $table->stream->repository()->find($id)) {
                 continue;
             }
 
@@ -39,6 +40,6 @@ class Delete
             'count' => $count
         ]));
 
-        $builder->response = Redirect::back();
+        $table->response = Redirect::back();
     }
 }

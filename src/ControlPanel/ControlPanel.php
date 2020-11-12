@@ -27,6 +27,12 @@ class ControlPanel extends Component
     protected function initializePrototype(array $attributes)
     {
         $this->loadPrototypeProperties([
+            'buttons' => [
+                'type' => 'collection',
+                'config' => [
+                    'abstract' => ButtonCollection::class,
+                ],
+            ],
             'navigation' => [
                 'type' => 'collection',
                 'config' => [
@@ -42,10 +48,10 @@ class ControlPanel extends Component
         ]);
 
         return parent::initializePrototype(array_merge([
-            'buttons' => ButtonCollection::class,
-            'sections' => SectionCollection::class,
-            'shortcuts' => ShortcutCollection::class,
-            'navigation' => NavigationCollection::class,
+            'buttons' => [],
+            //'sections' => SectionCollection::class,
+            'shortcuts' => [],
+            'navigation' => [],
         ], $attributes));
     }
 }

@@ -7,7 +7,7 @@
 
 <body>
 
-    <div class="h-screen flex overflow-hidden bg-gray-100">
+    <div class="h-screen flex overflow-hidden bg-gray-50">
 
         @include('ui::cp.sidebar')
 
@@ -21,6 +21,7 @@
     </div>
 
     @include('ui::cp.assets')
+    @include('ui::cp.messages')
 
 </body>
 
