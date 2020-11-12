@@ -2,8 +2,6 @@
 
 namespace Streams\Ui\Input;
 
-use Streams\Ui\Support\Component;
-
 /**
  * Class Integer
  *
