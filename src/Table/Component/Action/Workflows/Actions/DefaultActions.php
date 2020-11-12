@@ -25,7 +25,6 @@ class DefaultActions
             $builder->actions = [
                 'delete',
                 'edit',
-                'export',
             ];
         }
     }
