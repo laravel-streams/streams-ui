@@ -355,6 +355,10 @@ class TableBuilder extends Builder
     {
         $columns = $this->columns;
 
+        if (!$columns) {
+            $columns = ['id', 'created_at'];
+        }
+
         $columns = Normalizer::normalize($columns);
         $columns = Normalizer::fillWithKey($columns, 'handle');
         $columns = Normalizer::fillWithAttribute($columns, 'value', 'handle');
@@ -422,7 +426,7 @@ class TableBuilder extends Builder
                 $row->buttons->put($clone->handle, $clone);
             }
         });
-        
+
         $this->rows = $rows;
     }
 }

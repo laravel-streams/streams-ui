@@ -2,19 +2,19 @@
 
 namespace Streams\Ui\Support;
 
+use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\View;
 use Illuminate\View\View as ViewView;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Traits\Macroable;
+use Streams\Core\Support\Traits\Fluency;
 use Illuminate\Contracts\Support\Jsonable;
-use Streams\Core\Support\Facades\Hydrator;
 use Streams\Core\Support\Traits\Prototype;
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Collection;
 use Streams\Core\Support\Traits\FiresCallbacks;
-use Streams\Core\Support\Traits\Fluency;
 
 /**
  * Class Ui
@@ -94,6 +94,6 @@ class Component implements Arrayable, Jsonable
 
     public function __toString()
     {
-        return (string) $this->render();
+        return $this->template ? (string) $this->render() : '';
     }
 }

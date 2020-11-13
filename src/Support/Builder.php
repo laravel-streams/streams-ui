@@ -92,7 +92,7 @@ class Builder
         }
 
         if (!$this->async && Request::ajax()) {
-            return Response::view($this->render());
+            return Response::view($this->render())->render();
         }
 
         if ($this->async == true && Request::ajax()) {
