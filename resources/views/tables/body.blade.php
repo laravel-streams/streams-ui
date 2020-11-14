@@ -1,7 +1,7 @@
 <tbody class="table__body">
     @section('rows')
     @foreach ($table->rows as $row)
-    <tr {!! $row->htmlAttributes() !!}>
+    <tr {!! $row->htmlAttributes() !!} ">
 
         @if ($table->isSortable()))
         <td class="table__handle">
@@ -10,7 +10,7 @@
         @endif
 
         @if ($table->isSelectable())
-        <td class="table__column">
+        <td class="table__column pt-3">
             <input type="checkbox" name="{{ $table->prefix('selected[]') }}" value="{{ $row->key }}" />
         </td>
         @endif
@@ -21,7 +21,7 @@
         </td>
         @endforeach
 
-        <td class="table__column --buttons">
+        <td class="table__column --buttons flex justify-end">
             {!! $row->buttons->render() !!}
         </td>
 

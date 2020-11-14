@@ -14,7 +14,6 @@ use Streams\Ui\Support\Component;
  */
 class Button extends Component
 {
-
     /**
      * Initialize the prototype.
      *
@@ -25,26 +24,28 @@ class Button extends Component
     {
         return parent::initializePrototype(array_merge([
             'component' => 'button',
-            'template' => 'ui::buttons.button',
+            'template'  => 'ui::buttons.button',
 
-            'tag' => 'a',
-            'url' => null,
-            'text' => null,
-            'entry' => null,
-            'policy' => null,
-            'enabled' => true,
-            'primary' => false,
+            'tag'      => 'a',
+            'url'      => null,
+            'text'     => null,
+            'entry'    => null,
+            'policy'   => null,
+            'enabled'  => true,
+            'primary'  => false,
             'disabled' => false,
-            'type' => 'default',
-            'classes' => [
-                'py-2',
-                'px-4',
-                'rounded',
-                'border-2',
+            'type'     => 'default',
+            'classes'  => [
+                'py-1',
+                'px-3',
+                'rounded-sm',
+                'border',
+                'text-sm',
                 'font-bold',
                 'text-black',
                 'border-black',
-                'inline-block'
+                'inline-block',
+                'ml-1'
             ],
         ], $attributes));
     }
@@ -80,7 +81,7 @@ class Button extends Component
     public function attributes(array $attributes = [])
     {
         return parent::attributes(array_filter(array_merge([
-            'name' => $this->name,
+            'name'  => $this->name,
             'value' => $this->value,
             'class' => $this->class(),
         ], $attributes)));

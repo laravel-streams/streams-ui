@@ -5,7 +5,7 @@
     @if ($table->actions->isNotEmpty() || $table->pagination)
     <tr>
         <td colspan="100%">
-            <div class="table__footer">
+            <div class="table__footer flex justify-end flex-wrap">
 
                 @include('ui::tables.actions')
 

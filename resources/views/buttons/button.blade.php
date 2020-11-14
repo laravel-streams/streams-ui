@@ -1,3 +1,4 @@
+<!-- button.blade.php -->
 @if ($button->dropdown)
 <div class="inline-block relative" x-data="{show: false}">
 
@@ -31,6 +32,7 @@
 
 </div>
 @else
+
 {!! $button->open() !!}
 {{-- <i v-show="button.icon" :class="button.icon"></i> --}}
 {{ __($button->text) }}

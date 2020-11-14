@@ -1,0 +1,10 @@
+{
+	"Html Comment": {
+		"prefix": ["html","comment","fn","path"],
+		"scope": "blade",
+		"body": [
+			"<!-- ${1:${TM_FILENAME}} -->"
+		],
+		"description": "Console Log"
+	}
+}
