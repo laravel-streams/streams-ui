@@ -1,6 +1,6 @@
-<div class="col-span-2">
+<aside class="col-span-2">
 
-    <aside class="bg-gray-700 h-full ">
+    <div class="bg-gray-700 h-full ">
 
         <div class="sticky top-0">
             @include('ui::cp.navigation')
@@ -17,7 +17,6 @@
         </div>
         </div>
 
-    </aside>
+    </div>
 
-
-</div>
+</aside>
