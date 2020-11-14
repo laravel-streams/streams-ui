@@ -7,11 +7,11 @@
 
 <body>
 
-    <div class="h-screen flex overflow-hidden bg-gray-50">
+    <div class="grid grid-cols-12 min-h-screen">
 
         @include('ui::cp.sidebar')
 
-        <div class="flex flex-col w-0 flex-1 overflow-hidden">
+        <div class=" col-span-10">
 
             @include('ui::cp.top')
             @include('ui::cp.content')
