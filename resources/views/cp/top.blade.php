@@ -1,6 +1,6 @@
-<div class="relative z-10 flex-shrink-0 flex h-16 bg-white shadow">
+<div class="sticky top-0 z-50 p-2 bg-white shadow-xs grid grid-cols-12">
 
-    {{-- Hamburger --}}
+    {{-- Hamburger 
     <button
         class="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:bg-gray-100 focus:text-gray-600 md:hidden"
         aria-label="Open sidebar">
@@ -8,12 +8,13 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
         </svg>
     </button>
+    --}}
 
-    <div class="flex px-4 items-center justify-between">
+    <div class=" col-span-8">
         {!! $cp->buttons !!}
     </div>
 
-    <div class="flex-1 px-4 flex justify-end">
+    <div class="col-span-4 place-self-end">
         
         <div class="ml-4 flex items-center md:ml-6">
 
