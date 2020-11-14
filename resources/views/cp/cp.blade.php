@@ -11,12 +11,12 @@
 
         @include('ui::cp.sidebar')
 
-        <div class="col-span-10">
+        <main class="col-span-10">
 
             @include('ui::cp.top')
             @include('ui::cp.content')
 
-        </div>
+        </main>
 
     </div>
 

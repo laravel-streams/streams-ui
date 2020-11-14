@@ -1,4 +1,4 @@
-<div class="sticky top-0 z-50 p-2 bg-white shadow-xs grid grid-cols-12">
+<nav class="sticky top-0 z-50 px-8 py-4 bg-white shadow-xs grid grid-cols-12">
 
     {{-- Hamburger 
     <button
@@ -67,4 +67,4 @@
         </div>
         
     </div>
-</div>
+</nav>
