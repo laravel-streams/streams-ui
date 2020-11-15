@@ -11,10 +11,13 @@ Probably would not work great on smaller screens when people wanna place fields
 in two or more columns next to each other. But again, it could be controlled.
 --}}
 <div {!! $field->htmlAttributes() !!}>
-    
-    <div class="grid grid-cols-12 gap-4">
-        <label class="xs:col-span-12 md:col-span-12 lg:col-span-12 xl:col-span-12 xxl:col-span-3">{{ $field->label ?: $field->handle }}</label>
-        <div class="xs:col-span-12 md:col-span-12 lg:col-span-12 xl:col-span-12 xxl:col-span-9">
+
+    <div class="flex flex-wrap xxxl:flex-no-wrap">
+        <label class="font-bold capitalize leading-loose
+        xxxl:leading-normal w-full xxxl:max-w-xs xxxl:mr-4 xxxl:bg-gray-200 xxxl:px-2 xxxl:py-2 ">
+            {{ $field->label ?: $field->handle }}
+        </label>
+        <div class="w-full">
             {!! $field->input() !!}
         </div>
 
