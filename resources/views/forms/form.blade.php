@@ -1,4 +1,4 @@
-<div class="form__component" x-data="{}">
+<div class="" x-data="{}">
 
     @section('form')
     {!! $form->open() !!}

@@ -1,4 +1,4 @@
-<thead class="table__head">
+<thead class="">
     <tr>
 
         @if ($table->isSortable())
@@ -6,7 +6,7 @@
         @endif
 
         @if ($table->isSelectable())
-        <th class="table__checkbox">
+        <th class="">
         <input type="checkbox" x-on:click="alert('Select all');">
         </th>
         @endif

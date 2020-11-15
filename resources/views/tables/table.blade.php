@@ -1,4 +1,4 @@
-<div class="table__component" x-data="{}">
+<div class="" x-data="{}">
     
     @section('views')
     @include('ui::tables.views')

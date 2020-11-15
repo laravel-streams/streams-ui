@@ -1,3 +1,3 @@
-<div class="table__pagination">
+<div class="">
     {{ $table->pagination->links() }}
 </div>

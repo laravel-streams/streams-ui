@@ -1,4 +1,4 @@
-<div class="form__layout">
+<div class="">
     @if ($form->sections->isnotEmpty())
         @foreach ($form->sections as $section)
             @if (isset($section['view']))

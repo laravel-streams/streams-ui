@@ -1,4 +1,4 @@
-<div class="form__section">
+<div class="">
 
     @include('ui::forms.header')
 

@@ -1,5 +1,5 @@
 @if ($table->views->isNotEmpty())
-<nav class="table__views">
+<nav class="">
     @foreach ($table->views as $view)
         
         <a {!! $view->htmlAttributes([

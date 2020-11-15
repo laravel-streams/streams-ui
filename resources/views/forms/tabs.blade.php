@@ -1,4 +1,4 @@
-<div class="form__section --tabbed">
+<div class="">
 
     <ul>
         @foreach ($section['tabs'] as $slug => $tab)

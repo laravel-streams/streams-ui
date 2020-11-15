@@ -2,7 +2,7 @@
 
     <label>{{ $field->label ?: $field->handle }}</label>
 
-    <div class="field__input">
+    <div class="">
         {!! $field->input() !!}
     </div>
 
