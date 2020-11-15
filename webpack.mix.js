@@ -4,7 +4,11 @@ const tailwindcss = require('tailwindcss');
 mix.js('resources/src/index.js', 'resources/public/js')
     .sass('resources/src/scss/theme.scss', 'resources/public/css');
 
-mix.copyDirectory('resources/public', '../../../public/vendor/streams/ui')
+if (process.env.APP_ENV === "william") {
+    mix.copyDirectory('resources/public', '/Users/pixney/Development/Repos/streamsdev/public/vendor/streams/ui')
+} else {
+    mix.copyDirectory('resources/public', '../../../public/vendor/streams/ui')
+}
 
 mix.options({
     processCssUrls: false,
