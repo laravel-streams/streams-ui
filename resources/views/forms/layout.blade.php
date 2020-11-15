@@ -1,5 +1,5 @@
 <!-- layout.blade.php -->
-<div class="">
+<div class="px-8">
     @if ($form->sections->isnotEmpty())
         @foreach ($form->sections as $section)
             @if (isset($section['view']))
