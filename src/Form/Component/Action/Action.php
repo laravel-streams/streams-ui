@@ -13,7 +13,6 @@ use Streams\Ui\Button\Button;
  */
 class Action extends Button
 {
-
     /**
      * Initialize the prototype.
      *
@@ -23,36 +22,38 @@ class Action extends Button
     protected function initializePrototype(array $attributes)
     {
         return parent::initializePrototype(array_merge([
-            'tag' => 'button',
-            'as' => 'button',
-            'url' => null,
-            'text' => null,
-            'entry' => null,
-            'policy' => null,
-            'enabled' => true,
-            'primary' => false,
+            'tag'      => 'button',
+            'as'       => 'button',
+            'url'      => null,
+            'text'     => null,
+            'entry'    => null,
+            'policy'   => null,
+            'enabled'  => true,
+            'primary'  => false,
             'disabled' => false,
-            'type' => 'default',
+            'type'     => 'default',
 
             // Extended
-            'prefix' => null,
+            'prefix'   => null,
             'redirect' => null,
 
-            'save' => true,
+            'save'   => true,
             'active' => false,
 
             'classes' => [
-                'py-2',
-                'px-4',
-                'rounded',
-                'border-2',
+                'py-1',
+                'px-3',
+                'rounded-sm',
+                'border',
+                'text-sm',
                 'font-bold',
                 'text-black',
                 'border-black',
-                'inline-block'
+                'inline-block',
+                'ml-1'
             ],
 
-            'handle' => 'default',
+            'handle'  => 'default',
             'handler' => ActionHandler::class,
         ], $attributes));
     }

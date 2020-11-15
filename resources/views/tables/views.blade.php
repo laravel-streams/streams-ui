@@ -1,6 +1,6 @@
 <!-- views.blade.php -->
 @if ($table->views->isNotEmpty())
-<nav class="">
+<nav class="px-8">
     @foreach ($table->views as $view)
         
         <a {!! $view->htmlAttributes([

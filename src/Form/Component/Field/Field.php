@@ -24,25 +24,25 @@ class Field extends Component
     protected function initializePrototype(array $attributes)
     {
         return parent::initializePrototype(array_merge([
-            'tag' => 'button',
-            'as' => 'button',
-            'url' => null,
-            'text' => null,
-            'entry' => null,
-            'policy' => null,
-            'enabled' => true,
-            'primary' => false,
+            'tag'      => 'button',
+            'as'       => 'button',
+            'url'      => null,
+            'text'     => null,
+            'entry'    => null,
+            'policy'   => null,
+            'enabled'  => true,
+            'primary'  => false,
             'disabled' => false,
-            'type' => 'default',
+            'type'     => 'default',
 
             // Extended
-            'prefix' => null,
+            'prefix'   => null,
             'redirect' => null,
 
-            'save' => true,
+            'save'   => true,
             'active' => false,
 
-            'handle' => 'default',
+            'handle'  => 'default',
             'handler' => ActionHandler::class,
         ], $attributes));
     }
@@ -59,8 +59,8 @@ class Field extends Component
     public function class(array $classes = [])
     {
         return parent::class(array_merge([
-            'field__container',
-            'w-' . Arr::get($this->config ?: [], 'width', 'full'),
+            'col-span-12',
+            '' . Arr::get($this->config ?: [], 'width', 'full'),
         ], $classes));
     }
 

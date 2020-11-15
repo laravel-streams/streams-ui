@@ -1,6 +1,6 @@
 <!-- table.blade.php -->
 <div class="" x-data="{}">
-    
+
     @section('views')
     @include('ui::tables.views')
     @show
@@ -15,21 +15,23 @@
     {!! Form::open() !!}
 
     @section('table')
-    <table {!! $table->htmlAttributes(['classes' => ['table']]) !!}>
+    <div class="px-8">
+        <table {!! $table->htmlAttributes(['classes' => ['table']]) !!}>
 
-        @section('head')
-        @include('ui::tables.head')
-        @show
-
-        @section('body')
-        @include('ui::tables.body')
-        @show
-
-        @section('foot')
-        @include('ui::tables.foot')
-        @show
-
-    </table>
+            @section('head')
+            @include('ui::tables.head')
+            @show
+    
+            @section('body')
+            @include('ui::tables.body')
+            @show
+    
+            @section('foot')
+            @include('ui::tables.foot')
+            @show
+    
+        </table>
+    </div>
     @show
 
     {!! Form::close() !!}
