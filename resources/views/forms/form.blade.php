@@ -1,5 +1,5 @@
 <!-- form.blade.php -->
-<div x-data="{}">
+<div x-data="{}"><!-- Question: Is there a need for this wrapper? -->
 
     @section('form')
     {!! $form->open() !!}
