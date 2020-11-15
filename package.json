@@ -17,12 +17,15 @@
     },
     "devDependencies": {
         "axios": "^0.19",
-        "cypress": "^5.3.0",
         "cross-env": "^7.0",
-        "lodash": "^4.17.19",
+        "cypress": "^5.3.0",
         "laravel-mix": "^5.0.1",
-        "tailwindcss": "^1.8.0",
+        "lodash": "^4.17.19",
         "resolve-url-loader": "^3.1.0",
-        "tailwind-css-variables": "^2.0.3"
+        "sass": "^1.29.0",
+        "sass-loader": "^8.0.2",
+        "tailwind-css-variables": "^2.0.3",
+        "tailwindcss": "^1.8.0",
+        "vue-template-compiler": "^2.6.12"
     }
 }

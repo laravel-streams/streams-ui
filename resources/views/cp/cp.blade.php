@@ -8,10 +8,10 @@
 <body>
 
     <div class="grid grid-cols-12 min-h-screen">
-
-        @include('ui::cp.sidebar')
-
-        <main class="col-span-10">
+        <aside class="xs:col-span-3 md:col-span-3 lg:col-span-3 xl:col-span-2">
+            @include('ui::cp.sidebar')
+        </aside>
+        <main class="xs:col-span-9 md:col-span-9 lg:col-span-9 xl:col-span-10">
 
             @include('ui::cp.top')
             @include('ui::cp.content')
