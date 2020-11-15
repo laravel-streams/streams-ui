@@ -1,3 +1,4 @@
+<!-- table.blade.php -->
 <div class="" x-data="{}">
     
     @section('views')

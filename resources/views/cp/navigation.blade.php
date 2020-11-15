@@ -1,4 +1,4 @@
-
+<!-- navigation.blade.php -->
     @foreach ($cp->navigation->filter(function($link) {
         return !$link->parent;
     }) as $link)

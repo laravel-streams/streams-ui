@@ -1,3 +1,4 @@
+<!-- top.blade.php -->
 <nav class="sticky top-0 z-50 px-8 py-4 bg-white shadow-xs grid grid-cols-12">
 
     {{-- Hamburger 

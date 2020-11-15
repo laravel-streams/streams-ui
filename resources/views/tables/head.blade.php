@@ -1,3 +1,4 @@
+<!-- head.blade.php -->
 <thead class="">
     <tr>
 

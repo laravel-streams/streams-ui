@@ -1,3 +1,4 @@
+<!-- foot.blade.php -->
 <tfoot class="">
     @section('controls')
     {{-- Eventually loop through controls in table.data --}}

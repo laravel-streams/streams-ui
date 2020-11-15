@@ -1,3 +1,4 @@
+<!-- tabs.blade.php -->
 <div class="">
 
     <ul>

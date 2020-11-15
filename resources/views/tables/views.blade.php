@@ -1,3 +1,4 @@
+<!-- views.blade.php -->
 @if ($table->views->isNotEmpty())
 <nav class="">
     @foreach ($table->views as $view)

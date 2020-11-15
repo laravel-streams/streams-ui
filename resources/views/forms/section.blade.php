@@ -1,3 +1,4 @@
+<!-- section.blade.php -->
 <div class="">
 
     @include('ui::forms.header')

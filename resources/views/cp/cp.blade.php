@@ -6,7 +6,7 @@
 </head>
 
 <body>
-
+    <!-- cp.blade.php -->
     <div class="grid grid-cols-12 min-h-screen">
         <aside class="xs:col-span-3 md:col-span-3 lg:col-span-3 xl:col-span-2">
             @include('ui::cp.sidebar')

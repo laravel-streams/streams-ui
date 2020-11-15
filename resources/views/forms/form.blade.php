@@ -1,4 +1,5 @@
-<div class="" x-data="{}">
+<!-- form.blade.php -->
+<div x-data="{}">
 
     @section('form')
     {!! $form->open() !!}

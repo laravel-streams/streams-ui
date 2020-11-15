@@ -1,3 +1,4 @@
+<!-- messages.blade.php -->
 @foreach (Messages::pull() as $message)
 
 @switch($message['type'])

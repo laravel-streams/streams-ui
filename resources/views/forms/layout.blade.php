@@ -1,3 +1,4 @@
+<!-- layout.blade.php -->
 <div class="">
     @if ($form->sections->isnotEmpty())
         @foreach ($form->sections as $section)

@@ -1,3 +1,4 @@
+<!-- filters.blade.php -->
 @if ($table->filters->isNotEmpty())
 <div class="">
     {!! Form::open([

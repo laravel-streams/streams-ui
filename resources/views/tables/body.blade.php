@@ -1,3 +1,4 @@
+<!-- body.blade.php -->
 <tbody class="">
     @section('rows')
     @foreach ($table->rows as $row)

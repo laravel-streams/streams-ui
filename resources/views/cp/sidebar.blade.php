@@ -1,3 +1,4 @@
+<!-- sidebar.blade.php -->
 <div class="bg-gray-700 h-full ">
 
     <div class="sticky top-0">
