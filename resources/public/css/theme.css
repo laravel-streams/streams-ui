@@ -19234,6 +19234,10 @@ video {
   grid-template-columns: repeat(12, minmax(0, 1fr));
 }
 
+.grid-cols-16 {
+  grid-template-columns: repeat(16, minmax(0, 1fr));
+}
+
 .grid-cols-none {
   grid-template-columns: none;
 }
@@ -19310,6 +19314,22 @@ video {
 
 .col-span-full {
   grid-column: 1 / -1;
+}
+
+.col-span-13 {
+  grid-column: span 13 / span 13;
+}
+
+.col-span-14 {
+  grid-column: span 14 / span 14;
+}
+
+.col-span-15 {
+  grid-column: span 15 / span 15;
+}
+
+.col-span-16 {
+  grid-column: span 16 / span 16;
 }
 
 .col-start-1 {
@@ -40307,6 +40327,10 @@ video {
     grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 
+  .sm\:grid-cols-16 {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+  }
+
   .sm\:grid-cols-none {
     grid-template-columns: none;
   }
@@ -40383,6 +40407,22 @@ video {
 
   .sm\:col-span-full {
     grid-column: 1 / -1;
+  }
+
+  .sm\:col-span-13 {
+    grid-column: span 13 / span 13;
+  }
+
+  .sm\:col-span-14 {
+    grid-column: span 14 / span 14;
+  }
+
+  .sm\:col-span-15 {
+    grid-column: span 15 / span 15;
+  }
+
+  .sm\:col-span-16 {
+    grid-column: span 16 / span 16;
   }
 
   .sm\:col-start-1 {
@@ -61315,6 +61355,10 @@ video {
     grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 
+  .md\:grid-cols-16 {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+  }
+
   .md\:grid-cols-none {
     grid-template-columns: none;
   }
@@ -61391,6 +61435,22 @@ video {
 
   .md\:col-span-full {
     grid-column: 1 / -1;
+  }
+
+  .md\:col-span-13 {
+    grid-column: span 13 / span 13;
+  }
+
+  .md\:col-span-14 {
+    grid-column: span 14 / span 14;
+  }
+
+  .md\:col-span-15 {
+    grid-column: span 15 / span 15;
+  }
+
+  .md\:col-span-16 {
+    grid-column: span 16 / span 16;
   }
 
   .md\:col-start-1 {
@@ -82323,6 +82383,10 @@ video {
     grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 
+  .lg\:grid-cols-16 {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+  }
+
   .lg\:grid-cols-none {
     grid-template-columns: none;
   }
@@ -82399,6 +82463,22 @@ video {
 
   .lg\:col-span-full {
     grid-column: 1 / -1;
+  }
+
+  .lg\:col-span-13 {
+    grid-column: span 13 / span 13;
+  }
+
+  .lg\:col-span-14 {
+    grid-column: span 14 / span 14;
+  }
+
+  .lg\:col-span-15 {
+    grid-column: span 15 / span 15;
+  }
+
+  .lg\:col-span-16 {
+    grid-column: span 16 / span 16;
   }
 
   .lg\:col-start-1 {
@@ -103331,6 +103411,10 @@ video {
     grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 
+  .xl\:grid-cols-16 {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+  }
+
   .xl\:grid-cols-none {
     grid-template-columns: none;
   }
@@ -103407,6 +103491,22 @@ video {
 
   .xl\:col-span-full {
     grid-column: 1 / -1;
+  }
+
+  .xl\:col-span-13 {
+    grid-column: span 13 / span 13;
+  }
+
+  .xl\:col-span-14 {
+    grid-column: span 14 / span 14;
+  }
+
+  .xl\:col-span-15 {
+    grid-column: span 15 / span 15;
+  }
+
+  .xl\:col-span-16 {
+    grid-column: span 16 / span 16;
   }
 
   .xl\:col-start-1 {
@@ -124339,6 +124439,10 @@ video {
     grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 
+  .xxl\:grid-cols-16 {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+  }
+
   .xxl\:grid-cols-none {
     grid-template-columns: none;
   }
@@ -124415,6 +124519,22 @@ video {
 
   .xxl\:col-span-full {
     grid-column: 1 / -1;
+  }
+
+  .xxl\:col-span-13 {
+    grid-column: span 13 / span 13;
+  }
+
+  .xxl\:col-span-14 {
+    grid-column: span 14 / span 14;
+  }
+
+  .xxl\:col-span-15 {
+    grid-column: span 15 / span 15;
+  }
+
+  .xxl\:col-span-16 {
+    grid-column: span 16 / span 16;
   }
 
   .xxl\:col-start-1 {
@@ -145347,6 +145467,10 @@ video {
     grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 
+  .xxxl\:grid-cols-16 {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+  }
+
   .xxxl\:grid-cols-none {
     grid-template-columns: none;
   }
@@ -145423,6 +145547,22 @@ video {
 
   .xxxl\:col-span-full {
     grid-column: 1 / -1;
+  }
+
+  .xxxl\:col-span-13 {
+    grid-column: span 13 / span 13;
+  }
+
+  .xxxl\:col-span-14 {
+    grid-column: span 14 / span 14;
+  }
+
+  .xxxl\:col-span-15 {
+    grid-column: span 15 / span 15;
+  }
+
+  .xxxl\:col-span-16 {
+    grid-column: span 16 / span 16;
   }
 
   .xxxl\:col-start-1 {
