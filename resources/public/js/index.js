@@ -157,6 +157,7 @@ __webpack_require__(/*! codemirror/addon/display/fullscreen.js */ "./node_module
 __webpack_require__(/*! codemirror/mode/markdown/markdown.js */ "./node_modules/codemirror/mode/markdown/markdown.js");
 __webpack_require__(/*! codemirror/addon/mode/overlay.js */ "./node_modules/codemirror/addon/mode/overlay.js");
 __webpack_require__(/*! codemirror/addon/display/placeholder.js */ "./node_modules/codemirror/addon/display/placeholder.js");
+__webpack_require__(/*! codemirror/addon/display/autorefresh.js */ "./node_modules/codemirror/addon/display/autorefresh.js");
 __webpack_require__(/*! codemirror/addon/selection/mark-selection.js */ "./node_modules/codemirror/addon/selection/mark-selection.js");
 __webpack_require__(/*! codemirror/addon/search/searchcursor.js */ "./node_modules/codemirror/addon/search/searchcursor.js");
 __webpack_require__(/*! codemirror/mode/gfm/gfm.js */ "./node_modules/codemirror/mode/gfm/gfm.js");
@@ -2142,7 +2143,7 @@ EasyMDE.prototype.render = function (el) {
       CodeMirror.defineMode('overlay-mode', function(config) {
         return CodeMirror.overlayMode(CodeMirror.getMode(config, options.spellChecker !== false ? 'spell-checker' : 'gfm'), options.overlayMode.mode, options.overlayMode.combine);
       });
-      
+
       mode = 'overlay-mode';
       backdrop = options.parsingConfig;
       backdrop.gitHubSpice = false;
@@ -2184,7 +2185,7 @@ EasyMDE.prototype.render = function (el) {
         tabSize: (options.tabSize != undefined) ? options.tabSize : 2,
         indentUnit: (options.tabSize != undefined) ? options.tabSize : 2,
         indentWithTabs: (options.indentWithTabs === false) ? false : true,
-        lineNumbers: false,
+        lineNumbers: (options.lineNumbers === true) ? true : false,
         autofocus: (options.autofocus === true) ? true : false,
         extraKeys: keyMaps,
         lineWrapping: (options.lineWrapping === false) ? false : true,
@@ -2194,6 +2195,7 @@ EasyMDE.prototype.render = function (el) {
         configureMouse: configureMouse,
         inputStyle: (options.inputStyle != undefined) ? options.inputStyle : isMobile() ? 'contenteditable' : 'textarea',
         spellcheck: (options.nativeSpellcheck != undefined) ? options.nativeSpellcheck : true,
+        autoRefresh: (options.autoRefresh != undefined) ? options.autoRefresh : false,
     });
 
     this.codemirror.getScrollerElement().style.minHeight = options.minHeight;
@@ -2235,11 +2237,11 @@ EasyMDE.prototype.render = function (el) {
         });
     }
 
-
     function handleImages() {
-        if (options.previewImagesInEditor === false) {
+        if (!options.previewImagesInEditor) {
             return;
         }
+
         function calcHeight(naturalWidth, naturalHeight) {
             var height;
             var viewportWidth = window.getComputedStyle(document.querySelector('.CodeMirror-sizer')).width.replace('px', '');
@@ -2276,8 +2278,6 @@ EasyMDE.prototype.render = function (el) {
     this.codemirror.on('update', function () {
         handleImages();
     });
-
-
 
     this.onWindowResize = function() {
         handleImages();
@@ -3097,6 +3097,9 @@ module.exports = EasyMDE;
   function isTesting() {
     return navigator.userAgent.includes("Node.js") || navigator.userAgent.includes("jsdom");
   }
+  function checkedAttrLooseCompare(valueA, valueB) {
+    return valueA == valueB;
+  }
   function warnIfMalformedTemplate(el, directive) {
     if (el.tagName.toLowerCase() !== 'template') {
       console.warn(`Alpine: [${directive}] directive should only be added to <template> tags. See https://github.com/alpinejs/alpine#${directive}`);
@@ -3233,7 +3236,8 @@ module.exports = EasyMDE;
   }
   const TRANSITION_TYPE_IN = 'in';
   const TRANSITION_TYPE_OUT = 'out';
-  function transitionIn(el, show, component, forceSkip = false) {
+  const TRANSITION_CANCELLED = 'cancelled';
+  function transitionIn(el, show, reject, component, forceSkip = false) {
     // We don't want to transition on the initial page load.
     if (forceSkip) return show();
 
@@ -3253,15 +3257,15 @@ module.exports = EasyMDE;
       const settingBothSidesOfTransition = modifiers.includes('in') && modifiers.includes('out'); // If x-show.transition.in...out... only use "in" related modifiers for this transition.
 
       modifiers = settingBothSidesOfTransition ? modifiers.filter((i, index) => index < modifiers.indexOf('out')) : modifiers;
-      transitionHelperIn(el, modifiers, show); // Otherwise, we can assume x-transition:enter.
+      transitionHelperIn(el, modifiers, show, reject); // Otherwise, we can assume x-transition:enter.
     } else if (attrs.some(attr => ['enter', 'enter-start', 'enter-end'].includes(attr.value))) {
-      transitionClassesIn(el, component, attrs, show);
+      transitionClassesIn(el, component, attrs, show, reject);
     } else {
       // If neither, just show that damn thing.
       show();
     }
   }
-  function transitionOut(el, hide, component, forceSkip = false) {
+  function transitionOut(el, hide, reject, component, forceSkip = false) {
     // We don't want to transition on the initial page load.
     if (forceSkip) return hide();
 
@@ -3279,14 +3283,14 @@ module.exports = EasyMDE;
       if (modifiers.includes('in') && !modifiers.includes('out')) return hide();
       const settingBothSidesOfTransition = modifiers.includes('in') && modifiers.includes('out');
       modifiers = settingBothSidesOfTransition ? modifiers.filter((i, index) => index > modifiers.indexOf('out')) : modifiers;
-      transitionHelperOut(el, modifiers, settingBothSidesOfTransition, hide);
+      transitionHelperOut(el, modifiers, settingBothSidesOfTransition, hide, reject);
     } else if (attrs.some(attr => ['leave', 'leave-start', 'leave-end'].includes(attr.value))) {
-      transitionClassesOut(el, component, attrs, hide);
+      transitionClassesOut(el, component, attrs, hide, reject);
     } else {
       hide();
     }
   }
-  function transitionHelperIn(el, modifiers, showCallback) {
+  function transitionHelperIn(el, modifiers, showCallback, reject) {
     // Default values inspired by: https://material.io/design/motion/speed.html#duration
     const styleValues = {
       duration: modifierValue(modifiers, 'duration', 150),
@@ -3300,9 +3304,9 @@ module.exports = EasyMDE;
         scale: 100
       }
     };
-    transitionHelper(el, modifiers, showCallback, () => {}, styleValues, TRANSITION_TYPE_IN);
+    transitionHelper(el, modifiers, showCallback, () => {}, reject, styleValues, TRANSITION_TYPE_IN);
   }
-  function transitionHelperOut(el, modifiers, settingBothSidesOfTransition, hideCallback) {
+  function transitionHelperOut(el, modifiers, settingBothSidesOfTransition, hideCallback, reject) {
     // Make the "out" transition .5x slower than the "in". (Visually better)
     // HOWEVER, if they explicitly set a duration for the "out" transition,
     // use that.
@@ -3319,7 +3323,7 @@ module.exports = EasyMDE;
         scale: modifierValue(modifiers, 'scale', 95)
       }
     };
-    transitionHelper(el, modifiers, () => {}, hideCallback, styleValues, TRANSITION_TYPE_OUT);
+    transitionHelper(el, modifiers, () => {}, hideCallback, reject, styleValues, TRANSITION_TYPE_OUT);
   }
 
   function modifierValue(modifiers, key, fallback) {
@@ -3352,11 +3356,10 @@ module.exports = EasyMDE;
     return rawValue;
   }
 
-  function transitionHelper(el, modifiers, hook1, hook2, styleValues, type) {
+  function transitionHelper(el, modifiers, hook1, hook2, reject, styleValues, type) {
     // clear the previous transition if exists to avoid caching the wrong styles
     if (el.__x_transition) {
-      cancelAnimationFrame(el.__x_transition.nextFrame);
-      el.__x_transition.callback && el.__x_transition.callback();
+      el.__x_transition.cancel && el.__x_transition.cancel();
     } // If the user set these style values, we'll put them back when we're done with them.
 
 
@@ -3406,41 +3409,41 @@ module.exports = EasyMDE;
       }
 
     };
-    transition(el, stages, type);
+    transition(el, stages, type, reject);
   }
-  function transitionClassesIn(el, component, directives, showCallback) {
-    let ensureStringExpression = expression => {
-      return typeof expression === 'function' ? component.evaluateReturnExpression(el, expression) : expression;
-    };
 
+  const ensureStringExpression = (expression, el, component) => {
+    return typeof expression === 'function' ? component.evaluateReturnExpression(el, expression) : expression;
+  };
+
+  function transitionClassesIn(el, component, directives, showCallback, reject) {
     const enter = convertClassStringToArray(ensureStringExpression((directives.find(i => i.value === 'enter') || {
       expression: ''
-    }).expression));
+    }).expression, el, component));
     const enterStart = convertClassStringToArray(ensureStringExpression((directives.find(i => i.value === 'enter-start') || {
       expression: ''
-    }).expression));
+    }).expression, el, component));
     const enterEnd = convertClassStringToArray(ensureStringExpression((directives.find(i => i.value === 'enter-end') || {
       expression: ''
-    }).expression));
-    transitionClasses(el, enter, enterStart, enterEnd, showCallback, () => {}, TRANSITION_TYPE_IN);
+    }).expression, el, component));
+    transitionClasses(el, enter, enterStart, enterEnd, showCallback, () => {}, TRANSITION_TYPE_IN, reject);
   }
-  function transitionClassesOut(el, component, directives, hideCallback) {
-    const leave = convertClassStringToArray((directives.find(i => i.value === 'leave') || {
+  function transitionClassesOut(el, component, directives, hideCallback, reject) {
+    const leave = convertClassStringToArray(ensureStringExpression((directives.find(i => i.value === 'leave') || {
       expression: ''
-    }).expression);
-    const leaveStart = convertClassStringToArray((directives.find(i => i.value === 'leave-start') || {
+    }).expression, el, component));
+    const leaveStart = convertClassStringToArray(ensureStringExpression((directives.find(i => i.value === 'leave-start') || {
       expression: ''
-    }).expression);
-    const leaveEnd = convertClassStringToArray((directives.find(i => i.value === 'leave-end') || {
+    }).expression, el, component));
+    const leaveEnd = convertClassStringToArray(ensureStringExpression((directives.find(i => i.value === 'leave-end') || {
       expression: ''
-    }).expression);
-    transitionClasses(el, leave, leaveStart, leaveEnd, () => {}, hideCallback, TRANSITION_TYPE_OUT);
+    }).expression, el, component));
+    transitionClasses(el, leave, leaveStart, leaveEnd, () => {}, hideCallback, TRANSITION_TYPE_OUT, reject);
   }
-  function transitionClasses(el, classesDuring, classesStart, classesEnd, hook1, hook2, type) {
+  function transitionClasses(el, classesDuring, classesStart, classesEnd, hook1, hook2, type, reject) {
     // clear the previous transition if exists to avoid caching the wrong classes
     if (el.__x_transition) {
-      cancelAnimationFrame(el.__x_transition.nextFrame);
-      el.__x_transition.callback && el.__x_transition.callback();
+      el.__x_transition.cancel && el.__x_transition.cancel();
     }
 
     const originalClasses = el.__x_original_classes || [];
@@ -3473,25 +3476,30 @@ module.exports = EasyMDE;
       }
 
     };
-    transition(el, stages, type);
+    transition(el, stages, type, reject);
   }
-  function transition(el, stages, type) {
+  function transition(el, stages, type, reject) {
+    const finish = once(() => {
+      stages.hide(); // Adding an "isConnected" check, in case the callback
+      // removed the element from the DOM.
+
+      if (el.isConnected) {
+        stages.cleanup();
+      }
+
+      delete el.__x_transition;
+    });
     el.__x_transition = {
       // Set transition type so we can avoid clearing transition if the direction is the same
       type: type,
       // create a callback for the last stages of the transition so we can call it
       // from different point and early terminate it. Once will ensure that function
       // is only called one time.
-      callback: once(() => {
-        stages.hide(); // Adding an "isConnected" check, in case the callback
-        // removed the element from the DOM.
-
-        if (el.isConnected) {
-          stages.cleanup();
-        }
-
-        delete el.__x_transition;
+      cancel: once(() => {
+        reject(TRANSITION_CANCELLED);
+        finish();
       }),
+      finish,
       // This store the next animation frame so we can cancel it
       nextFrame: null
     };
@@ -3509,12 +3517,12 @@ module.exports = EasyMDE;
       stages.show();
       el.__x_transition.nextFrame = requestAnimationFrame(() => {
         stages.end();
-        setTimeout(el.__x_transition.callback, duration);
+        setTimeout(el.__x_transition.finish, duration);
       });
     });
   }
   function isNumeric(subject) {
-    return !isNaN(subject);
+    return !Array.isArray(subject) && !isNaN(subject);
   } // Thanks @vuejs
   // https://github.com/vuejs/vue/blob/4de4649d9637262a9b007720b59f80ac72a5620c/src/shared/util.js
 
@@ -3542,7 +3550,7 @@ module.exports = EasyMDE;
       if (!nextEl) {
         nextEl = addElementInLoopAfterCurrentEl(templateEl, currentEl); // And transition it in if it's not the first page load.
 
-        transitionIn(nextEl, () => {}, component, initialUpdate);
+        transitionIn(nextEl, () => {}, () => {}, component, initialUpdate);
         nextEl.__x_for = iterationScopeVariables;
         component.initializeElements(nextEl, () => nextEl.__x_for); // Otherwise update the element we found.
       } else {
@@ -3604,14 +3612,15 @@ module.exports = EasyMDE;
 
     if (ifAttribute && !component.evaluateReturnExpression(el, ifAttribute.expression)) {
       return [];
-    } // This adds support for the `i in n` syntax.
-
-
-    if (isNumeric(iteratorNames.items)) {
-      return Array.from(Array(parseInt(iteratorNames.items, 10)).keys(), i => i + 1);
     }
 
-    return component.evaluateReturnExpression(el, iteratorNames.items, extraVars);
+    let items = component.evaluateReturnExpression(el, iteratorNames.items, extraVars); // This adds support for the `i in n` syntax.
+
+    if (isNumeric(items) && items > 0) {
+      items = Array.from(Array(items).keys(), i => i + 1);
+    }
+
+    return items;
   }
 
   function addElementInLoopAfterCurrentEl(templateEl, currentEl) {
@@ -3645,7 +3654,7 @@ module.exports = EasyMDE;
       let nextSibling = nextElementFromOldLoop.nextElementSibling;
       transitionOut(nextElementFromOldLoop, () => {
         nextElementFromOldLoopImmutable.remove();
-      }, component);
+      }, () => {}, component);
       nextElementFromOldLoop = nextSibling && nextSibling.__x_for_key !== undefined ? nextSibling : false;
     }
   }
@@ -3667,20 +3676,20 @@ module.exports = EasyMDE;
         if (el.attributes.value === undefined && attrType === 'bind') {
           el.value = value;
         } else if (attrType !== 'bind') {
-          el.checked = el.value == value;
+          el.checked = checkedAttrLooseCompare(el.value, value);
         }
       } else if (el.type === 'checkbox') {
         // If we are explicitly binding a string to the :value, set the string,
         // If the value is a boolean, leave it alone, it will be set to "on"
         // automatically.
-        if (typeof value === 'string' && attrType === 'bind') {
-          el.value = value;
+        if (typeof value !== 'boolean' && ![null, undefined].includes(value) && attrType === 'bind') {
+          el.value = String(value);
         } else if (attrType !== 'bind') {
           if (Array.isArray(value)) {
             // I'm purposely not using Array.includes here because it's
             // strict, and because of Numeric/String mis-casting, I
             // want the "includes" to be "fuzzy".
-            el.checked = value.some(val => val == el.value);
+            el.checked = value.some(val => checkedAttrLooseCompare(val, el.value));
           } else {
             el.checked = !!value;
           }
@@ -3753,6 +3762,7 @@ module.exports = EasyMDE;
   function handleShowDirective(component, el, value, modifiers, initialUpdate = false) {
     const hide = () => {
       el.style.display = 'none';
+      el.__x_is_shown = false;
     };
 
     const show = () => {
@@ -3761,6 +3771,8 @@ module.exports = EasyMDE;
       } else {
         el.style.removeProperty('display');
       }
+
+      el.__x_is_shown = true;
     };
 
     if (initialUpdate === true) {
@@ -3773,12 +3785,12 @@ module.exports = EasyMDE;
       return;
     }
 
-    const handle = resolve => {
+    const handle = (resolve, reject) => {
       if (value) {
         if (el.style.display === 'none' || el.__x_transition) {
           transitionIn(el, () => {
             show();
-          }, component);
+          }, reject, component);
         }
 
         resolve(() => {});
@@ -3788,7 +3800,7 @@ module.exports = EasyMDE;
             resolve(() => {
               hide();
             });
-          }, component);
+          }, reject, component);
         } else {
           resolve(() => {});
         }
@@ -3800,7 +3812,7 @@ module.exports = EasyMDE;
 
 
     if (modifiers.includes('immediate')) {
-      handle(finish => finish());
+      handle(finish => finish(), () => {});
       return;
     } // x-show is encountered during a DOM tree walk. If an element
     // we encounter is NOT a child of another x-show element we
@@ -3822,13 +3834,13 @@ module.exports = EasyMDE;
     if (expressionResult && (!elementHasAlreadyBeenAdded || el.__x_transition)) {
       const clone = document.importNode(el.content, true);
       el.parentElement.insertBefore(clone, el.nextElementSibling);
-      transitionIn(el.nextElementSibling, () => {}, component, initialUpdate);
+      transitionIn(el.nextElementSibling, () => {}, () => {}, component, initialUpdate);
       component.initializeElements(el.nextElementSibling, extraVars);
       el.nextElementSibling.__x_inserted_me = true;
     } else if (!expressionResult && elementHasAlreadyBeenAdded) {
       transitionOut(el.nextElementSibling, () => {
         el.nextElementSibling.remove();
-      }, component, initialUpdate);
+      }, () => {}, component, initialUpdate);
     }
   }
 
@@ -3996,7 +4008,7 @@ module.exports = EasyMDE;
         // If the data we are binding to is an array, toggle its value inside the array.
         if (Array.isArray(currentValue)) {
           const newValue = modifiers.includes('number') ? safeParseNumber(event.target.value) : event.target.value;
-          return event.target.checked ? currentValue.concat([newValue]) : currentValue.filter(i => i !== newValue);
+          return event.target.checked ? currentValue.concat([newValue]) : currentValue.filter(el => !checkedAttrLooseCompare(el, newValue));
         } else {
           return event.target.checked;
         }
@@ -4459,7 +4471,11 @@ module.exports = EasyMDE;
       this.unobservedData.$watch = (property, callback) => {
         if (!this.watchers[property]) this.watchers[property] = [];
         this.watchers[property].push(callback);
-      }; // Register custom magic properties.
+      };
+      /* MODERN-ONLY:START */
+      // We remove this piece of code from the legacy build.
+      // In IE11, we have already defined our helpers at this point.
+      // Register custom magic properties.
 
 
       Object.entries(Alpine.magicProperties).forEach(([name, callback]) => {
@@ -4469,6 +4485,8 @@ module.exports = EasyMDE;
           }
         });
       });
+      /* MODERN-ONLY:END */
+
       this.showDirectiveStack = [];
       this.showDirectiveLastElement;
       componentForClone || Alpine.onBeforeComponentInitializeds.forEach(callback => callback(this));
@@ -4526,7 +4544,7 @@ module.exports = EasyMDE;
               }
 
               return comparisonData[part];
-            }, self.getUnobservedData());
+            }, self.unobservedData);
           });
         } else {
           // Let's walk through the watchers with "dot-notation" (foo.bar) and see
@@ -4545,7 +4563,7 @@ module.exports = EasyMDE;
               }
 
               return comparisonData[part];
-            }, self.getUnobservedData());
+            }, self.unobservedData);
           });
         } // Don't react to data changes for cases like the `x-created` hook.
 
@@ -4626,17 +4644,19 @@ module.exports = EasyMDE;
       // The goal here is to start all the x-show transitions
       // and build a nested promise chain so that elements
       // only hide when the children are finished hiding.
-      this.showDirectiveStack.reverse().map(thing => {
-        return new Promise(resolve => {
-          thing(finish => {
-            resolve(finish);
+      this.showDirectiveStack.reverse().map(handler => {
+        return new Promise((resolve, reject) => {
+          handler(resolve, reject);
+        });
+      }).reduce((promiseChain, promise) => {
+        return promiseChain.then(() => {
+          return promise.then(finishElement => {
+            finishElement();
           });
         });
-      }).reduce((nestedPromise, promise) => {
-        return nestedPromise.then(() => {
-          return promise.then(finish => finish());
-        });
-      }, Promise.resolve(() => {})); // We've processed the handler stack. let's clear it.
+      }, Promise.resolve(() => {})).catch(e => {
+        if (e !== TRANSITION_CANCELLED) throw e;
+      }); // We've processed the handler stack. let's clear it.
 
       this.showDirectiveStack = [];
       this.showDirectiveLastElement = undefined;
@@ -4807,7 +4827,7 @@ module.exports = EasyMDE;
   }
 
   const Alpine = {
-    version: "2.7.0",
+    version: "2.7.3",
     pauseMutationObserver: false,
     magicProperties: {},
     onComponentInitializeds: [],
@@ -4828,9 +4848,7 @@ module.exports = EasyMDE;
           this.initializeComponent(el);
         });
       });
-      this.listenForNewUninitializedComponentsAtRunTime(el => {
-        this.initializeComponent(el);
-      });
+      this.listenForNewUninitializedComponentsAtRunTime();
     },
     discoverComponents: function discoverComponents(callback) {
       const rootEls = document.querySelectorAll('[x-data]');
@@ -4844,7 +4862,7 @@ module.exports = EasyMDE;
         callback(rootEl);
       });
     },
-    listenForNewUninitializedComponentsAtRunTime: function listenForNewUninitializedComponentsAtRunTime(callback) {
+    listenForNewUninitializedComponentsAtRunTime: function listenForNewUninitializedComponentsAtRunTime() {
       const targetNode = document.querySelector('body');
       const observerOptions = {
         childList: true,
@@ -5046,6 +5064,61 @@ CodeMirrorSpellChecker.typo;
 
 // Export
 module.exports = CodeMirrorSpellChecker;
+
+/***/ }),
+
+/***/ "./node_modules/codemirror/addon/display/autorefresh.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/codemirror/addon/display/autorefresh.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// Distributed under an MIT license: https://codemirror.net/LICENSE
+
+(function(mod) {
+  if (true) // CommonJS
+    mod(__webpack_require__(/*! ../../lib/codemirror */ "./node_modules/codemirror/lib/codemirror.js"))
+  else {}
+})(function(CodeMirror) {
+  "use strict"
+
+  CodeMirror.defineOption("autoRefresh", false, function(cm, val) {
+    if (cm.state.autoRefresh) {
+      stopListening(cm, cm.state.autoRefresh)
+      cm.state.autoRefresh = null
+    }
+    if (val && cm.display.wrapper.offsetHeight == 0)
+      startListening(cm, cm.state.autoRefresh = {delay: val.delay || 250})
+  })
+
+  function startListening(cm, state) {
+    function check() {
+      if (cm.display.wrapper.offsetHeight) {
+        stopListening(cm, state)
+        if (cm.display.lastWrapHeight != cm.display.wrapper.clientHeight)
+          cm.refresh()
+      } else {
+        state.timeout = setTimeout(check, state.delay)
+      }
+    }
+    state.timeout = setTimeout(check, state.delay)
+    state.hurry = function() {
+      clearTimeout(state.timeout)
+      state.timeout = setTimeout(check, 50)
+    }
+    CodeMirror.on(window, "mouseup", state.hurry)
+    CodeMirror.on(window, "keyup", state.hurry)
+  }
+
+  function stopListening(_cm, state) {
+    clearTimeout(state.timeout)
+    CodeMirror.off(window, "mouseup", state.hurry)
+    CodeMirror.off(window, "keyup", state.hurry)
+  }
+});
+
 
 /***/ }),
 
@@ -9308,14 +9381,15 @@ CodeMirror.overlayMode = function(base, overlay, combine) {
       if (newTop != screentop) { result.scrollTop = newTop; }
     }
 
-    var screenleft = cm.curOp && cm.curOp.scrollLeft != null ? cm.curOp.scrollLeft : display.scroller.scrollLeft;
-    var screenw = displayWidth(cm) - (cm.options.fixedGutter ? display.gutters.offsetWidth : 0);
+    var gutterSpace = cm.options.fixedGutter ? 0 : display.gutters.offsetWidth;
+    var screenleft = cm.curOp && cm.curOp.scrollLeft != null ? cm.curOp.scrollLeft : display.scroller.scrollLeft - gutterSpace;
+    var screenw = displayWidth(cm) - display.gutters.offsetWidth;
     var tooWide = rect.right - rect.left > screenw;
     if (tooWide) { rect.right = rect.left + screenw; }
     if (rect.left < 10)
       { result.scrollLeft = 0; }
     else if (rect.left < screenleft)
-      { result.scrollLeft = Math.max(0, rect.left - (tooWide ? 0 : 10)); }
+      { result.scrollLeft = Math.max(0, rect.left + gutterSpace - (tooWide ? 0 : 10)); }
     else if (rect.right > screenw + screenleft - 3)
       { result.scrollLeft = rect.right + (tooWide ? 0 : 10) - screenw; }
     return result
@@ -15610,7 +15684,7 @@ CodeMirror.overlayMode = function(base, overlay, combine) {
 
   addLegacyProps(CodeMirror);
 
-  CodeMirror.version = "5.58.1";
+  CodeMirror.version = "5.58.2";
 
   return CodeMirror;
 
@@ -16825,7 +16899,8 @@ CodeMirror.defineMIME("text/x-markdown", "markdown");
     {name: "Z80", mime: "text/x-z80", mode: "z80", ext: ["z80"]},
     {name: "mscgen", mime: "text/x-mscgen", mode: "mscgen", ext: ["mscgen", "mscin", "msc"]},
     {name: "xu", mime: "text/x-xu", mode: "mscgen", ext: ["xu"]},
-    {name: "msgenny", mime: "text/x-msgenny", mode: "mscgen", ext: ["msgenny"]}
+    {name: "msgenny", mime: "text/x-msgenny", mode: "mscgen", ext: ["msgenny"]},
+    {name: "WebAssembly", mime: "text/webassembly", mode: "wast", ext: ["wat", "wast"]},
   ];
   // Ensure all modes have a mime property for backwards compatibility
   for (var i = 0; i < CodeMirror.modeInfo.length; i++) {
@@ -20164,6 +20239,26 @@ exports.getFunctionName = getFunctionName;
     if (opt && opt.sanitize && !opt.silent) {
       console.warn('marked(): sanitize and sanitizer parameters are deprecated since version 0.7.0, should not be used and will be removed in the future. Read more here: https://marked.js.org/#/USING_ADVANCED.md#options');
     }
+  } // copied from https://stackoverflow.com/a/5450113/806777
+
+
+  function repeatString(pattern, count) {
+    if (count < 1) {
+      return '';
+    }
+
+    var result = '';
+
+    while (count > 1) {
+      if (count & 1) {
+        result += pattern;
+      }
+
+      count >>= 1;
+      pattern += pattern;
+    }
+
+    return result + pattern;
   }
 
   var helpers = {
@@ -20177,7 +20272,8 @@ exports.getFunctionName = getFunctionName;
     splitCells: splitCells,
     rtrim: rtrim,
     findClosingBracket: findClosingBracket,
-    checkSanitizeDeprecation: checkSanitizeDeprecation
+    checkSanitizeDeprecation: checkSanitizeDeprecation,
+    repeatString: repeatString
   };
 
   var defaults$1 = defaults.defaults;
@@ -20384,7 +20480,6 @@ exports.getFunctionName = getFunctionName;
         var raw = cap[0];
         var bull = cap[2];
         var isordered = bull.length > 1;
-        var isparen = bull[bull.length - 1] === ')';
         var list = {
           type: 'list',
           raw: raw,
@@ -20398,37 +20493,50 @@ exports.getFunctionName = getFunctionName;
         var next = false,
             item,
             space,
-            b,
+            bcurr,
+            bnext,
             addBack,
             loose,
             istask,
             ischecked;
         var l = itemMatch.length;
+        bcurr = this.rules.block.listItemStart.exec(itemMatch[0]);
 
         for (var i = 0; i < l; i++) {
           item = itemMatch[i];
-          raw = item; // Remove the list item's bullet
+          raw = item; // Determine whether the next list item belongs here.
+          // Backpedal if it does not belong in this list.
+
+          if (i !== l - 1) {
+            bnext = this.rules.block.listItemStart.exec(itemMatch[i + 1]);
+
+            if (bnext[1].length > bcurr[0].length || bnext[1].length > 3) {
+              // nested list
+              itemMatch.splice(i, 2, itemMatch[i] + '\n' + itemMatch[i + 1]);
+              i--;
+              l--;
+              continue;
+            } else {
+              if ( // different bullet style
+              !this.options.pedantic || this.options.smartLists ? bnext[2][bnext[2].length - 1] !== bull[bull.length - 1] : isordered === (bnext[2].length === 1)) {
+                addBack = itemMatch.slice(i + 1).join('\n');
+                list.raw = list.raw.substring(0, list.raw.length - addBack.length);
+                i = l - 1;
+              }
+            }
+
+            bcurr = bnext;
+          } // Remove the list item's bullet
           // so it is seen as the next token.
 
+
           space = item.length;
-          item = item.replace(/^ *([*+-]|\d+[.)]) */, ''); // Outdent whatever the
+          item = item.replace(/^ *([*+-]|\d+[.)]) ?/, ''); // Outdent whatever the
           // list item contains. Hacky.
 
           if (~item.indexOf('\n ')) {
             space -= item.length;
             item = !this.options.pedantic ? item.replace(new RegExp('^ {1,' + space + '}', 'gm'), '') : item.replace(/^ {1,4}/gm, '');
-          } // Determine whether the next list item belongs here.
-          // Backpedal if it does not belong in this list.
-
-
-          if (i !== l - 1) {
-            b = this.rules.block.bullet.exec(itemMatch[i + 1])[0];
-
-            if (isordered ? b.length === 1 || !isparen && b[b.length - 1] === ')' : b.length > 1 || this.options.smartLists && b !== bull) {
-              addBack = itemMatch.slice(i + 1).join('\n');
-              list.raw = list.raw.substring(0, list.raw.length - addBack.length);
-              i = l - 1;
-            }
           } // Determine whether item is loose or not.
           // Use: /(^|\n)(?! )[^\n]+\n\n(?!\s*$)/
           // for discount behavior.
@@ -20772,7 +20880,7 @@ exports.getFunctionName = getFunctionName;
         return {
           type: 'del',
           raw: cap[0],
-          text: cap[1]
+          text: cap[2]
         };
       }
     };
@@ -20883,7 +20991,7 @@ exports.getFunctionName = getFunctionName;
     hr: /^ {0,3}((?:- *){3,}|(?:_ *){3,}|(?:\* *){3,})(?:\n+|$)/,
     heading: /^ {0,3}(#{1,6}) +([^\n]*?)(?: +#+)? *(?:\n+|$)/,
     blockquote: /^( {0,3}> ?(paragraph|[^\n]*)(?:\n|$))+/,
-    list: /^( {0,3})(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,
+    list: /^( {0,3})(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?! {0,3}bull )\n*|\s*$)/,
     html: '^ {0,3}(?:' // optional indentation
     + '<(script|pre|style)[\\s>][\\s\\S]*?(?:</\\1>[^\\n]*\\n+|$)' // (1)
     + '|comment[^\\n]*(\\n+|$)' // (2)
@@ -20907,8 +21015,9 @@ exports.getFunctionName = getFunctionName;
   block._title = /(?:"(?:\\"?|[^"\\])*"|'[^'\n]*(?:\n[^'\n]+)*\n?'|\([^()]*\))/;
   block.def = edit$1(block.def).replace('label', block._label).replace('title', block._title).getRegex();
   block.bullet = /(?:[*+-]|\d{1,9}[.)])/;
-  block.item = /^( *)(bull) ?[^\n]*(?:\n(?!\1bull ?)[^\n]*)*/;
+  block.item = /^( *)(bull) ?[^\n]*(?:\n(?! *bull ?)[^\n]*)*/;
   block.item = edit$1(block.item, 'gm').replace(/bull/g, block.bullet).getRegex();
+  block.listItemStart = edit$1(/^( *)(bull)/).replace('bull', block.bullet).getRegex();
   block.list = edit$1(block.list).replace(/bull/g, block.bullet).replace('hr', '\\n+(?=\\1?(?:(?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})(?:\\n+|$))').replace('def', '\\n+(?=' + block.def.source + ')').getRegex();
   block._tag = 'address|article|aside|base|basefont|blockquote|body|caption' + '|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption' + '|figure|footer|form|frame|frameset|h[1-6]|head|header|hr|html|iframe' + '|legend|li|link|main|menu|menuitem|meta|nav|noframes|ol|optgroup|option' + '|p|param|section|source|summary|table|tbody|td|tfoot|th|thead|title|tr' + '|track|ul';
   block._comment = /<!--(?!-?>)[\s\S]*?(?:-->|$)/;
@@ -21062,8 +21171,8 @@ exports.getFunctionName = getFunctionName;
     _extended_email: /[A-Za-z0-9._+-]+(@)[a-zA-Z0-9-_]+(?:\.[a-zA-Z0-9-_]*[a-zA-Z0-9])+(?![-_])/,
     url: /^((?:ftp|https?):\/\/|www\.)(?:[a-zA-Z0-9\-]+\.?)+[^\s<]*|^email/,
     _backpedal: /(?:[^?!.,:;*_~()&]+|\([^)]*\)|&(?![a-zA-Z0-9]+;$)|[?!.,:;*_~)]+(?!$))+/,
-    del: /^~+(?=\S)([\s\S]*?\S)~+/,
-    text: /^(`+|[^`])(?:(?= {2,}\n)|[\s\S]*?(?:(?=[\\<!\[`*~]|\b_|https?:\/\/|ftp:\/\/|www\.|$)|[^ ](?= {2,}\n)|[^a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-](?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@))|(?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@))/
+    del: /^(~~?)(?=[^\s~])([\s\S]*?[^\s~])\1(?=[^~]|$)/,
+    text: /^([`~]+|[^`~])(?:(?= {2,}\n)|[\s\S]*?(?:(?=[\\<!\[`*~]|\b_|https?:\/\/|ftp:\/\/|www\.|$)|[^ ](?= {2,}\n)|[^a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-](?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@))|(?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@))/
   });
   inline.gfm.url = edit$1(inline.gfm.url, 'i').replace('email', inline.gfm._extended_email).getRegex();
   /**
@@ -21082,6 +21191,7 @@ exports.getFunctionName = getFunctionName;
   var defaults$2 = defaults.defaults;
   var block$1 = rules.block,
       inline$1 = rules.inline;
+  var repeatString$1 = helpers.repeatString;
   /**
    * smartypants text replacement
    */
@@ -21452,7 +21562,7 @@ exports.getFunctionName = getFunctionName;
         if (links.length > 0) {
           while ((match = this.tokenizer.rules.inline.reflinkSearch.exec(maskedSrc)) != null) {
             if (links.includes(match[0].slice(match[0].lastIndexOf('[') + 1, -1))) {
-              maskedSrc = maskedSrc.slice(0, match.index) + '[' + 'a'.repeat(match[0].length - 2) + ']' + maskedSrc.slice(this.tokenizer.rules.inline.reflinkSearch.lastIndex);
+              maskedSrc = maskedSrc.slice(0, match.index) + '[' + repeatString$1('a', match[0].length - 2) + ']' + maskedSrc.slice(this.tokenizer.rules.inline.reflinkSearch.lastIndex);
             }
           }
         }
@@ -21460,7 +21570,7 @@ exports.getFunctionName = getFunctionName;
 
 
       while ((match = this.tokenizer.rules.inline.blockSkip.exec(maskedSrc)) != null) {
-        maskedSrc = maskedSrc.slice(0, match.index) + '[' + 'a'.repeat(match[0].length - 2) + ']' + maskedSrc.slice(this.tokenizer.rules.inline.blockSkip.lastIndex);
+        maskedSrc = maskedSrc.slice(0, match.index) + '[' + repeatString$1('a', match[0].length - 2) + ']' + maskedSrc.slice(this.tokenizer.rules.inline.blockSkip.lastIndex);
       }
 
       while (src) {
