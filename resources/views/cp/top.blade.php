@@ -31,6 +31,8 @@
                     <x-{{ $shortcut->icon }}/>
                     @elseif ($shortcut->image)
                     <img class="h-8 w-8 rounded-full" src="{{ $shortcut->image }}" alt="">
+                    @elseif ($shortcut->text)
+                    {{ $shortcut->text }}
                     @else
                     {{ $shortcut->handle }}
                     @endif
