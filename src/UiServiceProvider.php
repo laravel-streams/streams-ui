@@ -99,6 +99,8 @@ class UiServiceProvider extends ServiceProvider
         $this->app->bind('streams.input_types.integer', Integer::class);
         $this->app->bind('streams.input_types.textarea', Textarea::class);
         $this->app->bind('streams.input_types.markdown', Markdown::class);
+        
+        $this->app->bind('streams.input_types.relationship', Relationship::class);
 
         $this->app->bind('streams.input_types.boolean', Toggle::class);
 
@@ -241,7 +243,7 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function extendLang()
     {
-        Lang::addNamespace('ui', base_path('vendor/streams/ui/resources/lang'));
+        Lang::addNamespace('ui', realpath(base_path('vendor/streams/ui/resources/lang')));
     }
 
     /**
