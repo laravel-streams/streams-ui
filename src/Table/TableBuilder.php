@@ -432,10 +432,10 @@ class TableBuilder extends Builder
 
                 $clone = clone ($button);
 
-                $payload = [
+                $payload = array_merge(app('streams.parser_data', []), [
                     'entry' => $row->entry,
                     'stream' => $this->stream,
-                ];
+                ]);
 
                 $clone->setPrototypeAttributes(Arr::parse($button->getPrototypeAttributes(), $payload));
 
