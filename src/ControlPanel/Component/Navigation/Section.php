@@ -2,18 +2,19 @@
 
 namespace Streams\Ui\ControlPanel\Component\Navigation;
 
+use Collective\Html\HtmlFacade;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Config;
 
 /**
- * Class NavigationLink
+ * Class Section
  *
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class NavigationLink extends Component
+class Section extends Component
 {
 
     /**
@@ -25,8 +26,8 @@ class NavigationLink extends Component
     protected function initializePrototype(array $attributes)
     {
         return parent::initializePrototype(array_merge([
-            'component' => 'navigation_link',
-            'template' => 'ui::cp.navigation_link',
+            'component' => 'section',
+            'template' => null,
 
             'title' => null,
             //'policy' => null,
@@ -41,10 +42,20 @@ class NavigationLink extends Component
 
     public function url()
     {
-        if (!$this->getPrototypeAttribute('attribute.href')) {
-            return URL::to(Config::get('streams.cp.prefix', 'cp') . '/' . $this->handle);
-        }
+        return URL::to($this->getPrototypeAttribute('attributes.href'));
+    }
 
-        return $this->url();
+    public function link(array $attributes = [])
+    {
+        return HtmlFacade::link(
+            $this->url(),
+            $this->title,
+            $this->attributes($attributes)
+        );
+    }
+
+    public function render()
+    {
+        return $this->link();
     }
 }

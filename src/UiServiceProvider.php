@@ -111,7 +111,7 @@ class UiServiceProvider extends ServiceProvider
                 'format' => 'json',
             ],
             'config' => [
-                'prototype' => 'Streams\\Ui\\ControlPanel\\Component\\Navigation\\NavigationLink',
+                'prototype' => 'Streams\\Ui\\ControlPanel\\Component\\Navigation\\Section',
             ],
             'fields' => [
                 'title' => 'string',

@@ -52,7 +52,7 @@ class Component implements Arrayable, Jsonable
 
     public function class(array $classes = [])
     {
-        return trim(implode(' ', array_merge($this->classes ?: [], $classes))) ?: null;
+        return trim($this->class . ' ' . implode(' ', array_merge($this->classes ?: [], $classes))) ?: null;
     }
 
     public function attributes(array $attributes = [])
@@ -69,7 +69,7 @@ class Component implements Arrayable, Jsonable
         return Arr::htmlAttributes($this->attributes($attributes));
     }
 
-    public function render(): ViewView
+    public function render()
     {
         $payload = [
             Str::camel($this->component) => $this,

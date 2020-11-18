@@ -35,18 +35,7 @@ class Button extends Component
             'primary'  => false,
             'disabled' => false,
             'type'     => 'default',
-            'classes'  => [
-                'py-1',
-                'px-3',
-                'rounded-sm',
-                'border',
-                'text-sm',
-                'font-bold',
-                'text-black',
-                'border-black',
-                'inline-block',
-                'ml-1'
-            ],
+            'classes'  => [],
         ], $attributes));
     }
 

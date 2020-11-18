@@ -157,22 +157,8 @@ class FormBuilder extends Builder
 
     public function setValidation()
     {
-        if (!$this->stream) {
-            return;
-        }
-
-        $rules = array_merge(
-            (array) $this->rules,
-            (array) $this->stream->rules
-        );
-
-        $validators = array_merge(
-            (array) $this->validators,
-            (array) $this->stream->validators
-        );
-
-        $this->instance->rules = $this->rules = $rules;
-        $this->instance->validators = $this->validators = $validators;
+        $this->instance->rules = $this->rules;
+        $this->instance->validators = $this->validators;
     }
 
     public function makeFields()

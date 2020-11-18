@@ -25,7 +25,7 @@ class Date extends Component
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/date',
             'component' => 'input',
-            'classes' => ['input'],
+            'classes' => [],
         ], $attributes));
     }
 }

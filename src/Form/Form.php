@@ -174,33 +174,32 @@ class Form extends Component
 
     public function validate(Factory $factory)
     {
-        if ($this->rules->isEmpty() && $this->stream) {
+        $values = $this->values->all();
 
-            $this->validator = $this->stream->validator($this->values);
+        $rules = $this->rules->map(function ($rules) {
+            return implode('|', array_unique($rules));
+        })->all();
 
-            return;
+        if (!$this->validator && $this->stream) {
+            $this->validator = $this->stream
+                ->validator($values);
+
+            $this->validator->addRules($rules);
+        }
+
+        // @todo test this
+        if (!$this->validator && !$this->stream) {
+            $this->validator = $factory->make($values, $rules);
         }
 
         $this->extendValidation($this, $factory);
 
-        $this->validator = $factory->make(
-            $this->values->all(),
-            $this->rules->map(function ($rules) {
-                return implode('|', array_unique($rules));
-            })->all()
-        );
-
         $this->errors = $this->validator->messages();
-
-
-        if (!$this->validator) {
-            return;
-        }
 
         if (!$this->errors->isEmpty()) {
             Messages::success('You win!');
         }
-        
+
         if ($this->errors->isNotEmpty()) {
             foreach ($this->errors->messages() as $errors) {
                 Messages::error(implode("\n\r", $errors));
@@ -221,8 +220,12 @@ class Form extends Component
     {
         return function ($form) {
 
+            if ($this->errors->isNotEmpty()) {
+                return;
+            }
+
             $entry = $form->entry ?: $form->stream->repository()->newInstance();
-            
+
             foreach ($form->values as $field => $value) {
                 $entry->{$field} = $value;
             }

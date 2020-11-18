@@ -2,7 +2,7 @@
 <tbody class="">
     @section('rows')
     @foreach ($table->rows as $row)
-    <tr {!! $row->htmlAttributes() !!} ">
+    <tr {!! $row->htmlAttributes() !!}>
 
         @if ($table->isSortable()))
         <td class="">
