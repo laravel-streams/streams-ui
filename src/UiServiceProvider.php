@@ -146,7 +146,7 @@ class UiServiceProvider extends ServiceProvider
             $edit = '{stream}/{entry}/edit';
 
             $table = 'ui/{stream}/table/{table?}';
-            $form = 'ui/{stream}/form/{form}';
+            $form = 'ui/{stream}/form/{form?}';
 
             Route::streams($index, [
                 'verb' => 'get',
