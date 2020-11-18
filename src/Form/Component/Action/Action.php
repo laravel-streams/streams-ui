@@ -54,7 +54,6 @@ class Action extends Button
             ],
 
             'handle'  => 'default',
-            'handler' => ActionHandler::class,
         ], $attributes));
     }
 

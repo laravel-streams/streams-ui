@@ -3,13 +3,11 @@
 namespace Streams\Ui\Form;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Collective\Html\FormFacade;
 use Streams\Ui\Support\Component;
-use Illuminate\Support\MessageBag;
 use Streams\Core\Support\Workflow;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Request;
 use Streams\Ui\Button\ButtonCollection;
 use Illuminate\Support\Facades\Redirect;
 use Streams\Core\Support\Facades\Messages;
@@ -19,13 +17,6 @@ use Streams\Ui\Form\Component\Field\FieldCollection;
 use Streams\Ui\Form\Component\Action\ActionCollection;
 use Streams\Ui\Form\Component\Section\SectionCollection;
 
-/**
- * Class Form
- *
- * @link    http://pyrocms.com/
- * @author  PyroCMS, Inc. <support@pyrocms.com>
- * @author  Ryan Thompson <ryan@pyrocms.com>
- */
 class Form extends Component
 {
 
@@ -138,6 +129,7 @@ class Form extends Component
         $workflow = (new Workflow([
             'load' => [$this, 'load'],
             'validate' => [$this, 'validate'],
+            'detect' => [$this, 'detect'],
             'handle' => [$this, 'handle'],
         ]))->passThrough($this);
 
@@ -205,33 +197,38 @@ class Form extends Component
         }
     }
 
-    public function handle()
+    public function detect()
     {
-        App::call($this->handler, [
-            'form' => $this,
-        ]);
+        if ($this->actions->active()) {
+            return;
+        }
 
-        $this->response = Redirect::back();
+        if ($action = $this->actions->get($this->request('action'))) {
+            $action->active = true;
+        }
     }
 
-    public function getHandlerAttribute()
+    public function handle()
     {
-        return function ($form) {
+        if ($this->response) {
+            return;
+        }
 
-            if ($this->errors->isNotEmpty()) {
-                return;
-            }
+        $active = $this->actions->active();
 
-            $entry = $form->entry ?: $form->stream->repository()->newInstance();
+        $handler = $this->handler ?: $active->handler;
 
-            foreach ($form->values as $field => $value) {
-                $entry->{$field} = $value;
-            }
+        if (is_string($handler) && !Str::contains($handler, '@')) {
+            $handler .= '@handle';
+        }
 
-            $form->stream->repository()->save($entry);
+        if (is_string($handler) || $handler instanceof \Closure) {
+            App::call($handler, [
+                'form' => $this,
+            ]);
+        }
 
-            $form->entry = $form->entry = $entry;
-        };
+        $this->response ?: $this->response = Redirect::back();
     }
 
     protected function extendValidation(Form $form, Factory $factory): void

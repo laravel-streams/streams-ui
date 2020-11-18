@@ -3,6 +3,7 @@
 namespace Streams\Ui\Table\Component\Action;
 
 use Streams\Ui\Button\Button;
+use Illuminate\Support\Facades\App;
 use Streams\Ui\Table\Component\Action\ActionHandler;
 
 /**
@@ -38,16 +39,23 @@ class Action extends Button
             'disabled' => false,
             'type' => 'default',
             'name' => 'action',
-    
+
             // Extended
             'prefix' => null,
             'redirect' => null,
-    
+
             'save' => true,
             'active' => false,
-    
+
             'handle' => 'default',
-            'handler' => ActionHandler::class,
+            //'handler' => ActionHandler::class,
         ], $attributes));
+    }
+
+    public function handle(array $payload = [])
+    {
+        $payload['action'] = $this;
+
+        return App::call($this->handler, $payload, 'handle');
     }
 }

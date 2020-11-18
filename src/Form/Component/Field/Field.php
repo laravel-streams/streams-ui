@@ -43,7 +43,6 @@ class Field extends Component
             'active' => false,
 
             'handle'  => 'default',
-            'handler' => ActionHandler::class,
         ], $attributes));
     }
 

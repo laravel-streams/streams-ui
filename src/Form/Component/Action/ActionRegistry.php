@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Arr;
 use Streams\Ui\Button\ButtonRegistry;
+use Streams\Ui\Form\Component\Action\Handler\Save;
 
 /**
  * Class ActionRegistry
@@ -22,30 +23,37 @@ class ActionRegistry
         'save'         => [
             'button' => 'save',
             'text'   => 'ui::buttons.save',
+            'handler' => Save::class,
         ],
         'update'         => [
             'button' => 'update',
             'text'   => 'ui::buttons.update',
+            'handler' => Save::class,
         ],
         'save_exit'      => [
             'button' => 'save',
             'text'   => 'ui::buttons.save_exit',
+            'handler' => Save::class,
         ],
         'save_edit'      => [
             'button' => 'save',
             'text'   => 'ui::buttons.save_edit',
+            'handler' => Save::class,
         ],
         'save_create'    => [
             'button' => 'save',
             'text'   => 'ui::buttons.save_create',
+            'handler' => Save::class,
         ],
         'save_continue'  => [
             'button' => 'save',
             'text'   => 'ui::buttons.save_continue',
+            'handler' => Save::class,
         ],
         'save_edit_next' => [
             'button' => 'save',
             'text'   => 'ui::buttons.save_edit_next',
+            'handler' => Save::class,
         ],
     ];
 
