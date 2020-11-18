@@ -52,7 +52,7 @@ class Input extends Component
     public function attributes(array $attributes = [])
     {
         return parent::attributes(array_merge([
-            'id' => $this->id,
+            'id' => $this->id ?: $this->name . '-input',
             'name' => $this->name,
             'value' => $this->field->value,
         ], $attributes));

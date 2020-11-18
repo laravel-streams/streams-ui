@@ -7,7 +7,7 @@
         @endif
 
         @if ($table->isSelectable())
-        <th class="">
+        <th class="text-left">
         <input type="checkbox" x-on:click="alert('Select all');">
         </th>
         @endif
