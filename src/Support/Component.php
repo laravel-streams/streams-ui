@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\View;
 use Illuminate\View\View as ViewView;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Traits\Macroable;
 use Streams\Core\Support\Traits\Fluency;
@@ -80,6 +81,18 @@ class Component implements Arrayable, Jsonable
         }
 
         return View::make($this->template, $payload);
+    }
+
+    public function url()
+    {
+        if (!$stream = $this->stream) {
+            return;
+        }
+
+        $type = Str::singular($this->component);
+        $default = "/ui/{$stream->handle}/{$type}/{$this->handle}";
+
+        return $this->options->get('url', Config::get('streams.cp.prefix', 'cp') . $default);
     }
 
     public function request($key, $default = null)

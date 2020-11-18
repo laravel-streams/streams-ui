@@ -99,7 +99,7 @@ class UiServiceProvider extends ServiceProvider
         $this->app->bind('streams.input_types.integer', Integer::class);
         $this->app->bind('streams.input_types.textarea', Textarea::class);
         $this->app->bind('streams.input_types.markdown', Markdown::class);
-        
+
         $this->app->bind('streams.input_types.relationship', Relationship::class);
 
         $this->app->bind('streams.input_types.boolean', Toggle::class);
@@ -140,22 +140,45 @@ class UiServiceProvider extends ServiceProvider
 
         Route::prefix(Config::get('streams.cp.prefix'))->middleware(['cp'])->group(function () {
 
-            Route::streams('{stream}', [ // @todo Configure this later
+            // @todo Configure this later
+            $index = '{stream}';
+            $create = '{stream}/create';
+            $edit = '{stream}/{entry}/edit';
+
+            $table = 'ui/{stream}/table/{table?}';
+            $form = 'ui/{stream}/form/{form}';
+
+            Route::streams($index, [
+                'verb' => 'get',
                 'entry' => false,
                 'as' => 'ui::cp.index',
                 'ui.component' => 'table',
                 'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
             ]);
 
-            Route::streams('{stream}/create', [ // @todo Configure this later
+            Route::streams($create, [
+                'verb' => 'get',
                 'entry' => false,
                 'as' => 'ui::cp.create',
                 'ui.component' => 'form',
                 'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
             ]);
 
-            Route::streams('{stream}/{entry}/edit', [ // @todo Configure this later
+            Route::streams($edit, [
+                'verb' => 'get',
                 'as' => 'ui::cp.edit',
+                'ui.component' => 'form',
+                'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
+            ]);
+
+            Route::streams($table, [
+                //'as' => 'ui::cp.edit',
+                'ui.component' => 'table',
+                'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
+            ]);
+
+            Route::streams($form, [
+                //'as' => 'ui::cp.edit',
                 'ui.component' => 'form',
                 'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
             ]);
@@ -202,6 +225,7 @@ class UiServiceProvider extends ServiceProvider
             $attributes = array_merge($attributes, $configured);
 
             $attributes['stream'] = $this;
+            $attributes['handle'] = $form;
 
             return new FormBuilder($attributes);
         });
@@ -220,6 +244,7 @@ class UiServiceProvider extends ServiceProvider
             $attributes = array_merge($attributes, $configured);
 
             $attributes['stream'] = $this;
+            $attributes['handle'] = $table;
 
             return new TableBuilder($attributes);
         });

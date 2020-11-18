@@ -12,7 +12,9 @@
     @if ($table->rows->isNotEmpty())
 
     @section('form')
-    {!! Form::open() !!}
+    {!! Form::open([
+        'url' => $table->url(),
+    ]) !!}
 
     @section('table')
     <div class="px-8">

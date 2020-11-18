@@ -8,8 +8,10 @@ use Streams\Ui\Support\Component;
 use Illuminate\Support\MessageBag;
 use Streams\Core\Support\Workflow;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Request;
 use Streams\Ui\Button\ButtonCollection;
+use Illuminate\Support\Facades\Redirect;
 use Streams\Core\Support\Facades\Messages;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
@@ -114,11 +116,7 @@ class Form extends Component
      */
     public function open(array $options = [])
     {
-        if ($url = $this->options->get('url')) {
-            $options['url'] = $url;
-        } else {
-            $options['url'] = Request::fullUrl();
-        }
+        $options['url'] = $this->options->get('url') ?: $this->url();
 
         $options['files'] = true; // multipart/form-data
 
@@ -213,7 +211,7 @@ class Form extends Component
             'form' => $this,
         ]);
 
-        $this->response = redirect(request()->fullUrl());
+        $this->response = Redirect::back();
     }
 
     public function getHandlerAttribute()

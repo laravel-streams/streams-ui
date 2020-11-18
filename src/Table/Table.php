@@ -5,6 +5,7 @@ namespace Streams\Ui\Table;
 use Streams\Ui\Support\Component;
 use Streams\Core\Support\Workflow;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use Streams\Ui\Button\ButtonCollection;
 use Streams\Ui\Table\Component\View\ViewCollection;
 use Streams\Ui\Table\Component\Action\ActionCollection;
