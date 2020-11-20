@@ -163,7 +163,7 @@ class FormBuilder extends Builder
 
     public function makeFields()
     {
-        $fields = $this->fields;
+        $fields = $original = $this->fields;
 
         if ($this->stream) {
             $fields = ['id' => 'text'] + $this->stream->fields->toArray();
@@ -172,6 +172,10 @@ class FormBuilder extends Builder
         $fields = Normalizer::normalize($fields, 'type');
         $fields = Normalizer::fillWithKey($fields, 'handle');
         $fields = Normalizer::fillWithAttribute($fields, 'name', 'handle');
+
+        if ($this->stream) {
+            $fields = array_merge_recursive($fields, $original);
+        }
 
         foreach ($fields as &$input) {
 
