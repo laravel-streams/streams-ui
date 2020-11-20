@@ -114,6 +114,12 @@ class TableBuilder extends Builder
 
     public function makeViews()
     {
+        $this->make();
+
+        if ($this->instance->views->isNotEmpty()) {
+            return $this->instance->views;
+        }
+
         $views = $this->views;
 
         $views = Normalizer::fillWithKey($views, 'handle');
@@ -131,6 +137,8 @@ class TableBuilder extends Builder
         $this->loadInstanceWith('views', $views, View::class);
 
         $this->views = $views;
+
+        return $this->instance->views;
     }
 
     public function detectView()
@@ -193,6 +201,12 @@ class TableBuilder extends Builder
 
     public function makeFilters()
     {
+        $this->make();
+
+        if ($this->instance->filters->isNotEmpty()) {
+            return $this->instance->filters;
+        }
+
         $filters = $this->filters;
         $stream = $this->stream;
 
@@ -224,6 +238,8 @@ class TableBuilder extends Builder
         $this->loadInstanceWith('filters', $filters, Filter::class);
 
         $this->filters = $filters;
+
+        return $this->instance->filters;
     }
 
     public function detectFilters()
@@ -300,6 +316,12 @@ class TableBuilder extends Builder
 
     public function makeActions()
     {
+        $this->make();
+
+        if ($this->instance->actions->isNotEmpty()) {
+            return $this->instance->actions;
+        }
+
         $actions = $this->actions;
 
         $actions = Normalizer::normalize($actions, 'handle');
@@ -325,10 +347,18 @@ class TableBuilder extends Builder
         $this->loadInstanceWith('actions', $actions, Action::class);
 
         $this->actions = $actions;
+
+        return $this->instance->actions;
     }
 
     public function makeButtons()
     {
+        $this->make();
+
+        if ($this->instance->buttons->isNotEmpty()) {
+            return $this->instance->buttons;
+        }
+
         $stream = $this->stream;
         $buttons = $this->buttons;
 
@@ -361,10 +391,18 @@ class TableBuilder extends Builder
         $this->loadInstanceWith('buttons', $buttons, Button::class);
 
         $this->buttons = $buttons;
+
+        return $this->instance->buttons;
     }
 
     public function makeColumns()
     {
+        $this->make();
+
+        if ($this->instance->columns->isNotEmpty()) {
+            return $this->instance->columns;
+        }
+
         $columns = $this->columns;
 
         if (!$columns) {
@@ -388,10 +426,18 @@ class TableBuilder extends Builder
         $this->loadInstanceWith('columns', $columns, Column::class);
 
         $this->columns = $columns;
+
+        return $this->instance->actions;
     }
 
     public function makeRows()
     {
+        $this->make();
+
+        if ($this->instance->rows->isNotEmpty()) {
+            return $this->instance->rows;
+        }
+
         $this->rows = $rows = $this->instance->entries->map(function ($entry) {
             return [
                 'handle' => $entry->id,
@@ -442,5 +488,7 @@ class TableBuilder extends Builder
         });
 
         $this->rows = $rows;
+
+        return $this->instance->rows;
     }
 }

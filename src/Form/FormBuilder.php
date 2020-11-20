@@ -10,13 +10,10 @@ use Streams\Ui\Support\Builder;
 use Streams\Ui\Support\Normalizer;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Request;
 use Streams\Core\Support\Facades\Resolver;
 use Streams\Ui\Form\Component\Field\Field;
 use Streams\Core\Support\Facades\Evaluator;
-use Illuminate\Contracts\Validation\Factory;
 use Streams\Ui\Form\Component\Action\Action;
-use Illuminate\Contracts\Validation\Validator;
 use Streams\Ui\Form\Component\Action\ActionRegistry;
 use Streams\Ui\Form\Component\Button\ButtonRegistry;
 use Streams\Core\Repository\Contract\RepositoryInterface;
@@ -163,6 +160,12 @@ class FormBuilder extends Builder
 
     public function makeFields()
     {
+        $this->make();
+
+        if ($this->instance->fields->isNotEmpty()) {
+            return $this->instance->fields;
+        }
+
         $fields = $original = $this->fields;
 
         if ($this->stream) {
@@ -194,10 +197,12 @@ class FormBuilder extends Builder
                 $input['input'] = $input['type'];
             }
         }
-        
+
         $this->loadInstanceWith('fields', $fields, Field::class);
 
         $this->fields = $fields;
+
+        return $this->instance->fields;
     }
 
     public function loadFields()
@@ -206,13 +211,19 @@ class FormBuilder extends Builder
             return;
         }
 
-        $this->instance->fields->each(function($field) use ($entry) {
+        $this->instance->fields->each(function ($field) use ($entry) {
             $field->value = $entry->{$field->handle} ?? null;
         });
     }
 
     public function makeActions()
     {
+        $this->make();
+
+        if ($this->instance->actions->isNotEmpty()) {
+            return $this->instance->actions;
+        }
+
         $actions = $this->actions;
 
         if (!$actions) {
@@ -235,10 +246,18 @@ class FormBuilder extends Builder
         $this->loadInstanceWith('actions', $actions, Action::class);
 
         $this->actions = $actions;
+
+        return $this->instance->actions;
     }
 
     public function makeButtons()
     {
+        $this->make();
+
+        if ($this->instance->buttons->isNotEmpty()) {
+            return $this->instance->buttons;
+        }
+
         $buttons = $this->buttons;
         $stream = $this->stream;
 
@@ -272,7 +291,9 @@ class FormBuilder extends Builder
         }
 
         $this->loadInstanceWith('buttons', $buttons, Button::class);
-        
+
         $this->buttons = $buttons;
+
+        return $this->instance->buttons;
     }
 }
