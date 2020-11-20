@@ -2,30 +2,17 @@
 
 namespace Streams\Ui\Table\Component\Action\Handler;
 
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Request;
-use Streams\Ui\Table\TableBuilder;use Streams\Core\Support\Facades\Messages;
 use Streams\Ui\Table\Table;
+use Illuminate\Support\Facades\Redirect;
+use Streams\Core\Support\Facades\Messages;
 
-/**
- * Class DeleteActionHandler
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
 class Delete
 {
 
-    /**
-     * Delete the selected entries.
-     *
-     * @param TableBuilder $table
-     * @param array        $selected
-     */
     public function handle(Table $table, array $selected = [])
     {
-        $count = count($selected);
+        $count = 0;
+        $total = count($selected);
 
         foreach ($selected as $id) {
 
@@ -33,11 +20,13 @@ class Delete
                 continue;
             }
 
-            $entry->delete();
+            if ($entry->delete()) {
+                $count += 1;
+            }
         }
 
         Messages::success(trans_choice('ui::messages.delete_success', $count, [
-            'count' => $count
+            'count' => $count . '/' . $total
         ]));
 
         $table->response = Redirect::back();

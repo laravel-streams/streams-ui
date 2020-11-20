@@ -43,6 +43,7 @@ class Field extends Component
             'active' => false,
 
             'handle'  => 'default',
+            'classes'  => [],
         ], $attributes));
     }
 
@@ -58,8 +59,7 @@ class Field extends Component
     public function class(array $classes = [])
     {
         return parent::class(array_merge([
-            'col-span-12',
-            '' . Arr::get($this->config ?: [], 'width', 'full'),
+            //'col-span-12',
         ], $classes));
     }
 

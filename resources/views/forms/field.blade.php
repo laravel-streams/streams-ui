@@ -10,7 +10,10 @@ wrappers and elements.
 Probably would not work great on smaller screens when people wanna place fields 
 in two or more columns next to each other. But again, it could be controlled.
 --}}
-<div {!! $field->htmlAttributes() !!}>
+
+<div {!! $field->htmlAttributes([
+    'class' => 'col-span-' . ($field->width ?: 12),
+]) !!}>
 
     <div class="flex flex-wrap xxxl:flex-no-wrap">
         <label class="font-bold capitalize leading-loose
@@ -20,8 +23,6 @@ in two or more columns next to each other. But again, it could be controlled.
         <div class="w-full">
             {!! $field->input() !!}
         </div>
-
     </div>
-
 
 </div>

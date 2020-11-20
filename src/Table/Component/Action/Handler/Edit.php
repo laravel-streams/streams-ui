@@ -2,30 +2,24 @@
 
 namespace Streams\Ui\Table\Component\Action\Handler;
 
-use Streams\Ui\Table\TableBuilder;
+use Streams\Ui\Table\Table;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Redirect;
-use Streams\Ui\ControlPanel\Component\Section\SectionCollection;
 
 class Edit
 {
 
-    /**
-     * Save the order of the entries.
-     *
-     * @param SectionCollection $sections
-     * @param TableBuilder      $builder
-     * @param array             $selected
-     */
-    public function handle(TableBuilder $builder, array $selected = [])
+    public function handle(Table $table, array $selected = [])
     {
-        $prefix = $builder->instance->options->get('prefix');
+        $prefix = $table->options->get('prefix');
 
         $edit = array_shift($selected);
         $ids  = implode(',', $selected);
 
-        $builder->response = Redirect::to(
-            URL::to(URL::current() . '/update/' . $edit . '?' . $prefix . 'edit_next=' . $ids)
-        );
+        $base = URL::previous(URL::current());
+
+        $query = '?' . $prefix . 'edit_next=' . $ids;
+
+        $table->response = Redirect::to($base . '/' . $edit . '/edit/' . $query);
     }
 }
