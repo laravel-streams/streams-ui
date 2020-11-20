@@ -2,10 +2,13 @@
 
 namespace Streams\Ui\Http\Controller;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Streams\Core\Http\Controller\StreamsController;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
 
 /**
  * Class CpController
@@ -25,6 +28,22 @@ class CpController extends StreamsController
         'resolve_response',
     ];
 
+    /**
+     * Go somewhere useful.
+     * 
+     * @return RedirectResponse
+     */
+    public function index(ControlPanelBuilder $builder)
+    {
+        $navigation = $builder->makeNavigation();
+
+        if (!$home = $navigation->first()) {
+            abort(404);
+        }
+
+        return Redirect::to($home->url());
+    }
+    
     /**
      * Handle the request.
      * 

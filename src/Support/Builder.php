@@ -64,6 +64,10 @@ class Builder
 
     public function make()
     {
+        if (is_object($this->{$this->component})) {
+            return $this->{$this->component};
+        }
+
         $parameters = [];//$this->getPrototypeAttributes();
 
         $abstract = $this->getPrototypeAttribute($this->component);
@@ -74,6 +78,8 @@ class Builder
         $this->{$this->component}->handle = $this->handle;
         
         //$this->{$this->component}->repository = $this->repository();
+
+        return $this->{$this->component};
     }
 
     public function response(): HttpFoundationResponse

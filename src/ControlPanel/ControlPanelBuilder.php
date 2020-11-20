@@ -61,6 +61,12 @@ class ControlPanelBuilder extends Builder
 
     public function makeNavigation()
     {
+        $this->make();
+
+        if ($this->instance->navigation->isNotEmpty()) {
+            return $this->instance;
+        }
+        
         $navigation = Streams::entries('cp.navigation')
             ->orderBy('sort_order', 'asc')
             ->orderBy('handle', 'asc')
@@ -86,6 +92,8 @@ class ControlPanelBuilder extends Builder
         }, $navigation);
 
         $this->navigation = $navigation;
+
+        return $this->instance->navigation;
     }
 
     public function detectNavigation()

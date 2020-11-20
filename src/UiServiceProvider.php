@@ -138,6 +138,13 @@ class UiServiceProvider extends ServiceProvider
             ],
         ]);
 
+        Route::streams(Config::get('streams.cp.prefix'), [
+            'verb' => 'get',
+            'as' => 'ui::cp.home',
+            'uses' => '\Streams\Ui\Http\Controller\CpController@index',
+            'update' => true,
+        ]);
+
         Route::prefix(Config::get('streams.cp.prefix'))->middleware(['cp'])->group(function () {
 
             // @todo Configure this later
