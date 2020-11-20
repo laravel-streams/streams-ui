@@ -40,7 +40,7 @@ class ControlPanelBuilder extends Builder
             'navigation' => [],
 
             'steps' => [
-                'make_control_panel' => [$this, 'makeControlPanel'],
+                'make_control_panel' => [$this, 'make'],
 
                 'make_navigation' => [$this, 'makeNavigation'],
                 'detect_navigation' => [$this, 'detectNavigation'],
@@ -54,17 +54,12 @@ class ControlPanelBuilder extends Builder
         ], $attributes));
     }
 
-    public function makeControlPanel()
-    {
-        $this->instance = new ControlPanel();
-    }
-
     public function makeNavigation()
     {
         $this->make();
 
         if ($this->instance->navigation->isNotEmpty()) {
-            return $this->instance;
+            return $this->instance->navigation;
         }
         
         $navigation = Streams::entries('cp.navigation')
@@ -122,6 +117,12 @@ class ControlPanelBuilder extends Builder
 
     public function makeShortcuts()
     {
+        $this->make();
+
+        if ($this->instance->shortcuts->isNotEmpty()) {
+            return $this->instance->shortcuts;
+        }
+
         $shortcuts = Streams::entries('cp.shortcuts')
             ->orderBy('sort_order', 'asc')
             ->get()
@@ -148,10 +149,18 @@ class ControlPanelBuilder extends Builder
         }, $shortcuts);
 
         $this->shortcuts = $shortcuts;
+
+        return $this->instance->shortcuts;
     }
 
     public function makeButtons()
     {
+        $this->make();
+
+        if ($this->instance->buttons->isNotEmpty()) {
+            return $this->instance->buttons;
+        }
+
         if (!$active = $this->instance->navigation->active()) {
             return;
         }
@@ -193,5 +202,7 @@ class ControlPanelBuilder extends Builder
         $this->loadInstanceWith('buttons', $buttons, Button::class);
 
         $this->buttons = $buttons;
+
+        return $this->instance->buttons;
     }
 }

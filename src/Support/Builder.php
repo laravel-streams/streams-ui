@@ -68,11 +68,9 @@ class Builder
             return $this->{$this->component};
         }
 
-        $parameters = [];//$this->getPrototypeAttributes();
-
         $abstract = $this->getPrototypeAttribute($this->component);
 
-        $this->{$this->component} = new $abstract($parameters);
+        $this->{$this->component} = new $abstract;
 
         $this->{$this->component}->stream = $this->stream;
         $this->{$this->component}->handle = $this->handle;
