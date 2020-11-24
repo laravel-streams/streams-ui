@@ -213,11 +213,13 @@ class TableBuilder extends Builder
         $filters = Normalizer::fillWithKey($filters, 'handle');
         $filters = Normalizer::fillWithKey($filters, 'filter');
         $filters = Normalizer::fillWithKey($filters, 'field');
+        $filters = Normalizer::fillWithKey($filters, 'name');
         $filters = Normalizer::attributes($filters);
 
         $registry = app(FilterRegistry::class);
 
         foreach ($filters as &$attributes) {
+            
             if ($registered = $registry->get(Arr::pull($attributes, 'filter'))) {
                 $attributes = array_replace_recursive($registered, $attributes);
             }
@@ -249,7 +251,7 @@ class TableBuilder extends Builder
         }
 
         $this->instance->filters->each(function ($filter) {
-            $filter->active = Request::has($this->instance->prefix('filter_' . $filter->handle));
+            $filter->active = Request::has($this->instance->prefix(/*'filter_' .*/ $filter->handle));
         });
     }
 

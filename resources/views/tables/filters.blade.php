@@ -5,7 +5,7 @@
         'method' => 'get'
     ]) !!}
     @foreach ($table->filters as $filter)
-        {!! $filter->render() !!}
+        @include('ui::tables.filter', ['filter' => $filter])
     @endforeach
     {!! Form::close() !!}
 </div>

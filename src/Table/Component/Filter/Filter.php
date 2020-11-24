@@ -3,6 +3,8 @@
 namespace Streams\Ui\Table\Component\Filter;
 
 use Streams\Ui\Support\Component;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Request;
 use Streams\Ui\Table\Component\Filter\Query\GenericFilterQuery;
 
 /**
@@ -25,7 +27,7 @@ class Filter extends Component
     {
         return parent::initializePrototype(array_merge([
             'component' => 'filter',
-            'template' => 'ui::tables.filter',
+            'template' => 'ui::form.input',
 
             'handle' => null,
             'field' => null,
@@ -48,9 +50,16 @@ class Filter extends Component
      *
      * @return null|string
      */
-    public function getInput()
+    public function input()
     {
-        return null;
+        $attributes = ['field' => $this];
+
+        $attributes['name'] = $this->inputName();
+        $attributes['value'] = $this->value();
+
+        return App::make('streams.input_types.' . ($this->input ?: 'input'), [
+            'attributes' => $attributes,
+        ]);
     }
 
     /**
@@ -58,9 +67,9 @@ class Filter extends Component
      *
      * @return null|string
      */
-    public function getValue()
+    public function value()
     {
-        return app('request')->get($this->getInputName());
+        return Request::get($this->inputName());
     }
 
     /**
@@ -68,8 +77,8 @@ class Filter extends Component
      *
      * @return string
      */
-    public function getInputName()
+    public function inputName()
     {
-        return $this->prefix . 'filter_' . $this->handle;
+        return $this->prefix . /*'filter_' .*/ $this->handle;
     }
 }

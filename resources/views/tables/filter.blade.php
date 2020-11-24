@@ -1,2 +1,2 @@
 <!-- filter.blade.php -->
-{{ $filter->field->input()->render() }}
+{{ $filter->input()->render() }}
