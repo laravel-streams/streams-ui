@@ -37,6 +37,7 @@ class Section extends Component
             //'favorite' => false,
 
             'buttons' => [],
+            'dropdown' => [],
         ], $attributes));
     }
 

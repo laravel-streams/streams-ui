@@ -53,7 +53,6 @@
             </div>
             @else
             <button {!! $shortcut->htmlAttributes() !!}>
-                
                 @if ($shortcut->svg)
                 {!! $shortcut->svg !!}
                 @elseif ($shortcut->icon)
