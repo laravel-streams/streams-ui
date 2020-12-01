@@ -4,9 +4,9 @@ intro:
 enabled: true
 ---
 
-## User Interface
+## Streams UI
 
-The user's interface, including a control panel, is an optional core component of the Streams platform. The UI system extends the [stream domain information](streams#domain-information).
+The Streams UI package provides UI resources, including a control panel. The UI system extends the [stream domain information](streams#domain-information).
 
 ### Input Types
 
