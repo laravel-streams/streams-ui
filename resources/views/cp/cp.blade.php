@@ -7,11 +7,11 @@
 
 <body>
     <!-- cp.blade.php -->
-    <div class="grid grid-cols-16 min-h-screen">
-        <aside class="col-span-16 md:col-span-5 lg:col-span-4 xl:col-span-3 xxxl:col-span-2">
-            @include('ui::cp.sidebar')
-        </aside>
-        <main class="col-span-16 md:col-span-11 lg:col-span-12 xl:col-span-13 xxxl:col-span-14 bg-gray-100">
+    <div class="h-screen flex overflow-hidden bg-gray-100">
+        
+        @include('ui::cp.sidebar')
+
+        <main class="flex flex-col w-0 flex-1 overflow-hidden">
 
             @include('ui::cp.top')
             @include('ui::cp.content')

@@ -1,9 +1,12 @@
+
 <!-- navigation.blade.php -->
+<nav class="flex-1 px-2 space-y-1">
+
     @foreach ($cp->navigation->filter(function($section) {
         return !$section->parent;
     }) as $section)
     {!! $section->link([
-        'class' => 'group flex items-center px-2 py-2 text-sm leading-5 font-medium rounded-md focus:outline-none transition ease-in-out duration-150 ' . ($section->active ? 'text-white' : 'text-white opacity-50')
+        'class' => 'group flex items-center px-2 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-gray-900 ' . ($section->active ? 'text-white' : 'text-white opacity-50')
     ]) !!}
 
     @php
@@ -15,7 +18,7 @@
         @foreach ($children as $child)
             <li>
                 {!! $child->link([
-                    'class' => 'group flex items-center px-2 py-2 text-sm leading-5 font-medium rounded-md focus:outline-none transition ease-in-out duration-150 ' . ($child->active ? 'text-white' : 'text-white opacity-50')
+                    'class' => 'grgroup flex items-center px-2 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-gray-900 ' . ($child->active ? 'text-white' : 'text-white opacity-50')
                 ]) !!}
 
                 <ul>
@@ -29,3 +32,4 @@
     @endif
 
     @endforeach
+</nav>
