@@ -24,20 +24,19 @@ class Input extends Component
                 'block',
                 'px-3',
                 'py-2',
-                'rounded-md',
-                
+
                 'border-2',
                 'border-black',
 
                 'placeholder-gray-400',
-                
+
                 'focus:outline-none',
                 'focus:shadow-outline-blue',
                 'focus:border-blue-500',
 
-                'transition',
                 'duration-150',
                 'ease-in-out',
+                'transition',
 
                 'sm:text-sm',
                 'sm:leading-5',
