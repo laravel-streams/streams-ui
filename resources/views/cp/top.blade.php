@@ -1,5 +1,5 @@
 <!-- top.blade.php -->
-<nav class="sticky top-0 z-50 px-8 py-4 bg-white shadow-xs grid grid-cols-12">
+<nav class="sticky top-0 z-50 px-8 py-4 bg-white border-b-2 border-black grid grid-cols-12">
 
     {{-- Hamburger 
     <button
@@ -39,11 +39,11 @@
                 
                 </button>
 
-                <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg" x-show="show">
-                    <div class="py-1 rounded-md bg-white shadow-xs">
+                <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md border-2 border-black z-10" x-show="show">
+                    <div class="py-1 rounded-md bg-white">
                         @foreach ($shortcut->dropdown as $item)
                         <a {!! Html::attributes($item['attributes']) !!}
-                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150"
+                        class="block px-4 py-2 text-sm text-black hover:bg-black hover:text-white transition ease-in-out duration-150"
                         >{{ $item['text'] }}</a>
                         @endforeach
                     </div>

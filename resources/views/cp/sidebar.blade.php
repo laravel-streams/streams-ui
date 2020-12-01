@@ -1,10 +1,10 @@
 <!-- sidebar.blade.php -->
-<aside class="md:flex md:flex-shrink-0 bg-black">
+<aside class="md:flex md:flex-shrink-0 bg-white border-r-2 border-black">
     <div class="flex flex-col w-64">
 
         <div class="flex flex-col pt-5 pb-5 overflow-y-auto">
             <div class="flex items-center flex-shrink-0 px-4 h-8">
-                <pre class="brand-ascii bg-transparent text-white text-xs leading-tight" style="font-size: 6px;">
+                <pre class="brand-ascii bg-transparent text-black text-xs leading-tight" style="font-size: 6px;">
    _____________  _______   __  _______
   / __/_  __/ _ \/ __/ _ | /  |/  / __/
  _\ \  / / / , _/ _// __ |/ /|_/ /\ \  

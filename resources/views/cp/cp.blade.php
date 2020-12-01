@@ -7,7 +7,7 @@
 
 <body>
     <!-- cp.blade.php -->
-    <div class="h-screen flex overflow-hidden bg-gray-100">
+    <div class="h-screen flex overflow-hidden">
         
         @include('ui::cp.sidebar')
 
