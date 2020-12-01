@@ -97,11 +97,11 @@ class Builder
         }
 
         if (!$this->async && Request::ajax()) {
-            return Response::view($this->render())->render();
+            return Response::view($this->render());
         }
 
         if ($this->async == true && Request::ajax()) {
-            return $this->json();
+            return Response::json($this);
         }
 
         FacadesView::share('cp', (new ControlPanelBuilder())->build());
