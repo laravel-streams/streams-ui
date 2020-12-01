@@ -3,6 +3,7 @@ title: Overview
 category: cp
 intro: The Swiss-army control panel.
 sort: 0
+enabled: true
 ---
 
 - **Intro:** Introduce the idea in one sentance.

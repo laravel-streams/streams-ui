@@ -41,7 +41,6 @@ class ControlPanel extends Component
 
         return parent::initializePrototype(array_merge([
             'buttons' => [],
-            //'sections' => SectionCollection::class,
             'shortcuts' => [],
             'navigation' => [],
         ], $attributes));
