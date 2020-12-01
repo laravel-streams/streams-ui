@@ -1,15 +1,99 @@
 ---
-title: Overview
-category: cp
+title: Control Panel
+category: basics
 intro: The Swiss-army control panel.
 sort: 0
 enabled: true
 ---
 
-- **Intro:** Introduce the idea in one sentance.
-- **Explaination:** An elevator pitch that signals the reader to continue or not (keep looking for relavant page).
-- **Sections/Features:** Separate sections/sub-sections (h2s/h3s) consistently. This will build the ToC.
-- **Next Steps:** Next actions to take that are intentional versus simply additional reading.
-- **Code Examples:** Code examples and snippets.
-- **Insights:** Tips, post scriptum, creative links.
-- **Additional Reading:** Link to related ideas/topics/guides/recipes.
+## Introduction
+
+The control panel system provides a simple, highly configurable interface for defining the control panel experience your project needs.
+
+### Configuration
+
+All streams configuration is stored in `/streams/cp/{component}/*`.
+
+## Navigation
+
+#### Navigation Stream
+
+```php
+Streams::register([
+    'handle' => 'cp.navigation',
+    'source' => [
+        'path' => 'streams/cp/navigation',
+        'format' => 'json',
+    ],
+    'config' => [
+        'prototype' => 'Streams\\Ui\\ControlPanel\\Component\\Navigation\\Section',
+    ],
+    'fields' => [
+        'title' => 'string',
+        'parent' => [
+            'type' => 'relationship',
+            'related' => 'cp.navigation',
+        ],
+    ],
+]);
+```
+
+#### Example Navigation Section
+
+```json
+// // streams/cp/navigation/docs.json
+{
+    "title": "Documentation",
+    "stream": "docs",
+    "buttons": {
+        "create": {},
+        "view": {
+            "href": "/docs/core/introduction",
+            "target": "_blank"
+        }
+    }
+}
+```
+
+## Shortcuts
+
+#### Shortcuts Stream
+
+```php
+Streams::register([
+    'handle' => 'cp.shortcuts',
+    'source' => [
+        'path' => 'streams/cp/shortcuts',
+        'format' => 'json',
+    ],
+    'config' => [
+        'prototype' => 'Streams\\Ui\\ControlPanel\\Component\\Shortcut\\Shortcut',
+    ],
+    'fields' => [
+        'title' => 'string',
+        'icon' => 'string',
+        'svg' => 'string',
+    ],
+]);
+```
+
+#### Example Navigation Section
+
+```json
+// // streams/cp/shortcuts/user.json
+{
+    "image": "https://source.unsplash.com/hoS3dzgpHzw/256x256",
+    "dropdown": {
+        "profile": {
+            "text": "Visit Website",
+            "href": "/",
+            "target": "_blank"
+        },
+        "logout": {
+            "text": "Logout",
+            "href": "/logout",
+            "target": "_blank"
+        }
+    }
+}
+```

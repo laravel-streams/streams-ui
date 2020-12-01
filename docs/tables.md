@@ -1,26 +1,54 @@
 ---
 title: Tables
-category: tables
+category: basics
 sort: 0
+enabled: true
 ---
 
-- **Intro:** Introduce the idea in one sentance.
-- **Explaination:** An elevator pitch that signals the reader to continue or not (keep looking for relavant page).
-    - Table builders help you quickly build up table components.
-- **Sections/Features:** Separate sections/sub-sections (h2s/h3s) consistently. This will build the ToC.
-    - Basic Usage
-    - Configuring Tables
-- **Next Steps:** Next actions to take that are intentional versus simply additional reading.
-- **Code Examples:** Code examples and snippets.
-- **Insights:** Tips, post scriptum, creative links.
-- **Additional Reading:** Link to related ideas/topics/guides/recipes.
+## Introduction
 
+Table builders help you quickly build up form components.
+
+### Configuration
+
+Table configurations can also be @imports for more congiguration
+
+```json
+{
+    "ui": {
+        "table": {}
+    }
+}
+```
+
+Full configuration:
+
+```json
+{
+    "ui": {
+        "tables": {
+            "default": {},
+            "{handle}": {}
+        }
+    }
+}
+```
+
+```php
+$table = (new TableBuilder([
+    'stream' => 'examples',
+    'columns' => [
+        'name',
+        'email',
+    ],
+]))->build();
+```
 
 # Configuration Examples
 
 ```json
 {
-    "form": [
+    "table": [
         // Required Configuration
         "stream",   // The stream the entry belongs to
         
