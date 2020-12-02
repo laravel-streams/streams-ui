@@ -28,9 +28,7 @@ class Shortcut extends Component
             'active' => false,
             'favorite' => false,
 
-            'classes' => [
-                'test',
-            ],
+            'classes' => [],
         ], $attributes));
     }
 }
