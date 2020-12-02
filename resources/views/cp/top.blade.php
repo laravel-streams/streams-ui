@@ -58,7 +58,7 @@
                 @if ($shortcut->svg)
                 {!! $shortcut->svg !!}
                 @elseif ($shortcut->icon)
-                <x-{{ $shortcut->icon }}/>
+                {{ svg($shortcut->icon, ['class' => 'h-8 w-8']) }}
                 @elseif ($shortcut->image)
                 <img class="h-8 w-8 rounded-full" src="{{ $shortcut->image }}" alt="">
                 @else
