@@ -24,7 +24,6 @@ class Color extends Component
     {
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/color',
-            'component' => 'input',
             'classes' => [],
         ], $attributes));
     }

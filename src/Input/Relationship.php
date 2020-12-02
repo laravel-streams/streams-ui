@@ -4,14 +4,7 @@ namespace Streams\Ui\Input;
 
 use Streams\Ui\Support\Component;
 
-/**
- * Class Relationsip
- *
- * @link    http://pyrocms.com/
- * @author  PyroCMS, Inc. <support@pyrocms.com>
- * @author  Ryan Thompson <ryan@pyrocms.com>
- */
-class Select extends Component
+class Select extends Input
 {
 
     /**
@@ -23,9 +16,7 @@ class Select extends Component
     protected function initializePrototype(array $attributes)
     {
         return parent::initializePrototype(array_merge([
-            'template' => 'ui::input/select',
-            'component' => 'input',
-            'classes' => ['input'],
+            'template' => 'ui::input/relationship',
         ], $attributes));
     }
 }
