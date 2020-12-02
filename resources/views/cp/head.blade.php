@@ -12,12 +12,4 @@
 {{-- {!! favicons('public::img/favicon.png') !!} --}}
 <link rel="icon" type="image/png" href="/vendor/streams/ui/img/favicon.png"/>
 
-<!-- CSS -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
-
-
-<link href="/vendor/streams/ui/css/theme.css" rel="stylesheet">
-{{-- {!! Assets::collection('head')->add('ui::css/theme.css')->styles() !!} --}}
-
-<script src="/vendor/streams/ui/js/index.js"></script>
+@include('ui::cp.styles')

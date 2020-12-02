@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Traits\Macroable;
 use Streams\Core\Support\Traits\Prototype;
 use Streams\Core\Support\Traits\FiresCallbacks;
-use Streams\Ui\ControlPanel\ControlPanelBuilder;
-use Illuminate\Support\Facades\View as FacadesView;
+use Illuminate\Support\Facades\View as ViewFacade;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 /**
@@ -104,19 +103,21 @@ class Builder
             return Response::json($this);
         }
 
-        FacadesView::share('cp', (new ControlPanelBuilder())->build());
+        if (ViewFacade::shared('cp')) {
+            return Response::view('ui::cp', ['content' => $this->render()]);
+        }
 
-        return Response::view('ui::default', ['content' => $this->render()]);
+        return Response::view('ui::ui', ['content' => $this->render()]);
     }
 
-    public function render(): View
+    public function render()
     {
         $this->build();
 
         return $this->instance->render();
     }
 
-    public function json(): JsonResponse
+    public function json()
     {
         $this->build();
 

@@ -2,22 +2,23 @@
 
 namespace Streams\Ui\Http\Controller;
 
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
-use Streams\Core\Http\Controller\StreamsController;
 use Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Core\Http\Controller\StreamsController;
 
 /**
- * Class CpController
+ * Class UiController
  *
  * @link    http://pyrocms.com/
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
  */
-class CpController extends StreamsController
+class UiController extends StreamsController
 {
 
     protected $steps = [
@@ -70,6 +71,10 @@ class CpController extends StreamsController
         }
 
         $action = Request::route()->action;
+
+        if (isset($action['ui.cp']) && $action['ui.cp'] == true) {
+            View::share('cp', (new ControlPanelBuilder())->build());
+        }
         
         if (isset($action['ui.component'])) {
 

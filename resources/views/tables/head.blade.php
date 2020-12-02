@@ -28,8 +28,6 @@
                 @svg('heroicon-o-sort-descending', [
                     'class' => 'inline h-5 w-5',
                 ])
-                @else
-                (--)
                 @endif
             </a>
             @else

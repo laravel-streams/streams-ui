@@ -141,7 +141,7 @@ class UiServiceProvider extends ServiceProvider
         Route::streams(Config::get('streams.cp.prefix'), [
             'verb' => 'get',
             'as' => 'ui::cp.home',
-            'uses' => '\Streams\Ui\Http\Controller\CpController@index',
+            'uses' => '\Streams\Ui\Http\Controller\UiController@index',
             'update' => true,
         ]);
 
@@ -157,37 +157,42 @@ class UiServiceProvider extends ServiceProvider
 
             Route::streams($index, [
                 'verb' => 'get',
+                'ui.cp' => true,
                 'entry' => false,
                 'as' => 'ui::cp.index',
                 'ui.component' => 'table',
-                'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
+                'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
             ]);
 
             Route::streams($create, [
                 'verb' => 'get',
+                'ui.cp' => true,
                 'entry' => false,
                 'as' => 'ui::cp.create',
                 'ui.component' => 'form',
-                'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
+                'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
             ]);
 
             Route::streams($edit, [
                 'verb' => 'get',
+                'ui.cp' => true,
                 'as' => 'ui::cp.edit',
                 'ui.component' => 'form',
-                'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
+                'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
             ]);
 
             Route::streams($table, [
+                'ui.cp' => false,
                 //'as' => 'ui::cp.edit',
                 'ui.component' => 'table',
-                'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
+                'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
             ]);
 
             Route::streams($form, [
+                'ui.cp' => false,
                 //'as' => 'ui::cp.edit',
                 'ui.component' => 'form',
-                'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
+                'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
             ]);
 
             if (file_exists($routes = base_path('routes/cp.php'))) {

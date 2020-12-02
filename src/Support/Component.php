@@ -3,11 +3,10 @@
 namespace Streams\Ui\Support;
 
 use Exception;
+use Illuminate\View\View;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\View;
-use Illuminate\View\View as ViewView;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Traits\Macroable;
@@ -16,6 +15,7 @@ use Illuminate\Contracts\Support\Jsonable;
 use Streams\Core\Support\Traits\Prototype;
 use Illuminate\Contracts\Support\Arrayable;
 use Streams\Core\Support\Traits\FiresCallbacks;
+use Illuminate\Support\Facades\View as ViewFacade;
 
 /**
  * Class Ui
@@ -80,7 +80,7 @@ class Component implements Arrayable, Jsonable
             $payload[$this->as] = $this;
         }
 
-        return View::make($this->template, $payload);
+        return ViewFacade::make($this->template, $payload);
     }
 
     public function url()
