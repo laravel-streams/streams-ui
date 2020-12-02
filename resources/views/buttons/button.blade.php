@@ -5,7 +5,7 @@
     {!! $button->open([
         'x-on:click' => 'show == true ? show = false : show = true; return false;',
         'x-on:click.away' => 'show = false',
-        'class' => 'py-1 px-3 rounded-sm text-sm font-bold text-black border-2 border-black inline-block',
+        'class' => 'py-1 px-3 text-sm font-bold text-black border-2 border-black inline-block',
     ]) !!}
     
     @if ($button->svg)
@@ -34,7 +34,7 @@
 @else
 
 {!! $button->open([
-    'class' => 'py-1 px-3 rounded-sm text-sm font-bold text-black border-2 border-black inline-block',
+    'class' => 'py-1 px-3 text-sm font-bold text-black border-2 border-black inline-block',
 ]) !!}
 {{-- <i v-show="button.icon" :class="button.icon"></i> --}}
 {{ __($button->text) }}
