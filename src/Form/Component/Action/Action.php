@@ -40,19 +40,6 @@ class Action extends Button
             'save'   => true,
             'active' => false,
 
-            'classes' => [
-                'py-1',
-                'px-3',
-                'rounded-sm',
-                'border',
-                'text-sm',
-                'font-bold',
-                'text-black',
-                'border-black',
-                'inline-block',
-                'ml-1'
-            ],
-
             'handle'  => 'default',
         ], $attributes));
     }
