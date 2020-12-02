@@ -1,6 +1,6 @@
 <!-- filters.blade.php -->
 @if ($table->filters->isNotEmpty())
-<div class="px-8">
+<div class="m-8">
     {!! Form::open([
         'method' => 'get'
     ]) !!}

@@ -23,7 +23,9 @@
         @endforeach
 
         <td class="flex justify-end">
+            <nav>
             {!! $row->buttons->render() !!}
+            </nav>
         </td>
 
     </tr>

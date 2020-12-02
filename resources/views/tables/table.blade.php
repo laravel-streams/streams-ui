@@ -1,5 +1,5 @@
 <!-- table.blade.php -->
-<div class="" x-data="{}">
+<div x-data="{}">
 
     @section('views')
     @include('ui::tables.views')
@@ -17,7 +17,7 @@
     ]) !!}
 
     @section('table')
-    <div class="px-8">
+    <div class="border-2 border-black m-8">
         <table {!! $table->htmlAttributes(['classes' => ['table', 'min-w-full']]) !!}>
 
             @section('head')
