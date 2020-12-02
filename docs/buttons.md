@@ -3,7 +3,7 @@ title: Buttons
 category: core_concepts
 intro:
 sort: 99
-enabled: true
+enabled: false
 ---
 
 - **Intro:** Introduce the idea in one sentence.
