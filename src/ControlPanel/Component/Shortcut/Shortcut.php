@@ -4,13 +4,6 @@ namespace Streams\Ui\ControlPanel\Component\Shortcut;
 
 use Streams\Ui\Support\Component;
 
-/**
- * Class Shortcut
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
 class Shortcut extends Component
 {
 
