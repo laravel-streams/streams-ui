@@ -1,15 +1,17 @@
 <!-- limiter.blade.php -->
-<div class="">
+<div>
 
-    <select onchange="window.location=this.value;">
-        @foreach ([5, 10, 15, 25, 50, 75, 100, 150, 'all'] as $item)
+    <label>{{ __('ui::labels.show') }}</label>
+
+    <select class="p-1 w-auto" onchange="window.location=this.value;">
+        @foreach (['all', 5, 10, 15, 25, 50, 75, 100, 150] as $item)
         <option
             {{ $table->options->get('limit', $table->pagination->perPage()) == $item ? 'selected' : '' }}
             value="{{ url()->current() }}?{{ http_build_query([($table->prefix('limit')) => $item] + request()->query()) }}">
             @if ($item == 'all')
-            {{ trans('ui::labels.show_all') }}</option>
+            {{ trans('ui::labels.all') }}</option>
         @else
-        {{ $item }} {{ trans_choice('ui::labels.results', $item) }}</option>
+        {{ $item }}</option>
         @endif
         @endforeach
     </select>

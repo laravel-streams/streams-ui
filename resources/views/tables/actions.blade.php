@@ -1,4 +1,4 @@
 <!-- actions.blade.php -->
-<div class="min-w-full">
+<div class="flex-1">
     {!! $table->actions->render() !!}
 </div>

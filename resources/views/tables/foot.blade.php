@@ -1,12 +1,12 @@
 <!-- foot.blade.php -->
-<tfoot class="">
+<tfoot>
     @section('controls')
     {{-- Eventually loop through controls in table.data --}}
     {{-- if table.data.controls.isNotEmpty() --}}
     @if ($table->actions->isNotEmpty() || $table->pagination)
     <tr>
         <td colspan="100%">
-            <div class="table__footer flex justify-end flex-wrap">
+            <div class="table__footer py-4 flex items-center flex-wrap">
 
                 @include('ui::tables.actions')
 

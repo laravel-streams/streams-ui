@@ -2,5 +2,6 @@
 
 return [
     'results' => 'Result|Results',
-    'show_all' => 'Show All',
+    'show' => 'Show',
+    'all' => 'All',
 ];

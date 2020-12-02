@@ -17,7 +17,7 @@
     ]) !!}
 
     @section('table')
-    <div class="border-2 border-black m-8">
+    <div class="m-8">
         <table {!! $table->htmlAttributes(['classes' => ['table', 'min-w-full']]) !!}>
 
             @section('head')
