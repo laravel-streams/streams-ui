@@ -1,7 +1,9 @@
 ---
 title: Buttons
-category: basics
+category: core_concepts
 intro:
+sort: 99
+enabled: true
 ---
 
 - **Intro:** Introduce the idea in one sentence.

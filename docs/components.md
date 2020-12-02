@@ -1,6 +1,6 @@
 ---
 title: Components
-category: core_concepts
+category: basics
 intro: ''
 sort: 10
 stage: outlining

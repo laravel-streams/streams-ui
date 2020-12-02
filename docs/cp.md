@@ -1,8 +1,8 @@
 ---
 title: Control Panel
-category: basics
+category: core_concepts
 intro: The Swiss-army control panel.
-sort: 0
+sort: 99
 enabled: true
 ---
 

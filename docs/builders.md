@@ -1,6 +1,6 @@
 ---
 title: Builders
-category: core_concepts
+category: basics
 intro: 'Builders are PHP classes that help you quickly build UI components to render or use in your API.'
 sort: 10
 stage: outlining
@@ -13,6 +13,8 @@ Builders are factory-like classes that read and process basic input. They all ar
 
 ## Defining Builders
 ## Parameters
+### Component
+### Assets
 ## Basic Usage
 ### Rendering Builders
 ### Component Responses

@@ -1,6 +1,6 @@
 ---
 title: Views
-category: basics
+category: core_concepts
 intro:
 sort: 30
 ---

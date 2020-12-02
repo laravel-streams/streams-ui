@@ -1,15 +1,104 @@
 ---
 title: Tables
-category: basics
-sort: 0
+category: core_concepts
+intro:
+sort: 10
 enabled: true
 ---
 
 ## Introduction
 
-Table builders help you quickly build up form components.
+Table builders help you quickly build up table components.
 
-### Configuration
+## Defining Tables
+
+### Table Builders
+
+You can instantiate a `TableBuilder` instance and interact with it directly.
+
+```php
+use Steams\Ui\Table\TableBuilder;
+
+$builder = new TableBuilder($parameters = []);
+```
+
+### Stream Tables
+
+Defining tables in your [stream configuration](../core/streams#defining-streams) makes it easy to display, filter, and customize tables based your domain information and entities.
+
+Define stream tables using a `handle => parameters` format, where `handle` will be used to reference the table later and  `parameters` is an array of [parameters](#parameters) and [components](#components) configuration.
+
+```json
+// streams/example.json
+{
+    "ui": {
+        "tables": {
+            "default": {
+                "actions": {
+                    "delete": {}
+                }
+            }
+        }
+    }
+}
+```
+
+
+## Parameters
+
+The following parameters are available though may not be required.
+
+### Stream
+
+Use the `stream` parameter to specify the stream to use for entry data. If the table was defined on a stream this is optional.
+
+```php
+use Steams\Ui\Table\TableBuilder;
+
+$builder = new TableBuilder([
+    'stream' => 'contacts',
+]);
+```
+
+### Builder
+
+Use the `builder` parameter to override the builder instance used to build the table component.
+
+```json
+// streams/example.json
+{
+    "ui": {
+        "tables": {
+            "default": {
+                "builder": "App\\MyTableRepository"
+            }
+        }
+    }
+}
+```
+
+### Repository
+
+Use the `repository` parameter to override the repository instance used to fetch the entry. This parameter defaults to the stream configured repository if any.
+
+```json
+// streams/example.json
+{
+    "ui": {
+        "tables": {
+            "default": {
+                "repository": "App\\MyTableRepository"
+            }
+        }
+    }
+}
+```
+
+### Options
+
+Options listed here:
+
+## Components
 
 Table configurations can also be @imports for more congiguration
 
@@ -35,16 +124,18 @@ Full configuration:
 ```
 
 ```php
-$table = (new TableBuilder([
-    'stream' => 'examples',
+use Steams\Ui\Table\TableBuilder;
+
+$builder = new TableBuilder([
+    'stream' => 'contacts',
     'columns' => [
         'name',
         'email',
     ],
-]))->build();
+]);
 ```
 
-# Configuration Examples
+Configuration Examples
 
 ```json
 {
@@ -72,3 +163,10 @@ $table = (new TableBuilder([
     ],
 }
 ```
+
+
+### Views
+### Filters
+### Columns
+### Actions
+### Buttons
