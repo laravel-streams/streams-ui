@@ -20,12 +20,6 @@
                 {!! $child->link([
                     'class' => 'grgroup flex items-center px-2 py-2 text-sm font-medium rounded-md ' . ($child->active ? 'text-red-500' : 'text-black')
                 ]) !!}
-
-                <ul>
-                    @foreach ($child->buttons as $button)
-                        <li>{!! $button->render() !!}</li>
-                    @endforeach
-                </ul>
             </li>
         @endforeach
     </ul>        

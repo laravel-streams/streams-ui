@@ -113,6 +113,13 @@ class ControlPanelBuilder extends Builder
         if ($match) {
             $match->active = true;
         }
+
+        if ($match && $match->parent) {
+            
+            $parent = $this->instance->navigation->get($match->parent);
+
+            $match->buttons = $match->buttons ?: $parent->buttons;
+        }
     }
 
     public function makeShortcuts()
