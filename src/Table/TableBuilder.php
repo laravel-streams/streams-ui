@@ -405,6 +405,7 @@ class TableBuilder extends Builder
             return $this->instance->columns;
         }
 
+        $stream = $this->stream;
         $columns = $this->columns;
 
         if (!$columns) {
@@ -415,15 +416,31 @@ class TableBuilder extends Builder
         $columns = Normalizer::fillWithKey($columns, 'handle');
         $columns = Normalizer::fillWithAttribute($columns, 'value', 'handle');
 
-        // $registry = app(ColumnRegistry::class);
-
-        // foreach ($columns as &$attributes) {
-        //     if ($registered = $registry->get(Arr::pull($attributes, 'column'))) {
-        //         $attributes = array_replace_recursive($registered, $attributes);
-        //     }
-        // }
-
         $columns = Normalizer::attributes($columns);
+
+        foreach ($columns as &$attributes) {
+
+            $handle = Arr::get($attributes, 'handle');
+            $field = Arr::get($attributes, 'field', $handle);
+
+            $field = $stream->fields->get($field);
+
+            if (!isset($attributes['field'])) {
+                $attributes['field'] = $field->handle;
+            }
+            
+            if (!array_key_exists('heading', $attributes) && $field) {
+                $attributes['heading'] = $field->name ?: Str::title($field->handle);
+            }
+
+            if (!array_key_exists('sortable', $attributes) && $field) {
+                $attributes['sortable'] = true;
+            }
+
+            if ($field && Request::get($this->instance->prefix('order_by')) == $field->handle) {
+                $attributes['direction'] = Request::get('sort');
+            }
+        }
 
         $this->loadInstanceWith('columns', $columns, Column::class);
 

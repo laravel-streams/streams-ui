@@ -13,19 +13,22 @@
         @endif
 
         @foreach ($table->columns as $column)
-        <th {!! $column->htmlAttributes() !!}>
+        <th {!! $column->htmlAttributes([
+            'class' => 'text-left',
+        ]) !!}>
 
             @if ($column->sortable)
             <a href="{{ $column->href() }}">
                 {!! $column->heading !!}
                 @if ($column->direction == 'asc')
-                {{-- {!! icon('sort-ascending') !!} --}}
-                (ASC)
+                @svg('heroicon-o-sort-ascending', [
+                    'class' => 'inline h-5 w-5',
+                ])
                 @elseif ($column->direction == 'desc')
-                {{-- {!! icon('sort-descending') !!} --}}
-                (DESC)
+                @svg('heroicon-o-sort-descending', [
+                    'class' => 'inline h-5 w-5',
+                ])
                 @else
-                {{-- {!! icon('sortable') !!} --}}
                 (--)
                 @endif
             </a>

@@ -43,7 +43,7 @@ class Column extends Component
     {
         $direction = null;
 
-        $current = Request::get($this->table->prefix('sort'));
+        $current = $this->direction;
 
         if (!$current) {
             $direction = 'asc';

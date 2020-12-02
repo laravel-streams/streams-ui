@@ -5,13 +5,13 @@
     <tr {!! $row->htmlAttributes() !!}>
 
         @if ($table->isSortable()))
-        <td class="">
+        <td>
             <input type="hidden" name="{{ $table->prefix('row[]') }}" value="{{ $row->key }}" />
         </td>
         @endif
 
         @if ($table->isSelectable())
-        <td class=" pt-3">
+        <td>
             <input type="checkbox" name="{{ $table->prefix('selected[]') }}" value="{{ $row->key }}" />
         </td>
         @endif
