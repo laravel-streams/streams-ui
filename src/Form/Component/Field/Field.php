@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Form\Component\Field;
 
+use Illuminate\Support\Str;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\App;
 
@@ -44,6 +45,11 @@ class Field extends Component
             'handle'  => 'default',
             'classes'  => [],
         ], $attributes));
+    }
+
+    public function label()
+    {
+        return $this->label ?: ($this->label = Str::title(Str::humanize($this->handle)));
     }
 
     public function input()

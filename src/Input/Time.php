@@ -2,16 +2,7 @@
 
 namespace Streams\Ui\Input;
 
-use Streams\Ui\Support\Component;
-
-/**
- * Class Time
- *
- * @link    http://pyrocms.com/
- * @author  PyroCMS, Inc. <support@pyrocms.com>
- * @author  Ryan Thompson <ryan@pyrocms.com>
- */
-class Time extends Component
+class Time extends Input
 {
 
     /**
@@ -24,8 +15,6 @@ class Time extends Component
     {
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/time',
-            'component' => 'input',
-            'classes' => ['input'],
         ], $attributes));
     }
 }

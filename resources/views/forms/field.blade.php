@@ -18,7 +18,7 @@ in two or more columns next to each other. But again, it could be controlled.
     <div class="flex flex-wrap xxxl:flex-no-wrap">
         <label class="font-bold capitalize leading-loose
         xxxl:leading-normal w-full xxxl:max-w-xs xxxl:mr-4 xxxl:px-2 xxxl:py-2 ">
-            {{ $field->label ?: $field->handle }}
+            {{ $field->label() }}
         </label>
         <div class="w-full">
             {!! $field->input() !!}

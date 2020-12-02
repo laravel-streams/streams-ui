@@ -338,7 +338,7 @@ class TableBuilder extends Builder
             }
 
             if (!isset($attributes['text'])) {
-                $attributes['text'] = ucwords(Str::humanize($attributes['handle']));
+                $attributes['text'] = Str::title(Str::humanize($attributes['handle']));
             }
         }
 
@@ -430,7 +430,7 @@ class TableBuilder extends Builder
             }
             
             if (!array_key_exists('heading', $attributes) && $field) {
-                $attributes['heading'] = $field->name ?: Str::title($field->handle);
+                $attributes['heading'] = $field->name();
             }
 
             if (!array_key_exists('sortable', $attributes) && $field) {

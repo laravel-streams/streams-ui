@@ -2,16 +2,7 @@
 
 namespace Streams\Ui\Input;
 
-use Streams\Ui\Support\Component;
-
-/**
- * Class Date
- *
- * @link    http://pyrocms.com/
- * @author  PyroCMS, Inc. <support@pyrocms.com>
- * @author  Ryan Thompson <ryan@pyrocms.com>
- */
-class Date extends Component
+class Date extends Input
 {
 
     /**
@@ -24,8 +15,6 @@ class Date extends Component
     {
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/date',
-            'component' => 'input',
-            'classes' => [],
         ], $attributes));
     }
 }

@@ -179,7 +179,7 @@ class FormBuilder extends Builder
         if ($this->stream) {
             $fields = array_merge_recursive($fields, $original);
         }
-
+        
         foreach ($fields as &$input) {
 
             $input['rules'] = array_map(function ($rules) {
@@ -190,12 +190,6 @@ class FormBuilder extends Builder
 
                 return $rules;
             }, Arr::get($input, 'rules', []));
-
-            if (strpos($input['type'], '|')) {
-                list($input['type'], $input['input']) = explode('|', $input['type']);
-            } else {
-                $input['input'] = $input['type'];
-            }
         }
 
         $this->loadInstanceWith('fields', $fields, Field::class);

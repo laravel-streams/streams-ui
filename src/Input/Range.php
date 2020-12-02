@@ -2,16 +2,7 @@
 
 namespace Streams\Ui\Input;
 
-use Streams\Ui\Support\Component;
-
-/**
- * Class Range
- *
- * @link    http://pyrocms.com/
- * @author  PyroCMS, Inc. <support@pyrocms.com>
- * @author  Ryan Thompson <ryan@pyrocms.com>
- */
-class Range extends Component
+class Range extends Input
 {
 
     /**
@@ -24,7 +15,6 @@ class Range extends Component
     {
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/range',
-            'component' => 'input',
             'classes' => [],
         ], $attributes));
     }
