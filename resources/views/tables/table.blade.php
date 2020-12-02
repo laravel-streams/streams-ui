@@ -42,7 +42,9 @@
     @else
 
     @section('no_results')
-    {{ trans('ui::messages.no_results') }}
+    <div class="m-8">
+        {{ trans('ui::messages.no_results') }}
+    </div>
     @show
 
     @endif
