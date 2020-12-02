@@ -1,4 +1,4 @@
 <!-- pagination.blade.php -->
 <div class="">
-    {{ $table->pagination->links() }}
+    {{ $table->pagination->links('ui::support.pagination') }}
 </div>
