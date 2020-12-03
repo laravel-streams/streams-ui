@@ -52,6 +52,7 @@ class Input extends Component
             'id' => $this->id ?: $this->name . '-input',
             'name' => $this->name,
             'placeholder' => $this->placeholder,
+            'required' => $this->required,
             'value' => $this->value ?: $this->field->value,
         ], $attributes));
     }
