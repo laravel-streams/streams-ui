@@ -421,11 +421,11 @@ class TableBuilder extends Builder
         foreach ($columns as &$attributes) {
 
             $handle = Arr::get($attributes, 'handle');
-            $field = Arr::get($attributes, 'field', $handle);
+            $field = $original = Arr::get($attributes, 'field', $handle);
 
             $field = $stream->fields->get($field);
 
-            if (!isset($attributes['field'])) {
+            if (!isset($attributes['field']) && $field) {
                 $attributes['field'] = $field->handle;
             }
             
