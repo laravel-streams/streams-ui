@@ -13,6 +13,9 @@ in two or more columns next to each other. But again, it could be controlled.
 
 <div {!! $field->htmlAttributes([
     'class' => 'col-span-' . ($field->width ?: 12),
+    'type' => null,
+    'name' => null,
+    'value' => null,
 ]) !!}>
 
     <div class="flex flex-wrap xxxl:flex-no-wrap">
