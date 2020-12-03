@@ -1,6 +1,6 @@
 <!-- top.blade.php -->
-<nav class="sticky top-0 z-50 px-8 py-4 bg-white border-b-2 border-black grid grid-cols-12">
-
+<nav class="sticky top-0 z-50 px-8 h-16 bg-white border-b-2 border-black">
+<div class="flex h-16 items-center">
     {{-- Hamburger 
     <button
         class="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:bg-gray-100 focus:text-gray-600 md:hidden"
@@ -11,11 +11,11 @@
     </button>
     --}}
 
-    <div class=" col-span-8">
+    <div class="flex-grow">
         {!! $cp->buttons !!}
     </div>
 
-    <div class="col-span-4 place-self-end">
+    <div>
         
         <div class="ml-4 flex items-center md:ml-6">
 
@@ -68,7 +68,9 @@
             </button>
             @endif
             @endforeach
+
         </div>
-        
+
     </div>
+</div>
 </nav>

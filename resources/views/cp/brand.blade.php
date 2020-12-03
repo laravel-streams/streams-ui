@@ -1,5 +1,5 @@
-<div class="flex flex-col pt-5 pb-5 overflow-y-auto">
-    <div class="flex items-center flex-shrink-0 px-4 h-6">
+<div class="flex h-16 overflow-y-auto border-b-2 border-black">
+    <div class="flex items-center px-4">
         <a class="logo-link font-mono text-2xl">
             {{ __(config('app.name')) }}
         </a>
