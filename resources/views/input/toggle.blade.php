@@ -1,7 +1,23 @@
-<!-- toggle.blade.php -->
-<label class="inline-flex items-center mt-3">
+<div x-data="{checked: {{ json_encode($input->field->value) }}}">
+
+    <!-- This example requires Tailwind CSS v2.0+ -->
+    <!-- On: "bg-indigo-600", Off: "bg-gray-200" -->
+    <button type="button" class="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" x-bind:class="{ 
+        'bg-indigo-600' : checked,
+        'bg-gray-200' : !checked,
+      }" x-on:click="checked == true ? checked = false : checked = true;">
+        <span class="sr-only">Use setting</span>
+        
+        <span class="inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200" x-bind:class="{ 
+            'translate-x-5' : checked,
+            'translate-x-0' : !checked,
+          }"></span>
+    </button>
+
     <input {!! $input->htmlAttributes([
         'type' => 'checkbox',
-        'checked' => ($input->field->value),
-    ]) !!}>
-</label>
+        'class' => 'hidden',
+        //'checked' => ($input->field->value),
+    ]) !!} x-model="checked">
+    
+</div>
