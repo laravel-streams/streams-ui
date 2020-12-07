@@ -52,15 +52,6 @@ class Field extends Component
         return $this->label ?: ($this->label = Str::title(Str::humanize($this->handle)));
     }
 
-    public function input()
-    {
-        $attributes = ['field' => $this];
-
-        $attributes['name'] = $this->name;
-
-        return App::make('streams.input_types.' . ($this->input ?: 'input'), compact('attributes'));
-    }
-
     public function class(array $classes = [])
     {
         return parent::class(array_merge([

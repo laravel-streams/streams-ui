@@ -179,22 +179,21 @@ class FormBuilder extends Builder
         if ($this->stream) {
             $fields = array_merge_recursive($fields, $original);
         }
-        
-        foreach ($fields as &$input) {
-
-            $input['rules'] = array_map(function ($rules) {
-
-                if (is_string($rules)) {
-                    return explode('|', $rules);
-                }
-
-                return $rules;
-            }, Arr::get($input, 'rules', []));
-        }
 
         $this->loadInstanceWith('fields', $fields, Field::class);
 
         $this->fields = $fields;
+
+        $this->instance->fields->each(function($field) {
+            
+            $field->input = App::make('streams.input_types.' . ($field->input ?: 'input'), [
+                'attributes' => [
+                    'field' => $field,
+                    'required' => in_array('required', Arr::get($this->stream->rules, $field->handle, [])),
+                    'pattern' => in_array('regex', Arr::get($this->stream->rules, $field->handle, [])),
+                ]
+            ]);
+        });
 
         return $this->instance->fields;
     }
