@@ -425,7 +425,7 @@ class TableBuilder extends Builder
 
             $field = $stream->fields->get($field);
 
-            if (!isset($attributes['field'])) {
+            if (!isset($attributes['field']) && $field) {
                 $attributes['field'] = $field->handle;
             }
             
