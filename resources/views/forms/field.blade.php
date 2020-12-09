@@ -24,7 +24,7 @@ in two or more columns next to each other. But again, it could be controlled.
             {{ $field->label() }}
         </label>
         <div class="w-full">
-            {!! $field->input() !!}
+            {!! $field->input !!}
         </div>
     </div>
 
