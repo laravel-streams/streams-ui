@@ -138,67 +138,81 @@ class UiServiceProvider extends ServiceProvider
             ],
         ]);
 
-        Route::streams(Config::get('streams.cp.prefix'), [
-            'verb' => 'get',
-            'as' => 'ui::cp.home',
-            'uses' => '\Streams\Ui\Http\Controller\UiController@index',
-            'update' => true,
-        ]);
+        if (!$this->app->routesAreCached()) {
 
-        Route::prefix(Config::get('streams.cp.prefix'))->middleware(['cp'])->group(function () {
-
-            // @todo Configure this later
-            $index = '{stream}';
-            $create = '{stream}/create';
-            $edit = '{stream}/{entry}/edit';
-
-            $table = 'ui/{stream}/table/{table?}';
-            $form = 'ui/{stream}/form/{form?}';
-
-            Route::streams($index, [
+            Route::streams(Config::get('streams.cp.prefix'), [
                 'verb' => 'get',
-                'ui.cp' => true,
-                'entry' => false,
-                'as' => 'ui::cp.index',
-                'ui.component' => 'table',
-                'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
+                'as' => 'ui::cp.home',
+                'uses' => '\Streams\Ui\Http\Controller\UiController@index',
             ]);
 
-            Route::streams($create, [
-                'verb' => 'get',
-                'ui.cp' => true,
-                'entry' => false,
-                'as' => 'ui::cp.create',
-                'ui.component' => 'form',
-                'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
-            ]);
+            Route::prefix(Config::get('streams.cp.prefix'))->middleware(['cp'])->group(function () {
 
-            Route::streams($edit, [
-                'verb' => 'get',
-                'ui.cp' => true,
-                'as' => 'ui::cp.edit',
-                'ui.component' => 'form',
-                'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
-            ]);
+                /**
+                 * Route navigation first.
+                 */
+                Streams::entries('cp.navigation')->get()
+                    ->filter(function ($section) {
+                        return $section->route;
+                    })->each(function ($section) {
+                        Route::streams(Arr::get($section->route, 'uri', $section->id), array_merge([
+                            'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
+                        ], $section->route));
+                    });
 
-            Route::streams($table, [
-                'ui.cp' => false,
-                //'as' => 'ui::cp.edit',
-                'ui.component' => 'table',
-                'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
-            ]);
+                // @todo Configure this later
+                $index = '{stream}';
+                $create = '{stream}/create';
+                $edit = '{stream}/{entry}/edit';
 
-            Route::streams($form, [
-                'ui.cp' => false,
-                //'as' => 'ui::cp.edit',
-                'ui.component' => 'form',
-                'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
-            ]);
+                $table = 'ui/{stream}/table/{table?}';
+                $form = 'ui/{stream}/form/{form?}';
 
-            if (file_exists($routes = base_path('routes/cp.php'))) {
-                include $routes;
-            }
-        });
+                Route::streams($index, [
+                    'verb' => 'get',
+                    'ui.cp' => true,
+                    'entry' => false,
+                    'as' => 'ui::cp.index',
+                    'ui.component' => 'table',
+                    'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
+                ]);
+
+                Route::streams($create, [
+                    'verb' => 'get',
+                    'ui.cp' => true,
+                    'entry' => false,
+                    'as' => 'ui::cp.create',
+                    'ui.component' => 'form',
+                    'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
+                ]);
+
+                Route::streams($edit, [
+                    'verb' => 'get',
+                    'ui.cp' => true,
+                    'as' => 'ui::cp.edit',
+                    'ui.component' => 'form',
+                    'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
+                ]);
+
+                Route::streams($table, [
+                    'ui.cp' => false,
+                    //'as' => 'ui::cp.edit',
+                    'ui.component' => 'table',
+                    'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
+                ]);
+
+                Route::streams($form, [
+                    'ui.cp' => false,
+                    //'as' => 'ui::cp.edit',
+                    'ui.component' => 'form',
+                    'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
+                ]);
+
+                if (file_exists($routes = base_path('routes/cp.php'))) {
+                    include $routes;
+                }
+            });
+        }
     }
 
     /**

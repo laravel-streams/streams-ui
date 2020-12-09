@@ -110,15 +110,19 @@ class ControlPanelBuilder extends Builder
             $match = $link;
         }
 
-        if ($match) {
-            $match->active = true;
-        }
-
         if ($match && $match->parent) {
             
             $parent = $this->instance->navigation->get($match->parent);
 
             $match->buttons = $match->buttons ?: $parent->buttons;
+        }
+
+        if ($match) {
+            
+            $match->active = true;
+
+            $this->stream = $this->stream ?: $match->stream;
+            $this->entry = $this->entry ?: $match->entry;
         }
     }
 
