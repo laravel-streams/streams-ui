@@ -8,7 +8,8 @@
 @if ($theme = Streams::entries('theme')->find('settings'))
 <style>
     :root {
-        --color-black: {{ $theme->primary }}
+        --color-primary: {{ $theme->primary }};
+        --color-accent: {{ $theme->accent }};
     }
 </style>
 @endif

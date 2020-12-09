@@ -1,5 +1,5 @@
 <!-- controls.blade.php -->
-<div class="border-t-2 border-black mt-8 py-4 px-8 flex justify-end">
+<div class="border-t-2 border-primary mt-8 py-4 px-8 flex justify-end">
     
     @if(!$form->options->get('read_only'))
     <nav class="flex-1">

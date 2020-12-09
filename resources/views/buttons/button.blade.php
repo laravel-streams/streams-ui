@@ -5,7 +5,7 @@
     {!! $button->open([
         'x-on:click' => 'show == true ? show = false : show = true; return false;',
         'x-on:click.away' => 'show = false',
-        'class' => 'py-1 px-3 text-sm font-bold text-black border-2 border-black inline-block',
+        'class' => 'py-1 px-3 text-sm font-bold text-black border-2 border-primary inline-block',
     ]) !!}
     
     @if ($button->svg)
@@ -20,7 +20,7 @@
 
     {!! $button->close() !!}
     
-    <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md border-2 border-black z-5" x-show="show">
+    <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md border-2 border-primary z-5" x-show="show">
         <div class="py-1 rounded-md bg-white">
             @foreach ($button->dropdown as $item)
             <a {!! Html::attributes($item['attributes']) !!}
@@ -34,7 +34,7 @@
 @else
 
 {!! $button->open([
-    'class' => 'py-1 px-3 text-sm font-bold text-black border-2 border-black inline-block',
+    'class' => 'py-1 px-3 text-sm font-bold text-black border-2 border-primary inline-block',
 ]) !!}
 {{-- <i v-show="button.icon" :class="button.icon"></i> --}}
 {{ __($button->text) }}

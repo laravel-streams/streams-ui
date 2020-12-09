@@ -2,11 +2,11 @@
     <nav class="ml-8" role="navigation" aria-label="{{ __('Pagination Navigation') }}" class="flex items-center justify-between">
         <div class="flex justify-between flex-1 sm:hidden">
             @if ($paginator->onFirstPage())
-                <span class="py-1 px-3 text-sm font-bold text-black border-2 border-black inline-block cursor-default">
+                <span class="py-1 px-3 text-sm font-bold text-black border-2 border-primary inline-block cursor-default">
                     {!! __('pagination.previous') !!}
                 </span>
             @else
-                <a href="{{ $paginator->previousPageUrl() }}" class="py-1 px-3 text-sm font-bold text-black border-2 border-black inline-block">
+                <a href="{{ $paginator->previousPageUrl() }}" class="py-1 px-3 text-sm font-bold text-black border-2 border-primary inline-block">
                     {!! __('pagination.previous') !!}
                 </a>
             @endif
@@ -15,27 +15,27 @@
             @foreach ($elements as $element)
                 {{-- "Three Dots" Separator --}}
                 @if (is_string($element))
-                    <span class="py-1 px-3 text-sm font-bold text-black border-2 border-black inline-block cursor-default text-red">{{ $element }}</span>
+                    <span class="py-1 px-3 text-sm font-bold text-black border-2 border-primary inline-block cursor-default text-accent">{{ $element }}</span>
                 @endif
 
                 {{-- Array Of Links --}}
                 @if (is_array($element))
                     @foreach ($element as $page => $url)
                         @if ($page == $paginator->currentPage())
-                            <span class="py-1 px-3 text-sm font-bold text-black border-2 border-black inline-block cursor-default text-red">{{ $page }}</span>
+                            <span class="py-1 px-3 text-sm font-bold text-black border-2 border-primary inline-block cursor-default text-accent">{{ $page }}</span>
                         @else
-                            <a class="py-1 px-3 text-sm font-bold text-black border-2 border-black inline-block" href="{{ $url }}">{{ $page }}</a>
+                            <a class="py-1 px-3 text-sm font-bold text-black border-2 border-primary inline-block" href="{{ $url }}">{{ $page }}</a>
                         @endif
                     @endforeach
                 @endif
             @endforeach
             
             @if ($paginator->hasMorePages())
-                <a href="{{ $paginator->nextPageUrl() }}" class="py-1 px-3 text-sm font-bold text-black border-2 border-black inline-block cursor-default">
+                <a href="{{ $paginator->nextPageUrl() }}" class="py-1 px-3 text-sm font-bold text-black border-2 border-primary inline-block cursor-default">
                     {!! __('pagination.next') !!}
                 </a>
             @else
-                <span class="py-1 px-3 text-sm font-bold text-black border-2 border-black inline-block cursor-default">
+                <span class="py-1 px-3 text-sm font-bold text-black border-2 border-primary inline-block cursor-default">
                     {!! __('pagination.next') !!}
                 </span>
             @endif

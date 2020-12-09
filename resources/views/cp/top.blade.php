@@ -1,5 +1,5 @@
 <!-- top.blade.php -->
-<nav class="sticky top-0 z-50 px-8 h-16 bg-white border-b-2 border-black">
+<nav class="sticky top-0 z-50 px-8 h-16 bg-white border-b-2 border-primary">
 <div class="flex h-16 items-center">
     {{-- Hamburger 
     <button
@@ -41,7 +41,7 @@
                 
                 </button>
 
-                <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md border-2 border-black z-10" x-show="show">
+                <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md border-2 border-primary z-10" x-show="show">
                     <div class="py-1 rounded-md bg-white">
                         @foreach ($shortcut->dropdown as $item)
                         <a {!! Html::attributes($item['attributes']) !!}
