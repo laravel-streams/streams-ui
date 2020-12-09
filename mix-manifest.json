@@ -1,4 +1,5 @@
 {
     "/resources/public/js/index.js": "/resources/public/js/index.js",
-    "/resources/public/css/theme.css": "/resources/public/css/theme.css"
+    "/resources/public/css/theme.css": "/resources/public/css/theme.css",
+    "/resources/public/css/variables.css": "/resources/public/css/variables.css"
 }

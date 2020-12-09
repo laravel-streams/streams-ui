@@ -6,7 +6,7 @@
         return !$section->parent;
     }) as $section)
     {!! $section->link([
-        'class' => 'group flex items-center px-2 py-2 text-sm font-medium rounded-md ' . ($section->active ? 'text-red-500' : 'text-black')
+        'class' => 'group flex items-center px-2 py-2 text-sm font-medium rounded-md ' . ($section->active ? 'text-red' : 'text-black')
     ]) !!}
 
     @php
@@ -18,7 +18,7 @@
         @foreach ($children as $child)
             <li>
                 {!! $child->link([
-                    'class' => 'grgroup flex items-center px-2 py-2 text-sm font-medium rounded-md ' . ($child->active ? 'text-red-500' : 'text-black')
+                    'class' => 'grgroup flex items-center px-2 py-2 text-sm font-medium rounded-md ' . ($child->active ? 'text-red' : 'text-black')
                 ]) !!}
             </li>
         @endforeach

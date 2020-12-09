@@ -23677,15 +23677,27 @@ window.EasyMDE = __webpack_require__(/*! EasyMDE */ "./node_modules/EasyMDE/src/
 
 /***/ }),
 
+/***/ "./resources/src/scss/variables.scss":
+/*!*******************************************!*\
+  !*** ./resources/src/scss/variables.scss ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ 0:
-/*!**********************************************************************!*\
-  !*** multi ./resources/src/index.js ./resources/src/scss/theme.scss ***!
-  \**********************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** multi ./resources/src/index.js ./resources/src/scss/theme.scss ./resources/src/scss/variables.scss ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /Users/ryanthompson/Sites/streams.dev/vendor/streams/ui/resources/src/index.js */"./resources/src/index.js");
-module.exports = __webpack_require__(/*! /Users/ryanthompson/Sites/streams.dev/vendor/streams/ui/resources/src/scss/theme.scss */"./resources/src/scss/theme.scss");
+__webpack_require__(/*! /Users/ryanthompson/Sites/streams.dev/vendor/streams/ui/resources/src/scss/theme.scss */"./resources/src/scss/theme.scss");
+module.exports = __webpack_require__(/*! /Users/ryanthompson/Sites/streams.dev/vendor/streams/ui/resources/src/scss/variables.scss */"./resources/src/scss/variables.scss");
 
 
 /***/ }),

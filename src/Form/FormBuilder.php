@@ -189,6 +189,7 @@ class FormBuilder extends Builder
             $field->input = App::make('streams.input_types.' . ($field->input ?: 'input'), [
                 'attributes' => [
                     'field' => $field,
+                    'name' => $field->handle,
                     'required' => in_array('required', Arr::get($this->stream->rules, $field->handle, [])),
                     'pattern' => in_array('regex', Arr::get($this->stream->rules, $field->handle, [])),
                 ]

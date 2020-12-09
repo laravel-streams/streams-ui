@@ -2,7 +2,8 @@ const mix = require('laravel-mix');
 const tailwindcss = require('tailwindcss');
 
 mix.js('resources/src/index.js', 'resources/public/js')
-    .sass('resources/src/scss/theme.scss', 'resources/public/css');
+    .sass('resources/src/scss/theme.scss', 'resources/public/css')
+    .sass('resources/src/scss/variables.scss', 'resources/public/css');
 
 mix.copyDirectory('resources/public', '../../../public/vendor/streams/ui');
 
