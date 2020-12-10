@@ -1,5 +1,7 @@
 {
     "private": true,
+    "types": "./ui.d.ts",
+    "typings": "./ui.d.ts",
     "scripts": {
         "dev": "npm run development",
         "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
@@ -17,6 +19,7 @@
         "easymde": "^2.13.0",
         "inversify": "^5.0.1",
         "noty": "^3.2.0-beta",
+        "reflect-metadata": "^0.1.13",
         "postcss": "^8.1.10"
     },
     "devDependencies": {
