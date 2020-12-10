@@ -27,12 +27,17 @@ class Input extends Component
 
                 'border-2',
                 'border-black',
+                'dark:border-white',
+                'dark:focus:border-blue',
+
+                'bg-white',
+                'dark:bg-gray',
 
                 'placeholder-gray-400',
 
                 'focus:outline-none',
                 'focus:shadow-outline-blue',
-                'focus:border-blue-500',
+                'focus:border-blue',
 
                 'duration-150',
                 'ease-in-out',

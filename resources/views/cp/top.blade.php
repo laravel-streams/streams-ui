@@ -1,5 +1,5 @@
 <!-- top.blade.php -->
-<nav class="sticky top-0 z-50 px-8 h-16 bg-white border-b-2 border-primary">
+<nav class="sticky top-0 z-50 px-8 h-16 bg-white dark:bg-black border-b-2 border-primary">
 <div class="flex h-16 items-center">
     {{-- Hamburger 
     <button
@@ -30,7 +30,7 @@
                     @if ($shortcut->svg)
                     {{-- {!! $shortcut->svg !!} --}}
                     @elseif ($shortcut->icon)
-                    {{ svg($shortcut->icon, ['class' => 'h-8 w-8']) }}
+                    {{ svg($shortcut->icon, ['class' => 'h-8 w-8 text-black dark:text-white']) }}
                     @elseif ($shortcut->image)
                     <img class="h-8 w-8 rounded-full" src="{{ $shortcut->image }}" alt="">
                     @elseif ($shortcut->text)
@@ -42,10 +42,10 @@
                 </button>
 
                 <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md border-2 border-primary z-10" x-show="show">
-                    <div class="py-1 rounded-md bg-white">
+                    <div class="py-1 rounded-md bg-white dark:bg-black">
                         @foreach ($shortcut->dropdown as $item)
                         <a {!! Html::attributes($item['attributes']) !!}
-                        class="block px-4 py-2 text-sm text-black hover:bg-black hover:text-white transition ease-in-out duration-150"
+                        class="block px-4 py-2 text-sm text-black dark:text-white hover:bg-black hover:text-white transition ease-in-out duration-150"
                         >{{ $item['text'] }}</a>
                         @endforeach
                     </div>
@@ -58,7 +58,7 @@
                 @if ($shortcut->svg)
                 {!! $shortcut->svg !!}
                 @elseif ($shortcut->icon)
-                {{ svg($shortcut->icon, ['class' => 'h-8 w-8']) }}
+                {{ svg($shortcut->icon, ['class' => 'h-8 w-8 text-black dark:text-white']) }}
                 @elseif ($shortcut->image)
                 <img class="h-8 w-8 rounded-full" src="{{ $shortcut->image }}" alt="">
                 @else

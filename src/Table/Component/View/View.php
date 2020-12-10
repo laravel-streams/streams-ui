@@ -47,6 +47,7 @@ class View extends Component
                 'px-4',
                 'font-bold',
                 'text-black',
+                'dark:text-white',
                 'inline-block'
             ],
             'attributes' => [],

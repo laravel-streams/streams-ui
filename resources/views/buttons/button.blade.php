@@ -5,7 +5,7 @@
     {!! $button->open([
         'x-on:click' => 'show == true ? show = false : show = true; return false;',
         'x-on:click.away' => 'show = false',
-        'class' => 'py-1 px-3 text-sm font-bold text-black border-2 border-primary inline-block',
+        'class' => 'py-1 px-3 text-sm font-bold text-black dark:text-white border-2 border-primary inline-block',
     ]) !!}
     
     @if ($button->svg)
@@ -24,7 +24,7 @@
         <div class="py-1 rounded-md bg-white">
             @foreach ($button->dropdown as $item)
             <a {!! Html::attributes($item['attributes']) !!}
-            class="block px-4 py-2 text-sm text-black hover:bg-black hover:text-white transition ease-in-out duration-150"
+            class="block px-4 py-2 text-sm text-black dark:text-white hover:bg-black hover:text-white transition ease-in-out duration-150"
             >{{ $item['text'] }}</a>
             @endforeach
         </div>
@@ -34,7 +34,7 @@
 @else
 
 {!! $button->open([
-    'class' => 'py-1 px-3 text-sm font-bold text-black border-2 border-primary inline-block',
+    'class' => 'py-1 px-3 text-sm font-bold text-black dark:text-white border-2 border-primary inline-block',
 ]) !!}
 {{-- <i v-show="button.icon" :class="button.icon"></i> --}}
 {{ __($button->text) }}

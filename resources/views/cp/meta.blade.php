@@ -1,5 +1,5 @@
 <div class="flex-shrink-0 flex mt-5 px-2 space-y-1">
-    <div class="text-black opacity-25 text-xs">
+    <div class="text-black dark:text-white opacity-25 text-xs">
         {{ number_format(microtime(true) - Request::server('REQUEST_TIME_FLOAT'), 2) . ' s' }}&nbsp;|&nbsp;
         @php
         $size = memory_get_usage(true);
