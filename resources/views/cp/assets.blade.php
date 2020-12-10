@@ -15,7 +15,13 @@
 
 {{-- <script src="/vendor/anomaly/streams/ui/js/index.js"></script> --}}
 
+<script src="/vendor/streams/core/js/index.js"></script>
 <script src="/vendor/streams/ui/js/index.js"></script>
+
+<script>
+    // window.streams.boot();
+    // window.streams.start();
+</script>
 
 <script>
     // On page load or when changing themes, best to add inline in `head` to avoid FOUC

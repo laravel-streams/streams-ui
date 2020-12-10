@@ -3205,7 +3205,7 @@ select {
 }
 
 .divide-green > :not([hidden]) ~ :not([hidden]) {
-  border-color: var(--color-emerald);
+  border-color: var(--color-green);
 }
 
 .divide-blue > :not([hidden]) ~ :not([hidden]) {
@@ -3265,7 +3265,7 @@ select {
 }
 
 .dark .dark\:divide-green > :not([hidden]) ~ :not([hidden]) {
-  border-color: var(--color-emerald);
+  border-color: var(--color-green);
 }
 
 .dark .dark\:divide-blue > :not([hidden]) ~ :not([hidden]) {
@@ -3509,7 +3509,7 @@ select {
 }
 
 .bg-green {
-  background-color: var(--color-emerald);
+  background-color: var(--color-green);
 }
 
 .bg-blue {
@@ -3569,7 +3569,7 @@ select {
 }
 
 .group:hover .group-hover\:bg-green {
-  background-color: var(--color-emerald);
+  background-color: var(--color-green);
 }
 
 .group:hover .group-hover\:bg-blue {
@@ -3629,7 +3629,7 @@ select {
 }
 
 .focus-within\:bg-green:focus-within {
-  background-color: var(--color-emerald);
+  background-color: var(--color-green);
 }
 
 .focus-within\:bg-blue:focus-within {
@@ -3689,7 +3689,7 @@ select {
 }
 
 .hover\:bg-green:hover {
-  background-color: var(--color-emerald);
+  background-color: var(--color-green);
 }
 
 .hover\:bg-blue:hover {
@@ -3749,7 +3749,7 @@ select {
 }
 
 .focus\:bg-green:focus {
-  background-color: var(--color-emerald);
+  background-color: var(--color-green);
 }
 
 .focus\:bg-blue:focus {
@@ -3809,7 +3809,7 @@ select {
 }
 
 .dark .dark\:bg-green {
-  background-color: var(--color-emerald);
+  background-color: var(--color-green);
 }
 
 .dark .dark\:bg-blue {
@@ -3869,7 +3869,7 @@ select {
 }
 
 .dark .group:hover .dark\:group-hover\:bg-green {
-  background-color: var(--color-emerald);
+  background-color: var(--color-green);
 }
 
 .dark .group:hover .dark\:group-hover\:bg-blue {
@@ -3929,7 +3929,7 @@ select {
 }
 
 .dark .dark\:focus-within\:bg-green:focus-within {
-  background-color: var(--color-emerald);
+  background-color: var(--color-green);
 }
 
 .dark .dark\:focus-within\:bg-blue:focus-within {
@@ -3989,7 +3989,7 @@ select {
 }
 
 .dark .dark\:hover\:bg-green:hover {
-  background-color: var(--color-emerald);
+  background-color: var(--color-green);
 }
 
 .dark .dark\:hover\:bg-blue:hover {
@@ -4049,7 +4049,7 @@ select {
 }
 
 .dark .dark\:focus\:bg-green:focus {
-  background-color: var(--color-emerald);
+  background-color: var(--color-green);
 }
 
 .dark .dark\:focus\:bg-blue:focus {
@@ -4155,7 +4155,7 @@ select {
 }
 
 .from-green {
-  --tw-gradient-from: var(--color-emerald);
+  --tw-gradient-from: var(--color-green);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
 }
 
@@ -4220,7 +4220,7 @@ select {
 }
 
 .via-green {
-  --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+  --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
 }
 
 .via-blue {
@@ -4280,7 +4280,7 @@ select {
 }
 
 .to-green {
-  --tw-gradient-to: var(--color-emerald);
+  --tw-gradient-to: var(--color-green);
 }
 
 .to-blue {
@@ -4350,7 +4350,7 @@ select {
 }
 
 .hover\:from-green:hover {
-  --tw-gradient-from: var(--color-emerald);
+  --tw-gradient-from: var(--color-green);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
 }
 
@@ -4415,7 +4415,7 @@ select {
 }
 
 .hover\:via-green:hover {
-  --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+  --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
 }
 
 .hover\:via-blue:hover {
@@ -4475,7 +4475,7 @@ select {
 }
 
 .hover\:to-green:hover {
-  --tw-gradient-to: var(--color-emerald);
+  --tw-gradient-to: var(--color-green);
 }
 
 .hover\:to-blue:hover {
@@ -4545,7 +4545,7 @@ select {
 }
 
 .focus\:from-green:focus {
-  --tw-gradient-from: var(--color-emerald);
+  --tw-gradient-from: var(--color-green);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
 }
 
@@ -4610,7 +4610,7 @@ select {
 }
 
 .focus\:via-green:focus {
-  --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+  --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
 }
 
 .focus\:via-blue:focus {
@@ -4670,7 +4670,7 @@ select {
 }
 
 .focus\:to-green:focus {
-  --tw-gradient-to: var(--color-emerald);
+  --tw-gradient-to: var(--color-green);
 }
 
 .focus\:to-blue:focus {
@@ -4740,7 +4740,7 @@ select {
 }
 
 .dark .dark\:from-green {
-  --tw-gradient-from: var(--color-emerald);
+  --tw-gradient-from: var(--color-green);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
 }
 
@@ -4805,7 +4805,7 @@ select {
 }
 
 .dark .dark\:via-green {
-  --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+  --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
 }
 
 .dark .dark\:via-blue {
@@ -4865,7 +4865,7 @@ select {
 }
 
 .dark .dark\:to-green {
-  --tw-gradient-to: var(--color-emerald);
+  --tw-gradient-to: var(--color-green);
 }
 
 .dark .dark\:to-blue {
@@ -4935,7 +4935,7 @@ select {
 }
 
 .dark .dark\:hover\:from-green:hover {
-  --tw-gradient-from: var(--color-emerald);
+  --tw-gradient-from: var(--color-green);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
 }
 
@@ -5000,7 +5000,7 @@ select {
 }
 
 .dark .dark\:hover\:via-green:hover {
-  --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+  --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
 }
 
 .dark .dark\:hover\:via-blue:hover {
@@ -5060,7 +5060,7 @@ select {
 }
 
 .dark .dark\:hover\:to-green:hover {
-  --tw-gradient-to: var(--color-emerald);
+  --tw-gradient-to: var(--color-green);
 }
 
 .dark .dark\:hover\:to-blue:hover {
@@ -5130,7 +5130,7 @@ select {
 }
 
 .dark .dark\:focus\:from-green:focus {
-  --tw-gradient-from: var(--color-emerald);
+  --tw-gradient-from: var(--color-green);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
 }
 
@@ -5195,7 +5195,7 @@ select {
 }
 
 .dark .dark\:focus\:via-green:focus {
-  --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+  --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
 }
 
 .dark .dark\:focus\:via-blue:focus {
@@ -5255,7 +5255,7 @@ select {
 }
 
 .dark .dark\:focus\:to-green:focus {
-  --tw-gradient-to: var(--color-emerald);
+  --tw-gradient-to: var(--color-green);
 }
 
 .dark .dark\:focus\:to-blue:focus {
@@ -5695,7 +5695,7 @@ select {
 }
 
 .border-green {
-  border-color: var(--color-emerald);
+  border-color: var(--color-green);
 }
 
 .border-blue {
@@ -5755,7 +5755,7 @@ select {
 }
 
 .group:hover .group-hover\:border-green {
-  border-color: var(--color-emerald);
+  border-color: var(--color-green);
 }
 
 .group:hover .group-hover\:border-blue {
@@ -5815,7 +5815,7 @@ select {
 }
 
 .focus-within\:border-green:focus-within {
-  border-color: var(--color-emerald);
+  border-color: var(--color-green);
 }
 
 .focus-within\:border-blue:focus-within {
@@ -5875,7 +5875,7 @@ select {
 }
 
 .hover\:border-green:hover {
-  border-color: var(--color-emerald);
+  border-color: var(--color-green);
 }
 
 .hover\:border-blue:hover {
@@ -5935,7 +5935,7 @@ select {
 }
 
 .focus\:border-green:focus {
-  border-color: var(--color-emerald);
+  border-color: var(--color-green);
 }
 
 .focus\:border-blue:focus {
@@ -5995,7 +5995,7 @@ select {
 }
 
 .dark .dark\:border-green {
-  border-color: var(--color-emerald);
+  border-color: var(--color-green);
 }
 
 .dark .dark\:border-blue {
@@ -6055,7 +6055,7 @@ select {
 }
 
 .dark .group:hover .dark\:group-hover\:border-green {
-  border-color: var(--color-emerald);
+  border-color: var(--color-green);
 }
 
 .dark .group:hover .dark\:group-hover\:border-blue {
@@ -6115,7 +6115,7 @@ select {
 }
 
 .dark .dark\:focus-within\:border-green:focus-within {
-  border-color: var(--color-emerald);
+  border-color: var(--color-green);
 }
 
 .dark .dark\:focus-within\:border-blue:focus-within {
@@ -6175,7 +6175,7 @@ select {
 }
 
 .dark .dark\:hover\:border-green:hover {
-  border-color: var(--color-emerald);
+  border-color: var(--color-green);
 }
 
 .dark .dark\:hover\:border-blue:hover {
@@ -6235,7 +6235,7 @@ select {
 }
 
 .dark .dark\:focus\:border-green:focus {
-  border-color: var(--color-emerald);
+  border-color: var(--color-green);
 }
 
 .dark .dark\:focus\:border-blue:focus {
@@ -11966,15 +11966,15 @@ select {
 }
 
 .placeholder-green::-moz-placeholder {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .placeholder-green:-ms-input-placeholder {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .placeholder-green::placeholder {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .placeholder-blue::-moz-placeholder {
@@ -12146,15 +12146,15 @@ select {
 }
 
 .focus\:placeholder-green:focus::-moz-placeholder {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .focus\:placeholder-green:focus:-ms-input-placeholder {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .focus\:placeholder-green:focus::placeholder {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .focus\:placeholder-blue:focus::-moz-placeholder {
@@ -12326,15 +12326,15 @@ select {
 }
 
 .dark .dark\:placeholder-green::-moz-placeholder {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .dark .dark\:placeholder-green:-ms-input-placeholder {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .dark .dark\:placeholder-green::placeholder {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .dark .dark\:placeholder-blue::-moz-placeholder {
@@ -12506,15 +12506,15 @@ select {
 }
 
 .dark .dark\:focus\:placeholder-green:focus::-moz-placeholder {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .dark .dark\:focus\:placeholder-green:focus:-ms-input-placeholder {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .dark .dark\:focus\:placeholder-green:focus::placeholder {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .dark .dark\:focus\:placeholder-blue:focus::-moz-placeholder {
@@ -16149,7 +16149,7 @@ select {
 }
 
 .ring-offset-green {
-  --tw-ring-offset-color: var(--color-emerald);
+  --tw-ring-offset-color: var(--color-green);
 }
 
 .ring-offset-blue {
@@ -16209,7 +16209,7 @@ select {
 }
 
 .focus-within\:ring-offset-green:focus-within {
-  --tw-ring-offset-color: var(--color-emerald);
+  --tw-ring-offset-color: var(--color-green);
 }
 
 .focus-within\:ring-offset-blue:focus-within {
@@ -16269,7 +16269,7 @@ select {
 }
 
 .focus\:ring-offset-green:focus {
-  --tw-ring-offset-color: var(--color-emerald);
+  --tw-ring-offset-color: var(--color-green);
 }
 
 .focus\:ring-offset-blue:focus {
@@ -16329,7 +16329,7 @@ select {
 }
 
 .dark .dark\:ring-offset-green {
-  --tw-ring-offset-color: var(--color-emerald);
+  --tw-ring-offset-color: var(--color-green);
 }
 
 .dark .dark\:ring-offset-blue {
@@ -16389,7 +16389,7 @@ select {
 }
 
 .dark .dark\:focus-within\:ring-offset-green:focus-within {
-  --tw-ring-offset-color: var(--color-emerald);
+  --tw-ring-offset-color: var(--color-green);
 }
 
 .dark .dark\:focus-within\:ring-offset-blue:focus-within {
@@ -16449,7 +16449,7 @@ select {
 }
 
 .dark .dark\:focus\:ring-offset-green:focus {
-  --tw-ring-offset-color: var(--color-emerald);
+  --tw-ring-offset-color: var(--color-green);
 }
 
 .dark .dark\:focus\:ring-offset-blue:focus {
@@ -16569,7 +16569,7 @@ select {
 }
 
 .ring-green {
-  --tw-ring-color: var(--color-emerald);
+  --tw-ring-color: var(--color-green);
 }
 
 .ring-blue {
@@ -16629,7 +16629,7 @@ select {
 }
 
 .focus-within\:ring-green:focus-within {
-  --tw-ring-color: var(--color-emerald);
+  --tw-ring-color: var(--color-green);
 }
 
 .focus-within\:ring-blue:focus-within {
@@ -16689,7 +16689,7 @@ select {
 }
 
 .focus\:ring-green:focus {
-  --tw-ring-color: var(--color-emerald);
+  --tw-ring-color: var(--color-green);
 }
 
 .focus\:ring-blue:focus {
@@ -16749,7 +16749,7 @@ select {
 }
 
 .dark .dark\:ring-green {
-  --tw-ring-color: var(--color-emerald);
+  --tw-ring-color: var(--color-green);
 }
 
 .dark .dark\:ring-blue {
@@ -16809,7 +16809,7 @@ select {
 }
 
 .dark .dark\:focus-within\:ring-green:focus-within {
-  --tw-ring-color: var(--color-emerald);
+  --tw-ring-color: var(--color-green);
 }
 
 .dark .dark\:focus-within\:ring-blue:focus-within {
@@ -16869,7 +16869,7 @@ select {
 }
 
 .dark .dark\:focus\:ring-green:focus {
-  --tw-ring-color: var(--color-emerald);
+  --tw-ring-color: var(--color-green);
 }
 
 .dark .dark\:focus\:ring-blue:focus {
@@ -17153,7 +17153,7 @@ select {
 }
 
 .text-green {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .text-blue {
@@ -17213,7 +17213,7 @@ select {
 }
 
 .group:hover .group-hover\:text-green {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .group:hover .group-hover\:text-blue {
@@ -17273,7 +17273,7 @@ select {
 }
 
 .focus-within\:text-green:focus-within {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .focus-within\:text-blue:focus-within {
@@ -17333,7 +17333,7 @@ select {
 }
 
 .hover\:text-green:hover {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .hover\:text-blue:hover {
@@ -17393,7 +17393,7 @@ select {
 }
 
 .focus\:text-green:focus {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .focus\:text-blue:focus {
@@ -17453,7 +17453,7 @@ select {
 }
 
 .dark .dark\:text-green {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .dark .dark\:text-blue {
@@ -17513,7 +17513,7 @@ select {
 }
 
 .dark .group:hover .dark\:group-hover\:text-green {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .dark .group:hover .dark\:group-hover\:text-blue {
@@ -17573,7 +17573,7 @@ select {
 }
 
 .dark .dark\:focus-within\:text-green:focus-within {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .dark .dark\:focus-within\:text-blue:focus-within {
@@ -17633,7 +17633,7 @@ select {
 }
 
 .dark .dark\:hover\:text-green:hover {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .dark .dark\:hover\:text-blue:hover {
@@ -17693,7 +17693,7 @@ select {
 }
 
 .dark .dark\:focus\:text-green:focus {
-  color: var(--color-emerald);
+  color: var(--color-green);
 }
 
 .dark .dark\:focus\:text-blue:focus {
@@ -24855,7 +24855,7 @@ select {
   }
 
   .sm\:divide-green > :not([hidden]) ~ :not([hidden]) {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .sm\:divide-blue > :not([hidden]) ~ :not([hidden]) {
@@ -24915,7 +24915,7 @@ select {
   }
 
   .dark .sm\:dark\:divide-green > :not([hidden]) ~ :not([hidden]) {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .sm\:dark\:divide-blue > :not([hidden]) ~ :not([hidden]) {
@@ -25159,7 +25159,7 @@ select {
   }
 
   .sm\:bg-green {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .sm\:bg-blue {
@@ -25219,7 +25219,7 @@ select {
   }
 
   .group:hover .sm\:group-hover\:bg-green {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .group:hover .sm\:group-hover\:bg-blue {
@@ -25279,7 +25279,7 @@ select {
   }
 
   .sm\:focus-within\:bg-green:focus-within {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .sm\:focus-within\:bg-blue:focus-within {
@@ -25339,7 +25339,7 @@ select {
   }
 
   .sm\:hover\:bg-green:hover {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .sm\:hover\:bg-blue:hover {
@@ -25399,7 +25399,7 @@ select {
   }
 
   .sm\:focus\:bg-green:focus {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .sm\:focus\:bg-blue:focus {
@@ -25459,7 +25459,7 @@ select {
   }
 
   .dark .sm\:dark\:bg-green {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .sm\:dark\:bg-blue {
@@ -25519,7 +25519,7 @@ select {
   }
 
   .dark .group:hover .sm\:dark\:group-hover\:bg-green {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .group:hover .sm\:dark\:group-hover\:bg-blue {
@@ -25579,7 +25579,7 @@ select {
   }
 
   .dark .sm\:dark\:focus-within\:bg-green:focus-within {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .sm\:dark\:focus-within\:bg-blue:focus-within {
@@ -25639,7 +25639,7 @@ select {
   }
 
   .dark .sm\:dark\:hover\:bg-green:hover {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .sm\:dark\:hover\:bg-blue:hover {
@@ -25699,7 +25699,7 @@ select {
   }
 
   .dark .sm\:dark\:focus\:bg-green:focus {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .sm\:dark\:focus\:bg-blue:focus {
@@ -25805,7 +25805,7 @@ select {
   }
 
   .sm\:from-green {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -25870,7 +25870,7 @@ select {
   }
 
   .sm\:via-green {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .sm\:via-blue {
@@ -25930,7 +25930,7 @@ select {
   }
 
   .sm\:to-green {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .sm\:to-blue {
@@ -26000,7 +26000,7 @@ select {
   }
 
   .sm\:hover\:from-green:hover {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -26065,7 +26065,7 @@ select {
   }
 
   .sm\:hover\:via-green:hover {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .sm\:hover\:via-blue:hover {
@@ -26125,7 +26125,7 @@ select {
   }
 
   .sm\:hover\:to-green:hover {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .sm\:hover\:to-blue:hover {
@@ -26195,7 +26195,7 @@ select {
   }
 
   .sm\:focus\:from-green:focus {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -26260,7 +26260,7 @@ select {
   }
 
   .sm\:focus\:via-green:focus {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .sm\:focus\:via-blue:focus {
@@ -26320,7 +26320,7 @@ select {
   }
 
   .sm\:focus\:to-green:focus {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .sm\:focus\:to-blue:focus {
@@ -26390,7 +26390,7 @@ select {
   }
 
   .dark .sm\:dark\:from-green {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -26455,7 +26455,7 @@ select {
   }
 
   .dark .sm\:dark\:via-green {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .dark .sm\:dark\:via-blue {
@@ -26515,7 +26515,7 @@ select {
   }
 
   .dark .sm\:dark\:to-green {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .dark .sm\:dark\:to-blue {
@@ -26585,7 +26585,7 @@ select {
   }
 
   .dark .sm\:dark\:hover\:from-green:hover {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -26650,7 +26650,7 @@ select {
   }
 
   .dark .sm\:dark\:hover\:via-green:hover {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .dark .sm\:dark\:hover\:via-blue:hover {
@@ -26710,7 +26710,7 @@ select {
   }
 
   .dark .sm\:dark\:hover\:to-green:hover {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .dark .sm\:dark\:hover\:to-blue:hover {
@@ -26780,7 +26780,7 @@ select {
   }
 
   .dark .sm\:dark\:focus\:from-green:focus {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -26845,7 +26845,7 @@ select {
   }
 
   .dark .sm\:dark\:focus\:via-green:focus {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .dark .sm\:dark\:focus\:via-blue:focus {
@@ -26905,7 +26905,7 @@ select {
   }
 
   .dark .sm\:dark\:focus\:to-green:focus {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .dark .sm\:dark\:focus\:to-blue:focus {
@@ -27345,7 +27345,7 @@ select {
   }
 
   .sm\:border-green {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .sm\:border-blue {
@@ -27405,7 +27405,7 @@ select {
   }
 
   .group:hover .sm\:group-hover\:border-green {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .group:hover .sm\:group-hover\:border-blue {
@@ -27465,7 +27465,7 @@ select {
   }
 
   .sm\:focus-within\:border-green:focus-within {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .sm\:focus-within\:border-blue:focus-within {
@@ -27525,7 +27525,7 @@ select {
   }
 
   .sm\:hover\:border-green:hover {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .sm\:hover\:border-blue:hover {
@@ -27585,7 +27585,7 @@ select {
   }
 
   .sm\:focus\:border-green:focus {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .sm\:focus\:border-blue:focus {
@@ -27645,7 +27645,7 @@ select {
   }
 
   .dark .sm\:dark\:border-green {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .sm\:dark\:border-blue {
@@ -27705,7 +27705,7 @@ select {
   }
 
   .dark .group:hover .sm\:dark\:group-hover\:border-green {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .group:hover .sm\:dark\:group-hover\:border-blue {
@@ -27765,7 +27765,7 @@ select {
   }
 
   .dark .sm\:dark\:focus-within\:border-green:focus-within {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .sm\:dark\:focus-within\:border-blue:focus-within {
@@ -27825,7 +27825,7 @@ select {
   }
 
   .dark .sm\:dark\:hover\:border-green:hover {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .sm\:dark\:hover\:border-blue:hover {
@@ -27885,7 +27885,7 @@ select {
   }
 
   .dark .sm\:dark\:focus\:border-green:focus {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .sm\:dark\:focus\:border-blue:focus {
@@ -33616,15 +33616,15 @@ select {
   }
 
   .sm\:placeholder-green::-moz-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .sm\:placeholder-green:-ms-input-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .sm\:placeholder-green::placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .sm\:placeholder-blue::-moz-placeholder {
@@ -33796,15 +33796,15 @@ select {
   }
 
   .sm\:focus\:placeholder-green:focus::-moz-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .sm\:focus\:placeholder-green:focus:-ms-input-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .sm\:focus\:placeholder-green:focus::placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .sm\:focus\:placeholder-blue:focus::-moz-placeholder {
@@ -33976,15 +33976,15 @@ select {
   }
 
   .dark .sm\:dark\:placeholder-green::-moz-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .sm\:dark\:placeholder-green:-ms-input-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .sm\:dark\:placeholder-green::placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .sm\:dark\:placeholder-blue::-moz-placeholder {
@@ -34156,15 +34156,15 @@ select {
   }
 
   .dark .sm\:dark\:focus\:placeholder-green:focus::-moz-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .sm\:dark\:focus\:placeholder-green:focus:-ms-input-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .sm\:dark\:focus\:placeholder-green:focus::placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .sm\:dark\:focus\:placeholder-blue:focus::-moz-placeholder {
@@ -37786,7 +37786,7 @@ select {
   }
 
   .sm\:ring-offset-green {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .sm\:ring-offset-blue {
@@ -37846,7 +37846,7 @@ select {
   }
 
   .sm\:focus-within\:ring-offset-green:focus-within {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .sm\:focus-within\:ring-offset-blue:focus-within {
@@ -37906,7 +37906,7 @@ select {
   }
 
   .sm\:focus\:ring-offset-green:focus {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .sm\:focus\:ring-offset-blue:focus {
@@ -37966,7 +37966,7 @@ select {
   }
 
   .dark .sm\:dark\:ring-offset-green {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .dark .sm\:dark\:ring-offset-blue {
@@ -38026,7 +38026,7 @@ select {
   }
 
   .dark .sm\:dark\:focus-within\:ring-offset-green:focus-within {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .dark .sm\:dark\:focus-within\:ring-offset-blue:focus-within {
@@ -38086,7 +38086,7 @@ select {
   }
 
   .dark .sm\:dark\:focus\:ring-offset-green:focus {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .dark .sm\:dark\:focus\:ring-offset-blue:focus {
@@ -38206,7 +38206,7 @@ select {
   }
 
   .sm\:ring-green {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .sm\:ring-blue {
@@ -38266,7 +38266,7 @@ select {
   }
 
   .sm\:focus-within\:ring-green:focus-within {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .sm\:focus-within\:ring-blue:focus-within {
@@ -38326,7 +38326,7 @@ select {
   }
 
   .sm\:focus\:ring-green:focus {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .sm\:focus\:ring-blue:focus {
@@ -38386,7 +38386,7 @@ select {
   }
 
   .dark .sm\:dark\:ring-green {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .dark .sm\:dark\:ring-blue {
@@ -38446,7 +38446,7 @@ select {
   }
 
   .dark .sm\:dark\:focus-within\:ring-green:focus-within {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .dark .sm\:dark\:focus-within\:ring-blue:focus-within {
@@ -38506,7 +38506,7 @@ select {
   }
 
   .dark .sm\:dark\:focus\:ring-green:focus {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .dark .sm\:dark\:focus\:ring-blue:focus {
@@ -38790,7 +38790,7 @@ select {
   }
 
   .sm\:text-green {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .sm\:text-blue {
@@ -38850,7 +38850,7 @@ select {
   }
 
   .group:hover .sm\:group-hover\:text-green {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .group:hover .sm\:group-hover\:text-blue {
@@ -38910,7 +38910,7 @@ select {
   }
 
   .sm\:focus-within\:text-green:focus-within {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .sm\:focus-within\:text-blue:focus-within {
@@ -38970,7 +38970,7 @@ select {
   }
 
   .sm\:hover\:text-green:hover {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .sm\:hover\:text-blue:hover {
@@ -39030,7 +39030,7 @@ select {
   }
 
   .sm\:focus\:text-green:focus {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .sm\:focus\:text-blue:focus {
@@ -39090,7 +39090,7 @@ select {
   }
 
   .dark .sm\:dark\:text-green {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .sm\:dark\:text-blue {
@@ -39150,7 +39150,7 @@ select {
   }
 
   .dark .group:hover .sm\:dark\:group-hover\:text-green {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .group:hover .sm\:dark\:group-hover\:text-blue {
@@ -39210,7 +39210,7 @@ select {
   }
 
   .dark .sm\:dark\:focus-within\:text-green:focus-within {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .sm\:dark\:focus-within\:text-blue:focus-within {
@@ -39270,7 +39270,7 @@ select {
   }
 
   .dark .sm\:dark\:hover\:text-green:hover {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .sm\:dark\:hover\:text-blue:hover {
@@ -39330,7 +39330,7 @@ select {
   }
 
   .dark .sm\:dark\:focus\:text-green:focus {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .sm\:dark\:focus\:text-blue:focus {
@@ -46427,7 +46427,7 @@ select {
   }
 
   .md\:divide-green > :not([hidden]) ~ :not([hidden]) {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .md\:divide-blue > :not([hidden]) ~ :not([hidden]) {
@@ -46487,7 +46487,7 @@ select {
   }
 
   .dark .md\:dark\:divide-green > :not([hidden]) ~ :not([hidden]) {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .md\:dark\:divide-blue > :not([hidden]) ~ :not([hidden]) {
@@ -46731,7 +46731,7 @@ select {
   }
 
   .md\:bg-green {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .md\:bg-blue {
@@ -46791,7 +46791,7 @@ select {
   }
 
   .group:hover .md\:group-hover\:bg-green {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .group:hover .md\:group-hover\:bg-blue {
@@ -46851,7 +46851,7 @@ select {
   }
 
   .md\:focus-within\:bg-green:focus-within {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .md\:focus-within\:bg-blue:focus-within {
@@ -46911,7 +46911,7 @@ select {
   }
 
   .md\:hover\:bg-green:hover {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .md\:hover\:bg-blue:hover {
@@ -46971,7 +46971,7 @@ select {
   }
 
   .md\:focus\:bg-green:focus {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .md\:focus\:bg-blue:focus {
@@ -47031,7 +47031,7 @@ select {
   }
 
   .dark .md\:dark\:bg-green {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .md\:dark\:bg-blue {
@@ -47091,7 +47091,7 @@ select {
   }
 
   .dark .group:hover .md\:dark\:group-hover\:bg-green {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .group:hover .md\:dark\:group-hover\:bg-blue {
@@ -47151,7 +47151,7 @@ select {
   }
 
   .dark .md\:dark\:focus-within\:bg-green:focus-within {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .md\:dark\:focus-within\:bg-blue:focus-within {
@@ -47211,7 +47211,7 @@ select {
   }
 
   .dark .md\:dark\:hover\:bg-green:hover {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .md\:dark\:hover\:bg-blue:hover {
@@ -47271,7 +47271,7 @@ select {
   }
 
   .dark .md\:dark\:focus\:bg-green:focus {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .md\:dark\:focus\:bg-blue:focus {
@@ -47377,7 +47377,7 @@ select {
   }
 
   .md\:from-green {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -47442,7 +47442,7 @@ select {
   }
 
   .md\:via-green {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .md\:via-blue {
@@ -47502,7 +47502,7 @@ select {
   }
 
   .md\:to-green {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .md\:to-blue {
@@ -47572,7 +47572,7 @@ select {
   }
 
   .md\:hover\:from-green:hover {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -47637,7 +47637,7 @@ select {
   }
 
   .md\:hover\:via-green:hover {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .md\:hover\:via-blue:hover {
@@ -47697,7 +47697,7 @@ select {
   }
 
   .md\:hover\:to-green:hover {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .md\:hover\:to-blue:hover {
@@ -47767,7 +47767,7 @@ select {
   }
 
   .md\:focus\:from-green:focus {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -47832,7 +47832,7 @@ select {
   }
 
   .md\:focus\:via-green:focus {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .md\:focus\:via-blue:focus {
@@ -47892,7 +47892,7 @@ select {
   }
 
   .md\:focus\:to-green:focus {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .md\:focus\:to-blue:focus {
@@ -47962,7 +47962,7 @@ select {
   }
 
   .dark .md\:dark\:from-green {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -48027,7 +48027,7 @@ select {
   }
 
   .dark .md\:dark\:via-green {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .dark .md\:dark\:via-blue {
@@ -48087,7 +48087,7 @@ select {
   }
 
   .dark .md\:dark\:to-green {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .dark .md\:dark\:to-blue {
@@ -48157,7 +48157,7 @@ select {
   }
 
   .dark .md\:dark\:hover\:from-green:hover {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -48222,7 +48222,7 @@ select {
   }
 
   .dark .md\:dark\:hover\:via-green:hover {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .dark .md\:dark\:hover\:via-blue:hover {
@@ -48282,7 +48282,7 @@ select {
   }
 
   .dark .md\:dark\:hover\:to-green:hover {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .dark .md\:dark\:hover\:to-blue:hover {
@@ -48352,7 +48352,7 @@ select {
   }
 
   .dark .md\:dark\:focus\:from-green:focus {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -48417,7 +48417,7 @@ select {
   }
 
   .dark .md\:dark\:focus\:via-green:focus {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .dark .md\:dark\:focus\:via-blue:focus {
@@ -48477,7 +48477,7 @@ select {
   }
 
   .dark .md\:dark\:focus\:to-green:focus {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .dark .md\:dark\:focus\:to-blue:focus {
@@ -48917,7 +48917,7 @@ select {
   }
 
   .md\:border-green {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .md\:border-blue {
@@ -48977,7 +48977,7 @@ select {
   }
 
   .group:hover .md\:group-hover\:border-green {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .group:hover .md\:group-hover\:border-blue {
@@ -49037,7 +49037,7 @@ select {
   }
 
   .md\:focus-within\:border-green:focus-within {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .md\:focus-within\:border-blue:focus-within {
@@ -49097,7 +49097,7 @@ select {
   }
 
   .md\:hover\:border-green:hover {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .md\:hover\:border-blue:hover {
@@ -49157,7 +49157,7 @@ select {
   }
 
   .md\:focus\:border-green:focus {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .md\:focus\:border-blue:focus {
@@ -49217,7 +49217,7 @@ select {
   }
 
   .dark .md\:dark\:border-green {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .md\:dark\:border-blue {
@@ -49277,7 +49277,7 @@ select {
   }
 
   .dark .group:hover .md\:dark\:group-hover\:border-green {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .group:hover .md\:dark\:group-hover\:border-blue {
@@ -49337,7 +49337,7 @@ select {
   }
 
   .dark .md\:dark\:focus-within\:border-green:focus-within {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .md\:dark\:focus-within\:border-blue:focus-within {
@@ -49397,7 +49397,7 @@ select {
   }
 
   .dark .md\:dark\:hover\:border-green:hover {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .md\:dark\:hover\:border-blue:hover {
@@ -49457,7 +49457,7 @@ select {
   }
 
   .dark .md\:dark\:focus\:border-green:focus {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .md\:dark\:focus\:border-blue:focus {
@@ -55188,15 +55188,15 @@ select {
   }
 
   .md\:placeholder-green::-moz-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .md\:placeholder-green:-ms-input-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .md\:placeholder-green::placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .md\:placeholder-blue::-moz-placeholder {
@@ -55368,15 +55368,15 @@ select {
   }
 
   .md\:focus\:placeholder-green:focus::-moz-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .md\:focus\:placeholder-green:focus:-ms-input-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .md\:focus\:placeholder-green:focus::placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .md\:focus\:placeholder-blue:focus::-moz-placeholder {
@@ -55548,15 +55548,15 @@ select {
   }
 
   .dark .md\:dark\:placeholder-green::-moz-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .md\:dark\:placeholder-green:-ms-input-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .md\:dark\:placeholder-green::placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .md\:dark\:placeholder-blue::-moz-placeholder {
@@ -55728,15 +55728,15 @@ select {
   }
 
   .dark .md\:dark\:focus\:placeholder-green:focus::-moz-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .md\:dark\:focus\:placeholder-green:focus:-ms-input-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .md\:dark\:focus\:placeholder-green:focus::placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .md\:dark\:focus\:placeholder-blue:focus::-moz-placeholder {
@@ -59358,7 +59358,7 @@ select {
   }
 
   .md\:ring-offset-green {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .md\:ring-offset-blue {
@@ -59418,7 +59418,7 @@ select {
   }
 
   .md\:focus-within\:ring-offset-green:focus-within {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .md\:focus-within\:ring-offset-blue:focus-within {
@@ -59478,7 +59478,7 @@ select {
   }
 
   .md\:focus\:ring-offset-green:focus {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .md\:focus\:ring-offset-blue:focus {
@@ -59538,7 +59538,7 @@ select {
   }
 
   .dark .md\:dark\:ring-offset-green {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .dark .md\:dark\:ring-offset-blue {
@@ -59598,7 +59598,7 @@ select {
   }
 
   .dark .md\:dark\:focus-within\:ring-offset-green:focus-within {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .dark .md\:dark\:focus-within\:ring-offset-blue:focus-within {
@@ -59658,7 +59658,7 @@ select {
   }
 
   .dark .md\:dark\:focus\:ring-offset-green:focus {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .dark .md\:dark\:focus\:ring-offset-blue:focus {
@@ -59778,7 +59778,7 @@ select {
   }
 
   .md\:ring-green {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .md\:ring-blue {
@@ -59838,7 +59838,7 @@ select {
   }
 
   .md\:focus-within\:ring-green:focus-within {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .md\:focus-within\:ring-blue:focus-within {
@@ -59898,7 +59898,7 @@ select {
   }
 
   .md\:focus\:ring-green:focus {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .md\:focus\:ring-blue:focus {
@@ -59958,7 +59958,7 @@ select {
   }
 
   .dark .md\:dark\:ring-green {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .dark .md\:dark\:ring-blue {
@@ -60018,7 +60018,7 @@ select {
   }
 
   .dark .md\:dark\:focus-within\:ring-green:focus-within {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .dark .md\:dark\:focus-within\:ring-blue:focus-within {
@@ -60078,7 +60078,7 @@ select {
   }
 
   .dark .md\:dark\:focus\:ring-green:focus {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .dark .md\:dark\:focus\:ring-blue:focus {
@@ -60362,7 +60362,7 @@ select {
   }
 
   .md\:text-green {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .md\:text-blue {
@@ -60422,7 +60422,7 @@ select {
   }
 
   .group:hover .md\:group-hover\:text-green {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .group:hover .md\:group-hover\:text-blue {
@@ -60482,7 +60482,7 @@ select {
   }
 
   .md\:focus-within\:text-green:focus-within {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .md\:focus-within\:text-blue:focus-within {
@@ -60542,7 +60542,7 @@ select {
   }
 
   .md\:hover\:text-green:hover {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .md\:hover\:text-blue:hover {
@@ -60602,7 +60602,7 @@ select {
   }
 
   .md\:focus\:text-green:focus {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .md\:focus\:text-blue:focus {
@@ -60662,7 +60662,7 @@ select {
   }
 
   .dark .md\:dark\:text-green {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .md\:dark\:text-blue {
@@ -60722,7 +60722,7 @@ select {
   }
 
   .dark .group:hover .md\:dark\:group-hover\:text-green {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .group:hover .md\:dark\:group-hover\:text-blue {
@@ -60782,7 +60782,7 @@ select {
   }
 
   .dark .md\:dark\:focus-within\:text-green:focus-within {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .md\:dark\:focus-within\:text-blue:focus-within {
@@ -60842,7 +60842,7 @@ select {
   }
 
   .dark .md\:dark\:hover\:text-green:hover {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .md\:dark\:hover\:text-blue:hover {
@@ -60902,7 +60902,7 @@ select {
   }
 
   .dark .md\:dark\:focus\:text-green:focus {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .md\:dark\:focus\:text-blue:focus {
@@ -67999,7 +67999,7 @@ select {
   }
 
   .lg\:divide-green > :not([hidden]) ~ :not([hidden]) {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .lg\:divide-blue > :not([hidden]) ~ :not([hidden]) {
@@ -68059,7 +68059,7 @@ select {
   }
 
   .dark .lg\:dark\:divide-green > :not([hidden]) ~ :not([hidden]) {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .lg\:dark\:divide-blue > :not([hidden]) ~ :not([hidden]) {
@@ -68303,7 +68303,7 @@ select {
   }
 
   .lg\:bg-green {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .lg\:bg-blue {
@@ -68363,7 +68363,7 @@ select {
   }
 
   .group:hover .lg\:group-hover\:bg-green {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .group:hover .lg\:group-hover\:bg-blue {
@@ -68423,7 +68423,7 @@ select {
   }
 
   .lg\:focus-within\:bg-green:focus-within {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .lg\:focus-within\:bg-blue:focus-within {
@@ -68483,7 +68483,7 @@ select {
   }
 
   .lg\:hover\:bg-green:hover {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .lg\:hover\:bg-blue:hover {
@@ -68543,7 +68543,7 @@ select {
   }
 
   .lg\:focus\:bg-green:focus {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .lg\:focus\:bg-blue:focus {
@@ -68603,7 +68603,7 @@ select {
   }
 
   .dark .lg\:dark\:bg-green {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .lg\:dark\:bg-blue {
@@ -68663,7 +68663,7 @@ select {
   }
 
   .dark .group:hover .lg\:dark\:group-hover\:bg-green {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .group:hover .lg\:dark\:group-hover\:bg-blue {
@@ -68723,7 +68723,7 @@ select {
   }
 
   .dark .lg\:dark\:focus-within\:bg-green:focus-within {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .lg\:dark\:focus-within\:bg-blue:focus-within {
@@ -68783,7 +68783,7 @@ select {
   }
 
   .dark .lg\:dark\:hover\:bg-green:hover {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .lg\:dark\:hover\:bg-blue:hover {
@@ -68843,7 +68843,7 @@ select {
   }
 
   .dark .lg\:dark\:focus\:bg-green:focus {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .lg\:dark\:focus\:bg-blue:focus {
@@ -68949,7 +68949,7 @@ select {
   }
 
   .lg\:from-green {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -69014,7 +69014,7 @@ select {
   }
 
   .lg\:via-green {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .lg\:via-blue {
@@ -69074,7 +69074,7 @@ select {
   }
 
   .lg\:to-green {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .lg\:to-blue {
@@ -69144,7 +69144,7 @@ select {
   }
 
   .lg\:hover\:from-green:hover {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -69209,7 +69209,7 @@ select {
   }
 
   .lg\:hover\:via-green:hover {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .lg\:hover\:via-blue:hover {
@@ -69269,7 +69269,7 @@ select {
   }
 
   .lg\:hover\:to-green:hover {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .lg\:hover\:to-blue:hover {
@@ -69339,7 +69339,7 @@ select {
   }
 
   .lg\:focus\:from-green:focus {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -69404,7 +69404,7 @@ select {
   }
 
   .lg\:focus\:via-green:focus {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .lg\:focus\:via-blue:focus {
@@ -69464,7 +69464,7 @@ select {
   }
 
   .lg\:focus\:to-green:focus {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .lg\:focus\:to-blue:focus {
@@ -69534,7 +69534,7 @@ select {
   }
 
   .dark .lg\:dark\:from-green {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -69599,7 +69599,7 @@ select {
   }
 
   .dark .lg\:dark\:via-green {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .dark .lg\:dark\:via-blue {
@@ -69659,7 +69659,7 @@ select {
   }
 
   .dark .lg\:dark\:to-green {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .dark .lg\:dark\:to-blue {
@@ -69729,7 +69729,7 @@ select {
   }
 
   .dark .lg\:dark\:hover\:from-green:hover {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -69794,7 +69794,7 @@ select {
   }
 
   .dark .lg\:dark\:hover\:via-green:hover {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .dark .lg\:dark\:hover\:via-blue:hover {
@@ -69854,7 +69854,7 @@ select {
   }
 
   .dark .lg\:dark\:hover\:to-green:hover {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .dark .lg\:dark\:hover\:to-blue:hover {
@@ -69924,7 +69924,7 @@ select {
   }
 
   .dark .lg\:dark\:focus\:from-green:focus {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -69989,7 +69989,7 @@ select {
   }
 
   .dark .lg\:dark\:focus\:via-green:focus {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .dark .lg\:dark\:focus\:via-blue:focus {
@@ -70049,7 +70049,7 @@ select {
   }
 
   .dark .lg\:dark\:focus\:to-green:focus {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .dark .lg\:dark\:focus\:to-blue:focus {
@@ -70489,7 +70489,7 @@ select {
   }
 
   .lg\:border-green {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .lg\:border-blue {
@@ -70549,7 +70549,7 @@ select {
   }
 
   .group:hover .lg\:group-hover\:border-green {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .group:hover .lg\:group-hover\:border-blue {
@@ -70609,7 +70609,7 @@ select {
   }
 
   .lg\:focus-within\:border-green:focus-within {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .lg\:focus-within\:border-blue:focus-within {
@@ -70669,7 +70669,7 @@ select {
   }
 
   .lg\:hover\:border-green:hover {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .lg\:hover\:border-blue:hover {
@@ -70729,7 +70729,7 @@ select {
   }
 
   .lg\:focus\:border-green:focus {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .lg\:focus\:border-blue:focus {
@@ -70789,7 +70789,7 @@ select {
   }
 
   .dark .lg\:dark\:border-green {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .lg\:dark\:border-blue {
@@ -70849,7 +70849,7 @@ select {
   }
 
   .dark .group:hover .lg\:dark\:group-hover\:border-green {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .group:hover .lg\:dark\:group-hover\:border-blue {
@@ -70909,7 +70909,7 @@ select {
   }
 
   .dark .lg\:dark\:focus-within\:border-green:focus-within {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .lg\:dark\:focus-within\:border-blue:focus-within {
@@ -70969,7 +70969,7 @@ select {
   }
 
   .dark .lg\:dark\:hover\:border-green:hover {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .lg\:dark\:hover\:border-blue:hover {
@@ -71029,7 +71029,7 @@ select {
   }
 
   .dark .lg\:dark\:focus\:border-green:focus {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .lg\:dark\:focus\:border-blue:focus {
@@ -76760,15 +76760,15 @@ select {
   }
 
   .lg\:placeholder-green::-moz-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .lg\:placeholder-green:-ms-input-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .lg\:placeholder-green::placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .lg\:placeholder-blue::-moz-placeholder {
@@ -76940,15 +76940,15 @@ select {
   }
 
   .lg\:focus\:placeholder-green:focus::-moz-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .lg\:focus\:placeholder-green:focus:-ms-input-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .lg\:focus\:placeholder-green:focus::placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .lg\:focus\:placeholder-blue:focus::-moz-placeholder {
@@ -77120,15 +77120,15 @@ select {
   }
 
   .dark .lg\:dark\:placeholder-green::-moz-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .lg\:dark\:placeholder-green:-ms-input-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .lg\:dark\:placeholder-green::placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .lg\:dark\:placeholder-blue::-moz-placeholder {
@@ -77300,15 +77300,15 @@ select {
   }
 
   .dark .lg\:dark\:focus\:placeholder-green:focus::-moz-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .lg\:dark\:focus\:placeholder-green:focus:-ms-input-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .lg\:dark\:focus\:placeholder-green:focus::placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .lg\:dark\:focus\:placeholder-blue:focus::-moz-placeholder {
@@ -80930,7 +80930,7 @@ select {
   }
 
   .lg\:ring-offset-green {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .lg\:ring-offset-blue {
@@ -80990,7 +80990,7 @@ select {
   }
 
   .lg\:focus-within\:ring-offset-green:focus-within {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .lg\:focus-within\:ring-offset-blue:focus-within {
@@ -81050,7 +81050,7 @@ select {
   }
 
   .lg\:focus\:ring-offset-green:focus {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .lg\:focus\:ring-offset-blue:focus {
@@ -81110,7 +81110,7 @@ select {
   }
 
   .dark .lg\:dark\:ring-offset-green {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .dark .lg\:dark\:ring-offset-blue {
@@ -81170,7 +81170,7 @@ select {
   }
 
   .dark .lg\:dark\:focus-within\:ring-offset-green:focus-within {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .dark .lg\:dark\:focus-within\:ring-offset-blue:focus-within {
@@ -81230,7 +81230,7 @@ select {
   }
 
   .dark .lg\:dark\:focus\:ring-offset-green:focus {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .dark .lg\:dark\:focus\:ring-offset-blue:focus {
@@ -81350,7 +81350,7 @@ select {
   }
 
   .lg\:ring-green {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .lg\:ring-blue {
@@ -81410,7 +81410,7 @@ select {
   }
 
   .lg\:focus-within\:ring-green:focus-within {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .lg\:focus-within\:ring-blue:focus-within {
@@ -81470,7 +81470,7 @@ select {
   }
 
   .lg\:focus\:ring-green:focus {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .lg\:focus\:ring-blue:focus {
@@ -81530,7 +81530,7 @@ select {
   }
 
   .dark .lg\:dark\:ring-green {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .dark .lg\:dark\:ring-blue {
@@ -81590,7 +81590,7 @@ select {
   }
 
   .dark .lg\:dark\:focus-within\:ring-green:focus-within {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .dark .lg\:dark\:focus-within\:ring-blue:focus-within {
@@ -81650,7 +81650,7 @@ select {
   }
 
   .dark .lg\:dark\:focus\:ring-green:focus {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .dark .lg\:dark\:focus\:ring-blue:focus {
@@ -81934,7 +81934,7 @@ select {
   }
 
   .lg\:text-green {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .lg\:text-blue {
@@ -81994,7 +81994,7 @@ select {
   }
 
   .group:hover .lg\:group-hover\:text-green {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .group:hover .lg\:group-hover\:text-blue {
@@ -82054,7 +82054,7 @@ select {
   }
 
   .lg\:focus-within\:text-green:focus-within {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .lg\:focus-within\:text-blue:focus-within {
@@ -82114,7 +82114,7 @@ select {
   }
 
   .lg\:hover\:text-green:hover {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .lg\:hover\:text-blue:hover {
@@ -82174,7 +82174,7 @@ select {
   }
 
   .lg\:focus\:text-green:focus {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .lg\:focus\:text-blue:focus {
@@ -82234,7 +82234,7 @@ select {
   }
 
   .dark .lg\:dark\:text-green {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .lg\:dark\:text-blue {
@@ -82294,7 +82294,7 @@ select {
   }
 
   .dark .group:hover .lg\:dark\:group-hover\:text-green {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .group:hover .lg\:dark\:group-hover\:text-blue {
@@ -82354,7 +82354,7 @@ select {
   }
 
   .dark .lg\:dark\:focus-within\:text-green:focus-within {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .lg\:dark\:focus-within\:text-blue:focus-within {
@@ -82414,7 +82414,7 @@ select {
   }
 
   .dark .lg\:dark\:hover\:text-green:hover {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .lg\:dark\:hover\:text-blue:hover {
@@ -82474,7 +82474,7 @@ select {
   }
 
   .dark .lg\:dark\:focus\:text-green:focus {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .lg\:dark\:focus\:text-blue:focus {
@@ -89571,7 +89571,7 @@ select {
   }
 
   .xl\:divide-green > :not([hidden]) ~ :not([hidden]) {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .xl\:divide-blue > :not([hidden]) ~ :not([hidden]) {
@@ -89631,7 +89631,7 @@ select {
   }
 
   .dark .xl\:dark\:divide-green > :not([hidden]) ~ :not([hidden]) {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .xl\:dark\:divide-blue > :not([hidden]) ~ :not([hidden]) {
@@ -89875,7 +89875,7 @@ select {
   }
 
   .xl\:bg-green {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .xl\:bg-blue {
@@ -89935,7 +89935,7 @@ select {
   }
 
   .group:hover .xl\:group-hover\:bg-green {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .group:hover .xl\:group-hover\:bg-blue {
@@ -89995,7 +89995,7 @@ select {
   }
 
   .xl\:focus-within\:bg-green:focus-within {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .xl\:focus-within\:bg-blue:focus-within {
@@ -90055,7 +90055,7 @@ select {
   }
 
   .xl\:hover\:bg-green:hover {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .xl\:hover\:bg-blue:hover {
@@ -90115,7 +90115,7 @@ select {
   }
 
   .xl\:focus\:bg-green:focus {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .xl\:focus\:bg-blue:focus {
@@ -90175,7 +90175,7 @@ select {
   }
 
   .dark .xl\:dark\:bg-green {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .xl\:dark\:bg-blue {
@@ -90235,7 +90235,7 @@ select {
   }
 
   .dark .group:hover .xl\:dark\:group-hover\:bg-green {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .group:hover .xl\:dark\:group-hover\:bg-blue {
@@ -90295,7 +90295,7 @@ select {
   }
 
   .dark .xl\:dark\:focus-within\:bg-green:focus-within {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .xl\:dark\:focus-within\:bg-blue:focus-within {
@@ -90355,7 +90355,7 @@ select {
   }
 
   .dark .xl\:dark\:hover\:bg-green:hover {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .xl\:dark\:hover\:bg-blue:hover {
@@ -90415,7 +90415,7 @@ select {
   }
 
   .dark .xl\:dark\:focus\:bg-green:focus {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .xl\:dark\:focus\:bg-blue:focus {
@@ -90521,7 +90521,7 @@ select {
   }
 
   .xl\:from-green {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -90586,7 +90586,7 @@ select {
   }
 
   .xl\:via-green {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .xl\:via-blue {
@@ -90646,7 +90646,7 @@ select {
   }
 
   .xl\:to-green {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .xl\:to-blue {
@@ -90716,7 +90716,7 @@ select {
   }
 
   .xl\:hover\:from-green:hover {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -90781,7 +90781,7 @@ select {
   }
 
   .xl\:hover\:via-green:hover {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .xl\:hover\:via-blue:hover {
@@ -90841,7 +90841,7 @@ select {
   }
 
   .xl\:hover\:to-green:hover {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .xl\:hover\:to-blue:hover {
@@ -90911,7 +90911,7 @@ select {
   }
 
   .xl\:focus\:from-green:focus {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -90976,7 +90976,7 @@ select {
   }
 
   .xl\:focus\:via-green:focus {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .xl\:focus\:via-blue:focus {
@@ -91036,7 +91036,7 @@ select {
   }
 
   .xl\:focus\:to-green:focus {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .xl\:focus\:to-blue:focus {
@@ -91106,7 +91106,7 @@ select {
   }
 
   .dark .xl\:dark\:from-green {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -91171,7 +91171,7 @@ select {
   }
 
   .dark .xl\:dark\:via-green {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .dark .xl\:dark\:via-blue {
@@ -91231,7 +91231,7 @@ select {
   }
 
   .dark .xl\:dark\:to-green {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .dark .xl\:dark\:to-blue {
@@ -91301,7 +91301,7 @@ select {
   }
 
   .dark .xl\:dark\:hover\:from-green:hover {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -91366,7 +91366,7 @@ select {
   }
 
   .dark .xl\:dark\:hover\:via-green:hover {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .dark .xl\:dark\:hover\:via-blue:hover {
@@ -91426,7 +91426,7 @@ select {
   }
 
   .dark .xl\:dark\:hover\:to-green:hover {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .dark .xl\:dark\:hover\:to-blue:hover {
@@ -91496,7 +91496,7 @@ select {
   }
 
   .dark .xl\:dark\:focus\:from-green:focus {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -91561,7 +91561,7 @@ select {
   }
 
   .dark .xl\:dark\:focus\:via-green:focus {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .dark .xl\:dark\:focus\:via-blue:focus {
@@ -91621,7 +91621,7 @@ select {
   }
 
   .dark .xl\:dark\:focus\:to-green:focus {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .dark .xl\:dark\:focus\:to-blue:focus {
@@ -92061,7 +92061,7 @@ select {
   }
 
   .xl\:border-green {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .xl\:border-blue {
@@ -92121,7 +92121,7 @@ select {
   }
 
   .group:hover .xl\:group-hover\:border-green {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .group:hover .xl\:group-hover\:border-blue {
@@ -92181,7 +92181,7 @@ select {
   }
 
   .xl\:focus-within\:border-green:focus-within {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .xl\:focus-within\:border-blue:focus-within {
@@ -92241,7 +92241,7 @@ select {
   }
 
   .xl\:hover\:border-green:hover {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .xl\:hover\:border-blue:hover {
@@ -92301,7 +92301,7 @@ select {
   }
 
   .xl\:focus\:border-green:focus {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .xl\:focus\:border-blue:focus {
@@ -92361,7 +92361,7 @@ select {
   }
 
   .dark .xl\:dark\:border-green {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .xl\:dark\:border-blue {
@@ -92421,7 +92421,7 @@ select {
   }
 
   .dark .group:hover .xl\:dark\:group-hover\:border-green {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .group:hover .xl\:dark\:group-hover\:border-blue {
@@ -92481,7 +92481,7 @@ select {
   }
 
   .dark .xl\:dark\:focus-within\:border-green:focus-within {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .xl\:dark\:focus-within\:border-blue:focus-within {
@@ -92541,7 +92541,7 @@ select {
   }
 
   .dark .xl\:dark\:hover\:border-green:hover {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .xl\:dark\:hover\:border-blue:hover {
@@ -92601,7 +92601,7 @@ select {
   }
 
   .dark .xl\:dark\:focus\:border-green:focus {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .xl\:dark\:focus\:border-blue:focus {
@@ -98332,15 +98332,15 @@ select {
   }
 
   .xl\:placeholder-green::-moz-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .xl\:placeholder-green:-ms-input-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .xl\:placeholder-green::placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .xl\:placeholder-blue::-moz-placeholder {
@@ -98512,15 +98512,15 @@ select {
   }
 
   .xl\:focus\:placeholder-green:focus::-moz-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .xl\:focus\:placeholder-green:focus:-ms-input-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .xl\:focus\:placeholder-green:focus::placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .xl\:focus\:placeholder-blue:focus::-moz-placeholder {
@@ -98692,15 +98692,15 @@ select {
   }
 
   .dark .xl\:dark\:placeholder-green::-moz-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .xl\:dark\:placeholder-green:-ms-input-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .xl\:dark\:placeholder-green::placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .xl\:dark\:placeholder-blue::-moz-placeholder {
@@ -98872,15 +98872,15 @@ select {
   }
 
   .dark .xl\:dark\:focus\:placeholder-green:focus::-moz-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .xl\:dark\:focus\:placeholder-green:focus:-ms-input-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .xl\:dark\:focus\:placeholder-green:focus::placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .xl\:dark\:focus\:placeholder-blue:focus::-moz-placeholder {
@@ -102502,7 +102502,7 @@ select {
   }
 
   .xl\:ring-offset-green {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .xl\:ring-offset-blue {
@@ -102562,7 +102562,7 @@ select {
   }
 
   .xl\:focus-within\:ring-offset-green:focus-within {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .xl\:focus-within\:ring-offset-blue:focus-within {
@@ -102622,7 +102622,7 @@ select {
   }
 
   .xl\:focus\:ring-offset-green:focus {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .xl\:focus\:ring-offset-blue:focus {
@@ -102682,7 +102682,7 @@ select {
   }
 
   .dark .xl\:dark\:ring-offset-green {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .dark .xl\:dark\:ring-offset-blue {
@@ -102742,7 +102742,7 @@ select {
   }
 
   .dark .xl\:dark\:focus-within\:ring-offset-green:focus-within {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .dark .xl\:dark\:focus-within\:ring-offset-blue:focus-within {
@@ -102802,7 +102802,7 @@ select {
   }
 
   .dark .xl\:dark\:focus\:ring-offset-green:focus {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .dark .xl\:dark\:focus\:ring-offset-blue:focus {
@@ -102922,7 +102922,7 @@ select {
   }
 
   .xl\:ring-green {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .xl\:ring-blue {
@@ -102982,7 +102982,7 @@ select {
   }
 
   .xl\:focus-within\:ring-green:focus-within {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .xl\:focus-within\:ring-blue:focus-within {
@@ -103042,7 +103042,7 @@ select {
   }
 
   .xl\:focus\:ring-green:focus {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .xl\:focus\:ring-blue:focus {
@@ -103102,7 +103102,7 @@ select {
   }
 
   .dark .xl\:dark\:ring-green {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .dark .xl\:dark\:ring-blue {
@@ -103162,7 +103162,7 @@ select {
   }
 
   .dark .xl\:dark\:focus-within\:ring-green:focus-within {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .dark .xl\:dark\:focus-within\:ring-blue:focus-within {
@@ -103222,7 +103222,7 @@ select {
   }
 
   .dark .xl\:dark\:focus\:ring-green:focus {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .dark .xl\:dark\:focus\:ring-blue:focus {
@@ -103506,7 +103506,7 @@ select {
   }
 
   .xl\:text-green {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .xl\:text-blue {
@@ -103566,7 +103566,7 @@ select {
   }
 
   .group:hover .xl\:group-hover\:text-green {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .group:hover .xl\:group-hover\:text-blue {
@@ -103626,7 +103626,7 @@ select {
   }
 
   .xl\:focus-within\:text-green:focus-within {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .xl\:focus-within\:text-blue:focus-within {
@@ -103686,7 +103686,7 @@ select {
   }
 
   .xl\:hover\:text-green:hover {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .xl\:hover\:text-blue:hover {
@@ -103746,7 +103746,7 @@ select {
   }
 
   .xl\:focus\:text-green:focus {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .xl\:focus\:text-blue:focus {
@@ -103806,7 +103806,7 @@ select {
   }
 
   .dark .xl\:dark\:text-green {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .xl\:dark\:text-blue {
@@ -103866,7 +103866,7 @@ select {
   }
 
   .dark .group:hover .xl\:dark\:group-hover\:text-green {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .group:hover .xl\:dark\:group-hover\:text-blue {
@@ -103926,7 +103926,7 @@ select {
   }
 
   .dark .xl\:dark\:focus-within\:text-green:focus-within {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .xl\:dark\:focus-within\:text-blue:focus-within {
@@ -103986,7 +103986,7 @@ select {
   }
 
   .dark .xl\:dark\:hover\:text-green:hover {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .xl\:dark\:hover\:text-blue:hover {
@@ -104046,7 +104046,7 @@ select {
   }
 
   .dark .xl\:dark\:focus\:text-green:focus {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .xl\:dark\:focus\:text-blue:focus {
@@ -111143,7 +111143,7 @@ select {
   }
 
   .\32xl\:divide-green > :not([hidden]) ~ :not([hidden]) {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .\32xl\:divide-blue > :not([hidden]) ~ :not([hidden]) {
@@ -111203,7 +111203,7 @@ select {
   }
 
   .dark .\32xl\:dark\:divide-green > :not([hidden]) ~ :not([hidden]) {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:divide-blue > :not([hidden]) ~ :not([hidden]) {
@@ -111447,7 +111447,7 @@ select {
   }
 
   .\32xl\:bg-green {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .\32xl\:bg-blue {
@@ -111507,7 +111507,7 @@ select {
   }
 
   .group:hover .\32xl\:group-hover\:bg-green {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .group:hover .\32xl\:group-hover\:bg-blue {
@@ -111567,7 +111567,7 @@ select {
   }
 
   .\32xl\:focus-within\:bg-green:focus-within {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .\32xl\:focus-within\:bg-blue:focus-within {
@@ -111627,7 +111627,7 @@ select {
   }
 
   .\32xl\:hover\:bg-green:hover {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .\32xl\:hover\:bg-blue:hover {
@@ -111687,7 +111687,7 @@ select {
   }
 
   .\32xl\:focus\:bg-green:focus {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .\32xl\:focus\:bg-blue:focus {
@@ -111747,7 +111747,7 @@ select {
   }
 
   .dark .\32xl\:dark\:bg-green {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:bg-blue {
@@ -111807,7 +111807,7 @@ select {
   }
 
   .dark .group:hover .\32xl\:dark\:group-hover\:bg-green {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .group:hover .\32xl\:dark\:group-hover\:bg-blue {
@@ -111867,7 +111867,7 @@ select {
   }
 
   .dark .\32xl\:dark\:focus-within\:bg-green:focus-within {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:focus-within\:bg-blue:focus-within {
@@ -111927,7 +111927,7 @@ select {
   }
 
   .dark .\32xl\:dark\:hover\:bg-green:hover {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:hover\:bg-blue:hover {
@@ -111987,7 +111987,7 @@ select {
   }
 
   .dark .\32xl\:dark\:focus\:bg-green:focus {
-    background-color: var(--color-emerald);
+    background-color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:focus\:bg-blue:focus {
@@ -112093,7 +112093,7 @@ select {
   }
 
   .\32xl\:from-green {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -112158,7 +112158,7 @@ select {
   }
 
   .\32xl\:via-green {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .\32xl\:via-blue {
@@ -112218,7 +112218,7 @@ select {
   }
 
   .\32xl\:to-green {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .\32xl\:to-blue {
@@ -112288,7 +112288,7 @@ select {
   }
 
   .\32xl\:hover\:from-green:hover {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -112353,7 +112353,7 @@ select {
   }
 
   .\32xl\:hover\:via-green:hover {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .\32xl\:hover\:via-blue:hover {
@@ -112413,7 +112413,7 @@ select {
   }
 
   .\32xl\:hover\:to-green:hover {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .\32xl\:hover\:to-blue:hover {
@@ -112483,7 +112483,7 @@ select {
   }
 
   .\32xl\:focus\:from-green:focus {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -112548,7 +112548,7 @@ select {
   }
 
   .\32xl\:focus\:via-green:focus {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .\32xl\:focus\:via-blue:focus {
@@ -112608,7 +112608,7 @@ select {
   }
 
   .\32xl\:focus\:to-green:focus {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .\32xl\:focus\:to-blue:focus {
@@ -112678,7 +112678,7 @@ select {
   }
 
   .dark .\32xl\:dark\:from-green {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -112743,7 +112743,7 @@ select {
   }
 
   .dark .\32xl\:dark\:via-green {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .dark .\32xl\:dark\:via-blue {
@@ -112803,7 +112803,7 @@ select {
   }
 
   .dark .\32xl\:dark\:to-green {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .dark .\32xl\:dark\:to-blue {
@@ -112873,7 +112873,7 @@ select {
   }
 
   .dark .\32xl\:dark\:hover\:from-green:hover {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -112938,7 +112938,7 @@ select {
   }
 
   .dark .\32xl\:dark\:hover\:via-green:hover {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .dark .\32xl\:dark\:hover\:via-blue:hover {
@@ -112998,7 +112998,7 @@ select {
   }
 
   .dark .\32xl\:dark\:hover\:to-green:hover {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .dark .\32xl\:dark\:hover\:to-blue:hover {
@@ -113068,7 +113068,7 @@ select {
   }
 
   .dark .\32xl\:dark\:focus\:from-green:focus {
-    --tw-gradient-from: var(--color-emerald);
+    --tw-gradient-from: var(--color-green);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
@@ -113133,7 +113133,7 @@ select {
   }
 
   .dark .\32xl\:dark\:focus\:via-green:focus {
-    --tw-gradient-stops: var(--tw-gradient-from), var(--color-emerald), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-green), var(--tw-gradient-to, rgba(255, 255, 255, 0));
   }
 
   .dark .\32xl\:dark\:focus\:via-blue:focus {
@@ -113193,7 +113193,7 @@ select {
   }
 
   .dark .\32xl\:dark\:focus\:to-green:focus {
-    --tw-gradient-to: var(--color-emerald);
+    --tw-gradient-to: var(--color-green);
   }
 
   .dark .\32xl\:dark\:focus\:to-blue:focus {
@@ -113633,7 +113633,7 @@ select {
   }
 
   .\32xl\:border-green {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .\32xl\:border-blue {
@@ -113693,7 +113693,7 @@ select {
   }
 
   .group:hover .\32xl\:group-hover\:border-green {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .group:hover .\32xl\:group-hover\:border-blue {
@@ -113753,7 +113753,7 @@ select {
   }
 
   .\32xl\:focus-within\:border-green:focus-within {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .\32xl\:focus-within\:border-blue:focus-within {
@@ -113813,7 +113813,7 @@ select {
   }
 
   .\32xl\:hover\:border-green:hover {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .\32xl\:hover\:border-blue:hover {
@@ -113873,7 +113873,7 @@ select {
   }
 
   .\32xl\:focus\:border-green:focus {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .\32xl\:focus\:border-blue:focus {
@@ -113933,7 +113933,7 @@ select {
   }
 
   .dark .\32xl\:dark\:border-green {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:border-blue {
@@ -113993,7 +113993,7 @@ select {
   }
 
   .dark .group:hover .\32xl\:dark\:group-hover\:border-green {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .group:hover .\32xl\:dark\:group-hover\:border-blue {
@@ -114053,7 +114053,7 @@ select {
   }
 
   .dark .\32xl\:dark\:focus-within\:border-green:focus-within {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:focus-within\:border-blue:focus-within {
@@ -114113,7 +114113,7 @@ select {
   }
 
   .dark .\32xl\:dark\:hover\:border-green:hover {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:hover\:border-blue:hover {
@@ -114173,7 +114173,7 @@ select {
   }
 
   .dark .\32xl\:dark\:focus\:border-green:focus {
-    border-color: var(--color-emerald);
+    border-color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:focus\:border-blue:focus {
@@ -119904,15 +119904,15 @@ select {
   }
 
   .\32xl\:placeholder-green::-moz-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .\32xl\:placeholder-green:-ms-input-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .\32xl\:placeholder-green::placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .\32xl\:placeholder-blue::-moz-placeholder {
@@ -120084,15 +120084,15 @@ select {
   }
 
   .\32xl\:focus\:placeholder-green:focus::-moz-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .\32xl\:focus\:placeholder-green:focus:-ms-input-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .\32xl\:focus\:placeholder-green:focus::placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .\32xl\:focus\:placeholder-blue:focus::-moz-placeholder {
@@ -120264,15 +120264,15 @@ select {
   }
 
   .dark .\32xl\:dark\:placeholder-green::-moz-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:placeholder-green:-ms-input-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:placeholder-green::placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:placeholder-blue::-moz-placeholder {
@@ -120444,15 +120444,15 @@ select {
   }
 
   .dark .\32xl\:dark\:focus\:placeholder-green:focus::-moz-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:focus\:placeholder-green:focus:-ms-input-placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:focus\:placeholder-green:focus::placeholder {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:focus\:placeholder-blue:focus::-moz-placeholder {
@@ -124074,7 +124074,7 @@ select {
   }
 
   .\32xl\:ring-offset-green {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .\32xl\:ring-offset-blue {
@@ -124134,7 +124134,7 @@ select {
   }
 
   .\32xl\:focus-within\:ring-offset-green:focus-within {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .\32xl\:focus-within\:ring-offset-blue:focus-within {
@@ -124194,7 +124194,7 @@ select {
   }
 
   .\32xl\:focus\:ring-offset-green:focus {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .\32xl\:focus\:ring-offset-blue:focus {
@@ -124254,7 +124254,7 @@ select {
   }
 
   .dark .\32xl\:dark\:ring-offset-green {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:ring-offset-blue {
@@ -124314,7 +124314,7 @@ select {
   }
 
   .dark .\32xl\:dark\:focus-within\:ring-offset-green:focus-within {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:focus-within\:ring-offset-blue:focus-within {
@@ -124374,7 +124374,7 @@ select {
   }
 
   .dark .\32xl\:dark\:focus\:ring-offset-green:focus {
-    --tw-ring-offset-color: var(--color-emerald);
+    --tw-ring-offset-color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:focus\:ring-offset-blue:focus {
@@ -124494,7 +124494,7 @@ select {
   }
 
   .\32xl\:ring-green {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .\32xl\:ring-blue {
@@ -124554,7 +124554,7 @@ select {
   }
 
   .\32xl\:focus-within\:ring-green:focus-within {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .\32xl\:focus-within\:ring-blue:focus-within {
@@ -124614,7 +124614,7 @@ select {
   }
 
   .\32xl\:focus\:ring-green:focus {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .\32xl\:focus\:ring-blue:focus {
@@ -124674,7 +124674,7 @@ select {
   }
 
   .dark .\32xl\:dark\:ring-green {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:ring-blue {
@@ -124734,7 +124734,7 @@ select {
   }
 
   .dark .\32xl\:dark\:focus-within\:ring-green:focus-within {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:focus-within\:ring-blue:focus-within {
@@ -124794,7 +124794,7 @@ select {
   }
 
   .dark .\32xl\:dark\:focus\:ring-green:focus {
-    --tw-ring-color: var(--color-emerald);
+    --tw-ring-color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:focus\:ring-blue:focus {
@@ -125078,7 +125078,7 @@ select {
   }
 
   .\32xl\:text-green {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .\32xl\:text-blue {
@@ -125138,7 +125138,7 @@ select {
   }
 
   .group:hover .\32xl\:group-hover\:text-green {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .group:hover .\32xl\:group-hover\:text-blue {
@@ -125198,7 +125198,7 @@ select {
   }
 
   .\32xl\:focus-within\:text-green:focus-within {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .\32xl\:focus-within\:text-blue:focus-within {
@@ -125258,7 +125258,7 @@ select {
   }
 
   .\32xl\:hover\:text-green:hover {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .\32xl\:hover\:text-blue:hover {
@@ -125318,7 +125318,7 @@ select {
   }
 
   .\32xl\:focus\:text-green:focus {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .\32xl\:focus\:text-blue:focus {
@@ -125378,7 +125378,7 @@ select {
   }
 
   .dark .\32xl\:dark\:text-green {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:text-blue {
@@ -125438,7 +125438,7 @@ select {
   }
 
   .dark .group:hover .\32xl\:dark\:group-hover\:text-green {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .group:hover .\32xl\:dark\:group-hover\:text-blue {
@@ -125498,7 +125498,7 @@ select {
   }
 
   .dark .\32xl\:dark\:focus-within\:text-green:focus-within {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:focus-within\:text-blue:focus-within {
@@ -125558,7 +125558,7 @@ select {
   }
 
   .dark .\32xl\:dark\:hover\:text-green:hover {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:hover\:text-blue:hover {
@@ -125618,7 +125618,7 @@ select {
   }
 
   .dark .\32xl\:dark\:focus\:text-green:focus {
-    color: var(--color-emerald);
+    color: var(--color-green);
   }
 
   .dark .\32xl\:dark\:focus\:text-blue:focus {

@@ -15,7 +15,7 @@
         
 @endswitch
 
-<div class="flex items-center bg-{{ $color }} text-white text-sm font-bold px-4 py-3" role="alert">
-    <p><strong>{{ $message['type'] }}:</strong> {{ $message['content'] }}</p>
+<div class="flex items-center bg-{{ $color }} text-white text-sm font-bold px-4 py-3" role="alert">  
+    <p>{{ $message['content'] }}</p>
 </div>
 @endforeach

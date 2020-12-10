@@ -3,14 +3,8 @@
 namespace Streams\Ui\Form\Component\Action\Handler;
 
 use Streams\Ui\Form\Form;
+use Streams\Core\Support\Facades\Messages;
 
-/**
- * Class Save
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
 class Save
 {
     public function handle(Form $form)
@@ -28,5 +22,7 @@ class Save
         $form->stream->repository()->save($entry);
 
         $form->entry = $form->entry = $entry;
+
+        Messages::success(trans('ui::messages.save_success'));
     }
 }

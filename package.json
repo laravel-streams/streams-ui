@@ -16,6 +16,7 @@
         "autoprefixer": "^10.0.4",
         "easymde": "^2.13.0",
         "inversify": "^5.0.1",
+        "noty": "^3.2.0-beta",
         "postcss": "^8.1.10"
     },
     "devDependencies": {
