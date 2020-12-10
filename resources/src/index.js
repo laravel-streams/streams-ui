@@ -1,6 +1,8 @@
-//import 'reflect-metadata'
+import 'reflect-metadata'
 import 'alpinejs';
+import EasyMDE from 'easymde'
 
-//export * from './app';
-window.EasyMDE = require('EasyMDE');
-//window.flatpickr = require('flatpickr');
+export * from './Application';
+export {
+    EasyMDE
+}

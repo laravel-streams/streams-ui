@@ -8,7 +8,7 @@
 <body>
     <!-- cp.blade.php -->
     <div class="h-screen flex overflow-hidden dark:bg-black">
-        
+
         @include('ui::cp.sidebar')
 
         <main class="flex flex-col w-0 flex-1 overflow-hidden">
@@ -21,11 +21,21 @@
     </div>
 
     @include('ui::cp.assets')
-    
+
     @include('ui::cp.messages')
     @include('ui::cp.surfaces')
     @include('ui::cp.modal')
 
+    <script>
+    var app = new streams.Application({
+        message: 'foo'
+    })
+    app.alert();
+    var mde = new streams.EasyMDE({
+
+    })
+    mde.toTextArea();
+    </script>
 </body>
 
 </html>

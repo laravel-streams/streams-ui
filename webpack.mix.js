@@ -15,6 +15,14 @@ mix.options({
 mix.webpackConfig({
     plugins: [],
 });
+mix.webpackConfig(webpack => {
+    return {
+        output: {
+            library: 'streams',
+            libraryTarget: 'window'
+        }
+    };
+});
 
 // mix.browserSync({
 //     proxy: process.env.APP_URL,
@@ -32,7 +40,7 @@ mix.webpackConfig({
 
 //mix.version();
 
-// Purge css 
+// Purge css
 // if (mix.inProduction()) {
 //     mix.sourceMaps().version();
 // }

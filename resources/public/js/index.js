@@ -1,3 +1,4 @@
+window["streams"] =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -85,2939 +86,6 @@
 /******/ })
 /************************************************************************/
 /******/ ({
-
-/***/ "./node_modules/EasyMDE/src/js/codemirror/tablist.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/EasyMDE/src/js/codemirror/tablist.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// CodeMirror, copyright (c) by Marijn Haverbeke and others
-// Distributed under an MIT license: http://codemirror.net/LICENSE
-
-var CodeMirror = __webpack_require__(/*! codemirror */ "./node_modules/codemirror/lib/codemirror.js");
-
-CodeMirror.commands.tabAndIndentMarkdownList = function (cm) {
-    var ranges = cm.listSelections();
-    var pos = ranges[0].head;
-    var eolState = cm.getStateAfter(pos.line);
-    var inList = eolState.list !== false;
-
-    if (inList) {
-        cm.execCommand('indentMore');
-        return;
-    }
-
-    if (cm.options.indentWithTabs) {
-        cm.execCommand('insertTab');
-    }
-    else {
-        var spaces = Array(cm.options.tabSize + 1).join(' ');
-        cm.replaceSelection(spaces);
-    }
-};
-
-CodeMirror.commands.shiftTabAndUnindentMarkdownList = function (cm) {
-    var ranges = cm.listSelections();
-    var pos = ranges[0].head;
-    var eolState = cm.getStateAfter(pos.line);
-    var inList = eolState.list !== false;
-
-    if (inList) {
-        cm.execCommand('indentLess');
-        return;
-    }
-
-    if (cm.options.indentWithTabs) {
-        cm.execCommand('insertTab');
-    }
-    else {
-        var spaces = Array(cm.options.tabSize + 1).join(' ');
-        cm.replaceSelection(spaces);
-    }
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/EasyMDE/src/js/easymde.js":
-/*!************************************************!*\
-  !*** ./node_modules/EasyMDE/src/js/easymde.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var CodeMirror = __webpack_require__(/*! codemirror */ "./node_modules/codemirror/lib/codemirror.js");
-__webpack_require__(/*! codemirror/addon/edit/continuelist.js */ "./node_modules/codemirror/addon/edit/continuelist.js");
-__webpack_require__(/*! ./codemirror/tablist */ "./node_modules/EasyMDE/src/js/codemirror/tablist.js");
-__webpack_require__(/*! codemirror/addon/display/fullscreen.js */ "./node_modules/codemirror/addon/display/fullscreen.js");
-__webpack_require__(/*! codemirror/mode/markdown/markdown.js */ "./node_modules/codemirror/mode/markdown/markdown.js");
-__webpack_require__(/*! codemirror/addon/mode/overlay.js */ "./node_modules/codemirror/addon/mode/overlay.js");
-__webpack_require__(/*! codemirror/addon/display/placeholder.js */ "./node_modules/codemirror/addon/display/placeholder.js");
-__webpack_require__(/*! codemirror/addon/display/autorefresh.js */ "./node_modules/codemirror/addon/display/autorefresh.js");
-__webpack_require__(/*! codemirror/addon/selection/mark-selection.js */ "./node_modules/codemirror/addon/selection/mark-selection.js");
-__webpack_require__(/*! codemirror/addon/search/searchcursor.js */ "./node_modules/codemirror/addon/search/searchcursor.js");
-__webpack_require__(/*! codemirror/mode/gfm/gfm.js */ "./node_modules/codemirror/mode/gfm/gfm.js");
-__webpack_require__(/*! codemirror/mode/xml/xml.js */ "./node_modules/codemirror/mode/xml/xml.js");
-var CodeMirrorSpellChecker = __webpack_require__(/*! codemirror-spell-checker */ "./node_modules/codemirror-spell-checker/src/js/spell-checker.js");
-var marked = __webpack_require__(/*! marked/lib/marked */ "./node_modules/marked/lib/marked.js");
-
-
-// Some variables
-var isMac = /Mac/.test(navigator.platform);
-var anchorToExternalRegex = new RegExp(/(<a.*?https?:\/\/.*?[^a]>)+?/g);
-
-// Mapping of actions that can be bound to keyboard shortcuts or toolbar buttons
-var bindings = {
-    'toggleBold': toggleBold,
-    'toggleItalic': toggleItalic,
-    'drawLink': drawLink,
-    'toggleHeadingSmaller': toggleHeadingSmaller,
-    'toggleHeadingBigger': toggleHeadingBigger,
-    'drawImage': drawImage,
-    'toggleBlockquote': toggleBlockquote,
-    'toggleOrderedList': toggleOrderedList,
-    'toggleUnorderedList': toggleUnorderedList,
-    'toggleCodeBlock': toggleCodeBlock,
-    'togglePreview': togglePreview,
-    'toggleStrikethrough': toggleStrikethrough,
-    'toggleHeading1': toggleHeading1,
-    'toggleHeading2': toggleHeading2,
-    'toggleHeading3': toggleHeading3,
-    'cleanBlock': cleanBlock,
-    'drawTable': drawTable,
-    'drawHorizontalRule': drawHorizontalRule,
-    'undo': undo,
-    'redo': redo,
-    'toggleSideBySide': toggleSideBySide,
-    'toggleFullScreen': toggleFullScreen,
-};
-
-var shortcuts = {
-    'toggleBold': 'Cmd-B',
-    'toggleItalic': 'Cmd-I',
-    'drawLink': 'Cmd-K',
-    'toggleHeadingSmaller': 'Cmd-H',
-    'toggleHeadingBigger': 'Shift-Cmd-H',
-    'cleanBlock': 'Cmd-E',
-    'drawImage': 'Cmd-Alt-I',
-    'toggleBlockquote': 'Cmd-\'',
-    'toggleOrderedList': 'Cmd-Alt-L',
-    'toggleUnorderedList': 'Cmd-L',
-    'toggleCodeBlock': 'Cmd-Alt-C',
-    'togglePreview': 'Cmd-P',
-    'toggleSideBySide': 'F9',
-    'toggleFullScreen': 'F11',
-};
-
-var getBindingName = function (f) {
-    for (var key in bindings) {
-        if (bindings[key] === f) {
-            return key;
-        }
-    }
-    return null;
-};
-
-var isMobile = function () {
-    var check = false;
-    (function (a) {
-        if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw-(n|u)|c55\/|capi|ccwa|cdm-|cell|chtm|cldc|cmd-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc-s|devi|dica|dmob|do(c|p)o|ds(12|-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(-|_)|g1 u|g560|gene|gf-5|g-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd-(m|p|t)|hei-|hi(pt|ta)|hp( i|ip)|hs-c|ht(c(-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i-(20|go|ma)|i230|iac( |-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|-[a-w])|libw|lynx|m1-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|-([1-8]|c))|phil|pire|pl(ay|uc)|pn-2|po(ck|rt|se)|prox|psio|pt-g|qa-a|qc(07|12|21|32|60|-[2-7]|i-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h-|oo|p-)|sdk\/|se(c(-|0|1)|47|mc|nd|ri)|sgh-|shar|sie(-|m)|sk-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h-|v-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl-|tdg-|tel(i|m)|tim-|t-mo|to(pl|sh)|ts(70|m-|m3|m5)|tx-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas-|your|zeto|zte-/i.test(a.substr(0, 4))) check = true;
-    })(navigator.userAgent || navigator.vendor || window.opera);
-    return check;
-};
-
-/**
- * Modify HTML to add 'target="_blank"' to links so they open in new tabs by default.
- * @param {string} htmlText - HTML to be modified.
- * @return {string} The modified HTML text.
- */
-function addAnchorTargetBlank(htmlText) {
-    var match;
-    while ((match = anchorToExternalRegex.exec(htmlText)) !== null) {
-        // With only one capture group in the RegExp, we can safely take the first index from the match.
-        var linkString = match[0];
-
-        if (linkString.indexOf('target=') === -1) {
-            var fixedLinkString = linkString.replace(/>$/, ' target="_blank">');
-            htmlText = htmlText.replace(linkString, fixedLinkString);
-        }
-    }
-    return htmlText;
-}
-
-/**
- * Modify HTML to remove the list-style when rendering checkboxes.
- * @param {string} htmlText - HTML to be modified.
- * @return {string} The modified HTML text.
- */
-function removeListStyleWhenCheckbox(htmlText) {
-
-    var parser = new DOMParser();
-    var htmlDoc = parser.parseFromString(htmlText, 'text/html');
-    var listItems = htmlDoc.getElementsByTagName('li');
-
-    for (var i = 0; i < listItems.length; i++) {
-        var listItem = listItems[i];
-
-        for (var j = 0; j < listItem.children.length; j++) {
-            var listItemChild = listItem.children[j];
-
-            if (listItemChild instanceof HTMLInputElement && listItemChild.type === 'checkbox') {
-                // From Github: margin: 0 .2em .25em -1.6em;
-                listItem.style.marginLeft = '-1.5em';
-                listItem.style.listStyleType = 'none';
-            }
-        }
-    }
-
-    return htmlDoc.documentElement.innerHTML;
-}
-
-/**
- * Fix shortcut. Mac use Command, others use Ctrl.
- */
-function fixShortcut(name) {
-    if (isMac) {
-        name = name.replace('Ctrl', 'Cmd');
-    } else {
-        name = name.replace('Cmd', 'Ctrl');
-    }
-    return name;
-}
-
-/**
- * Create dropdown block
- */
-function createToolbarDropdown(options, enableTooltips, shortcuts, parent) {
-    var el = createToolbarButton(options, false, enableTooltips, shortcuts, 'button', parent);
-    el.className += ' easymde-dropdown';
-    var content = document.createElement('div');
-    content.className = 'easymde-dropdown-content';
-    for (var childrenIndex = 0; childrenIndex < options.children.length; childrenIndex++) {
-
-        var child = options.children[childrenIndex];
-        var childElement;
-
-        if (typeof child === 'string' && child in toolbarBuiltInButtons) {
-            childElement = createToolbarButton(toolbarBuiltInButtons[child], true, enableTooltips, shortcuts, 'button', parent);
-        } else {
-            childElement = createToolbarButton(child, true, enableTooltips, shortcuts, 'button', parent);
-        }
-
-        content.appendChild(childElement);
-    }
-    el.appendChild(content);
-    return el;
-}
-
-/**
- * Create button element for toolbar.
- */
-function createToolbarButton(options, enableActions, enableTooltips, shortcuts, markup, parent) {
-    options = options || {};
-    var el = document.createElement(markup);
-    el.className = options.name;
-    el.setAttribute('type', markup);
-    enableTooltips = (enableTooltips == undefined) ? true : enableTooltips;
-
-    // Properly hande custom shortcuts
-    if (options.name && options.name in shortcuts) {
-        bindings[options.name] = options.action;
-    }
-
-    if (options.title && enableTooltips) {
-        el.title = createTooltip(options.title, options.action, shortcuts);
-
-        if (isMac) {
-            el.title = el.title.replace('Ctrl', '⌘');
-            el.title = el.title.replace('Alt', '⌥');
-        }
-    }
-
-    if (options.noDisable) {
-        el.classList.add('no-disable');
-    }
-
-    if (options.noMobile) {
-        el.classList.add('no-mobile');
-    }
-
-    // Prevent errors if there is no class name in custom options
-    var classNameParts = [];
-    if(typeof options.className !== 'undefined') {
-        classNameParts = options.className.split(' ');
-    }
-
-    // Provide backwards compatibility with simple-markdown-editor by adding custom classes to the button.
-    var iconClasses = [];
-    for (var classNameIndex = 0; classNameIndex < classNameParts.length; classNameIndex++) {
-        var classNamePart = classNameParts[classNameIndex];
-        // Split icon classes from the button.
-        // Regex will detect "fa", "fas", "fa-something" and "fa-some-icon-1", but not "fanfare".
-        if (classNamePart.match(/^fa([srlb]|(-[\w-]*)|$)/)) {
-            iconClasses.push(classNamePart);
-        } else {
-            el.classList.add(classNamePart);
-        }
-    }
-
-    el.tabIndex = -1;
-
-    // Create icon element and append as a child to the button
-    var icon = document.createElement('i');
-    for (var iconClassIndex = 0; iconClassIndex < iconClasses.length; iconClassIndex++) {
-        var iconClass = iconClasses[iconClassIndex];
-        icon.classList.add(iconClass);
-    }
-    el.appendChild(icon);
-
-    // If there is a custom icon markup set, use that
-    if (typeof options.icon !== 'undefined') {
-        el.innerHTML = options.icon;
-    }
-
-    if (options.action && enableActions) {
-        if (typeof options.action === 'function') {
-            el.onclick = function (e) {
-                e.preventDefault();
-                options.action(parent);
-            };
-        } else if (typeof options.action === 'string') {
-            el.onclick = function (e) {
-                e.preventDefault();
-                window.open(options.action, '_blank');
-            };
-        }
-    }
-
-    return el;
-}
-
-function createSep() {
-    var el = document.createElement('i');
-    el.className = 'separator';
-    el.innerHTML = '|';
-    return el;
-}
-
-function createTooltip(title, action, shortcuts) {
-    var actionName;
-    var tooltip = title;
-
-    if (action) {
-        actionName = getBindingName(action);
-        if (shortcuts[actionName]) {
-            tooltip += ' (' + fixShortcut(shortcuts[actionName]) + ')';
-        }
-    }
-
-    return tooltip;
-}
-
-/**
- * The state of CodeMirror at the given position.
- */
-function getState(cm, pos) {
-    pos = pos || cm.getCursor('start');
-    var stat = cm.getTokenAt(pos);
-    if (!stat.type) return {};
-
-    var types = stat.type.split(' ');
-
-    var ret = {},
-        data, text;
-    for (var i = 0; i < types.length; i++) {
-        data = types[i];
-        if (data === 'strong') {
-            ret.bold = true;
-        } else if (data === 'variable-2') {
-            text = cm.getLine(pos.line);
-            if (/^\s*\d+\.\s/.test(text)) {
-                ret['ordered-list'] = true;
-            } else {
-                ret['unordered-list'] = true;
-            }
-        } else if (data === 'atom') {
-            ret.quote = true;
-        } else if (data === 'em') {
-            ret.italic = true;
-        } else if (data === 'quote') {
-            ret.quote = true;
-        } else if (data === 'strikethrough') {
-            ret.strikethrough = true;
-        } else if (data === 'comment') {
-            ret.code = true;
-        } else if (data === 'link') {
-            ret.link = true;
-        } else if (data === 'tag') {
-            ret.image = true;
-        } else if (data.match(/^header(-[1-6])?$/)) {
-            ret[data.replace('header', 'heading')] = true;
-        }
-    }
-    return ret;
-}
-
-
-// Saved overflow setting
-var saved_overflow = '';
-
-/**
- * Toggle full screen of the editor.
- */
-function toggleFullScreen(editor) {
-    // Set fullscreen
-    var cm = editor.codemirror;
-    cm.setOption('fullScreen', !cm.getOption('fullScreen'));
-
-
-    // Prevent scrolling on body during fullscreen active
-    if (cm.getOption('fullScreen')) {
-        saved_overflow = document.body.style.overflow;
-        document.body.style.overflow = 'hidden';
-    } else {
-        document.body.style.overflow = saved_overflow;
-    }
-
-
-    // Hide side by side if needed
-    var sidebyside = cm.getWrapperElement().nextSibling;
-    if (/editor-preview-active-side/.test(sidebyside.className))
-        toggleSideBySide(editor);
-
-    if (editor.options.onToggleFullScreen) {
-        editor.options.onToggleFullScreen(cm.getOption('fullScreen') || false);
-    }
-
-    // Remove or set maxHeight
-    if (typeof editor.options.maxHeight !== 'undefined') {
-        if (cm.getOption('fullScreen')) {
-            cm.getScrollerElement().style.removeProperty('height');
-            sidebyside.style.removeProperty('height');
-        } else {
-            cm.getScrollerElement().style.height = editor.options.maxHeight;
-            editor.setPreviewMaxHeight();
-        }
-    }
-
-
-    // Update toolbar class
-    if (!/fullscreen/.test(editor.toolbar_div.className)) {
-        editor.toolbar_div.className += ' fullscreen';
-    } else {
-        editor.toolbar_div.className = editor.toolbar_div.className.replace(/\s*fullscreen\b/, '');
-    }
-
-
-    // Update toolbar button
-    if (editor.toolbarElements && editor.toolbarElements.fullscreen) {
-        var toolbarButton = editor.toolbarElements.fullscreen;
-
-        if (!/active/.test(toolbarButton.className)) {
-            toolbarButton.className += ' active';
-        } else {
-            toolbarButton.className = toolbarButton.className.replace(/\s*active\s*/g, '');
-        }
-    }
-}
-
-
-/**
- * Action for toggling bold.
- */
-function toggleBold(editor) {
-    _toggleBlock(editor, 'bold', editor.options.blockStyles.bold);
-}
-
-
-/**
- * Action for toggling italic.
- */
-function toggleItalic(editor) {
-    _toggleBlock(editor, 'italic', editor.options.blockStyles.italic);
-}
-
-
-/**
- * Action for toggling strikethrough.
- */
-function toggleStrikethrough(editor) {
-    _toggleBlock(editor, 'strikethrough', '~~');
-}
-
-/**
- * Action for toggling code block.
- */
-function toggleCodeBlock(editor) {
-    var fenceCharsToInsert = editor.options.blockStyles.code;
-
-    function fencing_line(line) {
-        /* return true, if this is a ``` or ~~~ line */
-        if (typeof line !== 'object') {
-            throw 'fencing_line() takes a \'line\' object (not a line number, or line text).  Got: ' + typeof line + ': ' + line;
-        }
-        return line.styles && line.styles[2] && line.styles[2].indexOf('formatting-code-block') !== -1;
-    }
-
-    function token_state(token) {
-        // base goes an extra level deep when mode backdrops are used, e.g. spellchecker on
-        return token.state.base.base || token.state.base;
-    }
-
-    function code_type(cm, line_num, line, firstTok, lastTok) {
-        /*
-         * Return "single", "indented", "fenced" or false
-         *
-         * cm and line_num are required.  Others are optional for efficiency
-         *   To check in the middle of a line, pass in firstTok yourself.
-         */
-        line = line || cm.getLineHandle(line_num);
-        firstTok = firstTok || cm.getTokenAt({
-            line: line_num,
-            ch: 1,
-        });
-        lastTok = lastTok || (!!line.text && cm.getTokenAt({
-            line: line_num,
-            ch: line.text.length - 1,
-        }));
-        var types = firstTok.type ? firstTok.type.split(' ') : [];
-        if (lastTok && token_state(lastTok).indentedCode) {
-            // have to check last char, since first chars of first line aren"t marked as indented
-            return 'indented';
-        } else if (types.indexOf('comment') === -1) {
-            // has to be after "indented" check, since first chars of first indented line aren"t marked as such
-            return false;
-        } else if (token_state(firstTok).fencedChars || token_state(lastTok).fencedChars || fencing_line(line)) {
-            return 'fenced';
-        } else {
-            return 'single';
-        }
-    }
-
-    function insertFencingAtSelection(cm, cur_start, cur_end, fenceCharsToInsert) {
-        var start_line_sel = cur_start.line + 1,
-            end_line_sel = cur_end.line + 1,
-            sel_multi = cur_start.line !== cur_end.line,
-            repl_start = fenceCharsToInsert + '\n',
-            repl_end = '\n' + fenceCharsToInsert;
-        if (sel_multi) {
-            end_line_sel++;
-        }
-        // handle last char including \n or not
-        if (sel_multi && cur_end.ch === 0) {
-            repl_end = fenceCharsToInsert + '\n';
-            end_line_sel--;
-        }
-        _replaceSelection(cm, false, [repl_start, repl_end]);
-        cm.setSelection({
-            line: start_line_sel,
-            ch: 0,
-        }, {
-            line: end_line_sel,
-            ch: 0,
-        });
-    }
-
-    var cm = editor.codemirror,
-        cur_start = cm.getCursor('start'),
-        cur_end = cm.getCursor('end'),
-        tok = cm.getTokenAt({
-            line: cur_start.line,
-            ch: cur_start.ch || 1,
-        }), // avoid ch 0 which is a cursor pos but not token
-        line = cm.getLineHandle(cur_start.line),
-        is_code = code_type(cm, cur_start.line, line, tok);
-    var block_start, block_end, lineCount;
-
-    if (is_code === 'single') {
-        // similar to some EasyMDE _toggleBlock logic
-        var start = line.text.slice(0, cur_start.ch).replace('`', ''),
-            end = line.text.slice(cur_start.ch).replace('`', '');
-        cm.replaceRange(start + end, {
-            line: cur_start.line,
-            ch: 0,
-        }, {
-            line: cur_start.line,
-            ch: 99999999999999,
-        });
-        cur_start.ch--;
-        if (cur_start !== cur_end) {
-            cur_end.ch--;
-        }
-        cm.setSelection(cur_start, cur_end);
-        cm.focus();
-    } else if (is_code === 'fenced') {
-        if (cur_start.line !== cur_end.line || cur_start.ch !== cur_end.ch) {
-            // use selection
-
-            // find the fenced line so we know what type it is (tilde, backticks, number of them)
-            for (block_start = cur_start.line; block_start >= 0; block_start--) {
-                line = cm.getLineHandle(block_start);
-                if (fencing_line(line)) {
-                    break;
-                }
-            }
-            var fencedTok = cm.getTokenAt({
-                line: block_start,
-                ch: 1,
-            });
-            var fence_chars = token_state(fencedTok).fencedChars;
-            var start_text, start_line;
-            var end_text, end_line;
-            // check for selection going up against fenced lines, in which case we don't want to add more fencing
-            if (fencing_line(cm.getLineHandle(cur_start.line))) {
-                start_text = '';
-                start_line = cur_start.line;
-            } else if (fencing_line(cm.getLineHandle(cur_start.line - 1))) {
-                start_text = '';
-                start_line = cur_start.line - 1;
-            } else {
-                start_text = fence_chars + '\n';
-                start_line = cur_start.line;
-            }
-            if (fencing_line(cm.getLineHandle(cur_end.line))) {
-                end_text = '';
-                end_line = cur_end.line;
-                if (cur_end.ch === 0) {
-                    end_line += 1;
-                }
-            } else if (cur_end.ch !== 0 && fencing_line(cm.getLineHandle(cur_end.line + 1))) {
-                end_text = '';
-                end_line = cur_end.line + 1;
-            } else {
-                end_text = fence_chars + '\n';
-                end_line = cur_end.line + 1;
-            }
-            if (cur_end.ch === 0) {
-                // full last line selected, putting cursor at beginning of next
-                end_line -= 1;
-            }
-            cm.operation(function () {
-                // end line first, so that line numbers don't change
-                cm.replaceRange(end_text, {
-                    line: end_line,
-                    ch: 0,
-                }, {
-                    line: end_line + (end_text ? 0 : 1),
-                    ch: 0,
-                });
-                cm.replaceRange(start_text, {
-                    line: start_line,
-                    ch: 0,
-                }, {
-                    line: start_line + (start_text ? 0 : 1),
-                    ch: 0,
-                });
-            });
-            cm.setSelection({
-                line: start_line + (start_text ? 1 : 0),
-                ch: 0,
-            }, {
-                line: end_line + (start_text ? 1 : -1),
-                ch: 0,
-            });
-            cm.focus();
-        } else {
-            // no selection, search for ends of this fenced block
-            var search_from = cur_start.line;
-            if (fencing_line(cm.getLineHandle(cur_start.line))) { // gets a little tricky if cursor is right on a fenced line
-                if (code_type(cm, cur_start.line + 1) === 'fenced') {
-                    block_start = cur_start.line;
-                    search_from = cur_start.line + 1; // for searching for "end"
-                } else {
-                    block_end = cur_start.line;
-                    search_from = cur_start.line - 1; // for searching for "start"
-                }
-            }
-            if (block_start === undefined) {
-                for (block_start = search_from; block_start >= 0; block_start--) {
-                    line = cm.getLineHandle(block_start);
-                    if (fencing_line(line)) {
-                        break;
-                    }
-                }
-            }
-            if (block_end === undefined) {
-                lineCount = cm.lineCount();
-                for (block_end = search_from; block_end < lineCount; block_end++) {
-                    line = cm.getLineHandle(block_end);
-                    if (fencing_line(line)) {
-                        break;
-                    }
-                }
-            }
-            cm.operation(function () {
-                cm.replaceRange('', {
-                    line: block_start,
-                    ch: 0,
-                }, {
-                    line: block_start + 1,
-                    ch: 0,
-                });
-                cm.replaceRange('', {
-                    line: block_end - 1,
-                    ch: 0,
-                }, {
-                    line: block_end,
-                    ch: 0,
-                });
-            });
-            cm.focus();
-        }
-    } else if (is_code === 'indented') {
-        if (cur_start.line !== cur_end.line || cur_start.ch !== cur_end.ch) {
-            // use selection
-            block_start = cur_start.line;
-            block_end = cur_end.line;
-            if (cur_end.ch === 0) {
-                block_end--;
-            }
-        } else {
-            // no selection, search for ends of this indented block
-            for (block_start = cur_start.line; block_start >= 0; block_start--) {
-                line = cm.getLineHandle(block_start);
-                if (line.text.match(/^\s*$/)) {
-                    // empty or all whitespace - keep going
-                    continue;
-                } else {
-                    if (code_type(cm, block_start, line) !== 'indented') {
-                        block_start += 1;
-                        break;
-                    }
-                }
-            }
-            lineCount = cm.lineCount();
-            for (block_end = cur_start.line; block_end < lineCount; block_end++) {
-                line = cm.getLineHandle(block_end);
-                if (line.text.match(/^\s*$/)) {
-                    // empty or all whitespace - keep going
-                    continue;
-                } else {
-                    if (code_type(cm, block_end, line) !== 'indented') {
-                        block_end -= 1;
-                        break;
-                    }
-                }
-            }
-        }
-        // if we are going to un-indent based on a selected set of lines, and the next line is indented too, we need to
-        // insert a blank line so that the next line(s) continue to be indented code
-        var next_line = cm.getLineHandle(block_end + 1),
-            next_line_last_tok = next_line && cm.getTokenAt({
-                line: block_end + 1,
-                ch: next_line.text.length - 1,
-            }),
-            next_line_indented = next_line_last_tok && token_state(next_line_last_tok).indentedCode;
-        if (next_line_indented) {
-            cm.replaceRange('\n', {
-                line: block_end + 1,
-                ch: 0,
-            });
-        }
-
-        for (var i = block_start; i <= block_end; i++) {
-            cm.indentLine(i, 'subtract'); // TODO: this doesn't get tracked in the history, so can't be undone :(
-        }
-        cm.focus();
-    } else {
-        // insert code formatting
-        var no_sel_and_starting_of_line = (cur_start.line === cur_end.line && cur_start.ch === cur_end.ch && cur_start.ch === 0);
-        var sel_multi = cur_start.line !== cur_end.line;
-        if (no_sel_and_starting_of_line || sel_multi) {
-            insertFencingAtSelection(cm, cur_start, cur_end, fenceCharsToInsert);
-        } else {
-            _replaceSelection(cm, false, ['`', '`']);
-        }
-    }
-}
-
-/**
- * Action for toggling blockquote.
- */
-function toggleBlockquote(editor) {
-    var cm = editor.codemirror;
-    _toggleLine(cm, 'quote');
-}
-
-/**
- * Action for toggling heading size: normal -> h1 -> h2 -> h3 -> h4 -> h5 -> h6 -> normal
- */
-function toggleHeadingSmaller(editor) {
-    var cm = editor.codemirror;
-    _toggleHeading(cm, 'smaller');
-}
-
-/**
- * Action for toggling heading size: normal -> h6 -> h5 -> h4 -> h3 -> h2 -> h1 -> normal
- */
-function toggleHeadingBigger(editor) {
-    var cm = editor.codemirror;
-    _toggleHeading(cm, 'bigger');
-}
-
-/**
- * Action for toggling heading size 1
- */
-function toggleHeading1(editor) {
-    var cm = editor.codemirror;
-    _toggleHeading(cm, undefined, 1);
-}
-
-/**
- * Action for toggling heading size 2
- */
-function toggleHeading2(editor) {
-    var cm = editor.codemirror;
-    _toggleHeading(cm, undefined, 2);
-}
-
-/**
- * Action for toggling heading size 3
- */
-function toggleHeading3(editor) {
-    var cm = editor.codemirror;
-    _toggleHeading(cm, undefined, 3);
-}
-
-
-/**
- * Action for toggling ul.
- */
-function toggleUnorderedList(editor) {
-    var cm = editor.codemirror;
-    _toggleLine(cm, 'unordered-list');
-}
-
-
-/**
- * Action for toggling ol.
- */
-function toggleOrderedList(editor) {
-    var cm = editor.codemirror;
-    _toggleLine(cm, 'ordered-list');
-}
-
-/**
- * Action for clean block (remove headline, list, blockquote code, markers)
- */
-function cleanBlock(editor) {
-    var cm = editor.codemirror;
-    _cleanBlock(cm);
-}
-
-/**
- * Action for drawing a link.
- */
-function drawLink(editor) {
-    var cm = editor.codemirror;
-    var stat = getState(cm);
-    var options = editor.options;
-    var url = 'https://';
-    if (options.promptURLs) {
-        url = prompt(options.promptTexts.link, 'https://');
-        if (!url) {
-            return false;
-        }
-    }
-    _replaceSelection(cm, stat.link, options.insertTexts.link, url);
-}
-
-/**
- * Action for drawing an img.
- */
-function drawImage(editor) {
-    var cm = editor.codemirror;
-    var stat = getState(cm);
-    var options = editor.options;
-    var url = 'https://';
-    if (options.promptURLs) {
-        url = prompt(options.promptTexts.image, 'https://');
-        if (!url) {
-            return false;
-        }
-    }
-    _replaceSelection(cm, stat.image, options.insertTexts.image, url);
-}
-
-/**
- * Action for opening the browse-file window to upload an image to a server.
- * @param editor {EasyMDE} The EasyMDE object
- */
-function drawUploadedImage(editor) {
-    // TODO: Draw the image template with a fake url? ie: '![](importing foo.png...)'
-    editor.openBrowseFileWindow();
-}
-
-/**
- * Action executed after an image have been successfully imported on the server.
- * @param editor {EasyMDE} The EasyMDE object
- * @param url {string} The url of the uploaded image
- */
-function afterImageUploaded(editor, url) {
-    var cm = editor.codemirror;
-    var stat = getState(cm);
-    var options = editor.options;
-    var imageName = url.substr(url.lastIndexOf('/') + 1);
-    _replaceSelection(cm, stat.image, options.insertTexts.uploadedImage, url);
-    // show uploaded image filename for 1000ms
-    editor.updateStatusBar('upload-image', editor.options.imageTexts.sbOnUploaded.replace('#image_name#', imageName));
-    setTimeout(function () {
-        editor.updateStatusBar('upload-image', editor.options.imageTexts.sbInit);
-    }, 1000);
-}
-
-/**
- * Action for drawing a table.
- */
-function drawTable(editor) {
-    var cm = editor.codemirror;
-    var stat = getState(cm);
-    var options = editor.options;
-    _replaceSelection(cm, stat.table, options.insertTexts.table);
-}
-
-/**
- * Action for drawing a horizontal rule.
- */
-function drawHorizontalRule(editor) {
-    var cm = editor.codemirror;
-    var stat = getState(cm);
-    var options = editor.options;
-    _replaceSelection(cm, stat.image, options.insertTexts.horizontalRule);
-}
-
-
-/**
- * Undo action.
- */
-function undo(editor) {
-    var cm = editor.codemirror;
-    cm.undo();
-    cm.focus();
-}
-
-
-/**
- * Redo action.
- */
-function redo(editor) {
-    var cm = editor.codemirror;
-    cm.redo();
-    cm.focus();
-}
-
-
-/**
- * Toggle side by side preview
- */
-function toggleSideBySide(editor) {
-    var cm = editor.codemirror;
-    var wrapper = cm.getWrapperElement();
-    var preview = wrapper.nextSibling;
-    var toolbarButton = editor.toolbarElements && editor.toolbarElements['side-by-side'];
-    var useSideBySideListener = false;
-
-    var noFullscreenItems = [
-        wrapper.parentNode, // easyMDEContainer
-        editor.gui.toolbar,
-        wrapper,
-        preview,
-        editor.gui.statusbar,
-    ];
-
-    function addNoFullscreenClass(el) {
-        el.className += ' sided--no-fullscreen';
-    }
-
-    function removeNoFullscreenClass(el) {
-        el.className = el.className.replace(
-            /\s*sided--no-fullscreen\s*/g, ''
-        );
-    }
-
-    if (/editor-preview-active-side/.test(preview.className)) {
-        if (cm.getOption('sideBySideNoFullscreen')) {
-            cm.setOption('sideBySideNoFullscreen', false);
-            noFullscreenItems.forEach(function (el) {
-                removeNoFullscreenClass(el);
-            });
-        }
-        preview.className = preview.className.replace(
-            /\s*editor-preview-active-side\s*/g, ''
-        );
-        if (toolbarButton) toolbarButton.className = toolbarButton.className.replace(/\s*active\s*/g, '');
-        wrapper.className = wrapper.className.replace(/\s*CodeMirror-sided\s*/g, ' ');
-    } else {
-        // When the preview button is clicked for the first time,
-        // give some time for the transition from editor.css to fire and the view to slide from right to left,
-        // instead of just appearing.
-        setTimeout(function () {
-            if (!cm.getOption('fullScreen')) {
-                if (editor.options.sideBySideFullscreen === false) {
-                    cm.setOption('sideBySideNoFullscreen', true);
-                    noFullscreenItems.forEach(function(el) {
-                        addNoFullscreenClass(el);
-                    });
-                } else {
-                    toggleFullScreen(editor);
-                }
-            }
-            preview.className += ' editor-preview-active-side';
-        }, 1);
-        if (toolbarButton) toolbarButton.className += ' active';
-        wrapper.className += ' CodeMirror-sided';
-        useSideBySideListener = true;
-    }
-
-    // Hide normal preview if active
-    var previewNormal = wrapper.lastChild;
-    if (/editor-preview-active/.test(previewNormal.className)) {
-        previewNormal.className = previewNormal.className.replace(
-            /\s*editor-preview-active\s*/g, ''
-        );
-        var toolbar = editor.toolbarElements.preview;
-        var toolbar_div = editor.toolbar_div;
-        toolbar.className = toolbar.className.replace(/\s*active\s*/g, '');
-        toolbar_div.className = toolbar_div.className.replace(/\s*disabled-for-preview*/g, '');
-    }
-
-    var sideBySideRenderingFunction = function () {
-        var newValue = editor.options.previewRender(editor.value(), preview);
-        if (newValue != null) {
-            preview.innerHTML = newValue;
-        }
-    };
-
-    if (!cm.sideBySideRenderingFunction) {
-        cm.sideBySideRenderingFunction = sideBySideRenderingFunction;
-    }
-
-    if (useSideBySideListener) {
-        var newValue = editor.options.previewRender(editor.value(), preview);
-        if (newValue != null) {
-            preview.innerHTML = newValue;
-        }
-        cm.on('update', cm.sideBySideRenderingFunction);
-    } else {
-        cm.off('update', cm.sideBySideRenderingFunction);
-    }
-
-    // Refresh to fix selection being off (#309)
-    cm.refresh();
-}
-
-
-/**
- * Preview action.
- */
-function togglePreview(editor) {
-    var cm = editor.codemirror;
-    var wrapper = cm.getWrapperElement();
-    var toolbar_div = editor.toolbar_div;
-    var toolbar = editor.options.toolbar ? editor.toolbarElements.preview : false;
-    var preview = wrapper.lastChild;
-
-    // Turn off side by side if needed
-    var sidebyside = cm.getWrapperElement().nextSibling;
-    if (/editor-preview-active-side/.test(sidebyside.className))
-        toggleSideBySide(editor);
-
-    if (!preview || !/editor-preview-full/.test(preview.className)) {
-
-        preview = document.createElement('div');
-        preview.className = 'editor-preview-full';
-
-        if (editor.options.previewClass) {
-
-            if (Array.isArray(editor.options.previewClass)) {
-                for (var i = 0; i < editor.options.previewClass.length; i++) {
-                    preview.className += (' ' + editor.options.previewClass[i]);
-                }
-
-            } else if (typeof editor.options.previewClass === 'string') {
-                preview.className += (' ' + editor.options.previewClass);
-            }
-        }
-
-        wrapper.appendChild(preview);
-    }
-
-    if (/editor-preview-active/.test(preview.className)) {
-        preview.className = preview.className.replace(
-            /\s*editor-preview-active\s*/g, ''
-        );
-        if (toolbar) {
-            toolbar.className = toolbar.className.replace(/\s*active\s*/g, '');
-            toolbar_div.className = toolbar_div.className.replace(/\s*disabled-for-preview*/g, '');
-        }
-    } else {
-        // When the preview button is clicked for the first time,
-        // give some time for the transition from editor.css to fire and the view to slide from right to left,
-        // instead of just appearing.
-        setTimeout(function () {
-            preview.className += ' editor-preview-active';
-        }, 1);
-        if (toolbar) {
-            toolbar.className += ' active';
-            toolbar_div.className += ' disabled-for-preview';
-        }
-    }
-    preview.innerHTML = editor.options.previewRender(editor.value(), preview);
-
-}
-
-function _replaceSelection(cm, active, startEnd, url) {
-    if (/editor-preview-active/.test(cm.getWrapperElement().lastChild.className))
-        return;
-
-    var text;
-    var start = startEnd[0];
-    var end = startEnd[1];
-    var startPoint = {},
-        endPoint = {};
-    Object.assign(startPoint, cm.getCursor('start'));
-    Object.assign(endPoint, cm.getCursor('end'));
-    if (url) {
-        start = start.replace('#url#', url);  // url is in start for upload-image
-        end = end.replace('#url#', url);
-    }
-    if (active) {
-        text = cm.getLine(startPoint.line);
-        start = text.slice(0, startPoint.ch);
-        end = text.slice(startPoint.ch);
-        cm.replaceRange(start + end, {
-            line: startPoint.line,
-            ch: 0,
-        });
-    } else {
-        text = cm.getSelection();
-        cm.replaceSelection(start + text + end);
-
-        startPoint.ch += start.length;
-        if (startPoint !== endPoint) {
-            endPoint.ch += start.length;
-        }
-    }
-    cm.setSelection(startPoint, endPoint);
-    cm.focus();
-}
-
-
-function _toggleHeading(cm, direction, size) {
-    if (/editor-preview-active/.test(cm.getWrapperElement().lastChild.className))
-        return;
-
-    var startPoint = cm.getCursor('start');
-    var endPoint = cm.getCursor('end');
-    for (var i = startPoint.line; i <= endPoint.line; i++) {
-        (function (i) {
-            var text = cm.getLine(i);
-            var currHeadingLevel = text.search(/[^#]/);
-
-            if (direction !== undefined) {
-                if (currHeadingLevel <= 0) {
-                    if (direction == 'bigger') {
-                        text = '###### ' + text;
-                    } else {
-                        text = '# ' + text;
-                    }
-                } else if (currHeadingLevel == 6 && direction == 'smaller') {
-                    text = text.substr(7);
-                } else if (currHeadingLevel == 1 && direction == 'bigger') {
-                    text = text.substr(2);
-                } else {
-                    if (direction == 'bigger') {
-                        text = text.substr(1);
-                    } else {
-                        text = '#' + text;
-                    }
-                }
-            } else {
-                if (size == 1) {
-                    if (currHeadingLevel <= 0) {
-                        text = '# ' + text;
-                    } else if (currHeadingLevel == size) {
-                        text = text.substr(currHeadingLevel + 1);
-                    } else {
-                        text = '# ' + text.substr(currHeadingLevel + 1);
-                    }
-                } else if (size == 2) {
-                    if (currHeadingLevel <= 0) {
-                        text = '## ' + text;
-                    } else if (currHeadingLevel == size) {
-                        text = text.substr(currHeadingLevel + 1);
-                    } else {
-                        text = '## ' + text.substr(currHeadingLevel + 1);
-                    }
-                } else {
-                    if (currHeadingLevel <= 0) {
-                        text = '### ' + text;
-                    } else if (currHeadingLevel == size) {
-                        text = text.substr(currHeadingLevel + 1);
-                    } else {
-                        text = '### ' + text.substr(currHeadingLevel + 1);
-                    }
-                }
-            }
-
-            cm.replaceRange(text, {
-                line: i,
-                ch: 0,
-            }, {
-                line: i,
-                ch: 99999999999999,
-            });
-        })(i);
-    }
-    cm.focus();
-}
-
-
-function _toggleLine(cm, name) {
-    if (/editor-preview-active/.test(cm.getWrapperElement().lastChild.className))
-        return;
-
-    var listRegexp = /^(\s*)(\*|-|\+|\d*\.)(\s+)/;
-    var whitespacesRegexp = /^\s*/;
-
-    var stat = getState(cm);
-    var startPoint = cm.getCursor('start');
-    var endPoint = cm.getCursor('end');
-    var repl = {
-        'quote': /^(\s*)>\s+/,
-        'unordered-list': listRegexp,
-        'ordered-list': listRegexp,
-    };
-
-    var _getChar = function (name, i) {
-        var map = {
-            'quote': '>',
-            'unordered-list': '*',
-            'ordered-list': '%%i.',
-        };
-
-        return map[name].replace('%%i', i);
-    };
-
-    var _checkChar = function (name, char) {
-        var map = {
-            'quote': '>',
-            'unordered-list': '*',
-            'ordered-list': '\\d+.',
-        };
-        var rt = new RegExp(map[name]);
-
-        return char && rt.test(char);
-    };
-
-    var _toggle = function (name, text, untoggleOnly) {
-        var arr = listRegexp.exec(text);
-        var char = _getChar(name, line);
-        if (arr !== null) {
-            if (_checkChar(name, arr[2])) {
-                char = '';
-            }
-            text = arr[1] + char + arr[3] + text.replace(whitespacesRegexp, '').replace(repl[name], '$1');
-        } else if (untoggleOnly == false) {
-            text = char + ' ' + text;
-        }
-        return text;
-    };
-
-    var line = 1;
-    for (var i = startPoint.line; i <= endPoint.line; i++) {
-        (function (i) {
-            var text = cm.getLine(i);
-            if (stat[name]) {
-                text = text.replace(repl[name], '$1');
-            } else {
-                // If we're toggling unordered-list formatting, check if the current line
-                // is part of an ordered-list, and if so, untoggle that first.
-                // Workaround for https://github.com/Ionaru/easy-markdown-editor/issues/92
-                if (name == 'unordered-list') {
-                    text = _toggle('ordered-list', text, true);
-                }
-                text = _toggle(name, text, false);
-                line += 1;
-            }
-            cm.replaceRange(text, {
-                line: i,
-                ch: 0,
-            }, {
-                line: i,
-                ch: 99999999999999,
-            });
-        })(i);
-    }
-    cm.focus();
-}
-
-function _toggleBlock(editor, type, start_chars, end_chars) {
-    if (/editor-preview-active/.test(editor.codemirror.getWrapperElement().lastChild.className))
-        return;
-
-    end_chars = (typeof end_chars === 'undefined') ? start_chars : end_chars;
-    var cm = editor.codemirror;
-    var stat = getState(cm);
-
-    var text;
-    var start = start_chars;
-    var end = end_chars;
-
-    var startPoint = cm.getCursor('start');
-    var endPoint = cm.getCursor('end');
-
-    if (stat[type]) {
-        text = cm.getLine(startPoint.line);
-        start = text.slice(0, startPoint.ch);
-        end = text.slice(startPoint.ch);
-        if (type == 'bold') {
-            start = start.replace(/(\*\*|__)(?![\s\S]*(\*\*|__))/, '');
-            end = end.replace(/(\*\*|__)/, '');
-        } else if (type == 'italic') {
-            start = start.replace(/(\*|_)(?![\s\S]*(\*|_))/, '');
-            end = end.replace(/(\*|_)/, '');
-        } else if (type == 'strikethrough') {
-            start = start.replace(/(\*\*|~~)(?![\s\S]*(\*\*|~~))/, '');
-            end = end.replace(/(\*\*|~~)/, '');
-        }
-        cm.replaceRange(start + end, {
-            line: startPoint.line,
-            ch: 0,
-        }, {
-            line: startPoint.line,
-            ch: 99999999999999,
-        });
-
-        if (type == 'bold' || type == 'strikethrough') {
-            startPoint.ch -= 2;
-            if (startPoint !== endPoint) {
-                endPoint.ch -= 2;
-            }
-        } else if (type == 'italic') {
-            startPoint.ch -= 1;
-            if (startPoint !== endPoint) {
-                endPoint.ch -= 1;
-            }
-        }
-    } else {
-        text = cm.getSelection();
-        if (type == 'bold') {
-            text = text.split('**').join('');
-            text = text.split('__').join('');
-        } else if (type == 'italic') {
-            text = text.split('*').join('');
-            text = text.split('_').join('');
-        } else if (type == 'strikethrough') {
-            text = text.split('~~').join('');
-        }
-        cm.replaceSelection(start + text + end);
-
-        startPoint.ch += start_chars.length;
-        endPoint.ch = startPoint.ch + text.length;
-    }
-
-    cm.setSelection(startPoint, endPoint);
-    cm.focus();
-}
-
-function _cleanBlock(cm) {
-    if (/editor-preview-active/.test(cm.getWrapperElement().lastChild.className))
-        return;
-
-    var startPoint = cm.getCursor('start');
-    var endPoint = cm.getCursor('end');
-    var text;
-
-    for (var line = startPoint.line; line <= endPoint.line; line++) {
-        text = cm.getLine(line);
-        text = text.replace(/^[ ]*([# ]+|\*|-|[> ]+|[0-9]+(.|\)))[ ]*/, '');
-
-        cm.replaceRange(text, {
-            line: line,
-            ch: 0,
-        }, {
-            line: line,
-            ch: 99999999999999,
-        });
-    }
-}
-
-/**
- * Convert a number of bytes to a human-readable file size. If you desire
- * to add a space between the value and the unit, you need to add this space
- * to the given units.
- * @param bytes {integer} A number of bytes, as integer. Ex: 421137
- * @param units {number[]} An array of human-readable units, ie. [' B', ' K', ' MB']
- * @returns string A human-readable file size. Ex: '412 KB'
- */
-function humanFileSize(bytes, units) {
-    if (Math.abs(bytes) < 1024) {
-        return '' + bytes + units[0];
-    }
-    var u = 0;
-    do {
-        bytes /= 1024;
-        ++u;
-    } while (Math.abs(bytes) >= 1024 && u < units.length);
-    return '' + bytes.toFixed(1) + units[u];
-}
-
-// Merge the properties of one object into another.
-function _mergeProperties(target, source) {
-    for (var property in source) {
-        if (Object.prototype.hasOwnProperty.call(source, property)) {
-            if (source[property] instanceof Array) {
-                target[property] = source[property].concat(target[property] instanceof Array ? target[property] : []);
-            } else if (
-                source[property] !== null &&
-                typeof source[property] === 'object' &&
-                source[property].constructor === Object
-            ) {
-                target[property] = _mergeProperties(target[property] || {}, source[property]);
-            } else {
-                target[property] = source[property];
-            }
-        }
-    }
-
-    return target;
-}
-
-// Merge an arbitrary number of objects into one.
-function extend(target) {
-    for (var i = 1; i < arguments.length; i++) {
-        target = _mergeProperties(target, arguments[i]);
-    }
-
-    return target;
-}
-
-/* The right word count in respect for CJK. */
-function wordCount(data) {
-    var pattern = /[a-zA-Z0-9_\u00A0-\u02AF\u0392-\u03c9\u0410-\u04F9]+|[\u4E00-\u9FFF\u3400-\u4dbf\uf900-\ufaff\u3040-\u309f\uac00-\ud7af]+/g;
-    var m = data.match(pattern);
-    var count = 0;
-    if (m === null) return count;
-    for (var i = 0; i < m.length; i++) {
-        if (m[i].charCodeAt(0) >= 0x4E00) {
-            count += m[i].length;
-        } else {
-            count += 1;
-        }
-    }
-    return count;
-}
-
-var toolbarBuiltInButtons = {
-    'bold': {
-        name: 'bold',
-        action: toggleBold,
-        className: 'fa fa-bold',
-        title: 'Bold',
-        default: true,
-    },
-    'italic': {
-        name: 'italic',
-        action: toggleItalic,
-        className: 'fa fa-italic',
-        title: 'Italic',
-        default: true,
-    },
-    'strikethrough': {
-        name: 'strikethrough',
-        action: toggleStrikethrough,
-        className: 'fa fa-strikethrough',
-        title: 'Strikethrough',
-    },
-    'heading': {
-        name: 'heading',
-        action: toggleHeadingSmaller,
-        className: 'fa fa-header fa-heading',
-        title: 'Heading',
-        default: true,
-    },
-    'heading-smaller': {
-        name: 'heading-smaller',
-        action: toggleHeadingSmaller,
-        className: 'fa fa-header fa-heading header-smaller',
-        title: 'Smaller Heading',
-    },
-    'heading-bigger': {
-        name: 'heading-bigger',
-        action: toggleHeadingBigger,
-        className: 'fa fa-header fa-heading header-bigger',
-        title: 'Bigger Heading',
-    },
-    'heading-1': {
-        name: 'heading-1',
-        action: toggleHeading1,
-        className: 'fa fa-header fa-heading header-1',
-        title: 'Big Heading',
-    },
-    'heading-2': {
-        name: 'heading-2',
-        action: toggleHeading2,
-        className: 'fa fa-header fa-heading header-2',
-        title: 'Medium Heading',
-    },
-    'heading-3': {
-        name: 'heading-3',
-        action: toggleHeading3,
-        className: 'fa fa-header fa-heading header-3',
-        title: 'Small Heading',
-    },
-    'separator-1': {
-        name: 'separator-1',
-    },
-    'code': {
-        name: 'code',
-        action: toggleCodeBlock,
-        className: 'fa fa-code',
-        title: 'Code',
-    },
-    'quote': {
-        name: 'quote',
-        action: toggleBlockquote,
-        className: 'fa fa-quote-left',
-        title: 'Quote',
-        default: true,
-    },
-    'unordered-list': {
-        name: 'unordered-list',
-        action: toggleUnorderedList,
-        className: 'fa fa-list-ul',
-        title: 'Generic List',
-        default: true,
-    },
-    'ordered-list': {
-        name: 'ordered-list',
-        action: toggleOrderedList,
-        className: 'fa fa-list-ol',
-        title: 'Numbered List',
-        default: true,
-    },
-    'clean-block': {
-        name: 'clean-block',
-        action: cleanBlock,
-        className: 'fa fa-eraser',
-        title: 'Clean block',
-    },
-    'separator-2': {
-        name: 'separator-2',
-    },
-    'link': {
-        name: 'link',
-        action: drawLink,
-        className: 'fa fa-link',
-        title: 'Create Link',
-        default: true,
-    },
-    'image': {
-        name: 'image',
-        action: drawImage,
-        className: 'fa fa-image',
-        title: 'Insert Image',
-        default: true,
-    },
-    'upload-image': {
-        name: 'upload-image',
-        action: drawUploadedImage,
-        className: 'fa fa-image',
-        title: 'Import an image',
-    },
-    'table': {
-        name: 'table',
-        action: drawTable,
-        className: 'fa fa-table',
-        title: 'Insert Table',
-    },
-    'horizontal-rule': {
-        name: 'horizontal-rule',
-        action: drawHorizontalRule,
-        className: 'fa fa-minus',
-        title: 'Insert Horizontal Line',
-    },
-    'separator-3': {
-        name: 'separator-3',
-    },
-    'preview': {
-        name: 'preview',
-        action: togglePreview,
-        className: 'fa fa-eye',
-        noDisable: true,
-        title: 'Toggle Preview',
-        default: true,
-    },
-    'side-by-side': {
-        name: 'side-by-side',
-        action: toggleSideBySide,
-        className: 'fa fa-columns',
-        noDisable: true,
-        noMobile: true,
-        title: 'Toggle Side by Side',
-        default: true,
-    },
-    'fullscreen': {
-        name: 'fullscreen',
-        action: toggleFullScreen,
-        className: 'fa fa-arrows-alt',
-        noDisable: true,
-        noMobile: true,
-        title: 'Toggle Fullscreen',
-        default: true,
-    },
-    'separator-4': {
-        name: 'separator-4',
-    },
-    'guide': {
-        name: 'guide',
-        action: 'https://www.markdownguide.org/basic-syntax/',
-        className: 'fa fa-question-circle',
-        noDisable: true,
-        title: 'Markdown Guide',
-        default: true,
-    },
-    'separator-5': {
-        name: 'separator-5',
-    },
-    'undo': {
-        name: 'undo',
-        action: undo,
-        className: 'fa fa-undo',
-        noDisable: true,
-        title: 'Undo',
-    },
-    'redo': {
-        name: 'redo',
-        action: redo,
-        className: 'fa fa-repeat fa-redo',
-        noDisable: true,
-        title: 'Redo',
-    },
-};
-
-var insertTexts = {
-    link: ['[', '](#url#)'],
-    image: ['![](', '#url#)'],
-    uploadedImage: ['![](#url#)', ''],
-    // uploadedImage: ['![](#url#)\n', ''], // TODO: New line insertion doesn't work here.
-    table: ['', '\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text     | Text     |\n\n'],
-    horizontalRule: ['', '\n\n-----\n\n'],
-};
-
-var promptTexts = {
-    link: 'URL for the link:',
-    image: 'URL of the image:',
-};
-
-var timeFormat = {
-    locale: 'en-US',
-    format: {
-        hour: '2-digit',
-        minute: '2-digit',
-    },
-};
-
-var blockStyles = {
-    'bold': '**',
-    'code': '```',
-    'italic': '*',
-};
-
-/**
- * Texts displayed to the user (mainly on the status bar) for the import image
- * feature. Can be used for customization or internationalization.
- */
-var imageTexts = {
-    sbInit: 'Attach files by drag and dropping or pasting from clipboard.',
-    sbOnDragEnter: 'Drop image to upload it.',
-    sbOnDrop: 'Uploading image #images_names#...',
-    sbProgress: 'Uploading #file_name#: #progress#%',
-    sbOnUploaded: 'Uploaded #image_name#',
-    sizeUnits: ' B, KB, MB',
-};
-
-/**
- * Errors displayed to the user, using the `errorCallback` option. Can be used for
- * customization or internationalization.
- */
-var errorMessages = {
-    noFileGiven: 'You must select a file.',
-    typeNotAllowed: 'This image type is not allowed.',
-    fileTooLarge: 'Image #image_name# is too big (#image_size#).\n' +
-        'Maximum file size is #image_max_size#.',
-    importError: 'Something went wrong when uploading the image #image_name#.',
-};
-
-/**
- * Interface of EasyMDE.
- */
-function EasyMDE(options) {
-    // Handle options parameter
-    options = options || {};
-
-    // Used later to refer to it"s parent
-    options.parent = this;
-
-    // Check if Font Awesome needs to be auto downloaded
-    var autoDownloadFA = true;
-
-    if (options.autoDownloadFontAwesome === false) {
-        autoDownloadFA = false;
-    }
-
-    if (options.autoDownloadFontAwesome !== true) {
-        var styleSheets = document.styleSheets;
-        for (var i = 0; i < styleSheets.length; i++) {
-            if (!styleSheets[i].href)
-                continue;
-
-            if (styleSheets[i].href.indexOf('//maxcdn.bootstrapcdn.com/font-awesome/') > -1) {
-                autoDownloadFA = false;
-            }
-        }
-    }
-
-    if (autoDownloadFA) {
-        var link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = 'https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css';
-        document.getElementsByTagName('head')[0].appendChild(link);
-    }
-
-
-    // Find the textarea to use
-    if (options.element) {
-        this.element = options.element;
-    } else if (options.element === null) {
-        // This means that the element option was specified, but no element was found
-        console.log('EasyMDE: Error. No element was found.');
-        return;
-    }
-
-
-    // Handle toolbar
-    if (options.toolbar === undefined) {
-        // Initialize
-        options.toolbar = [];
-
-
-        // Loop over the built in buttons, to get the preferred order
-        for (var key in toolbarBuiltInButtons) {
-            if (Object.prototype.hasOwnProperty.call(toolbarBuiltInButtons, key)) {
-                if (key.indexOf('separator-') != -1) {
-                    options.toolbar.push('|');
-                }
-
-                if (toolbarBuiltInButtons[key].default === true || (options.showIcons && options.showIcons.constructor === Array && options.showIcons.indexOf(key) != -1)) {
-                    options.toolbar.push(key);
-                }
-            }
-        }
-    }
-
-    // Editor preview styling class.
-    if (!Object.prototype.hasOwnProperty.call(options, 'previewClass')) {
-        options.previewClass = 'editor-preview';
-    }
-
-    // Handle status bar
-    if (!Object.prototype.hasOwnProperty.call(options, 'status')) {
-        options.status = ['autosave', 'lines', 'words', 'cursor'];
-
-        if (options.uploadImage) {
-            options.status.unshift('upload-image');
-        }
-    }
-
-
-    // Add default preview rendering function
-    if (!options.previewRender) {
-        options.previewRender = function (plainText) {
-            // Note: "this" refers to the options object
-            return this.parent.markdown(plainText);
-        };
-    }
-
-
-    // Set default options for parsing config
-    options.parsingConfig = extend({
-        highlightFormatting: true, // needed for toggleCodeBlock to detect types of code
-    }, options.parsingConfig || {});
-
-
-    // Merging the insertTexts, with the given options
-    options.insertTexts = extend({}, insertTexts, options.insertTexts || {});
-
-
-    // Merging the promptTexts, with the given options
-    options.promptTexts = extend({}, promptTexts, options.promptTexts || {});
-
-
-    // Merging the blockStyles, with the given options
-    options.blockStyles = extend({}, blockStyles, options.blockStyles || {});
-
-
-    if (options.autosave != undefined) {
-        // Merging the Autosave timeFormat, with the given options
-        options.autosave.timeFormat = extend({}, timeFormat, options.autosave.timeFormat || {});
-    }
-
-
-    // Merging the shortcuts, with the given options
-    options.shortcuts = extend({}, shortcuts, options.shortcuts || {});
-
-    options.maxHeight = options.maxHeight || undefined;
-
-    if (typeof options.maxHeight !== 'undefined') {
-        // Min and max height are equal if maxHeight is set
-        options.minHeight = options.maxHeight;
-    } else {
-        options.minHeight = options.minHeight || '300px';
-    }
-
-    options.errorCallback = options.errorCallback || function (errorMessage) {
-        alert(errorMessage);
-    };
-
-    // Import-image default configuration
-    options.uploadImage = options.uploadImage || false;
-    options.imageMaxSize = options.imageMaxSize || 2097152; // 1024 * 1024 * 2
-    options.imageAccept = options.imageAccept || 'image/png, image/jpeg';
-    options.imageTexts = extend({}, imageTexts, options.imageTexts || {});
-    options.errorMessages = extend({}, errorMessages, options.errorMessages || {});
-
-
-    // Change unique_id to uniqueId for backwards compatibility
-    if (options.autosave != undefined && options.autosave.unique_id != undefined && options.autosave.unique_id != '')
-        options.autosave.uniqueId = options.autosave.unique_id;
-
-    // If overlay mode is specified and combine is not provided, default it to true
-    if (options.overlayMode && options.overlayMode.combine === undefined) {
-      options.overlayMode.combine = true;
-    }
-
-    // Update this options
-    this.options = options;
-
-
-    // Auto render
-    this.render();
-
-
-    // The codemirror component is only available after rendering
-    // so, the setter for the initialValue can only run after
-    // the element has been rendered
-    if (options.initialValue && (!this.options.autosave || this.options.autosave.foundSavedValue !== true)) {
-        this.value(options.initialValue);
-    }
-
-    if (options.uploadImage) {
-        var self = this;
-
-        this.codemirror.on('dragenter', function (cm, event) {
-            self.updateStatusBar('upload-image', self.options.imageTexts.sbOnDragEnter);
-            event.stopPropagation();
-            event.preventDefault();
-        });
-        this.codemirror.on('dragend', function (cm, event) {
-            self.updateStatusBar('upload-image', self.options.imageTexts.sbInit);
-            event.stopPropagation();
-            event.preventDefault();
-        });
-        this.codemirror.on('dragleave', function (cm, event) {
-            self.updateStatusBar('upload-image', self.options.imageTexts.sbInit);
-            event.stopPropagation();
-            event.preventDefault();
-        });
-
-        this.codemirror.on('dragover', function (cm, event) {
-            self.updateStatusBar('upload-image', self.options.imageTexts.sbOnDragEnter);
-            event.stopPropagation();
-            event.preventDefault();
-        });
-
-        this.codemirror.on('drop', function (cm, event) {
-            event.stopPropagation();
-            event.preventDefault();
-            if (options.imageUploadFunction) {
-                self.uploadImagesUsingCustomFunction(options.imageUploadFunction, event.dataTransfer.files);
-            } else {
-                self.uploadImages(event.dataTransfer.files);
-            }
-        });
-
-        this.codemirror.on('paste', function (cm, event) {
-            if (options.imageUploadFunction) {
-                self.uploadImagesUsingCustomFunction(options.imageUploadFunction, event.clipboardData.files);
-            } else {
-                self.uploadImages(event.clipboardData.files);
-            }
-        });
-    }
-}
-
-/**
- * Upload asynchronously a list of images to a server.
- *
- * Can be triggered by:
- * - drag&drop;
- * - copy-paste;
- * - the browse-file window (opened when the user clicks on the *upload-image* icon).
- * @param {FileList} files The files to upload the the server.
- * @param [onSuccess] {function} see EasyMDE.prototype.uploadImage
- * @param [onError] {function} see EasyMDE.prototype.uploadImage
- */
-EasyMDE.prototype.uploadImages = function (files, onSuccess, onError) {
-    if (files.length === 0) {
-      return;
-    }
-    var names = [];
-    for (var i = 0; i < files.length; i++) {
-        names.push(files[i].name);
-        this.uploadImage(files[i], onSuccess, onError);
-    }
-    this.updateStatusBar('upload-image', this.options.imageTexts.sbOnDrop.replace('#images_names#', names.join(', ')));
-};
-
-/**
- * Upload asynchronously a list of images to a server.
- *
- * Can be triggered by:
- * - drag&drop;
- * - copy-paste;
- * - the browse-file window (opened when the user clicks on the *upload-image* icon).
- * @param imageUploadFunction {Function} The custom function to upload the image passed in options.
- * @param {FileList} files The files to upload the the server.
- */
-EasyMDE.prototype.uploadImagesUsingCustomFunction = function (imageUploadFunction, files) {
-    if (files.length === 0) {
-      return;
-    }
-    var names = [];
-    for (var i = 0; i < files.length; i++) {
-        names.push(files[i].name);
-        this.uploadImageUsingCustomFunction(imageUploadFunction, files[i]);
-    }
-    this.updateStatusBar('upload-image', this.options.imageTexts.sbOnDrop.replace('#images_names#', names.join(', ')));
-};
-
-/**
- * Update an item in the status bar.
- * @param itemName {string} The name of the item to update (ie. 'upload-image', 'autosave', etc.).
- * @param content {string} the new content of the item to write in the status bar.
- */
-EasyMDE.prototype.updateStatusBar = function (itemName, content) {
-    if (!this.gui.statusbar) {
-        return;
-    }
-
-    var matchingClasses = this.gui.statusbar.getElementsByClassName(itemName);
-    if (matchingClasses.length === 1) {
-        this.gui.statusbar.getElementsByClassName(itemName)[0].textContent = content;
-    } else if (matchingClasses.length === 0) {
-        console.log('EasyMDE: status bar item ' + itemName + ' was not found.');
-    } else {
-        console.log('EasyMDE: Several status bar items named ' + itemName + ' was found.');
-    }
-};
-
-/**
- * Default markdown render.
- */
-EasyMDE.prototype.markdown = function (text) {
-    if (marked) {
-        // Initialize
-        var markedOptions;
-        if (this.options && this.options.renderingConfig && this.options.renderingConfig.markedOptions) {
-            markedOptions = this.options.renderingConfig.markedOptions;
-        } else {
-            markedOptions = {};
-        }
-
-        // Update options
-        if (this.options && this.options.renderingConfig && this.options.renderingConfig.singleLineBreaks === false) {
-            markedOptions.breaks = false;
-        } else {
-            markedOptions.breaks = true;
-        }
-
-        if (this.options && this.options.renderingConfig && this.options.renderingConfig.codeSyntaxHighlighting === true) {
-
-            /* Get HLJS from config or window */
-            var hljs = this.options.renderingConfig.hljs || window.hljs;
-
-            /* Check if HLJS loaded */
-            if (hljs) {
-                markedOptions.highlight = function (code, language) {
-                    if (language && hljs.getLanguage(language)) {
-                      return hljs.highlight(language, code).value;
-                    } else {
-                    return hljs.highlightAuto(code).value;
-                    }
-                };
-            }
-        }
-
-        // Set options
-        marked.setOptions(markedOptions);
-
-        // Convert the markdown to HTML
-        var htmlText = marked(text);
-
-        // Sanitize HTML
-        if (this.options.renderingConfig && typeof this.options.renderingConfig.sanitizerFunction === 'function') {
-            htmlText = this.options.renderingConfig.sanitizerFunction.call(this, htmlText);
-        }
-
-        // Edit the HTML anchors to add 'target="_blank"' by default.
-        htmlText = addAnchorTargetBlank(htmlText);
-
-        // Remove list-style when rendering checkboxes
-        htmlText = removeListStyleWhenCheckbox(htmlText);
-
-        return htmlText;
-    }
-};
-
-/**
- * Render editor to the given element.
- */
-EasyMDE.prototype.render = function (el) {
-    if (!el) {
-        el = this.element || document.getElementsByTagName('textarea')[0];
-    }
-
-    if (this._rendered && this._rendered === el) {
-        // Already rendered.
-        return;
-    }
-
-    this.element = el;
-    var options = this.options;
-
-    var self = this;
-    var keyMaps = {};
-
-    for (var key in options.shortcuts) {
-        // null stands for "do not bind this command"
-        if (options.shortcuts[key] !== null && bindings[key] !== null) {
-            (function (key) {
-                keyMaps[fixShortcut(options.shortcuts[key])] = function () {
-                    var action = bindings[key];
-                    if (typeof action === 'function') {
-                        action(self);
-                    } else if (typeof action === 'string') {
-                        window.open(action, '_blank');
-                    }
-                };
-            })(key);
-        }
-    }
-
-    keyMaps['Enter'] = 'newlineAndIndentContinueMarkdownList';
-    keyMaps['Tab'] = 'tabAndIndentMarkdownList';
-    keyMaps['Shift-Tab'] = 'shiftTabAndUnindentMarkdownList';
-    keyMaps['Esc'] = function (cm) {
-        if (cm.getOption('fullScreen')) toggleFullScreen(self);
-    };
-
-    this.documentOnKeyDown = function (e) {
-        e = e || window.event;
-
-        if (e.keyCode == 27) {
-            if (self.codemirror.getOption('fullScreen')) toggleFullScreen(self);
-        }
-    };
-    document.addEventListener('keydown', this.documentOnKeyDown, false);
-
-    var mode, backdrop;
-
-    // CodeMirror overlay mode
-    if (options.overlayMode) {
-      CodeMirror.defineMode('overlay-mode', function(config) {
-        return CodeMirror.overlayMode(CodeMirror.getMode(config, options.spellChecker !== false ? 'spell-checker' : 'gfm'), options.overlayMode.mode, options.overlayMode.combine);
-      });
-
-      mode = 'overlay-mode';
-      backdrop = options.parsingConfig;
-      backdrop.gitHubSpice = false;
-
-      if (options.spellChecker !== false) {
-        backdrop.name = 'gfm';
-
-        CodeMirrorSpellChecker({
-          codeMirrorInstance: CodeMirror,
-        });
-
-      } else if (options.spellChecker !== false) {
-        mode = 'spell-checker';
-        backdrop = options.parsingConfig;
-        backdrop.name = 'gfm';
-        backdrop.gitHubSpice = false;
-
-        CodeMirrorSpellChecker({
-            codeMirrorInstance: CodeMirror,
-        });
-      }
-    } else {
-        mode = options.parsingConfig;
-        mode.name = 'gfm';
-        mode.gitHubSpice = false;
-    }
-
-    // eslint-disable-next-line no-unused-vars
-    function configureMouse(cm, repeat, event) {
-        return {
-            addNew: false,
-        };
-    }
-
-    this.codemirror = CodeMirror.fromTextArea(el, {
-        mode: mode,
-        backdrop: backdrop,
-        theme: (options.theme != undefined) ? options.theme : 'easymde',
-        tabSize: (options.tabSize != undefined) ? options.tabSize : 2,
-        indentUnit: (options.tabSize != undefined) ? options.tabSize : 2,
-        indentWithTabs: (options.indentWithTabs === false) ? false : true,
-        lineNumbers: (options.lineNumbers === true) ? true : false,
-        autofocus: (options.autofocus === true) ? true : false,
-        extraKeys: keyMaps,
-        lineWrapping: (options.lineWrapping === false) ? false : true,
-        allowDropFileTypes: ['text/plain'],
-        placeholder: options.placeholder || el.getAttribute('placeholder') || '',
-        styleSelectedText: (options.styleSelectedText != undefined) ? options.styleSelectedText : !isMobile(),
-        configureMouse: configureMouse,
-        inputStyle: (options.inputStyle != undefined) ? options.inputStyle : isMobile() ? 'contenteditable' : 'textarea',
-        spellcheck: (options.nativeSpellcheck != undefined) ? options.nativeSpellcheck : true,
-        autoRefresh: (options.autoRefresh != undefined) ? options.autoRefresh : false,
-    });
-
-    this.codemirror.getScrollerElement().style.minHeight = options.minHeight;
-
-    if (typeof options.maxHeight !== 'undefined') {
-        this.codemirror.getScrollerElement().style.height = options.maxHeight;
-    }
-
-    if (options.forceSync === true) {
-        var cm = this.codemirror;
-        cm.on('change', function () {
-            cm.save();
-        });
-    }
-
-    this.gui = {};
-
-    // Wrap Codemirror with container before create toolbar, etc,
-    // to use with sideBySideFullscreen option.
-    var easyMDEContainer = document.createElement('div');
-    easyMDEContainer.classList.add('EasyMDEContainer');
-    var cmWrapper = this.codemirror.getWrapperElement();
-    cmWrapper.parentNode.insertBefore(easyMDEContainer, cmWrapper);
-    easyMDEContainer.appendChild(cmWrapper);
-
-    if (options.toolbar !== false) {
-        this.gui.toolbar = this.createToolbar();
-    }
-    if (options.status !== false) {
-        this.gui.statusbar = this.createStatusbar();
-    }
-    if (options.autosave != undefined && options.autosave.enabled === true) {
-        this.autosave(); // use to load localstorage content
-        this.codemirror.on('change', function () {
-            clearTimeout(self._autosave_timeout);
-            self._autosave_timeout = setTimeout(function () {
-                self.autosave();
-            }, self.options.autosave.submit_delay || self.options.autosave.delay || 1000);
-        });
-    }
-
-    function handleImages() {
-        if (!options.previewImagesInEditor) {
-            return;
-        }
-
-        function calcHeight(naturalWidth, naturalHeight) {
-            var height;
-            var viewportWidth = window.getComputedStyle(document.querySelector('.CodeMirror-sizer')).width.replace('px', '');
-            if (naturalWidth < viewportWidth) {
-                height = naturalHeight + 'px';
-            } else {
-                height = (naturalHeight / naturalWidth * 100) + '%';
-            }
-            return height;
-        }
-        easyMDEContainer.querySelectorAll('.cm-formatting-image').forEach(function(e) {
-            var parentEl =  e.parentElement;
-            if (!parentEl.hasAttribute('data-img-src')) {
-                var srcAttr = parentEl.innerText.match('\\((.*)\\)'); // might require better parsing according to markdown spec
-                if (srcAttr && srcAttr.length >= 2) {
-                    var img = document.createElement('img');
-                    img.onload = function() {
-                        parentEl.setAttribute('data-img-src', srcAttr[1]);
-                        parentEl.setAttribute('data-img-width', img.naturalWidth);
-                        parentEl.setAttribute('data-img-height', img.naturalHeight);
-                        parentEl.setAttribute('style', '--bg-image:url('+srcAttr[1]+');--width:'+img.naturalWidth+'px;--height:'+calcHeight(img.naturalWidth, img.naturalHeight));
-                    };
-                    img.src = srcAttr[1];
-                }
-            } else {
-                // handle resizes case
-                var src = parentEl.getAttribute('data-img-src');
-                var naturalWidth = +parentEl.getAttribute('data-img-width');
-                var naturalHeight = +parentEl.getAttribute('data-img-height');
-                parentEl.setAttribute('style', '--bg-image:url('+src+');--width:'+naturalWidth+'px;--height:'+calcHeight(naturalWidth, naturalHeight));
-            }
-        });
-    }
-    this.codemirror.on('update', function () {
-        handleImages();
-    });
-
-    this.onWindowResize = function() {
-        handleImages();
-    };
-
-    window.addEventListener('resize', this.onWindowResize, true);
-
-    this.gui.sideBySide = this.createSideBySide();
-    this._rendered = this.element;
-
-    // Fixes CodeMirror bug (#344)
-    var temp_cm = this.codemirror;
-    setTimeout(function () {
-        temp_cm.refresh();
-    }.bind(temp_cm), 0);
-};
-
-EasyMDE.prototype.cleanup = function () {
-    window.removeEventListener(this.onWindowResize);
-    document.removeEventListener('keydown', this.documentOnKeyDown);
-};
-
-// Safari, in Private Browsing Mode, looks like it supports localStorage but all calls to setItem throw QuotaExceededError. We're going to detect this and set a variable accordingly.
-function isLocalStorageAvailable() {
-    if (typeof localStorage === 'object') {
-        try {
-            localStorage.setItem('smde_localStorage', 1);
-            localStorage.removeItem('smde_localStorage');
-        } catch (e) {
-            return false;
-        }
-    } else {
-        return false;
-    }
-
-    return true;
-}
-
-EasyMDE.prototype.autosave = function () {
-    if (isLocalStorageAvailable()) {
-        var easyMDE = this;
-
-        if (this.options.autosave.uniqueId == undefined || this.options.autosave.uniqueId == '') {
-            console.log('EasyMDE: You must set a uniqueId to use the autosave feature');
-            return;
-        }
-
-        if (this.options.autosave.binded !== true) {
-            if (easyMDE.element.form != null && easyMDE.element.form != undefined) {
-                easyMDE.element.form.addEventListener('submit', function () {
-                    clearTimeout(easyMDE.autosaveTimeoutId);
-                    easyMDE.autosaveTimeoutId = undefined;
-
-                    localStorage.removeItem('smde_' + easyMDE.options.autosave.uniqueId);
-                });
-            }
-
-            this.options.autosave.binded = true;
-        }
-
-        if (this.options.autosave.loaded !== true) {
-            if (typeof localStorage.getItem('smde_' + this.options.autosave.uniqueId) == 'string' && localStorage.getItem('smde_' + this.options.autosave.uniqueId) != '') {
-                this.codemirror.setValue(localStorage.getItem('smde_' + this.options.autosave.uniqueId));
-                this.options.autosave.foundSavedValue = true;
-            }
-
-            this.options.autosave.loaded = true;
-        }
-
-        var value = easyMDE.value();
-        if (value !== '') {
-            localStorage.setItem('smde_' + this.options.autosave.uniqueId, value);
-        } else {
-            localStorage.removeItem('smde_' + this.options.autosave.uniqueId);
-        }
-
-        var el = document.getElementById('autosaved');
-        if (el != null && el != undefined && el != '') {
-            var d = new Date();
-            var dd = new Intl.DateTimeFormat([this.options.autosave.timeFormat.locale, 'en-US'], this.options.autosave.timeFormat.format).format(d);
-            var save = this.options.autosave.text == undefined ? 'Autosaved: ' : this.options.autosave.text;
-
-            el.innerHTML = save + dd;
-        }
-    } else {
-        console.log('EasyMDE: localStorage not available, cannot autosave');
-    }
-};
-
-EasyMDE.prototype.clearAutosavedValue = function () {
-    if (isLocalStorageAvailable()) {
-        if (this.options.autosave == undefined || this.options.autosave.uniqueId == undefined || this.options.autosave.uniqueId == '') {
-            console.log('EasyMDE: You must set a uniqueId to clear the autosave value');
-            return;
-        }
-
-        localStorage.removeItem('smde_' + this.options.autosave.uniqueId);
-    } else {
-        console.log('EasyMDE: localStorage not available, cannot autosave');
-    }
-};
-
-/**
- * Open the browse-file window to upload an image to a server.
- * @param [onSuccess] {function} see EasyMDE.prototype.uploadImage
- * @param [onError] {function} see EasyMDE.prototype.uploadImage
- */
-EasyMDE.prototype.openBrowseFileWindow = function (onSuccess, onError) {
-    var self = this;
-    var imageInput = this.gui.toolbar.getElementsByClassName('imageInput')[0];
-    imageInput.click(); //dispatchEvent(new MouseEvent('click'));  // replaced with click() for IE11 compatibility.
-    function onChange(event) {
-        if (self.options.imageUploadFunction) {
-          self.uploadImagesUsingCustomFunction(self.options.imageUploadFunction, event.target.files);
-        } else {
-          self.uploadImages(event.target.files, onSuccess, onError);
-        }
-        imageInput.removeEventListener('change', onChange);
-    }
-
-    imageInput.addEventListener('change', onChange);
-};
-
-/**
- * Upload an image to the server.
- *
- * @param file {File} The image to upload, as a HTML5 File object (https://developer.mozilla.org/en-US/docs/Web/API/File)
- * @param [onSuccess] {function} A callback function to execute after the image has been successfully uploaded, with one parameter:
- * - url (string): The URL of the uploaded image.
- * @param [onError] {function} A callback function to execute when the image upload fails, with one parameter:
- * - error (string): the detailed error to display to the user (based on messages from options.errorMessages).
- */
-EasyMDE.prototype.uploadImage = function (file, onSuccess, onError) {
-    var self = this;
-    onSuccess = onSuccess || function onSuccess(imageUrl) {
-        afterImageUploaded(self, imageUrl);
-    };
-
-    function onErrorSup(errorMessage) {
-        // show error on status bar and reset after 10000ms
-        self.updateStatusBar('upload-image', errorMessage);
-
-        setTimeout(function () {
-            self.updateStatusBar('upload-image', self.options.imageTexts.sbInit);
-        }, 10000);
-
-        // run custom error handler
-        if (onError && typeof onError === 'function') {
-            onError(errorMessage);
-        }
-        // run error handler from options, this alerts the message.
-        self.options.errorCallback(errorMessage);
-    }
-
-    function fillErrorMessage(errorMessage) {
-        var units = self.options.imageTexts.sizeUnits.split(',');
-        return errorMessage
-            .replace('#image_name#', file.name)
-            .replace('#image_size#', humanFileSize(file.size, units))
-            .replace('#image_max_size#', humanFileSize(self.options.imageMaxSize, units));
-    }
-
-    if (file.size > this.options.imageMaxSize) {
-        onErrorSup(fillErrorMessage(this.options.errorMessages.fileTooLarge));
-        return;
-    }
-
-    var formData = new FormData();
-    formData.append('image', file);
-
-    // insert CSRF token if provided in config.
-    if (self.options.imageCSRFToken) {
-        formData.append('csrfmiddlewaretoken', self.options.imageCSRFToken);
-    }
-    var request = new XMLHttpRequest();
-    request.upload.onprogress = function (event) {
-        if (event.lengthComputable) {
-            var progress = '' + Math.round((event.loaded * 100) / event.total);
-            self.updateStatusBar('upload-image', self.options.imageTexts.sbProgress.replace('#file_name#', file.name).replace('#progress#', progress));
-        }
-    };
-    request.open('POST', this.options.imageUploadEndpoint);
-
-    request.onload = function () {
-        try {
-            var response = JSON.parse(this.responseText);
-        } catch (error) {
-            console.error('EasyMDE: The server did not return a valid json.');
-            onErrorSup(fillErrorMessage(self.options.errorMessages.importError));
-            return;
-        }
-        if (this.status === 200 && response && !response.error && response.data && response.data.filePath) {
-            onSuccess(window.location.origin + '/' + response.data.filePath);
-        } else {
-            if (response.error && response.error in self.options.errorMessages) {  // preformatted error message
-                onErrorSup(fillErrorMessage(self.options.errorMessages[response.error]));
-            } else if (response.error) {  // server side generated error message
-                onErrorSup(fillErrorMessage(response.error));
-            } else {  //unknown error
-                console.error('EasyMDE: Received an unexpected response after uploading the image.'
-                    + this.status + ' (' + this.statusText + ')');
-                onErrorSup(fillErrorMessage(self.options.errorMessages.importError));
-            }
-        }
-    };
-
-    request.onerror = function (event) {
-        console.error('EasyMDE: An unexpected error occurred when trying to upload the image.'
-            + event.target.status + ' (' + event.target.statusText + ')');
-        onErrorSup(self.options.errorMessages.importError);
-    };
-
-    request.send(formData);
-
-};
-
-/**
- * Upload an image to the server using a custom upload function.
- *
- * @param imageUploadFunction {Function} The custom function to upload the image passed in options
- * @param file {File} The image to upload, as a HTML5 File object (https://developer.mozilla.org/en-US/docs/Web/API/File).
- */
-EasyMDE.prototype.uploadImageUsingCustomFunction = function(imageUploadFunction, file) {
-    var self = this;
-    function onSuccess(imageUrl) {
-        afterImageUploaded(self, imageUrl);
-    }
-
-    function onError(errorMessage) {
-        var filledErrorMessage = fillErrorMessage(errorMessage);
-        // show error on status bar and reset after 10000ms
-        self.updateStatusBar('upload-image', filledErrorMessage);
-
-        setTimeout(function () {
-            self.updateStatusBar('upload-image', self.options.imageTexts.sbInit);
-        }, 10000);
-
-        // run error handler from options, this alerts the message.
-        self.options.errorCallback(filledErrorMessage);
-    }
-
-    function fillErrorMessage(errorMessage) {
-        var units = self.options.imageTexts.sizeUnits.split(',');
-        return errorMessage
-            .replace('#image_name#', file.name)
-            .replace('#image_size#', humanFileSize(file.size, units))
-            .replace('#image_max_size#', humanFileSize(self.options.imageMaxSize, units));
-    }
-
-    imageUploadFunction.apply(this, [file, onSuccess, onError]);
-};
-
-EasyMDE.prototype.setPreviewMaxHeight = function () {
-    var cm = this.codemirror;
-    var wrapper = cm.getWrapperElement();
-    var preview = wrapper.nextSibling;
-
-    // Calc preview max height
-    var paddingTop = parseInt(window.getComputedStyle(wrapper).paddingTop);
-    var borderTopWidth = parseInt(window.getComputedStyle(wrapper).borderTopWidth);
-    var optionsMaxHeight = parseInt(this.options.maxHeight);
-    var wrapperMaxHeight = optionsMaxHeight + paddingTop * 2 + borderTopWidth * 2;
-    var previewMaxHeight = wrapperMaxHeight.toString() + 'px';
-
-    preview.style.height =  previewMaxHeight;
-};
-
-EasyMDE.prototype.createSideBySide = function () {
-    var cm = this.codemirror;
-    var wrapper = cm.getWrapperElement();
-    var preview = wrapper.nextSibling;
-
-    if (!preview || !/editor-preview-side/.test(preview.className)) {
-        preview = document.createElement('div');
-        preview.className = 'editor-preview-side';
-
-        if (this.options.previewClass) {
-
-            if (Array.isArray(this.options.previewClass)) {
-                for (var i = 0; i < this.options.previewClass.length; i++) {
-                    preview.className += (' ' + this.options.previewClass[i]);
-                }
-
-            } else if (typeof this.options.previewClass === 'string') {
-                preview.className += (' ' + this.options.previewClass);
-            }
-        }
-
-        wrapper.parentNode.insertBefore(preview, wrapper.nextSibling);
-    }
-
-    if (typeof this.options.maxHeight !== 'undefined') {
-        this.setPreviewMaxHeight();
-    }
-
-    if (this.options.syncSideBySidePreviewScroll === false) return preview;
-    // Syncs scroll  editor -> preview
-    var cScroll = false;
-    var pScroll = false;
-    cm.on('scroll', function (v) {
-        if (cScroll) {
-            cScroll = false;
-            return;
-        }
-        pScroll = true;
-        var height = v.getScrollInfo().height - v.getScrollInfo().clientHeight;
-        var ratio = parseFloat(v.getScrollInfo().top) / height;
-        var move = (preview.scrollHeight - preview.clientHeight) * ratio;
-        preview.scrollTop = move;
-    });
-
-    // Syncs scroll  preview -> editor
-    preview.onscroll = function () {
-        if (pScroll) {
-            pScroll = false;
-            return;
-        }
-        cScroll = true;
-        var height = preview.scrollHeight - preview.clientHeight;
-        var ratio = parseFloat(preview.scrollTop) / height;
-        var move = (cm.getScrollInfo().height - cm.getScrollInfo().clientHeight) * ratio;
-        cm.scrollTo(0, move);
-    };
-    return preview;
-};
-
-EasyMDE.prototype.createToolbar = function (items) {
-    items = items || this.options.toolbar;
-
-    if (!items || items.length === 0) {
-        return;
-    }
-    var i;
-    for (i = 0; i < items.length; i++) {
-        if (toolbarBuiltInButtons[items[i]] != undefined) {
-            items[i] = toolbarBuiltInButtons[items[i]];
-        }
-    }
-
-    var bar = document.createElement('div');
-    bar.className = 'editor-toolbar';
-
-    var self = this;
-
-    var toolbarData = {};
-    self.toolbar = items;
-
-    for (i = 0; i < items.length; i++) {
-        if (items[i].name == 'guide' && self.options.toolbarGuideIcon === false)
-            continue;
-
-        if (self.options.hideIcons && self.options.hideIcons.indexOf(items[i].name) != -1)
-            continue;
-
-        // Fullscreen does not work well on mobile devices (even tablets)
-        // In the future, hopefully this can be resolved
-        if ((items[i].name == 'fullscreen' || items[i].name == 'side-by-side') && isMobile())
-            continue;
-
-
-        // Don't include trailing separators
-        if (items[i] === '|') {
-            var nonSeparatorIconsFollow = false;
-
-            for (var x = (i + 1); x < items.length; x++) {
-                if (items[x] !== '|' && (!self.options.hideIcons || self.options.hideIcons.indexOf(items[x].name) == -1)) {
-                    nonSeparatorIconsFollow = true;
-                }
-            }
-
-            if (!nonSeparatorIconsFollow)
-                continue;
-        }
-
-
-        // Create the icon and append to the toolbar
-        (function (item) {
-            var el;
-            if (item === '|') {
-                el = createSep();
-            } else if (item.children) {
-                el = createToolbarDropdown(item, self.options.toolbarTips, self.options.shortcuts, self);
-            } else {
-                el = createToolbarButton(item, true, self.options.toolbarTips, self.options.shortcuts, 'button', self);
-            }
-
-
-            toolbarData[item.name || item] = el;
-            bar.appendChild(el);
-
-            // Create the input element (ie. <input type='file'>), used among
-            // with the 'import-image' icon to open the browse-file window.
-            if (item.name === 'upload-image') {
-                var imageInput = document.createElement('input');
-                imageInput.className = 'imageInput';
-                imageInput.type = 'file';
-                imageInput.multiple = true;
-                imageInput.name = 'image';
-                imageInput.accept = self.options.imageAccept;
-                imageInput.style.display = 'none';
-                imageInput.style.opacity = 0;
-                bar.appendChild(imageInput);
-            }
-        })(items[i]);
-    }
-
-    self.toolbar_div = bar;
-    self.toolbarElements = toolbarData;
-
-    var cm = this.codemirror;
-    cm.on('cursorActivity', function () {
-        var stat = getState(cm);
-
-        for (var key in toolbarData) {
-            (function (key) {
-                var el = toolbarData[key];
-                if (stat[key]) {
-                    el.className += ' active';
-                } else if (key != 'fullscreen' && key != 'side-by-side') {
-                    el.className = el.className.replace(/\s*active\s*/g, '');
-                }
-            })(key);
-        }
-    });
-
-    var cmWrapper = cm.getWrapperElement();
-    cmWrapper.parentNode.insertBefore(bar, cmWrapper);
-    return bar;
-};
-
-EasyMDE.prototype.createStatusbar = function (status) {
-    // Initialize
-    status = status || this.options.status;
-    var options = this.options;
-    var cm = this.codemirror;
-
-    // Make sure the status variable is valid
-    if (!status || status.length === 0) {
-        return;
-    }
-
-    // Set up the built-in items
-    var items = [];
-    var i, onUpdate, onActivity, defaultValue;
-
-    for (i = 0; i < status.length; i++) {
-        // Reset some values
-        onUpdate = undefined;
-        onActivity = undefined;
-        defaultValue = undefined;
-
-
-        // Handle if custom or not
-        if (typeof status[i] === 'object') {
-            items.push({
-                className: status[i].className,
-                defaultValue: status[i].defaultValue,
-                onUpdate: status[i].onUpdate,
-                onActivity: status[i].onActivity,
-            });
-        } else {
-            var name = status[i];
-
-            if (name === 'words') {
-                defaultValue = function (el) {
-                    el.innerHTML = wordCount(cm.getValue());
-                };
-                onUpdate = function (el) {
-                    el.innerHTML = wordCount(cm.getValue());
-                };
-            } else if (name === 'lines') {
-                defaultValue = function (el) {
-                    el.innerHTML = cm.lineCount();
-                };
-                onUpdate = function (el) {
-                    el.innerHTML = cm.lineCount();
-                };
-            } else if (name === 'cursor') {
-                defaultValue = function (el) {
-                    el.innerHTML = '0:0';
-                };
-                onActivity = function (el) {
-                    var pos = cm.getCursor();
-                    el.innerHTML = pos.line + ':' + pos.ch;
-                };
-            } else if (name === 'autosave') {
-                defaultValue = function (el) {
-                    if (options.autosave != undefined && options.autosave.enabled === true) {
-                        el.setAttribute('id', 'autosaved');
-                    }
-                };
-            } else if (name === 'upload-image') {
-                defaultValue = function (el) {
-                    el.innerHTML = options.imageTexts.sbInit;
-                };
-            }
-
-            items.push({
-                className: name,
-                defaultValue: defaultValue,
-                onUpdate: onUpdate,
-                onActivity: onActivity,
-            });
-        }
-    }
-
-
-    // Create element for the status bar
-    var bar = document.createElement('div');
-    bar.className = 'editor-statusbar';
-
-
-    // Create a new span for each item
-    for (i = 0; i < items.length; i++) {
-        // Store in temporary variable
-        var item = items[i];
-
-
-        // Create span element
-        var el = document.createElement('span');
-        el.className = item.className;
-
-
-        // Ensure the defaultValue is a function
-        if (typeof item.defaultValue === 'function') {
-            item.defaultValue(el);
-        }
-
-
-        // Ensure the onUpdate is a function
-        if (typeof item.onUpdate === 'function') {
-            // Create a closure around the span of the current action, then execute the onUpdate handler
-            this.codemirror.on('update', (function (el, item) {
-                return function () {
-                    item.onUpdate(el);
-                };
-            }(el, item)));
-        }
-        if (typeof item.onActivity === 'function') {
-            // Create a closure around the span of the current action, then execute the onActivity handler
-            this.codemirror.on('cursorActivity', (function (el, item) {
-                return function () {
-                    item.onActivity(el);
-                };
-            }(el, item)));
-        }
-
-
-        // Append the item to the status bar
-        bar.appendChild(el);
-    }
-
-
-    // Insert the status bar into the DOM
-    var cmWrapper = this.codemirror.getWrapperElement();
-    cmWrapper.parentNode.insertBefore(bar, cmWrapper.nextSibling);
-    return bar;
-};
-
-/**
- * Get or set the text content.
- */
-EasyMDE.prototype.value = function (val) {
-    var cm = this.codemirror;
-    if (val === undefined) {
-        return cm.getValue();
-    } else {
-        cm.getDoc().setValue(val);
-        if (this.isPreviewActive()) {
-            var wrapper = cm.getWrapperElement();
-            var preview = wrapper.lastChild;
-            preview.innerHTML = this.options.previewRender(val, preview);
-        }
-        return this;
-    }
-};
-
-
-/**
- * Bind static methods for exports.
- */
-EasyMDE.toggleBold = toggleBold;
-EasyMDE.toggleItalic = toggleItalic;
-EasyMDE.toggleStrikethrough = toggleStrikethrough;
-EasyMDE.toggleBlockquote = toggleBlockquote;
-EasyMDE.toggleHeadingSmaller = toggleHeadingSmaller;
-EasyMDE.toggleHeadingBigger = toggleHeadingBigger;
-EasyMDE.toggleHeading1 = toggleHeading1;
-EasyMDE.toggleHeading2 = toggleHeading2;
-EasyMDE.toggleHeading3 = toggleHeading3;
-EasyMDE.toggleCodeBlock = toggleCodeBlock;
-EasyMDE.toggleUnorderedList = toggleUnorderedList;
-EasyMDE.toggleOrderedList = toggleOrderedList;
-EasyMDE.cleanBlock = cleanBlock;
-EasyMDE.drawLink = drawLink;
-EasyMDE.drawImage = drawImage;
-EasyMDE.drawUploadedImage = drawUploadedImage;
-EasyMDE.drawTable = drawTable;
-EasyMDE.drawHorizontalRule = drawHorizontalRule;
-EasyMDE.undo = undo;
-EasyMDE.redo = redo;
-EasyMDE.togglePreview = togglePreview;
-EasyMDE.toggleSideBySide = toggleSideBySide;
-EasyMDE.toggleFullScreen = toggleFullScreen;
-
-/**
- * Bind instance methods for exports.
- */
-EasyMDE.prototype.toggleBold = function () {
-    toggleBold(this);
-};
-EasyMDE.prototype.toggleItalic = function () {
-    toggleItalic(this);
-};
-EasyMDE.prototype.toggleStrikethrough = function () {
-    toggleStrikethrough(this);
-};
-EasyMDE.prototype.toggleBlockquote = function () {
-    toggleBlockquote(this);
-};
-EasyMDE.prototype.toggleHeadingSmaller = function () {
-    toggleHeadingSmaller(this);
-};
-EasyMDE.prototype.toggleHeadingBigger = function () {
-    toggleHeadingBigger(this);
-};
-EasyMDE.prototype.toggleHeading1 = function () {
-    toggleHeading1(this);
-};
-EasyMDE.prototype.toggleHeading2 = function () {
-    toggleHeading2(this);
-};
-EasyMDE.prototype.toggleHeading3 = function () {
-    toggleHeading3(this);
-};
-EasyMDE.prototype.toggleCodeBlock = function () {
-    toggleCodeBlock(this);
-};
-EasyMDE.prototype.toggleUnorderedList = function () {
-    toggleUnorderedList(this);
-};
-EasyMDE.prototype.toggleOrderedList = function () {
-    toggleOrderedList(this);
-};
-EasyMDE.prototype.cleanBlock = function () {
-    cleanBlock(this);
-};
-EasyMDE.prototype.drawLink = function () {
-    drawLink(this);
-};
-EasyMDE.prototype.drawImage = function () {
-    drawImage(this);
-};
-EasyMDE.prototype.drawUploadedImage = function () {
-    drawUploadedImage(this);
-};
-EasyMDE.prototype.drawTable = function () {
-    drawTable(this);
-};
-EasyMDE.prototype.drawHorizontalRule = function () {
-    drawHorizontalRule(this);
-};
-EasyMDE.prototype.undo = function () {
-    undo(this);
-};
-EasyMDE.prototype.redo = function () {
-    redo(this);
-};
-EasyMDE.prototype.togglePreview = function () {
-    togglePreview(this);
-};
-EasyMDE.prototype.toggleSideBySide = function () {
-    toggleSideBySide(this);
-};
-EasyMDE.prototype.toggleFullScreen = function () {
-    toggleFullScreen(this);
-};
-
-EasyMDE.prototype.isPreviewActive = function () {
-    var cm = this.codemirror;
-    var wrapper = cm.getWrapperElement();
-    var preview = wrapper.lastChild;
-
-    return /editor-preview-active/.test(preview.className);
-};
-
-EasyMDE.prototype.isSideBySideActive = function () {
-    var cm = this.codemirror;
-    var wrapper = cm.getWrapperElement();
-    var preview = wrapper.nextSibling;
-
-    return /editor-preview-active-side/.test(preview.className);
-};
-
-EasyMDE.prototype.isFullscreenActive = function () {
-    var cm = this.codemirror;
-
-    return cm.getOption('fullScreen');
-};
-
-EasyMDE.prototype.getState = function () {
-    var cm = this.codemirror;
-
-    return getState(cm);
-};
-
-EasyMDE.prototype.toTextArea = function () {
-    var cm = this.codemirror;
-    var wrapper = cm.getWrapperElement();
-    var easyMDEContainer = wrapper.parentNode;
-
-    if (easyMDEContainer) {
-        if (this.gui.toolbar) {
-            easyMDEContainer.removeChild(this.gui.toolbar);
-        }
-        if (this.gui.statusbar) {
-            easyMDEContainer.removeChild(this.gui.statusbar);
-        }
-        if (this.gui.sideBySide) {
-            easyMDEContainer.removeChild(this.gui.sideBySide);
-        }
-    }
-
-    // Unwrap easyMDEcontainer before codemirror toTextArea() call
-    easyMDEContainer.parentNode.insertBefore(wrapper, easyMDEContainer);
-    easyMDEContainer.remove();
-
-    cm.toTextArea();
-
-    if (this.autosaveTimeoutId) {
-        clearTimeout(this.autosaveTimeoutId);
-        this.autosaveTimeoutId = undefined;
-        this.clearAutosavedValue();
-    }
-};
-
-module.exports = EasyMDE;
-
-
-/***/ }),
 
 /***/ "./node_modules/alpinejs/dist/alpine.js":
 /*!**********************************************!*\
@@ -5227,11 +2295,12 @@ module.exports = CodeMirrorSpellChecker;
 
   function onComposition(cm) {
     setTimeout(function() {
-      var empty = false, input = cm.getInputField()
-      if (input.nodeName == "TEXTAREA")
-        empty = !input.value
-      else if (cm.lineCount() == 1)
-        empty = !/[^\u200b]/.test(input.querySelector(".CodeMirror-line").textContent)
+      var empty = false
+      if (cm.lineCount() == 1) {
+        var input = cm.getInputField()
+        empty = input.nodeName == "TEXTAREA" ? !cm.getLine(0).length
+          : !/[^\u200b]/.test(input.querySelector(".CodeMirror-line").textContent)
+      }
       if (empty) setPlaceholder(cm)
       else clearPlaceholder(cm)
     }, 20)
@@ -9187,19 +6256,22 @@ CodeMirror.overlayMode = function(base, overlay, combine) {
   }
 
   function ensureFocus(cm) {
-    if (!cm.state.focused) { cm.display.input.focus(); onFocus(cm); }
+    if (!cm.hasFocus()) {
+      cm.display.input.focus();
+      if (!cm.state.focused) { onFocus(cm); }
+    }
   }
 
   function delayBlurEvent(cm) {
     cm.state.delayingBlurEvent = true;
     setTimeout(function () { if (cm.state.delayingBlurEvent) {
       cm.state.delayingBlurEvent = false;
-      onBlur(cm);
+      if (cm.state.focused) { onBlur(cm); }
     } }, 100);
   }
 
   function onFocus(cm, e) {
-    if (cm.state.delayingBlurEvent) { cm.state.delayingBlurEvent = false; }
+    if (cm.state.delayingBlurEvent && !cm.state.draggingText) { cm.state.delayingBlurEvent = false; }
 
     if (cm.options.readOnly == "nocursor") { return }
     if (!cm.state.focused) {
@@ -11671,7 +8743,7 @@ CodeMirror.overlayMode = function(base, overlay, combine) {
     changeLine(doc, handle, "widget", function (line) {
       var widgets = line.widgets || (line.widgets = []);
       if (widget.insertAt == null) { widgets.push(widget); }
-      else { widgets.splice(Math.min(widgets.length - 1, Math.max(0, widget.insertAt)), 0, widget); }
+      else { widgets.splice(Math.min(widgets.length, Math.max(0, widget.insertAt)), 0, widget); }
       widget.line = line;
       if (cm && !lineIsHidden(doc, line)) {
         var aboveVisible = heightAtLine(line) < doc.scrollTop;
@@ -13280,6 +10352,10 @@ CodeMirror.overlayMode = function(base, overlay, combine) {
     var dragEnd = operation(cm, function (e) {
       if (webkit) { display.scroller.draggable = false; }
       cm.state.draggingText = false;
+      if (cm.state.delayingBlurEvent) {
+        if (cm.hasFocus()) { cm.state.delayingBlurEvent = false; }
+        else { delayBlurEvent(cm); }
+      }
       off(display.wrapper.ownerDocument, "mouseup", dragEnd);
       off(display.wrapper.ownerDocument, "mousemove", mouseMove);
       off(display.scroller, "dragstart", dragStart);
@@ -13303,15 +10379,15 @@ CodeMirror.overlayMode = function(base, overlay, combine) {
     if (webkit) { display.scroller.draggable = true; }
     cm.state.draggingText = dragEnd;
     dragEnd.copy = !behavior.moveOnDrag;
-    // IE's approach to draggable
-    if (display.scroller.dragDrop) { display.scroller.dragDrop(); }
     on(display.wrapper.ownerDocument, "mouseup", dragEnd);
     on(display.wrapper.ownerDocument, "mousemove", mouseMove);
     on(display.scroller, "dragstart", dragStart);
     on(display.scroller, "drop", dragEnd);
 
-    delayBlurEvent(cm);
+    cm.state.delayingBlurEvent = true;
     setTimeout(function () { return display.input.focus(); }, 20);
+    // IE's approach to draggable
+    if (display.scroller.dragDrop) { display.scroller.dragDrop(); }
   }
 
   function rangeForUnit(cm, pos, unit) {
@@ -13324,6 +10400,7 @@ CodeMirror.overlayMode = function(base, overlay, combine) {
 
   // Normal selection, as opposed to text dragging.
   function leftButtonSelect(cm, event, start, behavior) {
+    if (ie) { delayBlurEvent(cm); }
     var display = cm.display, doc = cm.doc;
     e_preventDefault(event);
 
@@ -15684,7 +12761,7 @@ CodeMirror.overlayMode = function(base, overlay, combine) {
 
   addLegacyProps(CodeMirror);
 
-  CodeMirror.version = "5.58.2";
+  CodeMirror.version = "5.58.3";
 
   return CodeMirror;
 
@@ -17148,7 +14225,7 @@ CodeMirror.defineMode("xml", function(editorConf, config_) {
 
   function Context(state, tagName, startOfLine) {
     this.prev = state.context;
-    this.tagName = tagName;
+    this.tagName = tagName || "";
     this.indent = state.indented;
     this.startOfLine = startOfLine;
     if (config.doNotIndent.hasOwnProperty(tagName) || (state.context && state.context.noIndent))
@@ -17358,7 +14435,7 @@ CodeMirror.defineMode("xml", function(editorConf, config_) {
     xmlCurrentContext: function(state) {
       var context = []
       for (var cx = state.context; cx; cx = cx.prev)
-        if (cx.tagName) context.push(cx.tagName)
+        context.push(cx.tagName)
       return context.reverse()
     }
   };
@@ -17374,6 +14451,2939 @@ if (!CodeMirror.mimeModes.hasOwnProperty("text/html"))
 
 /***/ }),
 
+/***/ "./node_modules/easymde/src/js/codemirror/tablist.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/easymde/src/js/codemirror/tablist.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// Distributed under an MIT license: http://codemirror.net/LICENSE
+
+var CodeMirror = __webpack_require__(/*! codemirror */ "./node_modules/codemirror/lib/codemirror.js");
+
+CodeMirror.commands.tabAndIndentMarkdownList = function (cm) {
+    var ranges = cm.listSelections();
+    var pos = ranges[0].head;
+    var eolState = cm.getStateAfter(pos.line);
+    var inList = eolState.list !== false;
+
+    if (inList) {
+        cm.execCommand('indentMore');
+        return;
+    }
+
+    if (cm.options.indentWithTabs) {
+        cm.execCommand('insertTab');
+    }
+    else {
+        var spaces = Array(cm.options.tabSize + 1).join(' ');
+        cm.replaceSelection(spaces);
+    }
+};
+
+CodeMirror.commands.shiftTabAndUnindentMarkdownList = function (cm) {
+    var ranges = cm.listSelections();
+    var pos = ranges[0].head;
+    var eolState = cm.getStateAfter(pos.line);
+    var inList = eolState.list !== false;
+
+    if (inList) {
+        cm.execCommand('indentLess');
+        return;
+    }
+
+    if (cm.options.indentWithTabs) {
+        cm.execCommand('insertTab');
+    }
+    else {
+        var spaces = Array(cm.options.tabSize + 1).join(' ');
+        cm.replaceSelection(spaces);
+    }
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/easymde/src/js/easymde.js":
+/*!************************************************!*\
+  !*** ./node_modules/easymde/src/js/easymde.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var CodeMirror = __webpack_require__(/*! codemirror */ "./node_modules/codemirror/lib/codemirror.js");
+__webpack_require__(/*! codemirror/addon/edit/continuelist.js */ "./node_modules/codemirror/addon/edit/continuelist.js");
+__webpack_require__(/*! ./codemirror/tablist */ "./node_modules/easymde/src/js/codemirror/tablist.js");
+__webpack_require__(/*! codemirror/addon/display/fullscreen.js */ "./node_modules/codemirror/addon/display/fullscreen.js");
+__webpack_require__(/*! codemirror/mode/markdown/markdown.js */ "./node_modules/codemirror/mode/markdown/markdown.js");
+__webpack_require__(/*! codemirror/addon/mode/overlay.js */ "./node_modules/codemirror/addon/mode/overlay.js");
+__webpack_require__(/*! codemirror/addon/display/placeholder.js */ "./node_modules/codemirror/addon/display/placeholder.js");
+__webpack_require__(/*! codemirror/addon/display/autorefresh.js */ "./node_modules/codemirror/addon/display/autorefresh.js");
+__webpack_require__(/*! codemirror/addon/selection/mark-selection.js */ "./node_modules/codemirror/addon/selection/mark-selection.js");
+__webpack_require__(/*! codemirror/addon/search/searchcursor.js */ "./node_modules/codemirror/addon/search/searchcursor.js");
+__webpack_require__(/*! codemirror/mode/gfm/gfm.js */ "./node_modules/codemirror/mode/gfm/gfm.js");
+__webpack_require__(/*! codemirror/mode/xml/xml.js */ "./node_modules/codemirror/mode/xml/xml.js");
+var CodeMirrorSpellChecker = __webpack_require__(/*! codemirror-spell-checker */ "./node_modules/codemirror-spell-checker/src/js/spell-checker.js");
+var marked = __webpack_require__(/*! marked/lib/marked */ "./node_modules/marked/lib/marked.js");
+
+
+// Some variables
+var isMac = /Mac/.test(navigator.platform);
+var anchorToExternalRegex = new RegExp(/(<a.*?https?:\/\/.*?[^a]>)+?/g);
+
+// Mapping of actions that can be bound to keyboard shortcuts or toolbar buttons
+var bindings = {
+    'toggleBold': toggleBold,
+    'toggleItalic': toggleItalic,
+    'drawLink': drawLink,
+    'toggleHeadingSmaller': toggleHeadingSmaller,
+    'toggleHeadingBigger': toggleHeadingBigger,
+    'drawImage': drawImage,
+    'toggleBlockquote': toggleBlockquote,
+    'toggleOrderedList': toggleOrderedList,
+    'toggleUnorderedList': toggleUnorderedList,
+    'toggleCodeBlock': toggleCodeBlock,
+    'togglePreview': togglePreview,
+    'toggleStrikethrough': toggleStrikethrough,
+    'toggleHeading1': toggleHeading1,
+    'toggleHeading2': toggleHeading2,
+    'toggleHeading3': toggleHeading3,
+    'cleanBlock': cleanBlock,
+    'drawTable': drawTable,
+    'drawHorizontalRule': drawHorizontalRule,
+    'undo': undo,
+    'redo': redo,
+    'toggleSideBySide': toggleSideBySide,
+    'toggleFullScreen': toggleFullScreen,
+};
+
+var shortcuts = {
+    'toggleBold': 'Cmd-B',
+    'toggleItalic': 'Cmd-I',
+    'drawLink': 'Cmd-K',
+    'toggleHeadingSmaller': 'Cmd-H',
+    'toggleHeadingBigger': 'Shift-Cmd-H',
+    'cleanBlock': 'Cmd-E',
+    'drawImage': 'Cmd-Alt-I',
+    'toggleBlockquote': 'Cmd-\'',
+    'toggleOrderedList': 'Cmd-Alt-L',
+    'toggleUnorderedList': 'Cmd-L',
+    'toggleCodeBlock': 'Cmd-Alt-C',
+    'togglePreview': 'Cmd-P',
+    'toggleSideBySide': 'F9',
+    'toggleFullScreen': 'F11',
+};
+
+var getBindingName = function (f) {
+    for (var key in bindings) {
+        if (bindings[key] === f) {
+            return key;
+        }
+    }
+    return null;
+};
+
+var isMobile = function () {
+    var check = false;
+    (function (a) {
+        if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw-(n|u)|c55\/|capi|ccwa|cdm-|cell|chtm|cldc|cmd-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc-s|devi|dica|dmob|do(c|p)o|ds(12|-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(-|_)|g1 u|g560|gene|gf-5|g-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd-(m|p|t)|hei-|hi(pt|ta)|hp( i|ip)|hs-c|ht(c(-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i-(20|go|ma)|i230|iac( |-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|-[a-w])|libw|lynx|m1-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|-([1-8]|c))|phil|pire|pl(ay|uc)|pn-2|po(ck|rt|se)|prox|psio|pt-g|qa-a|qc(07|12|21|32|60|-[2-7]|i-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h-|oo|p-)|sdk\/|se(c(-|0|1)|47|mc|nd|ri)|sgh-|shar|sie(-|m)|sk-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h-|v-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl-|tdg-|tel(i|m)|tim-|t-mo|to(pl|sh)|ts(70|m-|m3|m5)|tx-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas-|your|zeto|zte-/i.test(a.substr(0, 4))) check = true;
+    })(navigator.userAgent || navigator.vendor || window.opera);
+    return check;
+};
+
+/**
+ * Modify HTML to add 'target="_blank"' to links so they open in new tabs by default.
+ * @param {string} htmlText - HTML to be modified.
+ * @return {string} The modified HTML text.
+ */
+function addAnchorTargetBlank(htmlText) {
+    var match;
+    while ((match = anchorToExternalRegex.exec(htmlText)) !== null) {
+        // With only one capture group in the RegExp, we can safely take the first index from the match.
+        var linkString = match[0];
+
+        if (linkString.indexOf('target=') === -1) {
+            var fixedLinkString = linkString.replace(/>$/, ' target="_blank">');
+            htmlText = htmlText.replace(linkString, fixedLinkString);
+        }
+    }
+    return htmlText;
+}
+
+/**
+ * Modify HTML to remove the list-style when rendering checkboxes.
+ * @param {string} htmlText - HTML to be modified.
+ * @return {string} The modified HTML text.
+ */
+function removeListStyleWhenCheckbox(htmlText) {
+
+    var parser = new DOMParser();
+    var htmlDoc = parser.parseFromString(htmlText, 'text/html');
+    var listItems = htmlDoc.getElementsByTagName('li');
+
+    for (var i = 0; i < listItems.length; i++) {
+        var listItem = listItems[i];
+
+        for (var j = 0; j < listItem.children.length; j++) {
+            var listItemChild = listItem.children[j];
+
+            if (listItemChild instanceof HTMLInputElement && listItemChild.type === 'checkbox') {
+                // From Github: margin: 0 .2em .25em -1.6em;
+                listItem.style.marginLeft = '-1.5em';
+                listItem.style.listStyleType = 'none';
+            }
+        }
+    }
+
+    return htmlDoc.documentElement.innerHTML;
+}
+
+/**
+ * Fix shortcut. Mac use Command, others use Ctrl.
+ */
+function fixShortcut(name) {
+    if (isMac) {
+        name = name.replace('Ctrl', 'Cmd');
+    } else {
+        name = name.replace('Cmd', 'Ctrl');
+    }
+    return name;
+}
+
+/**
+ * Create dropdown block
+ */
+function createToolbarDropdown(options, enableTooltips, shortcuts, parent) {
+    var el = createToolbarButton(options, false, enableTooltips, shortcuts, 'button', parent);
+    el.className += ' easymde-dropdown';
+    var content = document.createElement('div');
+    content.className = 'easymde-dropdown-content';
+    for (var childrenIndex = 0; childrenIndex < options.children.length; childrenIndex++) {
+
+        var child = options.children[childrenIndex];
+        var childElement;
+
+        if (typeof child === 'string' && child in toolbarBuiltInButtons) {
+            childElement = createToolbarButton(toolbarBuiltInButtons[child], true, enableTooltips, shortcuts, 'button', parent);
+        } else {
+            childElement = createToolbarButton(child, true, enableTooltips, shortcuts, 'button', parent);
+        }
+
+        content.appendChild(childElement);
+    }
+    el.appendChild(content);
+    return el;
+}
+
+/**
+ * Create button element for toolbar.
+ */
+function createToolbarButton(options, enableActions, enableTooltips, shortcuts, markup, parent) {
+    options = options || {};
+    var el = document.createElement(markup);
+    el.className = options.name;
+    el.setAttribute('type', markup);
+    enableTooltips = (enableTooltips == undefined) ? true : enableTooltips;
+
+    // Properly hande custom shortcuts
+    if (options.name && options.name in shortcuts) {
+        bindings[options.name] = options.action;
+    }
+
+    if (options.title && enableTooltips) {
+        el.title = createTooltip(options.title, options.action, shortcuts);
+
+        if (isMac) {
+            el.title = el.title.replace('Ctrl', '⌘');
+            el.title = el.title.replace('Alt', '⌥');
+        }
+    }
+
+    if (options.noDisable) {
+        el.classList.add('no-disable');
+    }
+
+    if (options.noMobile) {
+        el.classList.add('no-mobile');
+    }
+
+    // Prevent errors if there is no class name in custom options
+    var classNameParts = [];
+    if(typeof options.className !== 'undefined') {
+        classNameParts = options.className.split(' ');
+    }
+
+    // Provide backwards compatibility with simple-markdown-editor by adding custom classes to the button.
+    var iconClasses = [];
+    for (var classNameIndex = 0; classNameIndex < classNameParts.length; classNameIndex++) {
+        var classNamePart = classNameParts[classNameIndex];
+        // Split icon classes from the button.
+        // Regex will detect "fa", "fas", "fa-something" and "fa-some-icon-1", but not "fanfare".
+        if (classNamePart.match(/^fa([srlb]|(-[\w-]*)|$)/)) {
+            iconClasses.push(classNamePart);
+        } else {
+            el.classList.add(classNamePart);
+        }
+    }
+
+    el.tabIndex = -1;
+
+    // Create icon element and append as a child to the button
+    var icon = document.createElement('i');
+    for (var iconClassIndex = 0; iconClassIndex < iconClasses.length; iconClassIndex++) {
+        var iconClass = iconClasses[iconClassIndex];
+        icon.classList.add(iconClass);
+    }
+    el.appendChild(icon);
+
+    // If there is a custom icon markup set, use that
+    if (typeof options.icon !== 'undefined') {
+        el.innerHTML = options.icon;
+    }
+
+    if (options.action && enableActions) {
+        if (typeof options.action === 'function') {
+            el.onclick = function (e) {
+                e.preventDefault();
+                options.action(parent);
+            };
+        } else if (typeof options.action === 'string') {
+            el.onclick = function (e) {
+                e.preventDefault();
+                window.open(options.action, '_blank');
+            };
+        }
+    }
+
+    return el;
+}
+
+function createSep() {
+    var el = document.createElement('i');
+    el.className = 'separator';
+    el.innerHTML = '|';
+    return el;
+}
+
+function createTooltip(title, action, shortcuts) {
+    var actionName;
+    var tooltip = title;
+
+    if (action) {
+        actionName = getBindingName(action);
+        if (shortcuts[actionName]) {
+            tooltip += ' (' + fixShortcut(shortcuts[actionName]) + ')';
+        }
+    }
+
+    return tooltip;
+}
+
+/**
+ * The state of CodeMirror at the given position.
+ */
+function getState(cm, pos) {
+    pos = pos || cm.getCursor('start');
+    var stat = cm.getTokenAt(pos);
+    if (!stat.type) return {};
+
+    var types = stat.type.split(' ');
+
+    var ret = {},
+        data, text;
+    for (var i = 0; i < types.length; i++) {
+        data = types[i];
+        if (data === 'strong') {
+            ret.bold = true;
+        } else if (data === 'variable-2') {
+            text = cm.getLine(pos.line);
+            if (/^\s*\d+\.\s/.test(text)) {
+                ret['ordered-list'] = true;
+            } else {
+                ret['unordered-list'] = true;
+            }
+        } else if (data === 'atom') {
+            ret.quote = true;
+        } else if (data === 'em') {
+            ret.italic = true;
+        } else if (data === 'quote') {
+            ret.quote = true;
+        } else if (data === 'strikethrough') {
+            ret.strikethrough = true;
+        } else if (data === 'comment') {
+            ret.code = true;
+        } else if (data === 'link') {
+            ret.link = true;
+        } else if (data === 'tag') {
+            ret.image = true;
+        } else if (data.match(/^header(-[1-6])?$/)) {
+            ret[data.replace('header', 'heading')] = true;
+        }
+    }
+    return ret;
+}
+
+
+// Saved overflow setting
+var saved_overflow = '';
+
+/**
+ * Toggle full screen of the editor.
+ */
+function toggleFullScreen(editor) {
+    // Set fullscreen
+    var cm = editor.codemirror;
+    cm.setOption('fullScreen', !cm.getOption('fullScreen'));
+
+
+    // Prevent scrolling on body during fullscreen active
+    if (cm.getOption('fullScreen')) {
+        saved_overflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = saved_overflow;
+    }
+
+
+    // Hide side by side if needed
+    var sidebyside = cm.getWrapperElement().nextSibling;
+    if (/editor-preview-active-side/.test(sidebyside.className))
+        toggleSideBySide(editor);
+
+    if (editor.options.onToggleFullScreen) {
+        editor.options.onToggleFullScreen(cm.getOption('fullScreen') || false);
+    }
+
+    // Remove or set maxHeight
+    if (typeof editor.options.maxHeight !== 'undefined') {
+        if (cm.getOption('fullScreen')) {
+            cm.getScrollerElement().style.removeProperty('height');
+            sidebyside.style.removeProperty('height');
+        } else {
+            cm.getScrollerElement().style.height = editor.options.maxHeight;
+            editor.setPreviewMaxHeight();
+        }
+    }
+
+
+    // Update toolbar class
+    if (!/fullscreen/.test(editor.toolbar_div.className)) {
+        editor.toolbar_div.className += ' fullscreen';
+    } else {
+        editor.toolbar_div.className = editor.toolbar_div.className.replace(/\s*fullscreen\b/, '');
+    }
+
+
+    // Update toolbar button
+    if (editor.toolbarElements && editor.toolbarElements.fullscreen) {
+        var toolbarButton = editor.toolbarElements.fullscreen;
+
+        if (!/active/.test(toolbarButton.className)) {
+            toolbarButton.className += ' active';
+        } else {
+            toolbarButton.className = toolbarButton.className.replace(/\s*active\s*/g, '');
+        }
+    }
+}
+
+
+/**
+ * Action for toggling bold.
+ */
+function toggleBold(editor) {
+    _toggleBlock(editor, 'bold', editor.options.blockStyles.bold);
+}
+
+
+/**
+ * Action for toggling italic.
+ */
+function toggleItalic(editor) {
+    _toggleBlock(editor, 'italic', editor.options.blockStyles.italic);
+}
+
+
+/**
+ * Action for toggling strikethrough.
+ */
+function toggleStrikethrough(editor) {
+    _toggleBlock(editor, 'strikethrough', '~~');
+}
+
+/**
+ * Action for toggling code block.
+ */
+function toggleCodeBlock(editor) {
+    var fenceCharsToInsert = editor.options.blockStyles.code;
+
+    function fencing_line(line) {
+        /* return true, if this is a ``` or ~~~ line */
+        if (typeof line !== 'object') {
+            throw 'fencing_line() takes a \'line\' object (not a line number, or line text).  Got: ' + typeof line + ': ' + line;
+        }
+        return line.styles && line.styles[2] && line.styles[2].indexOf('formatting-code-block') !== -1;
+    }
+
+    function token_state(token) {
+        // base goes an extra level deep when mode backdrops are used, e.g. spellchecker on
+        return token.state.base.base || token.state.base;
+    }
+
+    function code_type(cm, line_num, line, firstTok, lastTok) {
+        /*
+         * Return "single", "indented", "fenced" or false
+         *
+         * cm and line_num are required.  Others are optional for efficiency
+         *   To check in the middle of a line, pass in firstTok yourself.
+         */
+        line = line || cm.getLineHandle(line_num);
+        firstTok = firstTok || cm.getTokenAt({
+            line: line_num,
+            ch: 1,
+        });
+        lastTok = lastTok || (!!line.text && cm.getTokenAt({
+            line: line_num,
+            ch: line.text.length - 1,
+        }));
+        var types = firstTok.type ? firstTok.type.split(' ') : [];
+        if (lastTok && token_state(lastTok).indentedCode) {
+            // have to check last char, since first chars of first line aren"t marked as indented
+            return 'indented';
+        } else if (types.indexOf('comment') === -1) {
+            // has to be after "indented" check, since first chars of first indented line aren"t marked as such
+            return false;
+        } else if (token_state(firstTok).fencedChars || token_state(lastTok).fencedChars || fencing_line(line)) {
+            return 'fenced';
+        } else {
+            return 'single';
+        }
+    }
+
+    function insertFencingAtSelection(cm, cur_start, cur_end, fenceCharsToInsert) {
+        var start_line_sel = cur_start.line + 1,
+            end_line_sel = cur_end.line + 1,
+            sel_multi = cur_start.line !== cur_end.line,
+            repl_start = fenceCharsToInsert + '\n',
+            repl_end = '\n' + fenceCharsToInsert;
+        if (sel_multi) {
+            end_line_sel++;
+        }
+        // handle last char including \n or not
+        if (sel_multi && cur_end.ch === 0) {
+            repl_end = fenceCharsToInsert + '\n';
+            end_line_sel--;
+        }
+        _replaceSelection(cm, false, [repl_start, repl_end]);
+        cm.setSelection({
+            line: start_line_sel,
+            ch: 0,
+        }, {
+            line: end_line_sel,
+            ch: 0,
+        });
+    }
+
+    var cm = editor.codemirror,
+        cur_start = cm.getCursor('start'),
+        cur_end = cm.getCursor('end'),
+        tok = cm.getTokenAt({
+            line: cur_start.line,
+            ch: cur_start.ch || 1,
+        }), // avoid ch 0 which is a cursor pos but not token
+        line = cm.getLineHandle(cur_start.line),
+        is_code = code_type(cm, cur_start.line, line, tok);
+    var block_start, block_end, lineCount;
+
+    if (is_code === 'single') {
+        // similar to some EasyMDE _toggleBlock logic
+        var start = line.text.slice(0, cur_start.ch).replace('`', ''),
+            end = line.text.slice(cur_start.ch).replace('`', '');
+        cm.replaceRange(start + end, {
+            line: cur_start.line,
+            ch: 0,
+        }, {
+            line: cur_start.line,
+            ch: 99999999999999,
+        });
+        cur_start.ch--;
+        if (cur_start !== cur_end) {
+            cur_end.ch--;
+        }
+        cm.setSelection(cur_start, cur_end);
+        cm.focus();
+    } else if (is_code === 'fenced') {
+        if (cur_start.line !== cur_end.line || cur_start.ch !== cur_end.ch) {
+            // use selection
+
+            // find the fenced line so we know what type it is (tilde, backticks, number of them)
+            for (block_start = cur_start.line; block_start >= 0; block_start--) {
+                line = cm.getLineHandle(block_start);
+                if (fencing_line(line)) {
+                    break;
+                }
+            }
+            var fencedTok = cm.getTokenAt({
+                line: block_start,
+                ch: 1,
+            });
+            var fence_chars = token_state(fencedTok).fencedChars;
+            var start_text, start_line;
+            var end_text, end_line;
+            // check for selection going up against fenced lines, in which case we don't want to add more fencing
+            if (fencing_line(cm.getLineHandle(cur_start.line))) {
+                start_text = '';
+                start_line = cur_start.line;
+            } else if (fencing_line(cm.getLineHandle(cur_start.line - 1))) {
+                start_text = '';
+                start_line = cur_start.line - 1;
+            } else {
+                start_text = fence_chars + '\n';
+                start_line = cur_start.line;
+            }
+            if (fencing_line(cm.getLineHandle(cur_end.line))) {
+                end_text = '';
+                end_line = cur_end.line;
+                if (cur_end.ch === 0) {
+                    end_line += 1;
+                }
+            } else if (cur_end.ch !== 0 && fencing_line(cm.getLineHandle(cur_end.line + 1))) {
+                end_text = '';
+                end_line = cur_end.line + 1;
+            } else {
+                end_text = fence_chars + '\n';
+                end_line = cur_end.line + 1;
+            }
+            if (cur_end.ch === 0) {
+                // full last line selected, putting cursor at beginning of next
+                end_line -= 1;
+            }
+            cm.operation(function () {
+                // end line first, so that line numbers don't change
+                cm.replaceRange(end_text, {
+                    line: end_line,
+                    ch: 0,
+                }, {
+                    line: end_line + (end_text ? 0 : 1),
+                    ch: 0,
+                });
+                cm.replaceRange(start_text, {
+                    line: start_line,
+                    ch: 0,
+                }, {
+                    line: start_line + (start_text ? 0 : 1),
+                    ch: 0,
+                });
+            });
+            cm.setSelection({
+                line: start_line + (start_text ? 1 : 0),
+                ch: 0,
+            }, {
+                line: end_line + (start_text ? 1 : -1),
+                ch: 0,
+            });
+            cm.focus();
+        } else {
+            // no selection, search for ends of this fenced block
+            var search_from = cur_start.line;
+            if (fencing_line(cm.getLineHandle(cur_start.line))) { // gets a little tricky if cursor is right on a fenced line
+                if (code_type(cm, cur_start.line + 1) === 'fenced') {
+                    block_start = cur_start.line;
+                    search_from = cur_start.line + 1; // for searching for "end"
+                } else {
+                    block_end = cur_start.line;
+                    search_from = cur_start.line - 1; // for searching for "start"
+                }
+            }
+            if (block_start === undefined) {
+                for (block_start = search_from; block_start >= 0; block_start--) {
+                    line = cm.getLineHandle(block_start);
+                    if (fencing_line(line)) {
+                        break;
+                    }
+                }
+            }
+            if (block_end === undefined) {
+                lineCount = cm.lineCount();
+                for (block_end = search_from; block_end < lineCount; block_end++) {
+                    line = cm.getLineHandle(block_end);
+                    if (fencing_line(line)) {
+                        break;
+                    }
+                }
+            }
+            cm.operation(function () {
+                cm.replaceRange('', {
+                    line: block_start,
+                    ch: 0,
+                }, {
+                    line: block_start + 1,
+                    ch: 0,
+                });
+                cm.replaceRange('', {
+                    line: block_end - 1,
+                    ch: 0,
+                }, {
+                    line: block_end,
+                    ch: 0,
+                });
+            });
+            cm.focus();
+        }
+    } else if (is_code === 'indented') {
+        if (cur_start.line !== cur_end.line || cur_start.ch !== cur_end.ch) {
+            // use selection
+            block_start = cur_start.line;
+            block_end = cur_end.line;
+            if (cur_end.ch === 0) {
+                block_end--;
+            }
+        } else {
+            // no selection, search for ends of this indented block
+            for (block_start = cur_start.line; block_start >= 0; block_start--) {
+                line = cm.getLineHandle(block_start);
+                if (line.text.match(/^\s*$/)) {
+                    // empty or all whitespace - keep going
+                    continue;
+                } else {
+                    if (code_type(cm, block_start, line) !== 'indented') {
+                        block_start += 1;
+                        break;
+                    }
+                }
+            }
+            lineCount = cm.lineCount();
+            for (block_end = cur_start.line; block_end < lineCount; block_end++) {
+                line = cm.getLineHandle(block_end);
+                if (line.text.match(/^\s*$/)) {
+                    // empty or all whitespace - keep going
+                    continue;
+                } else {
+                    if (code_type(cm, block_end, line) !== 'indented') {
+                        block_end -= 1;
+                        break;
+                    }
+                }
+            }
+        }
+        // if we are going to un-indent based on a selected set of lines, and the next line is indented too, we need to
+        // insert a blank line so that the next line(s) continue to be indented code
+        var next_line = cm.getLineHandle(block_end + 1),
+            next_line_last_tok = next_line && cm.getTokenAt({
+                line: block_end + 1,
+                ch: next_line.text.length - 1,
+            }),
+            next_line_indented = next_line_last_tok && token_state(next_line_last_tok).indentedCode;
+        if (next_line_indented) {
+            cm.replaceRange('\n', {
+                line: block_end + 1,
+                ch: 0,
+            });
+        }
+
+        for (var i = block_start; i <= block_end; i++) {
+            cm.indentLine(i, 'subtract'); // TODO: this doesn't get tracked in the history, so can't be undone :(
+        }
+        cm.focus();
+    } else {
+        // insert code formatting
+        var no_sel_and_starting_of_line = (cur_start.line === cur_end.line && cur_start.ch === cur_end.ch && cur_start.ch === 0);
+        var sel_multi = cur_start.line !== cur_end.line;
+        if (no_sel_and_starting_of_line || sel_multi) {
+            insertFencingAtSelection(cm, cur_start, cur_end, fenceCharsToInsert);
+        } else {
+            _replaceSelection(cm, false, ['`', '`']);
+        }
+    }
+}
+
+/**
+ * Action for toggling blockquote.
+ */
+function toggleBlockquote(editor) {
+    var cm = editor.codemirror;
+    _toggleLine(cm, 'quote');
+}
+
+/**
+ * Action for toggling heading size: normal -> h1 -> h2 -> h3 -> h4 -> h5 -> h6 -> normal
+ */
+function toggleHeadingSmaller(editor) {
+    var cm = editor.codemirror;
+    _toggleHeading(cm, 'smaller');
+}
+
+/**
+ * Action for toggling heading size: normal -> h6 -> h5 -> h4 -> h3 -> h2 -> h1 -> normal
+ */
+function toggleHeadingBigger(editor) {
+    var cm = editor.codemirror;
+    _toggleHeading(cm, 'bigger');
+}
+
+/**
+ * Action for toggling heading size 1
+ */
+function toggleHeading1(editor) {
+    var cm = editor.codemirror;
+    _toggleHeading(cm, undefined, 1);
+}
+
+/**
+ * Action for toggling heading size 2
+ */
+function toggleHeading2(editor) {
+    var cm = editor.codemirror;
+    _toggleHeading(cm, undefined, 2);
+}
+
+/**
+ * Action for toggling heading size 3
+ */
+function toggleHeading3(editor) {
+    var cm = editor.codemirror;
+    _toggleHeading(cm, undefined, 3);
+}
+
+
+/**
+ * Action for toggling ul.
+ */
+function toggleUnorderedList(editor) {
+    var cm = editor.codemirror;
+    _toggleLine(cm, 'unordered-list');
+}
+
+
+/**
+ * Action for toggling ol.
+ */
+function toggleOrderedList(editor) {
+    var cm = editor.codemirror;
+    _toggleLine(cm, 'ordered-list');
+}
+
+/**
+ * Action for clean block (remove headline, list, blockquote code, markers)
+ */
+function cleanBlock(editor) {
+    var cm = editor.codemirror;
+    _cleanBlock(cm);
+}
+
+/**
+ * Action for drawing a link.
+ */
+function drawLink(editor) {
+    var cm = editor.codemirror;
+    var stat = getState(cm);
+    var options = editor.options;
+    var url = 'https://';
+    if (options.promptURLs) {
+        url = prompt(options.promptTexts.link, 'https://');
+        if (!url) {
+            return false;
+        }
+    }
+    _replaceSelection(cm, stat.link, options.insertTexts.link, url);
+}
+
+/**
+ * Action for drawing an img.
+ */
+function drawImage(editor) {
+    var cm = editor.codemirror;
+    var stat = getState(cm);
+    var options = editor.options;
+    var url = 'https://';
+    if (options.promptURLs) {
+        url = prompt(options.promptTexts.image, 'https://');
+        if (!url) {
+            return false;
+        }
+    }
+    _replaceSelection(cm, stat.image, options.insertTexts.image, url);
+}
+
+/**
+ * Action for opening the browse-file window to upload an image to a server.
+ * @param editor {EasyMDE} The EasyMDE object
+ */
+function drawUploadedImage(editor) {
+    // TODO: Draw the image template with a fake url? ie: '![](importing foo.png...)'
+    editor.openBrowseFileWindow();
+}
+
+/**
+ * Action executed after an image have been successfully imported on the server.
+ * @param editor {EasyMDE} The EasyMDE object
+ * @param url {string} The url of the uploaded image
+ */
+function afterImageUploaded(editor, url) {
+    var cm = editor.codemirror;
+    var stat = getState(cm);
+    var options = editor.options;
+    var imageName = url.substr(url.lastIndexOf('/') + 1);
+    _replaceSelection(cm, stat.image, options.insertTexts.uploadedImage, url);
+    // show uploaded image filename for 1000ms
+    editor.updateStatusBar('upload-image', editor.options.imageTexts.sbOnUploaded.replace('#image_name#', imageName));
+    setTimeout(function () {
+        editor.updateStatusBar('upload-image', editor.options.imageTexts.sbInit);
+    }, 1000);
+}
+
+/**
+ * Action for drawing a table.
+ */
+function drawTable(editor) {
+    var cm = editor.codemirror;
+    var stat = getState(cm);
+    var options = editor.options;
+    _replaceSelection(cm, stat.table, options.insertTexts.table);
+}
+
+/**
+ * Action for drawing a horizontal rule.
+ */
+function drawHorizontalRule(editor) {
+    var cm = editor.codemirror;
+    var stat = getState(cm);
+    var options = editor.options;
+    _replaceSelection(cm, stat.image, options.insertTexts.horizontalRule);
+}
+
+
+/**
+ * Undo action.
+ */
+function undo(editor) {
+    var cm = editor.codemirror;
+    cm.undo();
+    cm.focus();
+}
+
+
+/**
+ * Redo action.
+ */
+function redo(editor) {
+    var cm = editor.codemirror;
+    cm.redo();
+    cm.focus();
+}
+
+
+/**
+ * Toggle side by side preview
+ */
+function toggleSideBySide(editor) {
+    var cm = editor.codemirror;
+    var wrapper = cm.getWrapperElement();
+    var preview = wrapper.nextSibling;
+    var toolbarButton = editor.toolbarElements && editor.toolbarElements['side-by-side'];
+    var useSideBySideListener = false;
+
+    var noFullscreenItems = [
+        wrapper.parentNode, // easyMDEContainer
+        editor.gui.toolbar,
+        wrapper,
+        preview,
+        editor.gui.statusbar,
+    ];
+
+    function addNoFullscreenClass(el) {
+        el.className += ' sided--no-fullscreen';
+    }
+
+    function removeNoFullscreenClass(el) {
+        el.className = el.className.replace(
+            /\s*sided--no-fullscreen\s*/g, ''
+        );
+    }
+
+    if (/editor-preview-active-side/.test(preview.className)) {
+        if (cm.getOption('sideBySideNoFullscreen')) {
+            cm.setOption('sideBySideNoFullscreen', false);
+            noFullscreenItems.forEach(function (el) {
+                removeNoFullscreenClass(el);
+            });
+        }
+        preview.className = preview.className.replace(
+            /\s*editor-preview-active-side\s*/g, ''
+        );
+        if (toolbarButton) toolbarButton.className = toolbarButton.className.replace(/\s*active\s*/g, '');
+        wrapper.className = wrapper.className.replace(/\s*CodeMirror-sided\s*/g, ' ');
+    } else {
+        // When the preview button is clicked for the first time,
+        // give some time for the transition from editor.css to fire and the view to slide from right to left,
+        // instead of just appearing.
+        setTimeout(function () {
+            if (!cm.getOption('fullScreen')) {
+                if (editor.options.sideBySideFullscreen === false) {
+                    cm.setOption('sideBySideNoFullscreen', true);
+                    noFullscreenItems.forEach(function(el) {
+                        addNoFullscreenClass(el);
+                    });
+                } else {
+                    toggleFullScreen(editor);
+                }
+            }
+            preview.className += ' editor-preview-active-side';
+        }, 1);
+        if (toolbarButton) toolbarButton.className += ' active';
+        wrapper.className += ' CodeMirror-sided';
+        useSideBySideListener = true;
+    }
+
+    // Hide normal preview if active
+    var previewNormal = wrapper.lastChild;
+    if (/editor-preview-active/.test(previewNormal.className)) {
+        previewNormal.className = previewNormal.className.replace(
+            /\s*editor-preview-active\s*/g, ''
+        );
+        var toolbar = editor.toolbarElements.preview;
+        var toolbar_div = editor.toolbar_div;
+        toolbar.className = toolbar.className.replace(/\s*active\s*/g, '');
+        toolbar_div.className = toolbar_div.className.replace(/\s*disabled-for-preview*/g, '');
+    }
+
+    var sideBySideRenderingFunction = function () {
+        var newValue = editor.options.previewRender(editor.value(), preview);
+        if (newValue != null) {
+            preview.innerHTML = newValue;
+        }
+    };
+
+    if (!cm.sideBySideRenderingFunction) {
+        cm.sideBySideRenderingFunction = sideBySideRenderingFunction;
+    }
+
+    if (useSideBySideListener) {
+        var newValue = editor.options.previewRender(editor.value(), preview);
+        if (newValue != null) {
+            preview.innerHTML = newValue;
+        }
+        cm.on('update', cm.sideBySideRenderingFunction);
+    } else {
+        cm.off('update', cm.sideBySideRenderingFunction);
+    }
+
+    // Refresh to fix selection being off (#309)
+    cm.refresh();
+}
+
+
+/**
+ * Preview action.
+ */
+function togglePreview(editor) {
+    var cm = editor.codemirror;
+    var wrapper = cm.getWrapperElement();
+    var toolbar_div = editor.toolbar_div;
+    var toolbar = editor.options.toolbar ? editor.toolbarElements.preview : false;
+    var preview = wrapper.lastChild;
+
+    // Turn off side by side if needed
+    var sidebyside = cm.getWrapperElement().nextSibling;
+    if (/editor-preview-active-side/.test(sidebyside.className))
+        toggleSideBySide(editor);
+
+    if (!preview || !/editor-preview-full/.test(preview.className)) {
+
+        preview = document.createElement('div');
+        preview.className = 'editor-preview-full';
+
+        if (editor.options.previewClass) {
+
+            if (Array.isArray(editor.options.previewClass)) {
+                for (var i = 0; i < editor.options.previewClass.length; i++) {
+                    preview.className += (' ' + editor.options.previewClass[i]);
+                }
+
+            } else if (typeof editor.options.previewClass === 'string') {
+                preview.className += (' ' + editor.options.previewClass);
+            }
+        }
+
+        wrapper.appendChild(preview);
+    }
+
+    if (/editor-preview-active/.test(preview.className)) {
+        preview.className = preview.className.replace(
+            /\s*editor-preview-active\s*/g, ''
+        );
+        if (toolbar) {
+            toolbar.className = toolbar.className.replace(/\s*active\s*/g, '');
+            toolbar_div.className = toolbar_div.className.replace(/\s*disabled-for-preview*/g, '');
+        }
+    } else {
+        // When the preview button is clicked for the first time,
+        // give some time for the transition from editor.css to fire and the view to slide from right to left,
+        // instead of just appearing.
+        setTimeout(function () {
+            preview.className += ' editor-preview-active';
+        }, 1);
+        if (toolbar) {
+            toolbar.className += ' active';
+            toolbar_div.className += ' disabled-for-preview';
+        }
+    }
+    preview.innerHTML = editor.options.previewRender(editor.value(), preview);
+
+}
+
+function _replaceSelection(cm, active, startEnd, url) {
+    if (/editor-preview-active/.test(cm.getWrapperElement().lastChild.className))
+        return;
+
+    var text;
+    var start = startEnd[0];
+    var end = startEnd[1];
+    var startPoint = {},
+        endPoint = {};
+    Object.assign(startPoint, cm.getCursor('start'));
+    Object.assign(endPoint, cm.getCursor('end'));
+    if (url) {
+        start = start.replace('#url#', url);  // url is in start for upload-image
+        end = end.replace('#url#', url);
+    }
+    if (active) {
+        text = cm.getLine(startPoint.line);
+        start = text.slice(0, startPoint.ch);
+        end = text.slice(startPoint.ch);
+        cm.replaceRange(start + end, {
+            line: startPoint.line,
+            ch: 0,
+        });
+    } else {
+        text = cm.getSelection();
+        cm.replaceSelection(start + text + end);
+
+        startPoint.ch += start.length;
+        if (startPoint !== endPoint) {
+            endPoint.ch += start.length;
+        }
+    }
+    cm.setSelection(startPoint, endPoint);
+    cm.focus();
+}
+
+
+function _toggleHeading(cm, direction, size) {
+    if (/editor-preview-active/.test(cm.getWrapperElement().lastChild.className))
+        return;
+
+    var startPoint = cm.getCursor('start');
+    var endPoint = cm.getCursor('end');
+    for (var i = startPoint.line; i <= endPoint.line; i++) {
+        (function (i) {
+            var text = cm.getLine(i);
+            var currHeadingLevel = text.search(/[^#]/);
+
+            if (direction !== undefined) {
+                if (currHeadingLevel <= 0) {
+                    if (direction == 'bigger') {
+                        text = '###### ' + text;
+                    } else {
+                        text = '# ' + text;
+                    }
+                } else if (currHeadingLevel == 6 && direction == 'smaller') {
+                    text = text.substr(7);
+                } else if (currHeadingLevel == 1 && direction == 'bigger') {
+                    text = text.substr(2);
+                } else {
+                    if (direction == 'bigger') {
+                        text = text.substr(1);
+                    } else {
+                        text = '#' + text;
+                    }
+                }
+            } else {
+                if (size == 1) {
+                    if (currHeadingLevel <= 0) {
+                        text = '# ' + text;
+                    } else if (currHeadingLevel == size) {
+                        text = text.substr(currHeadingLevel + 1);
+                    } else {
+                        text = '# ' + text.substr(currHeadingLevel + 1);
+                    }
+                } else if (size == 2) {
+                    if (currHeadingLevel <= 0) {
+                        text = '## ' + text;
+                    } else if (currHeadingLevel == size) {
+                        text = text.substr(currHeadingLevel + 1);
+                    } else {
+                        text = '## ' + text.substr(currHeadingLevel + 1);
+                    }
+                } else {
+                    if (currHeadingLevel <= 0) {
+                        text = '### ' + text;
+                    } else if (currHeadingLevel == size) {
+                        text = text.substr(currHeadingLevel + 1);
+                    } else {
+                        text = '### ' + text.substr(currHeadingLevel + 1);
+                    }
+                }
+            }
+
+            cm.replaceRange(text, {
+                line: i,
+                ch: 0,
+            }, {
+                line: i,
+                ch: 99999999999999,
+            });
+        })(i);
+    }
+    cm.focus();
+}
+
+
+function _toggleLine(cm, name) {
+    if (/editor-preview-active/.test(cm.getWrapperElement().lastChild.className))
+        return;
+
+    var listRegexp = /^(\s*)(\*|-|\+|\d*\.)(\s+)/;
+    var whitespacesRegexp = /^\s*/;
+
+    var stat = getState(cm);
+    var startPoint = cm.getCursor('start');
+    var endPoint = cm.getCursor('end');
+    var repl = {
+        'quote': /^(\s*)>\s+/,
+        'unordered-list': listRegexp,
+        'ordered-list': listRegexp,
+    };
+
+    var _getChar = function (name, i) {
+        var map = {
+            'quote': '>',
+            'unordered-list': '*',
+            'ordered-list': '%%i.',
+        };
+
+        return map[name].replace('%%i', i);
+    };
+
+    var _checkChar = function (name, char) {
+        var map = {
+            'quote': '>',
+            'unordered-list': '*',
+            'ordered-list': '\\d+.',
+        };
+        var rt = new RegExp(map[name]);
+
+        return char && rt.test(char);
+    };
+
+    var _toggle = function (name, text, untoggleOnly) {
+        var arr = listRegexp.exec(text);
+        var char = _getChar(name, line);
+        if (arr !== null) {
+            if (_checkChar(name, arr[2])) {
+                char = '';
+            }
+            text = arr[1] + char + arr[3] + text.replace(whitespacesRegexp, '').replace(repl[name], '$1');
+        } else if (untoggleOnly == false) {
+            text = char + ' ' + text;
+        }
+        return text;
+    };
+
+    var line = 1;
+    for (var i = startPoint.line; i <= endPoint.line; i++) {
+        (function (i) {
+            var text = cm.getLine(i);
+            if (stat[name]) {
+                text = text.replace(repl[name], '$1');
+            } else {
+                // If we're toggling unordered-list formatting, check if the current line
+                // is part of an ordered-list, and if so, untoggle that first.
+                // Workaround for https://github.com/Ionaru/easy-markdown-editor/issues/92
+                if (name == 'unordered-list') {
+                    text = _toggle('ordered-list', text, true);
+                }
+                text = _toggle(name, text, false);
+                line += 1;
+            }
+            cm.replaceRange(text, {
+                line: i,
+                ch: 0,
+            }, {
+                line: i,
+                ch: 99999999999999,
+            });
+        })(i);
+    }
+    cm.focus();
+}
+
+function _toggleBlock(editor, type, start_chars, end_chars) {
+    if (/editor-preview-active/.test(editor.codemirror.getWrapperElement().lastChild.className))
+        return;
+
+    end_chars = (typeof end_chars === 'undefined') ? start_chars : end_chars;
+    var cm = editor.codemirror;
+    var stat = getState(cm);
+
+    var text;
+    var start = start_chars;
+    var end = end_chars;
+
+    var startPoint = cm.getCursor('start');
+    var endPoint = cm.getCursor('end');
+
+    if (stat[type]) {
+        text = cm.getLine(startPoint.line);
+        start = text.slice(0, startPoint.ch);
+        end = text.slice(startPoint.ch);
+        if (type == 'bold') {
+            start = start.replace(/(\*\*|__)(?![\s\S]*(\*\*|__))/, '');
+            end = end.replace(/(\*\*|__)/, '');
+        } else if (type == 'italic') {
+            start = start.replace(/(\*|_)(?![\s\S]*(\*|_))/, '');
+            end = end.replace(/(\*|_)/, '');
+        } else if (type == 'strikethrough') {
+            start = start.replace(/(\*\*|~~)(?![\s\S]*(\*\*|~~))/, '');
+            end = end.replace(/(\*\*|~~)/, '');
+        }
+        cm.replaceRange(start + end, {
+            line: startPoint.line,
+            ch: 0,
+        }, {
+            line: startPoint.line,
+            ch: 99999999999999,
+        });
+
+        if (type == 'bold' || type == 'strikethrough') {
+            startPoint.ch -= 2;
+            if (startPoint !== endPoint) {
+                endPoint.ch -= 2;
+            }
+        } else if (type == 'italic') {
+            startPoint.ch -= 1;
+            if (startPoint !== endPoint) {
+                endPoint.ch -= 1;
+            }
+        }
+    } else {
+        text = cm.getSelection();
+        if (type == 'bold') {
+            text = text.split('**').join('');
+            text = text.split('__').join('');
+        } else if (type == 'italic') {
+            text = text.split('*').join('');
+            text = text.split('_').join('');
+        } else if (type == 'strikethrough') {
+            text = text.split('~~').join('');
+        }
+        cm.replaceSelection(start + text + end);
+
+        startPoint.ch += start_chars.length;
+        endPoint.ch = startPoint.ch + text.length;
+    }
+
+    cm.setSelection(startPoint, endPoint);
+    cm.focus();
+}
+
+function _cleanBlock(cm) {
+    if (/editor-preview-active/.test(cm.getWrapperElement().lastChild.className))
+        return;
+
+    var startPoint = cm.getCursor('start');
+    var endPoint = cm.getCursor('end');
+    var text;
+
+    for (var line = startPoint.line; line <= endPoint.line; line++) {
+        text = cm.getLine(line);
+        text = text.replace(/^[ ]*([# ]+|\*|-|[> ]+|[0-9]+(.|\)))[ ]*/, '');
+
+        cm.replaceRange(text, {
+            line: line,
+            ch: 0,
+        }, {
+            line: line,
+            ch: 99999999999999,
+        });
+    }
+}
+
+/**
+ * Convert a number of bytes to a human-readable file size. If you desire
+ * to add a space between the value and the unit, you need to add this space
+ * to the given units.
+ * @param bytes {integer} A number of bytes, as integer. Ex: 421137
+ * @param units {number[]} An array of human-readable units, ie. [' B', ' K', ' MB']
+ * @returns string A human-readable file size. Ex: '412 KB'
+ */
+function humanFileSize(bytes, units) {
+    if (Math.abs(bytes) < 1024) {
+        return '' + bytes + units[0];
+    }
+    var u = 0;
+    do {
+        bytes /= 1024;
+        ++u;
+    } while (Math.abs(bytes) >= 1024 && u < units.length);
+    return '' + bytes.toFixed(1) + units[u];
+}
+
+// Merge the properties of one object into another.
+function _mergeProperties(target, source) {
+    for (var property in source) {
+        if (Object.prototype.hasOwnProperty.call(source, property)) {
+            if (source[property] instanceof Array) {
+                target[property] = source[property].concat(target[property] instanceof Array ? target[property] : []);
+            } else if (
+                source[property] !== null &&
+                typeof source[property] === 'object' &&
+                source[property].constructor === Object
+            ) {
+                target[property] = _mergeProperties(target[property] || {}, source[property]);
+            } else {
+                target[property] = source[property];
+            }
+        }
+    }
+
+    return target;
+}
+
+// Merge an arbitrary number of objects into one.
+function extend(target) {
+    for (var i = 1; i < arguments.length; i++) {
+        target = _mergeProperties(target, arguments[i]);
+    }
+
+    return target;
+}
+
+/* The right word count in respect for CJK. */
+function wordCount(data) {
+    var pattern = /[a-zA-Z0-9_\u00A0-\u02AF\u0392-\u03c9\u0410-\u04F9]+|[\u4E00-\u9FFF\u3400-\u4dbf\uf900-\ufaff\u3040-\u309f\uac00-\ud7af]+/g;
+    var m = data.match(pattern);
+    var count = 0;
+    if (m === null) return count;
+    for (var i = 0; i < m.length; i++) {
+        if (m[i].charCodeAt(0) >= 0x4E00) {
+            count += m[i].length;
+        } else {
+            count += 1;
+        }
+    }
+    return count;
+}
+
+var toolbarBuiltInButtons = {
+    'bold': {
+        name: 'bold',
+        action: toggleBold,
+        className: 'fa fa-bold',
+        title: 'Bold',
+        default: true,
+    },
+    'italic': {
+        name: 'italic',
+        action: toggleItalic,
+        className: 'fa fa-italic',
+        title: 'Italic',
+        default: true,
+    },
+    'strikethrough': {
+        name: 'strikethrough',
+        action: toggleStrikethrough,
+        className: 'fa fa-strikethrough',
+        title: 'Strikethrough',
+    },
+    'heading': {
+        name: 'heading',
+        action: toggleHeadingSmaller,
+        className: 'fa fa-header fa-heading',
+        title: 'Heading',
+        default: true,
+    },
+    'heading-smaller': {
+        name: 'heading-smaller',
+        action: toggleHeadingSmaller,
+        className: 'fa fa-header fa-heading header-smaller',
+        title: 'Smaller Heading',
+    },
+    'heading-bigger': {
+        name: 'heading-bigger',
+        action: toggleHeadingBigger,
+        className: 'fa fa-header fa-heading header-bigger',
+        title: 'Bigger Heading',
+    },
+    'heading-1': {
+        name: 'heading-1',
+        action: toggleHeading1,
+        className: 'fa fa-header fa-heading header-1',
+        title: 'Big Heading',
+    },
+    'heading-2': {
+        name: 'heading-2',
+        action: toggleHeading2,
+        className: 'fa fa-header fa-heading header-2',
+        title: 'Medium Heading',
+    },
+    'heading-3': {
+        name: 'heading-3',
+        action: toggleHeading3,
+        className: 'fa fa-header fa-heading header-3',
+        title: 'Small Heading',
+    },
+    'separator-1': {
+        name: 'separator-1',
+    },
+    'code': {
+        name: 'code',
+        action: toggleCodeBlock,
+        className: 'fa fa-code',
+        title: 'Code',
+    },
+    'quote': {
+        name: 'quote',
+        action: toggleBlockquote,
+        className: 'fa fa-quote-left',
+        title: 'Quote',
+        default: true,
+    },
+    'unordered-list': {
+        name: 'unordered-list',
+        action: toggleUnorderedList,
+        className: 'fa fa-list-ul',
+        title: 'Generic List',
+        default: true,
+    },
+    'ordered-list': {
+        name: 'ordered-list',
+        action: toggleOrderedList,
+        className: 'fa fa-list-ol',
+        title: 'Numbered List',
+        default: true,
+    },
+    'clean-block': {
+        name: 'clean-block',
+        action: cleanBlock,
+        className: 'fa fa-eraser',
+        title: 'Clean block',
+    },
+    'separator-2': {
+        name: 'separator-2',
+    },
+    'link': {
+        name: 'link',
+        action: drawLink,
+        className: 'fa fa-link',
+        title: 'Create Link',
+        default: true,
+    },
+    'image': {
+        name: 'image',
+        action: drawImage,
+        className: 'fa fa-image',
+        title: 'Insert Image',
+        default: true,
+    },
+    'upload-image': {
+        name: 'upload-image',
+        action: drawUploadedImage,
+        className: 'fa fa-image',
+        title: 'Import an image',
+    },
+    'table': {
+        name: 'table',
+        action: drawTable,
+        className: 'fa fa-table',
+        title: 'Insert Table',
+    },
+    'horizontal-rule': {
+        name: 'horizontal-rule',
+        action: drawHorizontalRule,
+        className: 'fa fa-minus',
+        title: 'Insert Horizontal Line',
+    },
+    'separator-3': {
+        name: 'separator-3',
+    },
+    'preview': {
+        name: 'preview',
+        action: togglePreview,
+        className: 'fa fa-eye',
+        noDisable: true,
+        title: 'Toggle Preview',
+        default: true,
+    },
+    'side-by-side': {
+        name: 'side-by-side',
+        action: toggleSideBySide,
+        className: 'fa fa-columns',
+        noDisable: true,
+        noMobile: true,
+        title: 'Toggle Side by Side',
+        default: true,
+    },
+    'fullscreen': {
+        name: 'fullscreen',
+        action: toggleFullScreen,
+        className: 'fa fa-arrows-alt',
+        noDisable: true,
+        noMobile: true,
+        title: 'Toggle Fullscreen',
+        default: true,
+    },
+    'separator-4': {
+        name: 'separator-4',
+    },
+    'guide': {
+        name: 'guide',
+        action: 'https://www.markdownguide.org/basic-syntax/',
+        className: 'fa fa-question-circle',
+        noDisable: true,
+        title: 'Markdown Guide',
+        default: true,
+    },
+    'separator-5': {
+        name: 'separator-5',
+    },
+    'undo': {
+        name: 'undo',
+        action: undo,
+        className: 'fa fa-undo',
+        noDisable: true,
+        title: 'Undo',
+    },
+    'redo': {
+        name: 'redo',
+        action: redo,
+        className: 'fa fa-repeat fa-redo',
+        noDisable: true,
+        title: 'Redo',
+    },
+};
+
+var insertTexts = {
+    link: ['[', '](#url#)'],
+    image: ['![](', '#url#)'],
+    uploadedImage: ['![](#url#)', ''],
+    // uploadedImage: ['![](#url#)\n', ''], // TODO: New line insertion doesn't work here.
+    table: ['', '\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text     | Text     |\n\n'],
+    horizontalRule: ['', '\n\n-----\n\n'],
+};
+
+var promptTexts = {
+    link: 'URL for the link:',
+    image: 'URL of the image:',
+};
+
+var timeFormat = {
+    locale: 'en-US',
+    format: {
+        hour: '2-digit',
+        minute: '2-digit',
+    },
+};
+
+var blockStyles = {
+    'bold': '**',
+    'code': '```',
+    'italic': '*',
+};
+
+/**
+ * Texts displayed to the user (mainly on the status bar) for the import image
+ * feature. Can be used for customization or internationalization.
+ */
+var imageTexts = {
+    sbInit: 'Attach files by drag and dropping or pasting from clipboard.',
+    sbOnDragEnter: 'Drop image to upload it.',
+    sbOnDrop: 'Uploading image #images_names#...',
+    sbProgress: 'Uploading #file_name#: #progress#%',
+    sbOnUploaded: 'Uploaded #image_name#',
+    sizeUnits: ' B, KB, MB',
+};
+
+/**
+ * Errors displayed to the user, using the `errorCallback` option. Can be used for
+ * customization or internationalization.
+ */
+var errorMessages = {
+    noFileGiven: 'You must select a file.',
+    typeNotAllowed: 'This image type is not allowed.',
+    fileTooLarge: 'Image #image_name# is too big (#image_size#).\n' +
+        'Maximum file size is #image_max_size#.',
+    importError: 'Something went wrong when uploading the image #image_name#.',
+};
+
+/**
+ * Interface of EasyMDE.
+ */
+function EasyMDE(options) {
+    // Handle options parameter
+    options = options || {};
+
+    // Used later to refer to it"s parent
+    options.parent = this;
+
+    // Check if Font Awesome needs to be auto downloaded
+    var autoDownloadFA = true;
+
+    if (options.autoDownloadFontAwesome === false) {
+        autoDownloadFA = false;
+    }
+
+    if (options.autoDownloadFontAwesome !== true) {
+        var styleSheets = document.styleSheets;
+        for (var i = 0; i < styleSheets.length; i++) {
+            if (!styleSheets[i].href)
+                continue;
+
+            if (styleSheets[i].href.indexOf('//maxcdn.bootstrapcdn.com/font-awesome/') > -1) {
+                autoDownloadFA = false;
+            }
+        }
+    }
+
+    if (autoDownloadFA) {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    }
+
+
+    // Find the textarea to use
+    if (options.element) {
+        this.element = options.element;
+    } else if (options.element === null) {
+        // This means that the element option was specified, but no element was found
+        console.log('EasyMDE: Error. No element was found.');
+        return;
+    }
+
+
+    // Handle toolbar
+    if (options.toolbar === undefined) {
+        // Initialize
+        options.toolbar = [];
+
+
+        // Loop over the built in buttons, to get the preferred order
+        for (var key in toolbarBuiltInButtons) {
+            if (Object.prototype.hasOwnProperty.call(toolbarBuiltInButtons, key)) {
+                if (key.indexOf('separator-') != -1) {
+                    options.toolbar.push('|');
+                }
+
+                if (toolbarBuiltInButtons[key].default === true || (options.showIcons && options.showIcons.constructor === Array && options.showIcons.indexOf(key) != -1)) {
+                    options.toolbar.push(key);
+                }
+            }
+        }
+    }
+
+    // Editor preview styling class.
+    if (!Object.prototype.hasOwnProperty.call(options, 'previewClass')) {
+        options.previewClass = 'editor-preview';
+    }
+
+    // Handle status bar
+    if (!Object.prototype.hasOwnProperty.call(options, 'status')) {
+        options.status = ['autosave', 'lines', 'words', 'cursor'];
+
+        if (options.uploadImage) {
+            options.status.unshift('upload-image');
+        }
+    }
+
+
+    // Add default preview rendering function
+    if (!options.previewRender) {
+        options.previewRender = function (plainText) {
+            // Note: "this" refers to the options object
+            return this.parent.markdown(plainText);
+        };
+    }
+
+
+    // Set default options for parsing config
+    options.parsingConfig = extend({
+        highlightFormatting: true, // needed for toggleCodeBlock to detect types of code
+    }, options.parsingConfig || {});
+
+
+    // Merging the insertTexts, with the given options
+    options.insertTexts = extend({}, insertTexts, options.insertTexts || {});
+
+
+    // Merging the promptTexts, with the given options
+    options.promptTexts = extend({}, promptTexts, options.promptTexts || {});
+
+
+    // Merging the blockStyles, with the given options
+    options.blockStyles = extend({}, blockStyles, options.blockStyles || {});
+
+
+    if (options.autosave != undefined) {
+        // Merging the Autosave timeFormat, with the given options
+        options.autosave.timeFormat = extend({}, timeFormat, options.autosave.timeFormat || {});
+    }
+
+
+    // Merging the shortcuts, with the given options
+    options.shortcuts = extend({}, shortcuts, options.shortcuts || {});
+
+    options.maxHeight = options.maxHeight || undefined;
+
+    if (typeof options.maxHeight !== 'undefined') {
+        // Min and max height are equal if maxHeight is set
+        options.minHeight = options.maxHeight;
+    } else {
+        options.minHeight = options.minHeight || '300px';
+    }
+
+    options.errorCallback = options.errorCallback || function (errorMessage) {
+        alert(errorMessage);
+    };
+
+    // Import-image default configuration
+    options.uploadImage = options.uploadImage || false;
+    options.imageMaxSize = options.imageMaxSize || 2097152; // 1024 * 1024 * 2
+    options.imageAccept = options.imageAccept || 'image/png, image/jpeg';
+    options.imageTexts = extend({}, imageTexts, options.imageTexts || {});
+    options.errorMessages = extend({}, errorMessages, options.errorMessages || {});
+
+
+    // Change unique_id to uniqueId for backwards compatibility
+    if (options.autosave != undefined && options.autosave.unique_id != undefined && options.autosave.unique_id != '')
+        options.autosave.uniqueId = options.autosave.unique_id;
+
+    // If overlay mode is specified and combine is not provided, default it to true
+    if (options.overlayMode && options.overlayMode.combine === undefined) {
+      options.overlayMode.combine = true;
+    }
+
+    // Update this options
+    this.options = options;
+
+
+    // Auto render
+    this.render();
+
+
+    // The codemirror component is only available after rendering
+    // so, the setter for the initialValue can only run after
+    // the element has been rendered
+    if (options.initialValue && (!this.options.autosave || this.options.autosave.foundSavedValue !== true)) {
+        this.value(options.initialValue);
+    }
+
+    if (options.uploadImage) {
+        var self = this;
+
+        this.codemirror.on('dragenter', function (cm, event) {
+            self.updateStatusBar('upload-image', self.options.imageTexts.sbOnDragEnter);
+            event.stopPropagation();
+            event.preventDefault();
+        });
+        this.codemirror.on('dragend', function (cm, event) {
+            self.updateStatusBar('upload-image', self.options.imageTexts.sbInit);
+            event.stopPropagation();
+            event.preventDefault();
+        });
+        this.codemirror.on('dragleave', function (cm, event) {
+            self.updateStatusBar('upload-image', self.options.imageTexts.sbInit);
+            event.stopPropagation();
+            event.preventDefault();
+        });
+
+        this.codemirror.on('dragover', function (cm, event) {
+            self.updateStatusBar('upload-image', self.options.imageTexts.sbOnDragEnter);
+            event.stopPropagation();
+            event.preventDefault();
+        });
+
+        this.codemirror.on('drop', function (cm, event) {
+            event.stopPropagation();
+            event.preventDefault();
+            if (options.imageUploadFunction) {
+                self.uploadImagesUsingCustomFunction(options.imageUploadFunction, event.dataTransfer.files);
+            } else {
+                self.uploadImages(event.dataTransfer.files);
+            }
+        });
+
+        this.codemirror.on('paste', function (cm, event) {
+            if (options.imageUploadFunction) {
+                self.uploadImagesUsingCustomFunction(options.imageUploadFunction, event.clipboardData.files);
+            } else {
+                self.uploadImages(event.clipboardData.files);
+            }
+        });
+    }
+}
+
+/**
+ * Upload asynchronously a list of images to a server.
+ *
+ * Can be triggered by:
+ * - drag&drop;
+ * - copy-paste;
+ * - the browse-file window (opened when the user clicks on the *upload-image* icon).
+ * @param {FileList} files The files to upload the the server.
+ * @param [onSuccess] {function} see EasyMDE.prototype.uploadImage
+ * @param [onError] {function} see EasyMDE.prototype.uploadImage
+ */
+EasyMDE.prototype.uploadImages = function (files, onSuccess, onError) {
+    if (files.length === 0) {
+      return;
+    }
+    var names = [];
+    for (var i = 0; i < files.length; i++) {
+        names.push(files[i].name);
+        this.uploadImage(files[i], onSuccess, onError);
+    }
+    this.updateStatusBar('upload-image', this.options.imageTexts.sbOnDrop.replace('#images_names#', names.join(', ')));
+};
+
+/**
+ * Upload asynchronously a list of images to a server.
+ *
+ * Can be triggered by:
+ * - drag&drop;
+ * - copy-paste;
+ * - the browse-file window (opened when the user clicks on the *upload-image* icon).
+ * @param imageUploadFunction {Function} The custom function to upload the image passed in options.
+ * @param {FileList} files The files to upload the the server.
+ */
+EasyMDE.prototype.uploadImagesUsingCustomFunction = function (imageUploadFunction, files) {
+    if (files.length === 0) {
+      return;
+    }
+    var names = [];
+    for (var i = 0; i < files.length; i++) {
+        names.push(files[i].name);
+        this.uploadImageUsingCustomFunction(imageUploadFunction, files[i]);
+    }
+    this.updateStatusBar('upload-image', this.options.imageTexts.sbOnDrop.replace('#images_names#', names.join(', ')));
+};
+
+/**
+ * Update an item in the status bar.
+ * @param itemName {string} The name of the item to update (ie. 'upload-image', 'autosave', etc.).
+ * @param content {string} the new content of the item to write in the status bar.
+ */
+EasyMDE.prototype.updateStatusBar = function (itemName, content) {
+    if (!this.gui.statusbar) {
+        return;
+    }
+
+    var matchingClasses = this.gui.statusbar.getElementsByClassName(itemName);
+    if (matchingClasses.length === 1) {
+        this.gui.statusbar.getElementsByClassName(itemName)[0].textContent = content;
+    } else if (matchingClasses.length === 0) {
+        console.log('EasyMDE: status bar item ' + itemName + ' was not found.');
+    } else {
+        console.log('EasyMDE: Several status bar items named ' + itemName + ' was found.');
+    }
+};
+
+/**
+ * Default markdown render.
+ */
+EasyMDE.prototype.markdown = function (text) {
+    if (marked) {
+        // Initialize
+        var markedOptions;
+        if (this.options && this.options.renderingConfig && this.options.renderingConfig.markedOptions) {
+            markedOptions = this.options.renderingConfig.markedOptions;
+        } else {
+            markedOptions = {};
+        }
+
+        // Update options
+        if (this.options && this.options.renderingConfig && this.options.renderingConfig.singleLineBreaks === false) {
+            markedOptions.breaks = false;
+        } else {
+            markedOptions.breaks = true;
+        }
+
+        if (this.options && this.options.renderingConfig && this.options.renderingConfig.codeSyntaxHighlighting === true) {
+
+            /* Get HLJS from config or window */
+            var hljs = this.options.renderingConfig.hljs || window.hljs;
+
+            /* Check if HLJS loaded */
+            if (hljs) {
+                markedOptions.highlight = function (code, language) {
+                    if (language && hljs.getLanguage(language)) {
+                      return hljs.highlight(language, code).value;
+                    } else {
+                    return hljs.highlightAuto(code).value;
+                    }
+                };
+            }
+        }
+
+        // Set options
+        marked.setOptions(markedOptions);
+
+        // Convert the markdown to HTML
+        var htmlText = marked(text);
+
+        // Sanitize HTML
+        if (this.options.renderingConfig && typeof this.options.renderingConfig.sanitizerFunction === 'function') {
+            htmlText = this.options.renderingConfig.sanitizerFunction.call(this, htmlText);
+        }
+
+        // Edit the HTML anchors to add 'target="_blank"' by default.
+        htmlText = addAnchorTargetBlank(htmlText);
+
+        // Remove list-style when rendering checkboxes
+        htmlText = removeListStyleWhenCheckbox(htmlText);
+
+        return htmlText;
+    }
+};
+
+/**
+ * Render editor to the given element.
+ */
+EasyMDE.prototype.render = function (el) {
+    if (!el) {
+        el = this.element || document.getElementsByTagName('textarea')[0];
+    }
+
+    if (this._rendered && this._rendered === el) {
+        // Already rendered.
+        return;
+    }
+
+    this.element = el;
+    var options = this.options;
+
+    var self = this;
+    var keyMaps = {};
+
+    for (var key in options.shortcuts) {
+        // null stands for "do not bind this command"
+        if (options.shortcuts[key] !== null && bindings[key] !== null) {
+            (function (key) {
+                keyMaps[fixShortcut(options.shortcuts[key])] = function () {
+                    var action = bindings[key];
+                    if (typeof action === 'function') {
+                        action(self);
+                    } else if (typeof action === 'string') {
+                        window.open(action, '_blank');
+                    }
+                };
+            })(key);
+        }
+    }
+
+    keyMaps['Enter'] = 'newlineAndIndentContinueMarkdownList';
+    keyMaps['Tab'] = 'tabAndIndentMarkdownList';
+    keyMaps['Shift-Tab'] = 'shiftTabAndUnindentMarkdownList';
+    keyMaps['Esc'] = function (cm) {
+        if (cm.getOption('fullScreen')) toggleFullScreen(self);
+    };
+
+    this.documentOnKeyDown = function (e) {
+        e = e || window.event;
+
+        if (e.keyCode == 27) {
+            if (self.codemirror.getOption('fullScreen')) toggleFullScreen(self);
+        }
+    };
+    document.addEventListener('keydown', this.documentOnKeyDown, false);
+
+    var mode, backdrop;
+
+    // CodeMirror overlay mode
+    if (options.overlayMode) {
+      CodeMirror.defineMode('overlay-mode', function(config) {
+        return CodeMirror.overlayMode(CodeMirror.getMode(config, options.spellChecker !== false ? 'spell-checker' : 'gfm'), options.overlayMode.mode, options.overlayMode.combine);
+      });
+
+      mode = 'overlay-mode';
+      backdrop = options.parsingConfig;
+      backdrop.gitHubSpice = false;
+
+      if (options.spellChecker !== false) {
+        backdrop.name = 'gfm';
+
+        CodeMirrorSpellChecker({
+          codeMirrorInstance: CodeMirror,
+        });
+
+      } else if (options.spellChecker !== false) {
+        mode = 'spell-checker';
+        backdrop = options.parsingConfig;
+        backdrop.name = 'gfm';
+        backdrop.gitHubSpice = false;
+
+        CodeMirrorSpellChecker({
+            codeMirrorInstance: CodeMirror,
+        });
+      }
+    } else {
+        mode = options.parsingConfig;
+        mode.name = 'gfm';
+        mode.gitHubSpice = false;
+    }
+
+    // eslint-disable-next-line no-unused-vars
+    function configureMouse(cm, repeat, event) {
+        return {
+            addNew: false,
+        };
+    }
+
+    this.codemirror = CodeMirror.fromTextArea(el, {
+        mode: mode,
+        backdrop: backdrop,
+        theme: (options.theme != undefined) ? options.theme : 'easymde',
+        tabSize: (options.tabSize != undefined) ? options.tabSize : 2,
+        indentUnit: (options.tabSize != undefined) ? options.tabSize : 2,
+        indentWithTabs: (options.indentWithTabs === false) ? false : true,
+        lineNumbers: (options.lineNumbers === true) ? true : false,
+        autofocus: (options.autofocus === true) ? true : false,
+        extraKeys: keyMaps,
+        lineWrapping: (options.lineWrapping === false) ? false : true,
+        allowDropFileTypes: ['text/plain'],
+        placeholder: options.placeholder || el.getAttribute('placeholder') || '',
+        styleSelectedText: (options.styleSelectedText != undefined) ? options.styleSelectedText : !isMobile(),
+        configureMouse: configureMouse,
+        inputStyle: (options.inputStyle != undefined) ? options.inputStyle : isMobile() ? 'contenteditable' : 'textarea',
+        spellcheck: (options.nativeSpellcheck != undefined) ? options.nativeSpellcheck : true,
+        autoRefresh: (options.autoRefresh != undefined) ? options.autoRefresh : false,
+    });
+
+    this.codemirror.getScrollerElement().style.minHeight = options.minHeight;
+
+    if (typeof options.maxHeight !== 'undefined') {
+        this.codemirror.getScrollerElement().style.height = options.maxHeight;
+    }
+
+    if (options.forceSync === true) {
+        var cm = this.codemirror;
+        cm.on('change', function () {
+            cm.save();
+        });
+    }
+
+    this.gui = {};
+
+    // Wrap Codemirror with container before create toolbar, etc,
+    // to use with sideBySideFullscreen option.
+    var easyMDEContainer = document.createElement('div');
+    easyMDEContainer.classList.add('EasyMDEContainer');
+    var cmWrapper = this.codemirror.getWrapperElement();
+    cmWrapper.parentNode.insertBefore(easyMDEContainer, cmWrapper);
+    easyMDEContainer.appendChild(cmWrapper);
+
+    if (options.toolbar !== false) {
+        this.gui.toolbar = this.createToolbar();
+    }
+    if (options.status !== false) {
+        this.gui.statusbar = this.createStatusbar();
+    }
+    if (options.autosave != undefined && options.autosave.enabled === true) {
+        this.autosave(); // use to load localstorage content
+        this.codemirror.on('change', function () {
+            clearTimeout(self._autosave_timeout);
+            self._autosave_timeout = setTimeout(function () {
+                self.autosave();
+            }, self.options.autosave.submit_delay || self.options.autosave.delay || 1000);
+        });
+    }
+
+    function handleImages() {
+        if (!options.previewImagesInEditor) {
+            return;
+        }
+
+        function calcHeight(naturalWidth, naturalHeight) {
+            var height;
+            var viewportWidth = window.getComputedStyle(document.querySelector('.CodeMirror-sizer')).width.replace('px', '');
+            if (naturalWidth < viewportWidth) {
+                height = naturalHeight + 'px';
+            } else {
+                height = (naturalHeight / naturalWidth * 100) + '%';
+            }
+            return height;
+        }
+        easyMDEContainer.querySelectorAll('.cm-formatting-image').forEach(function(e) {
+            var parentEl =  e.parentElement;
+            if (!parentEl.hasAttribute('data-img-src')) {
+                var srcAttr = parentEl.innerText.match('\\((.*)\\)'); // might require better parsing according to markdown spec
+                if (srcAttr && srcAttr.length >= 2) {
+                    var img = document.createElement('img');
+                    img.onload = function() {
+                        parentEl.setAttribute('data-img-src', srcAttr[1]);
+                        parentEl.setAttribute('data-img-width', img.naturalWidth);
+                        parentEl.setAttribute('data-img-height', img.naturalHeight);
+                        parentEl.setAttribute('style', '--bg-image:url('+srcAttr[1]+');--width:'+img.naturalWidth+'px;--height:'+calcHeight(img.naturalWidth, img.naturalHeight));
+                    };
+                    img.src = srcAttr[1];
+                }
+            } else {
+                // handle resizes case
+                var src = parentEl.getAttribute('data-img-src');
+                var naturalWidth = +parentEl.getAttribute('data-img-width');
+                var naturalHeight = +parentEl.getAttribute('data-img-height');
+                parentEl.setAttribute('style', '--bg-image:url('+src+');--width:'+naturalWidth+'px;--height:'+calcHeight(naturalWidth, naturalHeight));
+            }
+        });
+    }
+    this.codemirror.on('update', function () {
+        handleImages();
+    });
+
+    this.onWindowResize = function() {
+        handleImages();
+    };
+
+    window.addEventListener('resize', this.onWindowResize, true);
+
+    this.gui.sideBySide = this.createSideBySide();
+    this._rendered = this.element;
+
+    // Fixes CodeMirror bug (#344)
+    var temp_cm = this.codemirror;
+    setTimeout(function () {
+        temp_cm.refresh();
+    }.bind(temp_cm), 0);
+};
+
+EasyMDE.prototype.cleanup = function () {
+    window.removeEventListener(this.onWindowResize);
+    document.removeEventListener('keydown', this.documentOnKeyDown);
+};
+
+// Safari, in Private Browsing Mode, looks like it supports localStorage but all calls to setItem throw QuotaExceededError. We're going to detect this and set a variable accordingly.
+function isLocalStorageAvailable() {
+    if (typeof localStorage === 'object') {
+        try {
+            localStorage.setItem('smde_localStorage', 1);
+            localStorage.removeItem('smde_localStorage');
+        } catch (e) {
+            return false;
+        }
+    } else {
+        return false;
+    }
+
+    return true;
+}
+
+EasyMDE.prototype.autosave = function () {
+    if (isLocalStorageAvailable()) {
+        var easyMDE = this;
+
+        if (this.options.autosave.uniqueId == undefined || this.options.autosave.uniqueId == '') {
+            console.log('EasyMDE: You must set a uniqueId to use the autosave feature');
+            return;
+        }
+
+        if (this.options.autosave.binded !== true) {
+            if (easyMDE.element.form != null && easyMDE.element.form != undefined) {
+                easyMDE.element.form.addEventListener('submit', function () {
+                    clearTimeout(easyMDE.autosaveTimeoutId);
+                    easyMDE.autosaveTimeoutId = undefined;
+
+                    localStorage.removeItem('smde_' + easyMDE.options.autosave.uniqueId);
+                });
+            }
+
+            this.options.autosave.binded = true;
+        }
+
+        if (this.options.autosave.loaded !== true) {
+            if (typeof localStorage.getItem('smde_' + this.options.autosave.uniqueId) == 'string' && localStorage.getItem('smde_' + this.options.autosave.uniqueId) != '') {
+                this.codemirror.setValue(localStorage.getItem('smde_' + this.options.autosave.uniqueId));
+                this.options.autosave.foundSavedValue = true;
+            }
+
+            this.options.autosave.loaded = true;
+        }
+
+        var value = easyMDE.value();
+        if (value !== '') {
+            localStorage.setItem('smde_' + this.options.autosave.uniqueId, value);
+        } else {
+            localStorage.removeItem('smde_' + this.options.autosave.uniqueId);
+        }
+
+        var el = document.getElementById('autosaved');
+        if (el != null && el != undefined && el != '') {
+            var d = new Date();
+            var dd = new Intl.DateTimeFormat([this.options.autosave.timeFormat.locale, 'en-US'], this.options.autosave.timeFormat.format).format(d);
+            var save = this.options.autosave.text == undefined ? 'Autosaved: ' : this.options.autosave.text;
+
+            el.innerHTML = save + dd;
+        }
+    } else {
+        console.log('EasyMDE: localStorage not available, cannot autosave');
+    }
+};
+
+EasyMDE.prototype.clearAutosavedValue = function () {
+    if (isLocalStorageAvailable()) {
+        if (this.options.autosave == undefined || this.options.autosave.uniqueId == undefined || this.options.autosave.uniqueId == '') {
+            console.log('EasyMDE: You must set a uniqueId to clear the autosave value');
+            return;
+        }
+
+        localStorage.removeItem('smde_' + this.options.autosave.uniqueId);
+    } else {
+        console.log('EasyMDE: localStorage not available, cannot autosave');
+    }
+};
+
+/**
+ * Open the browse-file window to upload an image to a server.
+ * @param [onSuccess] {function} see EasyMDE.prototype.uploadImage
+ * @param [onError] {function} see EasyMDE.prototype.uploadImage
+ */
+EasyMDE.prototype.openBrowseFileWindow = function (onSuccess, onError) {
+    var self = this;
+    var imageInput = this.gui.toolbar.getElementsByClassName('imageInput')[0];
+    imageInput.click(); //dispatchEvent(new MouseEvent('click'));  // replaced with click() for IE11 compatibility.
+    function onChange(event) {
+        if (self.options.imageUploadFunction) {
+          self.uploadImagesUsingCustomFunction(self.options.imageUploadFunction, event.target.files);
+        } else {
+          self.uploadImages(event.target.files, onSuccess, onError);
+        }
+        imageInput.removeEventListener('change', onChange);
+    }
+
+    imageInput.addEventListener('change', onChange);
+};
+
+/**
+ * Upload an image to the server.
+ *
+ * @param file {File} The image to upload, as a HTML5 File object (https://developer.mozilla.org/en-US/docs/Web/API/File)
+ * @param [onSuccess] {function} A callback function to execute after the image has been successfully uploaded, with one parameter:
+ * - url (string): The URL of the uploaded image.
+ * @param [onError] {function} A callback function to execute when the image upload fails, with one parameter:
+ * - error (string): the detailed error to display to the user (based on messages from options.errorMessages).
+ */
+EasyMDE.prototype.uploadImage = function (file, onSuccess, onError) {
+    var self = this;
+    onSuccess = onSuccess || function onSuccess(imageUrl) {
+        afterImageUploaded(self, imageUrl);
+    };
+
+    function onErrorSup(errorMessage) {
+        // show error on status bar and reset after 10000ms
+        self.updateStatusBar('upload-image', errorMessage);
+
+        setTimeout(function () {
+            self.updateStatusBar('upload-image', self.options.imageTexts.sbInit);
+        }, 10000);
+
+        // run custom error handler
+        if (onError && typeof onError === 'function') {
+            onError(errorMessage);
+        }
+        // run error handler from options, this alerts the message.
+        self.options.errorCallback(errorMessage);
+    }
+
+    function fillErrorMessage(errorMessage) {
+        var units = self.options.imageTexts.sizeUnits.split(',');
+        return errorMessage
+            .replace('#image_name#', file.name)
+            .replace('#image_size#', humanFileSize(file.size, units))
+            .replace('#image_max_size#', humanFileSize(self.options.imageMaxSize, units));
+    }
+
+    if (file.size > this.options.imageMaxSize) {
+        onErrorSup(fillErrorMessage(this.options.errorMessages.fileTooLarge));
+        return;
+    }
+
+    var formData = new FormData();
+    formData.append('image', file);
+
+    // insert CSRF token if provided in config.
+    if (self.options.imageCSRFToken) {
+        formData.append('csrfmiddlewaretoken', self.options.imageCSRFToken);
+    }
+    var request = new XMLHttpRequest();
+    request.upload.onprogress = function (event) {
+        if (event.lengthComputable) {
+            var progress = '' + Math.round((event.loaded * 100) / event.total);
+            self.updateStatusBar('upload-image', self.options.imageTexts.sbProgress.replace('#file_name#', file.name).replace('#progress#', progress));
+        }
+    };
+    request.open('POST', this.options.imageUploadEndpoint);
+
+    request.onload = function () {
+        try {
+            var response = JSON.parse(this.responseText);
+        } catch (error) {
+            console.error('EasyMDE: The server did not return a valid json.');
+            onErrorSup(fillErrorMessage(self.options.errorMessages.importError));
+            return;
+        }
+        if (this.status === 200 && response && !response.error && response.data && response.data.filePath) {
+            onSuccess(window.location.origin + '/' + response.data.filePath);
+        } else {
+            if (response.error && response.error in self.options.errorMessages) {  // preformatted error message
+                onErrorSup(fillErrorMessage(self.options.errorMessages[response.error]));
+            } else if (response.error) {  // server side generated error message
+                onErrorSup(fillErrorMessage(response.error));
+            } else {  //unknown error
+                console.error('EasyMDE: Received an unexpected response after uploading the image.'
+                    + this.status + ' (' + this.statusText + ')');
+                onErrorSup(fillErrorMessage(self.options.errorMessages.importError));
+            }
+        }
+    };
+
+    request.onerror = function (event) {
+        console.error('EasyMDE: An unexpected error occurred when trying to upload the image.'
+            + event.target.status + ' (' + event.target.statusText + ')');
+        onErrorSup(self.options.errorMessages.importError);
+    };
+
+    request.send(formData);
+
+};
+
+/**
+ * Upload an image to the server using a custom upload function.
+ *
+ * @param imageUploadFunction {Function} The custom function to upload the image passed in options
+ * @param file {File} The image to upload, as a HTML5 File object (https://developer.mozilla.org/en-US/docs/Web/API/File).
+ */
+EasyMDE.prototype.uploadImageUsingCustomFunction = function(imageUploadFunction, file) {
+    var self = this;
+    function onSuccess(imageUrl) {
+        afterImageUploaded(self, imageUrl);
+    }
+
+    function onError(errorMessage) {
+        var filledErrorMessage = fillErrorMessage(errorMessage);
+        // show error on status bar and reset after 10000ms
+        self.updateStatusBar('upload-image', filledErrorMessage);
+
+        setTimeout(function () {
+            self.updateStatusBar('upload-image', self.options.imageTexts.sbInit);
+        }, 10000);
+
+        // run error handler from options, this alerts the message.
+        self.options.errorCallback(filledErrorMessage);
+    }
+
+    function fillErrorMessage(errorMessage) {
+        var units = self.options.imageTexts.sizeUnits.split(',');
+        return errorMessage
+            .replace('#image_name#', file.name)
+            .replace('#image_size#', humanFileSize(file.size, units))
+            .replace('#image_max_size#', humanFileSize(self.options.imageMaxSize, units));
+    }
+
+    imageUploadFunction.apply(this, [file, onSuccess, onError]);
+};
+
+EasyMDE.prototype.setPreviewMaxHeight = function () {
+    var cm = this.codemirror;
+    var wrapper = cm.getWrapperElement();
+    var preview = wrapper.nextSibling;
+
+    // Calc preview max height
+    var paddingTop = parseInt(window.getComputedStyle(wrapper).paddingTop);
+    var borderTopWidth = parseInt(window.getComputedStyle(wrapper).borderTopWidth);
+    var optionsMaxHeight = parseInt(this.options.maxHeight);
+    var wrapperMaxHeight = optionsMaxHeight + paddingTop * 2 + borderTopWidth * 2;
+    var previewMaxHeight = wrapperMaxHeight.toString() + 'px';
+
+    preview.style.height =  previewMaxHeight;
+};
+
+EasyMDE.prototype.createSideBySide = function () {
+    var cm = this.codemirror;
+    var wrapper = cm.getWrapperElement();
+    var preview = wrapper.nextSibling;
+
+    if (!preview || !/editor-preview-side/.test(preview.className)) {
+        preview = document.createElement('div');
+        preview.className = 'editor-preview-side';
+
+        if (this.options.previewClass) {
+
+            if (Array.isArray(this.options.previewClass)) {
+                for (var i = 0; i < this.options.previewClass.length; i++) {
+                    preview.className += (' ' + this.options.previewClass[i]);
+                }
+
+            } else if (typeof this.options.previewClass === 'string') {
+                preview.className += (' ' + this.options.previewClass);
+            }
+        }
+
+        wrapper.parentNode.insertBefore(preview, wrapper.nextSibling);
+    }
+
+    if (typeof this.options.maxHeight !== 'undefined') {
+        this.setPreviewMaxHeight();
+    }
+
+    if (this.options.syncSideBySidePreviewScroll === false) return preview;
+    // Syncs scroll  editor -> preview
+    var cScroll = false;
+    var pScroll = false;
+    cm.on('scroll', function (v) {
+        if (cScroll) {
+            cScroll = false;
+            return;
+        }
+        pScroll = true;
+        var height = v.getScrollInfo().height - v.getScrollInfo().clientHeight;
+        var ratio = parseFloat(v.getScrollInfo().top) / height;
+        var move = (preview.scrollHeight - preview.clientHeight) * ratio;
+        preview.scrollTop = move;
+    });
+
+    // Syncs scroll  preview -> editor
+    preview.onscroll = function () {
+        if (pScroll) {
+            pScroll = false;
+            return;
+        }
+        cScroll = true;
+        var height = preview.scrollHeight - preview.clientHeight;
+        var ratio = parseFloat(preview.scrollTop) / height;
+        var move = (cm.getScrollInfo().height - cm.getScrollInfo().clientHeight) * ratio;
+        cm.scrollTo(0, move);
+    };
+    return preview;
+};
+
+EasyMDE.prototype.createToolbar = function (items) {
+    items = items || this.options.toolbar;
+
+    if (!items || items.length === 0) {
+        return;
+    }
+    var i;
+    for (i = 0; i < items.length; i++) {
+        if (toolbarBuiltInButtons[items[i]] != undefined) {
+            items[i] = toolbarBuiltInButtons[items[i]];
+        }
+    }
+
+    var bar = document.createElement('div');
+    bar.className = 'editor-toolbar';
+
+    var self = this;
+
+    var toolbarData = {};
+    self.toolbar = items;
+
+    for (i = 0; i < items.length; i++) {
+        if (items[i].name == 'guide' && self.options.toolbarGuideIcon === false)
+            continue;
+
+        if (self.options.hideIcons && self.options.hideIcons.indexOf(items[i].name) != -1)
+            continue;
+
+        // Fullscreen does not work well on mobile devices (even tablets)
+        // In the future, hopefully this can be resolved
+        if ((items[i].name == 'fullscreen' || items[i].name == 'side-by-side') && isMobile())
+            continue;
+
+
+        // Don't include trailing separators
+        if (items[i] === '|') {
+            var nonSeparatorIconsFollow = false;
+
+            for (var x = (i + 1); x < items.length; x++) {
+                if (items[x] !== '|' && (!self.options.hideIcons || self.options.hideIcons.indexOf(items[x].name) == -1)) {
+                    nonSeparatorIconsFollow = true;
+                }
+            }
+
+            if (!nonSeparatorIconsFollow)
+                continue;
+        }
+
+
+        // Create the icon and append to the toolbar
+        (function (item) {
+            var el;
+            if (item === '|') {
+                el = createSep();
+            } else if (item.children) {
+                el = createToolbarDropdown(item, self.options.toolbarTips, self.options.shortcuts, self);
+            } else {
+                el = createToolbarButton(item, true, self.options.toolbarTips, self.options.shortcuts, 'button', self);
+            }
+
+
+            toolbarData[item.name || item] = el;
+            bar.appendChild(el);
+
+            // Create the input element (ie. <input type='file'>), used among
+            // with the 'import-image' icon to open the browse-file window.
+            if (item.name === 'upload-image') {
+                var imageInput = document.createElement('input');
+                imageInput.className = 'imageInput';
+                imageInput.type = 'file';
+                imageInput.multiple = true;
+                imageInput.name = 'image';
+                imageInput.accept = self.options.imageAccept;
+                imageInput.style.display = 'none';
+                imageInput.style.opacity = 0;
+                bar.appendChild(imageInput);
+            }
+        })(items[i]);
+    }
+
+    self.toolbar_div = bar;
+    self.toolbarElements = toolbarData;
+
+    var cm = this.codemirror;
+    cm.on('cursorActivity', function () {
+        var stat = getState(cm);
+
+        for (var key in toolbarData) {
+            (function (key) {
+                var el = toolbarData[key];
+                if (stat[key]) {
+                    el.className += ' active';
+                } else if (key != 'fullscreen' && key != 'side-by-side') {
+                    el.className = el.className.replace(/\s*active\s*/g, '');
+                }
+            })(key);
+        }
+    });
+
+    var cmWrapper = cm.getWrapperElement();
+    cmWrapper.parentNode.insertBefore(bar, cmWrapper);
+    return bar;
+};
+
+EasyMDE.prototype.createStatusbar = function (status) {
+    // Initialize
+    status = status || this.options.status;
+    var options = this.options;
+    var cm = this.codemirror;
+
+    // Make sure the status variable is valid
+    if (!status || status.length === 0) {
+        return;
+    }
+
+    // Set up the built-in items
+    var items = [];
+    var i, onUpdate, onActivity, defaultValue;
+
+    for (i = 0; i < status.length; i++) {
+        // Reset some values
+        onUpdate = undefined;
+        onActivity = undefined;
+        defaultValue = undefined;
+
+
+        // Handle if custom or not
+        if (typeof status[i] === 'object') {
+            items.push({
+                className: status[i].className,
+                defaultValue: status[i].defaultValue,
+                onUpdate: status[i].onUpdate,
+                onActivity: status[i].onActivity,
+            });
+        } else {
+            var name = status[i];
+
+            if (name === 'words') {
+                defaultValue = function (el) {
+                    el.innerHTML = wordCount(cm.getValue());
+                };
+                onUpdate = function (el) {
+                    el.innerHTML = wordCount(cm.getValue());
+                };
+            } else if (name === 'lines') {
+                defaultValue = function (el) {
+                    el.innerHTML = cm.lineCount();
+                };
+                onUpdate = function (el) {
+                    el.innerHTML = cm.lineCount();
+                };
+            } else if (name === 'cursor') {
+                defaultValue = function (el) {
+                    el.innerHTML = '0:0';
+                };
+                onActivity = function (el) {
+                    var pos = cm.getCursor();
+                    el.innerHTML = pos.line + ':' + pos.ch;
+                };
+            } else if (name === 'autosave') {
+                defaultValue = function (el) {
+                    if (options.autosave != undefined && options.autosave.enabled === true) {
+                        el.setAttribute('id', 'autosaved');
+                    }
+                };
+            } else if (name === 'upload-image') {
+                defaultValue = function (el) {
+                    el.innerHTML = options.imageTexts.sbInit;
+                };
+            }
+
+            items.push({
+                className: name,
+                defaultValue: defaultValue,
+                onUpdate: onUpdate,
+                onActivity: onActivity,
+            });
+        }
+    }
+
+
+    // Create element for the status bar
+    var bar = document.createElement('div');
+    bar.className = 'editor-statusbar';
+
+
+    // Create a new span for each item
+    for (i = 0; i < items.length; i++) {
+        // Store in temporary variable
+        var item = items[i];
+
+
+        // Create span element
+        var el = document.createElement('span');
+        el.className = item.className;
+
+
+        // Ensure the defaultValue is a function
+        if (typeof item.defaultValue === 'function') {
+            item.defaultValue(el);
+        }
+
+
+        // Ensure the onUpdate is a function
+        if (typeof item.onUpdate === 'function') {
+            // Create a closure around the span of the current action, then execute the onUpdate handler
+            this.codemirror.on('update', (function (el, item) {
+                return function () {
+                    item.onUpdate(el);
+                };
+            }(el, item)));
+        }
+        if (typeof item.onActivity === 'function') {
+            // Create a closure around the span of the current action, then execute the onActivity handler
+            this.codemirror.on('cursorActivity', (function (el, item) {
+                return function () {
+                    item.onActivity(el);
+                };
+            }(el, item)));
+        }
+
+
+        // Append the item to the status bar
+        bar.appendChild(el);
+    }
+
+
+    // Insert the status bar into the DOM
+    var cmWrapper = this.codemirror.getWrapperElement();
+    cmWrapper.parentNode.insertBefore(bar, cmWrapper.nextSibling);
+    return bar;
+};
+
+/**
+ * Get or set the text content.
+ */
+EasyMDE.prototype.value = function (val) {
+    var cm = this.codemirror;
+    if (val === undefined) {
+        return cm.getValue();
+    } else {
+        cm.getDoc().setValue(val);
+        if (this.isPreviewActive()) {
+            var wrapper = cm.getWrapperElement();
+            var preview = wrapper.lastChild;
+            preview.innerHTML = this.options.previewRender(val, preview);
+        }
+        return this;
+    }
+};
+
+
+/**
+ * Bind static methods for exports.
+ */
+EasyMDE.toggleBold = toggleBold;
+EasyMDE.toggleItalic = toggleItalic;
+EasyMDE.toggleStrikethrough = toggleStrikethrough;
+EasyMDE.toggleBlockquote = toggleBlockquote;
+EasyMDE.toggleHeadingSmaller = toggleHeadingSmaller;
+EasyMDE.toggleHeadingBigger = toggleHeadingBigger;
+EasyMDE.toggleHeading1 = toggleHeading1;
+EasyMDE.toggleHeading2 = toggleHeading2;
+EasyMDE.toggleHeading3 = toggleHeading3;
+EasyMDE.toggleCodeBlock = toggleCodeBlock;
+EasyMDE.toggleUnorderedList = toggleUnorderedList;
+EasyMDE.toggleOrderedList = toggleOrderedList;
+EasyMDE.cleanBlock = cleanBlock;
+EasyMDE.drawLink = drawLink;
+EasyMDE.drawImage = drawImage;
+EasyMDE.drawUploadedImage = drawUploadedImage;
+EasyMDE.drawTable = drawTable;
+EasyMDE.drawHorizontalRule = drawHorizontalRule;
+EasyMDE.undo = undo;
+EasyMDE.redo = redo;
+EasyMDE.togglePreview = togglePreview;
+EasyMDE.toggleSideBySide = toggleSideBySide;
+EasyMDE.toggleFullScreen = toggleFullScreen;
+
+/**
+ * Bind instance methods for exports.
+ */
+EasyMDE.prototype.toggleBold = function () {
+    toggleBold(this);
+};
+EasyMDE.prototype.toggleItalic = function () {
+    toggleItalic(this);
+};
+EasyMDE.prototype.toggleStrikethrough = function () {
+    toggleStrikethrough(this);
+};
+EasyMDE.prototype.toggleBlockquote = function () {
+    toggleBlockquote(this);
+};
+EasyMDE.prototype.toggleHeadingSmaller = function () {
+    toggleHeadingSmaller(this);
+};
+EasyMDE.prototype.toggleHeadingBigger = function () {
+    toggleHeadingBigger(this);
+};
+EasyMDE.prototype.toggleHeading1 = function () {
+    toggleHeading1(this);
+};
+EasyMDE.prototype.toggleHeading2 = function () {
+    toggleHeading2(this);
+};
+EasyMDE.prototype.toggleHeading3 = function () {
+    toggleHeading3(this);
+};
+EasyMDE.prototype.toggleCodeBlock = function () {
+    toggleCodeBlock(this);
+};
+EasyMDE.prototype.toggleUnorderedList = function () {
+    toggleUnorderedList(this);
+};
+EasyMDE.prototype.toggleOrderedList = function () {
+    toggleOrderedList(this);
+};
+EasyMDE.prototype.cleanBlock = function () {
+    cleanBlock(this);
+};
+EasyMDE.prototype.drawLink = function () {
+    drawLink(this);
+};
+EasyMDE.prototype.drawImage = function () {
+    drawImage(this);
+};
+EasyMDE.prototype.drawUploadedImage = function () {
+    drawUploadedImage(this);
+};
+EasyMDE.prototype.drawTable = function () {
+    drawTable(this);
+};
+EasyMDE.prototype.drawHorizontalRule = function () {
+    drawHorizontalRule(this);
+};
+EasyMDE.prototype.undo = function () {
+    undo(this);
+};
+EasyMDE.prototype.redo = function () {
+    redo(this);
+};
+EasyMDE.prototype.togglePreview = function () {
+    togglePreview(this);
+};
+EasyMDE.prototype.toggleSideBySide = function () {
+    toggleSideBySide(this);
+};
+EasyMDE.prototype.toggleFullScreen = function () {
+    toggleFullScreen(this);
+};
+
+EasyMDE.prototype.isPreviewActive = function () {
+    var cm = this.codemirror;
+    var wrapper = cm.getWrapperElement();
+    var preview = wrapper.lastChild;
+
+    return /editor-preview-active/.test(preview.className);
+};
+
+EasyMDE.prototype.isSideBySideActive = function () {
+    var cm = this.codemirror;
+    var wrapper = cm.getWrapperElement();
+    var preview = wrapper.nextSibling;
+
+    return /editor-preview-active-side/.test(preview.className);
+};
+
+EasyMDE.prototype.isFullscreenActive = function () {
+    var cm = this.codemirror;
+
+    return cm.getOption('fullScreen');
+};
+
+EasyMDE.prototype.getState = function () {
+    var cm = this.codemirror;
+
+    return getState(cm);
+};
+
+EasyMDE.prototype.toTextArea = function () {
+    var cm = this.codemirror;
+    var wrapper = cm.getWrapperElement();
+    var easyMDEContainer = wrapper.parentNode;
+
+    if (easyMDEContainer) {
+        if (this.gui.toolbar) {
+            easyMDEContainer.removeChild(this.gui.toolbar);
+        }
+        if (this.gui.statusbar) {
+            easyMDEContainer.removeChild(this.gui.statusbar);
+        }
+        if (this.gui.sideBySide) {
+            easyMDEContainer.removeChild(this.gui.sideBySide);
+        }
+    }
+
+    // Unwrap easyMDEcontainer before codemirror toTextArea() call
+    easyMDEContainer.parentNode.insertBefore(wrapper, easyMDEContainer);
+    easyMDEContainer.remove();
+
+    cm.toTextArea();
+
+    if (this.autosaveTimeoutId) {
+        clearTimeout(this.autosaveTimeoutId);
+        this.autosaveTimeoutId = undefined;
+        this.clearAutosavedValue();
+    }
+};
+
+module.exports = EasyMDE;
+
+
+/***/ }),
+
 /***/ "./node_modules/inversify/lib/annotation/decorator_utils.js":
 /*!******************************************************************!*\
   !*** ./node_modules/inversify/lib/annotation/decorator_utils.js ***!
@@ -17384,6 +17394,7 @@ if (!CodeMirror.mimeModes.hasOwnProperty("text/html"))
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.tagProperty = exports.tagParameter = exports.decorate = void 0;
 var ERROR_MSGS = __webpack_require__(/*! ../constants/error_msgs */ "./node_modules/inversify/lib/constants/error_msgs.js");
 var METADATA_KEY = __webpack_require__(/*! ../constants/metadata_keys */ "./node_modules/inversify/lib/constants/metadata_keys.js");
 function tagParameter(annotationTarget, propertyName, parameterIndex, metadata) {
@@ -17454,6 +17465,7 @@ exports.decorate = decorate;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.inject = exports.LazyServiceIdentifer = void 0;
 var error_msgs_1 = __webpack_require__(/*! ../constants/error_msgs */ "./node_modules/inversify/lib/constants/error_msgs.js");
 var METADATA_KEY = __webpack_require__(/*! ../constants/metadata_keys */ "./node_modules/inversify/lib/constants/metadata_keys.js");
 var metadata_1 = __webpack_require__(/*! ../planning/metadata */ "./node_modules/inversify/lib/planning/metadata.js");
@@ -17497,6 +17509,7 @@ exports.inject = inject;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.injectable = void 0;
 var ERRORS_MSGS = __webpack_require__(/*! ../constants/error_msgs */ "./node_modules/inversify/lib/constants/error_msgs.js");
 var METADATA_KEY = __webpack_require__(/*! ../constants/metadata_keys */ "./node_modules/inversify/lib/constants/metadata_keys.js");
 function injectable() {
@@ -17524,6 +17537,7 @@ exports.injectable = injectable;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.multiInject = void 0;
 var METADATA_KEY = __webpack_require__(/*! ../constants/metadata_keys */ "./node_modules/inversify/lib/constants/metadata_keys.js");
 var metadata_1 = __webpack_require__(/*! ../planning/metadata */ "./node_modules/inversify/lib/planning/metadata.js");
 var decorator_utils_1 = __webpack_require__(/*! ./decorator_utils */ "./node_modules/inversify/lib/annotation/decorator_utils.js");
@@ -17553,6 +17567,7 @@ exports.multiInject = multiInject;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.named = void 0;
 var METADATA_KEY = __webpack_require__(/*! ../constants/metadata_keys */ "./node_modules/inversify/lib/constants/metadata_keys.js");
 var metadata_1 = __webpack_require__(/*! ../planning/metadata */ "./node_modules/inversify/lib/planning/metadata.js");
 var decorator_utils_1 = __webpack_require__(/*! ./decorator_utils */ "./node_modules/inversify/lib/annotation/decorator_utils.js");
@@ -17582,6 +17597,7 @@ exports.named = named;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.optional = void 0;
 var METADATA_KEY = __webpack_require__(/*! ../constants/metadata_keys */ "./node_modules/inversify/lib/constants/metadata_keys.js");
 var metadata_1 = __webpack_require__(/*! ../planning/metadata */ "./node_modules/inversify/lib/planning/metadata.js");
 var decorator_utils_1 = __webpack_require__(/*! ./decorator_utils */ "./node_modules/inversify/lib/annotation/decorator_utils.js");
@@ -17611,6 +17627,7 @@ exports.optional = optional;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.postConstruct = void 0;
 var ERRORS_MSGS = __webpack_require__(/*! ../constants/error_msgs */ "./node_modules/inversify/lib/constants/error_msgs.js");
 var METADATA_KEY = __webpack_require__(/*! ../constants/metadata_keys */ "./node_modules/inversify/lib/constants/metadata_keys.js");
 var metadata_1 = __webpack_require__(/*! ../planning/metadata */ "./node_modules/inversify/lib/planning/metadata.js");
@@ -17638,6 +17655,7 @@ exports.postConstruct = postConstruct;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.tagged = void 0;
 var metadata_1 = __webpack_require__(/*! ../planning/metadata */ "./node_modules/inversify/lib/planning/metadata.js");
 var decorator_utils_1 = __webpack_require__(/*! ./decorator_utils */ "./node_modules/inversify/lib/annotation/decorator_utils.js");
 function tagged(metadataKey, metadataValue) {
@@ -17666,6 +17684,7 @@ exports.tagged = tagged;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.targetName = void 0;
 var METADATA_KEY = __webpack_require__(/*! ../constants/metadata_keys */ "./node_modules/inversify/lib/constants/metadata_keys.js");
 var metadata_1 = __webpack_require__(/*! ../planning/metadata */ "./node_modules/inversify/lib/planning/metadata.js");
 var decorator_utils_1 = __webpack_require__(/*! ./decorator_utils */ "./node_modules/inversify/lib/annotation/decorator_utils.js");
@@ -17690,6 +17709,7 @@ exports.targetName = targetName;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.unmanaged = void 0;
 var METADATA_KEY = __webpack_require__(/*! ../constants/metadata_keys */ "./node_modules/inversify/lib/constants/metadata_keys.js");
 var metadata_1 = __webpack_require__(/*! ../planning/metadata */ "./node_modules/inversify/lib/planning/metadata.js");
 var decorator_utils_1 = __webpack_require__(/*! ./decorator_utils */ "./node_modules/inversify/lib/annotation/decorator_utils.js");
@@ -17714,6 +17734,7 @@ exports.unmanaged = unmanaged;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Binding = void 0;
 var literal_types_1 = __webpack_require__(/*! ../constants/literal_types */ "./node_modules/inversify/lib/constants/literal_types.js");
 var id_1 = __webpack_require__(/*! ../utils/id */ "./node_modules/inversify/lib/utils/id.js");
 var Binding = (function () {
@@ -17762,6 +17783,7 @@ exports.Binding = Binding;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BindingCount = void 0;
 var BindingCount = {
     MultipleBindingsAvailable: 2,
     NoBindingsAvailable: 0,
@@ -17782,6 +17804,7 @@ exports.BindingCount = BindingCount;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.STACK_OVERFLOW = exports.CIRCULAR_DEPENDENCY_IN_FACTORY = exports.POST_CONSTRUCT_ERROR = exports.MULTIPLE_POST_CONSTRUCT_METHODS = exports.CONTAINER_OPTIONS_INVALID_SKIP_BASE_CHECK = exports.CONTAINER_OPTIONS_INVALID_AUTO_BIND_INJECTABLE = exports.CONTAINER_OPTIONS_INVALID_DEFAULT_SCOPE = exports.CONTAINER_OPTIONS_MUST_BE_AN_OBJECT = exports.ARGUMENTS_LENGTH_MISMATCH = exports.INVALID_DECORATOR_OPERATION = exports.INVALID_TO_SELF_VALUE = exports.INVALID_FUNCTION_BINDING = exports.INVALID_MIDDLEWARE_RETURN = exports.NO_MORE_SNAPSHOTS_AVAILABLE = exports.INVALID_BINDING_TYPE = exports.NOT_IMPLEMENTED = exports.CIRCULAR_DEPENDENCY = exports.UNDEFINED_INJECT_ANNOTATION = exports.MISSING_INJECT_ANNOTATION = exports.MISSING_INJECTABLE_ANNOTATION = exports.NOT_REGISTERED = exports.CANNOT_UNBIND = exports.AMBIGUOUS_MATCH = exports.KEY_NOT_FOUND = exports.NULL_ARGUMENT = exports.DUPLICATED_METADATA = exports.DUPLICATED_INJECTABLE_DECORATOR = void 0;
 exports.DUPLICATED_INJECTABLE_DECORATOR = "Cannot apply @injectable decorator multiple times.";
 exports.DUPLICATED_METADATA = "Metadata key was used more than once in a parameter:";
 exports.NULL_ARGUMENT = "NULL argument";
@@ -17854,6 +17877,7 @@ exports.STACK_OVERFLOW = "Maximum call stack size exceeded";
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TargetTypeEnum = exports.BindingTypeEnum = exports.BindingScopeEnum = void 0;
 var BindingScopeEnum = {
     Request: "Request",
     Singleton: "Singleton",
@@ -17891,6 +17915,7 @@ exports.TargetTypeEnum = TargetTypeEnum;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.POST_CONSTRUCT = exports.DESIGN_PARAM_TYPES = exports.PARAM_TYPES = exports.TAGGED_PROP = exports.TAGGED = exports.MULTI_INJECT_TAG = exports.INJECT_TAG = exports.OPTIONAL_TAG = exports.UNMANAGED_TAG = exports.NAME_TAG = exports.NAMED_TAG = void 0;
 exports.NAMED_TAG = "named";
 exports.NAME_TAG = "name";
 exports.UNMANAGED_TAG = "unmanaged";
@@ -17916,10 +17941,11 @@ exports.POST_CONSTRUCT = "post_construct";
 "use strict";
 
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -17930,8 +17956,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
         while (_) try {
-            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [0, t.value];
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
                 case 0: case 1: t = op; break;
                 case 4: _.label++; return { value: op[1], done: false };
@@ -17951,6 +17977,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Container = void 0;
 var binding_1 = __webpack_require__(/*! ../bindings/binding */ "./node_modules/inversify/lib/bindings/binding.js");
 var ERROR_MSGS = __webpack_require__(/*! ../constants/error_msgs */ "./node_modules/inversify/lib/constants/error_msgs.js");
 var literal_types_1 = __webpack_require__(/*! ../constants/literal_types */ "./node_modules/inversify/lib/constants/literal_types.js");
@@ -18253,6 +18280,7 @@ exports.Container = Container;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AsyncContainerModule = exports.ContainerModule = void 0;
 var id_1 = __webpack_require__(/*! ../utils/id */ "./node_modules/inversify/lib/utils/id.js");
 var ContainerModule = (function () {
     function ContainerModule(registry) {
@@ -18284,6 +18312,7 @@ exports.AsyncContainerModule = AsyncContainerModule;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ContainerSnapshot = void 0;
 var ContainerSnapshot = (function () {
     function ContainerSnapshot() {
     }
@@ -18310,6 +18339,7 @@ exports.ContainerSnapshot = ContainerSnapshot;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Lookup = void 0;
 var ERROR_MSGS = __webpack_require__(/*! ../constants/error_msgs */ "./node_modules/inversify/lib/constants/error_msgs.js");
 var Lookup = (function () {
     function Lookup() {
@@ -18401,51 +18431,52 @@ exports.Lookup = Lookup;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.METADATA_KEY = void 0;
 var keys = __webpack_require__(/*! ./constants/metadata_keys */ "./node_modules/inversify/lib/constants/metadata_keys.js");
 exports.METADATA_KEY = keys;
 var container_1 = __webpack_require__(/*! ./container/container */ "./node_modules/inversify/lib/container/container.js");
-exports.Container = container_1.Container;
+Object.defineProperty(exports, "Container", { enumerable: true, get: function () { return container_1.Container; } });
 var literal_types_1 = __webpack_require__(/*! ./constants/literal_types */ "./node_modules/inversify/lib/constants/literal_types.js");
-exports.BindingScopeEnum = literal_types_1.BindingScopeEnum;
-exports.BindingTypeEnum = literal_types_1.BindingTypeEnum;
-exports.TargetTypeEnum = literal_types_1.TargetTypeEnum;
+Object.defineProperty(exports, "BindingScopeEnum", { enumerable: true, get: function () { return literal_types_1.BindingScopeEnum; } });
+Object.defineProperty(exports, "BindingTypeEnum", { enumerable: true, get: function () { return literal_types_1.BindingTypeEnum; } });
+Object.defineProperty(exports, "TargetTypeEnum", { enumerable: true, get: function () { return literal_types_1.TargetTypeEnum; } });
 var container_module_1 = __webpack_require__(/*! ./container/container_module */ "./node_modules/inversify/lib/container/container_module.js");
-exports.AsyncContainerModule = container_module_1.AsyncContainerModule;
-exports.ContainerModule = container_module_1.ContainerModule;
+Object.defineProperty(exports, "AsyncContainerModule", { enumerable: true, get: function () { return container_module_1.AsyncContainerModule; } });
+Object.defineProperty(exports, "ContainerModule", { enumerable: true, get: function () { return container_module_1.ContainerModule; } });
 var injectable_1 = __webpack_require__(/*! ./annotation/injectable */ "./node_modules/inversify/lib/annotation/injectable.js");
-exports.injectable = injectable_1.injectable;
+Object.defineProperty(exports, "injectable", { enumerable: true, get: function () { return injectable_1.injectable; } });
 var tagged_1 = __webpack_require__(/*! ./annotation/tagged */ "./node_modules/inversify/lib/annotation/tagged.js");
-exports.tagged = tagged_1.tagged;
+Object.defineProperty(exports, "tagged", { enumerable: true, get: function () { return tagged_1.tagged; } });
 var named_1 = __webpack_require__(/*! ./annotation/named */ "./node_modules/inversify/lib/annotation/named.js");
-exports.named = named_1.named;
+Object.defineProperty(exports, "named", { enumerable: true, get: function () { return named_1.named; } });
 var inject_1 = __webpack_require__(/*! ./annotation/inject */ "./node_modules/inversify/lib/annotation/inject.js");
-exports.inject = inject_1.inject;
-exports.LazyServiceIdentifer = inject_1.LazyServiceIdentifer;
+Object.defineProperty(exports, "inject", { enumerable: true, get: function () { return inject_1.inject; } });
+Object.defineProperty(exports, "LazyServiceIdentifer", { enumerable: true, get: function () { return inject_1.LazyServiceIdentifer; } });
 var optional_1 = __webpack_require__(/*! ./annotation/optional */ "./node_modules/inversify/lib/annotation/optional.js");
-exports.optional = optional_1.optional;
+Object.defineProperty(exports, "optional", { enumerable: true, get: function () { return optional_1.optional; } });
 var unmanaged_1 = __webpack_require__(/*! ./annotation/unmanaged */ "./node_modules/inversify/lib/annotation/unmanaged.js");
-exports.unmanaged = unmanaged_1.unmanaged;
+Object.defineProperty(exports, "unmanaged", { enumerable: true, get: function () { return unmanaged_1.unmanaged; } });
 var multi_inject_1 = __webpack_require__(/*! ./annotation/multi_inject */ "./node_modules/inversify/lib/annotation/multi_inject.js");
-exports.multiInject = multi_inject_1.multiInject;
+Object.defineProperty(exports, "multiInject", { enumerable: true, get: function () { return multi_inject_1.multiInject; } });
 var target_name_1 = __webpack_require__(/*! ./annotation/target_name */ "./node_modules/inversify/lib/annotation/target_name.js");
-exports.targetName = target_name_1.targetName;
+Object.defineProperty(exports, "targetName", { enumerable: true, get: function () { return target_name_1.targetName; } });
 var post_construct_1 = __webpack_require__(/*! ./annotation/post_construct */ "./node_modules/inversify/lib/annotation/post_construct.js");
-exports.postConstruct = post_construct_1.postConstruct;
+Object.defineProperty(exports, "postConstruct", { enumerable: true, get: function () { return post_construct_1.postConstruct; } });
 var metadata_reader_1 = __webpack_require__(/*! ./planning/metadata_reader */ "./node_modules/inversify/lib/planning/metadata_reader.js");
-exports.MetadataReader = metadata_reader_1.MetadataReader;
+Object.defineProperty(exports, "MetadataReader", { enumerable: true, get: function () { return metadata_reader_1.MetadataReader; } });
 var id_1 = __webpack_require__(/*! ./utils/id */ "./node_modules/inversify/lib/utils/id.js");
-exports.id = id_1.id;
+Object.defineProperty(exports, "id", { enumerable: true, get: function () { return id_1.id; } });
 var decorator_utils_1 = __webpack_require__(/*! ./annotation/decorator_utils */ "./node_modules/inversify/lib/annotation/decorator_utils.js");
-exports.decorate = decorator_utils_1.decorate;
+Object.defineProperty(exports, "decorate", { enumerable: true, get: function () { return decorator_utils_1.decorate; } });
 var constraint_helpers_1 = __webpack_require__(/*! ./syntax/constraint_helpers */ "./node_modules/inversify/lib/syntax/constraint_helpers.js");
-exports.traverseAncerstors = constraint_helpers_1.traverseAncerstors;
-exports.taggedConstraint = constraint_helpers_1.taggedConstraint;
-exports.namedConstraint = constraint_helpers_1.namedConstraint;
-exports.typeConstraint = constraint_helpers_1.typeConstraint;
+Object.defineProperty(exports, "traverseAncerstors", { enumerable: true, get: function () { return constraint_helpers_1.traverseAncerstors; } });
+Object.defineProperty(exports, "taggedConstraint", { enumerable: true, get: function () { return constraint_helpers_1.taggedConstraint; } });
+Object.defineProperty(exports, "namedConstraint", { enumerable: true, get: function () { return constraint_helpers_1.namedConstraint; } });
+Object.defineProperty(exports, "typeConstraint", { enumerable: true, get: function () { return constraint_helpers_1.typeConstraint; } });
 var serialization_1 = __webpack_require__(/*! ./utils/serialization */ "./node_modules/inversify/lib/utils/serialization.js");
-exports.getServiceIdentifierAsString = serialization_1.getServiceIdentifierAsString;
+Object.defineProperty(exports, "getServiceIdentifierAsString", { enumerable: true, get: function () { return serialization_1.getServiceIdentifierAsString; } });
 var binding_utils_1 = __webpack_require__(/*! ./utils/binding_utils */ "./node_modules/inversify/lib/utils/binding_utils.js");
-exports.multiBindToService = binding_utils_1.multiBindToService;
+Object.defineProperty(exports, "multiBindToService", { enumerable: true, get: function () { return binding_utils_1.multiBindToService; } });
 
 
 /***/ }),
@@ -18460,6 +18491,7 @@ exports.multiBindToService = binding_utils_1.multiBindToService;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Context = void 0;
 var id_1 = __webpack_require__(/*! ../utils/id */ "./node_modules/inversify/lib/utils/id.js");
 var Context = (function () {
     function Context(container) {
@@ -18489,6 +18521,7 @@ exports.Context = Context;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Metadata = void 0;
 var METADATA_KEY = __webpack_require__(/*! ../constants/metadata_keys */ "./node_modules/inversify/lib/constants/metadata_keys.js");
 var Metadata = (function () {
     function Metadata(key, value) {
@@ -18520,6 +18553,7 @@ exports.Metadata = Metadata;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MetadataReader = void 0;
 var METADATA_KEY = __webpack_require__(/*! ../constants/metadata_keys */ "./node_modules/inversify/lib/constants/metadata_keys.js");
 var MetadataReader = (function () {
     function MetadataReader() {
@@ -18553,6 +18587,7 @@ exports.MetadataReader = MetadataReader;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Plan = void 0;
 var Plan = (function () {
     function Plan(parentContext, rootRequest) {
         this.parentContext = parentContext;
@@ -18575,6 +18610,7 @@ exports.Plan = Plan;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getBindingDictionary = exports.createMockRequest = exports.plan = void 0;
 var binding_count_1 = __webpack_require__(/*! ../bindings/binding_count */ "./node_modules/inversify/lib/bindings/binding_count.js");
 var ERROR_MSGS = __webpack_require__(/*! ../constants/error_msgs */ "./node_modules/inversify/lib/constants/error_msgs.js");
 var literal_types_1 = __webpack_require__(/*! ../constants/literal_types */ "./node_modules/inversify/lib/constants/literal_types.js");
@@ -18742,6 +18778,7 @@ exports.createMockRequest = createMockRequest;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.QueryableString = void 0;
 var QueryableString = (function () {
     function QueryableString(str) {
         this.str = str;
@@ -18780,13 +18817,21 @@ exports.QueryableString = QueryableString;
 
 "use strict";
 
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getFunctionName = exports.getBaseClassDependencyCount = exports.getDependencies = void 0;
 var inject_1 = __webpack_require__(/*! ../annotation/inject */ "./node_modules/inversify/lib/annotation/inject.js");
 var ERROR_MSGS = __webpack_require__(/*! ../constants/error_msgs */ "./node_modules/inversify/lib/constants/error_msgs.js");
 var literal_types_1 = __webpack_require__(/*! ../constants/literal_types */ "./node_modules/inversify/lib/constants/literal_types.js");
 var METADATA_KEY = __webpack_require__(/*! ../constants/metadata_keys */ "./node_modules/inversify/lib/constants/metadata_keys.js");
 var serialization_1 = __webpack_require__(/*! ../utils/serialization */ "./node_modules/inversify/lib/utils/serialization.js");
-exports.getFunctionName = serialization_1.getFunctionName;
+Object.defineProperty(exports, "getFunctionName", { enumerable: true, get: function () { return serialization_1.getFunctionName; } });
 var target_1 = __webpack_require__(/*! ./target */ "./node_modules/inversify/lib/planning/target.js");
 function getDependencies(metadataReader, func) {
     var constructorName = serialization_1.getFunctionName(func);
@@ -18807,7 +18852,7 @@ function getTargets(metadataReader, constructorName, func, isBaseClass) {
     var iterations = (hasUserDeclaredUnknownInjections) ? keys.length : func.length;
     var constructorTargets = getConstructorArgsAsTargets(isBaseClass, constructorName, serviceIdentifiers, constructorArgsMetadata, iterations);
     var propertyTargets = getClassPropsAsTargets(metadataReader, func);
-    var targets = constructorTargets.concat(propertyTargets);
+    var targets = __spreadArrays(constructorTargets, propertyTargets);
     return targets;
 }
 function getConstructorArgsAsTarget(index, isBaseClass, constructorName, serviceIdentifiers, constructorArgsMetadata) {
@@ -18863,7 +18908,7 @@ function getClassPropsAsTargets(metadataReader, constructorFunc) {
     var baseConstructor = Object.getPrototypeOf(constructorFunc.prototype).constructor;
     if (baseConstructor !== Object) {
         var baseTargets = getClassPropsAsTargets(metadataReader, baseConstructor);
-        targets = targets.concat(baseTargets);
+        targets = __spreadArrays(targets, baseTargets);
     }
     return targets;
 }
@@ -18917,6 +18962,7 @@ function formatTargetMetadata(targetMetadata) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Request = void 0;
 var id_1 = __webpack_require__(/*! ../utils/id */ "./node_modules/inversify/lib/utils/id.js");
 var Request = (function () {
     function Request(serviceIdentifier, parentContext, parentRequest, bindings, target) {
@@ -18953,6 +18999,7 @@ exports.Request = Request;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Target = void 0;
 var METADATA_KEY = __webpack_require__(/*! ../constants/metadata_keys */ "./node_modules/inversify/lib/constants/metadata_keys.js");
 var id_1 = __webpack_require__(/*! ../utils/id */ "./node_modules/inversify/lib/utils/id.js");
 var metadata_1 = __webpack_require__(/*! ./metadata */ "./node_modules/inversify/lib/planning/metadata.js");
@@ -19054,7 +19101,15 @@ exports.Target = Target;
 
 "use strict";
 
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.resolveInstance = void 0;
 var error_msgs_1 = __webpack_require__(/*! ../constants/error_msgs */ "./node_modules/inversify/lib/constants/error_msgs.js");
 var literal_types_1 = __webpack_require__(/*! ../constants/literal_types */ "./node_modules/inversify/lib/constants/literal_types.js");
 var METADATA_KEY = __webpack_require__(/*! ../constants/metadata_keys */ "./node_modules/inversify/lib/constants/metadata_keys.js");
@@ -19073,7 +19128,7 @@ function _injectProperties(instance, childRequests, resolveRequest) {
     return instance;
 }
 function _createInstance(Func, injections) {
-    return new (Func.bind.apply(Func, [void 0].concat(injections)))();
+    return new (Func.bind.apply(Func, __spreadArrays([void 0], injections)))();
 }
 function _postConstruct(constr, result) {
     if (Reflect.hasMetadata(METADATA_KEY.POST_CONSTRUCT, constr)) {
@@ -19117,6 +19172,7 @@ exports.resolveInstance = resolveInstance;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.resolve = void 0;
 var ERROR_MSGS = __webpack_require__(/*! ../constants/error_msgs */ "./node_modules/inversify/lib/constants/error_msgs.js");
 var literal_types_1 = __webpack_require__(/*! ../constants/literal_types */ "./node_modules/inversify/lib/constants/literal_types.js");
 var exceptions_1 = __webpack_require__(/*! ../utils/exceptions */ "./node_modules/inversify/lib/utils/exceptions.js");
@@ -19227,6 +19283,7 @@ exports.resolve = resolve;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BindingInSyntax = void 0;
 var literal_types_1 = __webpack_require__(/*! ../constants/literal_types */ "./node_modules/inversify/lib/constants/literal_types.js");
 var binding_when_on_syntax_1 = __webpack_require__(/*! ./binding_when_on_syntax */ "./node_modules/inversify/lib/syntax/binding_when_on_syntax.js");
 var BindingInSyntax = (function () {
@@ -19262,6 +19319,7 @@ exports.BindingInSyntax = BindingInSyntax;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BindingInWhenOnSyntax = void 0;
 var binding_in_syntax_1 = __webpack_require__(/*! ./binding_in_syntax */ "./node_modules/inversify/lib/syntax/binding_in_syntax.js");
 var binding_on_syntax_1 = __webpack_require__(/*! ./binding_on_syntax */ "./node_modules/inversify/lib/syntax/binding_on_syntax.js");
 var binding_when_syntax_1 = __webpack_require__(/*! ./binding_when_syntax */ "./node_modules/inversify/lib/syntax/binding_when_syntax.js");
@@ -19346,6 +19404,7 @@ exports.BindingInWhenOnSyntax = BindingInWhenOnSyntax;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BindingOnSyntax = void 0;
 var binding_when_syntax_1 = __webpack_require__(/*! ./binding_when_syntax */ "./node_modules/inversify/lib/syntax/binding_when_syntax.js");
 var BindingOnSyntax = (function () {
     function BindingOnSyntax(binding) {
@@ -19372,6 +19431,7 @@ exports.BindingOnSyntax = BindingOnSyntax;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BindingToSyntax = void 0;
 var ERROR_MSGS = __webpack_require__(/*! ../constants/error_msgs */ "./node_modules/inversify/lib/constants/error_msgs.js");
 var literal_types_1 = __webpack_require__(/*! ../constants/literal_types */ "./node_modules/inversify/lib/constants/literal_types.js");
 var binding_in_when_on_syntax_1 = __webpack_require__(/*! ./binding_in_when_on_syntax */ "./node_modules/inversify/lib/syntax/binding_in_when_on_syntax.js");
@@ -19457,6 +19517,7 @@ exports.BindingToSyntax = BindingToSyntax;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BindingWhenOnSyntax = void 0;
 var binding_on_syntax_1 = __webpack_require__(/*! ./binding_on_syntax */ "./node_modules/inversify/lib/syntax/binding_on_syntax.js");
 var binding_when_syntax_1 = __webpack_require__(/*! ./binding_when_syntax */ "./node_modules/inversify/lib/syntax/binding_when_syntax.js");
 var BindingWhenOnSyntax = (function () {
@@ -19530,6 +19591,7 @@ exports.BindingWhenOnSyntax = BindingWhenOnSyntax;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BindingWhenSyntax = void 0;
 var binding_on_syntax_1 = __webpack_require__(/*! ./binding_on_syntax */ "./node_modules/inversify/lib/syntax/binding_on_syntax.js");
 var constraint_helpers_1 = __webpack_require__(/*! ./constraint_helpers */ "./node_modules/inversify/lib/syntax/constraint_helpers.js");
 var BindingWhenSyntax = (function () {
@@ -19640,6 +19702,7 @@ exports.BindingWhenSyntax = BindingWhenSyntax;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.typeConstraint = exports.namedConstraint = exports.taggedConstraint = exports.traverseAncerstors = void 0;
 var METADATA_KEY = __webpack_require__(/*! ../constants/metadata_keys */ "./node_modules/inversify/lib/constants/metadata_keys.js");
 var metadata_1 = __webpack_require__(/*! ../planning/metadata */ "./node_modules/inversify/lib/planning/metadata.js");
 var traverseAncerstors = function (request, constraint) {
@@ -19692,6 +19755,7 @@ exports.typeConstraint = typeConstraint;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.multiBindToService = void 0;
 exports.multiBindToService = function (container) {
     return function (service) {
         return function () {
@@ -19717,6 +19781,7 @@ exports.multiBindToService = function (container) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.isStackOverflowExeption = void 0;
 var ERROR_MSGS = __webpack_require__(/*! ../constants/error_msgs */ "./node_modules/inversify/lib/constants/error_msgs.js");
 function isStackOverflowExeption(error) {
     return (error instanceof RangeError ||
@@ -19737,6 +19802,7 @@ exports.isStackOverflowExeption = isStackOverflowExeption;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.id = void 0;
 var idCounter = 0;
 function id() {
     return idCounter++;
@@ -19756,6 +19822,7 @@ exports.id = id;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.circularDependencyToException = exports.listMetadataForTarget = exports.listRegisteredBindingsForServiceIdentifier = exports.getServiceIdentifierAsString = exports.getFunctionName = void 0;
 var ERROR_MSGS = __webpack_require__(/*! ../constants/error_msgs */ "./node_modules/inversify/lib/constants/error_msgs.js");
 function getServiceIdentifierAsString(serviceIdentifier) {
     if (typeof serviceIdentifier === "function") {
@@ -20554,12 +20621,14 @@ exports.getFunctionName = getFunctionName;
           } // Check for task list items
 
 
-          istask = /^\[[ xX]\] /.test(item);
-          ischecked = undefined;
+          if (this.options.gfm) {
+            istask = /^\[[ xX]\] /.test(item);
+            ischecked = undefined;
 
-          if (istask) {
-            ischecked = item[1] !== ' ';
-            item = item.replace(/^\[[ xX]\] +/, '');
+            if (istask) {
+              ischecked = item[1] !== ' ';
+              item = item.replace(/^\[[ xX]\] +/, '');
+            }
           }
 
           list.items.push({
@@ -21534,7 +21603,7 @@ exports.getFunctionName = getFunctionName;
      */
     ;
 
-    _proto.inlineTokens = function inlineTokens(src, tokens, inLink, inRawBlock, prevChar) {
+    _proto.inlineTokens = function inlineTokens(src, tokens, inLink, inRawBlock) {
       if (tokens === void 0) {
         tokens = [];
       }
@@ -21547,14 +21616,11 @@ exports.getFunctionName = getFunctionName;
         inRawBlock = false;
       }
 
-      if (prevChar === void 0) {
-        prevChar = '';
-      }
-
       var token; // String with links masked to avoid interference with em and strong
 
       var maskedSrc = src;
-      var match; // Mask out reflinks
+      var match;
+      var keepPrevChar, prevChar; // Mask out reflinks
 
       if (this.tokens.links) {
         var links = Object.keys(this.tokens.links);
@@ -21574,7 +21640,12 @@ exports.getFunctionName = getFunctionName;
       }
 
       while (src) {
-        // escape
+        if (!keepPrevChar) {
+          prevChar = '';
+        }
+
+        keepPrevChar = false; // escape
+
         if (token = this.tokenizer.escape(src)) {
           src = src.substring(token.raw.length);
           tokens.push(token);
@@ -21670,6 +21741,7 @@ exports.getFunctionName = getFunctionName;
         if (token = this.tokenizer.inlineText(src, inRawBlock, smartypants)) {
           src = src.substring(token.raw.length);
           prevChar = token.raw.slice(-1);
+          keepPrevChar = true;
           tokens.push(token);
           continue;
         }
@@ -22584,6 +22656,1344 @@ exports.getFunctionName = getFunctionName;
 
 /***/ }),
 
+/***/ "./node_modules/process/browser.js":
+/*!*****************************************!*\
+  !*** ./node_modules/process/browser.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+
+/***/ }),
+
+/***/ "./node_modules/reflect-metadata/Reflect.js":
+/*!**************************************************!*\
+  !*** ./node_modules/reflect-metadata/Reflect.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process, global) {/*! *****************************************************************************
+Copyright (C) Microsoft. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+var Reflect;
+(function (Reflect) {
+    // Metadata Proposal
+    // https://rbuckton.github.io/reflect-metadata/
+    (function (factory) {
+        var root = typeof global === "object" ? global :
+            typeof self === "object" ? self :
+                typeof this === "object" ? this :
+                    Function("return this;")();
+        var exporter = makeExporter(Reflect);
+        if (typeof root.Reflect === "undefined") {
+            root.Reflect = Reflect;
+        }
+        else {
+            exporter = makeExporter(root.Reflect, exporter);
+        }
+        factory(exporter);
+        function makeExporter(target, previous) {
+            return function (key, value) {
+                if (typeof target[key] !== "function") {
+                    Object.defineProperty(target, key, { configurable: true, writable: true, value: value });
+                }
+                if (previous)
+                    previous(key, value);
+            };
+        }
+    })(function (exporter) {
+        var hasOwn = Object.prototype.hasOwnProperty;
+        // feature test for Symbol support
+        var supportsSymbol = typeof Symbol === "function";
+        var toPrimitiveSymbol = supportsSymbol && typeof Symbol.toPrimitive !== "undefined" ? Symbol.toPrimitive : "@@toPrimitive";
+        var iteratorSymbol = supportsSymbol && typeof Symbol.iterator !== "undefined" ? Symbol.iterator : "@@iterator";
+        var supportsCreate = typeof Object.create === "function"; // feature test for Object.create support
+        var supportsProto = { __proto__: [] } instanceof Array; // feature test for __proto__ support
+        var downLevel = !supportsCreate && !supportsProto;
+        var HashMap = {
+            // create an object in dictionary mode (a.k.a. "slow" mode in v8)
+            create: supportsCreate
+                ? function () { return MakeDictionary(Object.create(null)); }
+                : supportsProto
+                    ? function () { return MakeDictionary({ __proto__: null }); }
+                    : function () { return MakeDictionary({}); },
+            has: downLevel
+                ? function (map, key) { return hasOwn.call(map, key); }
+                : function (map, key) { return key in map; },
+            get: downLevel
+                ? function (map, key) { return hasOwn.call(map, key) ? map[key] : undefined; }
+                : function (map, key) { return map[key]; },
+        };
+        // Load global or shim versions of Map, Set, and WeakMap
+        var functionPrototype = Object.getPrototypeOf(Function);
+        var usePolyfill = typeof process === "object" && process.env && process.env["REFLECT_METADATA_USE_MAP_POLYFILL"] === "true";
+        var _Map = !usePolyfill && typeof Map === "function" && typeof Map.prototype.entries === "function" ? Map : CreateMapPolyfill();
+        var _Set = !usePolyfill && typeof Set === "function" && typeof Set.prototype.entries === "function" ? Set : CreateSetPolyfill();
+        var _WeakMap = !usePolyfill && typeof WeakMap === "function" ? WeakMap : CreateWeakMapPolyfill();
+        // [[Metadata]] internal slot
+        // https://rbuckton.github.io/reflect-metadata/#ordinary-object-internal-methods-and-internal-slots
+        var Metadata = new _WeakMap();
+        /**
+         * Applies a set of decorators to a property of a target object.
+         * @param decorators An array of decorators.
+         * @param target The target object.
+         * @param propertyKey (Optional) The property key to decorate.
+         * @param attributes (Optional) The property descriptor for the target key.
+         * @remarks Decorators are applied in reverse order.
+         * @example
+         *
+         *     class Example {
+         *         // property declarations are not part of ES6, though they are valid in TypeScript:
+         *         // static staticProperty;
+         *         // property;
+         *
+         *         constructor(p) { }
+         *         static staticMethod(p) { }
+         *         method(p) { }
+         *     }
+         *
+         *     // constructor
+         *     Example = Reflect.decorate(decoratorsArray, Example);
+         *
+         *     // property (on constructor)
+         *     Reflect.decorate(decoratorsArray, Example, "staticProperty");
+         *
+         *     // property (on prototype)
+         *     Reflect.decorate(decoratorsArray, Example.prototype, "property");
+         *
+         *     // method (on constructor)
+         *     Object.defineProperty(Example, "staticMethod",
+         *         Reflect.decorate(decoratorsArray, Example, "staticMethod",
+         *             Object.getOwnPropertyDescriptor(Example, "staticMethod")));
+         *
+         *     // method (on prototype)
+         *     Object.defineProperty(Example.prototype, "method",
+         *         Reflect.decorate(decoratorsArray, Example.prototype, "method",
+         *             Object.getOwnPropertyDescriptor(Example.prototype, "method")));
+         *
+         */
+        function decorate(decorators, target, propertyKey, attributes) {
+            if (!IsUndefined(propertyKey)) {
+                if (!IsArray(decorators))
+                    throw new TypeError();
+                if (!IsObject(target))
+                    throw new TypeError();
+                if (!IsObject(attributes) && !IsUndefined(attributes) && !IsNull(attributes))
+                    throw new TypeError();
+                if (IsNull(attributes))
+                    attributes = undefined;
+                propertyKey = ToPropertyKey(propertyKey);
+                return DecorateProperty(decorators, target, propertyKey, attributes);
+            }
+            else {
+                if (!IsArray(decorators))
+                    throw new TypeError();
+                if (!IsConstructor(target))
+                    throw new TypeError();
+                return DecorateConstructor(decorators, target);
+            }
+        }
+        exporter("decorate", decorate);
+        // 4.1.2 Reflect.metadata(metadataKey, metadataValue)
+        // https://rbuckton.github.io/reflect-metadata/#reflect.metadata
+        /**
+         * A default metadata decorator factory that can be used on a class, class member, or parameter.
+         * @param metadataKey The key for the metadata entry.
+         * @param metadataValue The value for the metadata entry.
+         * @returns A decorator function.
+         * @remarks
+         * If `metadataKey` is already defined for the target and target key, the
+         * metadataValue for that key will be overwritten.
+         * @example
+         *
+         *     // constructor
+         *     @Reflect.metadata(key, value)
+         *     class Example {
+         *     }
+         *
+         *     // property (on constructor, TypeScript only)
+         *     class Example {
+         *         @Reflect.metadata(key, value)
+         *         static staticProperty;
+         *     }
+         *
+         *     // property (on prototype, TypeScript only)
+         *     class Example {
+         *         @Reflect.metadata(key, value)
+         *         property;
+         *     }
+         *
+         *     // method (on constructor)
+         *     class Example {
+         *         @Reflect.metadata(key, value)
+         *         static staticMethod() { }
+         *     }
+         *
+         *     // method (on prototype)
+         *     class Example {
+         *         @Reflect.metadata(key, value)
+         *         method() { }
+         *     }
+         *
+         */
+        function metadata(metadataKey, metadataValue) {
+            function decorator(target, propertyKey) {
+                if (!IsObject(target))
+                    throw new TypeError();
+                if (!IsUndefined(propertyKey) && !IsPropertyKey(propertyKey))
+                    throw new TypeError();
+                OrdinaryDefineOwnMetadata(metadataKey, metadataValue, target, propertyKey);
+            }
+            return decorator;
+        }
+        exporter("metadata", metadata);
+        /**
+         * Define a unique metadata entry on the target.
+         * @param metadataKey A key used to store and retrieve metadata.
+         * @param metadataValue A value that contains attached metadata.
+         * @param target The target object on which to define metadata.
+         * @param propertyKey (Optional) The property key for the target.
+         * @example
+         *
+         *     class Example {
+         *         // property declarations are not part of ES6, though they are valid in TypeScript:
+         *         // static staticProperty;
+         *         // property;
+         *
+         *         constructor(p) { }
+         *         static staticMethod(p) { }
+         *         method(p) { }
+         *     }
+         *
+         *     // constructor
+         *     Reflect.defineMetadata("custom:annotation", options, Example);
+         *
+         *     // property (on constructor)
+         *     Reflect.defineMetadata("custom:annotation", options, Example, "staticProperty");
+         *
+         *     // property (on prototype)
+         *     Reflect.defineMetadata("custom:annotation", options, Example.prototype, "property");
+         *
+         *     // method (on constructor)
+         *     Reflect.defineMetadata("custom:annotation", options, Example, "staticMethod");
+         *
+         *     // method (on prototype)
+         *     Reflect.defineMetadata("custom:annotation", options, Example.prototype, "method");
+         *
+         *     // decorator factory as metadata-producing annotation.
+         *     function MyAnnotation(options): Decorator {
+         *         return (target, key?) => Reflect.defineMetadata("custom:annotation", options, target, key);
+         *     }
+         *
+         */
+        function defineMetadata(metadataKey, metadataValue, target, propertyKey) {
+            if (!IsObject(target))
+                throw new TypeError();
+            if (!IsUndefined(propertyKey))
+                propertyKey = ToPropertyKey(propertyKey);
+            return OrdinaryDefineOwnMetadata(metadataKey, metadataValue, target, propertyKey);
+        }
+        exporter("defineMetadata", defineMetadata);
+        /**
+         * Gets a value indicating whether the target object or its prototype chain has the provided metadata key defined.
+         * @param metadataKey A key used to store and retrieve metadata.
+         * @param target The target object on which the metadata is defined.
+         * @param propertyKey (Optional) The property key for the target.
+         * @returns `true` if the metadata key was defined on the target object or its prototype chain; otherwise, `false`.
+         * @example
+         *
+         *     class Example {
+         *         // property declarations are not part of ES6, though they are valid in TypeScript:
+         *         // static staticProperty;
+         *         // property;
+         *
+         *         constructor(p) { }
+         *         static staticMethod(p) { }
+         *         method(p) { }
+         *     }
+         *
+         *     // constructor
+         *     result = Reflect.hasMetadata("custom:annotation", Example);
+         *
+         *     // property (on constructor)
+         *     result = Reflect.hasMetadata("custom:annotation", Example, "staticProperty");
+         *
+         *     // property (on prototype)
+         *     result = Reflect.hasMetadata("custom:annotation", Example.prototype, "property");
+         *
+         *     // method (on constructor)
+         *     result = Reflect.hasMetadata("custom:annotation", Example, "staticMethod");
+         *
+         *     // method (on prototype)
+         *     result = Reflect.hasMetadata("custom:annotation", Example.prototype, "method");
+         *
+         */
+        function hasMetadata(metadataKey, target, propertyKey) {
+            if (!IsObject(target))
+                throw new TypeError();
+            if (!IsUndefined(propertyKey))
+                propertyKey = ToPropertyKey(propertyKey);
+            return OrdinaryHasMetadata(metadataKey, target, propertyKey);
+        }
+        exporter("hasMetadata", hasMetadata);
+        /**
+         * Gets a value indicating whether the target object has the provided metadata key defined.
+         * @param metadataKey A key used to store and retrieve metadata.
+         * @param target The target object on which the metadata is defined.
+         * @param propertyKey (Optional) The property key for the target.
+         * @returns `true` if the metadata key was defined on the target object; otherwise, `false`.
+         * @example
+         *
+         *     class Example {
+         *         // property declarations are not part of ES6, though they are valid in TypeScript:
+         *         // static staticProperty;
+         *         // property;
+         *
+         *         constructor(p) { }
+         *         static staticMethod(p) { }
+         *         method(p) { }
+         *     }
+         *
+         *     // constructor
+         *     result = Reflect.hasOwnMetadata("custom:annotation", Example);
+         *
+         *     // property (on constructor)
+         *     result = Reflect.hasOwnMetadata("custom:annotation", Example, "staticProperty");
+         *
+         *     // property (on prototype)
+         *     result = Reflect.hasOwnMetadata("custom:annotation", Example.prototype, "property");
+         *
+         *     // method (on constructor)
+         *     result = Reflect.hasOwnMetadata("custom:annotation", Example, "staticMethod");
+         *
+         *     // method (on prototype)
+         *     result = Reflect.hasOwnMetadata("custom:annotation", Example.prototype, "method");
+         *
+         */
+        function hasOwnMetadata(metadataKey, target, propertyKey) {
+            if (!IsObject(target))
+                throw new TypeError();
+            if (!IsUndefined(propertyKey))
+                propertyKey = ToPropertyKey(propertyKey);
+            return OrdinaryHasOwnMetadata(metadataKey, target, propertyKey);
+        }
+        exporter("hasOwnMetadata", hasOwnMetadata);
+        /**
+         * Gets the metadata value for the provided metadata key on the target object or its prototype chain.
+         * @param metadataKey A key used to store and retrieve metadata.
+         * @param target The target object on which the metadata is defined.
+         * @param propertyKey (Optional) The property key for the target.
+         * @returns The metadata value for the metadata key if found; otherwise, `undefined`.
+         * @example
+         *
+         *     class Example {
+         *         // property declarations are not part of ES6, though they are valid in TypeScript:
+         *         // static staticProperty;
+         *         // property;
+         *
+         *         constructor(p) { }
+         *         static staticMethod(p) { }
+         *         method(p) { }
+         *     }
+         *
+         *     // constructor
+         *     result = Reflect.getMetadata("custom:annotation", Example);
+         *
+         *     // property (on constructor)
+         *     result = Reflect.getMetadata("custom:annotation", Example, "staticProperty");
+         *
+         *     // property (on prototype)
+         *     result = Reflect.getMetadata("custom:annotation", Example.prototype, "property");
+         *
+         *     // method (on constructor)
+         *     result = Reflect.getMetadata("custom:annotation", Example, "staticMethod");
+         *
+         *     // method (on prototype)
+         *     result = Reflect.getMetadata("custom:annotation", Example.prototype, "method");
+         *
+         */
+        function getMetadata(metadataKey, target, propertyKey) {
+            if (!IsObject(target))
+                throw new TypeError();
+            if (!IsUndefined(propertyKey))
+                propertyKey = ToPropertyKey(propertyKey);
+            return OrdinaryGetMetadata(metadataKey, target, propertyKey);
+        }
+        exporter("getMetadata", getMetadata);
+        /**
+         * Gets the metadata value for the provided metadata key on the target object.
+         * @param metadataKey A key used to store and retrieve metadata.
+         * @param target The target object on which the metadata is defined.
+         * @param propertyKey (Optional) The property key for the target.
+         * @returns The metadata value for the metadata key if found; otherwise, `undefined`.
+         * @example
+         *
+         *     class Example {
+         *         // property declarations are not part of ES6, though they are valid in TypeScript:
+         *         // static staticProperty;
+         *         // property;
+         *
+         *         constructor(p) { }
+         *         static staticMethod(p) { }
+         *         method(p) { }
+         *     }
+         *
+         *     // constructor
+         *     result = Reflect.getOwnMetadata("custom:annotation", Example);
+         *
+         *     // property (on constructor)
+         *     result = Reflect.getOwnMetadata("custom:annotation", Example, "staticProperty");
+         *
+         *     // property (on prototype)
+         *     result = Reflect.getOwnMetadata("custom:annotation", Example.prototype, "property");
+         *
+         *     // method (on constructor)
+         *     result = Reflect.getOwnMetadata("custom:annotation", Example, "staticMethod");
+         *
+         *     // method (on prototype)
+         *     result = Reflect.getOwnMetadata("custom:annotation", Example.prototype, "method");
+         *
+         */
+        function getOwnMetadata(metadataKey, target, propertyKey) {
+            if (!IsObject(target))
+                throw new TypeError();
+            if (!IsUndefined(propertyKey))
+                propertyKey = ToPropertyKey(propertyKey);
+            return OrdinaryGetOwnMetadata(metadataKey, target, propertyKey);
+        }
+        exporter("getOwnMetadata", getOwnMetadata);
+        /**
+         * Gets the metadata keys defined on the target object or its prototype chain.
+         * @param target The target object on which the metadata is defined.
+         * @param propertyKey (Optional) The property key for the target.
+         * @returns An array of unique metadata keys.
+         * @example
+         *
+         *     class Example {
+         *         // property declarations are not part of ES6, though they are valid in TypeScript:
+         *         // static staticProperty;
+         *         // property;
+         *
+         *         constructor(p) { }
+         *         static staticMethod(p) { }
+         *         method(p) { }
+         *     }
+         *
+         *     // constructor
+         *     result = Reflect.getMetadataKeys(Example);
+         *
+         *     // property (on constructor)
+         *     result = Reflect.getMetadataKeys(Example, "staticProperty");
+         *
+         *     // property (on prototype)
+         *     result = Reflect.getMetadataKeys(Example.prototype, "property");
+         *
+         *     // method (on constructor)
+         *     result = Reflect.getMetadataKeys(Example, "staticMethod");
+         *
+         *     // method (on prototype)
+         *     result = Reflect.getMetadataKeys(Example.prototype, "method");
+         *
+         */
+        function getMetadataKeys(target, propertyKey) {
+            if (!IsObject(target))
+                throw new TypeError();
+            if (!IsUndefined(propertyKey))
+                propertyKey = ToPropertyKey(propertyKey);
+            return OrdinaryMetadataKeys(target, propertyKey);
+        }
+        exporter("getMetadataKeys", getMetadataKeys);
+        /**
+         * Gets the unique metadata keys defined on the target object.
+         * @param target The target object on which the metadata is defined.
+         * @param propertyKey (Optional) The property key for the target.
+         * @returns An array of unique metadata keys.
+         * @example
+         *
+         *     class Example {
+         *         // property declarations are not part of ES6, though they are valid in TypeScript:
+         *         // static staticProperty;
+         *         // property;
+         *
+         *         constructor(p) { }
+         *         static staticMethod(p) { }
+         *         method(p) { }
+         *     }
+         *
+         *     // constructor
+         *     result = Reflect.getOwnMetadataKeys(Example);
+         *
+         *     // property (on constructor)
+         *     result = Reflect.getOwnMetadataKeys(Example, "staticProperty");
+         *
+         *     // property (on prototype)
+         *     result = Reflect.getOwnMetadataKeys(Example.prototype, "property");
+         *
+         *     // method (on constructor)
+         *     result = Reflect.getOwnMetadataKeys(Example, "staticMethod");
+         *
+         *     // method (on prototype)
+         *     result = Reflect.getOwnMetadataKeys(Example.prototype, "method");
+         *
+         */
+        function getOwnMetadataKeys(target, propertyKey) {
+            if (!IsObject(target))
+                throw new TypeError();
+            if (!IsUndefined(propertyKey))
+                propertyKey = ToPropertyKey(propertyKey);
+            return OrdinaryOwnMetadataKeys(target, propertyKey);
+        }
+        exporter("getOwnMetadataKeys", getOwnMetadataKeys);
+        /**
+         * Deletes the metadata entry from the target object with the provided key.
+         * @param metadataKey A key used to store and retrieve metadata.
+         * @param target The target object on which the metadata is defined.
+         * @param propertyKey (Optional) The property key for the target.
+         * @returns `true` if the metadata entry was found and deleted; otherwise, false.
+         * @example
+         *
+         *     class Example {
+         *         // property declarations are not part of ES6, though they are valid in TypeScript:
+         *         // static staticProperty;
+         *         // property;
+         *
+         *         constructor(p) { }
+         *         static staticMethod(p) { }
+         *         method(p) { }
+         *     }
+         *
+         *     // constructor
+         *     result = Reflect.deleteMetadata("custom:annotation", Example);
+         *
+         *     // property (on constructor)
+         *     result = Reflect.deleteMetadata("custom:annotation", Example, "staticProperty");
+         *
+         *     // property (on prototype)
+         *     result = Reflect.deleteMetadata("custom:annotation", Example.prototype, "property");
+         *
+         *     // method (on constructor)
+         *     result = Reflect.deleteMetadata("custom:annotation", Example, "staticMethod");
+         *
+         *     // method (on prototype)
+         *     result = Reflect.deleteMetadata("custom:annotation", Example.prototype, "method");
+         *
+         */
+        function deleteMetadata(metadataKey, target, propertyKey) {
+            if (!IsObject(target))
+                throw new TypeError();
+            if (!IsUndefined(propertyKey))
+                propertyKey = ToPropertyKey(propertyKey);
+            var metadataMap = GetOrCreateMetadataMap(target, propertyKey, /*Create*/ false);
+            if (IsUndefined(metadataMap))
+                return false;
+            if (!metadataMap.delete(metadataKey))
+                return false;
+            if (metadataMap.size > 0)
+                return true;
+            var targetMetadata = Metadata.get(target);
+            targetMetadata.delete(propertyKey);
+            if (targetMetadata.size > 0)
+                return true;
+            Metadata.delete(target);
+            return true;
+        }
+        exporter("deleteMetadata", deleteMetadata);
+        function DecorateConstructor(decorators, target) {
+            for (var i = decorators.length - 1; i >= 0; --i) {
+                var decorator = decorators[i];
+                var decorated = decorator(target);
+                if (!IsUndefined(decorated) && !IsNull(decorated)) {
+                    if (!IsConstructor(decorated))
+                        throw new TypeError();
+                    target = decorated;
+                }
+            }
+            return target;
+        }
+        function DecorateProperty(decorators, target, propertyKey, descriptor) {
+            for (var i = decorators.length - 1; i >= 0; --i) {
+                var decorator = decorators[i];
+                var decorated = decorator(target, propertyKey, descriptor);
+                if (!IsUndefined(decorated) && !IsNull(decorated)) {
+                    if (!IsObject(decorated))
+                        throw new TypeError();
+                    descriptor = decorated;
+                }
+            }
+            return descriptor;
+        }
+        function GetOrCreateMetadataMap(O, P, Create) {
+            var targetMetadata = Metadata.get(O);
+            if (IsUndefined(targetMetadata)) {
+                if (!Create)
+                    return undefined;
+                targetMetadata = new _Map();
+                Metadata.set(O, targetMetadata);
+            }
+            var metadataMap = targetMetadata.get(P);
+            if (IsUndefined(metadataMap)) {
+                if (!Create)
+                    return undefined;
+                metadataMap = new _Map();
+                targetMetadata.set(P, metadataMap);
+            }
+            return metadataMap;
+        }
+        // 3.1.1.1 OrdinaryHasMetadata(MetadataKey, O, P)
+        // https://rbuckton.github.io/reflect-metadata/#ordinaryhasmetadata
+        function OrdinaryHasMetadata(MetadataKey, O, P) {
+            var hasOwn = OrdinaryHasOwnMetadata(MetadataKey, O, P);
+            if (hasOwn)
+                return true;
+            var parent = OrdinaryGetPrototypeOf(O);
+            if (!IsNull(parent))
+                return OrdinaryHasMetadata(MetadataKey, parent, P);
+            return false;
+        }
+        // 3.1.2.1 OrdinaryHasOwnMetadata(MetadataKey, O, P)
+        // https://rbuckton.github.io/reflect-metadata/#ordinaryhasownmetadata
+        function OrdinaryHasOwnMetadata(MetadataKey, O, P) {
+            var metadataMap = GetOrCreateMetadataMap(O, P, /*Create*/ false);
+            if (IsUndefined(metadataMap))
+                return false;
+            return ToBoolean(metadataMap.has(MetadataKey));
+        }
+        // 3.1.3.1 OrdinaryGetMetadata(MetadataKey, O, P)
+        // https://rbuckton.github.io/reflect-metadata/#ordinarygetmetadata
+        function OrdinaryGetMetadata(MetadataKey, O, P) {
+            var hasOwn = OrdinaryHasOwnMetadata(MetadataKey, O, P);
+            if (hasOwn)
+                return OrdinaryGetOwnMetadata(MetadataKey, O, P);
+            var parent = OrdinaryGetPrototypeOf(O);
+            if (!IsNull(parent))
+                return OrdinaryGetMetadata(MetadataKey, parent, P);
+            return undefined;
+        }
+        // 3.1.4.1 OrdinaryGetOwnMetadata(MetadataKey, O, P)
+        // https://rbuckton.github.io/reflect-metadata/#ordinarygetownmetadata
+        function OrdinaryGetOwnMetadata(MetadataKey, O, P) {
+            var metadataMap = GetOrCreateMetadataMap(O, P, /*Create*/ false);
+            if (IsUndefined(metadataMap))
+                return undefined;
+            return metadataMap.get(MetadataKey);
+        }
+        // 3.1.5.1 OrdinaryDefineOwnMetadata(MetadataKey, MetadataValue, O, P)
+        // https://rbuckton.github.io/reflect-metadata/#ordinarydefineownmetadata
+        function OrdinaryDefineOwnMetadata(MetadataKey, MetadataValue, O, P) {
+            var metadataMap = GetOrCreateMetadataMap(O, P, /*Create*/ true);
+            metadataMap.set(MetadataKey, MetadataValue);
+        }
+        // 3.1.6.1 OrdinaryMetadataKeys(O, P)
+        // https://rbuckton.github.io/reflect-metadata/#ordinarymetadatakeys
+        function OrdinaryMetadataKeys(O, P) {
+            var ownKeys = OrdinaryOwnMetadataKeys(O, P);
+            var parent = OrdinaryGetPrototypeOf(O);
+            if (parent === null)
+                return ownKeys;
+            var parentKeys = OrdinaryMetadataKeys(parent, P);
+            if (parentKeys.length <= 0)
+                return ownKeys;
+            if (ownKeys.length <= 0)
+                return parentKeys;
+            var set = new _Set();
+            var keys = [];
+            for (var _i = 0, ownKeys_1 = ownKeys; _i < ownKeys_1.length; _i++) {
+                var key = ownKeys_1[_i];
+                var hasKey = set.has(key);
+                if (!hasKey) {
+                    set.add(key);
+                    keys.push(key);
+                }
+            }
+            for (var _a = 0, parentKeys_1 = parentKeys; _a < parentKeys_1.length; _a++) {
+                var key = parentKeys_1[_a];
+                var hasKey = set.has(key);
+                if (!hasKey) {
+                    set.add(key);
+                    keys.push(key);
+                }
+            }
+            return keys;
+        }
+        // 3.1.7.1 OrdinaryOwnMetadataKeys(O, P)
+        // https://rbuckton.github.io/reflect-metadata/#ordinaryownmetadatakeys
+        function OrdinaryOwnMetadataKeys(O, P) {
+            var keys = [];
+            var metadataMap = GetOrCreateMetadataMap(O, P, /*Create*/ false);
+            if (IsUndefined(metadataMap))
+                return keys;
+            var keysObj = metadataMap.keys();
+            var iterator = GetIterator(keysObj);
+            var k = 0;
+            while (true) {
+                var next = IteratorStep(iterator);
+                if (!next) {
+                    keys.length = k;
+                    return keys;
+                }
+                var nextValue = IteratorValue(next);
+                try {
+                    keys[k] = nextValue;
+                }
+                catch (e) {
+                    try {
+                        IteratorClose(iterator);
+                    }
+                    finally {
+                        throw e;
+                    }
+                }
+                k++;
+            }
+        }
+        // 6 ECMAScript Data Typ0es and Values
+        // https://tc39.github.io/ecma262/#sec-ecmascript-data-types-and-values
+        function Type(x) {
+            if (x === null)
+                return 1 /* Null */;
+            switch (typeof x) {
+                case "undefined": return 0 /* Undefined */;
+                case "boolean": return 2 /* Boolean */;
+                case "string": return 3 /* String */;
+                case "symbol": return 4 /* Symbol */;
+                case "number": return 5 /* Number */;
+                case "object": return x === null ? 1 /* Null */ : 6 /* Object */;
+                default: return 6 /* Object */;
+            }
+        }
+        // 6.1.1 The Undefined Type
+        // https://tc39.github.io/ecma262/#sec-ecmascript-language-types-undefined-type
+        function IsUndefined(x) {
+            return x === undefined;
+        }
+        // 6.1.2 The Null Type
+        // https://tc39.github.io/ecma262/#sec-ecmascript-language-types-null-type
+        function IsNull(x) {
+            return x === null;
+        }
+        // 6.1.5 The Symbol Type
+        // https://tc39.github.io/ecma262/#sec-ecmascript-language-types-symbol-type
+        function IsSymbol(x) {
+            return typeof x === "symbol";
+        }
+        // 6.1.7 The Object Type
+        // https://tc39.github.io/ecma262/#sec-object-type
+        function IsObject(x) {
+            return typeof x === "object" ? x !== null : typeof x === "function";
+        }
+        // 7.1 Type Conversion
+        // https://tc39.github.io/ecma262/#sec-type-conversion
+        // 7.1.1 ToPrimitive(input [, PreferredType])
+        // https://tc39.github.io/ecma262/#sec-toprimitive
+        function ToPrimitive(input, PreferredType) {
+            switch (Type(input)) {
+                case 0 /* Undefined */: return input;
+                case 1 /* Null */: return input;
+                case 2 /* Boolean */: return input;
+                case 3 /* String */: return input;
+                case 4 /* Symbol */: return input;
+                case 5 /* Number */: return input;
+            }
+            var hint = PreferredType === 3 /* String */ ? "string" : PreferredType === 5 /* Number */ ? "number" : "default";
+            var exoticToPrim = GetMethod(input, toPrimitiveSymbol);
+            if (exoticToPrim !== undefined) {
+                var result = exoticToPrim.call(input, hint);
+                if (IsObject(result))
+                    throw new TypeError();
+                return result;
+            }
+            return OrdinaryToPrimitive(input, hint === "default" ? "number" : hint);
+        }
+        // 7.1.1.1 OrdinaryToPrimitive(O, hint)
+        // https://tc39.github.io/ecma262/#sec-ordinarytoprimitive
+        function OrdinaryToPrimitive(O, hint) {
+            if (hint === "string") {
+                var toString_1 = O.toString;
+                if (IsCallable(toString_1)) {
+                    var result = toString_1.call(O);
+                    if (!IsObject(result))
+                        return result;
+                }
+                var valueOf = O.valueOf;
+                if (IsCallable(valueOf)) {
+                    var result = valueOf.call(O);
+                    if (!IsObject(result))
+                        return result;
+                }
+            }
+            else {
+                var valueOf = O.valueOf;
+                if (IsCallable(valueOf)) {
+                    var result = valueOf.call(O);
+                    if (!IsObject(result))
+                        return result;
+                }
+                var toString_2 = O.toString;
+                if (IsCallable(toString_2)) {
+                    var result = toString_2.call(O);
+                    if (!IsObject(result))
+                        return result;
+                }
+            }
+            throw new TypeError();
+        }
+        // 7.1.2 ToBoolean(argument)
+        // https://tc39.github.io/ecma262/2016/#sec-toboolean
+        function ToBoolean(argument) {
+            return !!argument;
+        }
+        // 7.1.12 ToString(argument)
+        // https://tc39.github.io/ecma262/#sec-tostring
+        function ToString(argument) {
+            return "" + argument;
+        }
+        // 7.1.14 ToPropertyKey(argument)
+        // https://tc39.github.io/ecma262/#sec-topropertykey
+        function ToPropertyKey(argument) {
+            var key = ToPrimitive(argument, 3 /* String */);
+            if (IsSymbol(key))
+                return key;
+            return ToString(key);
+        }
+        // 7.2 Testing and Comparison Operations
+        // https://tc39.github.io/ecma262/#sec-testing-and-comparison-operations
+        // 7.2.2 IsArray(argument)
+        // https://tc39.github.io/ecma262/#sec-isarray
+        function IsArray(argument) {
+            return Array.isArray
+                ? Array.isArray(argument)
+                : argument instanceof Object
+                    ? argument instanceof Array
+                    : Object.prototype.toString.call(argument) === "[object Array]";
+        }
+        // 7.2.3 IsCallable(argument)
+        // https://tc39.github.io/ecma262/#sec-iscallable
+        function IsCallable(argument) {
+            // NOTE: This is an approximation as we cannot check for [[Call]] internal method.
+            return typeof argument === "function";
+        }
+        // 7.2.4 IsConstructor(argument)
+        // https://tc39.github.io/ecma262/#sec-isconstructor
+        function IsConstructor(argument) {
+            // NOTE: This is an approximation as we cannot check for [[Construct]] internal method.
+            return typeof argument === "function";
+        }
+        // 7.2.7 IsPropertyKey(argument)
+        // https://tc39.github.io/ecma262/#sec-ispropertykey
+        function IsPropertyKey(argument) {
+            switch (Type(argument)) {
+                case 3 /* String */: return true;
+                case 4 /* Symbol */: return true;
+                default: return false;
+            }
+        }
+        // 7.3 Operations on Objects
+        // https://tc39.github.io/ecma262/#sec-operations-on-objects
+        // 7.3.9 GetMethod(V, P)
+        // https://tc39.github.io/ecma262/#sec-getmethod
+        function GetMethod(V, P) {
+            var func = V[P];
+            if (func === undefined || func === null)
+                return undefined;
+            if (!IsCallable(func))
+                throw new TypeError();
+            return func;
+        }
+        // 7.4 Operations on Iterator Objects
+        // https://tc39.github.io/ecma262/#sec-operations-on-iterator-objects
+        function GetIterator(obj) {
+            var method = GetMethod(obj, iteratorSymbol);
+            if (!IsCallable(method))
+                throw new TypeError(); // from Call
+            var iterator = method.call(obj);
+            if (!IsObject(iterator))
+                throw new TypeError();
+            return iterator;
+        }
+        // 7.4.4 IteratorValue(iterResult)
+        // https://tc39.github.io/ecma262/2016/#sec-iteratorvalue
+        function IteratorValue(iterResult) {
+            return iterResult.value;
+        }
+        // 7.4.5 IteratorStep(iterator)
+        // https://tc39.github.io/ecma262/#sec-iteratorstep
+        function IteratorStep(iterator) {
+            var result = iterator.next();
+            return result.done ? false : result;
+        }
+        // 7.4.6 IteratorClose(iterator, completion)
+        // https://tc39.github.io/ecma262/#sec-iteratorclose
+        function IteratorClose(iterator) {
+            var f = iterator["return"];
+            if (f)
+                f.call(iterator);
+        }
+        // 9.1 Ordinary Object Internal Methods and Internal Slots
+        // https://tc39.github.io/ecma262/#sec-ordinary-object-internal-methods-and-internal-slots
+        // 9.1.1.1 OrdinaryGetPrototypeOf(O)
+        // https://tc39.github.io/ecma262/#sec-ordinarygetprototypeof
+        function OrdinaryGetPrototypeOf(O) {
+            var proto = Object.getPrototypeOf(O);
+            if (typeof O !== "function" || O === functionPrototype)
+                return proto;
+            // TypeScript doesn't set __proto__ in ES5, as it's non-standard.
+            // Try to determine the superclass constructor. Compatible implementations
+            // must either set __proto__ on a subclass constructor to the superclass constructor,
+            // or ensure each class has a valid `constructor` property on its prototype that
+            // points back to the constructor.
+            // If this is not the same as Function.[[Prototype]], then this is definately inherited.
+            // This is the case when in ES6 or when using __proto__ in a compatible browser.
+            if (proto !== functionPrototype)
+                return proto;
+            // If the super prototype is Object.prototype, null, or undefined, then we cannot determine the heritage.
+            var prototype = O.prototype;
+            var prototypeProto = prototype && Object.getPrototypeOf(prototype);
+            if (prototypeProto == null || prototypeProto === Object.prototype)
+                return proto;
+            // If the constructor was not a function, then we cannot determine the heritage.
+            var constructor = prototypeProto.constructor;
+            if (typeof constructor !== "function")
+                return proto;
+            // If we have some kind of self-reference, then we cannot determine the heritage.
+            if (constructor === O)
+                return proto;
+            // we have a pretty good guess at the heritage.
+            return constructor;
+        }
+        // naive Map shim
+        function CreateMapPolyfill() {
+            var cacheSentinel = {};
+            var arraySentinel = [];
+            var MapIterator = /** @class */ (function () {
+                function MapIterator(keys, values, selector) {
+                    this._index = 0;
+                    this._keys = keys;
+                    this._values = values;
+                    this._selector = selector;
+                }
+                MapIterator.prototype["@@iterator"] = function () { return this; };
+                MapIterator.prototype[iteratorSymbol] = function () { return this; };
+                MapIterator.prototype.next = function () {
+                    var index = this._index;
+                    if (index >= 0 && index < this._keys.length) {
+                        var result = this._selector(this._keys[index], this._values[index]);
+                        if (index + 1 >= this._keys.length) {
+                            this._index = -1;
+                            this._keys = arraySentinel;
+                            this._values = arraySentinel;
+                        }
+                        else {
+                            this._index++;
+                        }
+                        return { value: result, done: false };
+                    }
+                    return { value: undefined, done: true };
+                };
+                MapIterator.prototype.throw = function (error) {
+                    if (this._index >= 0) {
+                        this._index = -1;
+                        this._keys = arraySentinel;
+                        this._values = arraySentinel;
+                    }
+                    throw error;
+                };
+                MapIterator.prototype.return = function (value) {
+                    if (this._index >= 0) {
+                        this._index = -1;
+                        this._keys = arraySentinel;
+                        this._values = arraySentinel;
+                    }
+                    return { value: value, done: true };
+                };
+                return MapIterator;
+            }());
+            return /** @class */ (function () {
+                function Map() {
+                    this._keys = [];
+                    this._values = [];
+                    this._cacheKey = cacheSentinel;
+                    this._cacheIndex = -2;
+                }
+                Object.defineProperty(Map.prototype, "size", {
+                    get: function () { return this._keys.length; },
+                    enumerable: true,
+                    configurable: true
+                });
+                Map.prototype.has = function (key) { return this._find(key, /*insert*/ false) >= 0; };
+                Map.prototype.get = function (key) {
+                    var index = this._find(key, /*insert*/ false);
+                    return index >= 0 ? this._values[index] : undefined;
+                };
+                Map.prototype.set = function (key, value) {
+                    var index = this._find(key, /*insert*/ true);
+                    this._values[index] = value;
+                    return this;
+                };
+                Map.prototype.delete = function (key) {
+                    var index = this._find(key, /*insert*/ false);
+                    if (index >= 0) {
+                        var size = this._keys.length;
+                        for (var i = index + 1; i < size; i++) {
+                            this._keys[i - 1] = this._keys[i];
+                            this._values[i - 1] = this._values[i];
+                        }
+                        this._keys.length--;
+                        this._values.length--;
+                        if (key === this._cacheKey) {
+                            this._cacheKey = cacheSentinel;
+                            this._cacheIndex = -2;
+                        }
+                        return true;
+                    }
+                    return false;
+                };
+                Map.prototype.clear = function () {
+                    this._keys.length = 0;
+                    this._values.length = 0;
+                    this._cacheKey = cacheSentinel;
+                    this._cacheIndex = -2;
+                };
+                Map.prototype.keys = function () { return new MapIterator(this._keys, this._values, getKey); };
+                Map.prototype.values = function () { return new MapIterator(this._keys, this._values, getValue); };
+                Map.prototype.entries = function () { return new MapIterator(this._keys, this._values, getEntry); };
+                Map.prototype["@@iterator"] = function () { return this.entries(); };
+                Map.prototype[iteratorSymbol] = function () { return this.entries(); };
+                Map.prototype._find = function (key, insert) {
+                    if (this._cacheKey !== key) {
+                        this._cacheIndex = this._keys.indexOf(this._cacheKey = key);
+                    }
+                    if (this._cacheIndex < 0 && insert) {
+                        this._cacheIndex = this._keys.length;
+                        this._keys.push(key);
+                        this._values.push(undefined);
+                    }
+                    return this._cacheIndex;
+                };
+                return Map;
+            }());
+            function getKey(key, _) {
+                return key;
+            }
+            function getValue(_, value) {
+                return value;
+            }
+            function getEntry(key, value) {
+                return [key, value];
+            }
+        }
+        // naive Set shim
+        function CreateSetPolyfill() {
+            return /** @class */ (function () {
+                function Set() {
+                    this._map = new _Map();
+                }
+                Object.defineProperty(Set.prototype, "size", {
+                    get: function () { return this._map.size; },
+                    enumerable: true,
+                    configurable: true
+                });
+                Set.prototype.has = function (value) { return this._map.has(value); };
+                Set.prototype.add = function (value) { return this._map.set(value, value), this; };
+                Set.prototype.delete = function (value) { return this._map.delete(value); };
+                Set.prototype.clear = function () { this._map.clear(); };
+                Set.prototype.keys = function () { return this._map.keys(); };
+                Set.prototype.values = function () { return this._map.values(); };
+                Set.prototype.entries = function () { return this._map.entries(); };
+                Set.prototype["@@iterator"] = function () { return this.keys(); };
+                Set.prototype[iteratorSymbol] = function () { return this.keys(); };
+                return Set;
+            }());
+        }
+        // naive WeakMap shim
+        function CreateWeakMapPolyfill() {
+            var UUID_SIZE = 16;
+            var keys = HashMap.create();
+            var rootKey = CreateUniqueKey();
+            return /** @class */ (function () {
+                function WeakMap() {
+                    this._key = CreateUniqueKey();
+                }
+                WeakMap.prototype.has = function (target) {
+                    var table = GetOrCreateWeakMapTable(target, /*create*/ false);
+                    return table !== undefined ? HashMap.has(table, this._key) : false;
+                };
+                WeakMap.prototype.get = function (target) {
+                    var table = GetOrCreateWeakMapTable(target, /*create*/ false);
+                    return table !== undefined ? HashMap.get(table, this._key) : undefined;
+                };
+                WeakMap.prototype.set = function (target, value) {
+                    var table = GetOrCreateWeakMapTable(target, /*create*/ true);
+                    table[this._key] = value;
+                    return this;
+                };
+                WeakMap.prototype.delete = function (target) {
+                    var table = GetOrCreateWeakMapTable(target, /*create*/ false);
+                    return table !== undefined ? delete table[this._key] : false;
+                };
+                WeakMap.prototype.clear = function () {
+                    // NOTE: not a real clear, just makes the previous data unreachable
+                    this._key = CreateUniqueKey();
+                };
+                return WeakMap;
+            }());
+            function CreateUniqueKey() {
+                var key;
+                do
+                    key = "@@WeakMap@@" + CreateUUID();
+                while (HashMap.has(keys, key));
+                keys[key] = true;
+                return key;
+            }
+            function GetOrCreateWeakMapTable(target, create) {
+                if (!hasOwn.call(target, rootKey)) {
+                    if (!create)
+                        return undefined;
+                    Object.defineProperty(target, rootKey, { value: HashMap.create() });
+                }
+                return target[rootKey];
+            }
+            function FillRandomBytes(buffer, size) {
+                for (var i = 0; i < size; ++i)
+                    buffer[i] = Math.random() * 0xff | 0;
+                return buffer;
+            }
+            function GenRandomBytes(size) {
+                if (typeof Uint8Array === "function") {
+                    if (typeof crypto !== "undefined")
+                        return crypto.getRandomValues(new Uint8Array(size));
+                    if (typeof msCrypto !== "undefined")
+                        return msCrypto.getRandomValues(new Uint8Array(size));
+                    return FillRandomBytes(new Uint8Array(size), size);
+                }
+                return FillRandomBytes(new Array(size), size);
+            }
+            function CreateUUID() {
+                var data = GenRandomBytes(UUID_SIZE);
+                // mark as random - RFC 4122 § 4.4
+                data[6] = data[6] & 0x4f | 0x40;
+                data[8] = data[8] & 0xbf | 0x80;
+                var result = "";
+                for (var offset = 0; offset < UUID_SIZE; ++offset) {
+                    var byte = data[offset];
+                    if (offset === 4 || offset === 6 || offset === 8)
+                        result += "-";
+                    if (byte < 16)
+                        result += "0";
+                    result += byte.toString(16).toLowerCase();
+                }
+                return result;
+            }
+        }
+        // uses a heuristic used by v8 and chakra to force an object into dictionary mode.
+        function MakeDictionary(obj) {
+            obj.__ = undefined;
+            delete obj.__;
+            return obj;
+        }
+    });
+})(Reflect || (Reflect = {}));
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../process/browser.js */ "./node_modules/process/browser.js"), __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
 /***/ "./node_modules/typo-js/typo.js":
 /*!**************************************!*\
   !*** ./node_modules/typo-js/typo.js ***!
@@ -23227,20 +24637,27 @@ Typo.prototype = {
 			}
 			
 			if (this.checkExact(capitalizedWord)) {
+				// The all-caps word is a capitalized word spelled correctly.
+				return true;
+			}
+
+			if (this.checkExact(trimmedWord.toLowerCase())) {
+				// The all-caps is a lowercase word spelled correctly.
 				return true;
 			}
 		}
 		
-		var lowercaseWord = trimmedWord.toLowerCase();
+		var uncapitalizedWord = trimmedWord[0].toLowerCase() + trimmedWord.substring(1);
 		
-		if (lowercaseWord !== trimmedWord) {
-			if (this.hasFlag(lowercaseWord, "KEEPCASE")) {
+		if (uncapitalizedWord !== trimmedWord) {
+			if (this.hasFlag(uncapitalizedWord, "KEEPCASE")) {
 				// Capitalization variants are not allowed for this word.
 				return false;
 			}
 			
-			// Check for a lowercase form
-			if (this.checkExact(lowercaseWord)) {
+			// Check for an uncapitalized form
+			if (this.checkExact(uncapitalizedWord)) {
+				// The word is spelled correctly but with the first letter capitalized.
 				return true;
 			}
 		}
@@ -23396,6 +24813,8 @@ Typo.prototype = {
 			var rv = {};
 			
 			var i, j, _iilen, _len, _jlen, _edit;
+
+			var alphabetLength = self.alphabet.length;
 			
 			if (typeof words == 'string') {
 				var word = words;
@@ -23407,6 +24826,7 @@ Typo.prototype = {
 				for (i = 0, _len = word.length + 1; i < _len; i++) {
 					var s = [ word.substring(0, i), word.substring(i) ];
 				
+					// Remove a letter.
 					if (s[1]) {
 						_edit = s[0] + s[1].substring(1);
 
@@ -23420,6 +24840,7 @@ Typo.prototype = {
 						}
 					}
 					
+					// Transpose letters
 					// Eliminate transpositions of identical letters
 					if (s[1].length > 1 && s[1][1] !== s[1][0]) {
 						_edit = s[0] + s[1][1] + s[1][0] + s[1].substring(2);
@@ -23435,10 +24856,21 @@ Typo.prototype = {
 					}
 
 					if (s[1]) {
-						for (j = 0, _jlen = self.alphabet.length; j < _jlen; j++) {
+						// Replace a letter with another letter.
+
+						var lettercase = (s[1].substring(0,1).toUpperCase() === s[1].substring(0,1)) ? 'uppercase' : 'lowercase';
+
+						for (j = 0; j < alphabetLength; j++) {
+							var replacementLetter = self.alphabet[j];
+
+							// Set the case of the replacement letter to the same as the letter being replaced.
+							if ( 'uppercase' === lettercase ) {
+								replacementLetter = replacementLetter.toUpperCase();
+							}
+
 							// Eliminate replacement of a letter by itself
-							if (self.alphabet[j] != s[1].substring(0,1)){
-								_edit = s[0] + self.alphabet[j] + s[1].substring(1);
+							if (replacementLetter != s[1].substring(0,1)){
+								_edit = s[0] + replacementLetter + s[1].substring(1);
 
 								if (!known_only || self.check(_edit)) {
 									if (!(_edit in rv)) {
@@ -23453,8 +24885,18 @@ Typo.prototype = {
 					}
 
 					if (s[1]) {
-						for (j = 0, _jlen = self.alphabet.length; j < _jlen; j++) {
-							_edit = s[0] + self.alphabet[j] + s[1];
+						// Add a letter between each letter.
+						for (j = 0; j < alphabetLength; j++) {
+							// If the letters on each side are capitalized, capitalize the replacement.
+							var lettercase = (s[0].substring(-1).toUpperCase() === s[0].substring(-1) && s[1].substring(0,1).toUpperCase() === s[1].substring(0,1)) ? 'uppercase' : 'lowercase';
+
+							var replacementLetter = self.alphabet[j];
+
+							if ( 'uppercase' === lettercase ) {
+								replacementLetter = replacementLetter.toUpperCase();
+							}
+
+							_edit = s[0] + replacementLetter + s[1];
 
 							if (!known_only || self.check(_edit)) {
 								if (!(_edit in rv)) {
@@ -23569,6 +25011,37 @@ if (true) {
 
 /***/ }),
 
+/***/ "./node_modules/webpack/buildin/global.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
 /***/ "./resources/src/Application.js":
 /*!**************************************!*\
   !*** ./resources/src/Application.js ***!
@@ -23582,6 +25055,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var inversify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inversify */ "./node_modules/inversify/lib/inversify.js");
 /* harmony import */ var inversify__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(inversify__WEBPACK_IMPORTED_MODULE_0__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -23610,16 +25089,27 @@ var Application = /*#__PURE__*/function (_Container) {
   var _super = _createSuper(Application);
 
   function Application() {
+    var _this;
+
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
     _classCallCheck(this, Application);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, {
+      autoBindInjectable: false,
+      defaultScope: 'Transient',
+      skipBaseClassChecks: false
+    });
+
+    _this.bind('options').toConstantValue(_objectSpread({
+      message: 'Hello!'
+    }, options));
+
+    return _this;
   }
 
   _createClass(Application, [{
     key: "alert",
-    // constructor() {
-    //     //alert();
-    // }
     value: function (_alert) {
       function alert() {
         return _alert.apply(this, arguments);
@@ -23631,8 +25121,7 @@ var Application = /*#__PURE__*/function (_Container) {
 
       return alert;
     }(function () {
-      var message = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'Testing';
-      alert(message);
+      alert(this.get('options').message);
     })
   }]);
 
@@ -23645,24 +25134,26 @@ var Application = /*#__PURE__*/function (_Container) {
 /*!********************************!*\
   !*** ./resources/src/index.js ***!
   \********************************/
-/*! no exports provided */
+/*! exports provided: Application, EasyMDE */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
-/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpinejs__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Application__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Application */ "./resources/src/Application.js");
-//import 'reflect-metadata'
- //export * from './app';
-//import App from './components/App.js';
+/* harmony import */ var reflect_metadata__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reflect-metadata */ "./node_modules/reflect-metadata/Reflect.js");
+/* harmony import */ var reflect_metadata__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(reflect_metadata__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
+/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(alpinejs__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var easymde__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! easymde */ "./node_modules/easymde/src/js/easymde.js");
+/* harmony import */ var easymde__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(easymde__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "EasyMDE", function() { return easymde__WEBPACK_IMPORTED_MODULE_2___default.a; });
+/* harmony import */ var _Application__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Application */ "./resources/src/Application.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Application", function() { return _Application__WEBPACK_IMPORTED_MODULE_3__["Application"]; });
 
- //export * from './PlatformServiceProvider';
-//export * from './ServiceProvider';
-//import App from './App.svelte';
 
-window.app = new _Application__WEBPACK_IMPORTED_MODULE_1__["Application"]();
-window.EasyMDE = __webpack_require__(/*! EasyMDE */ "./node_modules/EasyMDE/src/js/easymde.js"); //window.flatpickr = require('flatpickr');
+
+
+
+
 
 /***/ }),
 
@@ -23695,9 +25186,9 @@ window.EasyMDE = __webpack_require__(/*! EasyMDE */ "./node_modules/EasyMDE/src/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/ryanthompson/Sites/streams.dev/vendor/streams/ui/resources/src/index.js */"./resources/src/index.js");
-__webpack_require__(/*! /Users/ryanthompson/Sites/streams.dev/vendor/streams/ui/resources/src/scss/theme.scss */"./resources/src/scss/theme.scss");
-module.exports = __webpack_require__(/*! /Users/ryanthompson/Sites/streams.dev/vendor/streams/ui/resources/src/scss/variables.scss */"./resources/src/scss/variables.scss");
+__webpack_require__(/*! /home/radic/projects/streams/packages/streams-ui/resources/src/index.js */"./resources/src/index.js");
+__webpack_require__(/*! /home/radic/projects/streams/packages/streams-ui/resources/src/scss/theme.scss */"./resources/src/scss/theme.scss");
+module.exports = __webpack_require__(/*! /home/radic/projects/streams/packages/streams-ui/resources/src/scss/variables.scss */"./resources/src/scss/variables.scss");
 
 
 /***/ }),
