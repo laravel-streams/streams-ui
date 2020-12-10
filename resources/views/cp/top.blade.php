@@ -1,5 +1,5 @@
 <!-- top.blade.php -->
-<nav class="sticky top-0 z-50 px-8 h-16 bg-white dark:bg-black border-b-2 border-primary">
+<nav  class="sticky top-0 z-20 px-8 h-16 bg-white dark:bg-black border-b-2 border-primary">
 <div class="flex h-16 items-center">
     {{-- Hamburger 
     <button
@@ -15,7 +15,7 @@
         {!! $cp->buttons !!}
     </div>
 
-    <div>
+    <div x-data="{}">
         
         <div class="ml-4 flex items-center md:ml-6">
 
@@ -54,7 +54,9 @@
 
             </div>
             @else
-            <button {!! $shortcut->htmlAttributes() !!}>
+            <button {!! $shortcut->htmlAttributes([
+                'class' => 'ml-3',
+            ]) !!}>
                 @if ($shortcut->svg)
                 {!! $shortcut->svg !!}
                 @elseif ($shortcut->icon)
