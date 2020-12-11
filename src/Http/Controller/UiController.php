@@ -52,7 +52,6 @@ class UiController extends StreamsController
      */
     public function handle()
     {
-        \Streams\Core\Support\Facades\Messages::success('Test');
         return parent::handle();
     }
 
