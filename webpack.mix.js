@@ -1,9 +1,9 @@
 const mix = require('laravel-mix');
 const tailwindcss = require('tailwindcss');
 
-mix.js('resources/src/index.js', 'resources/public/js')
-    .sass('resources/src/scss/theme.scss', 'resources/public/css')
-    .sass('resources/src/scss/variables.scss', 'resources/public/css');
+mix.ts('resources/ts/index.ts', 'resources/public/js')
+    .sass('resources/scss/theme.scss', 'resources/public/css')
+    .sass('resources/scss/variables.scss', 'resources/public/css');
 
 mix.copyDirectory('resources/public', '../../../public/vendor/streams/ui');
 
@@ -12,11 +12,15 @@ mix.options({
     postCss: [tailwindcss('./tailwind.config.js')],
 });
 
-mix.webpackConfig({
-    plugins: [],
-});
 mix.webpackConfig(webpack => {
     return {
+        externals: {
+            "@streams/core": "streams",
+            "@streams/ui": "streams",
+        },
+        plugins: [
+            require('@tailwindcss/ui'),
+        ],
         output: {
             library: 'streams',
             libraryTarget: 'window'
