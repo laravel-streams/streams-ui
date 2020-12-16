@@ -6,6 +6,6 @@
         'value' => $key,
         $input->field->value ? 'checked' : null,
     ]) !!}/> 
-    <span class="ml-2">{{ $value }}</span>
+    <span class="ml-2 dark:text-white">{{ $value }}</span>
 </label><br>
 @endforeach

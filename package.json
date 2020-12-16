@@ -19,8 +19,8 @@
         "easymde": "^2.13.0",
         "inversify": "^5.0.1",
         "noty": "^3.2.0-beta",
-        "reflect-metadata": "^0.1.13",
-        "postcss": "^8.1.10"
+        "postcss": "^8.1.10",
+        "reflect-metadata": "^0.1.13"
     },
     "devDependencies": {
         "axios": "^0.19",

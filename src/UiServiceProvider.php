@@ -3,22 +3,26 @@
 namespace Streams\Ui;
 
 use Streams\Ui\Input\Date;
+use Streams\Ui\Input\File;
 use Streams\Ui\Input\Slug;
 use Streams\Ui\Input\Time;
 use Illuminate\Support\Arr;
 use Streams\Ui\Input\Color;
+use Streams\Ui\Input\Image;
 use Streams\Ui\Input\Input;
 use Streams\Ui\Input\Radio;
 use Streams\Ui\Input\Range;
-use Streams\Ui\Input\Toggle;
 use Streams\Ui\Input\Select;
-use Streams\Core\Field\Field;
+use Streams\Ui\Input\Toggle;
 use Streams\Ui\Input\Integer;
+use Streams\Ui\Input\Decimal;
+use Streams\Core\Field\Field;
 use Streams\Ui\Input\Datetime;
 use Streams\Ui\Input\Markdown;
 use Streams\Ui\Input\Textarea;
 use Streams\Core\Stream\Stream;
 use Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Input\Relationship;
 use Streams\Ui\Table\TableBuilder;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
@@ -97,9 +101,12 @@ class UiServiceProvider extends ServiceProvider
         $this->app->bind('streams.input_types.range', Range::class);
         $this->app->bind('streams.input_types.select', Select::class);
         $this->app->bind('streams.input_types.integer', Integer::class);
+        $this->app->bind('streams.input_types.decimal', Decimal::class);
         $this->app->bind('streams.input_types.textarea', Textarea::class);
         $this->app->bind('streams.input_types.markdown', Markdown::class);
 
+        $this->app->bind('streams.input_types.file', File::class);
+        $this->app->bind('streams.input_types.image', Image::class);
         $this->app->bind('streams.input_types.relationship', Relationship::class);
 
         $this->app->bind('streams.input_types.boolean', Toggle::class);

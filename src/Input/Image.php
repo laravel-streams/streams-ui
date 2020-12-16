@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Input;
 
-class Select extends Input
+class Image extends Input
 {
 
     /**
@@ -14,7 +14,7 @@ class Select extends Input
     protected function initializePrototype(array $attributes)
     {
         return parent::initializePrototype(array_merge([
-            'template' => 'ui::input/select',
+            'template' => 'ui::input/image',
         ], $attributes));
     }
 }

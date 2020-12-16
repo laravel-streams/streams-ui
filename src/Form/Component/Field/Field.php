@@ -49,9 +49,9 @@ class Field extends Component
 
     public function label()
     {
-        $fallback = Str::title(Str::humanize($this->handle));
+        $fallback = Str::title(Str::humanize($this->name ?: $this->handle));
 
-        return $this->label ?: ($this->name ?: $fallback);
+        return $this->label ?: $fallback;
     }
 
     public function class(array $classes = [])

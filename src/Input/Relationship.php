@@ -2,9 +2,9 @@
 
 namespace Streams\Ui\Input;
 
-use Streams\Ui\Support\Component;
+use Streams\Core\Support\Facades\Streams;
 
-class Select extends Input
+class Relationship extends Input
 {
 
     /**
@@ -18,5 +18,18 @@ class Select extends Input
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/relationship',
         ], $attributes));
+    }
+
+    public function options()
+    {
+        $options = [];
+
+        $entries = Streams::entries($this->field->config['related'])->all();
+
+        foreach ($entries as $entry) {
+            $options[$entry->id] = $entry->title ?: ($entry->name ?: $entry->id);
+        }
+
+        return $options;
     }
 }
