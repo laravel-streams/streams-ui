@@ -183,9 +183,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/radic/projects/streams/packages/ui/resources/ts/index.ts */"./resources/ts/index.ts");
-__webpack_require__(/*! /home/radic/projects/streams/packages/ui/resources/scss/theme.scss */"./resources/scss/theme.scss");
-module.exports = __webpack_require__(/*! /home/radic/projects/streams/packages/ui/resources/scss/variables.scss */"./resources/scss/variables.scss");
+__webpack_require__(/*! /Users/ryanthompson/Sites/streams.dev/vendor/streams/ui/resources/ts/index.ts */"./resources/ts/index.ts");
+__webpack_require__(/*! /Users/ryanthompson/Sites/streams.dev/vendor/streams/ui/resources/scss/theme.scss */"./resources/scss/theme.scss");
+module.exports = __webpack_require__(/*! /Users/ryanthompson/Sites/streams.dev/vendor/streams/ui/resources/scss/variables.scss */"./resources/scss/variables.scss");
 
 
 /***/ }),
