@@ -22,7 +22,7 @@
     window.streams.core.app.bootstrap({
         providers: [
             window.streams.core.StreamsServiceProvider,
-            //window.streams.ui.UiServiceProvider
+            window.streams.ui.UiServiceProvider
         ]
     }).then(app => {
         return app.boot();
