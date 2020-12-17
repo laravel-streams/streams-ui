@@ -1,4 +1,4 @@
-<div x-data="modal()">
+<div x-data="streams.core.app.get('modal')()">
     <div class="fixed top-0 left-0 h-screen w-screen z-40 inset-0 overflow-y-auto" x-show="isOpen()">
 
         <div class="absolute top-0 left-0 h-screen w-screen bg-black opacity-50"></div>
@@ -15,14 +15,3 @@
     </div>
     </div>
 </div>
-
-<script>
-    function modal() {
-        return {
-            show: false,
-            open() { this.show = true },
-            close() { this.show = false },
-            isOpen() { return this.show === true },
-        }
-    }
-</script>
