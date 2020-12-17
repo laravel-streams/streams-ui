@@ -1,5 +1,4 @@
 {
-    "private": true,
     "name": "@streams/ui",
     "version": "1.0.0",
     "types": "./resources/public/js/index.d.ts",
