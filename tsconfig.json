@@ -38,8 +38,6 @@
         ],
         "baseUrl": ".",
         "paths": {
-            "@streams/core": ["../core/resources/ts"],
-            "@streams/core/*": ["../core/resources/ts/*"]
         },
         "outDir": "resources/public/js"
     },

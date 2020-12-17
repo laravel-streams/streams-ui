@@ -19,10 +19,10 @@
 <script src="/vendor/streams/ui/js/index.js"></script>
 
 <script>
-window.streams.app.bootstrap({
+window.streams.core.app.bootstrap({
     providers: [
-        window.streams.StreamsServiceProvider,
-        window.streams.UiServiceProvider
+        window.streams.core.StreamsServiceProvider,
+        window.streams.ui.UiServiceProvider
     ]
 }).then(app => {
     return app.boot();

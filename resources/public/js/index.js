@@ -1,4 +1,4 @@
-window["streams"] =
+window["streams"] = window["streams"] || {}; window["streams"]["ui"] =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -191,13 +191,13 @@ module.exports = __webpack_require__(/*! /Users/ryanthompson/Sites/streams.dev/v
 /***/ }),
 
 /***/ "@streams/core":
-/*!**************************!*\
-  !*** external "streams" ***!
-  \**************************/
+/*!*******************************!*\
+  !*** external "streams.core" ***!
+  \*******************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["streams"]; }());
+(function() { module.exports = window["streams.core"]; }());
 
 /***/ })
 
