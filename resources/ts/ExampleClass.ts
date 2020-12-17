@@ -1,3 +1,4 @@
+import {app} from '@streams/core'
 
 export class ExampleClass {
     example(){

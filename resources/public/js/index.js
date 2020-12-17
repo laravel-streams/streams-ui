@@ -2767,6 +2767,14 @@ __webpack_require__.r(__webpack_exports__);
 
 class UiServiceProvider extends _streams_core__WEBPACK_IMPORTED_MODULE_0__["ServiceProvider"] {
     register() {
+        this.app.instance('modal', () => {
+            return {
+                show: false,
+                open() { this.show = true; },
+                close() { this.show = false; },
+                isOpen() { return this.show === true; },
+            };
+        });
         // let config = this.app.get<IConfig>('config');
         // this.app.singleton('asdf', ExampleClass);
     }
