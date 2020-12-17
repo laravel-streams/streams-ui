@@ -26,16 +26,6 @@
     @include('ui::cp.surfaces')
     @include('ui::cp.modal')
 
-    <script>
-    var app = new streams.Application({
-        message: 'foo'
-    })
-    app.alert();
-    var mde = new streams.EasyMDE({
-
-    })
-    mde.toTextArea();
-    </script>
 </body>
 
 </html>
