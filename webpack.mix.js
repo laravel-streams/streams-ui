@@ -17,21 +17,17 @@ mix
         function (webpack) {
 
             return {
-                resolve: {
-                    alias: {
-                        '@streams/core': 'streams.core',
-                    }
-                },
-                externals: {
-                    '@streams/core': ['streams', 'core'],
-                },
                 plugins: [
                     require('@tailwindcss/ui'),
                 ],
+                externals: {
+                    '@streams/core': ['streams', 'core'],
+                },
                 output: {
                     library: ['streams', 'ui'],
                     libraryTarget: 'window'
                 }
             };
         }
-    );
+    )
+    .sourceMaps();
