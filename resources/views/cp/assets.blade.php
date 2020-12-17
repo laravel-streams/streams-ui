@@ -19,24 +19,23 @@
 <script src="/vendor/streams/ui/js/index.js"></script>
 
 <script>
-window.streams.core.app.bootstrap({
-    providers: [
-        window.streams.core.StreamsServiceProvider,
-        window.streams.ui.UiServiceProvider
-    ]
-}).then(app => {
-    return app.boot();
-}).then(app => {
-    return app.start();
-});
-
+    window.streams.core.app.bootstrap({
+        providers: [
+            window.streams.core.StreamsServiceProvider,
+            window.streams.ui.UiServiceProvider
+        ]
+    }).then(app => {
+        return app.boot();
+    }).then(app => {
+        return app.start();
+    });
 </script>
 
 <script>
-// On page load or when changing themes, best to add inline in `head` to avoid FOUC
-if ( localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) ) {
-    document.querySelector('html').classList.add('dark');
-} else {
-    document.querySelector('html').classList.remove('dark');
-}
+    // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+    if ( localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) ) {
+        document.querySelector('html').classList.add('dark');
+    } else {
+        document.querySelector('html').classList.remove('dark');
+    }
 </script>
