@@ -2,6 +2,7 @@
 
 namespace Streams\Ui;
 
+use Illuminate\Support\Facades\Blade;
 use Streams\Ui\Input\Date;
 use Streams\Ui\Input\File;
 use Streams\Ui\Input\Slug;
@@ -267,6 +268,7 @@ class UiServiceProvider extends ServiceProvider
 
         Stream::macro('table', function ($table = 'default', $attributes = []) {
 
+            /** @var \Streams\Core\Stream\Stream $this */
             if (is_array($table)) {
                 $attributes = $table;
                 $table = 'default';
@@ -291,9 +293,8 @@ class UiServiceProvider extends ServiceProvider
     protected function extendField()
     {
         Field::macro('input', function () {
-
+            /** @var \Streams\Ui\Form\Component\Field\Field $this */
             $attributes = ['field' => $this];
-
             return App::make('streams.input_types.' . ($this->input ?: 'input'), compact('attributes'));
         });
     }

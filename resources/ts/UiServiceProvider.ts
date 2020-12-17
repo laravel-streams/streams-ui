@@ -1,5 +1,4 @@
-import { IConfig, ServiceProvider } from '@streams/core';
-import { ExampleClass }             from './ExampleClass';
+import { ServiceProvider } from '@streams/core';
 
 export class UiServiceProvider extends ServiceProvider {
     public register() {
