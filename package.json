@@ -2,8 +2,8 @@
     "private": true,
     "name": "@streams/ui",
     "version": "1.0.0",
-    "types": "./resources/ts/index.ts",
-    "typings": "./resources/ts/index.ts",
+    "types": "./resources/public/js/index.d.ts",
+    "typings": "./resources/public/js/index.d.ts",
     "scripts": {
         "dev": "npm run development",
         "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",

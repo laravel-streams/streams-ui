@@ -1,11 +1,7 @@
 const mix = require('laravel-mix');
 const tailwindcss = require('tailwindcss');
 
-mix.ts('resources/ts/index.ts', 'resources/public/js', {
-
-    })
-    .sass('resources/scss/theme.scss', 'resources/public/css')
-    .sass('resources/scss/variables.scss', 'resources/public/css');
+mix.ts('resources/ts/index.ts', 'resources/public/js', {});
 
 mix.copyDirectory('resources/public', '../../../public/vendor/streams/ui');
 
@@ -21,21 +17,19 @@ mix.webpackConfig(
     function (webpack) {
 
         return {
-            resolve: {
+            resolve  : {
                 alias: {
                     '@streams/core': 'streams.core',
-                    '@streams/ui'  : 'streams.ui',
                 }
             },
             externals: {
-                '@streams/core': 'streams.core',
-                '@streams/ui'  : 'streams.ui',
+                '@streams/core': ['streams', 'core'],
             },
             plugins  : [
                 require('@tailwindcss/ui'),
             ],
             output   : {
-                library      : ['streams','ui'],
+                library      : ['streams', 'ui'],
                 libraryTarget: 'window'
             }
         };
