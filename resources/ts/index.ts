@@ -1,5 +1,5 @@
-import '../scss/theme.scss'
-import '../scss/variables.scss'
+// import '../scss/theme.scss'
+// import '../scss/variables.scss'
 
 import 'alpinejs';
 

@@ -6,6 +6,8 @@ const isDev = process.env.NODE_ENV === 'development';
 
 mix
     .ts('resources/ts/index.ts', 'resources/public/js')
+    .ts('resources/scss/theme.scss', 'resources/public/css')
+    .ts('resources/scss/variables.scss', 'resources/public/css')
     .copyDirectory('resources/public', '../../../public/vendor/streams/ui')
     .options({
         processCssUrls: false,
