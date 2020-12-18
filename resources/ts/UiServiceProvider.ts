@@ -1,7 +1,10 @@
+import 'reflect-metadata';
 import { ServiceProvider } from '@streams/core';
+import EasyMDE from 'easymde';
 
 export class UiServiceProvider extends ServiceProvider {
     public register() {
+        
         this.app.instance('modal', () => {
             return {
                 show: false,
@@ -10,8 +13,10 @@ export class UiServiceProvider extends ServiceProvider {
                 isOpen() { return this.show === true; },
             };
         });
-        // let config = this.app.get<IConfig>('config');
-        // this.app.singleton('asdf', ExampleClass);
+
+        this.app.binding('markdown', (options) => {
+            return new EasyMDE(options);
+        });
     }
 
     // public boot() {
