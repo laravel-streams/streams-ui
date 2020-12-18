@@ -1,5 +1,3 @@
-{{-- <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script> --}}
-
 <!-- markdown.blade.php -->
 <textarea {!! $input->htmlAttributes([
     'rows' => 10,
@@ -7,6 +5,8 @@
 
 <script>
     window.addEventListener('load', () => {
-        window.streams.core.app.get('markdown')({ element: document.getElementById("{{ $input->field->handle }}-input") });
+        window.streams.core.app.get('markdown')({
+            element: document.getElementById("{{ $input->field->handle }}-input")
+        });
     })
 </script>

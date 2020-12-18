@@ -11,36 +11,36 @@ mix
     .copyDirectory('resources/public', '../../../public/vendor/streams/ui')
     .options({
         processCssUrls: false,
-        postCss       : [tailwindcss('./tailwind.config.js')],
+        postCss: [tailwindcss('./tailwind.config.js')],
     })
     .webpackConfig(
-    /**
-     * @return webpack.Configuration
-     */
-    function (webpack) {
+        /**
+         * @return webpack.Configuration
+         */
+        function (webpack) {
 
-        return {
-            devtool  : isDev ? '#source-map' : null,
-            plugins  : [
-                require('@tailwindcss/ui'),
-            ],
-            externals: {
-                '@streams/core': ['streams', 'core'],
-            },
-            output   : {
-                library                              : ['streams', 'ui'],
-                libraryTarget                        : 'window',
-                devtoolFallbackModuleFilenameTemplate: 'webpack:///[resource-path]?[hash]',
-                devtoolModuleFilenameTemplate        : info => {
-                    var $filename = 'sources://' + info.resourcePath;
-                    $filename = 'webpack:///' + info.resourcePath; // +'?' + info.hash;
-                    if ( info.resourcePath.match(/\.vue$/) && !info.allLoaders.match(/type=script/) && !info.query.match(/type=script/) ) {
-                        $filename = 'webpack-generated:///' + info.resourcePath; // + '?' + info.hash;
+            return {
+                devtool: isDev ? '#source-map' : null,
+                plugins: [
+                    require('@tailwindcss/ui'),
+                ],
+                externals: {
+                    '@streams/core': ['streams', 'core'],
+                },
+                output: {
+                    library: ['streams', 'ui'],
+                    libraryTarget: 'window',
+                    devtoolFallbackModuleFilenameTemplate: 'webpack:///[resource-path]?[hash]',
+                    devtoolModuleFilenameTemplate: info => {
+                        var $filename = 'sources://' + info.resourcePath;
+                        $filename = 'webpack:///' + info.resourcePath; // +'?' + info.hash;
+                        if (info.resourcePath.match(/\.vue$/) && !info.allLoaders.match(/type=script/) && !info.query.match(/type=script/)) {
+                            $filename = 'webpack-generated:///' + info.resourcePath; // + '?' + info.hash;
+                        }
+                        return $filename;
                     }
-                    return $filename;
                 }
-            }
-        };
-    }
+            };
+        }
     )
     .sourceMaps();
