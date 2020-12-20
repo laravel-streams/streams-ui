@@ -19,7 +19,7 @@ export class UiServiceProvider extends ServiceProvider {
 
         this.app.bind('markdown').toProvider<any>((ctx) => {
             return async (options) => {
-                const EasyMDE = (await import('easymde')) as any;
+                const EasyMDE = (await import('easymde')).default as any;
                 return new EasyMDE(options);
             };
         });

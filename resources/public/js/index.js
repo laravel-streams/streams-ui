@@ -2118,7 +2118,7 @@ var UiServiceProvider = /*#__PURE__*/function (_ServiceProvider) {
                     return __webpack_require__.e(/*! import() */ "node_modules_easymde_src_js_easymde_js").then(__webpack_require__.t.bind(__webpack_require__, /*! easymde */ "./node_modules/easymde/src/js/easymde.js", 23));
 
                   case 2:
-                    EasyMDE = _context.sent;
+                    EasyMDE = _context.sent["default"];
                     return _context.abrupt("return", new EasyMDE(options));
 
                   case 4:

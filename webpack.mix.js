@@ -8,7 +8,7 @@ mix
     .ts('resources/ts/index.ts', '')
     .ts('resources/ts/css/theme.ts', 'css')
     .ts('resources/ts/css/variables.ts', 'css')
-    .copyDirectory('resources/public', '../../../public/vendor/streams/ui')
+    .copyDirectory('resources/public', '../../public/vendor/streams/ui')
     .options({
         processCssUrls: false,
         postCss       : [tailwindcss('./tailwind.config.js')],
