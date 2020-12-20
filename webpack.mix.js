@@ -13,12 +13,11 @@ mix
         processCssUrls: false,
         postCss       : [tailwindcss('./tailwind.config.js')],
     })
-
     .webpackConfig(
         function (webpack) {
             return {
-                devtool  : isDev ? 'hidden-source-map' : false,
-                plugins  : [
+                devtool: isDev ? 'hidden-source-map' : false,
+                plugins: [
                     require('@tailwindcss/ui'),
                 ],
 
@@ -31,6 +30,7 @@ mix
                     filename                             : 'js/[name].js',
                     chunkFilename                        : 'js/chunk.[name].js',
                     library                              : ['streams', 'ui'],
+                    publicPath                           : '/vendor/streams/ui/',
                     libraryTarget                        : 'window',
                     devtoolFallbackModuleFilenameTemplate: 'webpack:///[resource-path]?[hash]',
                     devtoolModuleFilenameTemplate        : info => {
