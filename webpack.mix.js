@@ -1,40 +1,42 @@
 const mix = require('laravel-mix');
 const tailwindcss = require('tailwindcss');
-
+const path = require('path');
 
 const isDev = process.env.NODE_ENV === 'development';
 
 mix
-    .ts('resources/ts/index.ts', 'resources/public/js')
-    .ts('resources/scss/theme.scss', 'resources/public/css')
-    .ts('resources/scss/variables.scss', 'resources/public/css')
+    .ts('resources/ts/index.ts', '')
+    .ts('resources/ts/css/theme.ts', 'css')
+    .ts('resources/ts/css/variables.ts', 'css')
     .copyDirectory('resources/public', '../../../public/vendor/streams/ui')
     .options({
         processCssUrls: false,
-        postCss: [tailwindcss('./tailwind.config.js')],
+        postCss       : [tailwindcss('./tailwind.config.js')],
     })
-    .webpackConfig(
-        /**
-         * @return webpack.Configuration
-         */
-        function (webpack) {
 
+    .webpackConfig(
+        function (webpack) {
             return {
-                devtool: isDev ? '#source-map' : null,
-                plugins: [
+                devtool  : isDev ? 'hidden-source-map' : false,
+                plugins  : [
                     require('@tailwindcss/ui'),
                 ],
+
                 externals: {
                     '@streams/core': ['streams', 'core'],
                 },
-                output: {
-                    library: ['streams', 'ui'],
-                    libraryTarget: 'window',
+                output   : {
+
+                    path                                 : path.resolve('./resources/public'),
+                    filename                             : 'js/[name].js',
+                    chunkFilename                        : 'js/chunk.[name].js',
+                    library                              : ['streams', 'ui'],
+                    libraryTarget                        : 'window',
                     devtoolFallbackModuleFilenameTemplate: 'webpack:///[resource-path]?[hash]',
-                    devtoolModuleFilenameTemplate: info => {
+                    devtoolModuleFilenameTemplate        : info => {
                         var $filename = 'sources://' + info.resourcePath;
                         $filename = 'webpack:///' + info.resourcePath; // +'?' + info.hash;
-                        if (info.resourcePath.match(/\.vue$/) && !info.allLoaders.match(/type=script/) && !info.query.match(/type=script/)) {
+                        if ( info.resourcePath.match(/\.vue$/) && !info.allLoaders.match(/type=script/) && !info.query.match(/type=script/) ) {
                             $filename = 'webpack-generated:///' + info.resourcePath; // + '?' + info.hash;
                         }
                         return $filename;

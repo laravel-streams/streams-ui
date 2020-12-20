@@ -1,7 +1,7 @@
 <!-- top.blade.php -->
 <nav  class="sticky top-0 z-20 px-8 h-16 bg-white dark:bg-black border-b-2 border-primary">
 <div class="flex h-16 items-center">
-    {{-- Hamburger 
+    {{-- Hamburger
     <button
         class="px-4 border-r border-gray-200 text-gray focus:outline-none focus:bg-gray-100 focus:text-gray-600 md:hidden"
         aria-label="Open sidebar">
@@ -16,7 +16,7 @@
     </div>
 
     <div x-data="{}">
-        
+
         <div class="ml-4 flex items-center md:ml-6">
 
             @foreach ($cp->shortcuts as $shortcut)
@@ -25,8 +25,8 @@
 
                 <button {!! $shortcut->htmlAttributes([
                     'class' => 'block',
-                ]) !!} x-on:click="show == true ? show = false : show = true" x-on:click.away="show = false">
-                
+                ]) !!} @click="show == true ? show = false : show = true" @click.away="show = false">
+
                     @if ($shortcut->svg)
                     {{-- {!! $shortcut->svg !!} --}}
                     @elseif ($shortcut->icon)
@@ -38,7 +38,7 @@
                     @else
                     {{ $shortcut->handle }}
                     @endif
-                
+
                 </button>
 
                 <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md border-2 border-primary z-10" x-show="show">

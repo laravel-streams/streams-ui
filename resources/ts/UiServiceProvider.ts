@@ -1,6 +1,5 @@
 import 'reflect-metadata';
 import { ServiceProvider } from '@streams/core';
-import EasyMDE from 'easymde';
 
 export class UiServiceProvider extends ServiceProvider {
     public register() {
@@ -20,9 +19,7 @@ export class UiServiceProvider extends ServiceProvider {
 
         this.app.bind('markdown').toProvider<any>((ctx) => {
             return async (options) => {
-
-                (await import('easymde')) as any;
-
+                const EasyMDE = (await import('easymde')) as any;
                 return new EasyMDE(options);
             };
         });
