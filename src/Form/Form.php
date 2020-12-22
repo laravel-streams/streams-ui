@@ -172,10 +172,13 @@ class Form extends Component
         })->all();
 
         if (!$this->validator && $this->stream) {
+            
             $this->validator = $this->stream
                 ->validator($values);
 
-            $this->validator->addRules($rules);
+            if ($rules) {
+                $this->validator->setRules($rules);
+            }
         }
 
         // @todo test this
@@ -184,7 +187,7 @@ class Form extends Component
         }
 
         $this->extendValidation($this, $factory);
-
+        
         $this->errors = $this->validator->messages();
 
         if (!$this->errors->isEmpty()) {

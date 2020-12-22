@@ -154,8 +154,8 @@ class FormBuilder extends Builder
 
     public function setValidation()
     {
-        $this->instance->rules = $this->rules;
-        $this->instance->validators = $this->validators;
+        $this->instance->rules = $this->rules ?: $this->stream->rules;
+        $this->instance->validators = $this->validators ?: $this->stream->validators;
     }
 
     public function makeFields()
