@@ -1,5 +1,6 @@
-// import '../scss/theme.scss'
-// import '../scss/variables.scss'
+import '../scss/theme.scss'
+import '../scss/variables.scss'
+import '../scss/inputs/markdown.scss'
 
 import 'alpinejs';
 import { UiServiceProvider } from './UiServiceProvider';
