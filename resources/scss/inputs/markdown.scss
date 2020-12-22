@@ -1,0 +1,12 @@
+@import "../../../node_modules/easymde/dist/easymde.min.css";
+
+.markdown-field {
+    
+    .editor-toolbar {
+        border-radius: 0;
+    }
+
+    .EasyMDEContainer .CodeMirror {
+        border-radius: 0;
+    }
+}

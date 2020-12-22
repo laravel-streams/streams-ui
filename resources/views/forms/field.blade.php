@@ -12,7 +12,7 @@ in two or more columns next to each other. But again, it could be controlled.
 --}}
 
 <div {!! $field->htmlAttributes([
-    'class' => 'col-span-' . ($field->width ?: 12),
+    'class' => 'col-span-' . ($field->width ?: 12) . ' ' . $field->type . '-field',
     'type' => null,
     'name' => null,
     'value' => null,
