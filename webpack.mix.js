@@ -28,10 +28,10 @@ mix
                     library: ['streams', 'ui'],
                     libraryTarget: 'window',
 
-                    //path: path.resolve('./resources/public'),
-                    //filename: 'js/[name].js',
-                    //chunkFilename: 'js/chunk.[name].js',
-                    //publicPath: '/vendor/streams/ui/',
+                //     //path: path.resolve('./resources/public'),
+                //     //filename: 'js/[name].js',
+                //     //chunkFilename: 'js/chunk.[name].js',
+                //     //publicPath: '/vendor/streams/ui/',
                 }
             };
         }

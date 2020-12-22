@@ -2,10 +2,12 @@
 // import '../scss/variables.scss'
 
 import 'alpinejs';
+import { UiServiceProvider } from './UiServiceProvider';
 
 export * from './types';
 export * from './ExampleClass';
 export * from './UiServiceProvider';
 
 
-window['streams']['ui'] = module.exports;
+
+//window.streams.ui[UiServiceProvider.name] = UiServiceProvider;

@@ -46,10 +46,10 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /*!*******************************!*\
   !*** ./resources/ts/index.ts ***!
   \*******************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"ExampleClass\": () => /* reexport safe */ _ExampleClass__WEBPACK_IMPORTED_MODULE_2__.ExampleClass,\n/* harmony export */   \"UiServiceProvider\": () => /* reexport safe */ _UiServiceProvider__WEBPACK_IMPORTED_MODULE_3__.UiServiceProvider\n/* harmony export */ });\n/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ \"./node_modules/alpinejs/dist/alpine.js\");\n/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpinejs__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ \"./resources/ts/types.ts\");\n/* harmony import */ var _ExampleClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ExampleClass */ \"./resources/ts/ExampleClass.ts\");\n/* harmony import */ var _UiServiceProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UiServiceProvider */ \"./resources/ts/UiServiceProvider.ts\");\n/* module decorator */ module = __webpack_require__.hmd(module);\n// import '../scss/theme.scss'\n// import '../scss/variables.scss'\n\n\n\n\nwindow['streams']['ui'] = module.exports;//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9zdHJlYW1zLnVpLy4vcmVzb3VyY2VzL3RzL2luZGV4LnRzPzZlNjIiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7QUFBQTtBQUNBO0FBRUE7QUFFQTtBQUNBO0FBQ0E7QUFHQSxNQUFNLENBQUMsU0FBRCxDQUFOLENBQWtCLElBQWxCLElBQTBCLE1BQU0sQ0FBQyxPQUFqQyIsImZpbGUiOiIuL3Jlc291cmNlcy90cy9pbmRleC50cy5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIGltcG9ydCAnLi4vc2Nzcy90aGVtZS5zY3NzJ1xuLy8gaW1wb3J0ICcuLi9zY3NzL3ZhcmlhYmxlcy5zY3NzJ1xuXG5pbXBvcnQgJ2FscGluZWpzJztcblxuZXhwb3J0ICogZnJvbSAnLi90eXBlcyc7XG5leHBvcnQgKiBmcm9tICcuL0V4YW1wbGVDbGFzcyc7XG5leHBvcnQgKiBmcm9tICcuL1VpU2VydmljZVByb3ZpZGVyJztcblxuXG53aW5kb3dbJ3N0cmVhbXMnXVsndWknXSA9IG1vZHVsZS5leHBvcnRzO1xuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/ts/index.ts\n");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"ExampleClass\": () => /* reexport safe */ _ExampleClass__WEBPACK_IMPORTED_MODULE_2__.ExampleClass,\n/* harmony export */   \"UiServiceProvider\": () => /* reexport safe */ _UiServiceProvider__WEBPACK_IMPORTED_MODULE_3__.UiServiceProvider\n/* harmony export */ });\n/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ \"./node_modules/alpinejs/dist/alpine.js\");\n/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpinejs__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ \"./resources/ts/types.ts\");\n/* harmony import */ var _ExampleClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ExampleClass */ \"./resources/ts/ExampleClass.ts\");\n/* harmony import */ var _UiServiceProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UiServiceProvider */ \"./resources/ts/UiServiceProvider.ts\");\n// import '../scss/theme.scss'\n// import '../scss/variables.scss'\n\n\n\n //window.streams.ui[UiServiceProvider.name] = UiServiceProvider;//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9zdHJlYW1zLnVpLy4vcmVzb3VyY2VzL3RzL2luZGV4LnRzPzZlNjIiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7OztBQUFBO0FBQ0E7QUFFQTtBQUdBO0FBQ0E7Q0FLQSIsImZpbGUiOiIuL3Jlc291cmNlcy90cy9pbmRleC50cy5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIGltcG9ydCAnLi4vc2Nzcy90aGVtZS5zY3NzJ1xuLy8gaW1wb3J0ICcuLi9zY3NzL3ZhcmlhYmxlcy5zY3NzJ1xuXG5pbXBvcnQgJ2FscGluZWpzJztcbmltcG9ydCB7IFVpU2VydmljZVByb3ZpZGVyIH0gZnJvbSAnLi9VaVNlcnZpY2VQcm92aWRlcic7XG5cbmV4cG9ydCAqIGZyb20gJy4vdHlwZXMnO1xuZXhwb3J0ICogZnJvbSAnLi9FeGFtcGxlQ2xhc3MnO1xuZXhwb3J0ICogZnJvbSAnLi9VaVNlcnZpY2VQcm92aWRlcic7XG5cblxuXG4vL3dpbmRvdy5zdHJlYW1zLnVpW1VpU2VydmljZVByb3ZpZGVyLm5hbWVdID0gVWlTZXJ2aWNlUHJvdmlkZXI7XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/ts/index.ts\n");
 
 /***/ }),
 
@@ -281,16 +281,13 @@ module.exports = window["streams"]["core"];
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			id: moduleId,
-/******/ 			loaded: false,
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Flag the module as loaded
-/******/ 		module.loaded = true;
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -331,21 +328,6 @@ module.exports = window["streams"]["core"];
 /******/ 				if (typeof window === 'object') return window;
 /******/ 			}
 /******/ 		})();
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/harmony module decorator */
-/******/ 	(() => {
-/******/ 		__webpack_require__.hmd = (module) => {
-/******/ 			module = Object.create(module);
-/******/ 			if (!module.children) module.children = [];
-/******/ 			Object.defineProperty(module, 'exports', {
-/******/ 				enumerable: true,
-/******/ 				set: () => {
-/******/ 					throw new Error('ES Modules may not assign module.exports or exports.*, Use ESM export syntax, instead: ' + module.id);
-/******/ 				}
-/******/ 			});
-/******/ 			return module;
-/******/ 		};
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
