@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Redirect;
 use Streams\Core\Support\Facades\Messages;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Support\Facades\Request;
 use Streams\Ui\Form\Component\Field\FieldCollection;
 use Streams\Ui\Form\Component\Action\ActionCollection;
 use Streams\Ui\Form\Component\Section\SectionCollection;
