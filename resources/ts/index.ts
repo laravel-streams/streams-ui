@@ -3,6 +3,7 @@ import '../scss/variables.scss'
 import '../scss/inputs/markdown.scss'
 
 import 'alpinejs';
+import './hotkeys';
 import { UiServiceProvider } from './UiServiceProvider';
 
 export * from './types';
