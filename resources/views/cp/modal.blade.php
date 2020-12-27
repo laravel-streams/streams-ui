@@ -6,7 +6,7 @@
 
     <div class="flex items-center justify-center h-screen w-screen">
 
-        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+        <div class="absolute top-10 bottom-10 w-1/2 align-top overflow-scroll bg-white rounded-lg text-left shadow-xl max-h-screen sm:w-full">
             <div class="text-2xl text-black dark:text-dark cursor-pointer"
             x-on:show-modal.window="open(); load($event.detail.url)"
             x-on:close-modal.window="close()">
