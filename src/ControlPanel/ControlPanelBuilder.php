@@ -156,6 +156,9 @@ class ControlPanelBuilder extends Builder
         $shortcuts = Normalizer::dropdown($shortcuts);
 
         array_map(function ($attributes) {
+
+            $attributes['attributes'] = Arr::parse($attributes['attributes']);
+            
             $this->instance->shortcuts->put($attributes['handle'], new Shortcut($attributes));
         }, $shortcuts);
 
