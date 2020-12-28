@@ -1,3 +1,5 @@
+<?php /** @var \Streams\Ui\Input\Input $input */ ?>
+
 <!-- markdown.blade.php -->
 <textarea {!! $input->htmlAttributes([
     'rows' => 10,

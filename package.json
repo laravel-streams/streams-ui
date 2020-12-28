@@ -25,6 +25,7 @@
         "@tailwindcss/forms": "^0.2.1",
         "@tailwindcss/ui": "^0.7.2",
         "@types/webpack": "^4.41.25",
+        "tslib": "^2.0.3",
         "autoprefixer": "^10.0.4",
         "axios": "^0.19",
         "cross-env": "^7.0.3",
