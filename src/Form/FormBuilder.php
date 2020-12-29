@@ -61,7 +61,8 @@ class FormBuilder extends Builder
             'form' => Form::class,
 
             'steps' => [
-                'make_component' => [$this, 'make'],
+                'make_form' => [$this, 'make'],
+                'setup' => [$this, 'setup'],
 
                 'query_entry' => [$this, 'queryEntry'],
 
@@ -103,6 +104,11 @@ class FormBuilder extends Builder
         return null;
     }
 
+    public function setup()
+    {
+        $this->instance->options = $this->options;
+    }
+    
     public function queryEntry()
     {
         /*
