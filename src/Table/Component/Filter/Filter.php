@@ -5,6 +5,7 @@ namespace Streams\Ui\Table\Component\Filter;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Request;
+use Streams\Ui\Input\Input;
 use Streams\Ui\Table\Component\Filter\Query\GenericFilterQuery;
 
 class Filter extends Component
@@ -56,9 +57,7 @@ class Filter extends Component
             'component',
         ]));
 
-        return App::make('streams.input_types.' . ($this->input ?: 'input'), [
-            'attributes' => $attributes,
-        ]);
+        return new Input($attributes);
     }
 
     /**

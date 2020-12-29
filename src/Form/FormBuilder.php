@@ -184,15 +184,12 @@ class FormBuilder extends Builder
 
         $this->fields = $fields;
 
-        $this->instance->fields->each(function($field) {
-            
-            $field->input = App::make('streams.input_types.' . ($field->input ?: 'input'), [
-                'attributes' => [
-                    'field' => $field,
-                    'name' => $field->handle,
-                    'required' => in_array('required', Arr::get($this->stream->rules, $field->handle, [])),
-                    'pattern' => in_array('regex', Arr::get($this->stream->rules, $field->handle, [])),
-                ]
+        $this->instance->fields->each(function ($field) {
+            $field->input = $this->stream->fields->get($field->handle)->input([
+                'field' => $field,
+                'name' => $field->handle,
+                'required' => in_array('required', Arr::get($this->stream->rules, $field->handle, [])),
+                'pattern' => in_array('regex', Arr::get($this->stream->rules, $field->handle, [])),
             ]);
         });
 
