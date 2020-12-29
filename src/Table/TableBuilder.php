@@ -63,6 +63,7 @@ class TableBuilder extends Builder
 
             'steps' => [
                 'make_table' => [$this, 'make'],
+                'setup' => [$this, 'setup'],
 
                 'make_views' => [$this, 'makeViews'],
                 'detect_view' => [$this, 'detectView'],
@@ -112,6 +113,11 @@ class TableBuilder extends Builder
         return null;
     }
 
+    public function setup()
+    {
+        $this->instance->options = $this->options;
+    }
+    
     public function makeViews()
     {
         $this->make();
@@ -286,7 +292,7 @@ class TableBuilder extends Builder
         /**
          * Order query
          */
-        if ($name = $this->request('order_by')) {
+        if ($name = $this->request('order_by', )) {
             $this->criteria->orderBy($name, $this->request('sort', 'asc'));
         }
 
