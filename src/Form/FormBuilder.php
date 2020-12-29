@@ -185,6 +185,7 @@ class FormBuilder extends Builder
         $this->fields = $fields;
 
         $this->instance->fields->each(function ($field) {
+            
             $field->input = $this->stream->fields->get($field->handle)->input([
                 'field' => $field,
                 'name' => $field->handle,
@@ -204,6 +205,7 @@ class FormBuilder extends Builder
 
         $this->instance->fields->each(function ($field) use ($entry) {
             $field->value = $entry->{$field->handle} ?? null;
+            $field->input->value = $entry->{$field->handle} ?? null;
         });
     }
 
