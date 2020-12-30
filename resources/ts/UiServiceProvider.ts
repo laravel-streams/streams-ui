@@ -1,65 +1,20 @@
 import 'reflect-metadata';
+
 import { ServiceProvider } from '@streams/core';
-import axios               from 'axios';
+
+import { default as Modals } from './Modals';
+import { default as Surfaces } from './Surfaces';
 
 export class UiServiceProvider extends ServiceProvider {
+
     public register() {
-        this.app.instance('axios',axios);
-        this.app.factory('modal', (url) => {
-            return {
-                show   : false,
-                content: url,
-                open() { this.show = true; },
-                close() { this.show = false; },
-                isOpen() { return this.show === true; },
-                load(url) {
 
-                    const self = this;
-
-                    axios.get(url)
-                        .then(function (response) {
-                            self.content = response.data;
-                        })
-                        .catch(function (error) {
-                            // handle error
-                            console.log(error);
-                        })
-                        .then(function () {
-                            // always executed
-                        });
-
-                    this.content = url;
-                },
-            };
+        this.app.factory('modal', () => {
+            return Modals;
         });
 
-        this.app.factory('surfaces', (url) => {
-
-            return {
-                show   : false,
-                content: url,
-                open() { this.show = true; },
-                close() { this.show = false; },
-                isOpen() { return this.show === true; },
-                load(url) {
-
-                    const self = this;
-
-                    axios.get(url)
-                        .then(function (response) {
-                            self.content = response.data;
-                        })
-                        .catch(function (error) {
-                            // handle error
-                            console.log(error);
-                        })
-                        .then(function () {
-                            // always executed
-                        });
-
-                    this.content = url;
-                },
-            };
+        this.app.factory('surfaces', () => {
+            return Surfaces;
         });
 
         // this.app.factory('markdown', (options) => {
