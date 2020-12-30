@@ -17,10 +17,6 @@ export class UiServiceProvider extends ServiceProvider {
             return Surfaces;
         });
 
-        // this.app.factory('markdown', (options) => {
-        //     return new EasyMDE(options);
-        // });
-
         this.app.bind('markdown').toProvider<any>((ctx) => {
             return async (options) => {
 
@@ -28,11 +24,5 @@ export class UiServiceProvider extends ServiceProvider {
                 return new EasyMDE(options);
             };
         });
-
-        // - https://www.typescriptlang.org/docs/
-        // - https://github.com/inversify/InversifyJS#the-basics
     }
-
-    // public boot() {
-    // }
 }

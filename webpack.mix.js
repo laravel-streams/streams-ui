@@ -30,6 +30,7 @@ mix
                 ],
                 externals: {
                     '@streams/core': ['streams', 'core'],
+                    'axios': ['streams', 'core', 'axios'],
                 },
                 output   : {
                     path                                 : path.resolve('./resources/public'),

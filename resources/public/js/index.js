@@ -1975,6 +1975,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "axios");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   show: false,
   content: null,
@@ -1989,7 +1992,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   load: function load(url) {
     var self = this;
-    window.streams.core.app.get('http')().get(url).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get(url).then(function (response) {
       self.content = response.data;
     })["catch"](function (error) {
       // handle error
@@ -2013,6 +2016,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "axios");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   show: false,
   content: null,
@@ -2027,7 +2033,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   load: function load(url) {
     var self = this;
-    window.streams.core.app.get('http')().get(url).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get(url).then(function (response) {
       self.content = response.data;
     })["catch"](function (error) {
       // handle error
@@ -2110,10 +2116,7 @@ var UiServiceProvider = /*#__PURE__*/function (_ServiceProvider) {
       });
       this.app.factory('surfaces', function () {
         return _Surfaces__WEBPACK_IMPORTED_MODULE_4__.default;
-      }); // this.app.factory('markdown', (options) => {
-      //     return new EasyMDE(options);
-      // });
-
+      });
       this.app.bind('markdown').toProvider(function (ctx) {
         return function (options) {
           return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this, void 0, void 0, /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -2137,8 +2140,7 @@ var UiServiceProvider = /*#__PURE__*/function (_ServiceProvider) {
             }, _callee);
           }));
         };
-      }); // - https://www.typescriptlang.org/docs/
-      // - https://github.com/inversify/InversifyJS#the-basics
+      });
     }
   }]);
 
@@ -5456,6 +5458,17 @@ function __classPrivateFieldSet(receiver, privateMap, value) {
     return value;
 }
 
+
+/***/ }),
+
+/***/ "axios":
+/*!*******************************************!*\
+  !*** external ["streams","core","axios"] ***!
+  \*******************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = window["streams"]["core"]["axios"];
 
 /***/ }),
 

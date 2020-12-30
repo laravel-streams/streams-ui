@@ -1,4 +1,4 @@
-import { app } from '@streams/core'
+import axios from 'axios'
 
 export default {
     
@@ -13,7 +13,7 @@ export default {
 
         const self = this;
 
-        window.streams.core.app.get('http')().get(url)
+        axios.get(url)
             .then(function (response) {
                 self.content = response.data;
             })
