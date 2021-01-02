@@ -4,12 +4,7 @@
 
 import 'alpinejs';
 import './hotkeys';
-import { UiServiceProvider } from './UiServiceProvider';
 
 export * from './types';
 export * from './ExampleClass';
 export * from './UiServiceProvider';
-
-
-
-//window.streams.ui[UiServiceProvider.name] = UiServiceProvider;

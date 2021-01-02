@@ -7,14 +7,4 @@
 <!-- Assets::tags() -->
 {!! Assets::collection('styles')->tags() !!}
 
-{{-- @todo Inject Other variables here. --}}
-@if ($theme = Streams::entries('theme')->find('settings'))
-<style>
-    :root {
-        --color-primary: {{ $theme->primary }};
-        --color-accent: {{ $theme->accent }};
-    }
-</style>
-@endif
-
 {{-- <link href="/vendor/streams/ui/css/theme.css" rel="stylesheet"> --}}
