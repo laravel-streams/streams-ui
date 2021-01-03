@@ -191,7 +191,11 @@ class FormBuilder extends Builder
         $this->fields = $fields;
 
         $this->instance->fields->each(function ($field) {
-            
+
+            if (!$field = $this->stream->fields->get($field->handle)) {
+                throw new \Exception("Field [{$field->handle}] does not exist on stream [{$this->stream->handle}]");
+            }
+
             $field->input = $this->stream->fields->get($field->handle)->input([
                 'field' => $field,
                 'name' => $field->handle,
