@@ -287,33 +287,31 @@ class UiServiceProvider extends ServiceProvider
             'date' => Date::class,
             'time' => Time::class,
             'datetime' => Datetime::class,
-            
+
             'slug' => Slug::class,
-            
+
             'color' => Color::class,
             'radio' => Radio::class,
             'range' => Range::class,
-            
+
             'select' => Select::class,
-            
+
             'integer' => Integer::class,
             'decimal' => Decimal::class,
-            
+
             'textarea' => Textarea::class,
             'markdown' => Markdown::class,
-            
+
             'file' => File::class,
             'image' => Image::class,
-            
+
             'relationship' => Relationship::class,
-            
+
             'boolean' => Toggle::class,
         ];
 
         foreach ($inputs as $abstract => $concrete) {
-            Field::macro(Str::camel('new_' . $abstract . '_input'), function (array $attributes = []) use ($concrete) {
-                return new $concrete($attributes);
-            });
+            $this->app->bind("streams.ui.input.{$abstract}", $concrete);
         }
 
         Field::macro('input', function (array $attributes = []) {
@@ -324,9 +322,9 @@ class UiServiceProvider extends ServiceProvider
                 return $this->input;
             }
 
-            $method = Str::camel('new_' . $this->input['type'] . '_input');
-
-            return $this->{$method}($attributes);
+            return App::make("streams.ui.input.{$this->input['type']}", [
+                'attributes' => $attributes,
+            ]);
         });
     }
 
