@@ -58,8 +58,10 @@ class Input extends Component
             'name' => $this->name,
             'placeholder' => $this->placeholder,
             'required' => $this->required,
+            'readonly' => $this->readonly,
+            'disabled' => $this->disabled,
             'pattern' => $this->pattern,
-            'value' => $this->value ?: $this->field->value,
+            'value' => $this->value,
         ], $attributes));
     }
 }

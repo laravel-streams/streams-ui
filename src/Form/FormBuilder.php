@@ -71,8 +71,6 @@ class FormBuilder extends Builder
                 'set_validation' => [$this, 'setValidation'],
 
                 'make_fields' => [$this, 'makeFields'],
-                'load_fields' => [$this, 'loadFields'],
-
                 'make_actions' => [$this, 'makeActions'],
                 'make_buttons' => [$this, 'makeButtons'],
             ],
@@ -192,31 +190,20 @@ class FormBuilder extends Builder
 
         $this->instance->fields->each(function ($field) {
 
-            if (!$field = $this->stream->fields->get($field->handle)) {
+            if (!$original = $this->stream->fields->get($field->handle)) {
                 throw new \Exception("Field [{$field->handle}] does not exist on stream [{$this->stream->handle}]");
             }
 
-            $field->input = $this->stream->fields->get($field->handle)->input([
+            $field->input = $original->input([
                 'field' => $field,
                 'name' => $field->handle,
+                'value' => $this->instance->entry->{$field->handle},
                 'required' => in_array('required', Arr::get($this->stream->rules, $field->handle, [])),
                 'pattern' => in_array('regex', Arr::get($this->stream->rules, $field->handle, [])),
             ]);
         });
 
         return $this->instance->fields;
-    }
-
-    public function loadFields()
-    {
-        if (!$entry = $this->instance->entry) {
-            return;
-        }
-
-        $this->instance->fields->each(function ($field) use ($entry) {
-            $field->value = $entry->{$field->handle} ?? null;
-            $field->input->value = $entry->{$field->handle} ?? null;
-        });
     }
 
     public function makeActions()

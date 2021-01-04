@@ -315,6 +315,19 @@ class UiServiceProvider extends ServiceProvider
                 return new $concrete($attributes);
             });
         }
+
+        Field::macro('input', function (array $attributes = []) {
+
+            $attributes['field'] = Arr::get($attributes, 'field', $this);
+
+            if ($this->input instanceof Input) {
+                return $this->input;
+            }
+
+            $method = Str::camel('new_' . $this->input['type'] . '_input');
+
+            return $this->{$method}($attributes);
+        });
     }
 
     /**

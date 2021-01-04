@@ -24,7 +24,11 @@ in two or more columns next to each other. But again, it could be controlled.
             {{ $field->label() }}
         </label>
         <div class="w-full">
+            @if ($field->input && !is_string($field->input))
             {!! $field->input->render() !!}
+            @else
+            {!! $field->handle !!}
+            @endif
         </div>
     </div>
 
