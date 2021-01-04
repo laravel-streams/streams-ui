@@ -2,34 +2,16 @@
 
 namespace Streams\Ui;
 
-use Streams\Ui\Input\Date;
-use Streams\Ui\Input\File;
-use Streams\Ui\Input\Slug;
-use Streams\Ui\Input\Time;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Streams\Ui\Input\Color;
-use Streams\Ui\Input\Image;
 use Streams\Ui\Input\Input;
-use Streams\Ui\Input\Radio;
-use Streams\Ui\Input\Range;
-use Streams\Ui\Input\Select;
-use Streams\Ui\Input\Toggle;
 use Streams\Core\Field\Field;
-use Streams\Ui\Input\Decimal;
-use Streams\Ui\Input\Integer;
-use Streams\Ui\Input\Datetime;
-use Streams\Ui\Input\Markdown;
-use Streams\Ui\Input\Textarea;
 use Streams\Core\Stream\Stream;
 use Streams\Ui\Form\FormBuilder;
-use Streams\Core\Field\FieldType;
-use Streams\Ui\Input\Relationship;
 use Streams\Ui\Table\TableBuilder;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
@@ -88,6 +70,7 @@ class UiServiceProvider extends ServiceProvider
         $this->extendView();
 
         $this->mergeConfigFrom(__DIR__ . '/../resources/config/cp.php', 'streams.cp');
+        $this->mergeConfigFrom(__DIR__ . '/../resources/config/ui.php', 'streams.ui');
 
         Streams::register([
             'handle' => 'cp.navigation',
@@ -278,38 +261,8 @@ class UiServiceProvider extends ServiceProvider
             return $this->$input($attributes);
         });
 
-        $inputs = [
-            'text' => Input::class,
-            'hash' => Input::class,
-            'input' => Input::class,
-            'string' => Input::class,
-
-            'date' => Date::class,
-            'time' => Time::class,
-            'datetime' => Datetime::class,
-
-            'slug' => Slug::class,
-
-            'color' => Color::class,
-            'radio' => Radio::class,
-            'range' => Range::class,
-
-            'select' => Select::class,
-
-            'integer' => Integer::class,
-            'decimal' => Decimal::class,
-
-            'textarea' => Textarea::class,
-            'markdown' => Markdown::class,
-
-            'file' => File::class,
-            'image' => Image::class,
-
-            'relationship' => Relationship::class,
-
-            'boolean' => Toggle::class,
-        ];
-
+        $inputs = Config::get('streams.ui.inputs');
+dd($inputs);
         foreach ($inputs as $abstract => $concrete) {
             $this->app->bind("streams.ui.input.{$abstract}", $concrete);
         }
