@@ -262,7 +262,7 @@ class UiServiceProvider extends ServiceProvider
         });
 
         $inputs = Config::get('streams.ui.inputs');
-dd($inputs);
+
         foreach ($inputs as $abstract => $concrete) {
             $this->app->bind("streams.ui.input.{$abstract}", $concrete);
         }
