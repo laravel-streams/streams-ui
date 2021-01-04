@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Input;
 
+use Illuminate\Support\Str;
 use Streams\Ui\Support\Component;
 
 class Input extends Component
@@ -63,5 +64,10 @@ class Input extends Component
             'pattern' => $this->pattern,
             'value' => $this->value,
         ], $attributes));
+    }
+
+    public function label()
+    {
+        return $this->label ?: $this->field->name();
     }
 }

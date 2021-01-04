@@ -170,23 +170,26 @@ class FormBuilder extends Builder
             return $this->instance->fields;
         }
 
-        $fields = $original = $this->fields;
+        $fields = $this->fields;
 
-        if ($this->stream) {
-            $fields = ['id' => 'text'] + $this->stream->fields->toArray();
-        }
+        $collection = $this->stream->fields;
 
         $fields = Normalizer::normalize($fields, 'type');
         $fields = Normalizer::fillWithKey($fields, 'handle');
         $fields = Normalizer::fillWithAttribute($fields, 'name', 'handle');
 
         if ($this->stream) {
-            $fields = array_merge_recursive($fields, $original);
+            $collection->each(function($item) use ($fields) {
+
+                if (!$attributes = Arr::get($fields, $item->handle, [])) {
+                    return;
+                }
+
+                $item->loadPrototypeAttributes($attributes);
+            });
         }
 
-        $this->loadInstanceWith('fields', $fields, Field::class);
-
-        $this->fields = $fields;
+        $this->fields = $this->instance->fields = $collection;
 
         $this->instance->fields->each(function ($field) {
 
