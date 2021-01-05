@@ -2,6 +2,8 @@
 
 namespace Streams\Ui\Input;
 
+use Illuminate\Support\Arr;
+
 /**
  * Class Integer
  *
@@ -22,9 +24,15 @@ class Integer extends Input
     {
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/integer',
-            'component' => 'input',
             'type' => 'number',
-            'field' => null,
+        ], $attributes));
+    }
+
+    public function htmlAttributes(array $attributes = [])
+    {
+        return parent::htmlAttributes(array_merge([
+            'min' => 0,//Arr::get($this->field->config, 'min'),
+            'max' => Arr::get($this->field->config, 'max'),
         ], $attributes));
     }
 }
