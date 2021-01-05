@@ -106,7 +106,7 @@ class FormBuilder extends Builder
     {
         $this->instance->options = $this->options;
     }
-    
+
     public function queryEntry()
     {
         /*
@@ -178,33 +178,20 @@ class FormBuilder extends Builder
         $fields = Normalizer::fillWithKey($fields, 'handle');
         $fields = Normalizer::fillWithAttribute($fields, 'name', 'handle');
 
-        if ($this->stream) {
-            $collection->each(function($item) use ($fields) {
+        $collection->each(function ($field) use ($fields) {
 
-                if (!$attributes = Arr::get($fields, $item->handle, [])) {
-                    return;
-                }
-
-                $item->loadPrototypeAttributes($attributes);
-            });
-        }
-
-        $this->fields = $this->instance->fields = $collection;
-
-        $this->instance->fields->each(function ($field) {
-
-            if (!$original = $this->stream->fields->get($field->handle)) {
-                throw new \Exception("Field [{$field->handle}] does not exist on stream [{$this->stream->handle}]");
+            if ($this->entry) {
+                $field->input()->setPrototypeAttribute('value', $this->entry->{$field->handle});
             }
 
-            $field->input = $original->input([
-                'field' => $field,
-                'name' => $field->handle,
-                'value' => $this->instance->entry->{$field->handle},
-                'required' => in_array('required', Arr::get($this->stream->rules, $field->handle, [])),
-                'pattern' => in_array('regex', Arr::get($this->stream->rules, $field->handle, [])),
-            ]);
+            if (!$extra = Arr::get($fields, $field->handle, [])) {
+                return;
+            }
+
+            $field->loadPrototypeAttributes($extra);
         });
+
+        $this->fields = $this->instance->fields = $collection;
 
         return $this->instance->fields;
     }

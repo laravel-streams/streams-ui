@@ -275,7 +275,7 @@ class UiServiceProvider extends ServiceProvider
                 return $this->input;
             }
 
-            return App::make("streams.ui.input.{$this->input['type']}", [
+            return $this->input = App::make("streams.ui.input.{$this->input['type']}", [
                 'attributes' => $attributes,
             ]);
         });
