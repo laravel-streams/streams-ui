@@ -58,9 +58,9 @@ class Input extends Component
             'id' => $this->getPrototypeAttribute('id') ?: $this->field->handle . '-input',
             'name' => $this->getPrototypeAttribute('name') ?: $this->field->handle,
             'placeholder' => $this->placeholder,
-            'required' => $this->required,
-            'readonly' => $this->readonly,
-            'disabled' => $this->disabled,
+            'required' => $this->field->hasRule('required'),
+            'readonly' => $this->readonly ? 'readonly' : null,
+            'disabled' => $this->disabled ? 'disabled' : null,
             'pattern' => trim(Arr::get($this->field->stream->getRuleParameters($this->field->handle, 'regex'), 0), "//"),
             'value' => $this->value,
         ], $attributes));
