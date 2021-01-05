@@ -60,9 +60,11 @@ class Component implements Arrayable, Jsonable
     {
         $classes = (array) Arr::pull($attributes, 'classes', []);
 
-        return array_merge([
+        return array_filter(array_merge([
             'class' => $this->class($classes),
-        ], (array) $this->getPrototypeAttribute('attributes', []), $attributes);
+        ], (array) $this->getPrototypeAttribute('attributes', []), $attributes), function($value) {
+            return !is_null($value) && $value !== '';
+        });
     }
 
     public function htmlAttributes(array $attributes = [])
