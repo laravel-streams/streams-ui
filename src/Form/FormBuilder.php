@@ -171,12 +171,11 @@ class FormBuilder extends Builder
         }
 
         $fields = $this->fields;
-
+        
         $collection = $this->stream->fields;
-
+        
         $fields = Normalizer::normalize($fields, 'type');
         $fields = Normalizer::fillWithKey($fields, 'handle');
-        $fields = Normalizer::fillWithAttribute($fields, 'name', 'handle');
 
         $collection->each(function ($field) use ($fields) {
 

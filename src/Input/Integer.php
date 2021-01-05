@@ -31,8 +31,8 @@ class Integer extends Input
     public function htmlAttributes(array $attributes = [])
     {
         return parent::htmlAttributes(array_merge([
-            'min' => 0,//Arr::get($this->field->config, 'min'),
-            'max' => Arr::get($this->field->config, 'max'),
+            'min' => Arr::get($this->field->stream->getRuleParameters($this->field->handle, 'min'), 0),
+            'max' => Arr::get($this->field->stream->getRuleParameters($this->field->handle, 'max'), 0),
         ], $attributes));
     }
 }
