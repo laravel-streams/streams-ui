@@ -1,7 +1,5 @@
-import {app} from '@streams/core'
-
 export class ExampleClass {
-    example(){
+    example() {
         console.log('ExampleClass.example fired');
     }
 }

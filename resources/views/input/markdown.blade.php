@@ -1,4 +1,4 @@
-<?php /** @var \Streams\Ui\Input\Input $input */ ?>
+<?php /** @var \Streams\Ui\Input\Markdown $input */ ?>
 
 <!-- markdown.blade.php -->
 <textarea {!! $input->htmlAttributes([
@@ -6,11 +6,14 @@
 ]) !!}>{{ $input->field->value }}</textarea>
 
 {{ Assets::collection('styles')->add('/vendor/streams/ui/css/inputs/markdown.css') }}
-
+{{--receive this? gimme a SS--}}
 <script>
-    window.addEventListener('load', () => {
-        window.streams.core.app.get('markdown')({
-            element: document.getElementById("{{ $input->field->handle }}-input")
+window.addEventListener('load', () => {
+    window.streams.core.app.get('field.markdown')
+        .init("#{{ $input->field->handle }}-input")
+        .then(function (input) {
+            console.log("#{{ $input->field->handle }}-input", input);
+            return input;
         });
-    })
+});
 </script>
