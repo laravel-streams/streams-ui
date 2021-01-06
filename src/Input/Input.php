@@ -5,6 +5,13 @@ namespace Streams\Ui\Input;
 use Illuminate\Support\Arr;
 use Streams\Ui\Support\Component;
 
+/**
+ * @property string                                 template
+ * @property string                                 component
+ * @property string[]                               classes
+ * @property string                                 type
+ * @property \Streams\Ui\Form\Component\Field\Field field
+ */
 class Input extends Component
 {
 

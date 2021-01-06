@@ -2,10 +2,9 @@
 
 namespace Streams\Ui\Table\Component\Filter;
 
-use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Request;
-use Streams\Ui\Input\Input;
+use Streams\Ui\Support\Component;
 use Streams\Ui\Table\Component\Filter\Query\GenericFilterQuery;
 
 class Filter extends Component
@@ -48,8 +47,8 @@ class Filter extends Component
     {
         $attributes = ['field' => $this];
 
-        $attributes['value'] = $this->value();
-        $attributes['name'] = $this->inputName();
+        $attributes[ 'value' ] = $this->value();
+        $attributes[ 'name' ]  = $this->inputName();
 
         $attributes = array_diff_key($this->getPrototypeAttributes(), array_flip([
             'classes',
@@ -57,7 +56,9 @@ class Filter extends Component
             'component',
         ]));
 
-        return new Input($attributes);
+        return App::make('streams.input_types.' . ($this->input ?: 'input'), [
+            'attributes' => $attributes,
+        ]);
     }
 
     /**

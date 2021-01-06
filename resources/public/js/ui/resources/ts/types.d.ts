@@ -1,5 +1,6 @@
-import { ExampleClass } from './ExampleClass';
+import { ExampleClass }      from './ExampleClass';
 import { UiServiceProvider } from './UiServiceProvider';
+
 declare global {
     export interface StreamsGlobalUi {
         ExampleClass: typeof ExampleClass;

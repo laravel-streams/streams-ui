@@ -16,21 +16,38 @@ mix
     .webpackConfig(
         function (webpack) {
             return {
-                devtool: isDev ? 'hidden-source-map' : false,
-                plugins: [
+                devtool  : isDev ? 'hidden-source-map' : false,
+                module   : {
+                    rules: [
+                        {
+                            test   : /\.tsx?$/,
+                            use    : [{
+                                loader : 'babel-loader',
+                                options: {
+                                    plugins: [
+                                        '@babel/plugin-syntax-dynamic-import'
+                                    ]
+                                }
+                            }, {
+                                loader: 'ts-loader'
+                            }],
+                            exclude: [/node_modules/]
+                        }
+                    ]
+                },
+                plugins  : [
                     require('@tailwindcss/ui'),
                     {
                         apply(compiler) {
-                            compiler.hooks.entryOption.tap('streams',(ctx, entry) => {
-                                    let imports = entry['/index']['import'];
-                                    entry['/index']['import'] = imports.reverse();
-                                });
+                            compiler.hooks.entryOption.tap('streams', (ctx, entry) => {
+                                let imports = entry['/index']['import'];
+                                entry['/index']['import'] = imports.reverse();
+                            });
                         }
                     }
                 ],
                 externals: {
                     '@streams/core': ['streams', 'core'],
-                    'axios': ['streams', 'core', 'axios'],
                 },
                 output   : {
                     path                                 : path.resolve('./resources/public'),

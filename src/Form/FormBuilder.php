@@ -2,21 +2,20 @@
 
 namespace Streams\Ui\Form;
 
-use Streams\Ui\Form\Form;
 use Illuminate\Support\Arr;
-use Streams\Ui\Button\Button;
-use Streams\Core\Stream\Stream;
-use Streams\Ui\Support\Builder;
-use Streams\Ui\Support\Normalizer;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
-use Streams\Core\Support\Facades\Resolver;
-use Streams\Ui\Form\Component\Field\Field;
+use Streams\Core\Repository\Contract\RepositoryInterface;
+use Streams\Core\Stream\Stream;
 use Streams\Core\Support\Facades\Evaluator;
+use Streams\Core\Support\Facades\Resolver;
+use Streams\Ui\Button\Button;
 use Streams\Ui\Form\Component\Action\Action;
 use Streams\Ui\Form\Component\Action\ActionRegistry;
 use Streams\Ui\Form\Component\Button\ButtonRegistry;
-use Streams\Core\Repository\Contract\RepositoryInterface;
+use Streams\Ui\Form\Component\Field\Field;
+use Streams\Ui\Support\Builder;
+use Streams\Ui\Support\Normalizer;
 
 /**
  * Class FormBuilder
@@ -138,7 +137,7 @@ class FormBuilder extends Builder
         }
 
         /*
-         * Fallback to using the repository 
+         * Fallback to using the repository
          * to get and/or paginate the results.
          */
         if ($this->repository() instanceof RepositoryInterface) {
@@ -171,16 +170,16 @@ class FormBuilder extends Builder
         }
 
         $fields = $this->fields;
-        
+
         $collection = $this->stream->fields;
-        
+
         $fields = Normalizer::normalize($fields, 'type');
         $fields = Normalizer::fillWithKey($fields, 'handle');
 
         $collection->each(function ($field) use ($fields) {
 
             if ($this->entry) {
-                
+
                 $field
                     ->input()
                     ->setPrototypeAttribute('value', $this->entry->{$field->handle});
