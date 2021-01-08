@@ -71,8 +71,6 @@ class FormBuilder extends Builder
                 'set_validation' => [$this, 'setValidation'],
 
                 'make_fields' => [$this, 'makeFields'],
-                'load_fields' => [$this, 'loadFields'],
-
                 'make_actions' => [$this, 'makeActions'],
                 'make_buttons' => [$this, 'makeButtons'],
             ],
@@ -108,7 +106,7 @@ class FormBuilder extends Builder
     {
         $this->instance->options = $this->options;
     }
-    
+
     public function queryEntry()
     {
         /*
@@ -172,47 +170,32 @@ class FormBuilder extends Builder
             return $this->instance->fields;
         }
 
-        $fields = $original = $this->fields;
-
-        if ($this->stream) {
-            $fields = ['id' => 'text'] + $this->stream->fields->toArray();
-        }
-
+        $fields = $this->fields;
+        
+        $collection = $this->stream->fields;
+        
         $fields = Normalizer::normalize($fields, 'type');
         $fields = Normalizer::fillWithKey($fields, 'handle');
-        $fields = Normalizer::fillWithAttribute($fields, 'name', 'handle');
 
-        if ($this->stream) {
-            $fields = array_merge_recursive($fields, $original);
-        }
+        $collection->each(function ($field) use ($fields) {
 
-        $this->loadInstanceWith('fields', $fields, Field::class);
+            if ($this->entry) {
+                
+                $field
+                    ->input()
+                    ->setPrototypeAttribute('value', $this->entry->{$field->handle});
+            }
 
-        $this->fields = $fields;
+            if (!$extra = Arr::get($fields, $field->handle, [])) {
+                return;
+            }
 
-        $this->instance->fields->each(function ($field) {
-            
-            $field->input = $this->stream->fields->get($field->handle)->input([
-                'field' => $field,
-                'name' => $field->handle,
-                'required' => in_array('required', Arr::get($this->stream->rules, $field->handle, [])),
-                'pattern' => in_array('regex', Arr::get($this->stream->rules, $field->handle, [])),
-            ]);
+            $field->loadPrototypeAttributes($extra);
         });
+
+        $this->fields = $this->instance->fields = $collection;
 
         return $this->instance->fields;
-    }
-
-    public function loadFields()
-    {
-        if (!$entry = $this->instance->entry) {
-            return;
-        }
-
-        $this->instance->fields->each(function ($field) use ($entry) {
-            $field->value = $entry->{$field->handle} ?? null;
-            $field->input->value = $entry->{$field->handle} ?? null;
-        });
     }
 
     public function makeActions()

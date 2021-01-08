@@ -27,4 +27,36 @@ return [
             //\App\Http\Middleware\RickRoll::class,
         ],
     ],
+
+    'inputs' => [
+        'text' => \Streams\Ui\Input\Input::class,
+        'hash' => \Streams\Ui\Input\Input::class,
+        'input' => \Streams\Ui\Input\Input::class,
+        'string' => \Streams\Ui\Input\Input::class,
+
+        'date' => \Streams\Ui\Input\Date::class,
+        'time' => \Streams\Ui\Input\Time::class,
+        'datetime' => \Streams\Ui\Input\Datetime::class,
+
+        'slug' => \Streams\Ui\Input\Slug::class,
+
+        'color' => \Streams\Ui\Input\Color::class,
+        'radio' => \Streams\Ui\Input\Radio::class,
+        'range' => \Streams\Ui\Input\Range::class,
+
+        'select' => \Streams\Ui\Input\Select::class,
+
+        'integer' => \Streams\Ui\Input\Integer::class,
+        'decimal' => \Streams\Ui\Input\Decimal::class,
+
+        'textarea' => \Streams\Ui\Input\Textarea::class,
+        'markdown' => \Streams\Ui\Input\Markdown::class,
+
+        'file' => \Streams\Ui\Input\File::class,
+        'image' => \Streams\Ui\Input\Image::class,
+
+        'relationship' => \Streams\Ui\Input\Relationship::class,
+
+        'boolean' => \Streams\Ui\Input\Toggle::class,
+    ],
 ];

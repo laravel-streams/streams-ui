@@ -11,20 +11,15 @@ Probably would not work great on smaller screens when people wanna place fields
 in two or more columns next to each other. But again, it could be controlled.
 --}}
 
-<div {!! $field->htmlAttributes([
-    'class' => 'col-span-' . ($field->width ?: 12) . ' ' . $field->type . '-field',
-    'type' => null,
-    'name' => null,
-    'value' => null,
-]) !!}>
+<div class="col-span-{{ $field->width ?: 12 }} {{ $field->type }}-field">
 
     <div class="flex flex-wrap xxxl:flex-no-wrap">
-        <label class="font-bold capitalize leading-loose text-black dark:text-white
+        <label class="font-bold leading-loose text-black dark:text-white
         xxxl:leading-normal w-full xxxl:max-w-xs xxxl:mr-4 xxxl:px-2 xxxl:py-2 ">
-            {{ $field->label() }}
+            {{ __($field->input()->label()) }}
         </label>
         <div class="w-full">
-            {!! $field->input->render() !!}
+            {!! $field->input()->render() !!}
         </div>
     </div>
 

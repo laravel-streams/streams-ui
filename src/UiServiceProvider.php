@@ -2,29 +2,14 @@
 
 namespace Streams\Ui;
 
-use Streams\Ui\Input\Date;
-use Streams\Ui\Input\File;
-use Streams\Ui\Input\Slug;
-use Streams\Ui\Input\Time;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Streams\Ui\Input\Color;
-use Streams\Ui\Input\Image;
 use Streams\Ui\Input\Input;
-use Streams\Ui\Input\Radio;
-use Streams\Ui\Input\Range;
-use Streams\Ui\Input\Select;
-use Streams\Ui\Input\Toggle;
 use Streams\Core\Field\Field;
-use Streams\Ui\Input\Decimal;
-use Streams\Ui\Input\Integer;
-use Streams\Ui\Input\Datetime;
-use Streams\Ui\Input\Markdown;
-use Streams\Ui\Input\Textarea;
 use Streams\Core\Stream\Stream;
 use Streams\Ui\Form\FormBuilder;
-use Streams\Ui\Input\Relationship;
 use Streams\Ui\Table\TableBuilder;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
@@ -76,28 +61,16 @@ class UiServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->extendView();
-
         $this->registerConfig();
-        $this->registerStreams();
-        $this->registerRoutes();
-    }
-
-    /**
-     * Boot the service provider.
-     */
-    public function boot()
-    {
-        $this->publishes([
-            base_path('vendor/streams/ui/resources/public')
-            => public_path('vendor/streams/ui')
-        ], ['public']);
-
-        $this->extendLang();
-        $this->extendAssets();
-
         $this->extendStream();
         $this->extendField();
+    }
+
+    public function boot()
+    {
+        $this->extendView();
+        $this->extendLang();
+        $this->extendAssets();
     }
 
     /**
@@ -105,10 +78,10 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function registerConfig()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../resources/config/ui.php', 'streams');
+        $this->mergeConfigFrom(__DIR__ . '/../resources/config/ui.php', 'streams.ui');
 
         if (file_exists($config = __DIR__ . '/../../../../config/streams/ui.php')) {
-            $this->mergeConfigFrom($config, 'streams');
+            $this->mergeConfigFrom($config, 'streams.ui');
         }
 
         $this->publishes([
@@ -299,43 +272,24 @@ class UiServiceProvider extends ServiceProvider
             return $this->$input($attributes);
         });
 
-        $inputs = [
-            'text' => Input::class,
-            'hash' => Input::class,
-            'input' => Input::class,
-            'string' => Input::class,
-
-            'date' => Date::class,
-            'time' => Time::class,
-            'datetime' => Datetime::class,
-
-            'slug' => Slug::class,
-
-            'color' => Color::class,
-            'radio' => Radio::class,
-            'range' => Range::class,
-
-            'select' => Select::class,
-
-            'integer' => Integer::class,
-            'decimal' => Decimal::class,
-
-            'textarea' => Textarea::class,
-            'markdown' => Markdown::class,
-
-            'file' => File::class,
-            'image' => Image::class,
-
-            'relationship' => Relationship::class,
-
-            'boolean' => Toggle::class,
-        ];
+        $inputs = Config::get('streams.ui.inputs');
 
         foreach ($inputs as $abstract => $concrete) {
-            Field::macro(Str::camel('new_' . $abstract . '_input'), function (array $attributes = []) use ($concrete) {
-                return new $concrete($attributes);
-            });
+            $this->app->bind("streams.ui.input.{$abstract}", $concrete);
         }
+
+        Field::macro('input', function (array $attributes = []) {
+
+            $attributes['field'] = Arr::get($attributes, 'field', $this);
+
+            if ($this->input instanceof Input) {
+                return $this->input;
+            }
+
+            return $this->input = App::make("streams.ui.input.{$this->input['type']}", [
+                'attributes' => $attributes,
+            ]);
+        });
     }
 
     /**

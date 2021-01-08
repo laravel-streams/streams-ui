@@ -5,13 +5,13 @@ namespace Streams\Ui\Input;
 use Illuminate\Support\Arr;
 
 /**
- * Class Integer
+ * Class Number
  *
  * @link    http://pyrocms.com/
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
  */
-class Integer extends Number
+class Number extends Input
 {
 
     /**
@@ -23,11 +23,16 @@ class Integer extends Number
     protected function initializePrototype(array $attributes)
     {
         return parent::initializePrototype(array_merge([
-            'template' => 'ui::input/integer',
+            'template' => 'ui::input/number',
             'type' => 'number',
-            'config' => [
-                'step' => 1,
-            ],
+        ], $attributes));
+    }
+
+    public function htmlAttributes(array $attributes = [])
+    {
+        return parent::htmlAttributes(array_merge([
+            'min' => Arr::get($this->field->stream->getRuleParameters($this->field->handle, 'min'), 0),
+            'max' => Arr::get($this->field->stream->getRuleParameters($this->field->handle, 'max'), 0),
         ], $attributes));
     }
 }

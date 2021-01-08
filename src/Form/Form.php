@@ -8,6 +8,7 @@ use Collective\Html\FormFacade;
 use Streams\Ui\Support\Component;
 use Streams\Core\Support\Workflow;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Request;
 use Streams\Ui\Button\ButtonCollection;
 use Illuminate\Support\Facades\Redirect;
 use Streams\Core\Support\Facades\Messages;

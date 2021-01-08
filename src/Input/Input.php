@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Input;
 
+use Illuminate\Support\Arr;
 use Streams\Ui\Support\Component;
 
 class Input extends Component
@@ -54,12 +55,19 @@ class Input extends Component
     public function attributes(array $attributes = [])
     {
         return parent::attributes(array_merge([
-            'id' => $this->id ?: $this->name . '-input',
-            'name' => $this->name,
+            'id' => $this->getPrototypeAttribute('id') ?: $this->field->handle . '-input',
+            'name' => $this->getPrototypeAttribute('name') ?: $this->field->handle,
             'placeholder' => $this->placeholder,
-            'required' => $this->required,
-            'pattern' => $this->pattern,
-            'value' => $this->value ?: $this->field->value,
+            'required' => $this->field->hasRule('required'),
+            'readonly' => $this->readonly ? 'readonly' : null,
+            'disabled' => $this->disabled ? 'disabled' : null,
+            'pattern' => trim(Arr::get($this->field->stream->getRuleParameters($this->field->handle, 'regex'), 0), "//"),
+            'value' => $this->value,
         ], $attributes));
+    }
+
+    public function label()
+    {
+        return $this->label ?: $this->field->name();
     }
 }
