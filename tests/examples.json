@@ -1,0 +1,24 @@
+{
+    "handle": "testing.examples",
+    "description": "Used for testing.",
+    
+    "source": {
+        "path": "vendor/streams/core/tests/data/examples",
+        "format": "json"
+    },
+
+    "rules": {
+        "name": "required|min:3|example_validator"
+    },
+    "validators": {
+        "example_validator": {
+            "handler": "Streams\\Core\\Tests\\Stream\\ExampleValidator",
+            "message": "The :attribute value is very bad."
+        }
+    },
+
+    "fields": {
+        "name": "text",
+        "age": "integer"
+    }
+}
