@@ -2,8 +2,6 @@
 
 namespace Streams\Ui\Support;
 
-use Exception;
-use Illuminate\View\View;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
@@ -12,6 +10,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Traits\Macroable;
 use Streams\Core\Support\Traits\Fluency;
 use Illuminate\Contracts\Support\Jsonable;
+use Streams\Core\Support\Facades\Hydrator;
 use Streams\Core\Support\Traits\Prototype;
 use Illuminate\Contracts\Support\Arrayable;
 use Streams\Core\Support\Traits\FiresCallbacks;
@@ -26,12 +25,22 @@ use Illuminate\Support\Facades\View as ViewFacade;
  */
 class Component implements Arrayable, Jsonable
 {
-    use Fluency;
-    use Macroable;
+    //use Fluency;
+    //use Macroable;
     use FiresCallbacks;
 
     use Prototype {
         Prototype::initializePrototype as private initializePrototypeTrait;
+    }
+
+    public function toArray()
+    {
+        return Hydrator::dehydrate($this);
+    }
+
+    public function toJson($options = 0)
+    {
+        return json_encode($this->toArray(), $options);
     }
 
     /**
