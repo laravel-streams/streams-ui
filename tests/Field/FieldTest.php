@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Core\Tests\Field;
+namespace Streams\Ui\Tests\Field;
 
 use Tests\TestCase;
 use Streams\Core\Field\Field;

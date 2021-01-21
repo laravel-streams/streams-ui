@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Core\Tests\Field\Type;
+namespace Streams\Ui\Tests\Field\Type;
 
 use Carbon\Carbon;
 use Tests\TestCase;
