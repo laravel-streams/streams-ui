@@ -22,6 +22,7 @@ use Streams\Ui\Table\Component\View\ViewHandler;
 use Streams\Ui\Table\Component\View\ViewRegistry;
 use Streams\Ui\Table\Component\Action\ActionRegistry;
 use Streams\Ui\Table\Component\Button\ButtonRegistry;
+use Streams\Ui\Table\Component\Filter\FilterRegistry;
 use Streams\Core\Repository\Contract\RepositoryInterface;
 
 /**

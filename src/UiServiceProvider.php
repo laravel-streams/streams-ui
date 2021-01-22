@@ -62,7 +62,10 @@ class UiServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerStreams();
         $this->registerConfig();
+        $this->registerRoutes();
+        
         $this->extendStream();
         $this->extendField();
     }

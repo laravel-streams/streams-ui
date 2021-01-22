@@ -18,7 +18,7 @@
 
     @section('table')
     <div class="m-8">
-        <table {!! $table->htmlAttributes(['classes' => ['table', 'min-w-full', 'dark:text-white']]) !!}>
+        <table {!! $table->htmlAttributes(['class' => ['table', 'min-w-full', 'dark:text-white']]) !!}>
 
             @section('head')
             @include('ui::tables.head')
