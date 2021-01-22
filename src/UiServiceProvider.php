@@ -10,6 +10,7 @@ use Streams\Core\Stream\Stream;
 use Streams\Ui\Form\FormBuilder;
 use Streams\Ui\Table\TableBuilder;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
@@ -68,6 +69,7 @@ class UiServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        $this->extendUrl();
         $this->extendView();
         $this->extendLang();
         $this->extendAssets();
@@ -298,6 +300,20 @@ class UiServiceProvider extends ServiceProvider
     protected function extendLang()
     {
         Lang::addNamespace('ui', realpath(base_path('vendor/streams/ui/resources/lang')));
+    }
+
+    /**
+     * Extend URL support.
+     */
+    protected function extendUrl()
+    {
+        URL::macro('cp', function($path, $extra = [], $secure = null) {
+            return URL::to(
+                Config::get('streams.cp.prefix', 'cp') . $path,
+                $extra,
+                $secure
+            );
+        });
     }
 
     /**

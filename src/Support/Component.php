@@ -5,42 +5,22 @@ namespace Streams\Ui\Support;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Traits\Macroable;
-use Streams\Core\Support\Traits\Fluency;
 use Illuminate\Contracts\Support\Jsonable;
 use Streams\Core\Support\Facades\Hydrator;
 use Streams\Core\Support\Traits\Prototype;
 use Illuminate\Contracts\Support\Arrayable;
 use Streams\Core\Support\Traits\FiresCallbacks;
-use Illuminate\Support\Facades\View as ViewFacade;
 
-/**
- * Class Ui
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
 class Component implements Arrayable, Jsonable
 {
-    //use Fluency;
-    //use Macroable;
     use FiresCallbacks;
 
     use Prototype {
         Prototype::initializePrototype as private initializePrototypeTrait;
-    }
-
-    public function toArray()
-    {
-        return Hydrator::dehydrate($this);
-    }
-
-    public function toJson($options = 0)
-    {
-        return json_encode($this->toArray(), $options);
     }
 
     /**
@@ -52,6 +32,7 @@ class Component implements Arrayable, Jsonable
     protected function initializePrototype(array $attributes)
     {
         return $this->initializePrototypeTrait(array_merge([
+            'handle' => null,
             'template' => null,
             'component' => null,
             'classes' => [],
@@ -60,18 +41,26 @@ class Component implements Arrayable, Jsonable
         ], $attributes));
     }
 
-    public function class(array $classes = [])
+    public function class($extra = [])
     {
-        return trim($this->class . ' ' . implode(' ', array_merge($this->classes ?: [], $classes))) ?: null;
+        if (!is_array($extra)) {
+            $extra = explode(' ', $extra);
+        }
+
+        $classes = array_unique(
+            array_merge(explode(' ', $this->class), $this->classes, $extra)
+        );
+
+        return trim(implode(' ', $classes));
     }
 
     public function attributes(array $attributes = [])
     {
-        $classes = (array) Arr::pull($attributes, 'classes', []);
+        $class = Arr::pull($attributes, 'class');
 
         return array_filter(array_merge([
-            'class' => $this->class($classes),
-        ], (array) $this->getPrototypeAttribute('attributes', []), $attributes), function($value) {
+            'class' => $this->class($class),
+        ], (array) $this->getPrototypeAttribute('attributes', []), $attributes), function ($value) {
             return !is_null($value) && $value !== '';
         });
     }
@@ -87,11 +76,7 @@ class Component implements Arrayable, Jsonable
             Str::camel($this->component) => $this,
         ];
 
-        if ($this->as) {
-            $payload[$this->as] = $this;
-        }
-
-        return ViewFacade::make($this->template, $payload);
+        return View::make($this->template, $payload);
     }
 
     public function url()
@@ -101,9 +86,9 @@ class Component implements Arrayable, Jsonable
         }
 
         $type = Str::singular($this->component);
-        $default = "/ui/{$stream->handle}/{$type}/{$this->handle}";
+        $default = "ui/{$stream->handle}/{$type}/{$this->handle}";
 
-        return $this->options->get('url', Config::get('streams.cp.prefix', 'cp') . $default);
+        return URL::cp(Arr::get($this->options, 'url', $default));
     }
 
     public function request($key, $default = null)
@@ -113,7 +98,17 @@ class Component implements Arrayable, Jsonable
 
     public function prefix($target = null): string
     {
-        return $this->options->get('prefix') . $target;
+        return Arr::get($this->options, 'prefix') . $target;
+    }
+
+    public function toArray()
+    {
+        return Hydrator::dehydrate($this, ['observers', 'listeners']);
+    }
+
+    public function toJson($options = 0)
+    {
+        return json_encode($this->toArray(), $options);
     }
 
     public function __toString()

@@ -5,12 +5,6 @@ namespace Streams\Ui\Support;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
-/**
- * Class Normalizer
- *
- * @link   http://pyrocms.com/
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
 class Normalizer
 {
 
@@ -25,12 +19,6 @@ class Normalizer
         foreach ($input as $key => &$item) {
 
             if (is_numeric($key) && is_string($item)) {
-                $item = [
-                    $keyName => $item,
-                ];
-            }
-
-            if (!is_numeric($key) && is_string($item)) {
                 $item = [
                     $keyName => $item,
                 ];
