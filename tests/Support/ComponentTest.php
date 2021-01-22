@@ -2,13 +2,9 @@
 
 namespace Streams\Ui\Tests\Support;
 
-use ArrayAccess;
 use Tests\TestCase;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Collection;
-use Streams\Core\Field\Value\Value;
-use Streams\Core\Field\Value\NumberValue;
-use Streams\Core\Support\Traits\Prototype;
 
 class ComponentTest extends TestCase
 {

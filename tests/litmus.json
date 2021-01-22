@@ -3,7 +3,7 @@
     "description": "Used for testing.",
     
     "source": {
-        "path": "vendor/streams/core/tests/data/litmus",
+        "path": "vendor/streams/ui/tests/data/litmus",
         "format": "json"
     },
 
@@ -44,7 +44,7 @@
         },
         "object": {
             "type": "prototype",
-            "config.abstract": "Streams\\Core\\Tests\\Field\\Type\\ExampleAbstract"
+            "config.abstract": "Streams\\Ui\\Tests\\Field\\Type\\ExampleAbstract"
         },
         "select": {
             "type": "select",
