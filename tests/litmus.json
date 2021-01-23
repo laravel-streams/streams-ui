@@ -16,6 +16,10 @@
             "rules": [
                 "required"
             ]
+        },
+        "color": {
+            "type": "color",
+            "label": "Color Input"
         }
     }
 }

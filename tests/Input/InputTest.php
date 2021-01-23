@@ -3,11 +3,8 @@
 namespace Streams\Ui\Tests\Input;
 
 use Tests\TestCase;
-use Streams\Ui\Support\Component;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\URL;
-use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\Input\Input;
+use Streams\Core\Support\Facades\Streams;
 
 class InputTest extends TestCase
 {
