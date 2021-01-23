@@ -6,6 +6,7 @@
 </head>
 
 <body>
+    
     <!-- cp.blade.php -->
     <div class="h-screen flex overflow-hidden dark:bg-black">
 

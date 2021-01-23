@@ -59,9 +59,10 @@ class Input extends Component
             'name' => $this->getPrototypeAttribute('name') ?: $this->field->handle,
             'placeholder' => $this->placeholder,
             'required' => $this->field->hasRule('required'),
-            'readonly' => $this->readonly ? 'readonly' : null,
-            'disabled' => $this->disabled ? 'disabled' : null,
-            'pattern' => trim(Arr::get($this->field->stream->getRuleParameters($this->field->handle, 'regex'), 0), "//"),
+            'readonly' => $this->field->readonly ? 'readonly' : null,
+            'disabled' => $this->field->disabled ? 'disabled' : null,
+            'pattern' => trim($this->field->pattern ?: Arr::get($this->field->stream->getRuleParameters($this->field->handle, 'regex'), 0), "//"),
+            'type' => $this->type,
             'value' => $this->value,
         ], $attributes));
     }
@@ -69,5 +70,10 @@ class Input extends Component
     public function label()
     {
         return $this->label ?: $this->field->name();
+    }
+
+    public function name()
+    {
+        return $this->name ?: ($this->prefix . $this->field->handle);
     }
 }

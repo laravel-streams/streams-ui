@@ -7,80 +7,15 @@
         "format": "json"
     },
 
-    "rules": {
-        "number": "required"
-    },
-
     "fields": {
-        "number": {
-            "type": "number"
-        },
-        "integer": {
-            "type": "integer"
-        },
-        "decimal": {
-            "type": "float"
-        },
-        "string": {
-            "type": "string"
-        },
-        "email": {
-            "type": "email"
-        },
-        "datetime": {
-            "type": "datetime"
-        },
-        "date": {
-            "type": "date"
-        },
-        "time": {
-            "type": "time"
-        },
-        "boolean": {
-            "type": "boolean"
-        },
-        "array": {
-            "type": "array"
-        },
-        "object": {
-            "type": "prototype",
-            "config.abstract": "Streams\\Ui\\Tests\\Field\\Type\\ExampleAbstract"
-        },
-        "select": {
-            "type": "select",
-            "config.options": {
-                "foo": "Bar",
-                "baz": "Baz"
-            }
-        },
-        "multiselect": {
-            "type": "multiselect",
-            "config.options": {
-                "foo": "Foo",
-                "bar": "Bar",
-                "baz": "Baz"
-            }
-        },
-        "url": {
-            "type": "url"
-        },
-        "hash": {
-            "type": "hash"
-        },
-        "color": {
-            "type": "color"
-        },
-        "file": {
-            "type": "file"
-        },
-        "image": {
-            "type": "image"
-        },
-        "entry": {
-            "type": "entry"
-        },
-        "entries": {
-            "type": "entries"
+        "text": {
+            "type": "text",
+            "label": "Text Input",
+            "disabled": true,
+            "readonly": true,
+            "rules": [
+                "required"
+            ]
         }
     }
 }
