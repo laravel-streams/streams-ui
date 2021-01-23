@@ -15,6 +15,7 @@ class Select extends Input
     {
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/select',
+            'type' => null,
         ], $attributes));
     }
 }

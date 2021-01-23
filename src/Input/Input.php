@@ -55,8 +55,8 @@ class Input extends Component
     public function attributes(array $attributes = [])
     {
         return parent::attributes(array_merge([
-            'id' => $this->getPrototypeAttribute('id') ?: $this->field->handle . '-input',
-            'name' => $this->getPrototypeAttribute('name') ?: $this->field->handle,
+            'id' => $this->getPrototypeAttribute('id') ?: $this->name() . '-input',
+            'name' => $this->getPrototypeAttribute('name') ?: $this->name(),
             'placeholder' => $this->placeholder,
             'required' => $this->field->hasRule('required'),
             'readonly' => $this->field->readonly ? 'readonly' : null,

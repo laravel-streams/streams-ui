@@ -1,4 +1,2 @@
 <!-- integer.blade.php -->
-<input {!! $input->htmlAttributes([
-    'type' => 'number',
-]) !!}>
+<input {!! $input->htmlAttributes() !!}>

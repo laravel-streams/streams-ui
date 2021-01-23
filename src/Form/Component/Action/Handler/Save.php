@@ -12,14 +12,14 @@ class Save
         if ($form->errors->isNotEmpty()) {
             return;
         }
-        
+
         $entry = $form->entry ?: $form->stream->repository()->newInstance();
 
         foreach ($form->values as $field => $value) {
             $entry->{$field} = $value;
         }
 
-        $result = $form->stream->repository()->save($entry);
+        $form->stream->repository()->save($entry);
 
         $form->entry = $form->entry = $entry;
 

@@ -20,6 +20,73 @@
         "color": {
             "type": "color",
             "label": "Color Input"
+        },
+        "date": {
+            "type": "date",
+            "label": "Date Input"
+        },
+        "datetime": {
+            "type": "datetime",
+            "label": "Datetime Input"
+        },
+        "time": {
+            "type": "time",
+            "label": "Time Input"
+        },
+        "decimal": {
+            "type": "decimal",
+            "label": "Decimal Input"
+        },
+        "integer": {
+            "type": "integer",
+            "label": "Integer Input"
+        },
+        "radio": {
+            "type": "select|radio",
+            "label": "Radio Input",
+            "config": {
+                "options": {
+                    "foo": "Foo",
+                    "bar": "Bar"
+                }
+            }
+        },
+        "markdown": {
+            "type": "markdown",
+            "label": "Markdown Input"
+        },
+        "range": {
+            "type": "integer|range",
+            "label": "Range Input"
+        },
+        "select": {
+            "type": "select",
+            "label": "Select Input",
+            "config": {
+                "options": {
+                    "foo": "Foo",
+                    "bar": "Bar"
+                }
+            }
+        },
+        "textarea": {
+            "type": "string|textarea",
+            "label": "Textarea Input"
+        },
+        "slug": {
+            "type": "string|slug",
+            "label": "Textarea Input"
+        },
+        "toggle": {
+            "type": "boolean|toggle",
+            "label": "Toggle Input"
+        },
+        "relationship": {
+            "type": "relationship",
+            "label": "Relationship Input",
+            "config": {
+                "related": "testing.examples"
+            }
         }
     }
 }

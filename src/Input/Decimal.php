@@ -15,7 +15,6 @@ class Decimal extends Number
     {
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/decimal',
-            'type' => 'number',
             'config' => [
                 'step' => 0.1,
             ],

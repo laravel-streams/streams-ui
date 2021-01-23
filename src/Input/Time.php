@@ -15,6 +15,7 @@ class Time extends Input
     {
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/time',
+            'type' => 'time',
         ], $attributes));
     }
 }

@@ -57,6 +57,6 @@ return [
 
         'relationship' => \Streams\Ui\Input\Relationship::class,
 
-        'boolean' => \Streams\Ui\Input\Toggle::class,
+        'toggle' => \Streams\Ui\Input\Toggle::class,
     ],
 ];
