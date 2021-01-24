@@ -8,6 +8,7 @@ use Collective\Html\FormFacade;
 use Streams\Ui\Support\Component;
 use Streams\Core\Support\Workflow;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Request;
 use Streams\Ui\Button\ButtonCollection;
 use Illuminate\Support\Facades\Redirect;
 use Streams\Core\Support\Facades\Messages;
@@ -158,7 +159,7 @@ class Form extends Component
         }
 
         foreach ($this->fields as $field) {
-            $this->values->put($field->handle, $this->request($field->handle));
+            $this->values->put($field->handle, Request::file($this->prefix($field->handle)) ?: $this->request($field->handle));
         }
     }
 
@@ -171,7 +172,7 @@ class Form extends Component
         })->all();
 
         if (!$this->validator && $this->stream) {
-            
+
             $this->validator = $this->stream
                 ->validator($values);
 
@@ -186,7 +187,7 @@ class Form extends Component
         }
 
         $this->extendValidation($this, $factory);
-        
+
         $this->errors = $this->validator->messages();
 
         if (!$this->errors->isEmpty()) {

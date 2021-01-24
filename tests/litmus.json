@@ -87,6 +87,13 @@
             "config": {
                 "related": "testing.examples"
             }
+        },
+        "file": {
+            "type": "file",
+            "label": "File Input",
+            "config": {
+                "path": "vendor/streams/ui/tests/data/uploads"
+            }
         }
     }
 }
