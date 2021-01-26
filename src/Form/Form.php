@@ -17,7 +17,6 @@ use Illuminate\Contracts\Validation\Validator;
 use Streams\Ui\Form\Component\Field\FieldCollection;
 use Streams\Ui\Form\Component\Action\ActionCollection;
 use Streams\Ui\Form\Component\Section\SectionCollection;
-use Streams\Ui\Input\Input;
 
 class Form extends Component
 {
@@ -160,9 +159,6 @@ class Form extends Component
         }
 
         foreach ($this->fields as $field) {
-            if ($field->input == Input::class) {
-                dd($field);
-            }
             $this->values->put($field->handle, Request::file($this->prefix($field->handle)) ?: $this->request($field->handle));
         }
     }
