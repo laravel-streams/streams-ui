@@ -1,26 +1,26 @@
-@import "../../../node_modules/easymde/dist/easymde.min.css";
+@import "~easymde/dist/easymde.min.css";
 
 .markdown-field {
-    
+
     .editor-toolbar {
         border-radius: 0;
-        @apply border-2 border-black dark:border-white dark:focus:border-blue dark:bg-gray;
+        //@apply border-2 border-black dark:border-white dark:focus:border-blue dark:bg-gray;
 
         &.fullscreen {
-            @apply z-20;
+            //  @apply z-20;
         }
     }
 
     .EasyMDEContainer .CodeMirror {
         border-radius: 0;
-        @apply border-2 border-black dark:border-white dark:focus:border-blue border-t-0 dark:bg-gray;
+        //@apply border-2 border-black dark:border-white dark:focus:border-blue border-t-0 dark:bg-gray;
 
         &.CodeMirror-fullscreen {
-            @apply z-20 border-0;
+            //@apply z-20 border-0;
         }
     }
 
     .editor-preview-side {
-        @apply z-20;
+        //@apply z-20;
     }
 }

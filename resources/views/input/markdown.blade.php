@@ -5,7 +5,6 @@
     'rows' => 10,
 ]) !!}>{{ $input->field->value }}</textarea>
 
-{{ Assets::collection('styles')->add('/vendor/streams/ui/css/inputs/markdown.css') }}
 {{--receive this? gimme a SS--}}
 <script>
 window.addEventListener('load', () => {

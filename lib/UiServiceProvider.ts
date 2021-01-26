@@ -1,13 +1,82 @@
-import 'reflect-metadata';
-import { ServiceProvider }      from '@streams/core';
-import axios, { AxiosInstance } from 'axios';
-import { Input, Markdown }      from './Input';
+import { ServiceProvider }                  from '@streams/core';
+import axios, { AxiosInstance }             from 'axios';
+import { Input, Markdown }                  from './Input';
+import Mousetrap, { ExtendedKeyboardEvent } from 'mousetrap';
+
+export interface Hotkey {
+    keys: string[]
+    callback?: (event: ExtendedKeyboardEvent, combo: string) => any
+    using?: 'bind' | 'bindGlobal' | 'trigger'
+    action?: string
+}
+
+export interface Hotkeys {
+    [ key: string ]: Hotkey
+}
 
 export class UiServiceProvider extends ServiceProvider {
-    public register() {
-        this.app.instance('axios', axios);
+
+    public async boot() {
+        this.app.get<Function>('hotkeys.bind')();
+    }
+
+    public async register() {
+        this.registerHotkeys();
+        this.registerModal();
+        this.registerFields();
+        this.registerSurfaces();
+        this.registerAxios();
+    }
+
+    protected registerAxios() {
+        // this.app.instance('axios', axios); = not needed, you can just import axios anywhere
+        // only needed if you do axios.create(), it creates an instance with some pre-defined config
+        // below it does the same as default Laravel resources/js/bootstrap.js does, but for an instance
+        this.app.dynamic('axios', () => {
+            return axios.create({
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+            });
+        });
+    }
+
+    protected registerHotkeys() {
+        this.app.factory('hotkeys.bind', () => {
+            let hotkeys = this.app.get<Hotkeys>('hotkeys');
+            Object.values(hotkeys).forEach(hotkey => {
+                let args = [ hotkey.keys, hotkey.callback, hotkey.action ].filter(Boolean);
+                (Mousetrap as any)[ hotkey.using || 'bind' ](...args);
+            });
+        });
+        this.app.instance('hotkeys', {
+            help: {
+                keys    : [ '?' ],
+                callback: (event) => {
+                    event.preventDefault();
+                    event.target.form.submit();
+                    alert();
+                },
+                //using   : 'bind',
+                //action  : null,
+            },
+            save: {
+                keys    : [ 'ctrl+s', 'command+s' ],
+                callback: (event) => {
+                    event.preventDefault();
+                    event.target.form.submit();
+                    alert();
+                },
+            },
+        });
+    }
+
+    protected registerFields() {
         this.app.binding('field.input', Input);
         this.app.binding('field.markdown', Markdown);
+    }
+
+    protected registerModal() {
         this.app.ctxfactory('modal', ctx => (url) => {
             return {
                 show   : false,
@@ -35,7 +104,9 @@ export class UiServiceProvider extends ServiceProvider {
                 },
             };
         });
+    }
 
+    protected registerSurfaces() {
         this.app.ctxfactory('surfaces', ctx => (url) => {
 
             return {
@@ -64,21 +135,6 @@ export class UiServiceProvider extends ServiceProvider {
                 },
             };
         });
-
-        // this.app.factory('markdown', (options) => {
-        //     return new EasyMDE(options);
-        // });
-
-        this.app.bind('markdown').toProvider<any>((ctx) => {
-            return async (options) => {
-
-                const EasyMDE = (await import('easymde')) as any;
-                return new EasyMDE(options);
-            };
-        });
-
-        // - https://www.typescriptlang.org/docs/
-        // - https://github.com/inversify/InversifyJS#the-basics
     }
 
     // public boot() {

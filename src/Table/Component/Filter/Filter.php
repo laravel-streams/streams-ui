@@ -56,7 +56,7 @@ class Filter extends Component
             'component',
         ]));
 
-        return App::make('streams.input_types.' . ($this->input ?: 'input'), [
+        return App::make('streams.ui.input.' . ($this->input ?: 'input'), [
             'attributes' => $attributes,
         ]);
     }

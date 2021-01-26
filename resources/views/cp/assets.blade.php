@@ -9,26 +9,29 @@
 {!! Assets::script('public::assets/js/vendor/masonry.js') !!}
 {!! Assets::script('public::assets/js/vendor/stickysidebar.js') !!}
 {!! Assets::script('public::assets/js/vendor/contactform.js') !!}
-{!! Assets::script('public::assets/js/plugins/plugins.min.js') !!}
 <!-- Main JS -->
 {!! Assets::script('public::assets/js/main.js') !!} --}}
 
 {{-- <script src="/vendor/anomaly/streams/ui/js/index.js"></script> --}}
+{{--{!! Assets::script('/vendor/streams/core/js/core.js') !!}--}}
+{{--{!! Assets::script('/vendor/streams/ui/js/ui.js') !!}--}}
+{!! Assets::collection('scripts')->tags() !!}
 
-<script src="/vendor/streams/core/js/index.js"></script>
-<script src="/vendor/streams/ui/js/index.js"></script>
+{{--<script src="/vendor/streams/core/js/core.js"></script>--}}
+{{--<script src="/vendor/streams/ui/js/ui.js"></script>--}}
 
 <script>
-    window.streams.core.app.bootstrap({
-        providers: [
-            window.streams.core.StreamsServiceProvider,
-            window.streams.ui.UiServiceProvider
-        ]
-    }).then(app => {
-        return app.boot();
-    }).then(app => {
-        return app.start();
-    });
+window.streams.serviceProviders = window.streams.serviceProviders || [];
+window.streams.core.app.bootstrap({
+    providers: [
+        window.streams.core.StreamsServiceProvider,
+        window.streams.ui.UiServiceProvider
+    ]
+}).then(app => {
+    return app.boot();
+}).then(app => {
+    return app.start();
+});
 </script>
 
 <script>

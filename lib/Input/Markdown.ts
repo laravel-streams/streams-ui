@@ -10,6 +10,7 @@ export class Markdown extends Field {
     };
 
     protected async load() {
+        await import('../../resources/scss/inputs/markdown.scss' as any);
         this.EasyMDE = (await import('easymde')).default;
         this.easyMDE = new this.EasyMDE({
             element: this.element,
