@@ -17,8 +17,8 @@
     ]) !!}
 
     @section('table')
-    <div class="m-8">
-        <table {!! $table->htmlAttributes(['class' => ['table', 'min-w-full', 'dark:text-white']]) !!}>
+    <div class="ls-table__main">
+        <table {!! $table->htmlAttributes() !!}>
 
             @section('head')
             @include('ui::tables.head')
@@ -42,7 +42,7 @@
     @else
 
     @section('no_results')
-    <div class="m-8">
+    <div class="ls-table__main --empty">
         {{ trans('ui::messages.no_results') }}
     </div>
     @show

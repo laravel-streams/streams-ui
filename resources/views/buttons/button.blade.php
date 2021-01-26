@@ -1,11 +1,10 @@
 <!-- button.blade.php -->
 @if ($button->dropdown)
-<div class="inline-block relative" x-data="{show: false}">
+<div class="ls-buttons" x-data="{show: false}">
 
     {!! $button->open([
         'x-on:click' => 'show == true ? show = false : show = true; return false;',
         'x-on:click.away' => 'show = false',
-        'class' => 'py-1 px-3 text-sm font-bold text-black dark:text-white border-2 border-primary inline-block',
     ]) !!}
     
     @if ($button->svg)
@@ -20,12 +19,10 @@
 
     {!! $button->close() !!}
     
-    <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md border-2 border-primary z-5" x-show="show">
-        <div class="py-1 rounded-md bg-white">
+    <div class="ls-button__dropdown" x-show="show">
+        <div>
             @foreach ($button->dropdown as $item)
-            <a {!! Html::attributes($item['attributes']) !!}
-            class="block px-4 py-2 text-sm text-black dark:text-white hover:bg-black hover:text-white transition ease-in-out duration-150"
-            >{{ $item['text'] }}</a>
+            <a {!! Html::attributes($item['attributes']) !!}>{{ $item['text'] }}</a>
             @endforeach
         </div>
     </div>

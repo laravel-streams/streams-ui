@@ -44,13 +44,6 @@ class View extends Component
             
             'classes' => [
                 'ls-table__view',
-                '--{context}',
-                'py-2',
-                'px-4',
-                'font-bold',
-                'text-black',
-                'dark:text-white',
-                'inline-block'
             ],
             'attributes' => [],
 

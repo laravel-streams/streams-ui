@@ -1,11 +1,10 @@
 <!-- head.blade.php -->
-<thead class="">
+<thead>
     <tr>
 
-        @if ($table->isSortable())
-        <th class="table__handle"></th>
-        @endif
-
+        <!-- ID Spacer -->
+        <th class="hidden"></th>
+        
         @if ($table->isSelectable())
         <th class="text-left">
         <input type="checkbox" x-on:click="alert('Select all');">
@@ -13,21 +12,15 @@
         @endif
 
         @foreach ($table->columns as $column)
-        <th {!! $column->htmlAttributes([
-            'class' => 'text-left',
-        ]) !!}>
+        <th {!! $column->htmlAttributes() !!}>
 
             @if ($column->sortable)
             <a href="{{ $column->href() }}">
                 {!! $column->heading !!}
                 @if ($column->direction == 'asc')
-                @svg('heroicon-o-sort-ascending', [
-                    'class' => 'inline h-5 w-5',
-                ])
+                @svg('heroicon-o-sort-ascending')
                 @elseif ($column->direction == 'desc')
-                @svg('heroicon-o-sort-descending', [
-                    'class' => 'inline h-5 w-5',
-                ])
+                @svg('heroicon-o-sort-descending')
                 @endif
             </a>
             @else
@@ -36,6 +29,8 @@
         </th>
         @endforeach
 
+        <!-- Buttons Spacer -->
         <th></th>
+
     </tr>
 </thead>

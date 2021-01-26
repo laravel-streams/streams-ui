@@ -1,6 +1,4 @@
-// import '../scss/theme.scss'
-// import '../scss/variables.scss'
-// import '../scss/inputs/markdown.scss'
+import '../scss/theme.scss'
 
 import 'alpinejs';
 import './hotkeys';

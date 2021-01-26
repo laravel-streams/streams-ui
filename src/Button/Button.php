@@ -35,7 +35,9 @@ class Button extends Component
             'primary'  => false,
             'disabled' => false,
             'type'     => 'default',
-            'classes'  => [],
+            'classes'  => [
+                'ls-button',
+            ],
         ], $attributes));
     }
 

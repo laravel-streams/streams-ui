@@ -5,14 +5,14 @@
     @include('ui::cp.head')
 </head>
 
-<body>
+<body class="ls-cp">
     
     <!-- cp.blade.php -->
-    <div class="h-screen flex overflow-hidden dark:bg-black">
+    <div class="ls-cp__layout">
 
         @include('ui::cp.sidebar')
 
-        <main class="flex flex-col w-0 flex-1 overflow-hidden">
+        <main>
 
             @include('ui::cp.top')
             @include('ui::cp.content')

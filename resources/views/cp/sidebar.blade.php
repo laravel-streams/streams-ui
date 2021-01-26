@@ -1,10 +1,8 @@
 <!-- sidebar.blade.php -->
-<aside class="md:flex md:flex-shrink-0 bg-white border-r-2 border-primary dark:bg-black dark:text-white">
-    <div class="flex flex-col w-64">
-
+<aside class="ls-cp__sidebar">
+    <div>
         @include('ui::cp.brand')
         @include('ui::cp.navigation')
         @include('ui::cp.meta')
-
     </div>
 </aside>

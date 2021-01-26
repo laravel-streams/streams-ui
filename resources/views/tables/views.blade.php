@@ -1,8 +1,7 @@
 <!-- views.blade.php -->
 @if ($table->views->isNotEmpty())
-<nav class="ls-table__views m-8">
+<nav class="ls-table__views">
     @foreach ($table->views as $view)
-        
         <a {!! $view->htmlAttributes() !!}>
             {{ __($view->text) }}
             @if ($view->label)

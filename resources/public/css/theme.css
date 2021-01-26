@@ -22631,6 +22631,32 @@ select {
           animation: bounce 1s infinite;
 }
 
+.ls-table__views {
+  margin: 2rem;
+}
+
+.ls-table__views a {
+  display: inline-block;
+  font-weight: 700;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  color: var(--color-black);
+}
+
+.dark .ls-table__views a {
+  color: var(--color-white);
+}
+
+.ls-table__filters {
+  margin: 2rem;
+}
+
+.ls-table_actions {
+  flex: 1 1 0%;
+}
+
 @media (min-width: var(--screen-sm)) {
   .sm\:container {
     width: 100%;

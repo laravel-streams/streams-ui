@@ -1,0 +1,23 @@
+.ls-cp__layout {
+    @apply h-screen flex overflow-hidden dark:bg-black;
+
+    main {
+        @apply flex flex-col w-0 flex-1 overflow-hidden;
+    }
+}
+
+.ls-cp__sidebar {
+    @apply flex flex-shrink-0 bg-white border-r-2 border-primary dark:bg-black dark:text-white;
+
+    > div {
+        @apply flex flex-col w-64;
+    }
+}
+
+.ls-cp__brand {
+    @apply flex h-16 overflow-y-auto border-b-2 border-primary;
+
+    > div {
+        @apply flex items-center px-4;
+    }
+}
