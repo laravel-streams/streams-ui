@@ -21,3 +21,7 @@
         @apply flex items-center px-4;
     }
 }
+
+.ls-cp__content {
+    @apply overflow-y-auto focus:outline-none overflow-x-hidden bg-white dark:bg-black;
+}
