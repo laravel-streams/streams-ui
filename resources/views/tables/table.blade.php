@@ -1,5 +1,5 @@
 <!-- table.blade.php -->
-<div x-data="{}">
+<div class="ls-table" x-data="{}">
 
     @section('views')
     @include('ui::tables.views')

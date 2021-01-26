@@ -20,5 +20,18 @@
     "fields": {
         "name": "text",
         "age": "integer"
+    },
+
+    "ui": {
+        "tables": {
+            "default": {
+                "views": {
+                    "all": {}
+                },
+                "options": {
+                    "foo": "Bar"
+                }
+            }
+        }
     }
 }

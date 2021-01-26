@@ -43,6 +43,8 @@ class View extends Component
             'context' => 'danger',
             
             'classes' => [
+                'ls-table__view',
+                '--{context}',
                 'py-2',
                 'px-4',
                 'font-bold',

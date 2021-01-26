@@ -414,8 +414,8 @@ class TableBuilder extends Builder
         $stream = $this->stream;
         $columns = $this->columns;
 
-        if (!$columns) {
-            $columns = ['id', 'created_at'];
+        if (!$columns && $this->stream) {
+            $columns = $this->stream->fields->keys()->take(3)->all();
         }
 
         $columns = Normalizer::normalize($columns);

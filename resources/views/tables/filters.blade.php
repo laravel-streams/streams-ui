@@ -1,6 +1,6 @@
 <!-- filters.blade.php -->
 @if ($table->filters->isNotEmpty())
-<div class="m-8">
+<div class="ls-table__filters m-8">
     {!! Form::open([
         'method' => 'get',
         'class' => 'flex space-x-1 items-center',
