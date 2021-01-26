@@ -5,7 +5,7 @@ const path = require('path');
 const isDev = process.env.NODE_ENV === 'development';
 
 mix
-    //.sass('resources/scss/theme.scss', 'css')
+    .sass('resources/scss/theme.scss', 'css')
     .sass('resources/scss/variables.scss', 'css')
     .ts('resources/ts/index.ts', '')
     .copyDirectory('resources/public', '../../../public/vendor/streams/ui')
