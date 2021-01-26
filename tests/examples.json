@@ -1,12 +1,10 @@
 {
     "handle": "testing.examples",
     "description": "Used for testing.",
-    
     "source": {
         "path": "vendor/streams/ui/tests/data/examples",
         "format": "json"
     },
-
     "rules": {
         "name": "required|min:3|example_validator"
     },
@@ -16,20 +14,22 @@
             "message": "The :attribute value is very bad."
         }
     },
-
     "fields": {
         "name": "text",
         "age": "integer"
     },
-
     "ui": {
         "tables": {
             "default": {
                 "views": {
                     "all": {}
                 },
+                "actions": {
+                    "delete": {}
+                },
                 "options": {
-                    "foo": "Bar"
+                    "foo": "Bar",
+                    "selectable": true
                 }
             }
         }

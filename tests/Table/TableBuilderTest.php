@@ -4,9 +4,7 @@ namespace Streams\Ui\Tests\Support;
 
 use Tests\TestCase;
 use Streams\Ui\Table\Table;
-use Illuminate\Support\Collection;
 use Streams\Ui\Table\TableBuilder;
-use Illuminate\Support\Facades\URL;
 use Streams\Core\Repository\Repository;
 use Streams\Core\Support\Facades\Streams;
 
