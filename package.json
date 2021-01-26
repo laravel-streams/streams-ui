@@ -13,6 +13,7 @@
     },
     "dependencies": {
         "@streams/core": "file:../core",
+        "@tailwindcss/forms": "^0.2",
         "alpinejs": "^2.7.3",
         "easymde": "^2.13.0",
         "inversify": "^5.0.1",
