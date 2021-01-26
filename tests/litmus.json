@@ -94,6 +94,13 @@
             "config": {
                 "path": "vendor/streams/ui/tests/data/uploads"
             }
+        },
+        "image": {
+            "type": "image",
+            "label": "Image Input",
+            "config": {
+                "path": "vendor/streams/ui/tests/data/uploads/img"
+            }
         }
     }
 }
