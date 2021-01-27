@@ -30,9 +30,9 @@ return [
 
     'inputs' => [
         'text' => \Streams\Ui\Input\Input::class,
-        'hash' => \Streams\Ui\Input\Input::class,
+        'hash' => \Streams\Ui\Input\Input::class, // Default
         'input' => \Streams\Ui\Input\Input::class,
-        'string' => \Streams\Ui\Input\Input::class,
+        'string' => \Streams\Ui\Input\Input::class, // Default
 
         'date' => \Streams\Ui\Input\Date::class,
         'time' => \Streams\Ui\Input\Time::class,
