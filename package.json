@@ -13,7 +13,6 @@
     },
     "dependencies": {
         "@streams/core": "file:../core",
-        "@tailwindcss/forms": "^0.2",
         "alpinejs": "^2.7.3",
         "easymde": "^2.13.0",
         "inversify": "^5.0.1",
@@ -23,7 +22,6 @@
         "reflect-metadata": "^0.1.13"
     },
     "devDependencies": {
-        "@tailwindcss/ui": "^0.7",
         "@types/webpack": "^4.41.25",
         "autoprefixer": "^10.0.4",
         "axios": "^0.21.1",
@@ -35,8 +33,6 @@
         "resolve-url-loader": "^3.1.2",
         "sass": "^1.29.0",
         "sass-loader": "^8.0.2",
-        "tailwind-css-variables": "^2.0.3",
-        "tailwindcss": "^2.0.0",
         "ts-loader": "^8.0.12",
         "tslib": "^2.0.3",
         "typescript": "^4.1.3",

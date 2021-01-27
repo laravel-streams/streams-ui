@@ -1,13 +1,13 @@
 :root {
-    --color-transparent: transparent;
-    
     --color-black: #000;
     --color-white: #fff;
     --color-gray: #6B7280;
+
     --color-red: #EF4444;
     --color-yellow: #F59E0B;
-    --color-green: #10B981;
     --color-blue: #3B82F6;
+    
+    --color-green: #10B981;
     --color-indigo: #6366F1;
     --color-purple: #8B5CF6;
     --color-pink: #EC4899;
@@ -22,9 +22,6 @@
     --screen-xl: 1280px;
     --screen-2xl: 1536px;
 
-    // --------------------------------------
-    // -------  NOT USED - BELOW   ----------
-    // --------------------------------------
     --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
     --font-mono: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -39,6 +36,7 @@
     --text-4xl: 2.25rem;
     --text-5xl: 3rem;
     --text-6xl: 4rem;
+
     --font-hairline: 100;
     --font-thin: 200;
     --font-light: 300;
@@ -48,31 +46,37 @@
     --font-bold: 700;
     --font-extrabold: 800;
     --font-black: 900;
+
     --leading-none: 1;
     --leading-tight: 1.25;
     --leading-snug: 1.375;
     --leading-normal: 1.5;
     --leading-relaxed: 1.625;
     --leading-loose: 2;
+
     --tracking-tighter: -0.05em;
     --tracking-tight: -0.025em;
     --tracking-normal: 0;
     --tracking-wide: 0.025em;
     --tracking-wider: 0.05em;
     --tracking-widest: 0.1em;
+    
     --bg-auto: auto;
     --bg-cover: cover;
     --bg-contain: contain;
+    
     --border-0: 0;
     --border-2: 2px;
     --border-4: 4px;
     --border-8: 8px;
     --border: 1px;
+    
     --rounded-none: 0;
     --rounded-sm: 0.125rem;
     --rounded: 0.25rem;
     --rounded-lg: 0.5rem;
     --rounded-full: 9999px;
+    
     --w-0: 0;
     --w-1: 0.25rem;
     --w-2: 0.5rem;
@@ -121,6 +125,7 @@
     --w-11-12: 91.666667%;
     --w-full: 100%;
     --w-screen: 100vw;
+  
     --h-0: 0;
     --h-1: 0.25rem;
     --h-2: 0.5rem;
@@ -143,11 +148,13 @@
     --h-px: 1px;
     --h-full: 100%;
     --h-screen: 100vh;
+   
     --min-w-0: 0;
     --min-w-full: 100%;
     --min-h-0: 0;
     --min-h-full: 100%;
     --min-h-screen: 100vh;
+   
     --max-w-xs: 20rem;
     --max-w-sm: 24rem;
     --max-w-md: 28rem;
@@ -161,6 +168,7 @@
     --max-w-full: 100%;
     --max-h-full: 100%;
     --max-h-screen: 100vh;
+   
     --p-0: 0;
     --p-1: 0.25rem;
     --p-2: 0.5rem;
@@ -180,6 +188,7 @@
     --p-56: 14rem;
     --p-64: 16rem;
     --p-px: 1px;
+   
     --m-0: 0;
     --m-1: 0.25rem;
     --m-2: 0.5rem;
@@ -218,6 +227,7 @@
     --m--56: -14rem;
     --m--64: -16rem;
     --m--px: -1px;
+  
     --shadows: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     --shadows-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadows-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -226,6 +236,7 @@
     --shadows-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
     --shadows-outline: 0 0 0 3px rgba(66, 153, 225, 0.5);
     --shadows-none: none;
+ 
     --z-0: 0;
     --z-10: 10;
     --z-20: 20;
@@ -233,6 +244,7 @@
     --z-40: 40;
     --z-50: 50;
     --z-auto: auto;
+ 
     --opacity-0: 0;
     --opacity-25: 0.25;
     --opacity-50: 0.5;

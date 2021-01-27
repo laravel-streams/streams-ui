@@ -1,24 +1,21 @@
 const mix = require('laravel-mix');
-const tailwindcss = require('tailwindcss');
 const path = require('path');
 
 const isDev = process.env.NODE_ENV === 'development';
 
 mix
-    //.sass('resources/scss/theme.scss', 'css')
+    .sass('resources/scss/theme.scss', 'css')
     .sass('resources/scss/variables.scss', 'css')
     .ts('resources/ts/index.ts', '')
     .copyDirectory('resources/public', '../../../public/vendor/streams/ui')
     .options({
         processCssUrls: false,
-        postCss       : [tailwindcss('./tailwind.config.js')],
     })
     .webpackConfig(
         function (webpack) {
             return {
                 devtool: isDev ? 'hidden-source-map' : false,
                 plugins: [
-                    require('@tailwindcss/ui'),
                     {
                         apply(compiler) {
                             compiler.hooks.entryOption.tap('streams',(ctx, entry) => {

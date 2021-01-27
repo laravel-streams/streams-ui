@@ -1,5 +1,3 @@
-import '../scss/theme.scss'
-
 import 'alpinejs';
 import './hotkeys';
 

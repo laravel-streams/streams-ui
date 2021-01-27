@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+<!-- cp.blade.php -->
 
 <head>
     @include('ui::cp.head')
@@ -7,16 +8,13 @@
 
 <body class="ls-cp">
     
-    <!-- cp.blade.php -->
     <div class="ls-cp__layout">
 
         @include('ui::cp.sidebar')
 
         <main>
-
             @include('ui::cp.top')
             @include('ui::cp.content')
-
         </main>
 
     </div>
