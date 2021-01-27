@@ -62,13 +62,14 @@ class Input extends Component
     public function attributes(array $attributes = [])
     {
         return parent::attributes(array_merge([
-            'id' => $this->getPrototypeAttribute('id') ?: $this->field->handle . '-input',
-            'name' => $this->getPrototypeAttribute('name') ?: $this->field->handle,
+            'id' => $this->getPrototypeAttribute('id') ?: $this->name() . '-input',
+            'name' => $this->getPrototypeAttribute('name') ?: $this->name(),
             'placeholder' => $this->placeholder,
             'required' => $this->field->hasRule('required'),
-            'readonly' => $this->readonly ? 'readonly' : null,
-            'disabled' => $this->disabled ? 'disabled' : null,
-            'pattern' => trim(Arr::get($this->field->stream->getRuleParameters($this->field->handle, 'regex'), 0), "//"),
+            'readonly' => $this->field->readonly ? 'readonly' : null,
+            'disabled' => $this->field->disabled ? 'disabled' : null,
+            'pattern' => trim($this->field->pattern ?: Arr::get($this->field->stream->getRuleParameters($this->field->handle, 'regex'), 0), "//"),
+            'type' => $this->type,
             'value' => $this->value,
         ], $attributes));
     }
@@ -76,5 +77,10 @@ class Input extends Component
     public function label()
     {
         return $this->label ?: $this->field->name();
+    }
+
+    public function name()
+    {
+        return $this->name ?: ($this->prefix . $this->field->handle);
     }
 }

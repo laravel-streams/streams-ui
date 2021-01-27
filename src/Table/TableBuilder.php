@@ -326,6 +326,7 @@ class TableBuilder extends Builder
         $actions = $this->actions;
 
         $actions = Normalizer::normalize($actions, 'handle');
+        $actions = Normalizer::fillWithKey($actions, 'handle');
         $actions = Normalizer::fillWithAttribute($actions, 'action', 'handle');
 
         $registry = app(ActionRegistry::class);
@@ -407,8 +408,8 @@ class TableBuilder extends Builder
         $stream = $this->stream;
         $columns = $this->columns;
 
-        if (!$columns) {
-            $columns = ['id', 'created_at'];
+        if (!$columns && $this->stream) {
+            $columns = $this->stream->fields->keys()->take(3)->all();
         }
 
         $columns = Normalizer::normalize($columns);

@@ -1,6 +1,6 @@
-<div class="flex h-16 overflow-y-auto border-b-2 border-primary">
-    <div class="flex items-center px-4">
-        <a class="logo-link font-mono text-2xl">
+<div class="ls-cp__brand">
+    <div>
+        <a href="{{ URL::route('ui::cp.home') }}">
             {{ __(config('app.name')) }}
         </a>
     </div>

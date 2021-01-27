@@ -1,6 +1,5 @@
 <?php namespace Streams\Ui\Table\Component\View\Query;
 
-use Streams\Ui\Table\Component\View\Contract\ViewQueryInterface;
 use Streams\Ui\Table\TableBuilder;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -11,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class RecentlyCreatedQuery implements ViewQueryInterface
+class RecentlyCreatedQuery
 {
 
     /**

@@ -1,17 +1,9 @@
 <?php namespace Streams\Ui\Table\Component\View\Query;
 
-use Streams\Ui\Table\Component\View\Contract\ViewQueryInterface;
 use Streams\Ui\Table\TableBuilder;
 use Illuminate\Database\Eloquent\Builder;
 
-/**
- * Class RecentlyModifiedQuery
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
-class RecentlyModifiedQuery implements ViewQueryInterface
+class RecentlyModifiedQuery
 {
 
     /**

@@ -2,18 +2,10 @@
 
 namespace Streams\Ui\Table\Component\View\Query;
 
-use Illuminate\Database\Eloquent\Builder;
 use Streams\Ui\Table\TableBuilder;
-use Streams\Ui\Table\Component\View\Contract\ViewQueryInterface;
+use Illuminate\Database\Eloquent\Builder;
 
-/**
- * Class TrashQuery
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
-class TrashQuery implements ViewQueryInterface
+class TrashQuery
 {
 
     /**

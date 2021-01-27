@@ -4,7 +4,6 @@ namespace Streams\Ui;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
@@ -18,13 +17,6 @@ use Streams\Ui\Form\FormBuilder;
 use Streams\Ui\Input\Input;
 use Streams\Ui\Table\TableBuilder;
 
-/**
- * Class StreamsServiceProvider
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
 class UiServiceProvider extends ServiceProvider
 {
 
@@ -52,10 +44,11 @@ class UiServiceProvider extends ServiceProvider
      * @var array
      */
     public $singletons = [
-        \Streams\Ui\Icon\IconRegistry::class => \Streams\Ui\Icon\IconRegistry::class,
         \Streams\Ui\Support\Breadcrumb::class => \Streams\Ui\Support\Breadcrumb::class,
-        \Streams\Ui\Button\ButtonRegistry::class => \Streams\Ui\Button\ButtonRegistry::class,
         \Streams\Ui\ControlPanel\ControlPanelBuilder::class => \Streams\Ui\ControlPanel\ControlPanelBuilder::class,
+
+        // Get rid of these registries and register something to IoC like streams.ui.button.save using internal naming - do whatever you want otherwise.
+        \Streams\Ui\Button\ButtonRegistry::class => \Streams\Ui\Button\ButtonRegistry::class,
         \Streams\Ui\Table\Component\View\ViewRegistry::class => \Streams\Ui\Table\Component\View\ViewRegistry::class,
         \Streams\Ui\Table\Component\Filter\FilterRegistry::class => \Streams\Ui\Table\Component\Filter\FilterRegistry::class,
     ];
@@ -67,11 +60,43 @@ class UiServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->extendView();
+        $this->registerStreams();
+        $this->registerConfig();
+        $this->registerRoutes();
 
-        $this->mergeConfigFrom(__DIR__ . '/../resources/config/cp.php', 'streams.cp');
+        $this->extendStream();
+        $this->extendField();
+    }
+
+    public function boot()
+    {
+        $this->extendUrl();
+        $this->extendView();
+        $this->extendLang();
+        $this->extendAssets();
+    }
+
+    /**
+     * Register UI config.
+     */
+    protected function registerConfig()
+    {
         $this->mergeConfigFrom(__DIR__ . '/../resources/config/ui.php', 'streams.ui');
 
+        if (file_exists($config = __DIR__ . '/../../../../config/streams/ui.php')) {
+            $this->mergeConfigFrom($config, 'streams.ui');
+        }
+
+        $this->publishes([
+            __DIR__ . '/../resources/config/ui.php' => config_path('streams/ui.php')
+        ], 'config');
+    }
+
+    /**
+     * Register UI streams.
+     */
+    protected function registerStreams()
+    {
         Streams::register([
             'handle' => 'cp.navigation',
             'source' => [
@@ -79,7 +104,7 @@ class UiServiceProvider extends ServiceProvider
                 'format' => 'json',
             ],
             'config' => [
-                'prototype' => 'Streams\\Ui\\ControlPanel\\Component\\Navigation\\Section',
+                'abstract' => 'Streams\\Ui\\ControlPanel\\Component\\Navigation\\Section',
             ],
             'fields' => [
                 'title' => 'string',
@@ -97,7 +122,7 @@ class UiServiceProvider extends ServiceProvider
                 'format' => 'json',
             ],
             'config' => [
-                'prototype' => 'Streams\\Ui\\ControlPanel\\Component\\Shortcut\\Shortcut',
+                'abstract' => 'Streams\\Ui\\ControlPanel\\Component\\Shortcut\\Shortcut',
             ],
             'fields' => [
                 'title' => 'string',
@@ -105,7 +130,13 @@ class UiServiceProvider extends ServiceProvider
                 'svg' => 'string',
             ],
         ]);
+    }
 
+    /**
+     * Register UI routes.
+     */
+    protected function registerRoutes()
+    {
         if (!$this->app->routesAreCached()) {
 
             Route::streams(Config::get('streams.cp.prefix'), [
@@ -181,23 +212,6 @@ class UiServiceProvider extends ServiceProvider
                 }
             });
         }
-    }
-
-    /**
-     * Boot the service provider.
-     */
-    public function boot()
-    {
-        $this->publishes([
-            base_path('vendor/streams/ui/resources/public')
-            => public_path('vendor/streams/ui')
-        ], ['public']);
-
-        $this->extendLang();
-        $this->extendAssets();
-
-        $this->extendStream();
-        $this->extendField();
     }
 
     /**
@@ -287,6 +301,20 @@ class UiServiceProvider extends ServiceProvider
     protected function extendLang()
     {
         Lang::addNamespace('ui', realpath(base_path('vendor/streams/ui/resources/lang')));
+    }
+
+    /**
+     * Extend URL support.
+     */
+    protected function extendUrl()
+    {
+        URL::macro('cp', function($path, $extra = [], $secure = null) {
+            return URL::to(
+                Config::get('streams.cp.prefix', 'cp') . $path,
+                $extra,
+                $secure
+            );
+        });
     }
 
     /**

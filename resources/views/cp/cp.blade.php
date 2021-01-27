@@ -1,21 +1,20 @@
 <!doctype html>
 <html lang="en">
+<!-- cp.blade.php -->
 
 <head>
     @include('ui::cp.head')
 </head>
 
-<body>
-    <!-- cp.blade.php -->
-    <div class="h-screen flex overflow-hidden dark:bg-black">
+<body class="ls-cp">
+    
+    <div class="ls-cp__layout">
 
         @include('ui::cp.sidebar')
 
-        <main class="flex flex-col w-0 flex-1 overflow-hidden">
-
+        <main>
             @include('ui::cp.top')
             @include('ui::cp.content')
-
         </main>
 
     </div>

@@ -1,4 +1,4 @@
-<div x-data="{checked: {{ json_encode($input->field->value) }}}">
+<div x-data="{checked: {{ json_encode($input->value) }}}">
 
     <!-- This example requires Tailwind CSS v2.0+ -->
     <!-- On: "bg-indigo-600", Off: "bg-gray-200" -->
@@ -15,9 +15,9 @@
     </button>
 
     <input {!! $input->htmlAttributes([
-        'type' => 'checkbox',
         'class' => 'hidden',
-        //'checked' => ($input->field->value),
+        'value' => null,
+        'checked' => ($input->value),
     ]) !!} x-model="checked">
     
 </div>

@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Input;
 
-class Decimal extends Input
+class Decimal extends Number
 {
 
     /**
@@ -15,6 +15,9 @@ class Decimal extends Input
     {
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/decimal',
+            'config' => [
+                'step' => 0.1,
+            ],
         ], $attributes));
     }
 }

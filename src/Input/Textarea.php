@@ -2,6 +2,8 @@
 
 namespace Streams\Ui\Input;
 
+use Illuminate\Support\Arr;
+
 class Textarea extends Input
 {
 
@@ -15,7 +17,17 @@ class Textarea extends Input
     {
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/textarea',
-            'component' => 'input',
+            'type' => null,
+            'config' => [
+                'rows' => 10,
+            ]
+        ], $attributes));
+    }
+
+    public function attributes(array $attributes = [])
+    {
+        return parent::attributes(array_merge([
+            'rows' => Arr::get($this->field->config, 'rows', 10)
         ], $attributes));
     }
 }

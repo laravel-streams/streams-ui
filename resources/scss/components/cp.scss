@@ -1,0 +1,21 @@
+.ls-cp {
+    min-width: 100vw;
+    min-height: 100vh;
+}
+
+.ls-cp__layout {
+    display: flex;
+}
+
+.ls-cp__sidebar {
+    width: 25%;
+    max-width: 280px;
+}
+
+.ls-cp__brand {
+    padding: 2rem;
+}
+
+.ls-cp__topbar {
+    padding: 2rem;
+}

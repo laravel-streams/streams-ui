@@ -15,6 +15,7 @@ class Date extends Input
     {
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/date',
+            'type' => 'date',
         ], $attributes));
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Input;
 
-class Image extends Input
+class Image extends File
 {
 
     /**
@@ -15,6 +15,11 @@ class Image extends Input
     {
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/image',
+            'accept' => [
+                'image/png',
+                'image/jpg',
+                'image/jpeg',
+            ]
         ], $attributes));
     }
 }

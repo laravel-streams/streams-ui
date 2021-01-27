@@ -16,6 +16,11 @@
             "Streams\\Ui\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Streams\\Ui\\Tests\\": "tests/"
+        }
+    },
     "config": {
         "bin-dir": "bin"
     },

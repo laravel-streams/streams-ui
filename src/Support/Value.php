@@ -5,17 +5,7 @@ namespace Streams\Ui\Support;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\View;
-use Illuminate\Contracts\Support\Arrayable;
-use Streams\Core\Support\Facades\Evaluator;
-use Streams\Core\Entry\Contract\EntryInterface;
 
-/**
- * Class Value
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
 class Value
 {
 
@@ -104,6 +94,13 @@ class Value
          */
         if (is_string($value) && Arr::get($parameters, 'is_safe', true) === false) {
             $value = Str::purify($value);
+        }
+
+        /**
+         * Ensure we have a string.
+         */
+        if (!is_string($value)) {
+            $value = json_encode($value);
         }
 
         return $value;
