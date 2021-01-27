@@ -332,6 +332,10 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function extendAssets()
     {
+        $this->publishes([
+            __DIR__ . '/../resources/public' => public_path('vendor/streams/ui'),
+        ], 'public');
+
         Assets::addPath('ui', 'vendor/streams/ui');
         Assets::add('head.scripts', 'ui::js/head_script.js');
         Assets::add('scripts', 'ui::js/ui.js');
