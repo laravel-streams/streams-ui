@@ -1,78 +1,63 @@
 <!-- top.blade.php -->
 <nav class="ls-cp__topbar">
-    <div class="flex h-16 items-center">
-        {{-- Hamburger
-        <button
-            class="px-4 border-r border-gray-200 text-gray focus:outline-none focus:bg-gray-100 focus:text-gray-600 md:hidden"
-            aria-label="Open sidebar">
-            <svg class="h-8 w-8" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
-            </svg>
-        </button>
-        --}}
+    
+    <div class="ls-cp__buttons">
+        {!! $cp->buttons !!}
+    </div>
 
-        <div class="flex-grow">
-            {!! $cp->buttons !!}
-        </div>
+    <div class="ls-cp__shortcuts" x-data="{}">
 
-        <div x-data="{}">
+        @foreach ($cp->shortcuts as $shortcut)
+        @if ($shortcut->dropdown)
+        <div x-data="{show: false}">
 
-            <div class="ml-4 flex items-center md:ml-6">
+            <button {!! $shortcut->htmlAttributes() !!}
+                @click="show == true ? show = false : show = true"
+                @click.away="show = false">
 
-                @foreach ($cp->shortcuts as $shortcut)
-                @if ($shortcut->dropdown)
-                <div class="ml-3 relative" x-data="{show: false}">
-
-                    <button {!! $shortcut->htmlAttributes([
-                        'class' => 'block',
-                    ]) !!} @click="show == true ? show = false : show = true" @click.away="show = false">
-
-                        @if ($shortcut->svg)
-                        {{-- {!! $shortcut->svg !!} --}}
-                        @elseif ($shortcut->icon)
-                        {{ svg($shortcut->icon, ['class' => 'h-8 w-8 text-black dark:text-white']) }}
-                        @elseif ($shortcut->image)
-                        <img class="h-8 w-8 rounded-full" src="{{ $shortcut->image }}" alt="">
-                        @elseif ($shortcut->text)
-                        {{ $shortcut->text }}
-                        @else
-                        {{ $shortcut->handle }}
-                        @endif
-
-                    </button>
-
-                    <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md border-2 border-primary z-10" x-show="show">
-                        <div class="py-1 rounded-md bg-white dark:bg-black">
-                            @foreach ($shortcut->dropdown as $item)
-                            <a {!! Html::attributes($item['attributes']) !!}
-                            class="block px-4 py-2 text-sm text-black dark:text-white hover:bg-black hover:text-white transition ease-in-out duration-150"
-                            >{{ $item['text'] }}</a>
-                            @endforeach
-                        </div>
-                    </div>
-                    {{-- ---------------------------------- --}}
-
-                </div>
+                @if ($shortcut->svg)
+                {{-- {!! $shortcut->svg !!} --}}
+                @elseif ($shortcut->icon)
+                {{ svg($shortcut->icon) }}
+                @elseif ($shortcut->image)
+                <img class="h-8 w-8 rounded-full" src="{{ $shortcut->image }}" alt="">
+                @elseif ($shortcut->text)
+                {{ $shortcut->text }}
                 @else
-                <button {!! $shortcut->htmlAttributes([
-                    'class' => 'ml-3',
-                ]) !!}>
-                    @if ($shortcut->svg)
-                    {!! $shortcut->svg !!}
-                    @elseif ($shortcut->icon)
-                    {{ svg($shortcut->icon, ['class' => 'h-8 w-8 text-black dark:text-white']) }}
-                    @elseif ($shortcut->image)
-                    <img class="h-8 w-8 rounded-full" src="{{ $shortcut->image }}" alt="">
-                    @else
-                    {{ $shortcut->handle }}
-                    @endif
-
-                </button>
+                {{ $shortcut->handle }}
                 @endif
-                @endforeach
 
+            </button>
+
+            <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md border-2 border-primary z-10" x-show="show">
+                <div class="py-1 rounded-md bg-white dark:bg-black">
+                    @foreach ($shortcut->dropdown as $item)
+                    <a {!! Html::attributes($item['attributes']) !!}
+                    class="block px-4 py-2 text-sm text-black dark:text-white hover:bg-black hover:text-white transition ease-in-out duration-150"
+                    >{{ $item['text'] }}</a>
+                    @endforeach
+                </div>
             </div>
+            {{-- ---------------------------------- --}}
 
         </div>
+        @else
+        <button {!! $shortcut->htmlAttributes([
+            'class' => 'ml-3',
+        ]) !!}>
+            @if ($shortcut->svg)
+            {!! $shortcut->svg !!}
+            @elseif ($shortcut->icon)
+            {{ svg($shortcut->icon, ['class' => 'h-8 w-8 text-black dark:text-white']) }}
+            @elseif ($shortcut->image)
+            <img class="h-8 w-8 rounded-full" src="{{ $shortcut->image }}" alt="">
+            @else
+            {{ $shortcut->handle }}
+            @endif
+
+        </button>
+        @endif
+        @endforeach
+
     </div>
 </nav>

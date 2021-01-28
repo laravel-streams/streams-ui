@@ -132,6 +132,18 @@ class UiServiceProvider extends ServiceProvider
                 'svg' => 'string',
             ],
         ]);
+
+        Streams::register([
+            'handle' => 'cp.theme',
+            'source' => [
+                'file' => 'streams/cp/theme.json',
+                'type' => 'file',
+            ],
+            'fields' => [
+                'id' => 'slug',
+                'spacing' => 'decimal',
+            ],
+        ]);
     }
 
     /**

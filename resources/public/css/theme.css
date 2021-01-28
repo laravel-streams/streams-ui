@@ -1,1 +1,74 @@
-.ls-cp{min-width:100vw;min-height:100vh}.ls-cp__layout{display:flex}.ls-cp__sidebar{width:25%;max-width:280px}.ls-cp__brand,.ls-cp__topbar{padding:2rem}
+.ls-cp {
+  margin: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
+.ls-cp__layout {
+  display: flex;
+}
+.ls-cp__layout main {
+  flex-grow: 1;
+}
+
+.ls-cp__sidebar {
+  width: 25%;
+  max-width: 280px;
+}
+
+.ls-cp__brand {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding: calc(var(--density)*1rem);
+  height: calc(var(--density)*.5rem);
+  background-color: var(--toolbar-bg-color);
+}
+.ls-cp__brand + div {
+  padding: calc(var(--density)*1rem);
+}
+
+.ls-cp__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: calc(var(--density)*1rem);
+  height: calc(var(--density)*.5rem);
+  background-color: var(--toolbar-bg-color);
+}
+
+.ls-cp__content {
+  padding: calc(var(--density)*1rem);
+}
+
+.ls-cp__shortcuts {
+  display: flex;
+  align-items: center;
+  margin-left: calc(var(--density)*.5rem);
+}
+.ls-cp__shortcuts > div {
+  position: relative;
+}
+.ls-cp__shortcuts svg,
+.ls-cp__shortcuts img {
+  width: calc(var(--density)*1rem);
+  height: calc(var(--density)*1rem);
+}
+.ls-cp__shortcuts svg {
+  color: var(--color-black);
+}
+
+.ls-cp__navigation {
+  flex-grow: 1;
+}
+.ls-cp__navigation > ul,
+.ls-cp__navigation > a {
+  margin-bottom: calc(var(--density)*.5rem);
+}
+.ls-cp__navigation a {
+  display: block;
+}
+
+.ls-cp__meta {
+  font-size: 75%;
+}

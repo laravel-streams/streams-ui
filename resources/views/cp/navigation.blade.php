@@ -1,6 +1,5 @@
-
 <!-- navigation.blade.php -->
-<nav class="flex-1 p-2 space-y-1">
+<nav class="ls-cp__navigation">
 
     @foreach ($cp->navigation->filter(function($section) {
         return !$section->parent;

@@ -1,10 +1,17 @@
 .ls-cp {
+    margin: 0;
     min-width: 100vw;
     min-height: 100vh;
 }
 
 .ls-cp__layout {
     display: flex;
+
+    >aside {}
+
+    main {
+        flex-grow: 1;
+    }
 }
 
 .ls-cp__sidebar {
@@ -13,9 +20,64 @@
 }
 
 .ls-cp__brand {
-    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: calc(var(--density)*1rem);
+    height: calc(var(--density)*.5rem);
+    background-color: var(--toolbar-bg-color);
+
+    +div {
+        padding: calc(var(--density)*1rem);
+    }
 }
 
 .ls-cp__topbar {
-    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: calc(var(--density)*1rem);
+    height: calc(var(--density)*.5rem);
+    background-color: var(--toolbar-bg-color);
+}
+
+.ls-cp__content {
+    padding: calc(var(--density)*1rem);
+}
+
+.ls-cp__shortcuts {
+    display: flex;
+    align-items: center;
+    margin-left: calc(var(--density)*.5rem);
+
+    >div {
+        position: relative;
+    }
+
+    svg,
+    img {
+        width: calc(var(--density)*1rem);
+        height: calc(var(--density)*1rem);
+    }
+
+    svg {
+        color: var(--color-black);
+    }
+}
+
+.ls-cp__navigation {
+    flex-grow: 1;
+
+    >ul,
+    >a {
+        margin-bottom: calc(var(--density)*.5rem);
+    }
+
+    a {
+        display: block;
+    }
+}
+
+.ls-cp__meta {
+    font-size: 75%;
 }
