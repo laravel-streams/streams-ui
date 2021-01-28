@@ -1,4 +1,5 @@
-import { injectable } from '@streams/core';
+import { injectable }      from '@streams/core';
+import { AlpineComponent } from '../AlpineComponent';
 
 @injectable()
 export abstract class Field {
@@ -19,3 +20,5 @@ export abstract class Field {
 
     protected abstract load(): Promise<any>
 }
+
+//decorate(injectable(),Field)

@@ -2,6 +2,8 @@ import { ServiceProvider }                  from '@streams/core';
 import axios, { AxiosInstance }             from 'axios';
 import { Input, Markdown }                  from './Input';
 import Mousetrap, { ExtendedKeyboardEvent } from 'mousetrap';
+import { Debug }             from 'debug';
+import { Form, FormOptions } from './Form';
 
 export interface Hotkey {
     keys: string[]
@@ -14,6 +16,8 @@ export interface Hotkeys {
     [ key: string ]: Hotkey
 }
 
+const log: Debug['log'] = require('debug')('ui.UiServiceProvider');
+
 export class UiServiceProvider extends ServiceProvider {
 
     public async boot() {
@@ -23,9 +27,12 @@ export class UiServiceProvider extends ServiceProvider {
     public async register() {
         this.registerHotkeys();
         this.registerModal();
-        this.registerFields();
+        this.registerInputs();
         this.registerSurfaces();
         this.registerAxios();
+        this.app.factory('form', (options: FormOptions) => new Form(options))
+        this.app.factory('input.markdown', (options) => new Markdown(options))
+
     }
 
     protected registerAxios() {
@@ -71,9 +78,9 @@ export class UiServiceProvider extends ServiceProvider {
         });
     }
 
-    protected registerFields() {
-        this.app.binding('field.input', Input);
-        this.app.binding('field.markdown', Markdown);
+    protected registerInputs() {
+        this.app.binding('input.input', Input);
+        //this.app.binding('input.markdown', Markdown);
     }
 
     protected registerModal() {

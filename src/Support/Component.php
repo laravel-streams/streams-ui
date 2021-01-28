@@ -15,6 +15,16 @@ use Streams\Core\Support\Traits\Prototype;
 use Illuminate\Contracts\Support\Arrayable;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
+/**
+ *
+ * @property string handle
+ * @property string template
+ * @property mixed component
+ * @property array classes
+ * @property array attributes
+ * @property Collection data
+ * @property \Streams\Core\Stream\Stream stream
+ */
 class Component implements Arrayable, Jsonable
 {
     use FiresCallbacks;

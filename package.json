@@ -26,6 +26,7 @@
     "devDependencies": {
         "@types/mousetrap": "^1.6.5",
         "axios": "^0.21",
+        "tslib": "^2.1.0",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14"

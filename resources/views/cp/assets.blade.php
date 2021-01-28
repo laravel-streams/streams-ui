@@ -13,9 +13,11 @@
 {!! Assets::script('public::assets/js/main.js') !!} --}}
 
 {{-- <script src="/vendor/anomaly/streams/ui/js/index.js"></script> --}}
-{{--{!! Assets::script('/vendor/streams/core/js/core.js') !!}--}}
-{{--{!! Assets::script('/vendor/streams/ui/js/ui.js') !!}--}}
-{!! Assets::collection('scripts')->tags() !!}
+{!! Assets::script('/vendor/streams-vendors.js') !!}
+{!! Assets::script('/vendor/streams/core/js/core.js') !!}
+{!! Assets::script('/vendor/streams/ui/js/ui.js') !!}
+{!! Assets::script('/vendor/streams/api/js/api.js') !!}
+{{--{!! Assets::collection('scripts')->tags() !!}--}}
 
 {{--<script src="/vendor/streams/core/js/core.js"></script>--}}
 {{--<script src="/vendor/streams/ui/js/ui.js"></script>--}}
@@ -25,7 +27,8 @@ window.streams.serviceProviders = window.streams.serviceProviders || [];
 window.streams.core.app.bootstrap({
     providers: [
         window.streams.core.StreamsServiceProvider,
-        window.streams.ui.UiServiceProvider
+        window.streams.ui.UiServiceProvider,
+        window.streams.api.ApiServiceProvider,
     ]
 }).then(app => {
     return app.boot();
