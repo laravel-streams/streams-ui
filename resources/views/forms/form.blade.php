@@ -3,12 +3,10 @@
 <div x-data="{}"><!-- Question: Is there a need for this wrapper? -->
 
     @section('form')
-        {!! $form->handle !!}
-
     {!! $form->open([
-        'x-data' => /** @lang JavaScript */"window.streams.core.app.get('form')({$form->toJson()})",
+        'x-data' => "window.streams.core.app.get('form')({$form->toJson()})",
         'x-init' => 'init()'
-]) !!}
+    ]) !!}
 
 
     @section('layout')
