@@ -1,5 +1,5 @@
 <!-- fields.blade.php -->
-<div class="grid gap-4 grid-cols-12">
+<div class="ls-form__fields">
 @foreach ($fields as $field)
 @include('ui::forms.field', ['field' => $field])
 @endforeach

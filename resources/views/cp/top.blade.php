@@ -29,8 +29,8 @@
 
             </button>
 
-            <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md border-2 border-primary z-10" x-show="show">
-                <div class="py-1 rounded-md bg-white dark:bg-black">
+            <div class="ls-cp__dropdown" x-show="show">
+                <div>
                     @foreach ($shortcut->dropdown as $item)
                     <a {!! Html::attributes($item['attributes']) !!}
                     class="block px-4 py-2 text-sm text-black dark:text-white hover:bg-black hover:text-white transition ease-in-out duration-150"

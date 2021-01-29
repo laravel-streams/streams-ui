@@ -1,5 +1,5 @@
 <!-- section.blade.php -->
-<div class="">
+<div class="ls-layout__section">
 
     @include('ui::forms.header')
 
