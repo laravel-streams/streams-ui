@@ -1,0 +1,23 @@
+.ls-form {
+    
+}
+
+.ls-form__fields {
+    
+}
+
+.ls-form__controls {
+    display: flex;
+    align-items: center;
+    //justify-content: end;
+
+    > nav:first-of-type {
+        //flex-grow: 1;
+        margin-right: calc(var(--density)*1rem);
+    }
+}
+
+.ls-field {
+    //margin-top: calc(var(--density)*.5rem);
+    margin-bottom: calc(var(--density)*.5rem);
+}

@@ -13,6 +13,12 @@ composer require streams/ui
 
 You might consider starting with the [Streams starter application](/docs/installation).
 
+## Publishing Assets
+
+```bash
+php artisan vendor:publish --vendor=Streams\\Ui\\UiServiceProvider --tag=public
+```
+
 ## Updating
 
 From within your project, use Composer to update individual packages:

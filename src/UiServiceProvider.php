@@ -65,7 +65,7 @@ class UiServiceProvider extends ServiceProvider
         $this->registerStreams();
         $this->registerConfig();
         $this->registerRoutes();
-        
+
         $this->extendStream();
         $this->extendField();
     }
@@ -140,8 +140,14 @@ class UiServiceProvider extends ServiceProvider
                 'type' => 'file',
             ],
             'fields' => [
-                'id' => 'slug',
-                'spacing' => 'decimal',
+                'id' => [
+                    'type' => 'slug',
+                    'required' => true,
+                ],
+                'spacing' => [
+                    'type' => 'decimal',
+                    'required' => true,
+                ],
             ],
         ]);
     }
@@ -297,15 +303,18 @@ class UiServiceProvider extends ServiceProvider
 
         Field::macro('input', function (array $attributes = []) {
 
-            $attributes['field'] = Arr::get($attributes, 'field', $this);
+            return $this->remember($this->handle . '.' . $this->type . '.' . md5(json_encode($attributes)), function () use ($attributes) {
 
-            if ($this->input instanceof Input) {
-                return $this->input;
-            }
+                $attributes['field'] = Arr::get($attributes, 'field', $this);
 
-            return $this->input = App::make("streams.ui.input.{$this->input['type']}", [
-                'attributes' => $attributes,
-            ]);
+                if ($this->input instanceof Input) {
+                    return $this->input;
+                }
+
+                return App::make("streams.ui.input.{$this->input['type']}", [
+                    'attributes' => $attributes,
+                ]);
+            });
         });
     }
 
@@ -322,7 +331,7 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function extendUrl()
     {
-        URL::macro('cp', function($path, $extra = [], $secure = null) {
+        URL::macro('cp', function ($path, $extra = [], $secure = null) {
             return URL::to(
                 Config::get('streams.cp.prefix', 'cp') . $path,
                 $extra,

@@ -65,6 +65,20 @@
     }
 }
 
+.ls-cp__dropdown {
+    position: absolute;
+    z-index: 10;
+    right: 0;
+    //margin-top: calc(var(--density)*1rem);
+
+    > div {
+        > a {
+            display: block;
+            white-space: nowrap;
+        }
+    }
+}
+
 .ls-cp__navigation {
     flex-grow: 1;
 

@@ -30,9 +30,7 @@
 </div>
 @else
 
-{!! $button->open([
-    'class' => 'py-1 px-3 text-sm font-bold text-black dark:text-white border-2 border-primary inline-block',
-]) !!}
+{!! $button->open() !!}
 {{-- <i v-show="button.icon" :class="button.icon"></i> --}}
 {{ __($button->text) }}
 {!! $button->close() !!}

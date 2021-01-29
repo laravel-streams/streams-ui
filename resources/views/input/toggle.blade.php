@@ -1,8 +1,8 @@
 <div x-data="{checked: {{ json_encode($input->value) }}}">
 
-    <!-- This example requires Tailwind CSS v2.0+ -->
+    <!-- This SWITCH example requires Tailwind CSS v2.0+ -->
     <!-- On: "bg-indigo-600", Off: "bg-gray-200" -->
-    <button type="button" class="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue" x-bind:class="{ 
+    {{-- <button type="button" class="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue" x-bind:class="{ 
         'bg-primary' : checked,
         'bg-gray' : !checked,
       }" x-on:click="checked == true ? checked = false : checked = true;">
@@ -12,7 +12,7 @@
             'translate-x-5' : checked,
             'translate-x-0' : !checked,
           }"></span>
-    </button>
+    </button> --}}
 
     <input {!! $input->htmlAttributes([
         'class' => 'hidden',
