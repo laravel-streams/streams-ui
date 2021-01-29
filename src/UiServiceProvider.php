@@ -159,7 +159,7 @@ class UiServiceProvider extends ServiceProvider
                 'uses' => '\Streams\Ui\Http\Controller\UiController@index',
             ]);
 
-            Route::prefix(Config::get('streams.cp.prefix'))->middleware(['cp'])->group(function () {
+            Route::prefix(Config::get('streams.ui.cp.prefix'))->middleware(['cp'])->group(function () {
 
                 /**
                  * Route navigation first.
