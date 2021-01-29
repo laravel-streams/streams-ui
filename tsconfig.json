@@ -32,9 +32,10 @@
         "outDir": "out",
         "baseUrl": ".",
         "typeRoots": [
-            "../../../node_modules/@types"
+            "../../../node_modules/@types",
+            "types"
         ]
     },
-    "include": ["lib"],
+    "include": ["lib","types"],
     "exclude": ["node_modules"]
 }

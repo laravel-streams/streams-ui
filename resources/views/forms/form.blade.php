@@ -4,7 +4,7 @@
 
     @section('form')
     {!! $form->open([
-        'x-data' => "window.streams.core.app.get('form')({$form->toJson()})",
+        'x-data' => "app.get('form')({$form->toJson()})",
         'x-init' => 'init()'
     ]) !!}
 

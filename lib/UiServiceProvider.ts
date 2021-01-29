@@ -1,22 +1,12 @@
-import { ServiceProvider }                  from '@streams/core';
-import axios, { AxiosInstance }             from 'axios';
-import { Input, Markdown }                  from './Input';
-import Mousetrap, { ExtendedKeyboardEvent } from 'mousetrap';
-import { Debug }             from 'debug';
-import { Form, FormOptions } from './Form';
+import { ServiceProvider }   from '@streams/core';
+import axios                 from 'axios';
+import { Input, Markdown }   from './components/inputs';
+import Mousetrap             from 'mousetrap';
+import { Form, FormOptions } from './components/Form';
+import { Hotkeys }           from './types';
+import { Modal }             from './components/Modal';
 
-export interface Hotkey {
-    keys: string[]
-    callback?: (event: ExtendedKeyboardEvent, combo: string) => any
-    using?: 'bind' | 'bindGlobal' | 'trigger'
-    action?: string
-}
-
-export interface Hotkeys {
-    [ key: string ]: Hotkey
-}
-
-const log: Debug['log'] = require('debug')('ui.UiServiceProvider');
+const log = require('debug')('ui.UiServiceProvider');
 
 export class UiServiceProvider extends ServiceProvider {
 
@@ -26,13 +16,12 @@ export class UiServiceProvider extends ServiceProvider {
 
     public async register() {
         this.registerHotkeys();
-        this.registerModal();
-        this.registerInputs();
-        this.registerSurfaces();
         this.registerAxios();
-        this.app.factory('form', (options: FormOptions) => new Form(options))
-        this.app.factory('input.markdown', (options) => new Markdown(options))
-
+        this.app.factory('modal', url => new Modal(url));
+        this.app.factory('surfaces', url => new Modal(url));
+        this.app.factory('form', (options: FormOptions) => new Form(options));
+        this.app.factory('input.input', (options) => new Input(options));
+        this.app.factory('input.markdown', (options) => new Markdown(options));
     }
 
     protected registerAxios() {
@@ -78,71 +67,6 @@ export class UiServiceProvider extends ServiceProvider {
         });
     }
 
-    protected registerInputs() {
-        this.app.binding('input.input', Input);
-        //this.app.binding('input.markdown', Markdown);
-    }
-
-    protected registerModal() {
-        this.app.ctxfactory('modal', ctx => (url) => {
-            return {
-                show   : false,
-                content: url,
-                open() { this.show = true; },
-                close() { this.show = false; },
-                isOpen() { return this.show === true; },
-                load(url) {
-
-                    const self = this;
-
-                    ctx.container.get<AxiosInstance>('axios').get(url)
-                        .then(function (response) {
-                            self.content = response.data;
-                        })
-                        .catch(function (error) {
-                            // handle error
-                            console.log(error);
-                        })
-                        .then(function () {
-                            // always executed
-                        });
-
-                    this.content = url;
-                },
-            };
-        });
-    }
-
-    protected registerSurfaces() {
-        this.app.ctxfactory('surfaces', ctx => (url) => {
-
-            return {
-                show   : false,
-                content: url,
-                open() { this.show = true; },
-                close() { this.show = false; },
-                isOpen() { return this.show === true; },
-                load(url) {
-
-                    const self = this;
-
-                    ctx.container.get<AxiosInstance>('axios').get(url)
-                        .then(function (response) {
-                            self.content = response.data;
-                        })
-                        .catch(function (error) {
-                            // handle error
-                            console.log(error);
-                        })
-                        .then(function () {
-                            // always executed
-                        });
-
-                    this.content = url;
-                },
-            };
-        });
-    }
 
     // public boot() {
     // }

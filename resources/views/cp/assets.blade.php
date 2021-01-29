@@ -23,12 +23,12 @@
 {{--<script src="/vendor/streams/ui/js/ui.js"></script>--}}
 
 <script>
-window.streams.serviceProviders = window.streams.serviceProviders || [];
-window.streams.core.app.bootstrap({
+streams.serviceProviders = window.streams.serviceProviders || [];
+app.bootstrap({
     providers: [
-        window.streams.core.StreamsServiceProvider,
-        window.streams.ui.UiServiceProvider,
-        window.streams.api.ApiServiceProvider,
+        streams.core.StreamsServiceProvider,
+        streams.ui.UiServiceProvider,
+        streams.api.ApiServiceProvider,
     ]
 }).then(app => {
     return app.boot();
