@@ -1,0 +1,17 @@
+{
+    "handle": "cp.theme",
+    "source": {
+        "file": "streams/cp/theme.json",
+        "type": "file"
+    },
+    "fields": {
+        "id": {
+            "type": "slug",
+            "required": true
+        },
+        "spacing": {
+            "type": "decimal",
+            "required": true
+        }
+    }
+}

@@ -99,60 +99,14 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function registerStreams()
     {
-        Streams::register([
-            'handle' => 'cp.navigation',
-            'source' => [
-                'path' => 'streams/cp/navigation',
-                'format' => 'json',
-            ],
-            'config' => [
-                'prototype' => 'Streams\\Ui\\ControlPanel\\Component\\Navigation\\Section',
-                'collection' => 'Streams\\Ui\\ControlPanel\\Component\\Navigation\\NavigationCollection',
-            ],
-            'fields' => [
-                'title' => 'string',
-                'parent' => [
-                    'type' => 'relationship',
-                    'related' => 'cp.navigation',
-                ],
-                'dropdown' => 'array',
-                'active' => 'boolean',
-            ],
-        ]);
+        $prefix = __DIR__ . '/../resources/streams/';
+        $streams = ['cp.navigation', 'cp.shortcuts', 'cp.theme'];
 
-        Streams::register([
-            'handle' => 'cp.shortcuts',
-            'source' => [
-                'path' => 'streams/cp/shortcuts',
-                'format' => 'json',
-            ],
-            'config' => [
-                'prototype' => 'Streams\\Ui\\ControlPanel\\Component\\Shortcut\\Shortcut',
-            ],
-            'fields' => [
-                'title' => 'string',
-                'icon' => 'string',
-                'svg' => 'string',
-            ],
-        ]);
-
-        Streams::register([
-            'handle' => 'cp.theme',
-            'source' => [
-                'file' => 'streams/cp/theme.json',
-                'type' => 'file',
-            ],
-            'fields' => [
-                'id' => [
-                    'type' => 'slug',
-                    'required' => true,
-                ],
-                'spacing' => [
-                    'type' => 'decimal',
-                    'required' => true,
-                ],
-            ],
-        ]);
+        foreach ($streams as $stream) {
+            if (!Streams::has($stream)) {
+                Streams::load($prefix . $stream . '.json');
+            }
+        }
     }
 
     /**

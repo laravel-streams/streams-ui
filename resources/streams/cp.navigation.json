@@ -1,0 +1,20 @@
+{
+    "handle": "cp.navigation",
+    "source": {
+        "path": "streams/cp/navigation",
+        "format": "json"
+    },
+    "config": {
+        "prototype": "Streams\\Ui\\ControlPanel\\Component\\Navigation\\Section",
+        "collection": "Streams\\Ui\\ControlPanel\\Component\\Navigation\\NavigationCollection"
+    },
+    "fields": {
+        "title": "string",
+        "parent": {
+            "type": "relationship",
+            "related": "cp.navigation"
+        },
+        "dropdown": "array",
+        "active": "boolean"
+    }
+}
