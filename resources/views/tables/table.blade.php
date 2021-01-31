@@ -17,7 +17,7 @@
     ]) !!}
 
     @section('table')
-    <div class="ls-table__main">
+    <div class="ls-table__content">
         <table {!! $table->htmlAttributes() !!}>
 
             @section('head')
@@ -42,7 +42,7 @@
     @else
 
     @section('no_results')
-    <div class="ls-table__main --empty">
+    <div class="ls-table__contents --empty">
         {{ trans('ui::messages.no_results') }}
     </div>
     @show

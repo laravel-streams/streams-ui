@@ -19,7 +19,7 @@
         @endforeach
 
         <td class="ls-table__buttons">
-            <nav>
+            <nav class="ls-buttons">
             {!! $row->buttons->render() !!}
             </nav>
         </td>

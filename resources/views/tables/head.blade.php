@@ -6,7 +6,7 @@
         <th class="hidden"></th>
         
         @if ($table->isSelectable())
-        <th class="text-left">
+        <th class="ls-table__selector">
         <input type="checkbox" x-on:click="alert('Select all');">
         </th>
         @endif

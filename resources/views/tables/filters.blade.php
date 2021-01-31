@@ -8,9 +8,11 @@
         @include('ui::tables.filter', ['filter' => $filter])
     @endforeach
 
-    <button type="submit" value="Filter">Filter</button>
+    <div class="ls-buttons">
+        <button class="ls-button" type="submit" value="Filter">Filter</button>
 
-    <a href="{{ URL::current() }}{{ Request::has('view') ? '?view=' . Request::get('view') : '' }}">Clear</a>
+        <a class="ls-button" href="{{ $table->clearUrl() }}">Clear</a>
+    </div>
 
     {!! Form::close() !!}
 </div>

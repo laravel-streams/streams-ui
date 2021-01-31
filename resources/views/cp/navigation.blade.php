@@ -5,7 +5,7 @@
         return !$section->parent;
     }) as $section)
     {!! $section->link([
-        'class' => 'group flex items-center px-2 py-2 text-sm font-medium rounded-md ' . ($section->active ? 'text-accent' : 'text-black dark:text-white')
+        'class' => ($section->active ? '--accent' : '')
     ]) !!}
 
     @php
@@ -13,11 +13,11 @@
     @endphp
 
     @if ($children->isNotEmpty())
-    <ul class="ml-2">
+    <ul>
         @foreach ($children as $child)
             <li>
                 {!! $child->link([
-                    'class' => 'grgroup flex items-center px-2 py-2 text-sm font-medium rounded-md ' . ($child->active ? 'text-accent' : 'text-black dark:text-white')
+                    'class' => ($child->active ? '--accent' : '')
                 ]) !!}
             </li>
         @endforeach

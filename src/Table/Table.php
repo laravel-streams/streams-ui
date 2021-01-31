@@ -4,6 +4,8 @@ namespace Streams\Ui\Table;
 
 use Streams\Ui\Support\Component;
 use Streams\Core\Support\Workflow;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Request;
 use Streams\Ui\Button\ButtonCollection;
 use Streams\Ui\Table\Component\View\ViewCollection;
 use Streams\Ui\Table\Component\Action\ActionCollection;
@@ -80,7 +82,7 @@ class Table extends Component
             'buttons' => [],
             'actions' => [],
             'options' => [],
-            
+
             'entries' => [],
             'rows' => [],
 
@@ -148,5 +150,10 @@ class Table extends Component
             'table' => $this,
             'selected' => $selected,
         ]);
+    }
+
+    public function clearUrl()
+    {
+        return URL::current() . (Request::has('view') ? '?view=' . Request::get('view') : '');
     }
 }
