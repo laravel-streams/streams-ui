@@ -1,11 +1,13 @@
 ---
+__created_at: 1612057067
+__updated_at: 1612057067
 title: Forms
-category: core_concepts
-intro:
+category: basics
+intro: null
 sort: 0
 enabled: true
+stage: outlining
 ---
-
 ## Introduction
 
 Form builders help you quickly build up form components.

@@ -1,11 +1,13 @@
 ---
-title: Control Panel
-category: core_concepts
-intro: The Swiss-army control panel.
+__created_at: 1612057264
+__updated_at: 1612057264
+title: 'Control Panel'
+category: basics
+intro: 'The Swiss-army control panel.'
 sort: 99
 enabled: true
+stage: outlining
 ---
-
 ## Introduction
 
 The control panel system provides a simple, highly configurable interface for defining the control panel experience your project needs.

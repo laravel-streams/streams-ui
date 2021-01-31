@@ -1,11 +1,13 @@
 ---
+__created_at: 1612057092
+__updated_at: 1612057092
 title: Tables
-category: core_concepts
-intro:
+category: basics
+intro: null
 sort: 10
 enabled: true
+stage: outlining
 ---
-
 ## Introduction
 
 Table builders help you quickly build up table components.
