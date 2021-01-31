@@ -15,31 +15,11 @@ The control panel system provides a simple, highly configurable interface for de
 
 All streams configuration is stored in `/streams/cp/{component}/*`.
 
-## Navigation
+## Components
 
-#### Navigation Stream
+### Navigation
 
-```php
-Streams::register([
-    'handle' => 'cp.navigation',
-    'source' => [
-        'path' => 'streams/cp/navigation',
-        'format' => 'json',
-    ],
-    'config' => [
-        'prototype' => 'Streams\\Ui\\ControlPanel\\Component\\Navigation\\Section',
-    ],
-    'fields' => [
-        'title' => 'string',
-        'parent' => [
-            'type' => 'relationship',
-            'related' => 'cp.navigation',
-        ],
-    ],
-]);
-```
-
-#### Example Navigation Section
+The filename of the navigation entry serves as the **id** and is referenced in the control panel URI like `/{cp_prefix}/{id}/*`.
 
 ```json
 // // streams/cp/navigation/docs.json
@@ -49,41 +29,38 @@ Streams::register([
     "buttons": {
         "create": {},
         "view": {
-            "href": "/docs/core/introduction",
+            "href": "/docs/{entry.id}",
             "target": "_blank"
         }
-    }
+    },
+    "route": {}
 }
 ```
 
+#### title `string`
+
+A (translatable) string for display purposes.
+
+#### stream `string`
+
+The contextual stream for this navigation section. Forms will create entries for this stream and tables will display entries for this stream, for example. The **id** will be assumed the same as the stream handle if not configured.
+
+#### parent `string`
+
+The **id** of the parent navigation item. Two levels of nesting are supported out of the box.
+
+#### policy `string`
+
+The **id** of a policy to run for accessing this navigation section.
+
 ## Shortcuts
-
-#### Shortcuts Stream
-
-```php
-Streams::register([
-    'handle' => 'cp.shortcuts',
-    'source' => [
-        'path' => 'streams/cp/shortcuts',
-        'format' => 'json',
-    ],
-    'config' => [
-        'prototype' => 'Streams\\Ui\\ControlPanel\\Component\\Shortcut\\Shortcut',
-    ],
-    'fields' => [
-        'title' => 'string',
-        'icon' => 'string',
-        'svg' => 'string',
-    ],
-]);
-```
-
-#### Example Navigation Section
 
 ```json
 // // streams/cp/shortcuts/user.json
 {
+    "icon": null,
     "image": "https://source.unsplash.com/hoS3dzgpHzw/256x256",
+    "svg": null,
     "dropdown": {
         "profile": {
             "text": "Visit Website",
@@ -98,3 +75,19 @@ Streams::register([
     }
 }
 ```
+
+#### image `string`
+
+Any valid [image source](../core/images#image-sources).
+
+#### icon `string`
+
+Any valid [icon identifier](icons).
+
+#### svg `string`
+
+An SVG content string.
+
+#### dropdown `array`
+
+An associative array of dropdown menu items indexed by **handle**.

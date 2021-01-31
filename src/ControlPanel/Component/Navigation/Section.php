@@ -5,7 +5,6 @@ namespace Streams\Ui\ControlPanel\Component\Navigation;
 use Collective\Html\HtmlFacade;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Config;
 
 /**
  * Class Section
@@ -30,14 +29,12 @@ class Section extends Component
             'template' => null,
 
             'title' => null,
-            //'policy' => null,
+            'policy' => null,
             //'breadcrumb' => null,
 
             'active' => false,
-            //'favorite' => false,
 
             'buttons' => [],
-            'dropdown' => [],
         ], $attributes));
     }
 
