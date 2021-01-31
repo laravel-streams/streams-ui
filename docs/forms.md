@@ -1,8 +1,8 @@
 ---
 __created_at: 1612057067
 __updated_at: 1612057067
-title: Forms
-category: basics
+title: Form
+category: forms
 intro: null
 sort: 0
 enabled: true

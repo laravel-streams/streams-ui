@@ -11,7 +11,6 @@ use Streams\Ui\Support\Normalizer;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Streams\Core\Support\Facades\Resolver;
-use Streams\Ui\Form\Component\Field\Field;
 use Streams\Core\Support\Facades\Evaluator;
 use Streams\Ui\Form\Component\Action\Action;
 use Streams\Ui\Form\Component\Action\ActionRegistry;

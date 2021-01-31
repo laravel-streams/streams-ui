@@ -1,9 +1,8 @@
 ---
 __created_at: 1612057264
 __updated_at: 1612057264
-title: 'Control Panel'
-category: basics
-intro: 'The Swiss-army control panel.'
+title: Control Panel
+category: the_basics
 sort: 99
 enabled: true
 stage: outlining

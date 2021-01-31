@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Traits\Macroable;
+use Streams\Core\Support\Facades\Streams;
 use Streams\Core\Support\Traits\Prototype;
 use Streams\Core\Support\Traits\FiresCallbacks;
 use Illuminate\Support\Facades\View as ViewFacade;
@@ -63,6 +64,10 @@ class Builder
 
     public function make()
     {
+        if (is_string($this->stream)) {
+            $this->stream = Streams::make($this->stream);
+        }
+
         if (is_object($this->{$this->component})) {
             return $this->{$this->component};
         }
@@ -73,7 +78,7 @@ class Builder
 
         $this->{$this->component}->stream = $this->stream;
         $this->{$this->component}->handle = $this->handle;
-        
+
         //$this->{$this->component}->repository = $this->repository();
 
         return $this->{$this->component};
@@ -147,7 +152,7 @@ class Builder
     protected function loadInstanceWith($key, $input, $abstract)
     {
         return array_map(function ($attributes) use ($key, $abstract) {
-            
+
             $abstract = Arr::pull($attributes, 'abstract', $abstract);
 
             $this->instance->{$key}->put($attributes['handle'], new $abstract($attributes));
