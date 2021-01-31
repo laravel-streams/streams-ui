@@ -2,7 +2,7 @@
 __created_at: 1612057092
 __updated_at: 1612057092
 title: Tables
-category: the_basics
+category: basics
 intro: null
 sort: 10
 enabled: true

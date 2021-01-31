@@ -2,9 +2,9 @@
 __created_at: 1612057067
 __updated_at: 1612057067
 title: Forms
-category: the_basics
+category: basics
 intro: null
-sort: 0
+sort: 20
 enabled: true
 stage: outlining
 ---
