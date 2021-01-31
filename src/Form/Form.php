@@ -16,7 +16,6 @@ use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
 use Streams\Ui\Form\Component\Field\FieldCollection;
 use Streams\Ui\Form\Component\Action\ActionCollection;
-use Streams\Ui\Form\Component\Section\SectionCollection;
 
 class Form extends Component
 {
@@ -70,9 +69,6 @@ class Form extends Component
             ],
             'sections' => [
                 'type' => 'collection',
-                'config' => [
-                    'abstract' => SectionCollection::class,
-                ],
             ],
         ]);
 

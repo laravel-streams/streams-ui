@@ -106,7 +106,8 @@ class UiServiceProvider extends ServiceProvider
                 'format' => 'json',
             ],
             'config' => [
-                'abstract' => 'Streams\\Ui\\ControlPanel\\Component\\Navigation\\Section',
+                'prototype' => 'Streams\\Ui\\ControlPanel\\Component\\Navigation\\Section',
+                'collection' => 'Streams\\Ui\\ControlPanel\\Component\\Navigation\\NavigationCollection',
             ],
             'fields' => [
                 'title' => 'string',
@@ -114,6 +115,8 @@ class UiServiceProvider extends ServiceProvider
                     'type' => 'relationship',
                     'related' => 'cp.navigation',
                 ],
+                'dropdown' => 'array',
+                'active' => 'boolean',
             ],
         ]);
 
@@ -124,7 +127,7 @@ class UiServiceProvider extends ServiceProvider
                 'format' => 'json',
             ],
             'config' => [
-                'abstract' => 'Streams\\Ui\\ControlPanel\\Component\\Shortcut\\Shortcut',
+                'prototype' => 'Streams\\Ui\\ControlPanel\\Component\\Shortcut\\Shortcut',
             ],
             'fields' => [
                 'title' => 'string',

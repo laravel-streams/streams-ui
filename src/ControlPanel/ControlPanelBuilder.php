@@ -8,12 +8,10 @@ use Streams\Ui\Button\Button;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Support\Normalizer;
 use Streams\Ui\Button\ButtonRegistry;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Request;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\ControlPanel\ControlPanel;
 use Streams\Ui\ControlPanel\Component\Shortcut\Shortcut;
-use Streams\Ui\ControlPanel\Component\Navigation\Section;
 
 /**
  * Class ControlPanelBuilder
@@ -65,30 +63,9 @@ class ControlPanelBuilder extends Builder
         $navigation = Streams::entries('cp.navigation')
             ->orderBy('sort_order', 'asc')
             ->orderBy('handle', 'asc')
-            ->get()
-            ->toArray();
+            ->get();
 
-        $navigation = Normalizer::fillWithAttribute($navigation, 'handle', 'id');
-        $navigation = Normalizer::attributes($navigation);
-
-        foreach ($navigation as $handle => &$section) {
-
-            if (!isset($section['title'])) {
-                $section['title'] = Str::title($handle);
-            }
-
-            if (!isset($section['attributes']['href'])) {
-                $section['attributes']['href'] = '/' . Config::get('streams.cp.prefix', 'cp') . '/' . $section['handle'];
-            }
-        }
-
-        array_map(function ($attributes) {
-            $this->instance->navigation->put($attributes['handle'], new Section($attributes));
-        }, $navigation);
-
-        $this->navigation = $navigation;
-
-        return $this->instance->navigation;
+        return $this->instance->navigation = $navigation;
     }
 
     public function detectNavigation()

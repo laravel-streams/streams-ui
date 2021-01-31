@@ -40,7 +40,7 @@ class Section extends Component
 
     public function url()
     {
-        return URL::to($this->getPrototypeAttribute('attributes.href'));
+        return URL::cp($this->id);
     }
 
     public function link(array $attributes = [])
