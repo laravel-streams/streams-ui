@@ -15,7 +15,7 @@ Published configuration files reside in `config/streams/`.
 │   └── ui.php
 ```
 
-#### Publishing Configuration
+### Publishing Configuration
 
 Use the following command to publish configuration files.
 

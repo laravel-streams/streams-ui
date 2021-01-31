@@ -1,12 +1,11 @@
 ---
 title: Introduction
-intro:
 enabled: true
 ---
 
 ## Streams UI
 
-The Streams UI package provides UI resources, including a control panel. The UI system extends the [stream domain information](streams#domain-information).
+The Streams UI package provides UI resources, including a control panel. The UI system extends the [stream domain information](../core/streams#domain-information).
 
 ### Input Types
 
