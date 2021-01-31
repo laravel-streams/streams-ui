@@ -5,7 +5,9 @@ intro:
 enabled: true
 ---
 
-## Download
+## Getting Started
+
+### Download
 
 Download the Streams UI package using Composer.
 
@@ -15,7 +17,7 @@ composer require streams/ui
 
 You might consider starting with the [Streams starter application](/docs/installation).
 
-## Publish
+### Publish Assets
 
 Use the following command to publish the public assets required for this package.
 
