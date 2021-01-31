@@ -9,6 +9,7 @@
         "collection": "Streams\\Ui\\ControlPanel\\Component\\Navigation\\NavigationCollection"
     },
     "fields": {
+        "id": "slug",
         "title": "string",
         "parent": {
             "type": "relationship",

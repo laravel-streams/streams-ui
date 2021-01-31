@@ -7,7 +7,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Contracts\Support\Jsonable;
 use Streams\Core\Support\Facades\Hydrator;

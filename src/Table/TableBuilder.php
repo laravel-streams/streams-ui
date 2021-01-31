@@ -25,13 +25,6 @@ use Streams\Ui\Table\Component\Button\ButtonRegistry;
 use Streams\Ui\Table\Component\Filter\FilterRegistry;
 use Streams\Core\Repository\Contract\RepositoryInterface;
 
-/**
- * Class TableBuilder
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
 class TableBuilder extends Builder
 {
 
@@ -56,7 +49,9 @@ class TableBuilder extends Builder
             'buttons' => [],
             'actions' => [],
 
-            'options' => [],
+            'options' => [
+                'cp_enabled' => false,
+            ],
 
             'component' => 'table',
             'table' => Table::class,

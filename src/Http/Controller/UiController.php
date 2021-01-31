@@ -72,6 +72,8 @@ class UiController extends StreamsController
 
         $action = Request::route()->action;
 
+        // @todo this needs work
+        // control panel builder
         if (isset($action['ui.cp']) && $action['ui.cp'] == true) {
             View::share('cp', (new ControlPanelBuilder())->build());
         }

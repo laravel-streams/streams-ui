@@ -12,129 +12,69 @@ enabled: true
 Builders are factory-like classes that build **components** from basic array **parameters**.
 
 ```php
-use Steams\Ui\Table\TableBuilder;
+use Steams\Ui\Support\Builder;
 
-$builder = new TableBuilder($parameters = []);
+$builder = new Builder($parameters = []);
 ```
-
-The UI package provides builders for major components like **forms** and **tables**.
-
-### Builder Lifecycle
-
-Builders go through a short lifecycle and can handle a variety of request types as well as return a variety of response types.
 
 ### Building Components
 
-```php
-$component = $builder->build();
+Components are the underlying PHP clases doing the work when leveraging the features of the UI package. **Builders build components.**
 
-$component->post();
-$component->render();
-$component->toJson();
+### Builder Responses
+
+Builders can provide a shortcut to generating built component responses that are contextually accurate.
+
+```php
+$builder->response();
+// or
+$builder->render();
+$builder->post();
+// etc
 ```
 
-#### Nested Components
+### Configuring Builders
 
-Builders can define and build nested collections of components.
+Builder **parameters** can be passed directly to the builder instance.
 
 ```php
-$table = $builder->build([
-    'columns' => [
-        'id' => [
-            'value' => 'entry.id',
-        ],
-    ]
-]);
+use Steams\Ui\Support\Builder;
 
-$table->rows->each(function() {
-    echo $row->columns->first()->value;
-});
+$builder = new Builder($parameters = []);
 ```
 
+#### Stream Components
 
-## Defining Builders
+[Stream configuration](../core/streams#defining-streams) can be used to define stream-related UI components like tables and forms. These are typically configured by **handle**.
 
-Typically, **forms** and **tables** parameters are stored in stream configuration. **Navigation** and **shortcuts** for the control panel, however, are powered by streams and flat-file JSON data.
-
-The available **parameters** are the same.
-
-## Basic Usage
-
-Builders can be configured and used, directly in your PHP classes. Here is an example of rendering a [TableBuilder](/tables) as a controller response.
-
-```php
-namespace App\Http\Controllers;
-
-use Streams\Ui\Table\TableBuilder;
-use Streams\Core\Support\Facades\Streams;
-use Illuminate\Routing\Controller as BaseController;
-
-class Controller extends BaseController
+```json
+// streams/example.json
 {
-    public function index($stream)
-    {
-        $builder = new TableBuilder([
-            'stream' => $stream,
-            'columns' => [
-                'id',
-                'title',
-            ],
-        ]);
-
-        return $builder->response();
+    ...
+    "ui": {
+        "forms": {
+            "default": {
+                ...
+            }
+        }
     }
 }
 ```
 
-### Streams Builders
-
-You can also call **table** and **form** builders from stream instances.
+The above default form can be accessed from the stream object.
 
 ```php
-namespace App\Http\Controllers;
+use Steams\Core\Support\Facades\Streams;
 
-use Streams\Core\Support\Facades\Streams;
-use Illuminate\Routing\Controller as BaseController;
-
-class Controller extends BaseController
-{
-    public function index($stream)
-    {
-        return Streams::make($stream)
-            ->table([
-                'columns' => [
-                    'id'
-                ]
-            ])
-            ->render();
-    }
-}
+$form = Streams::make('entries')->form($table = 'default', $extra = []);
 ```
 
-### JSON Responses
+#### Default Configuration
 
-Components can provide JSON representations of themselves recursively using `toJson()`.
+By default, no configuration is needed at all for many components, though, as you build specificity into your application you can leverage our vast configuration API to fine-tune multiple complex component behaviors with ease that can be called upon in an instant.
 
 ```php
-namespace App\Http\Controllers;
-
-use Streams\Ui\Table\TableBuilder;
-use Streams\Core\Support\Facades\Streams;
-use Illuminate\Routing\Controller as BaseController;
-
-class Controller extends BaseController
-{
-    public function index($stream)
-    {
-        $builder = new TableBuilder([
-            'stream' => $stream,
-            'columns' => [
-                'id',
-                'title',
-            ],
-        ]);
-
-        return $builder->toJson();
-    }
-}
+return Streams::make('contacts')->form()->response();
+return Streams::make('contacts')->form()->response();
+return Streams::make('contacts')->table()->response();
 ```

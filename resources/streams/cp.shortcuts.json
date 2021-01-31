@@ -8,8 +8,10 @@
         "prototype": "Streams\\Ui\\ControlPanel\\Component\\Shortcut\\Shortcut"
     },
     "fields": {
+        "id": "slug",
         "title": "string",
         "icon": "string",
-        "svg": "string"
+        "svg": "string",
+        "dropdown": "array"
     }
 }

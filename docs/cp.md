@@ -9,85 +9,44 @@ stage: outlining
 ---
 ## Introduction
 
-The control panel system provides a simple, highly configurable interface for defining the control panel experience your project needs.
+The control panel is an easily configurable administrative tool.
 
 ### Configuration
 
-All streams configuration is stored in `/streams/cp/{component}/*`.
+*Control panel theme configuration is currently in development.*
+
+### Responses
+
+The control panel will **automatically** wrap other builder view responses with the `ui::cp` layout *when responses are generated within the control panel URI prefix*.
+
+Both examples are wrapped by the `ui::cp` view layout.
+
+```php
+// GET: {cp_prefix}/{example}
+use Streams\Core\Support\Facades\Streams;
+
+return Streams::make('example')->table()->response();
+```
+
+```php
+// GET: random/{example}
+use Streams\Core\Support\Facades\Streams;
+
+return Streams::make('example')->table([
+    'options.cp_enabled' => true,
+])->response();
+```
 
 ## Components
 
 ### Navigation
 
-The filename of the navigation entry serves as the **id** and is referenced in the control panel URI like `/{cp_prefix}/{id}/*`.
+The primary building blocks of your control panel.
 
-```json
-// // streams/cp/navigation/docs.json
-{
-    "title": "Documentation",
-    "stream": "docs",
-    "buttons": {
-        "create": {},
-        "view": {
-            "href": "/docs/{entry.id}",
-            "target": "_blank"
-        }
-    },
-    "route": {}
-}
-```
+[Navigation](navigation)
 
-#### title `string`
+### Shortcuts
 
-A (translatable) string for display purposes.
+The basic elements of the control panel topbar.
 
-#### stream `string`
-
-The contextual stream for this navigation section. Forms will create entries for this stream and tables will display entries for this stream, for example. The **id** will be assumed the same as the stream handle if not configured.
-
-#### parent `string`
-
-The **id** of the parent navigation item. Two levels of nesting are supported out of the box.
-
-#### policy `string`
-
-The **id** of a policy to run for accessing this navigation section.
-
-## Shortcuts
-
-```json
-// // streams/cp/shortcuts/user.json
-{
-    "icon": null,
-    "image": "https://source.unsplash.com/hoS3dzgpHzw/256x256",
-    "svg": null,
-    "dropdown": {
-        "profile": {
-            "text": "Visit Website",
-            "href": "/",
-            "target": "_blank"
-        },
-        "logout": {
-            "text": "Logout",
-            "href": "/logout",
-            "target": "_blank"
-        }
-    }
-}
-```
-
-#### image `string`
-
-Any valid [image source](../core/images#image-sources).
-
-#### icon `string`
-
-Any valid [icon identifier](icons).
-
-#### svg `string`
-
-An SVG content string.
-
-#### dropdown `array`
-
-An associative array of dropdown menu items indexed by **handle**.
+[Shortcuts](shortcuts)

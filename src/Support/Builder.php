@@ -12,6 +12,7 @@ use Illuminate\Support\Traits\Macroable;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Core\Support\Traits\Prototype;
 use Streams\Core\Support\Traits\FiresCallbacks;
+use Streams\Ui\ControlPanel\ControlPanelBuilder;
 use Illuminate\Support\Facades\View as ViewFacade;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
@@ -95,7 +96,7 @@ class Builder
         if (Request::method() == 'POST') {
             $this->instance->post();
         }
-
+        
         if ($this->instance->response) {
             return $this->instance->response;
         }
@@ -108,7 +109,14 @@ class Builder
             return Response::json($this);
         }
 
-        if (ViewFacade::shared('cp')) {
+        if (ViewFacade::shared('cp') || Arr::get($this->options, 'cp_enabled') === true) {
+
+            // @todo this needs work
+            // control panel builder
+            if (!ViewFacade::shared('cp')) {
+                ViewFacade::share('cp', (new ControlPanelBuilder())->build());
+            }
+
             return Response::view('ui::cp', ['content' => $this->render()]);
         }
 

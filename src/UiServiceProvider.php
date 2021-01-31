@@ -233,6 +233,8 @@ class UiServiceProvider extends ServiceProvider
                 $configured = Arr::get($this->ui, 'table', []);
             }
 
+            $configured = Arr::undot($configured);
+
             $attributes = array_merge($attributes, $configured);
 
             $attributes['stream'] = $this;
