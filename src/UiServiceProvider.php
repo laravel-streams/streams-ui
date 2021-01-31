@@ -107,6 +107,10 @@ class UiServiceProvider extends ServiceProvider
                 Streams::load($prefix . $stream . '.json');
             }
         }
+
+        $this->publishes([
+            __DIR__ . '/../resources/streams/' => base_path('streams/')
+        ], 'streams');
     }
 
     /**
