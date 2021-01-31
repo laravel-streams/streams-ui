@@ -17,17 +17,15 @@ Published configuration files reside in `config/streams/`.
 
 ### Publishing Configuration
 
-Use the following command to publish configuration files.
+Use the following command to publish configuration files to your project's `config/streams` directory.
 
 ```bash
 php artisan vendor:publish --vendor=Streams\\Ui\\UiServiceProvider --tag=config
 ```
 
-The above command will copy configuration files from their package location to the directory mentioned above so that you can modify them directly and commit them to your version control system.
+### Publishing Streams
 
-### Publishing UI Streams
-
-Use the following command to publish package streams.
+Use the following command to publish package streams to your project streams directory.
 
 ```bash
 php artisan vendor:publish --vendor=Streams\\Ui\\UiServiceProvider --tag=streams
