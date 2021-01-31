@@ -296,7 +296,7 @@ class UiServiceProvider extends ServiceProvider
     {
         URL::macro('cp', function ($path, $extra = [], $secure = null) {
             return URL::to(
-                Config::get('streams.cp.prefix', 'cp') . $path,
+                Config::get('streams.cp.prefix', 'cp') . rtrim('/' . $path, '/'),
                 $extra,
                 $secure
             );
