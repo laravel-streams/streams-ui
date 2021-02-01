@@ -85,7 +85,7 @@ class Component implements Arrayable, Jsonable
         }
 
         $type = Str::singular($this->component);
-        $default = "/ui/{$stream->handle}/{$type}/{$this->handle}";
+        $default = "ui/{$stream->handle}/{$type}/{$this->handle}";
 
         return URL::cp(Arr::get($this->options, 'url', $default));
     }

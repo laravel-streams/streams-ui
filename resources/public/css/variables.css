@@ -1,6 +1,13 @@
 :root {
   --density: 2;
-  --toolbar-bg-color: #cccccc;
+  --radius: .5;
+  --light: #efefef;
+  --dark: #151515;
+  --topbar-bg-color: #cccccc;
+  --topbar-text-color: #000000;
+  --sidebar-bg-color: #cccccc;
+  --sidebar-text-color: #000000;
+  --sidebar-width: 25%;
   --color-black: #000;
   --color-white: #fff;
   --color-gray: #6B7280;

@@ -1,7 +1,7 @@
 {
     "handle": "cp.theme",
     "source": {
-        "file": "streams/cp/theme.json",
+        "file": "vendor/streams/ui/resources/streams/data/theme.json",
         "type": "file"
     },
     "fields": {
@@ -11,6 +11,26 @@
         },
         "spacing": {
             "type": "decimal",
+            "required": true
+        },
+        "radius": {
+            "type": "decimal",
+            "required": true
+        },
+        "topbar_bg_color": {
+            "type": "color",
+            "required": true
+        },
+        "topbar_text_color": {
+            "type": "color",
+            "required": true
+        },
+        "sidebar_bg_color": {
+            "type": "color",
+            "required": true
+        },
+        "sidebar_text_color": {
+            "type": "color",
             "required": true
         }
     }

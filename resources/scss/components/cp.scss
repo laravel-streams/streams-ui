@@ -2,10 +2,28 @@
     margin: 0;
     min-width: 100vw;
     min-height: 100vh;
+
+    * {
+        font-size: var(--text-base);
+        font-family: var(--font-sans);
+    }
+
+    &.--fixed-topbar {
+        
+        .ls-cp__topbar {
+            position: static;
+            width: calc(100%-var(--sidebar-width));
+        }
+
+        .ls-cp__content {
+            padding-top: calc(var(--density)*.5rem);
+        }
+    }
 }
 
 .ls-cp__layout {
     display: flex;
+    min-height: 100vh;
 
     >aside {}
 
@@ -17,6 +35,13 @@
 .ls-cp__sidebar {
     width: 25%;
     max-width: 280px;
+
+    color: var(--sidebar-text-color);
+    background-color: var(--sidebar-bg-color);
+
+    a {
+        color: var(--sidebar-text-color);
+    }
 }
 
 .ls-cp__brand {
@@ -25,7 +50,7 @@
     justify-content: left;
     padding: calc(var(--density)*1rem);
     height: calc(var(--density)*.5rem);
-    background-color: var(--toolbar-bg-color);
+    background-color: var(--sidebar-bg-color);
 
     +div {
         padding: calc(var(--density)*1rem);
@@ -38,7 +63,13 @@
     justify-content: flex-end;
     padding: calc(var(--density)*1rem);
     height: calc(var(--density)*.5rem);
-    background-color: var(--toolbar-bg-color);
+
+    color: var(--topbar-text-color);
+    background-color: var(--topbar-bg-color);
+
+    a {
+        color: var(--sidebar-text-color);
+    }
 }
 
 .ls-cp__content {
@@ -66,10 +97,12 @@
 }
 
 .ls-cp__dropdown {
-    position: absolute;
-    z-index: 10;
     right: 0;
-    //margin-top: calc(var(--density)*1rem);
+    z-index: 10;
+    position: absolute;
+    background-color: #ffffff;
+    border: 1px solid #767676;
+    padding: calc(var(--density)*1rem);
 
     > div {
         > a {

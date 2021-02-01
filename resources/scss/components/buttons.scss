@@ -1,0 +1,8 @@
+.ls-buttons {
+    display: flex;
+}
+
+.ls-button {
+    display: inline-block;
+    padding: calc(var(--density)*0.25rem) calc(var(--density)*0.5rem);
+}

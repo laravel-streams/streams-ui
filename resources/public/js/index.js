@@ -5455,7 +5455,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "__read": () => /* binding */ __read,
 /* harmony export */   "__spread": () => /* binding */ __spread,
 /* harmony export */   "__spreadArrays": () => /* binding */ __spreadArrays,
-/* harmony export */   "__spreadArray": () => /* binding */ __spreadArray,
 /* harmony export */   "__await": () => /* binding */ __await,
 /* harmony export */   "__asyncGenerator": () => /* binding */ __asyncGenerator,
 /* harmony export */   "__asyncDelegator": () => /* binding */ __asyncDelegator,
@@ -5490,8 +5489,6 @@ var extendStatics = function(d, b) {
 };
 
 function __extends(d, b) {
-    if (typeof b !== "function" && b !== null)
-        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -5614,27 +5611,19 @@ function __read(o, n) {
     return ar;
 }
 
-/** @deprecated */
 function __spread() {
     for (var ar = [], i = 0; i < arguments.length; i++)
         ar = ar.concat(__read(arguments[i]));
     return ar;
 }
 
-/** @deprecated */
 function __spreadArrays() {
     for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
     for (var r = Array(s), k = 0, i = 0; i < il; i++)
         for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
             r[k] = a[j];
     return r;
-}
-
-function __spreadArray(to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
-}
+};
 
 function __await(v) {
     return this instanceof __await ? (this.v = v, this) : new __await(v);
@@ -5868,7 +5857,7 @@ module.exports = window["streams"]["core"];
 /******/ 		var inProgress = {};
 /******/ 		var dataWebpackPrefix = "streams.ui:";
 /******/ 		// loadScript function to load a script via script tag
-/******/ 		__webpack_require__.l = (url, done, key, chunkId) => {
+/******/ 		__webpack_require__.l = (url, done, key) => {
 /******/ 			if(inProgress[url]) { inProgress[url].push(done); return; }
 /******/ 			var script, needAttach;
 /******/ 			if(key !== undefined) {
@@ -5976,7 +5965,7 @@ module.exports = window["streams"]["core"];
 /******/ 									}
 /******/ 								}
 /******/ 							};
-/******/ 							__webpack_require__.l(url, loadingEnded, "chunk-" + chunkId, chunkId);
+/******/ 							__webpack_require__.l(url, loadingEnded, "chunk-" + chunkId);
 /******/ 						} else installedChunks[chunkId] = 0;
 /******/ 					}
 /******/ 				}
