@@ -9,7 +9,7 @@
             "type": "slug",
             "required": true
         },
-        "spacing": {
+        "density": {
             "type": "decimal",
             "required": true
         },

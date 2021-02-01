@@ -12,7 +12,7 @@
 <style>
     :root {
         --density: {{ $theme->density ?: 2 }};
-        --radius: {{ $theme->density ?: 0.5 }};
+        --radius: {{ $theme->radius ?: 0.5 }};
         --topbar-bg-color: {{ $theme->topbar_bg_color ?: "#cccccc" }};
         --topbar-text-color: {{ $theme->topbar_text_color ?: "#000000" }};
         --sidebar-bg-color: {{ $theme->sidebar_bg_color ?: "#cccccc" }};

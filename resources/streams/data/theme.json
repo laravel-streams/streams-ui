@@ -1,6 +1,6 @@
 {
     "default": {
-        "spacing": 2,
+        "density": 2,
         "radius": 0.5,
         "topbar_bg_color": "#cccccc",
         "topbar_text_color": "#000000",

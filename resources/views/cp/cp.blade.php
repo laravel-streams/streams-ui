@@ -6,7 +6,7 @@
     @include('ui::cp.head')
 </head>
 
-<body class="ls-cp">
+<body class="ls-cp --topbar-fixed">
     
     <div class="ls-cp__layout">
 

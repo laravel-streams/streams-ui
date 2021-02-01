@@ -7,12 +7,12 @@
   font-size: var(--text-base);
   font-family: var(--font-sans);
 }
-.ls-cp.--fixed-topbar .ls-cp__topbar {
+.ls-cp.--topbar-fixed .ls-cp__topbar {
   position: static;
   width: calc(100%-var(--sidebar-width));
 }
-.ls-cp.--fixed-topbar .ls-cp__content {
-  padding-top: calc(var(--density)*.5rem);
+.ls-cp.--topbar-fixed .ls-cp__content {
+  padding-top: calc(var(--density)*0.75rem);
 }
 
 .ls-cp__layout {
@@ -37,8 +37,8 @@
   display: flex;
   align-items: center;
   justify-content: left;
-  padding: calc(var(--density)*1rem);
-  height: calc(var(--density)*.5rem);
+  padding: 0 calc(var(--density)*1rem);
+  height: calc(var(--density)*2.5rem);
   background-color: var(--sidebar-bg-color);
 }
 .ls-cp__brand + div {
@@ -49,13 +49,13 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: calc(var(--density)*1rem);
-  height: calc(var(--density)*.5rem);
+  height: calc(var(--density)*2.5rem);
+  padding: 0 calc(var(--density)*1rem);
   color: var(--topbar-text-color);
   background-color: var(--topbar-bg-color);
 }
 .ls-cp__topbar a {
-  color: var(--sidebar-text-color);
+  color: var(--topbar-text-color);
 }
 
 .ls-cp__content {
@@ -85,7 +85,8 @@
   position: absolute;
   background-color: #ffffff;
   border: 1px solid #767676;
-  padding: calc(var(--density)*1rem);
+  padding: calc(var(--density)*.5rem);
+  border-radius: calc(var(--radius)*1rem);
 }
 .ls-cp__dropdown > div > a {
   display: block;
