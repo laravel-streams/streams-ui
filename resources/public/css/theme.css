@@ -47,6 +47,7 @@
 
 .ls-cp__brand {
   display: flex;
+  font-size: 1.5rem;
   align-items: center;
   justify-content: left;
   padding: 0 calc(var(--density)*1rem);
@@ -153,6 +154,11 @@
 
 .ls-field {
   margin-bottom: calc(var(--density)*.5rem);
+}
+
+.ls-input input, textarea {
+  color: var(--dark);
+  background-color: var(--light);
 }
 
 .ls-field > label {

@@ -45,5 +45,36 @@
             "type": "color",
             "required": true
         }
+    },
+    "ui": {
+        "form": {
+            "layout": {
+                "tabs": {
+                    "base": {
+                        "fields": {
+                            "id": {},
+                            "density": {
+                                "width": "25%"
+                            },
+                            "radius": {
+                                "width": "25%"
+                            }
+                        }
+                    },
+                    "topbar": {
+                        "fields": [
+                            "topbar_bg_color",
+                            "topbar_text_color"
+                        ]
+                    },
+                    "sidebar": {
+                        "fields": [
+                            "sidebar_bg_color",
+                            "sidebar_text_color"
+                        ]
+                    }
+                }
+            }
+        }
     }
 }

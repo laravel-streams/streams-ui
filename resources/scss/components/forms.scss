@@ -24,3 +24,8 @@
     //margin-top: calc(var(--density)*.5rem);
     margin-bottom: calc(var(--density)*.5rem);
 }
+
+.ls-input input, textarea {
+    color: var(--dark);
+    background-color: var(--light);
+}
