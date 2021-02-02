@@ -25,7 +25,16 @@
     margin-bottom: calc(var(--density)*.5rem);
 }
 
-.ls-input input, textarea {
-    color: var(--input-text-color);
-    background-color: var(--input-bg-color);
+.ls-input {
+    input[type="text"],
+    input[type="number"],
+    input[type="password"],
+    input[type="email"],
+    textarea {
+        color: var(--input-text-color);
+        border-color: var(--input-text-color);
+        background-color: var(--input-bg-color);
+        padding: calc(var(--density)*.25rem);
+        border-radius: calc(var(--radius)*.5rem);
+    }
 }

@@ -102,6 +102,10 @@
     }
 }
 
+.ls-cp__buttons {
+    flex-grow: 1;
+}
+
 .ls-cp__content {
     padding: calc(var(--density)*1rem);
 }
@@ -174,7 +178,7 @@
         display: block;
 
         &.--active {
-            color: var(--primary);
+            font-weight: bold;
         }
     }
 }

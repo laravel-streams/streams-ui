@@ -24,16 +24,16 @@
         "input_bg_color": "#1c1c1c",
         "input_text_color": "#ffffff"
     },
-    "purple": {
-        "id": "purple",
+    "orange": {
+        "id": "orange",
         "density": 2,
         "radius": 0.5,
         "light": "#ffffff",
         "dark": "#000000",
-        "primary": "red",
+        "primary": "#E37739",
         "topbar_bg_color": "#cccccc",
         "topbar_text_color": "#000000",
-        "sidebar_bg_color": "#4e42d9",
+        "sidebar_bg_color": "#E37739",
         "sidebar_text_color": "#ffffff"
     }
 }

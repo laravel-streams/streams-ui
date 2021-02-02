@@ -15,14 +15,14 @@
     <x-{{ $button->icon }}/>
     @endif
 
-    {{ __($button->text) }}
+    <span>{{ __($button->text) }}</span>
 
     {!! $button->close() !!}
     
     <div class="ls-button__dropdown" x-show="show">
         <div>
             @foreach ($button->dropdown as $item)
-            <a {!! Html::attributes($item['attributes']) !!}>{{ $item['text'] }}</a>
+            <a {!! Html::attributes($item['attributes']) !!}><span>{{ $item['text'] }}</span></a>
             @endforeach
         </div>
     </div>

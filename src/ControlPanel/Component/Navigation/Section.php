@@ -2,6 +2,8 @@
 
 namespace Streams\Ui\ControlPanel\Component\Navigation;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Collective\Html\HtmlFacade;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\URL;
@@ -40,7 +42,13 @@ class Section extends Component
 
     public function url()
     {
-        return URL::cp($this->id);
+        $target = Arr::get($this->attributes, 'href') ?: ('@cp/' . $this->id);
+
+        if (Str::startsWith($target, '@cp/')) {
+            return URL::cp(ltrim(substr($target, 4), '/'));
+        }
+
+        return URL::url($target);
     }
 
     public function link(array $attributes = [])

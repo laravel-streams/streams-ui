@@ -78,6 +78,20 @@ class Button extends Component
             'name'  => $this->name,
             'value' => $this->value,
             'class' => $this->class(),
+            'href' => $this->url(),
         ], $attributes)));
+    }
+
+    public function url()
+    {
+        if (!$target = Arr::get($this->attributes, 'href')) {
+            return null;
+        }
+
+        if (Str::startsWith($target, '@cp/')) {
+            return URL::cp(ltrim(substr($target, 4), '/'));
+        }
+
+        return URL::to($target);
     }
 }

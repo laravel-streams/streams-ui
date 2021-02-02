@@ -77,6 +77,10 @@
   color: var(--topbar-text-color);
 }
 
+.ls-cp__buttons {
+  flex-grow: 1;
+}
+
 .ls-cp__content {
   padding: calc(var(--density)*1rem);
 }
@@ -143,7 +147,7 @@
   display: block;
 }
 .ls-cp__navigation a.--active {
-  color: var(--primary);
+  font-weight: bold;
 }
 
 .ls-cp__meta {
@@ -162,9 +166,16 @@
   margin-bottom: calc(var(--density)*.5rem);
 }
 
-.ls-input input, textarea {
+.ls-input input[type=text],
+.ls-input input[type=number],
+.ls-input input[type=password],
+.ls-input input[type=email],
+.ls-input textarea {
   color: var(--input-text-color);
+  border-color: var(--input-text-color);
   background-color: var(--input-bg-color);
+  padding: calc(var(--density)*.25rem);
+  border-radius: calc(var(--radius)*.5rem);
 }
 
 .ls-field > label {
@@ -189,8 +200,11 @@
 
 .ls-button {
   display: inline-block;
+  border-radius: calc(var(--radius)*.5rem);
+  background-color: var(--primary);
   padding: calc(var(--density)*0.25rem) calc(var(--density)*0.5rem);
 }
-.ls-button.--primary {
-  background-color: var(--primary);
+.ls-button span {
+  color: var(--light);
+  mix-blend-mode: lighten;
 }
