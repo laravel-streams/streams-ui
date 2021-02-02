@@ -55,6 +55,11 @@
         }
     },
     "ui": {
+        "table": {
+            "buttons": {
+                "edit": {}
+            }
+        },
         "form": {
             "layout": {
                 "tabs": {
