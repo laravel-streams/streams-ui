@@ -21,6 +21,9 @@
   position: fixed;
   width: calc(var(--sidebar-width) - calc(var(--density)*2rem));
 }
+.ls-cp.--topbar-fixed.--topbar-brand .ls-cp__brand a {
+  color: var(--topbar-text-color);
+}
 .ls-cp.--topbar-fixed.--topbar-brand .ls-cp__brand + div {
   margin-top: calc(var(--density)*2.5rem);
 }
@@ -49,12 +52,13 @@
   display: flex;
   align-items: center;
   justify-content: left;
-  padding: 0 calc(var(--density)*1rem);
   height: calc(var(--density)*2.5rem);
+  padding: 0 calc(var(--density)*1rem);
   background-color: var(--sidebar-bg-color);
 }
 .ls-cp__brand a {
   font-size: 1.25rem;
+  color: var(--sidebar-text-color);
 }
 .ls-cp__brand + div {
   padding: calc(var(--density)*1rem);

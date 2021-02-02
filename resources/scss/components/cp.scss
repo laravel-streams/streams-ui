@@ -27,6 +27,10 @@
             .ls-cp__brand {
                 position: fixed;
                 width: calc(var(--sidebar-width) - calc(var(--density)*2rem));
+
+                a {
+                    color: var(--topbar-text-color);
+                }
     
                 +div {
                     margin-top: calc(var(--density)*2.5rem);
@@ -69,12 +73,13 @@
     display: flex;
     align-items: center;
     justify-content: left;
-    padding: 0 calc(var(--density)*1rem);
     height: calc(var(--density)*2.5rem);
+    padding: 0 calc(var(--density)*1rem);
     background-color: var(--sidebar-bg-color);
 
     a {
         font-size: 1.25rem;
+        color: var(--sidebar-text-color);
     }
 
     +div {
