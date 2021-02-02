@@ -5,4 +5,8 @@
 .ls-button {
     display: inline-block;
     padding: calc(var(--density)*0.25rem) calc(var(--density)*0.5rem);
+
+    &.--primary {
+        background-color: var(--primary);
+    }
 }

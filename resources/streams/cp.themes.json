@@ -44,6 +44,14 @@
         "sidebar_text_color": {
             "type": "color",
             "required": true
+        },
+        "input_bg_color": {
+            "type": "color",
+            "required": true
+        },
+        "input_text_color": {
+            "type": "color",
+            "required": true
         }
     },
     "ui": {

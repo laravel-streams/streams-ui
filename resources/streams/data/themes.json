@@ -12,18 +12,20 @@
         "sidebar_text_color": "#000000"
     },
     "dark": {
-        "id": "testing",
         "density": 2,
         "radius": 0.5,
-        "dark": "#ffffff",
-        "light": "#000000",
+        "dark": "#B8B8B8",
+        "light": "#030306",
         "primary": "#4e42d9",
-        "topbar_bg_color": "#000000",
+        "topbar_bg_color": "#111113",
         "topbar_text_color": "#ffffff",
-        "sidebar_bg_color": "#000000",
-        "sidebar_text_color": "#ffffff"
+        "sidebar_bg_color": "#111113",
+        "sidebar_text_color": "#ffffff",
+        "input_bg_color": "#1c1c1c",
+        "input_text_color": "#ffffff"
     },
     "purple": {
+        "id": "purple",
         "density": 2,
         "radius": 0.5,
         "light": "#ffffff",

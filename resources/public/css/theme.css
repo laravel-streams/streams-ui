@@ -47,12 +47,14 @@
 
 .ls-cp__brand {
   display: flex;
-  font-size: 1.5rem;
   align-items: center;
   justify-content: left;
   padding: 0 calc(var(--density)*1rem);
   height: calc(var(--density)*2.5rem);
   background-color: var(--sidebar-bg-color);
+}
+.ls-cp__brand a {
+  font-size: 1.25rem;
 }
 .ls-cp__brand + div {
   padding: calc(var(--density)*1rem);
@@ -157,8 +159,8 @@
 }
 
 .ls-input input, textarea {
-  color: var(--dark);
-  background-color: var(--light);
+  color: var(--input-text-color);
+  background-color: var(--input-bg-color);
 }
 
 .ls-field > label {
@@ -184,4 +186,7 @@
 .ls-button {
   display: inline-block;
   padding: calc(var(--density)*0.25rem) calc(var(--density)*0.5rem);
+}
+.ls-button.--primary {
+  background-color: var(--primary);
 }

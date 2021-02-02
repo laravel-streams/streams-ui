@@ -67,12 +67,15 @@
 
 .ls-cp__brand {
     display: flex;
-    font-size: 1.5rem;
     align-items: center;
     justify-content: left;
     padding: 0 calc(var(--density)*1rem);
     height: calc(var(--density)*2.5rem);
     background-color: var(--sidebar-bg-color);
+
+    a {
+        font-size: 1.25rem;
+    }
 
     +div {
         padding: calc(var(--density)*1rem);
