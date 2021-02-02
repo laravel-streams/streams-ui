@@ -249,15 +249,6 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function extendField()
     {
-        Field::macro('input', function () {
-
-            $attributes = ['field' => $this];
-
-            $input = Str::camel('new_' . ($this->input ?: 'string') . '_input');
-
-            return $this->$input($attributes);
-        });
-
         $inputs = Config::get('streams.ui.inputs');
 
         foreach ($inputs as $abstract => $concrete) {
@@ -269,6 +260,10 @@ class UiServiceProvider extends ServiceProvider
             return $this->remember($this->handle . '.' . $this->type . '.' . md5(json_encode($attributes)), function () use ($attributes) {
 
                 $attributes['field'] = Arr::get($attributes, 'field', $this);
+
+                $attributes = $attributes + $this->input;
+
+                Arr::pull($attributes, 'type');
 
                 if ($this->input instanceof Input) {
                     return $this->input;
