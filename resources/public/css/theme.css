@@ -2,17 +2,30 @@
   margin: 0;
   min-width: 100vw;
   min-height: 100vh;
+  background-color: var(--light);
 }
 .ls-cp * {
+  color: var(--dark);
   font-size: var(--text-base);
   font-family: var(--font-sans);
 }
 .ls-cp.--topbar-fixed .ls-cp__topbar {
-  position: static;
-  width: calc(100%-var(--sidebar-width));
+  position: fixed;
+  width: calc(100% - var(--sidebar-width) - calc(var(--density)*2rem));
 }
 .ls-cp.--topbar-fixed .ls-cp__content {
-  padding-top: calc(var(--density)*0.75rem);
+  outline: none;
+  margin-top: calc(var(--density)*2.5rem);
+}
+.ls-cp.--topbar-fixed.--topbar-brand .ls-cp__brand {
+  position: fixed;
+  width: calc(var(--sidebar-width) - calc(var(--density)*2rem));
+}
+.ls-cp.--topbar-fixed.--topbar-brand .ls-cp__brand + div {
+  margin-top: calc(var(--density)*2.5rem);
+}
+.ls-cp.--topbar-brand .ls-cp__brand {
+  background-color: var(--topbar-bg-color);
 }
 
 .ls-cp__layout {
@@ -24,8 +37,7 @@
 }
 
 .ls-cp__sidebar {
-  width: 25%;
-  max-width: 280px;
+  width: var(--sidebar-width);
   color: var(--sidebar-text-color);
   background-color: var(--sidebar-bg-color);
 }
@@ -70,21 +82,41 @@
 .ls-cp__shortcuts > div {
   position: relative;
 }
-.ls-cp__shortcuts svg,
-.ls-cp__shortcuts img {
+.ls-cp__shortcuts > div > a,
+.ls-cp__shortcuts > div > button {
+  padding: 0;
+  border: none;
+  display: flex;
+  background: none;
+  align-items: center;
+  border-radius: 999px;
+  justify-content: center;
+  height: calc(var(--density)*1.5rem);
+  width: calc(var(--density)*1.5rem);
+}
+.ls-cp__shortcuts > div > a svg,
+.ls-cp__shortcuts > div > a img,
+.ls-cp__shortcuts > div > button svg,
+.ls-cp__shortcuts > div > button img {
   width: calc(var(--density)*1rem);
   height: calc(var(--density)*1rem);
 }
-.ls-cp__shortcuts svg {
-  color: var(--color-black);
+.ls-cp__shortcuts > div > a svg,
+.ls-cp__shortcuts > div > button svg {
+  color: var(--topbar-text-color);
+}
+.ls-cp__shortcuts > div > a img,
+.ls-cp__shortcuts > div > button img {
+  border-radius: 999px;
 }
 
 .ls-cp__dropdown {
   right: 0;
   z-index: 10;
   position: absolute;
-  background-color: #ffffff;
-  border: 1px solid #767676;
+  color: var(--light);
+  background-color: var(--light);
+  border: 1px solid var(--dark);
   padding: calc(var(--density)*.5rem);
   border-radius: calc(var(--radius)*1rem);
 }
@@ -102,6 +134,9 @@
 }
 .ls-cp__navigation a {
   display: block;
+}
+.ls-cp__navigation a.--active {
+  color: var(--primary);
 }
 
 .ls-cp__meta {

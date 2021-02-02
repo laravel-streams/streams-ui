@@ -3,11 +3,12 @@
   --radius: .5;
   --light: #efefef;
   --dark: #151515;
+  --primary: #4e42d9;
   --topbar-bg-color: #cccccc;
   --topbar-text-color: #000000;
   --sidebar-bg-color: #cccccc;
   --sidebar-text-color: #000000;
-  --sidebar-width: 25%;
+  --sidebar-width: 300px;
   --color-black: #000;
   --color-white: #fff;
   --color-gray: #6B7280;

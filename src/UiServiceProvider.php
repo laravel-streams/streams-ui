@@ -100,7 +100,7 @@ class UiServiceProvider extends ServiceProvider
     protected function registerStreams()
     {
         $prefix = __DIR__ . '/../resources/streams/';
-        $streams = ['cp.navigation', 'cp.shortcuts', 'cp.theme'];
+        $streams = ['cp.navigation', 'cp.shortcuts', 'cp.themes'];
 
         foreach ($streams as $stream) {
             if (!Streams::has($stream)) {

@@ -1,0 +1,37 @@
+{
+    "default": {
+        "id": "default",
+        "density": 2,
+        "radius": 0.5,
+        "dark": "#000000",
+        "light": "#ffffff",
+        "primary": "#4e42d9",
+        "topbar_bg_color": "#cccccc",
+        "topbar_text_color": "#000000",
+        "sidebar_bg_color": "#cccccc",
+        "sidebar_text_color": "#000000"
+    },
+    "dark": {
+        "id": "testing",
+        "density": 2,
+        "radius": 0.5,
+        "dark": "#ffffff",
+        "light": "#000000",
+        "primary": "#4e42d9",
+        "topbar_bg_color": "#000000",
+        "topbar_text_color": "#ffffff",
+        "sidebar_bg_color": "#000000",
+        "sidebar_text_color": "#ffffff"
+    },
+    "purple": {
+        "density": 2,
+        "radius": 0.5,
+        "light": "#ffffff",
+        "dark": "#000000",
+        "primary": "red",
+        "topbar_bg_color": "#cccccc",
+        "topbar_text_color": "#000000",
+        "sidebar_bg_color": "#4e42d9",
+        "sidebar_text_color": "#ffffff"
+    }
+}

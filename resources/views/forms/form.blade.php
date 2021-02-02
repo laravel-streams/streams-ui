@@ -1,5 +1,10 @@
 <!-- form.blade.php -->
-<div x-data="{}"><!-- Question: Is there a need for this wrapper? -->
+<div x-data="{}" class="ls-form">
+    <!--
+        Question: Is there a need for this wrapper?
+        Less is more, but nothing often leads to needing *something*.
+        So, a thin sushi-like wrapper. Yes?
+     -->
 
     @section('form')
     {!! $form->open() !!}

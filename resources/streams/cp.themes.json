@@ -1,7 +1,7 @@
 {
-    "handle": "cp.theme",
+    "handle": "cp.themes",
     "source": {
-        "file": "vendor/streams/ui/resources/streams/data/theme.json",
+        "file": "vendor/streams/ui/resources/streams/data/themes.json",
         "type": "file"
     },
     "fields": {
@@ -15,6 +15,18 @@
         },
         "radius": {
             "type": "decimal",
+            "required": true
+        },
+        "light": {
+            "type": "color",
+            "required": true
+        },
+        "dark": {
+            "type": "color",
+            "required": true
+        },
+        "primary": {
+            "type": "color",
             "required": true
         },
         "topbar_bg_color": {

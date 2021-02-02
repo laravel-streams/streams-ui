@@ -6,13 +6,17 @@
 <link href="/vendor/streams/ui/css/variables.css" rel="stylesheet">
 
 @php
-    $theme = Streams::entries('cp.theme')->first();
+    $theme = Streams::entries('cp.themes')
+        ->find(Config::get('streams.ui.cp.theme', 'default'));
 @endphp
 
 <style>
     :root {
         --density: {{ $theme->density ?: 2 }};
         --radius: {{ $theme->radius ?: 0.5 }};
+        --light: {{ $theme->light ?: "#ffffff" }};
+        --dark: {{ $theme->dark ?: "#000000" }};
+        --primary: {{ $theme->primary ?: "#4e42d9" }};
         --topbar-bg-color: {{ $theme->topbar_bg_color ?: "#cccccc" }};
         --topbar-text-color: {{ $theme->topbar_text_color ?: "#000000" }};
         --sidebar-bg-color: {{ $theme->sidebar_bg_color ?: "#cccccc" }};

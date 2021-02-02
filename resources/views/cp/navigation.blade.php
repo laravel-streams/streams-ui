@@ -5,7 +5,7 @@
         return !$section->parent;
     }) as $section)
     {!! $section->link([
-        'class' => ($section->active ? '--accent' : '')
+        'class' => ($section->active ? '--active' : '')
     ]) !!}
 
     @php
@@ -15,9 +15,9 @@
     @if ($children->isNotEmpty())
     <ul>
         @foreach ($children as $child)
-            <li>
+            <li class="{{ $child->active ? '--has-active' : '' }}"">
                 {!! $child->link([
-                    'class' => ($child->active ? '--accent' : '')
+                    'class' => ($child->active ? '--active' : '')
                 ]) !!}
             </li>
         @endforeach
