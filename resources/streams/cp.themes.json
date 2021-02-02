@@ -7,6 +7,9 @@
     "fields": {
         "id": {
             "type": "slug",
+            "input": {
+                "placeholder": "example"
+            },
             "required": true
         },
         "density": {
@@ -53,7 +56,7 @@
             "type": "color",
             "required": true
         },
-        "sidebar_mode": {
+        "brand_mode": {
             "type": "select",
             "required": true,
             "config.options": {

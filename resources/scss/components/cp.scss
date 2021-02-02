@@ -22,16 +22,12 @@
             margin-top: calc(var(--density)*2.5rem);
         }
 
-        &.--topbar-brand {
+        &.--brand-topbar {
             
             .ls-cp__brand {
                 position: fixed;
                 width: calc(var(--sidebar-width) - calc(var(--density)*2rem));
 
-                a {
-                    color: var(--topbar-text-color);
-                }
-    
                 +div {
                     margin-top: calc(var(--density)*2.5rem);
                 }
@@ -39,10 +35,14 @@
         }
     }
 
-    &.--topbar-brand {
+    &.--brand-topbar {
         
         .ls-cp__brand {
             background-color: var(--topbar-bg-color);
+
+            a {
+                color: var(--topbar-text-color);
+            }
         }
     }
 }

@@ -21,6 +21,7 @@ class Input extends Component
             'component' => 'input',
             'classes' => [],
             'type' => 'text',
+            'placeholder' => null,
             'field' => null,
         ], $attributes));
     }

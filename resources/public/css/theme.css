@@ -17,18 +17,18 @@
   outline: none;
   margin-top: calc(var(--density)*2.5rem);
 }
-.ls-cp.--topbar-fixed.--topbar-brand .ls-cp__brand {
+.ls-cp.--topbar-fixed.--brand-topbar .ls-cp__brand {
   position: fixed;
   width: calc(var(--sidebar-width) - calc(var(--density)*2rem));
 }
-.ls-cp.--topbar-fixed.--topbar-brand .ls-cp__brand a {
-  color: var(--topbar-text-color);
-}
-.ls-cp.--topbar-fixed.--topbar-brand .ls-cp__brand + div {
+.ls-cp.--topbar-fixed.--brand-topbar .ls-cp__brand + div {
   margin-top: calc(var(--density)*2.5rem);
 }
-.ls-cp.--topbar-brand .ls-cp__brand {
+.ls-cp.--brand-topbar .ls-cp__brand {
   background-color: var(--topbar-bg-color);
+}
+.ls-cp.--brand-topbar .ls-cp__brand a {
+  color: var(--topbar-text-color);
 }
 
 .ls-cp__layout {
