@@ -31,7 +31,7 @@
             <div class="ls-cp__dropdown" x-show="show">
                 <div>
                     @foreach ($shortcut->dropdown as $item)
-                    <a {!! Html::attributes($item['attributes']) !!}>{{ $item['text'] }}</a>
+                    <a {!! Html::attributes(Arr::get($item, 'attributes')) !!}>{{ $item['text'] }}</a>
                     @endforeach
                 </div>
             </div>

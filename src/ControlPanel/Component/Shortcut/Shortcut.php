@@ -27,8 +27,6 @@ class Shortcut extends Button
 
             'active' => false,
             'favorite' => false,
-
-            'classes' => [],
         ], $attributes));
     }
 }

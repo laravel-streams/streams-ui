@@ -3,7 +3,9 @@
 namespace Streams\Ui\Button;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Streams\Ui\Support\Component;
+use Illuminate\Support\Facades\URL;
 
 /**
  * Class Button
@@ -38,6 +40,7 @@ class Button extends Component
             'classes'  => [
                 'ls-button',
             ],
+            'attributes' => [],
         ], $attributes));
     }
 

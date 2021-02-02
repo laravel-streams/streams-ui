@@ -113,8 +113,7 @@ class ControlPanelBuilder extends Builder
 
         $shortcuts = Streams::entries('cp.shortcuts')
             ->orderBy('sort_order', 'desc')
-            ->get()
-            ->toArray();
+            ->get();
 
         // 'view_site' => [
         //     'href'   => '/',
@@ -128,20 +127,7 @@ class ControlPanelBuilder extends Builder
         //     'title' => 'anomaly.theme.flow::control_panel.logout',
         // ],
 
-        $shortcuts = Normalizer::fillWithAttribute($shortcuts, 'handle', 'id');
-        $shortcuts = Normalizer::attributes($shortcuts);
-        $shortcuts = Normalizer::dropdown($shortcuts);
-
-        array_map(function ($attributes) {
-
-            $attributes['attributes'] = Arr::parse($attributes['attributes']);
-            
-            $this->instance->shortcuts->put($attributes['handle'], new Shortcut($attributes));
-        }, $shortcuts);
-
-        $this->shortcuts = $shortcuts;
-
-        return $this->instance->shortcuts;
+        return $this->instance->shortcuts = $shortcuts;
     }
 
     public function makeButtons()
