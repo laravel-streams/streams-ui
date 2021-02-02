@@ -5,11 +5,6 @@
 <link href="/vendor/streams/ui/css/theme.css" rel="stylesheet">
 <link href="/vendor/streams/ui/css/variables.css" rel="stylesheet">
 
-@php
-    $theme = Streams::entries('cp.themes')
-        ->find(Config::get('streams.ui.cp.theme', 'default'));
-@endphp
-
 <style>
     :root {
         --density: {{ $theme->density ?: 2 }};

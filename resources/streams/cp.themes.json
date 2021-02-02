@@ -52,6 +52,14 @@
         "input_text_color": {
             "type": "color",
             "required": true
+        },
+        "sidebar_mode": {
+            "type": "select",
+            "required": true,
+            "config.options": {
+                "--brand-topbar": "Belongs to Topbar",
+                "--brand-sidebar": "Belongs to Sidebar"
+            }
         }
     },
     "ui": {

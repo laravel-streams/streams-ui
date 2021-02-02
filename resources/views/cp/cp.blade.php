@@ -2,12 +2,19 @@
 <!doctype html>
 <html lang="en">
 
+@php
+    $theme = Streams::entries('cp.themes')
+        ->find(Config::get('streams.ui.cp.theme', 'default'));
+
+    View::share('theme', $theme);
+@endphp
+
 <head>
     @include('ui::cp.head')
 </head>
 
 {{-- <body class="ls-cp --topbar-brand --topbar-fixed"> --}}
-<body class="ls-cp">
+<body class="ls-cp {{ $theme->brand_mode }}">
     
     <div class="ls-cp__layout">
 
