@@ -1,6 +1,7 @@
 {
     "name": "streams/ui",
     "description": "The official UI package for Laravel Streams.",
+    "type": "streams-addon",
     "authors": [
         {
             "name": "Ryan Thompson",
