@@ -1,20 +1,16 @@
 .ls-form {
-    
-    form {
 
-    }
+    form {}
 }
 
-.ls-form__fields {
-    
-}
+.ls-form__fields {}
 
 .ls-form__controls {
     display: flex;
     align-items: center;
     //justify-content: end;
 
-    > nav:first-of-type {
+    >nav:first-of-type {
         //flex-grow: 1;
         margin-right: calc(var(--density)*1rem);
     }
@@ -26,10 +22,14 @@
 }
 
 .ls-input {
+
+    input[type="date"],
     input[type="text"],
+    input[type="time"],
+    input[type="email"],
     input[type="number"],
     input[type="password"],
-    input[type="email"],
+    input[type="datetime-local"],
     textarea {
         color: var(--input-text-color);
         border-color: var(--input-text-color);
