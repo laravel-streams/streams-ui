@@ -16,7 +16,7 @@ class IntegerTest extends TestCase
         Streams::load(base_path('vendor/streams/ui/tests/litmus.json'));
     }
 
-    public function testInput()
+    public function testInitializePrototype()
     {
         $entry = Streams::repository('testing.litmus')->find('field_types');
         $input = $entry->stream()->fields->integer->input();
@@ -29,6 +29,7 @@ class IntegerTest extends TestCase
         $input = Streams::make('testing.litmus')->fields->integer->input();
 
         $this->assertStringContainsString('type="number"', $input->htmlAttributes());
+        $this->assertStringContainsString('step="1"', $input->htmlAttributes());
         $this->assertStringContainsString('min="-1"', $input->htmlAttributes());
         $this->assertStringContainsString('max="1"', $input->htmlAttributes());
     }
