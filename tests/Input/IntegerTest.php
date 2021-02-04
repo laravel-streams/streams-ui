@@ -26,10 +26,10 @@ class IntegerTest extends TestCase
 
     public function testAttributes()
     {
-        $entry = Streams::repository('testing.litmus')->find('field_types');
-        $field = $entry->stream()->fields->integer;
-        $input = $field->input();
+        $input = Streams::make('testing.litmus')->fields->integer->input();
 
         $this->assertStringContainsString('type="number"', $input->htmlAttributes());
+        $this->assertStringContainsString('min="-1"', $input->htmlAttributes());
+        $this->assertStringContainsString('max="1"', $input->htmlAttributes());
     }
 }

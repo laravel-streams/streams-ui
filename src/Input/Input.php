@@ -35,7 +35,7 @@ class Input extends Component
             'required' => $this->field->hasRule('required'),
             'readonly' => $this->field->readonly ? 'readonly' : null,
             'disabled' => $this->field->disabled ? 'disabled' : null,
-            'pattern' => trim($this->field->pattern ?: Arr::get($this->field->stream->getRuleParameters($this->field->handle, 'regex'), 0), "//"),
+            'pattern' => trim($this->field->pattern ?: $this->field->getRuleParameter('regex'), "//"),
             'type' => $this->type,
             'value' => $this->value,
         ], $attributes));

@@ -39,7 +39,11 @@
         },
         "integer": {
             "type": "integer",
-            "label": "Integer Input"
+            "label": "Integer Input",
+            "rules": [
+                "min:-1",
+                "max:1"
+            ]
         },
         "radio": {
             "type": "select|radio",

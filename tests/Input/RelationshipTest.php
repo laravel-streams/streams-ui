@@ -33,6 +33,7 @@ class RelationshipTest extends TestCase
 
         $this->assertEquals([
             'first' => 'First Example',
+            'second' => 'Second Example',
         ], $input->options());
     }
 }

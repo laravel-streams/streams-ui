@@ -20,4 +20,12 @@ class Integer extends Number
             ],
         ], $attributes));
     }
+
+    public function attributes(array $attributes = [])
+    {
+        return parent::attributes(array_merge([
+            'min' => $this->field->getRuleParameter('min'),
+            'max' => $this->field->getRuleParameter('max'),
+        ], $attributes));
+    }
 }
