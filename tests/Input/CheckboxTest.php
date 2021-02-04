@@ -3,10 +3,10 @@
 namespace Streams\Ui\Tests\Input;
 
 use Tests\TestCase;
-use Streams\Ui\Input\Toggle;
+use Streams\Ui\Input\Checkbox;
 use Streams\Core\Support\Facades\Streams;
 
-class ToggleTest extends TestCase
+class CheckboxTest extends TestCase
 {
 
     public function setUp(): void
@@ -18,14 +18,14 @@ class ToggleTest extends TestCase
 
     public function testInitializePrototype()
     {
-        $input = Streams::make('testing.litmus')->fields->toggle->input();
+        $input = Streams::make('testing.litmus')->fields->checkbox->input();
 
-        $this->assertInstanceOf(Toggle::class, $input);
+        $this->assertInstanceOf(Checkbox::class, $input);
     }
 
     public function testHtmlAttributes()
     {
-        $input = Streams::make('testing.litmus')->fields->toggle->input();
+        $input = Streams::make('testing.litmus')->fields->checkbox->input();
 
         $this->assertStringContainsString('type="checkbox"', $input->htmlAttributes());
     }

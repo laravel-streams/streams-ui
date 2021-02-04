@@ -34,9 +34,9 @@ class Input extends Component
             'disabled' => $this->field->disabled,
             'required' => $this->field->hasRule('required'),
             'pattern' => trim($this->field->pattern ?: $this->field->getRuleParameter('regex'), "//"),
-            'id' => $this->id ?: $this->name() . '-input',
             'value' => $this->value,
             'type' => $this->type,
+            'id' => $this->id(),
         ], $attributes));
     }
 
@@ -48,5 +48,10 @@ class Input extends Component
     public function name()
     {
         return $this->name ?: ($this->prefix . $this->field->handle);
+    }
+
+    public function id()
+    {
+        return $this->id ?: $this->name() . '-input';
     }
 }

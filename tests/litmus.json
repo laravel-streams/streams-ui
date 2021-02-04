@@ -126,6 +126,11 @@
             "type": "string|slug",
             "label": "Textarea Input"
         },
+        "boolean": {
+            "type": "boolean",
+            "label": "Boolean Input",
+            "input.config.label": "Enabled"
+        },
         "toggle": {
             "type": "boolean|toggle",
             "label": "Toggle Input"
