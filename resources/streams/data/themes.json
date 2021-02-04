@@ -13,6 +13,7 @@
         "brand_mode": "--brand-sidebar"
     },
     "dark": {
+        "id": "dark",
         "density": 2,
         "radius": 0.5,
         "dark": "#B8B8B8",
@@ -26,17 +27,18 @@
         "input_text_color": "#ffffff",
         "brand_mode": "--brand-sidebar"
     },
-    "orange": {
-        "id": "orange",
-        "density": 2,
+    "bada55": {
+        "density": 1,
         "radius": 0.5,
         "light": "#ffffff",
         "dark": "#000000",
-        "primary": "#E37739",
+        "primary": "#bada55",
         "topbar_bg_color": "#cccccc",
         "topbar_text_color": "#000000",
-        "sidebar_bg_color": "#E37739",
-        "sidebar_text_color": "#ffffff",
-        "brand_mode": "--brand-sidebar"
+        "sidebar_bg_color": "#bada55",
+        "sidebar_text_color": "#3c4700",
+        "brand_mode": "--brand-sidebar",
+        "input_bg_color": "#ededed",
+        "input_text_color": "#000000"
     }
 }
