@@ -28,15 +28,15 @@ class Input extends Component
     public function attributes(array $attributes = [])
     {
         return parent::attributes(array_merge([
-            'id' => $this->id ?: $this->name() . '-input',
             'name' => $this->name(),
             'placeholder' => $this->placeholder,
+            'readonly' => $this->field->readonly,
+            'disabled' => $this->field->disabled,
             'required' => $this->field->hasRule('required'),
-            'readonly' => $this->field->readonly ? 'readonly' : null,
-            'disabled' => $this->field->disabled ? 'disabled' : null,
             'pattern' => trim($this->field->pattern ?: $this->field->getRuleParameter('regex'), "//"),
-            'type' => $this->type,
+            'id' => $this->id ?: $this->name() . '-input',
             'value' => $this->value,
+            'type' => $this->type,
         ], $attributes));
     }
 
