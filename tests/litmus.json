@@ -26,8 +26,8 @@
             "type": "date",
             "label": "Date Input",
             "rules": [
-                "min:2021-01-01",
-                "max:2121-01-01"
+                "after:2021-01-01",
+                "before:2121-01-01"
             ]
         },
         "datetime": {
@@ -37,8 +37,8 @@
                 "step": 2
             },
             "rules": [
-                "min:2021-01-01T12:00",
-                "max:2121-01-01T12:00"
+                "after:2021-01-01T12:00",
+                "before:2121-01-01T12:00"
             ]
         },
         "time": {
@@ -93,6 +93,17 @@
                 "options": {
                     "foo": "Foo",
                     "bar": "Bar"
+                }
+            }
+        },
+        "multiselect": {
+            "type": "multiselect",
+            "label": "Multi-select Input",
+            "config": {
+                "options": {
+                    "foo": "Foo",
+                    "bar": "Bar",
+                    "baz": "Baz"
                 }
             }
         },

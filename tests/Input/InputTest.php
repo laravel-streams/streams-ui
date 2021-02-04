@@ -42,8 +42,10 @@ class InputTest extends TestCase
 
         $this->assertStringContainsString('type="text"', $input->htmlAttributes());
         $this->assertStringContainsString('placeholder="Example"', $input->htmlAttributes());
+        
         $this->assertStringContainsString('required', $input->htmlAttributes());
         $this->assertStringContainsString('disabled', $input->htmlAttributes());
+
         $this->assertStringContainsString('id="' . $input->name() . '-input"', $input->htmlAttributes());
     }
 }

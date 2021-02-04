@@ -2,9 +2,7 @@
 
 namespace Streams\Ui\Input;
 
-use Illuminate\Support\Arr;
-
-class Datetime extends Input
+class Multiselect extends Input
 {
 
     /**
@@ -16,8 +14,8 @@ class Datetime extends Input
     protected function initializePrototype(array $attributes)
     {
         return parent::initializePrototype(array_merge([
-            'template' => 'ui::input/datetime',
-            'type' => 'datetime-local',
+            'template' => 'ui::input/multiselect',
+            'type' => null,
         ], $attributes));
     }
 
@@ -30,9 +28,9 @@ class Datetime extends Input
     public function attributes(array $attributes = [])
     {
         return parent::attributes(array_merge([
-            'step' => (int) (Arr::get($this->field->config, 'step', 1) ?: 1),
-            'min' => $this->field->getRuleParameter('after'),
-            'max' => $this->field->getRuleParameter('before'),
+            'value' => null,
+            'multiple' => true,
+            'name' => $this->name() . '[]',
         ], $attributes));
     }
 }

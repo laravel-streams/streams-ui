@@ -50,6 +50,7 @@ return [
         'range' => \Streams\Ui\Input\Range::class,
 
         'select' => \Streams\Ui\Input\Select::class,
+        'multiselect' => \Streams\Ui\Input\Multiselect::class,
 
         'integer' => \Streams\Ui\Input\Integer::class,
         'decimal' => \Streams\Ui\Input\Decimal::class,

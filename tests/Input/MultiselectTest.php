@@ -3,10 +3,10 @@
 namespace Streams\Ui\Tests\Input;
 
 use Tests\TestCase;
-use Streams\Ui\Input\Select;
+use Streams\Ui\Input\Multiselect;
 use Streams\Core\Support\Facades\Streams;
 
-class SelectTest extends TestCase
+class MultiselectTest extends TestCase
 {
 
     public function setUp(): void
@@ -18,24 +18,25 @@ class SelectTest extends TestCase
 
     public function testInitializePrototype()
     {
-        $input = Streams::make('testing.litmus')->fields->select->input();
+        $input = Streams::make('testing.litmus')->fields->multiselect->input();
 
-        $this->assertInstanceOf(Select::class, $input);
+        $this->assertInstanceOf(Multiselect::class, $input);
     }
 
     public function testOptions()
     {
-        $input = Streams::make('testing.litmus')->fields->select->input();
+        $input = Streams::make('testing.litmus')->fields->multiselect->input();
 
         $this->assertEquals([
             'foo' => 'Foo',
             'bar' => 'Bar',
+            'baz' => 'Baz',
         ], $input->field->config['options']);
     }
 
     // public function testHtmlAttributes()
     // {
-    //     $input = Streams::make('testing.litmus')->fields->select->input();
+    //     $input = Streams::make('testing.litmus')->fields->date->input();
 
     //     $this->assertStringContainsString('type="date"', $input->htmlAttributes());
     //     $this->assertStringContainsString('min="2021-01-01"', $input->htmlAttributes());
