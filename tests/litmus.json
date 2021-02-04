@@ -107,6 +107,17 @@
                 }
             }
         },
+        "checkboxes": {
+            "type": "multiselect|checkboxes",
+            "label": "Checkboxes Input",
+            "config": {
+                "options": {
+                    "foo": "Foo",
+                    "bar": "Bar",
+                    "baz": "Baz"
+                }
+            }
+        },
         "textarea": {
             "type": "string|textarea",
             "label": "Textarea Input"

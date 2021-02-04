@@ -50,6 +50,7 @@ return [
         'range' => \Streams\Ui\Input\Range::class,
 
         'select' => \Streams\Ui\Input\Select::class,
+        'checkboxes' => \Streams\Ui\Input\Checkboxes::class,
         'multiselect' => \Streams\Ui\Input\Multiselect::class,
 
         'integer' => \Streams\Ui\Input\Integer::class,
