@@ -13,6 +13,7 @@
             "label": "Text Input",
             "disabled": true,
             "readonly": true,
+            "input.placeholder": "Example",
             "rules": [
                 "required"
             ]
