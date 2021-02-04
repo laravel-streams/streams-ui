@@ -257,7 +257,7 @@ class UiServiceProvider extends ServiceProvider
 
         Field::macro('input', function (array $attributes = []) {
 
-            return $this->once($this->stream . '.' . $this->handle . '.' . $this->type, function () use ($attributes) {
+            return $this->once($this->stream->handle . '.' . $this->handle . '.' . $this->type, function () use ($attributes) {
 
                 $attributes['field'] = Arr::get($attributes, 'field', $this);
 
