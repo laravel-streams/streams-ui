@@ -24,7 +24,7 @@ class ToggleTest extends TestCase
         $this->assertInstanceOf(Toggle::class, $input);
     }
 
-    public function testAttributes()
+    public function testHtmlAttributes()
     {
         $entry = Streams::repository('testing.litmus')->find('field_types');
         $field = $entry->stream()->fields->toggle;

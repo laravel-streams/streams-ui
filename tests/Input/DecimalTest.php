@@ -23,12 +23,12 @@ class DecimalTest extends TestCase
         $this->assertInstanceOf(Decimal::class, $input);
     }
 
-    public function testAttributes()
+    public function testHtmlAttributes()
     {
         $input = Streams::make('testing.litmus')->fields->decimal->input();
 
         $this->assertStringContainsString('type="number"', $input->htmlAttributes());
-        $this->assertStringContainsString('step="0.1"', $input->htmlAttributes());
+        $this->assertStringContainsString('step="0.01"', $input->htmlAttributes());
         $this->assertStringContainsString('min="-0.1"', $input->htmlAttributes());
         $this->assertStringContainsString('max="0.1"', $input->htmlAttributes());
     }

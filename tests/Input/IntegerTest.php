@@ -23,7 +23,7 @@ class IntegerTest extends TestCase
         $this->assertInstanceOf(Integer::class, $input);
     }
 
-    public function testAttributes()
+    public function testHtmlAttributes()
     {
         $input = Streams::make('testing.litmus')->fields->integer->input();
 

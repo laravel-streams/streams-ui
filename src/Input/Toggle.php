@@ -18,7 +18,6 @@ class Toggle extends Input
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/toggle',
             'type' => 'checkbox',
-            'classes' => [],
         ], $attributes));
     }
 }

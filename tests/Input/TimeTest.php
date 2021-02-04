@@ -16,20 +16,20 @@ class TimeTest extends TestCase
         Streams::load(base_path('vendor/streams/ui/tests/litmus.json'));
     }
 
-    public function testInput()
+    public function testInitializePrototype()
     {
-        $entry = Streams::repository('testing.litmus')->find('field_types');
-        $input = $entry->stream()->fields->time->input();
+        $input = Streams::make('testing.litmus')->fields->time->input();
 
         $this->assertInstanceOf(Time::class, $input);
     }
 
-    public function testAttributes()
+    public function testHtmlAttributes()
     {
-        $entry = Streams::repository('testing.litmus')->find('field_types');
-        $field = $entry->stream()->fields->time;
-        $input = $field->input();
+        $input = Streams::make('testing.litmus')->fields->time->input();
 
         $this->assertStringContainsString('type="time"', $input->htmlAttributes());
+        $this->assertStringContainsString('min="06:00"', $input->htmlAttributes());
+        $this->assertStringContainsString('max="20:00"', $input->htmlAttributes());
+        $this->assertStringContainsString('step="1"', $input->htmlAttributes());
     }
 }

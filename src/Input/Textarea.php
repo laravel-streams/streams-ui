@@ -24,6 +24,12 @@ class Textarea extends Input
         ], $attributes));
     }
 
+    /**
+     * Return the HTML attributes array.
+     *
+     * @param array $attributes
+     * @return array
+     */
     public function attributes(array $attributes = [])
     {
         return parent::attributes(array_merge([

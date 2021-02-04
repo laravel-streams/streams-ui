@@ -16,10 +16,9 @@ class InputTest extends TestCase
         Streams::load(base_path('vendor/streams/ui/tests/litmus.json'));
     }
 
-    public function testInput()
+    public function testInitializePrototype()
     {
-        $entry = Streams::repository('testing.litmus')->find('field_types');
-        $input = $entry->stream()->fields->text->input();
+        $input = Streams::make('testing.litmus')->fields->text->input();
 
         $this->assertInstanceOf(Input::class, $input);
     }
@@ -29,7 +28,7 @@ class InputTest extends TestCase
         $input = Streams::make('testing.litmus')->fields->text->input();
 
         $this->assertEquals('text', $input->name());
-        
+
         $input->prefix = 'example_';
 
         $this->assertEquals('example_text', $input->name());
@@ -37,11 +36,9 @@ class InputTest extends TestCase
         $this->assertEquals('Text', $input->label());
     }
 
-    public function testAttributes()
+    public function testHtmlAttributes()
     {
-        $entry = Streams::repository('testing.litmus')->find('field_types');
-        $field = $entry->stream()->fields->text;
-        $input = $field->input();
+        $input = Streams::make('testing.litmus')->fields->text->input();
 
         $this->assertStringContainsString('type="text"', $input->htmlAttributes());
         $this->assertStringContainsString('required', $input->htmlAttributes());

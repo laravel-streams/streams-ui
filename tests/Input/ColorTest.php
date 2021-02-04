@@ -23,7 +23,7 @@ class ColorTest extends TestCase
         $this->assertInstanceOf(Color::class, $input);
     }
 
-    public function testAttributes()
+    public function testHtmlAttributes()
     {
         $input = Streams::make('testing.litmus')->fields->color->input();
 

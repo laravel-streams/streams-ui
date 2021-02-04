@@ -32,7 +32,7 @@ class Decimal extends Number
     public function attributes(array $attributes = [])
     {
         return parent::attributes(array_merge([
-            'step' => (int) (Arr::get($this->field->config, 'step', 1) ?: 1),
+            'step' => (Arr::get($this->field->config, 'step', 0.1) ?: 0.1),
             'min' => $this->field->getRuleParameter('min'),
             'max' => $this->field->getRuleParameter('max'),
         ], $attributes));

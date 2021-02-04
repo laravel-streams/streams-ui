@@ -23,7 +23,7 @@ class DatetimeTest extends TestCase
         $this->assertInstanceOf(Datetime::class, $input);
     }
 
-    public function testAttributes()
+    public function testHtmlAttributes()
     {
         $input = Streams::make('testing.litmus')->fields->datetime->input();
 

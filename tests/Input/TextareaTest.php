@@ -16,19 +16,16 @@ class TextareaTest extends TestCase
         Streams::load(base_path('vendor/streams/ui/tests/litmus.json'));
     }
 
-    public function testInput()
+    public function testInitializePrototype()
     {
-        $entry = Streams::repository('testing.litmus')->find('field_types');
-        $input = $entry->stream()->fields->textarea->input();
+        $input = Streams::make('testing.litmus')->fields->textarea->input();
 
         $this->assertInstanceOf(Textarea::class, $input);
     }
 
-    public function testAttributes()
+    public function testHtmlAttributes()
     {
-        $entry = Streams::repository('testing.litmus')->find('field_types');
-        $field = $entry->stream()->fields->textarea;
-        $input = $field->input();
+        $input = Streams::make('testing.litmus')->fields->textarea->input();
 
         $this->assertStringContainsString('rows="10"', $input->htmlAttributes());
     }

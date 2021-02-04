@@ -36,7 +36,7 @@ class RadioTest extends TestCase
         $this->assertStringContainsString('value="bar" checked', (string) $input->render());
     }
 
-    public function testAttributes()
+    public function testHtmlAttributes()
     {
         $entry = Streams::repository('testing.litmus')->find('field_types');
         $field = $entry->stream()->fields->radio;

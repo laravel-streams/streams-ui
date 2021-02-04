@@ -32,7 +32,7 @@ class ImageTest extends TestCase
         $this->assertInstanceOf(Image::class, $input);
     }
 
-    public function testAttributes()
+    public function testHtmlAttributes()
     {
         $entry = Streams::repository('testing.litmus')->find('field_types');
         $field = $entry->stream()->fields->image;
