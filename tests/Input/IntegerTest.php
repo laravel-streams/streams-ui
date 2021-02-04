@@ -18,8 +18,7 @@ class IntegerTest extends TestCase
 
     public function testInitializePrototype()
     {
-        $entry = Streams::repository('testing.litmus')->find('field_types');
-        $input = $entry->stream()->fields->integer->input();
+        $input = Streams::make('testing.litmus')->fields->integer->input();
 
         $this->assertInstanceOf(Integer::class, $input);
     }

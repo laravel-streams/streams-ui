@@ -16,19 +16,16 @@ class ColorTest extends TestCase
         Streams::load(base_path('vendor/streams/ui/tests/litmus.json'));
     }
 
-    public function testInput()
+    public function testInitializePrototype()
     {
-        $entry = Streams::repository('testing.litmus')->find('field_types');
-        $input = $entry->stream()->fields->color->input();
+        $input = Streams::make('testing.litmus')->fields->color->input();
 
         $this->assertInstanceOf(Color::class, $input);
     }
 
     public function testAttributes()
     {
-        $entry = Streams::repository('testing.litmus')->find('field_types');
-        $field = $entry->stream()->fields->color;
-        $input = $field->input();
+        $input = Streams::make('testing.litmus')->fields->color->input();
 
         $this->assertStringContainsString('type="color"', $input->htmlAttributes());
     }

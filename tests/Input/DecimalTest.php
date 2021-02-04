@@ -16,20 +16,20 @@ class DecimalTest extends TestCase
         Streams::load(base_path('vendor/streams/ui/tests/litmus.json'));
     }
 
-    public function testInput()
+    public function testInitializePrototype()
     {
-        $entry = Streams::repository('testing.litmus')->find('field_types');
-        $input = $entry->stream()->fields->decimal->input();
+        $input = Streams::make('testing.litmus')->fields->decimal->input();
 
         $this->assertInstanceOf(Decimal::class, $input);
     }
 
     public function testAttributes()
     {
-        $entry = Streams::repository('testing.litmus')->find('field_types');
-        $field = $entry->stream()->fields->decimal;
-        $input = $field->input();
+        $input = Streams::make('testing.litmus')->fields->decimal->input();
 
         $this->assertStringContainsString('type="number"', $input->htmlAttributes());
+        $this->assertStringContainsString('step="0.1"', $input->htmlAttributes());
+        $this->assertStringContainsString('min="-0.1"', $input->htmlAttributes());
+        $this->assertStringContainsString('max="0.1"', $input->htmlAttributes());
     }
 }

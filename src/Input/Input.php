@@ -2,7 +2,6 @@
 
 namespace Streams\Ui\Input;
 
-use Illuminate\Support\Arr;
 use Streams\Ui\Support\Component;
 
 class Input extends Component
