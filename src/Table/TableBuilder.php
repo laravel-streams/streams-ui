@@ -3,27 +3,26 @@
 namespace Streams\Ui\Table;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
-use Streams\Ui\Table\Table;
-use Streams\Ui\Button\Button;
-use Streams\Ui\Support\Value;
+use Streams\Core\Repository\Contract\RepositoryInterface;
 use Streams\Core\Stream\Stream;
+use Streams\Ui\Button\Button;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Support\Normalizer;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Request;
-use Streams\Ui\Table\Component\Row\Row;
-use Streams\Ui\Table\Component\View\View;
+use Streams\Ui\Support\Value;
 use Streams\Ui\Table\Component\Action\Action;
-use Streams\Ui\Table\Component\Column\Column;
-use Streams\Ui\Table\Component\Filter\Filter;
-use Streams\Ui\Table\Component\View\ViewHandler;
-use Streams\Ui\Table\Component\View\ViewRegistry;
 use Streams\Ui\Table\Component\Action\ActionRegistry;
 use Streams\Ui\Table\Component\Button\ButtonRegistry;
+use Streams\Ui\Table\Component\Column\Column;
+use Streams\Ui\Table\Component\Filter\Filter;
 use Streams\Ui\Table\Component\Filter\FilterRegistry;
-use Streams\Core\Repository\Contract\RepositoryInterface;
+use Streams\Ui\Table\Component\Row\Row;
+use Streams\Ui\Table\Component\View\View;
+use Streams\Ui\Table\Component\View\ViewHandler;
+use Streams\Ui\Table\Component\View\ViewRegistry;
 
 class TableBuilder extends Builder
 {
@@ -58,7 +57,6 @@ class TableBuilder extends Builder
 
             'steps' => [
                 'make_table' => [$this, 'make'],
-                'setup' => [$this, 'setup'],
 
                 'make_views' => [$this, 'makeViews'],
                 'detect_view' => [$this, 'detectView'],
@@ -108,11 +106,6 @@ class TableBuilder extends Builder
         return null;
     }
 
-    public function setup()
-    {
-        $this->instance->options = $this->options;
-    }
-    
     public function makeViews()
     {
         $this->make();
@@ -220,7 +213,7 @@ class TableBuilder extends Builder
         $registry = app(FilterRegistry::class);
 
         foreach ($filters as &$attributes) {
-            
+
             if ($registered = $registry->get(Arr::pull($attributes, 'filter'))) {
                 $attributes = array_replace_recursive($registered, $attributes);
             }
@@ -287,7 +280,7 @@ class TableBuilder extends Builder
         /**
          * Order query
          */
-        if ($name = $this->request('order_by', )) {
+        if ($name = $this->request('order_by')) {
             $this->criteria->orderBy($name, $this->request('sort', 'asc'));
         }
 
@@ -430,7 +423,7 @@ class TableBuilder extends Builder
             if (!isset($attributes['field']) && $field) {
                 $attributes['field'] = $field->handle;
             }
-            
+
             if (!array_key_exists('heading', $attributes) && $field) {
                 $attributes['heading'] = $field->name();
             }

@@ -1,3 +1,4 @@
+<?php /** @var \Streams\Ui\Form\Form $form */ ?>
 <!-- form.blade.php -->
 <div x-data="{}" class="ls-form">
     <!--
@@ -7,7 +8,11 @@
      -->
 
     @section('form')
-    {!! $form->open() !!}
+    {!! $form->open([
+        'x-data' => "app.get('form')({$form->toJson()})",
+        'x-init' => 'init()'
+    ]) !!}
+
 
     @section('layout')
     @include('ui::forms.layout')

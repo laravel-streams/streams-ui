@@ -11,5 +11,6 @@
 <!-- Favicon -->
 {{-- {!! favicons('public::img/favicon.png') !!} --}}
 <link rel="icon" type="image/png" href="/vendor/streams/ui/img/favicon.png"/>
+{!! Assets::collection('head.scripts')->tags() !!}
 
 @include('ui::cp.styles')

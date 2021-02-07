@@ -23,26 +23,19 @@
         "noUnusedLocals": false,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
         "suppressExcessPropertyErrors": true,
         "noStrictGenericChecks": false,
         "noImplicitUseStrict": true,
         "jsx": "preserve",
-        "importHelpers": true,
-        "declaration": true,
-        "declarationMap": false,
-        "declarationDir": "resources/public/js",
-        "typeRoots": [
-            "node_modules/@types",
-            "../../node_modules/@types"
-        ],
+        "outDir": "out",
         "baseUrl": ".",
-        "outDir": "resources/public/js"
+        "typeRoots": [
+            "../../../node_modules/@types",
+            "types"
+        ]
     },
-    "exclude": [
-        "node_modules"
-    ],
-    "include": [
-        "resources/ts"
-    ]
+    "include": ["lib","types"],
+    "exclude": ["node_modules"]
 }
