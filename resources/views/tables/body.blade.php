@@ -9,7 +9,11 @@
         </td>
 
         @if ($table->isSelectable())
+<<<<<<< HEAD
+        <td>
+=======
         <td class="ls-table__selector">
+>>>>>>> b848fe7ab32993c597ee7a53757153012ea0da20
             <input type="checkbox" name="{{ $table->prefix('selected[]') }}" value="{{ $row->key }}" />
         </td>
         @endif
