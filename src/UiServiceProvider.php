@@ -320,6 +320,6 @@ class UiServiceProvider extends ServiceProvider
         Assets::register('ui::css/theme.css');
         Assets::register('ui::css/tailwind.css');
 
-        Assets::add('scripts', 'ui::js/index.js');
+        Assets::register('ui::js/index.js');
     }
 }

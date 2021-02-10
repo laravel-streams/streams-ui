@@ -1,3 +1,9 @@
+{{-- 
+    Keep this partial around for isolation.
+    Move configuration out of this
+    file towards the ridges.
+-->
+
 {{-- <!-- Modernizer JS -->
 {!! Assets::script('public::assets/js/vendor/modernizr.min.js') !!}
 <!-- jQuery JS -->
@@ -15,9 +21,11 @@
 {{-- <script src="/vendor/anomaly/streams/ui/js/index.js"></script> --}}
 {!! Assets::script('/vendor/streams-vendors.js') !!}
 {!! Assets::script('/vendor/streams/core/js/core.js') !!}
-{!! Assets::script('/vendor/streams/ui/js/ui.js') !!}
 {!! Assets::script('/vendor/streams/api/js/api.js') !!}
-{{--{!! Assets::collection('scripts')->tags() !!}--}}
+
+{{ Assets::load('scripts', 'ui::js/index.js') }}
+
+{!! Assets::collection('scripts')->tags() !!}
 
 {{--<script src="/vendor/streams/core/js/core.js"></script>--}}
 {{--<script src="/vendor/streams/ui/js/ui.js"></script>--}}
