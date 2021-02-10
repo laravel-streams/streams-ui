@@ -2,24 +2,20 @@
 
 namespace Streams\Ui\Form;
 
+use Streams\Ui\Form\Form;
 use Illuminate\Support\Arr;
+use Streams\Ui\Button\Button;
+use Streams\Ui\Support\Builder;
+use Streams\Ui\Support\Normalizer;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
-<<<<<<< HEAD
+use Streams\Ui\Form\FormAuthorizer;
 use Streams\Core\Support\Facades\Resolver;
-=======
-use Streams\Core\Repository\Contract\RepositoryInterface;
-use Streams\Core\Stream\Stream;
->>>>>>> feature/webpack-mix-root-based-bundling
+use Streams\Ui\Form\Component\Field\Field;
 use Streams\Core\Support\Facades\Evaluator;
-use Streams\Core\Support\Facades\Resolver;
-use Streams\Ui\Button\Button;
 use Streams\Ui\Form\Component\Action\Action;
 use Streams\Ui\Form\Component\Action\ActionRegistry;
 use Streams\Ui\Form\Component\Button\ButtonRegistry;
-use Streams\Ui\Form\Component\Field\Field;
-use Streams\Ui\Support\Builder;
-use Streams\Ui\Support\Normalizer;
 
 /**
  * Class FormBuilder
@@ -183,14 +179,7 @@ class FormBuilder extends Builder
         $collection->each(function ($field) use ($fields) {
 
             if ($this->entry) {
-<<<<<<< HEAD
                 $field->setPrototypeAttribute('input.value', $this->entry->{$field->handle});
-=======
-
-                $field
-                    ->input()
-                    ->setPrototypeAttribute('value', $this->entry->{$field->handle});
->>>>>>> feature/webpack-mix-root-based-bundling
             }
 
             if (!$extra = Arr::get($fields, $field->handle, [])) {

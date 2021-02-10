@@ -15,7 +15,8 @@
         "alpinejs": "^2.7",
         "easymde": "^2.13",
         "mousetrap": "^1.6",
-        "noty": "^3.2.0-beta"
+        "noty": "^3.2.0-beta",
+        "tailwindcss": "^2.0.3"
     },
     "devDependencies": {
         "axios": "^0.21",
