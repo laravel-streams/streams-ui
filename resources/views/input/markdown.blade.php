@@ -1,10 +1,9 @@
+<?php /** @var \Streams\Ui\Input\Markdown $input */ ?>
+
 <!-- markdown.blade.php -->
 <textarea {!! $input->htmlAttributes([
     'rows' => 10,
-]) !!}>{{ $input->field->value }}</textarea>
-
-<script>
-    window.addEventListener('load', () => {
-        new EasyMDE({ element: document.getElementById("{{ $input->field->handle }}") });
-    })
-</script>
+    'x-data' => "app.get('input.markdown')({$input->toJson()})",
+    'x-init' => 'init()',
+    'x-model' => 'value'
+]) !!}></textarea>

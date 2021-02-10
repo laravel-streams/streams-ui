@@ -1,11 +1,10 @@
 <!-- button.blade.php -->
 @if ($button->dropdown)
-<div class="inline-block relative" x-data="{show: false}">
+<div class="ls-buttons" x-data="{show: false}">
 
     {!! $button->open([
         'x-on:click' => 'show == true ? show = false : show = true; return false;',
         'x-on:click.away' => 'show = false',
-        'class' => 'py-1 px-3 rounded-sm text-sm font-bold text-black border-2 border-black inline-block',
     ]) !!}
     
     @if ($button->svg)
@@ -16,16 +15,14 @@
     <x-{{ $button->icon }}/>
     @endif
 
-    {{ __($button->text) }}
+    <span>{{ __($button->text) }}</span>
 
     {!! $button->close() !!}
     
-    <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md border-2 border-black z-5" x-show="show">
-        <div class="py-1 rounded-md bg-white">
+    <div class="ls-button__dropdown" x-show="show">
+        <div>
             @foreach ($button->dropdown as $item)
-            <a {!! Html::attributes($item['attributes']) !!}
-            class="block px-4 py-2 text-sm text-black hover:bg-black hover:text-white transition ease-in-out duration-150"
-            >{{ $item['text'] }}</a>
+            <a {!! Html::attributes($item['attributes']) !!}><span>{{ $item['text'] }}</span></a>
             @endforeach
         </div>
     </div>
@@ -33,9 +30,7 @@
 </div>
 @else
 
-{!! $button->open([
-    'class' => 'py-1 px-3 rounded-sm text-sm font-bold text-black border-2 border-black inline-block',
-]) !!}
+{!! $button->open() !!}
 {{-- <i v-show="button.icon" :class="button.icon"></i> --}}
 {{ __($button->text) }}
 {!! $button->close() !!}

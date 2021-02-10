@@ -1,0 +1,40 @@
+.ls-form {
+
+    form {}
+}
+
+.ls-form__fields {}
+
+.ls-form__controls {
+    display: flex;
+    align-items: center;
+    //justify-content: end;
+
+    >nav:first-of-type {
+        //flex-grow: 1;
+        margin-right: calc(var(--density)*1rem);
+    }
+}
+
+.ls-field {
+    //margin-top: calc(var(--density)*.5rem);
+    margin-bottom: calc(var(--density)*.5rem);
+}
+
+.ls-input {
+
+    input[type="date"],
+    input[type="text"],
+    input[type="time"],
+    input[type="email"],
+    input[type="number"],
+    input[type="password"],
+    input[type="datetime-local"],
+    textarea {
+        color: var(--input-text-color);
+        border-color: var(--input-text-color);
+        background-color: var(--input-bg-color);
+        padding: calc(var(--density)*.25rem);
+        border-radius: calc(var(--radius)*.5rem);
+    }
+}

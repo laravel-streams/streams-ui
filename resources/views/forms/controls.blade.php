@@ -1,8 +1,8 @@
 <!-- controls.blade.php -->
-<div class="border-t-2 border-black mt-8 py-4 px-8 flex justify-end">
+<div class="ls-form__controls">
     
     @if(!$form->options->get('read_only'))
-    <nav class="flex-1">
+    <nav>
         {!! $form->actions->render() !!}
     </nav>
     @endif

@@ -6,7 +6,7 @@
     @if ($table->actions->isNotEmpty() || $table->pagination)
     <tr>
         <td colspan="100%">
-            <div class="table__footer py-4 flex items-center flex-wrap">
+            <div>
 
                 @include('ui::tables.actions')
 
@@ -26,7 +26,7 @@
     <tr class="">
         <td colspan="100%">
             {{-- @todo loop through information in table.information --}}
-            @include('ui::tables.total')
+            @include('ui::tables.meta')
         </td>
     </tr>
     @endif

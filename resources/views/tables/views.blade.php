@@ -1,14 +1,11 @@
 <!-- views.blade.php -->
 @if ($table->views->isNotEmpty())
-<nav class="m-8">
+<nav class="ls-table__views">
     @foreach ($table->views as $view)
-        
-        <a {!! $view->htmlAttributes([
-            'class' => 'py-1 px-3 rounded-sm text-sm font-bold text-black border-2 border-black inline-block',
-        ]) !!}>{{ __($view->text) }}
-        
+        <a {!! $view->htmlAttributes() !!}>
+            {{ __($view->text) }}
             @if ($view->label)
-            <span class="{{ $view->context }}">
+            <span>
                 {{ $view->label }}
             </span>
             @endif

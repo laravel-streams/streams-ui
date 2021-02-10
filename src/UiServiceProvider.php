@@ -2,40 +2,23 @@
 
 namespace Streams\Ui;
 
-use Streams\Ui\Input\Date;
-use Streams\Ui\Input\Slug;
-use Streams\Ui\Input\Time;
 use Illuminate\Support\Arr;
-use Streams\Ui\Input\Color;
-use Streams\Ui\Input\Input;
-use Streams\Ui\Input\Radio;
-use Streams\Ui\Input\Range;
-use Streams\Ui\Input\Toggle;
-use Streams\Ui\Input\Select;
-use Streams\Core\Field\Field;
-use Streams\Ui\Input\Integer;
-use Streams\Ui\Input\Datetime;
-use Streams\Ui\Input\Markdown;
-use Streams\Ui\Input\Textarea;
-use Streams\Core\Stream\Stream;
-use Streams\Ui\Form\FormBuilder;
-use Streams\Ui\Table\TableBuilder;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
+use Streams\Core\Field\Field;
+use Streams\Core\Stream\Stream;
 use Streams\Core\Support\Facades\Assets;
 use Streams\Core\Support\Facades\Streams;
+use Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Input\Input;
+use Streams\Ui\Table\TableBuilder;
 
-/**
- * Class StreamsServiceProvider
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
 class UiServiceProvider extends ServiceProvider
 {
 
@@ -63,10 +46,11 @@ class UiServiceProvider extends ServiceProvider
      * @var array
      */
     public $singletons = [
-        \Streams\Ui\Icon\IconRegistry::class => \Streams\Ui\Icon\IconRegistry::class,
         \Streams\Ui\Support\Breadcrumb::class => \Streams\Ui\Support\Breadcrumb::class,
-        \Streams\Ui\Button\ButtonRegistry::class => \Streams\Ui\Button\ButtonRegistry::class,
         \Streams\Ui\ControlPanel\ControlPanelBuilder::class => \Streams\Ui\ControlPanel\ControlPanelBuilder::class,
+
+        // Get rid of these registries and register something to IoC like streams.ui.button.save using internal naming - do whatever you want otherwise.
+        \Streams\Ui\Button\ButtonRegistry::class => \Streams\Ui\Button\ButtonRegistry::class,
         \Streams\Ui\Table\Component\View\ViewRegistry::class => \Streams\Ui\Table\Component\View\ViewRegistry::class,
         \Streams\Ui\Table\Component\Filter\FilterRegistry::class => \Streams\Ui\Table\Component\Filter\FilterRegistry::class,
     ];
@@ -78,139 +62,137 @@ class UiServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->extendView();
-
-        $this->mergeConfigFrom(__DIR__ . '/../resources/config/cp.php', 'streams.cp');
-
-        $this->app->bind('streams.input_types.text', Input::class);
-        $this->app->bind('streams.input_types.hash', Input::class);
-        $this->app->bind('streams.input_types.input', Input::class);
-        $this->app->bind('streams.input_types.string', Input::class);
-
-        $this->app->bind('streams.input_types.date', Date::class);
-        $this->app->bind('streams.input_types.time', Time::class);
-        $this->app->bind('streams.input_types.datetime', Datetime::class);
-
-        $this->app->bind('streams.input_types.slug', Slug::class);
-        $this->app->bind('streams.input_types.color', Color::class);
-        $this->app->bind('streams.input_types.radio', Radio::class);
-        $this->app->bind('streams.input_types.range', Range::class);
-        $this->app->bind('streams.input_types.select', Select::class);
-        $this->app->bind('streams.input_types.integer', Integer::class);
-        $this->app->bind('streams.input_types.textarea', Textarea::class);
-        $this->app->bind('streams.input_types.markdown', Markdown::class);
-
-        $this->app->bind('streams.input_types.relationship', Relationship::class);
-
-        $this->app->bind('streams.input_types.boolean', Toggle::class);
-
-        Streams::register([
-            'handle' => 'cp.navigation',
-            'source' => [
-                'path' => 'streams/cp/navigation',
-                'format' => 'json',
-            ],
-            'config' => [
-                'prototype' => 'Streams\\Ui\\ControlPanel\\Component\\Navigation\\Section',
-            ],
-            'fields' => [
-                'title' => 'string',
-                'parent' => [
-                    'type' => 'relationship',
-                    'related' => 'cp.navigation',
-                ],
-            ],
-        ]);
-
-        Streams::register([
-            'handle' => 'cp.shortcuts',
-            'source' => [
-                'path' => 'streams/cp/shortcuts',
-                'format' => 'json',
-            ],
-            'config' => [
-                'prototype' => 'Streams\\Ui\\ControlPanel\\Component\\Shortcut\\Shortcut',
-            ],
-            'fields' => [
-                'title' => 'string',
-                'icon' => 'string',
-                'svg' => 'string',
-            ],
-        ]);
-
-        Route::streams(Config::get('streams.cp.prefix'), [
-            'verb' => 'get',
-            'as' => 'ui::cp.home',
-            'uses' => '\Streams\Ui\Http\Controller\CpController@index',
-            'update' => true,
-        ]);
-
-        Route::prefix(Config::get('streams.cp.prefix'))->middleware(['cp'])->group(function () {
-
-            // @todo Configure this later
-            $index = '{stream}';
-            $create = '{stream}/create';
-            $edit = '{stream}/{entry}/edit';
-
-            $table = 'ui/{stream}/table/{table?}';
-            $form = 'ui/{stream}/form/{form?}';
-
-            Route::streams($index, [
-                'verb' => 'get',
-                'entry' => false,
-                'as' => 'ui::cp.index',
-                'ui.component' => 'table',
-                'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
-            ]);
-
-            Route::streams($create, [
-                'verb' => 'get',
-                'entry' => false,
-                'as' => 'ui::cp.create',
-                'ui.component' => 'form',
-                'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
-            ]);
-
-            Route::streams($edit, [
-                'verb' => 'get',
-                'as' => 'ui::cp.edit',
-                'ui.component' => 'form',
-                'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
-            ]);
-
-            Route::streams($table, [
-                //'as' => 'ui::cp.edit',
-                'ui.component' => 'table',
-                'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
-            ]);
-
-            Route::streams($form, [
-                //'as' => 'ui::cp.edit',
-                'ui.component' => 'form',
-                'uses' => '\Streams\Ui\Http\Controller\CpController@handle',
-            ]);
-
-            if (file_exists($routes = base_path('routes/cp.php'))) {
-                include $routes;
-            }
-        });
-    }
-
-    /**
-     * Boot the service provider.
-     */
-    public function boot()
-    {
-        $this->publishes([
-            base_path('vendor/streams/ui/resources/public')
-            => public_path('vendor/streams/ui')
-        ], ['public']);
-
-        $this->extendLang();
-        $this->extendAssets();
+        $this->registerStreams();
+        $this->registerConfig();
+        $this->registerRoutes();
 
         $this->extendStream();
         $this->extendField();
+    }
+
+    public function boot()
+    {
+        $this->extendUrl();
+        $this->extendView();
+        $this->extendLang();
+        $this->extendAssets();
+    }
+
+    /**
+     * Register UI config.
+     */
+    protected function registerConfig()
+    {
+        $this->mergeConfigFrom(__DIR__ . '/../resources/config/ui.php', 'streams.ui');
+
+        if (file_exists($config = __DIR__ . '/../../../../config/streams/ui.php')) {
+            $this->mergeConfigFrom($config, 'streams.ui');
+        }
+
+        $this->publishes([
+            __DIR__ . '/../resources/config/ui.php' => config_path('streams/ui.php')
+        ], 'config');
+    }
+
+    /**
+     * Register UI streams.
+     */
+    protected function registerStreams()
+    {
+        $prefix = __DIR__ . '/../resources/streams/';
+        $streams = ['cp.navigation', 'cp.shortcuts', 'cp.themes'];
+
+        foreach ($streams as $stream) {
+            if (!Streams::has($stream)) {
+                Streams::load($prefix . $stream . '.json');
+            }
+        }
+
+        $this->publishes([
+            __DIR__ . '/../resources/streams/' => base_path('streams/')
+        ], 'streams');
+    }
+
+    /**
+     * Register UI routes.
+     */
+    protected function registerRoutes()
+    {
+        if (!$this->app->routesAreCached()) {
+
+            Route::streams(Config::get('streams.cp.prefix'), [
+                'verb' => 'get',
+                'as' => 'ui::cp.home',
+                'uses' => '\Streams\Ui\Http\Controller\UiController@index',
+            ]);
+
+            Route::prefix(Config::get('streams.ui.cp.prefix'))->middleware(['cp'])->group(function () {
+
+                /**
+                 * Route navigation first.
+                 */
+                Streams::entries('cp.navigation')->get()
+                    ->filter(function ($section) {
+                        return $section->route;
+                    })->each(function ($section) {
+                        Route::streams(Arr::get($section->route, 'uri', $section->id), array_merge([
+                            'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
+                        ], $section->route));
+                    });
+
+                // @todo Configure this later
+                $index = '{stream}';
+                $create = '{stream}/create';
+                $edit = '{stream}/{entry}/edit';
+
+                $table = 'ui/{stream}/table/{table?}';
+                $form = 'ui/{stream}/form/{form?}';
+
+                Route::streams($index, [
+                    'verb' => 'get',
+                    'ui.cp' => true,
+                    'entry' => false,
+                    'as' => 'ui::cp.index',
+                    'ui.component' => 'table',
+                    'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
+                ]);
+
+                Route::streams($create, [
+                    'verb' => 'get',
+                    'ui.cp' => true,
+                    'entry' => false,
+                    'as' => 'ui::cp.create',
+                    'ui.component' => 'form',
+                    'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
+                ]);
+
+                Route::streams($edit, [
+                    'verb' => 'get',
+                    'ui.cp' => true,
+                    'as' => 'ui::cp.edit',
+                    'ui.component' => 'form',
+                    'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
+                ]);
+
+                Route::streams($table, [
+                    'ui.cp' => false,
+                    //'as' => 'ui::cp.edit',
+                    'ui.component' => 'table',
+                    'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
+                ]);
+
+                Route::streams($form, [
+                    'ui.cp' => false,
+                    //'as' => 'ui::cp.edit',
+                    'ui.component' => 'form',
+                    'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
+                ]);
+
+                if (file_exists($routes = base_path('routes/cp.php'))) {
+                    include $routes;
+                }
+            });
+        }
     }
 
     /**
@@ -241,6 +223,7 @@ class UiServiceProvider extends ServiceProvider
 
         Stream::macro('table', function ($table = 'default', $attributes = []) {
 
+            /** @var \Streams\Core\Stream\Stream $this */
             if (is_array($table)) {
                 $attributes = $table;
                 $table = 'default';
@@ -249,6 +232,8 @@ class UiServiceProvider extends ServiceProvider
             if (!$configured = Arr::get($this->ui, 'tables.' . $table)) {
                 $configured = Arr::get($this->ui, 'table', []);
             }
+
+            $configured = Arr::undot($configured);
 
             $attributes = array_merge($attributes, $configured);
 
@@ -264,11 +249,30 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function extendField()
     {
-        Field::macro('input', function () {
+        $inputs = Config::get('streams.ui.inputs');
 
-            $attributes = ['field' => $this];
+        foreach ($inputs as $abstract => $concrete) {
+            $this->app->bind("streams.ui.input.{$abstract}", $concrete);
+        }
 
-            return App::make('streams.input_types.' . ($this->input ?: 'input'), compact('attributes'));
+        Field::macro('input', function (array $attributes = []) {
+
+            return $this->once($this->stream->handle . '.' . $this->handle . '.' . $this->type, function () use ($attributes) {
+
+                $attributes['field'] = Arr::get($attributes, 'field', $this);
+
+                $attributes = $attributes + $this->input;
+
+                Arr::pull($attributes, 'type');
+
+                if ($this->input instanceof Input) {
+                    return $this->input;
+                }
+
+                return App::make("streams.ui.input.{$this->input['type']}", [
+                    'attributes' => $attributes,
+                ]);
+            });
         });
     }
 
@@ -278,6 +282,20 @@ class UiServiceProvider extends ServiceProvider
     protected function extendLang()
     {
         Lang::addNamespace('ui', realpath(base_path('vendor/streams/ui/resources/lang')));
+    }
+
+    /**
+     * Extend URL support.
+     */
+    protected function extendUrl()
+    {
+        URL::macro('cp', function ($path, $extra = [], $secure = null) {
+            return URL::to(
+                Config::get('streams.cp.prefix', 'cp') . rtrim('/' . $path, '/'),
+                $extra,
+                $secure
+            );
+        });
     }
 
     /**
@@ -293,6 +311,13 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function extendAssets()
     {
+        $this->publishes([
+            __DIR__ . '/../resources/public' => public_path('vendor/streams/ui'),
+        ], 'public');
+
         Assets::addPath('ui', 'vendor/streams/ui');
+        Assets::add('head.scripts', 'ui::js/head_script.js');
+        Assets::add('scripts', 'ui::js/ui.js');
+        Assets::add('styles', 'ui::css/ui.css');
     }
 }

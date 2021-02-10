@@ -1,9 +1,9 @@
 <!-- limiter.blade.php -->
-<div>
+<div class="ls-table__limiter">
 
     <label>{{ __('ui::labels.show') }}</label>
 
-    <select class="p-1 w-auto" onchange="window.location=this.value;">
+    <select onchange="window.location=this.value;">
         @foreach (['all', 5, 10, 15, 25, 50, 75, 100, 150] as $item)
         <option
             {{ $table->options->get('limit', $table->pagination->perPage()) == $item ? 'selected' : '' }}

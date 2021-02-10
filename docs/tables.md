@@ -1,11 +1,13 @@
 ---
+__created_at: 1612057092
+__updated_at: 1612057092
 title: Tables
-category: core_concepts
-intro:
+category: basics
+intro: null
 sort: 10
 enabled: true
+stage: outlining
 ---
-
 ## Introduction
 
 Table builders help you quickly build up table components.
@@ -46,38 +48,37 @@ Define stream tables using a `handle => parameters` format, where `handle` will 
 
 ## Parameters
 
-The following parameters are available though may not be required.
-
-### Stream
-
-Use the `stream` parameter to specify the stream to use for entry data. If the table was defined on a stream this is optional.
-
-```php
-use Steams\Ui\Table\TableBuilder;
-
-$builder = new TableBuilder([
-    'stream' => 'contacts',
-]);
-```
-
-### Builder
-
-Use the `builder` parameter to override the builder instance used to build the table component.
+The following parameters are available.
 
 ```json
-// streams/example.json
 {
-    "ui": {
-        "tables": {
-            "default": {
-                "builder": "App\\MyTableRepository"
-            }
-        }
-    }
+    "stream": "contacts",
+    "table": "default",
+    "views": [],
+    "filters": [],
+    "columns": [],
+    "buttons": [],
+    "actions": [],
+    "options": [],
+
+    "builder": "App\\MyTableBuilder",
+    "template": "ui::tables.table"
 }
 ```
 
-### Repository
+##### stream `string|Stream`
+
+The stream to use for data and table configuration.
+
+##### table `string`
+
+The specific stream table configuration to use. The **default** configuration will be used otherwise.
+
+#### builder `string`
+
+Use the `builder` parameter to override the builder instance used to build the table component.
+
+##### repository `string`
 
 Use the `repository` parameter to override the repository instance used to fetch the entry. This parameter defaults to the stream configured repository if any.
 
@@ -94,11 +95,11 @@ Use the `repository` parameter to override the repository instance used to fetch
 }
 ```
 
-### Options
+##### options `array`
 
-Options listed here:
+An array of table options.
 
-## Components
+### Configuration
 
 Table configurations can also be @imports for more congiguration
 

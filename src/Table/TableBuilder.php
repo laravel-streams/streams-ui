@@ -3,35 +3,27 @@
 namespace Streams\Ui\Table;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
-use Streams\Ui\Table\Table;
-use Streams\Ui\Button\Button;
-use Streams\Ui\Support\Value;
+use Streams\Core\Repository\Contract\RepositoryInterface;
 use Streams\Core\Stream\Stream;
+use Streams\Ui\Button\Button;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Support\Normalizer;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Request;
-use Streams\Ui\Table\Component\Row\Row;
-use Streams\Ui\Table\Component\View\View;
+use Streams\Ui\Support\Value;
 use Streams\Ui\Table\Component\Action\Action;
-use Streams\Ui\Table\Component\Column\Column;
-use Streams\Ui\Table\Component\Filter\Filter;
-use Streams\Ui\Table\Component\View\ViewHandler;
-use Streams\Ui\Table\Component\View\ViewRegistry;
 use Streams\Ui\Table\Component\Action\ActionRegistry;
 use Streams\Ui\Table\Component\Button\ButtonRegistry;
+use Streams\Ui\Table\Component\Column\Column;
+use Streams\Ui\Table\Component\Filter\Filter;
 use Streams\Ui\Table\Component\Filter\FilterRegistry;
-use Streams\Core\Repository\Contract\RepositoryInterface;
+use Streams\Ui\Table\Component\Row\Row;
+use Streams\Ui\Table\Component\View\View;
+use Streams\Ui\Table\Component\View\ViewHandler;
+use Streams\Ui\Table\Component\View\ViewRegistry;
 
-/**
- * Class TableBuilder
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
 class TableBuilder extends Builder
 {
 
@@ -56,7 +48,9 @@ class TableBuilder extends Builder
             'buttons' => [],
             'actions' => [],
 
-            'options' => [],
+            'options' => [
+                'cp_enabled' => false,
+            ],
 
             'component' => 'table',
             'table' => Table::class,
@@ -219,7 +213,7 @@ class TableBuilder extends Builder
         $registry = app(FilterRegistry::class);
 
         foreach ($filters as &$attributes) {
-            
+
             if ($registered = $registry->get(Arr::pull($attributes, 'filter'))) {
                 $attributes = array_replace_recursive($registered, $attributes);
             }
@@ -327,6 +321,7 @@ class TableBuilder extends Builder
         $actions = $this->actions;
 
         $actions = Normalizer::normalize($actions, 'handle');
+        $actions = Normalizer::fillWithKey($actions, 'handle');
         $actions = Normalizer::fillWithAttribute($actions, 'action', 'handle');
 
         $registry = app(ActionRegistry::class);
@@ -338,7 +333,7 @@ class TableBuilder extends Builder
             }
 
             if (!isset($attributes['text'])) {
-                $attributes['text'] = ucwords(Str::humanize($attributes['handle']));
+                $attributes['text'] = Str::title(Str::humanize($attributes['handle']));
             }
         }
 
@@ -405,25 +400,42 @@ class TableBuilder extends Builder
             return $this->instance->columns;
         }
 
+        $stream = $this->stream;
         $columns = $this->columns;
 
-        if (!$columns) {
-            $columns = ['id', 'created_at'];
+        if (!$columns && $this->stream) {
+            $columns = $this->stream->fields->keys()->take(3)->all();
         }
 
         $columns = Normalizer::normalize($columns);
         $columns = Normalizer::fillWithKey($columns, 'handle');
         $columns = Normalizer::fillWithAttribute($columns, 'value', 'handle');
 
-        // $registry = app(ColumnRegistry::class);
-
-        // foreach ($columns as &$attributes) {
-        //     if ($registered = $registry->get(Arr::pull($attributes, 'column'))) {
-        //         $attributes = array_replace_recursive($registered, $attributes);
-        //     }
-        // }
-
         $columns = Normalizer::attributes($columns);
+
+        foreach ($columns as &$attributes) {
+
+            $handle = Arr::get($attributes, 'handle');
+            $field = Arr::get($attributes, 'field', $handle);
+
+            $field = $stream->fields->get($field);
+
+            if (!isset($attributes['field']) && $field) {
+                $attributes['field'] = $field->handle;
+            }
+
+            if (!array_key_exists('heading', $attributes) && $field) {
+                $attributes['heading'] = $field->name();
+            }
+
+            if (!array_key_exists('sortable', $attributes) && $field) {
+                $attributes['sortable'] = true;
+            }
+
+            if ($field && Request::get($this->instance->prefix('order_by')) == $field->handle) {
+                $attributes['direction'] = Request::get('sort');
+            }
+        }
 
         $this->loadInstanceWith('columns', $columns, Column::class);
 

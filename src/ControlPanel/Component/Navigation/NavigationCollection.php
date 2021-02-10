@@ -41,7 +41,7 @@ class NavigationCollection extends Collection
                 return false;
             }
 
-            return $item->parent == $parent->handle;
+            return $item->parent == $parent->id;
         });
     }
 }

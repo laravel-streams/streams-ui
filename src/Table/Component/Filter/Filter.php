@@ -2,18 +2,11 @@
 
 namespace Streams\Ui\Table\Component\Filter;
 
-use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Request;
+use Streams\Ui\Support\Component;
 use Streams\Ui\Table\Component\Filter\Query\GenericFilterQuery;
 
-/**
- * Class Filter
- *
- * @link    http://pyrocms.com/
- * @author  PyroCMS, Inc. <support@pyrocms.com>
- * @author  Ryan Thompson <ryan@pyrocms.com>
- */
 class Filter extends Component
 {
 
@@ -54,10 +47,16 @@ class Filter extends Component
     {
         $attributes = ['field' => $this];
 
-        $attributes['name'] = $this->inputName();
-        $attributes['value'] = $this->value();
+        $attributes[ 'value' ] = $this->value();
+        $attributes[ 'name' ]  = $this->inputName();
 
-        return App::make('streams.input_types.' . ($this->input ?: 'input'), [
+        $attributes = array_diff_key($this->getPrototypeAttributes(), array_flip([
+            'classes',
+            'template',
+            'component',
+        ]));
+
+        return App::make('streams.ui.input.' . ($this->input ?: 'input'), [
             'attributes' => $attributes,
         ]);
     }

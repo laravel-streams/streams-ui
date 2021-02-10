@@ -2,14 +2,9 @@
 
 namespace Streams\Ui\Input;
 
-/**
- * Class Integer
- *
- * @link    http://pyrocms.com/
- * @author  PyroCMS, Inc. <support@pyrocms.com>
- * @author  Ryan Thompson <ryan@pyrocms.com>
- */
-class Integer extends Input
+use Illuminate\Support\Arr;
+
+class Integer extends Number
 {
 
     /**
@@ -22,9 +17,24 @@ class Integer extends Input
     {
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/integer',
-            'component' => 'input',
-            'type' => 'number',
-            'field' => null,
+            'config' => [
+                'step' => 1,
+            ],
+        ], $attributes));
+    }
+
+    /**
+     * Return the HTML attributes array.
+     *
+     * @param array $attributes
+     * @return array
+     */
+    public function attributes(array $attributes = [])
+    {
+        return parent::attributes(array_merge([
+            'step' => (int) (Arr::get($this->field->config, 'step', 1) ?: 1),
+            'min' => $this->field->getRuleParameter('min'),
+            'max' => $this->field->getRuleParameter('max'),
         ], $attributes));
     }
 }

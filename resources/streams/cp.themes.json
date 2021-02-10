@@ -1,0 +1,124 @@
+{
+    "handle": "cp.themes",
+    "source": {
+        "file": "vendor/streams/ui/resources/streams/data/themes.json",
+        "type": "file"
+    },
+    "fields": {
+        "id": {
+            "type": "slug",
+            "input": {
+                "placeholder": "example"
+            },
+            "required": true
+        },
+        "density": {
+            "type": "decimal",
+            "required": true,
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--density', this.value)"
+        },
+        "radius": {
+            "type": "decimal",
+            "required": true,
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--radius', this.value)"
+        },
+        "light": {
+            "type": "color",
+            "required": true,
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--light', this.value)",
+            "input.attributes.oninput": "document.documentElement.style.setProperty('--light', this.value)"
+        },
+        "dark": {
+            "type": "color",
+            "required": true,
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--dark', this.value)",
+            "input.attributes.oninput": "document.documentElement.style.setProperty('--dark', this.value)"
+        },
+        "primary": {
+            "type": "color",
+            "required": true,
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--primary', this.value)",
+            "input.attributes.oninput": "document.documentElement.style.setProperty('--primary', this.value)"
+        },
+        "topbar_bg_color": {
+            "type": "color",
+            "required": true,
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--topbar-bg-color', this.value)",
+            "input.attributes.oninput": "document.documentElement.style.setProperty('--topbar-bg-color', this.value)"
+        },
+        "topbar_text_color": {
+            "type": "color",
+            "required": true,
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--topbar-text-color', this.value)",
+            "input.attributes.oninput": "document.documentElement.style.setProperty('--topbar-text-color', this.value)"
+        },
+        "sidebar_bg_color": {
+            "type": "color",
+            "required": true,
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--sidebar-bg-color', this.value)",
+            "input.attributes.oninput": "document.documentElement.style.setProperty('--sidebar-bg-color', this.value)"
+        },
+        "sidebar_text_color": {
+            "type": "color",
+            "required": true,
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--sidebar-text-color', this.value)",
+            "input.attributes.oninput": "document.documentElement.style.setProperty('--sidebar-text-color', this.value)"
+        },
+        "input_bg_color": {
+            "type": "color",
+            "required": true,
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--input-bg-color', this.value)",
+            "input.attributes.oninput": "document.documentElement.style.setProperty('--input-bg-color', this.value)"
+        },
+        "input_text_color": {
+            "type": "color",
+            "required": true,
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--input-text-color', this.value)",
+            "input.attributes.oninput": "document.documentElement.style.setProperty('--input-text-color', this.value)"
+        },
+        "brand_mode": {
+            "type": "select",
+            "required": true,
+            "config.options": {
+                "--brand-topbar": "Belongs to Topbar",
+                "--brand-sidebar": "Belongs to Sidebar"
+            }
+        }
+    },
+    "ui": {
+        "table": {
+            "buttons": {
+                "edit": {}
+            }
+        },
+        "form": {
+            "layout": {
+                "tabs": {
+                    "base": {
+                        "fields": {
+                            "id": {},
+                            "density": {
+                                "width": "25%"
+                            },
+                            "radius": {
+                                "width": "25%"
+                            }
+                        }
+                    },
+                    "topbar": {
+                        "fields": [
+                            "topbar_bg_color",
+                            "topbar_text_color"
+                        ]
+                    },
+                    "sidebar": {
+                        "fields": [
+                            "sidebar_bg_color",
+                            "sidebar_text_color"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

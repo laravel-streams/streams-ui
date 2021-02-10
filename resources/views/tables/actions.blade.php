@@ -1,4 +1,4 @@
 <!-- actions.blade.php -->
-<div class="flex-1">
+<div class="ls-table__actions">
     {!! $table->actions->render() !!}
 </div>

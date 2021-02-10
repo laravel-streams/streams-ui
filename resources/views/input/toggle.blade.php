@@ -1,7 +1,17 @@
 <!-- toggle.blade.php -->
-<label class="inline-flex items-center mt-3">
+<div x-data="{checked: {{ json_encode($input->value) }}}">
+
     <input {!! $input->htmlAttributes([
-        'type' => 'checkbox',
-        'checked' => ($input->field->value),
-    ]) !!} checked><span class="ml-2 text-gray-700">Toggle</span>
-</label>
+        'class' => 'hidden',
+        'value' => null,
+        'checked' => ($input->value),
+    ]) !!} x-model="checked">
+    
+    <div class="toggle" x-on:click="checked == true ? checked = false : checked = true;" x-bind:class="{ 
+        'on' : checked,
+        'off' : !checked,
+      }">
+        <div class="toggle-pill"></div>
+    </div>
+    
+</div>

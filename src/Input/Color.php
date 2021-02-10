@@ -2,16 +2,7 @@
 
 namespace Streams\Ui\Input;
 
-use Streams\Ui\Support\Component;
-
-/**
- * Class Color
- *
- * @link    http://pyrocms.com/
- * @author  PyroCMS, Inc. <support@pyrocms.com>
- * @author  Ryan Thompson <ryan@pyrocms.com>
- */
-class Color extends Component
+class Color extends Input
 {
 
     /**
@@ -24,8 +15,7 @@ class Color extends Component
     {
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/color',
-            'component' => 'input',
-            'classes' => [],
+            'type' => 'color',
         ], $attributes));
     }
 }

@@ -4,6 +4,13 @@ namespace Streams\Ui\Input;
 
 use Streams\Ui\Support\Component;
 
+/**
+ * @property string                                 template
+ * @property string                                 component
+ * @property string[]                               classes
+ * @property string                                 type
+ * @property \Streams\Ui\Form\Component\Field\Field field
+ */
 class Input extends Component
 {
 
@@ -18,30 +25,9 @@ class Input extends Component
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/input',
             'component' => 'input',
-            'classes' => [
-                'appearance-none',
-                'w-full',
-                'block',
-                'px-3',
-                'py-2',
-
-                'border-2',
-                'border-black',
-
-                'placeholder-gray-400',
-
-                'focus:outline-none',
-                'focus:shadow-outline-blue',
-                'focus:border-blue-500',
-
-                'duration-150',
-                'ease-in-out',
-                'transition',
-
-                'sm:text-sm',
-                'sm:leading-5',
-            ],
+            'classes' => [],
             'type' => 'text',
+            'placeholder' => null,
             'field' => null,
         ], $attributes));
     }
@@ -49,9 +35,30 @@ class Input extends Component
     public function attributes(array $attributes = [])
     {
         return parent::attributes(array_merge([
-            'id' => $this->id ?: $this->name . '-input',
-            'name' => $this->name,
-            'value' => $this->value ?: $this->field->value,
+            'name' => $this->name(),
+            'placeholder' => $this->placeholder,
+            'readonly' => $this->field->readonly,
+            'disabled' => $this->field->disabled,
+            'required' => $this->field->hasRule('required'),
+            'pattern' => trim($this->field->pattern ?: $this->field->getRuleParameter('regex'), "//"),
+            'value' => $this->value,
+            'type' => $this->type,
+            'id' => $this->id(),
         ], $attributes));
+    }
+
+    public function label()
+    {
+        return $this->label ?: $this->field->name();
+    }
+
+    public function name()
+    {
+        return $this->name ?: ($this->prefix . $this->field->handle);
+    }
+
+    public function id()
+    {
+        return $this->id ?: $this->name() . '-input';
     }
 }

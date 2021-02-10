@@ -2,9 +2,9 @@
 
 namespace Streams\Ui\ControlPanel\Component\Shortcut;
 
-use Streams\Ui\Support\Component;
+use Streams\Ui\Button\Button;
 
-class Shortcut extends Component
+class Shortcut extends Button
 {
 
     /**
@@ -17,8 +17,8 @@ class Shortcut extends Component
     {
         return parent::initializePrototype(array_merge([
             'component' => 'shortcut',
-            'template' => 'ui::components.cp.shortcut',
 
+            'tag' => 'button',
             'handle' => null,
             'title' => null,
             'policy' => null,
@@ -27,8 +27,6 @@ class Shortcut extends Component
 
             'active' => false,
             'favorite' => false,
-
-            'classes' => [],
         ], $attributes));
     }
 }

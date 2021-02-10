@@ -1,0 +1,36 @@
+<?php
+
+namespace Streams\Ui\Input;
+
+use Illuminate\Support\Arr;
+
+class File extends Input
+{
+
+    /**
+     * Initialize the prototype.
+     *
+     * @param array $attributes
+     * @return $this
+     */
+    protected function initializePrototype(array $attributes)
+    {
+        return parent::initializePrototype(array_merge([
+            'template' => 'ui::input/file',
+            'type' => 'file',
+            'accept' => [
+                // "image/png",
+                // "image/jpeg"
+            ],
+        ], $attributes));
+    }
+
+    public function attributes(array $attributes = [])
+    {
+        $accept = $this->accept ?: Arr::get($this->field->config, 'accept', []);
+
+        return parent::attributes(array_merge([
+            'accept' => implode(', ', $accept),
+        ], $attributes));
+    }
+}

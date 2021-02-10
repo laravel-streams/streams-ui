@@ -1,13 +1,63 @@
 ---
 title: Navigation
-category: cp
+category: control_panel
 sort: 10
+enabled: true
 ---
 
-- **Intro:** Introduce the idea in one sentence.
-- **Explanation:** An elevator pitch that signals the reader to continue or not (keep looking for relevant page).
-- **Sections/Features:** Separate sections/sub-sections (h2s/h3s) consistently. This will build the ToC.
-- **Next Steps:** Next actions to take that are intentional versus simply additional reading.
-- **Code Examples:** Code examples and snippets.
-- **Insights:** Tips, post scriptum, creative links.
-- **Additional Reading:** Link to related ideas/topics/guides/recipes.
+## Introduction
+
+Navigation sections are the primary building blocks of the control panel.
+
+## Creating Navigation
+
+### Manually
+
+You can manually create a JSON file with the below [attributes](#attributes) in the navigation directory.
+
+### Using Streams CLI
+
+You can create a new `cp.navigation` entry using [streams-cli](../cli/introduction).
+
+```bash
+php artisan entries:create cp.navigation
+```
+
+## Component
+
+### Attributes
+
+```json
+// // streams/cp/navigation/{id}.json
+{
+    "title": "Documentation",
+    "stream": "docs",
+    "parent": null,
+    "buttons": {},
+    "route": {}
+}
+```
+
+#### id `slug`
+
+The unique handle of the shortcut.
+
+#### title `string`
+
+A (translatable) string for display purposes.
+
+#### stream `string`
+
+The contextual stream for this navigation section. Forms will create entries for this stream and tables will display entries for this stream, for example. The **id** will be assumed the same as the stream handle if not configured.
+
+#### parent `string`
+
+The **id** of the parent navigation item. Two levels of nesting are supported out of the box.
+
+#### buttons `array`
+
+An associated array of [buttons](buttons).
+
+#### route `array`
+
+An associated array of additional [route information](../core/routing).

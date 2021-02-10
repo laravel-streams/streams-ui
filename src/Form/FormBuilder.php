@@ -2,21 +2,24 @@
 
 namespace Streams\Ui\Form;
 
-use Streams\Ui\Form\Form;
 use Illuminate\Support\Arr;
-use Streams\Ui\Button\Button;
-use Streams\Core\Stream\Stream;
-use Streams\Ui\Support\Builder;
-use Streams\Ui\Support\Normalizer;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
+<<<<<<< HEAD
 use Streams\Core\Support\Facades\Resolver;
-use Streams\Ui\Form\Component\Field\Field;
+=======
+use Streams\Core\Repository\Contract\RepositoryInterface;
+use Streams\Core\Stream\Stream;
+>>>>>>> feature/webpack-mix-root-based-bundling
 use Streams\Core\Support\Facades\Evaluator;
+use Streams\Core\Support\Facades\Resolver;
+use Streams\Ui\Button\Button;
 use Streams\Ui\Form\Component\Action\Action;
 use Streams\Ui\Form\Component\Action\ActionRegistry;
 use Streams\Ui\Form\Component\Button\ButtonRegistry;
-use Streams\Core\Repository\Contract\RepositoryInterface;
+use Streams\Ui\Form\Component\Field\Field;
+use Streams\Ui\Support\Builder;
+use Streams\Ui\Support\Normalizer;
 
 /**
  * Class FormBuilder
@@ -61,7 +64,8 @@ class FormBuilder extends Builder
             'form' => Form::class,
 
             'steps' => [
-                'make_component' => [$this, 'make'],
+                'make_form' => [$this, 'make'],
+                'setup' => [$this, 'setup'],
 
                 'query_entry' => [$this, 'queryEntry'],
 
@@ -70,8 +74,6 @@ class FormBuilder extends Builder
                 'set_validation' => [$this, 'setValidation'],
 
                 'make_fields' => [$this, 'makeFields'],
-                'load_fields' => [$this, 'loadFields'],
-
                 'make_actions' => [$this, 'makeActions'],
                 'make_buttons' => [$this, 'makeButtons'],
             ],
@@ -101,6 +103,11 @@ class FormBuilder extends Builder
         }
 
         return null;
+    }
+
+    public function setup()
+    {
+        $this->instance->options = $this->options;
     }
 
     public function queryEntry()
@@ -134,7 +141,7 @@ class FormBuilder extends Builder
         }
 
         /*
-         * Fallback to using the repository 
+         * Fallback to using the repository
          * to get and/or paginate the results.
          */
         if ($this->repository() instanceof RepositoryInterface) {
@@ -154,8 +161,8 @@ class FormBuilder extends Builder
 
     public function setValidation()
     {
-        $this->instance->rules = $this->rules;
-        $this->instance->validators = $this->validators;
+        $this->instance->rules = $this->rules ?: $this->stream->rules;
+        $this->instance->validators = $this->validators ?: $this->stream->validators;
     }
 
     public function makeFields()
@@ -166,54 +173,36 @@ class FormBuilder extends Builder
             return $this->instance->fields;
         }
 
-        $fields = $original = $this->fields;
+        $fields = $this->fields;
 
-        if ($this->stream) {
-            $fields = ['id' => 'text'] + $this->stream->fields->toArray();
-        }
+        $collection = $this->stream->fields;
 
         $fields = Normalizer::normalize($fields, 'type');
         $fields = Normalizer::fillWithKey($fields, 'handle');
-        $fields = Normalizer::fillWithAttribute($fields, 'name', 'handle');
 
-        if ($this->stream) {
-            $fields = array_merge_recursive($fields, $original);
-        }
+        $collection->each(function ($field) use ($fields) {
 
-        foreach ($fields as &$input) {
+            if ($this->entry) {
+<<<<<<< HEAD
+                $field->setPrototypeAttribute('input.value', $this->entry->{$field->handle});
+=======
 
-            $input['rules'] = array_map(function ($rules) {
-
-                if (is_string($rules)) {
-                    return explode('|', $rules);
-                }
-
-                return $rules;
-            }, Arr::get($input, 'rules', []));
-
-            if (strpos($input['type'], '|')) {
-                list($input['type'], $input['input']) = explode('|', $input['type']);
-            } else {
-                $input['input'] = $input['type'];
+                $field
+                    ->input()
+                    ->setPrototypeAttribute('value', $this->entry->{$field->handle});
+>>>>>>> feature/webpack-mix-root-based-bundling
             }
-        }
 
-        $this->loadInstanceWith('fields', $fields, Field::class);
+            if (!$extra = Arr::get($fields, $field->handle, [])) {
+                return;
+            }
 
-        $this->fields = $fields;
+            $field->loadPrototypeAttributes($extra);
+        });
+
+        $this->fields = $this->instance->fields = $collection;
 
         return $this->instance->fields;
-    }
-
-    public function loadFields()
-    {
-        if (!$entry = $this->instance->entry) {
-            return;
-        }
-
-        $this->instance->fields->each(function ($field) use ($entry) {
-            $field->value = $entry->{$field->handle} ?? null;
-        });
     }
 
     public function makeActions()

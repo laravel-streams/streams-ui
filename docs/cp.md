@@ -1,99 +1,52 @@
 ---
+__created_at: 1612057264
+__updated_at: 1612057264
 title: Control Panel
-category: core_concepts
-intro: The Swiss-army control panel.
-sort: 99
+category: basics
+sort: 0
 enabled: true
+stage: outlining
 ---
-
 ## Introduction
 
-The control panel system provides a simple, highly configurable interface for defining the control panel experience your project needs.
+The control panel is an easily configurable administrative tool.
 
 ### Configuration
 
-All streams configuration is stored in `/streams/cp/{component}/*`.
+*Control panel theme configuration is currently in development.*
 
-## Navigation
+### Responses
 
-#### Navigation Stream
+The control panel will **automatically** wrap other builder view responses with the `ui::cp` layout *when responses are generated within the control panel URI prefix*.
 
-```php
-Streams::register([
-    'handle' => 'cp.navigation',
-    'source' => [
-        'path' => 'streams/cp/navigation',
-        'format' => 'json',
-    ],
-    'config' => [
-        'prototype' => 'Streams\\Ui\\ControlPanel\\Component\\Navigation\\Section',
-    ],
-    'fields' => [
-        'title' => 'string',
-        'parent' => [
-            'type' => 'relationship',
-            'related' => 'cp.navigation',
-        ],
-    ],
-]);
-```
-
-#### Example Navigation Section
-
-```json
-// // streams/cp/navigation/docs.json
-{
-    "title": "Documentation",
-    "stream": "docs",
-    "buttons": {
-        "create": {},
-        "view": {
-            "href": "/docs/core/introduction",
-            "target": "_blank"
-        }
-    }
-}
-```
-
-## Shortcuts
-
-#### Shortcuts Stream
+Both examples are wrapped by the `ui::cp` view layout.
 
 ```php
-Streams::register([
-    'handle' => 'cp.shortcuts',
-    'source' => [
-        'path' => 'streams/cp/shortcuts',
-        'format' => 'json',
-    ],
-    'config' => [
-        'prototype' => 'Streams\\Ui\\ControlPanel\\Component\\Shortcut\\Shortcut',
-    ],
-    'fields' => [
-        'title' => 'string',
-        'icon' => 'string',
-        'svg' => 'string',
-    ],
-]);
+// GET: {cp_prefix}/{example}
+use Streams\Core\Support\Facades\Streams;
+
+return Streams::make('example')->table()->response();
 ```
 
-#### Example Navigation Section
+```php
+// GET: random/{example}
+use Streams\Core\Support\Facades\Streams;
 
-```json
-// // streams/cp/shortcuts/user.json
-{
-    "image": "https://source.unsplash.com/hoS3dzgpHzw/256x256",
-    "dropdown": {
-        "profile": {
-            "text": "Visit Website",
-            "href": "/",
-            "target": "_blank"
-        },
-        "logout": {
-            "text": "Logout",
-            "href": "/logout",
-            "target": "_blank"
-        }
-    }
-}
+return Streams::make('example')->table([
+    'options.cp_enabled' => true,
+])->response();
 ```
+
+## Components
+
+### Navigation
+
+The primary building blocks of your control panel.
+
+[Navigation](navigation)
+
+### Shortcuts
+
+The basic elements of the control panel topbar.
+
+[Shortcuts](shortcuts)

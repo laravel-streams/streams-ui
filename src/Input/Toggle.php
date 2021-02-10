@@ -4,13 +4,6 @@ namespace Streams\Ui\Input;
 
 use Streams\Ui\Input\Input;
 
-/**
- * Class Toggle
- *
- * @link    http://pyrocms.com/
- * @author  PyroCMS, Inc. <support@pyrocms.com>
- * @author  Ryan Thompson <ryan@pyrocms.com>
- */
 class Toggle extends Input
 {
 
@@ -24,7 +17,7 @@ class Toggle extends Input
     {
         return parent::initializePrototype(array_merge([
             'template' => 'ui::input/toggle',
-            'classes' => [],
+            'type' => 'checkbox',
         ], $attributes));
     }
 }

@@ -1,0 +1,160 @@
+{
+    "handle": "testing.litmus",
+    "description": "Used for testing.",
+    
+    "source": {
+        "path": "vendor/streams/ui/tests/data/litmus",
+        "format": "json"
+    },
+
+    "fields": {
+        "text": {
+            "type": "text",
+            "label": "Text Input",
+            "disabled": true,
+            "readonly": true,
+            "input.placeholder": "Example",
+            "rules": [
+                "required"
+            ]
+        },
+        "color": {
+            "type": "color",
+            "label": "Color Input"
+        },
+        "date": {
+            "type": "date",
+            "label": "Date Input",
+            "rules": [
+                "after:2021-01-01",
+                "before:2121-01-01"
+            ]
+        },
+        "datetime": {
+            "type": "datetime",
+            "label": "Datetime Input",
+            "config": {
+                "step": 2
+            },
+            "rules": [
+                "after:2021-01-01T12:00",
+                "before:2121-01-01T12:00"
+            ]
+        },
+        "time": {
+            "type": "time",
+            "label": "Time Input",
+            "rules": [
+                "min:06:00",
+                "max:20:00"
+            ]
+        },
+        "decimal": {
+            "type": "decimal",
+            "label": "Decimal Input",
+            "config": {
+                "step": 0.01
+            },
+            "rules": [
+                "min:-0.1",
+                "max:0.1"
+            ]
+        },
+        "integer": {
+            "type": "integer",
+            "label": "Integer Input",
+            "rules": [
+                "min:-1",
+                "max:1"
+            ]
+        },
+        "radio": {
+            "type": "select|radio",
+            "label": "Radio Input",
+            "config": {
+                "options": {
+                    "foo": "Foo",
+                    "bar": "Bar"
+                }
+            }
+        },
+        "markdown": {
+            "type": "markdown",
+            "label": "Markdown Input"
+        },
+        "range": {
+            "type": "integer|range",
+            "label": "Range Input"
+        },
+        "select": {
+            "type": "select",
+            "label": "Select Input",
+            "config": {
+                "options": {
+                    "foo": "Foo",
+                    "bar": "Bar"
+                }
+            }
+        },
+        "multiselect": {
+            "type": "multiselect",
+            "label": "Multi-select Input",
+            "config": {
+                "options": {
+                    "foo": "Foo",
+                    "bar": "Bar",
+                    "baz": "Baz"
+                }
+            }
+        },
+        "checkboxes": {
+            "type": "multiselect|checkboxes",
+            "label": "Checkboxes Input",
+            "config": {
+                "options": {
+                    "foo": "Foo",
+                    "bar": "Bar",
+                    "baz": "Baz"
+                }
+            }
+        },
+        "textarea": {
+            "type": "string|textarea",
+            "label": "Textarea Input"
+        },
+        "slug": {
+            "type": "string|slug",
+            "label": "Textarea Input"
+        },
+        "boolean": {
+            "type": "boolean",
+            "label": "Boolean Input",
+            "input.config.label": "Enabled"
+        },
+        "toggle": {
+            "type": "boolean|toggle",
+            "label": "Toggle Input"
+        },
+        "relationship": {
+            "type": "relationship",
+            "label": "Relationship Input",
+            "config": {
+                "related": "testing.examples"
+            }
+        },
+        "file": {
+            "type": "file",
+            "label": "File Input",
+            "config": {
+                "path": "vendor/streams/ui/tests/data/uploads"
+            }
+        },
+        "image": {
+            "type": "image",
+            "label": "Image Input",
+            "config": {
+                "path": "vendor/streams/ui/tests/data/uploads/img"
+            }
+        }
+    }
+}

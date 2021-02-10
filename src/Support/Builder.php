@@ -9,10 +9,11 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Traits\Macroable;
+use Streams\Core\Support\Facades\Streams;
 use Streams\Core\Support\Traits\Prototype;
 use Streams\Core\Support\Traits\FiresCallbacks;
 use Streams\Ui\ControlPanel\ControlPanelBuilder;
-use Illuminate\Support\Facades\View as FacadesView;
+use Illuminate\Support\Facades\View as ViewFacade;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 /**
@@ -64,6 +65,10 @@ class Builder
 
     public function make()
     {
+        if (is_string($this->stream)) {
+            $this->stream = Streams::make($this->stream);
+        }
+
         if (is_object($this->{$this->component})) {
             return $this->{$this->component};
         }
@@ -74,7 +79,7 @@ class Builder
 
         $this->{$this->component}->stream = $this->stream;
         $this->{$this->component}->handle = $this->handle;
-        
+
         //$this->{$this->component}->repository = $this->repository();
 
         return $this->{$this->component};
@@ -91,7 +96,7 @@ class Builder
         if (Request::method() == 'POST') {
             $this->instance->post();
         }
-
+        
         if ($this->instance->response) {
             return $this->instance->response;
         }
@@ -104,19 +109,28 @@ class Builder
             return Response::json($this);
         }
 
-        FacadesView::share('cp', (new ControlPanelBuilder())->build());
+        if (ViewFacade::shared('cp') || Arr::get($this->options, 'cp_enabled') === true) {
 
-        return Response::view('ui::default', ['content' => $this->render()]);
+            // @todo this needs work
+            // control panel builder
+            if (!ViewFacade::shared('cp')) {
+                ViewFacade::share('cp', (new ControlPanelBuilder())->build());
+            }
+
+            return Response::view('ui::cp', ['content' => $this->render()]);
+        }
+
+        return Response::view('ui::ui', ['content' => $this->render()]);
     }
 
-    public function render(): View
+    public function render()
     {
         $this->build();
 
         return $this->instance->render();
     }
 
-    public function json(): JsonResponse
+    public function json()
     {
         $this->build();
 
@@ -146,7 +160,7 @@ class Builder
     protected function loadInstanceWith($key, $input, $abstract)
     {
         return array_map(function ($attributes) use ($key, $abstract) {
-            
+
             $abstract = Arr::pull($attributes, 'abstract', $abstract);
 
             $this->instance->{$key}->put($attributes['handle'], new $abstract($attributes));

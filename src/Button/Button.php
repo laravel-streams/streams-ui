@@ -3,7 +3,9 @@
 namespace Streams\Ui\Button;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Streams\Ui\Support\Component;
+use Illuminate\Support\Facades\URL;
 
 /**
  * Class Button
@@ -35,7 +37,10 @@ class Button extends Component
             'primary'  => false,
             'disabled' => false,
             'type'     => 'default',
-            'classes'  => [],
+            'classes'  => [
+                'ls-button',
+            ],
+            'attributes' => [],
         ], $attributes));
     }
 
@@ -73,6 +78,20 @@ class Button extends Component
             'name'  => $this->name,
             'value' => $this->value,
             'class' => $this->class(),
+            'href' => $this->url(),
         ], $attributes)));
+    }
+
+    public function url()
+    {
+        if (!$target = Arr::get($this->attributes, 'href')) {
+            return null;
+        }
+
+        if (Str::startsWith($target, '@cp/')) {
+            return URL::cp(ltrim(substr($target, 4), '/'));
+        }
+
+        return URL::to($target);
     }
 }

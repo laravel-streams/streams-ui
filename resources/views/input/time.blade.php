@@ -1,4 +1,4 @@
 <!-- time.blade.php -->
 <input {!! $input->htmlAttributes([
-    'type' => 'time',
+    'value' => $input->value ? $input->value->format('H:i') : null
 ]) !!}/>

@@ -26,13 +26,11 @@ class Column extends Component
     {
         return parent::initializePrototype(array_merge([
             'component' => 'column',
-            
             'view' => null,
             'value' => null,
             'entry' => null,
             'heading' => null,
             'wrapper' => null,
-            'classes' => ['table__column'],
         ], $attributes));
     }
 
@@ -43,7 +41,7 @@ class Column extends Component
     {
         $direction = null;
 
-        $current = Request::get($this->table->prefix('sort'));
+        $current = $this->direction;
 
         if (!$current) {
             $direction = 'asc';

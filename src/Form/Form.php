@@ -8,6 +8,7 @@ use Collective\Html\FormFacade;
 use Streams\Ui\Support\Component;
 use Streams\Core\Support\Workflow;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Request;
 use Streams\Ui\Button\ButtonCollection;
 use Illuminate\Support\Facades\Redirect;
 use Streams\Core\Support\Facades\Messages;
@@ -15,7 +16,7 @@ use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
 use Streams\Ui\Form\Component\Field\FieldCollection;
 use Streams\Ui\Form\Component\Action\ActionCollection;
-use Streams\Ui\Form\Component\Section\SectionCollection;
+
 
 class Form extends Component
 {
@@ -69,9 +70,6 @@ class Form extends Component
             ],
             'sections' => [
                 'type' => 'collection',
-                'config' => [
-                    'abstract' => SectionCollection::class,
-                ],
             ],
         ]);
 
@@ -158,7 +156,7 @@ class Form extends Component
         }
 
         foreach ($this->fields as $field) {
-            $this->values->put($field->handle, $this->request($field->handle));
+            $this->values->put($field->handle, Request::file($this->prefix($field->handle)) ?: $this->request($field->handle));
         }
     }
 
@@ -171,10 +169,13 @@ class Form extends Component
         })->all();
 
         if (!$this->validator && $this->stream) {
+
             $this->validator = $this->stream
                 ->validator($values);
 
-            $this->validator->addRules($rules);
+            if ($rules) {
+                $this->validator->setRules($rules);
+            }
         }
 
         // @todo test this

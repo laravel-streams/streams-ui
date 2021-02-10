@@ -1,6 +1,7 @@
 {
     "name": "streams/ui",
     "description": "The official UI package for Laravel Streams.",
+    "type": "streams-addon",
     "authors": [
         {
             "name": "Ryan Thompson",
@@ -16,10 +17,18 @@
             "Streams\\Ui\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Streams\\Ui\\Tests\\": "tests/"
+        }
+    },
     "config": {
         "bin-dir": "bin"
     },
     "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        },
         "laravel": {
             "providers": [
                 "Streams\\Ui\\UiServiceProvider"

@@ -8,12 +8,10 @@ use Streams\Ui\Button\Button;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Support\Normalizer;
 use Streams\Ui\Button\ButtonRegistry;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Request;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\ControlPanel\ControlPanel;
 use Streams\Ui\ControlPanel\Component\Shortcut\Shortcut;
-use Streams\Ui\ControlPanel\Component\Navigation\Section;
 
 /**
  * Class ControlPanelBuilder
@@ -65,30 +63,9 @@ class ControlPanelBuilder extends Builder
         $navigation = Streams::entries('cp.navigation')
             ->orderBy('sort_order', 'asc')
             ->orderBy('handle', 'asc')
-            ->get()
-            ->toArray();
+            ->get();
 
-        $navigation = Normalizer::fillWithAttribute($navigation, 'handle', 'id');
-        $navigation = Normalizer::attributes($navigation);
-
-        foreach ($navigation as $handle => &$section) {
-
-            if (!isset($section['title'])) {
-                $section['title'] = Str::title($handle);
-            }
-
-            if (!isset($section['attributes']['href'])) {
-                $section['attributes']['href'] = '/' . Config::get('streams.cp.prefix', 'cp') . '/' . $section['handle'];
-            }
-        }
-
-        array_map(function ($attributes) {
-            $this->instance->navigation->put($attributes['handle'], new Section($attributes));
-        }, $navigation);
-
-        $this->navigation = $navigation;
-
-        return $this->instance->navigation;
+        return $this->instance->navigation = $navigation;
     }
 
     public function detectNavigation()
@@ -110,8 +87,19 @@ class ControlPanelBuilder extends Builder
             $match = $link;
         }
 
+        if ($match && $match->parent) {
+            
+            $parent = $this->instance->navigation->get($match->parent);
+
+            $match->buttons = $match->buttons ?: $parent->buttons;
+        }
+
         if ($match) {
+            
             $match->active = true;
+
+            $this->stream = $this->stream ?: $match->stream;
+            $this->entry = $this->entry ?: $match->entry;
         }
     }
 
@@ -124,9 +112,8 @@ class ControlPanelBuilder extends Builder
         }
 
         $shortcuts = Streams::entries('cp.shortcuts')
-            ->orderBy('sort_order', 'asc')
-            ->get()
-            ->toArray();
+            ->orderBy('sort_order', 'desc')
+            ->get();
 
         // 'view_site' => [
         //     'href'   => '/',
@@ -140,17 +127,7 @@ class ControlPanelBuilder extends Builder
         //     'title' => 'anomaly.theme.flow::control_panel.logout',
         // ],
 
-        $shortcuts = Normalizer::fillWithAttribute($shortcuts, 'handle', 'id');
-        $shortcuts = Normalizer::attributes($shortcuts);
-        $shortcuts = Normalizer::dropdown($shortcuts);
-
-        array_map(function ($attributes) {
-            $this->instance->shortcuts->put($attributes['handle'], new Shortcut($attributes));
-        }, $shortcuts);
-
-        $this->shortcuts = $shortcuts;
-
-        return $this->instance->shortcuts;
+        return $this->instance->shortcuts = $shortcuts;
     }
 
     public function makeButtons()
