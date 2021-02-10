@@ -1,9 +1,6 @@
 {
     "name": "@streams/ui",
     "version": "1.0.0",
-    "main": "lib/index.ts",
-    "types": "lib/index.ts",
-    "typings": "lib/index.ts",
     "scripts": {
         "dev": "npm run development",
         "development": "mix",
@@ -14,21 +11,15 @@
         "production": "mix --production"
     },
     "dependencies": {
-        "@streams/core": "^1.0.0",
-        "alpinejs": "^2.7.3",
-        "easymde": "^2.13.0",
-        "inversify": "^5.0.1",
-        "mousetrap": "^1.6.5",
-        "noty": "^3.2.0-beta",
-        "axios": "^0.19",
-        "lodash": "^4.17.19"
+        "@streams/core": "file:../core",
+        "alpinejs": "^2.7",
+        "easymde": "^2.13",
+        "mousetrap": "^1.6",
+        "noty": "^3.2.0-beta"
     },
     "devDependencies": {
-        "@types/mousetrap": "^1.6.5",
         "axios": "^0.21",
-        "tslib": "^2.1.0",
-        "laravel-mix": "^6.0.6",
-        "lodash": "^4.17.19",
-        "postcss": "^8.1.14"
+        "laravel-mix": "^6.0",
+        "postcss": "^8.1"
     }
 }
