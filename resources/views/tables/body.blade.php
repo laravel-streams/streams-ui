@@ -11,7 +11,7 @@
         @endif
 
         @if ($table->isSelectable())
-        <td class=" pt-3">
+        <td>
             <input type="checkbox" name="{{ $table->prefix('selected[]') }}" value="{{ $row->key }}" />
         </td>
         @endif
