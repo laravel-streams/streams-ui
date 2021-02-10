@@ -1,35 +1,27 @@
 .ls-cp {
-    margin: 0;
-    min-width: 100vw;
-    min-height: 100vh;
-    background-color: var(--light);
-
-    * {
-        color: var(--dark);
-        font-size: var(--text-base);
-        font-family: var(--font-sans);
-    }
+    @apply m-0 min-w-full min-h-screen;
+    background-color: var(--cp-color-light);
 
     &.--topbar-fixed {
 
         .ls-cp__topbar {
             position: fixed;
-            width: calc(100% - var(--sidebar-width) - calc(var(--density)*2rem));
+            width: calc(100% - var(--sidebar-width) - calc(var(--cp-spacing)*2rem));
         }
 
         .ls-cp__content {
             outline: none;
-            margin-top: calc(var(--density)*2.5rem);
+            margin-top: calc(var(--cp-spacing)*2.5rem);
         }
 
         &.--brand-topbar {
             
             .ls-cp__brand {
                 position: fixed;
-                width: calc(var(--sidebar-width) - calc(var(--density)*2rem));
+                width: calc(var(--sidebar-width) - calc(var(--cp-spacing)*2rem));
 
                 +div {
-                    margin-top: calc(var(--density)*2.5rem);
+                    margin-top: calc(var(--cp-spacing)*2.5rem);
                 }
             }
         }
@@ -73,8 +65,8 @@
     display: flex;
     align-items: center;
     justify-content: left;
-    height: calc(var(--density)*2.5rem);
-    padding: 0 calc(var(--density)*1rem);
+    height: calc(var(--cp-spacing)*2.5rem);
+    padding: 0 calc(var(--cp-spacing)*1rem);
     background-color: var(--sidebar-bg-color);
 
     a {
@@ -83,7 +75,7 @@
     }
 
     +div {
-        padding: calc(var(--density)*1rem);
+        padding: calc(var(--cp-spacing)*1rem);
     }
 }
 
@@ -91,8 +83,8 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    height: calc(var(--density)*2.5rem);
-    padding: 0 calc(var(--density)*1rem);
+    height: calc(var(--cp-spacing)*2.5rem);
+    padding: 0 calc(var(--cp-spacing)*1rem);
 
     color: var(--topbar-text-color);
     background-color: var(--topbar-bg-color);
@@ -107,14 +99,14 @@
 }
 
 .ls-cp__content {
-    padding: calc(var(--density)*1rem);
+    padding: calc(var(--cp-spacing)*1rem);
 }
 
 .ls-cp__shortcuts {
     display: flex;
     align-items: center;
 
-    margin-left: calc(var(--density)*.5rem);
+    margin-left: calc(var(--cp-spacing)*.5rem);
 
     >div {
         position: relative;
@@ -128,13 +120,13 @@
             align-items: center;
             border-radius: 999px;
             justify-content: center;
-            height: calc(var(--density)*1.5rem);
-            width: calc(var(--density)*1.5rem);
+            height: calc(var(--cp-spacing)*1.5rem);
+            width: calc(var(--cp-spacing)*1.5rem);
 
             svg,
             img {
-                width: calc(var(--density)*1rem);
-                height: calc(var(--density)*1rem);
+                width: calc(var(--cp-spacing)*1rem);
+                height: calc(var(--cp-spacing)*1rem);
             }
 
             svg {
@@ -152,11 +144,11 @@
     right: 0;
     z-index: 10;
     position: absolute;
-    color: var(--light);
-    background-color: var(--light);
-    border: 1px solid var(--dark);
-    padding: calc(var(--density)*.5rem);
-    border-radius: calc(var(--radius)*1rem);
+    color: var(--cp-color-light);
+    background-color: var(--cp-color-light);
+    border: 1px solid var(--cp-color-dark);
+    padding: calc(var(--cp-spacing)*.5rem);
+    border-radius: calc(var(--cp-radius)*1rem);
 
     >div {
         >a {
@@ -171,7 +163,7 @@
 
     >ul,
     >a {
-        margin-bottom: calc(var(--density)*.5rem);
+        margin-bottom: calc(var(--cp-spacing)*.5rem);
     }
 
     a {

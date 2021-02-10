@@ -6,11 +6,11 @@
 
 <style>
     :root {
-        --density: {{ $theme->density ?: 2 }};
-        --radius: {{ $theme->radius ?: 0.5 }};
-        --light: {{ $theme->light ?: "#ffffff" }};
-        --dark: {{ $theme->dark ?: "#000000" }};
-        --primary: {{ $theme->primary ?: "#4e42d9" }};
+        --cp-spacing: {{ $theme->density ?: 2 }};
+        --cp-radius: {{ $theme->radius ?: 0.5 }};
+        --cp-color-light: {{ $theme->light ?: "#ffffff" }};
+        --cp-color-dark: {{ $theme->dark ?: "#000000" }};
+        --cp-color-primary: {{ $theme->primary ?: "#4e42d9" }};
         --topbar-bg-color: {{ $theme->topbar_bg_color ?: "#cccccc" }};
         --topbar-text-color: {{ $theme->topbar_text_color ?: "#000000" }};
         --sidebar-bg-color: {{ $theme->sidebar_bg_color ?: "#cccccc" }};

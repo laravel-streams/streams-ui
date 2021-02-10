@@ -15,30 +15,30 @@
         "density": {
             "type": "decimal",
             "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--density', this.value)"
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--cp-spacing', this.value)"
         },
         "radius": {
             "type": "decimal",
             "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--radius', this.value)"
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--cp-radius', this.value)"
         },
         "light": {
             "type": "color",
             "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--light', this.value)",
-            "input.attributes.oninput": "document.documentElement.style.setProperty('--light', this.value)"
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--cp-color-light', this.value)",
+            "input.attributes.oninput": "document.documentElement.style.setProperty('--cp-color-light', this.value)"
         },
         "dark": {
             "type": "color",
             "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--dark', this.value)",
-            "input.attributes.oninput": "document.documentElement.style.setProperty('--dark', this.value)"
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--cp-color-dark', this.value)",
+            "input.attributes.oninput": "document.documentElement.style.setProperty('--cp-color-dark', this.value)"
         },
         "primary": {
             "type": "color",
             "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--primary', this.value)",
-            "input.attributes.oninput": "document.documentElement.style.setProperty('--primary', this.value)"
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--cp-color-primary', this.value)",
+            "input.attributes.oninput": "document.documentElement.style.setProperty('--cp-color-primary', this.value)"
         },
         "topbar_bg_color": {
             "type": "color",

@@ -4,12 +4,12 @@
 
 .ls-button {
     display: inline-block;
-    border-radius: calc(var(--radius)*.5rem);
-    background-color: var(--primary);
-    padding: calc(var(--density)*0.25rem) calc(var(--density)*0.5rem);
+    border-radius: calc(var(--cp-radius)*.5rem);
+    background-color: var(--cp-color-primary);
+    padding: calc(var(--cp-spacing)*0.25rem) calc(var(--cp-spacing)*0.5rem);
 
     span {
-        color: var(--light);
+        color: var(--cp-color-light);
         mix-blend-mode: lighten;
     }
 }
