@@ -317,8 +317,8 @@ class UiServiceProvider extends ServiceProvider
 
         Assets::addPath('ui', 'vendor/streams/ui');
 
-        Assets::add('styles', 'ui::css/theme.css');
-        Assets::add('styles', 'ui::css/tailwind.css');
+        Assets::register('ui::css/theme.css');
+        Assets::register('ui::css/tailwind.css');
 
         Assets::add('scripts', 'ui::js/index.js');
     }
