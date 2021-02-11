@@ -28,12 +28,12 @@
     z-index: 10;
     position: absolute;
     color: var(--cp-color-light);
-    background-color: var(--cp-color-light);
+    background-color: var(--cp-color-white);
     border: 1px solid var(--cp-color-dark);
     padding: calc(var(--cp-spacing)*.5rem);
     border-radius: calc(var(--cp-radius)*1rem);
 
-    >div {
+    > div {
         >a {
             display: block;
             white-space: nowrap;

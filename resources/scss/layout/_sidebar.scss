@@ -1,7 +1,7 @@
 .c-sidebar {
     @apply m-0 p-0 flex flex-col min-w-full min-h-screen;
 
-    color: var(--cp-color-light);
+    color: var(--cp-color-white);
     background-color: var(--cp-color-primary);
 
     &__brand {
@@ -14,7 +14,7 @@
         a {
             @apply text-lg;
 
-            color: var(--cp-color-light);
+            color: var(--cp-color-white);
         }
     }
 
@@ -27,12 +27,16 @@
             > a {
                 @apply block;
 
-                border-radius: calc(var(--cp-radius)*.25rem);
                 padding: calc(var(--cp-spacing)*.5rem);
+                border-radius: calc(var(--cp-radius)*.5rem);
 
                 &.-active {
-                    color: var(--cp-color-dark); // @todo dark-overlay
-                    background-color: var(--cp-color-light); // @todo light-overlay
+                    @apply font-bold;
+
+                    //background-color: var(--cp-color-light); // @todo light-overlay
+                    //background-color: #ffffff15; // Lighten
+                    background-color: #00000015; // Darken
+                    //color: var(--cp-color-dark); // Darken
                 }
             }
 
