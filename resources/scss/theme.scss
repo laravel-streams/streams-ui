@@ -1,4 +1,9 @@
-@import "components/cp";
+@import "layout/cp";
+@import "layout/topbar";
+@import "layout/sidebar";
+
+@import "components/shortcuts";
+
 @import "components/forms";
 @import "components/fields";
 @import "components/layout";

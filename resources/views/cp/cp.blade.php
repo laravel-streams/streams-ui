@@ -13,17 +13,17 @@
     @include('ui::cp.head')
 </head>
 
-{{-- <body class="ls-cp --topbar-brand --topbar-fixed"> --}}
-<body class="ls-cp {{ $theme->brand_mode }}">
+<body>
     
-    <div class="ls-cp__layout">
+    <div class="o-cp {{ $theme->brand_mode }}">
 
         @include('ui::cp.sidebar')
 
-        <main>
+        <div class="o-cp__main">
             @include('ui::cp.top')
             @include('ui::cp.content')
-        </main>
+            {{-- @include('ui::cp.footer') --}}
+        </div>
 
     </div>
 

@@ -1,0 +1,56 @@
+.c-sidebar {
+    @apply m-0 p-0 flex flex-col min-w-full min-h-screen;
+
+    color: var(--cp-color-light);
+    background-color: var(--cp-color-primary);
+
+    &__brand {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        height: calc(var(--cp-spacing)*2.5rem);
+        padding: 0 calc(var(--cp-spacing)*1rem);
+
+        a {
+            @apply text-lg;
+
+            color: var(--cp-color-light);
+        }
+    }
+
+    &__nav {
+        @apply flex-grow;
+        padding: calc(var(--cp-spacing)*.5rem);
+
+        nav {
+
+            > a {
+                @apply block;
+
+                padding: calc(var(--cp-spacing)*.5rem);
+
+                &.-active {
+                    color: var(--cp-color-dark); // @todo dark-overlay
+                    background-color: var(--cp-color-light); // @todo light-overlay
+                }
+            }
+
+            ul {
+                margin-bottom: calc(var(--cp-spacing)*.5rem);
+
+                li {
+
+                    &.-has-active {}
+
+                    a {
+                        @apply block;
+
+                        &.-active {
+                            @apply font-bold;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

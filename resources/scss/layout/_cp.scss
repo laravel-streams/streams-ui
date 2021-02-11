@@ -1,0 +1,46 @@
+.o-cp {
+    @apply m-0 flex min-w-full min-h-screen;
+    
+    background-color: var(--cp-color-light);
+
+    &__sidebar {
+        @apply w-3/12;
+    
+        max-width: 300px;
+    }
+
+    &__topbar {
+        width: 100%;
+        height: calc(var(--cp-spacing)*2.5rem);
+    }
+
+    &__main {
+        @apply flex-grow flex flex-col;
+    }
+
+    &__content {
+        @apply flex-grow;
+    }
+}
+
+.ls-cp__dropdown {
+    right: 0;
+    z-index: 10;
+    position: absolute;
+    color: var(--cp-color-light);
+    background-color: var(--cp-color-light);
+    border: 1px solid var(--cp-color-dark);
+    padding: calc(var(--cp-spacing)*.5rem);
+    border-radius: calc(var(--cp-radius)*1rem);
+
+    >div {
+        >a {
+            display: block;
+            white-space: nowrap;
+        }
+    }
+}
+
+.ls-cp__meta {
+    font-size: 75%;
+}

@@ -3,6 +3,7 @@ const tailwindcss = require('tailwindcss');
 
 mix
     .js('resources/lib/index.js', 'resources/public/js')
+    .sass('resources/scss/variables.scss', 'resources/public/css')
     .sass('resources/scss/tailwind.scss', 'resources/public/css')
     .sass('resources/scss/theme.scss', 'resources/public/css')
     .copyDirectory('resources/public', '../../../public/vendor/streams/ui')

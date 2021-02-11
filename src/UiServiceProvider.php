@@ -120,7 +120,7 @@ class UiServiceProvider extends ServiceProvider
     {
         if (!$this->app->routesAreCached()) {
 
-            Route::streams(Config::get('streams.cp.prefix'), [
+            Route::streams(Config::get('streams.ui.cp.prefix'), [
                 'verb' => 'get',
                 'as' => 'ui::cp.home',
                 'uses' => '\Streams\Ui\Http\Controller\UiController@index',
@@ -319,6 +319,7 @@ class UiServiceProvider extends ServiceProvider
 
         Assets::register('ui::css/theme.css');
         Assets::register('ui::css/tailwind.css');
+        Assets::register('ui::css/variables.css');
 
         Assets::register('ui::js/index.js');
     }

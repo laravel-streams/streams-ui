@@ -1,0 +1,16 @@
+.c-topbar {
+    @apply m-0 h-full w-full flex items-center;
+    
+    color: var(--cp-color-dark);
+    background-color: var(--cp-color-white);
+
+    padding: 0 calc(var(--cp-spacing)*1rem);
+
+    a {
+        color: var(--topbar-text-color);
+    }
+
+    &__buttons {
+        @apply flex-grow;
+    }
+}

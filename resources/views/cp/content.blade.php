@@ -1,4 +1,4 @@
 <!-- content.blade.php -->
-<div class="ls-cp__content" tabindex="0">
+<div class="o-cp__content">
     @yield('content')
 </div>
