@@ -26,26 +26,6 @@
   flex-grow: 1;
 }
 
-.ls-cp__dropdown {
-  right: 0;
-  z-index: 10;
-  position: absolute;
-  color: var(--cp-color-light);
-  background-color: var(--cp-color-white);
-  border: 1px solid var(--cp-color-dark);
-  padding: calc(var(--cp-spacing)*.5rem);
-  border-radius: calc(var(--cp-radius)*1rem);
-}
-
-.ls-cp__dropdown > div > a {
-  display: block;
-  white-space: nowrap;
-}
-
-.ls-cp__meta {
-  font-size: 75%;
-}
-
 .c-topbar {
   display: flex;
   align-items: center;
@@ -55,10 +35,6 @@
   color: var(--cp-color-dark);
   background-color: var(--cp-color-white);
   padding: 0 calc(var(--cp-spacing)*1rem);
-}
-
-.c-topbar a {
-  color: var(--topbar-text-color);
 }
 
 .c-topbar__buttons {
@@ -85,8 +61,8 @@
 }
 
 .c-sidebar__brand a {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
   color: var(--cp-color-white);
 }
 
@@ -205,18 +181,19 @@
   text-align: left;
 }
 
-.ls-buttons {
+.c-buttons {
   display: flex;
 }
 
-.ls-button {
+.a-button {
   display: inline-block;
+  color: var(--cp-color-white);
   border-radius: calc(var(--cp-radius)*.5rem);
   background-color: var(--cp-color-primary);
   padding: calc(var(--cp-spacing)*0.25rem) calc(var(--cp-spacing)*0.5rem);
 }
 
-.ls-button span {
+.a-button span {
   color: var(--cp-color-white);
   mix-blend-mode: lighten;
 }
