@@ -22,25 +22,3 @@
         @apply flex-grow;
     }
 }
-
-.ls-cp__dropdown {
-    right: 0;
-    z-index: 10;
-    position: absolute;
-    color: var(--cp-color-light);
-    background-color: var(--cp-color-white);
-    border: 1px solid var(--cp-color-dark);
-    padding: calc(var(--cp-spacing)*.5rem);
-    border-radius: calc(var(--cp-radius)*1rem);
-
-    > div {
-        >a {
-            display: block;
-            white-space: nowrap;
-        }
-    }
-}
-
-.ls-cp__meta {
-    font-size: 75%;
-}
