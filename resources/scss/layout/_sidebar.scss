@@ -27,6 +27,7 @@
             > a {
                 @apply block;
 
+                border-radius: calc(var(--cp-radius)*.25rem);
                 padding: calc(var(--cp-spacing)*.5rem);
 
                 &.-active {
