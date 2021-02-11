@@ -1,6 +1,6 @@
 <!-- button.blade.php -->
 @if ($button->dropdown)
-<div class="ls-buttons" x-data="{show: false}">
+<div class="c-buttons" x-data="{show: false}">
 
     {!! $button->open([
         'x-on:click' => 'show == true ? show = false : show = true; return false;',
