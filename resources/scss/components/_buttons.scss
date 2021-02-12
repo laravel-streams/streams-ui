@@ -3,11 +3,12 @@
 }
 
 .a-button {
-    display: inline-block;
+    @apply font-bold;
+
     color: var(--cp-color-white);
-    border-radius: calc(var(--cp-radius)*.5rem);
     background-color: var(--cp-color-primary);
-    padding: calc(var(--cp-spacing)*0.25rem) calc(var(--cp-spacing)*0.5rem);
+    border-radius: calc(var(--cp-radius)*.5rem);
+    padding: calc(var(--cp-spacing)*0.35rem) calc(var(--cp-spacing)*0.5rem);
 
     span {
         color: var(--cp-color-white);

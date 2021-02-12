@@ -18,11 +18,18 @@
             justify-content: center;
             height: calc(var(--cp-spacing)*1.5rem);
             width: calc(var(--cp-spacing)*1.5rem);
+            border: 2px solid transparent;
+            outline: none;
+
+            &:active,
+            &:focus {
+                border-color: var(--cp-color-primary);
+            }
 
             svg,
             img {
-                width: calc(var(--cp-spacing)*1rem);
-                height: calc(var(--cp-spacing)*1rem);
+                width: calc(var(--cp-spacing)*1.25rem);
+                height: calc(var(--cp-spacing)*1.25rem);
             }
 
             svg {

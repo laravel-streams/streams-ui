@@ -1,0 +1,12 @@
+.c-dropdown {
+    
+    &__content {
+        @apply hidden;
+    }
+
+    &.-open {
+        &__content {
+            @apply block;
+        }
+    }
+}

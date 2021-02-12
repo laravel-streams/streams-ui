@@ -88,12 +88,12 @@
 
 .c-sidebar__nav nav ul li {
   list-style-type: disc;
-  margin-left: calc(var(--cp-spacing)*0.75rem);
+  margin-left: calc(var(--cp-spacing)*1rem);
 }
 
 .c-sidebar__nav nav ul li a {
   display: block;
-  padding: calc(var(--cp-spacing)*.25rem);
+  padding: calc(var(--cp-spacing)*.125rem);
   padding-left: 0;
 }
 
@@ -122,14 +122,22 @@
   justify-content: center;
   height: calc(var(--cp-spacing)*1.5rem);
   width: calc(var(--cp-spacing)*1.5rem);
+  border: 2px solid transparent;
+  outline: none;
+}
+
+.c-shortcuts > div > a:active, .c-shortcuts > div > a:focus,
+.c-shortcuts > div > button:active,
+.c-shortcuts > div > button:focus {
+  border-color: var(--cp-color-primary);
 }
 
 .c-shortcuts > div > a svg,
 .c-shortcuts > div > a img,
 .c-shortcuts > div > button svg,
 .c-shortcuts > div > button img {
-  width: calc(var(--cp-spacing)*1rem);
-  height: calc(var(--cp-spacing)*1rem);
+  width: calc(var(--cp-spacing)*1.25rem);
+  height: calc(var(--cp-spacing)*1.25rem);
 }
 
 .c-shortcuts > div > a svg,
@@ -140,6 +148,14 @@
 .c-shortcuts > div > a img,
 .c-shortcuts > div > button img {
   border-radius: 999px;
+}
+
+.c-dropdown__content {
+  display: none;
+}
+
+.c-dropdown.-open__content {
+  display: block;
 }
 
 .ls-form__controls {
@@ -178,11 +194,11 @@
 }
 
 .a-button {
-  display: inline-block;
+  font-weight: 700;
   color: var(--cp-color-white);
-  border-radius: calc(var(--cp-radius)*.5rem);
   background-color: var(--cp-color-primary);
-  padding: calc(var(--cp-spacing)*0.25rem) calc(var(--cp-spacing)*0.5rem);
+  border-radius: calc(var(--cp-radius)*.5rem);
+  padding: calc(var(--cp-spacing)*0.35rem) calc(var(--cp-spacing)*0.5rem);
 }
 
 .a-button span {

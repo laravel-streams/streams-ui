@@ -1,6 +1,6 @@
 <!-- button.blade.php -->
 @if ($button->dropdown)
-<div class="c-buttons" x-data="{show: false}">
+<div class="c-dropdown" x-data="{show: false}">
 
     {!! $button->open([
         'x-on:click' => 'show == true ? show = false : show = true; return false;',
@@ -19,7 +19,7 @@
 
     {!! $button->close() !!}
     
-    <div class="ls-button__dropdown" x-show="show">
+    <div class="c-dropdown__content" x-show="show">
         <div>
             @foreach ($button->dropdown as $item)
             <a {!! Html::attributes($item['attributes']) !!}><span>{{ $item['text'] }}</span></a>
