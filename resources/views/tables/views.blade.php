@@ -1,6 +1,6 @@
 <!-- views.blade.php -->
 @if ($table->views->isNotEmpty())
-<nav class="ls-table__views">
+<nav class="c-table__views">
     @foreach ($table->views as $view)
         <a {!! $view->htmlAttributes() !!}>
             {{ __($view->text) }}

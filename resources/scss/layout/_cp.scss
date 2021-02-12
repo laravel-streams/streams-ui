@@ -4,13 +4,14 @@
     background-color: var(--cp-color-light);
 
     &__sidebar {
-        @apply w-3/12;
+        @apply w-3/12 shadow-sm;
     
         max-width: 300px;
     }
 
     &__topbar {
-        width: 100%;
+        @apply w-full shadow-sm;
+        
         height: calc(var(--cp-spacing)*2.5rem);
     }
 

@@ -9,7 +9,7 @@
         </td>
 
         @if ($table->isSelectable())
-        <td class="ls-table__selector">
+        <td class="c-table__selector">
             <input type="checkbox" name="{{ $table->prefix('selected[]') }}" value="{{ $row->key }}" />
         </td>
         @endif
@@ -18,8 +18,8 @@
         <td {!! $column->htmlAttributes() !!}>{!! $column->value !!}</td>
         @endforeach
 
-        <td class="ls-table__buttons">
-            <nav class="ls-buttons">
+        <td class="c-table__buttons">
+            <nav class="c-buttons">
             {!! $row->buttons->render() !!}
             </nav>
         </td>

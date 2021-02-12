@@ -1,5 +1,5 @@
 <!-- table.blade.php -->
-<div class="ls-table" x-data="{}">
+<div class="c-table" x-data="{}">
 
     @section('views')
     @include('ui::tables.views')
@@ -17,7 +17,7 @@
     ]) !!}
 
     @section('table')
-    <div class="ls-table__content">
+    <div class="c-table__content">
         <table {!! $table->htmlAttributes() !!}>
 
             @section('head')
@@ -42,7 +42,7 @@
     @else
 
     @section('no_results')
-    <div class="ls-table__contents --empty">
+    <div class="c-table__contents --empty">
         {{ trans('ui::messages.no_results') }}
     </div>
     @show

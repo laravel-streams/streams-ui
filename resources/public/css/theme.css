@@ -7,11 +7,15 @@
 }
 
 .o-cp__sidebar {
+  --tw-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   width: 25%;
   max-width: 300px;
 }
 
 .o-cp__topbar {
+  --tw-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   width: 100%;
   height: calc(var(--cp-spacing)*2.5rem);
 }
@@ -146,8 +150,59 @@
   min-width: 100%;
 }
 
-.c-table table tr th {
+.c-table table thead tr th {
+  font-weight: 500;
+  padding-top: calc(var(--cp-spacing)*0.5rem);
+  padding-bottom: calc(var(--cp-spacing)*0.5rem);
+  padding-left: calc(var(--cp-spacing)*1rem);
+  padding-right: calc(var(--cp-spacing)*1rem);
   text-align: left;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.c-table table tbody tr {
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+
+.c-table table tbody tr:hover {
+  --tw-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.025);
+}
+
+.c-table table tbody tr td {
+  padding-top: calc(var(--cp-spacing)*0.25rem);
+  padding-bottom: calc(var(--cp-spacing)*0.25rem);
+  padding-left: calc(var(--cp-spacing)*1rem);
+  padding-right: calc(var(--cp-spacing)*1rem);
+  white-space: nowrap;
+}
+
+.c-table__content {
+  --tw-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  overflow: hidden;
+  margin: calc(var(--cp-spacing)*0.5rem);
+  background-color: var(--cp-color-white);
+  border-radius: calc(var(--cp-radius)*.5rem);
+}
+
+.c-table__buttons .a-button {
+  font-weight: 500;
+  padding-top: calc(var(--cp-spacing)*0.25rem);
+  padding-bottom: calc(var(--cp-spacing)*0.25rem);
+  padding-left: calc(var(--cp-spacing)*0.5rem);
+  padding-right: calc(var(--cp-spacing)*0.5rem);
+}
+
+.c-table__actions, .c-table__limiter, .c-table__meta {
+  padding-top: calc(var(--cp-spacing)*0.25rem);
+  padding-bottom: calc(var(--cp-spacing)*0.25rem);
+  padding-left: calc(var(--cp-spacing)*1rem);
+  padding-right: calc(var(--cp-spacing)*1rem);
+  white-space: nowrap;
 }
 
 .c-buttons {

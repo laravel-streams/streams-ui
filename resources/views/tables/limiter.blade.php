@@ -1,5 +1,5 @@
 <!-- limiter.blade.php -->
-<div class="ls-table__limiter">
+<div class="c-table__limiter">
 
     <label>{{ __('ui::labels.show') }}</label>
 
