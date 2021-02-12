@@ -86,8 +86,15 @@
   margin-bottom: calc(var(--cp-spacing)*.5rem);
 }
 
+.c-sidebar__nav nav ul li {
+  list-style-type: disc;
+  margin-left: calc(var(--cp-spacing)*0.75rem);
+}
+
 .c-sidebar__nav nav ul li a {
   display: block;
+  padding: calc(var(--cp-spacing)*.25rem);
+  padding-left: 0;
 }
 
 .c-sidebar__nav nav ul li a.-active {
@@ -148,21 +155,6 @@
   margin-bottom: calc(var(--cp-spacing)*.5rem);
 }
 
-.ls-input input[type=date],
-.ls-input input[type=text],
-.ls-input input[type=time],
-.ls-input input[type=email],
-.ls-input input[type=number],
-.ls-input input[type=password],
-.ls-input input[type=datetime-local],
-.ls-input textarea {
-  color: var(--input-text-color);
-  border-color: var(--input-text-color);
-  background-color: var(--input-bg-color);
-  padding: calc(var(--cp-spacing)*.25rem);
-  border-radius: calc(var(--cp-radius)*.5rem);
-}
-
 .ls-field > label {
   font-weight: bold;
   margin-bottom: 0.5rem;
@@ -195,7 +187,6 @@
 
 .a-button span {
   color: var(--cp-color-white);
-  mix-blend-mode: lighten;
 }
 
 .ls-input.--toggle-input input[type=checkbox] + .toggle {

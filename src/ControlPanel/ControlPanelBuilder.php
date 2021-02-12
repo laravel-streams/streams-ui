@@ -89,7 +89,11 @@ class ControlPanelBuilder extends Builder
 
         if ($match && $match->parent) {
             
-            $parent = $this->instance->navigation->get($match->parent);
+            if (!$parent = $this->instance->navigation->first(function($item) use ($match) {
+                return $item->id == $match->parent;
+            })) {
+                throw new \Exception("Navigation [{$match->id}] parent [{$match->parent}] does not exist.");
+            }
 
             $match->buttons = $match->buttons ?: $parent->buttons;
         }

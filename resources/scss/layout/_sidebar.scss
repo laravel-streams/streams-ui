@@ -44,11 +44,15 @@
                 margin-bottom: calc(var(--cp-spacing)*.5rem);
 
                 li {
-
+                    @apply list-disc ml-3;
+                    
                     &.-has-active {}
 
                     a {
                         @apply block;
+
+                        padding: calc(var(--cp-spacing)*.25rem);
+                        padding-left: 0;
 
                         &.-active {
                             @apply font-bold;
