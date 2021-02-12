@@ -1,0 +1,9 @@
+.c-card {
+    margin: calc(var(--cp-spacing)*0.5rem);
+    background-color: var(--cp-color-white);
+    border-radius: calc(var(--cp-radius)*.5rem);
+
+    &__content {
+        padding: calc(var(--cp-spacing)*0.5rem);
+    }
+}

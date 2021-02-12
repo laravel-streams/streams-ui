@@ -101,6 +101,72 @@
   font-weight: 700;
 }
 
+.c-card {
+  margin: calc(var(--cp-spacing)*0.5rem);
+  background-color: var(--cp-color-white);
+  border-radius: calc(var(--cp-radius)*.5rem);
+}
+
+.c-card__content {
+  padding: calc(var(--cp-spacing)*0.5rem);
+}
+
+.c-form__fields {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.c-form__field {
+  margin-top: calc(var(--cp-spacing)*0.5rem);
+  margin-bottom: calc(var(--cp-spacing)*0.5rem);
+  width: 100%;
+}
+
+.c-form__controls {
+  display: flex;
+  align-items: center;
+}
+
+.c-form__controls > nav:first-of-type {
+  flex-grow: 1;
+  margin-right: calc(var(--cp-spacing)*0.5rem);
+}
+
+.c-field > label {
+  display: inline-block;
+  font-weight: 700;
+  margin-bottom: calc(var(--cp-spacing)*0.5rem);
+}
+
+.c-field__required {
+  color: var(--color-red);
+}
+
+.c-table table {
+  min-width: 100%;
+}
+
+.c-table table tr th {
+  text-align: left;
+}
+
+.c-buttons {
+  display: flex;
+}
+
+.a-button {
+  display: inline-block;
+  font-weight: 700;
+  color: var(--cp-color-white);
+  background-color: var(--cp-color-primary);
+  border-radius: calc(var(--cp-radius)*.5rem);
+  padding: calc(var(--cp-spacing)*0.35rem) calc(var(--cp-spacing)*0.5rem);
+}
+
+.a-button span {
+  color: var(--cp-color-white);
+}
+
 .c-shortcuts {
   display: flex;
   align-items: center;
@@ -158,51 +224,23 @@
   display: block;
 }
 
-.ls-form__controls {
-  display: flex;
-  align-items: center;
-}
-
-.ls-form__controls > nav:first-of-type {
-  margin-right: calc(var(--cp-spacing)*1rem);
-}
-
-.ls-field {
-  margin-bottom: calc(var(--cp-spacing)*.5rem);
-}
-
-.ls-field > label {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  display: inline-block;
-}
-
-.ls-field > label span {
-  color: var(--color-red);
-}
-
-.ls-table table {
-  min-width: 100%;
-}
-
-.ls-table table tr th {
-  text-align: left;
-}
-
-.c-buttons {
-  display: flex;
-}
-
-.a-button {
-  font-weight: 700;
-  color: var(--cp-color-white);
-  background-color: var(--cp-color-primary);
+.c-input input[type=text],
+.c-input input[type=password],
+.c-input input[type=email],
+.c-input input[type=number],
+.c-input input[type=url],
+.c-input input[type=date],
+.c-input input[type=datetime-local],
+.c-input input[type=month],
+.c-input input[type=week],
+.c-input input[type=time],
+.c-input input[type=search],
+.c-input input[type=tel],
+.c-input textarea {
+  color: var(--cp-color-dark);
+  background-color: var(--cp-color-light);
   border-radius: calc(var(--cp-radius)*.5rem);
-  padding: calc(var(--cp-spacing)*0.35rem) calc(var(--cp-spacing)*0.5rem);
-}
-
-.a-button span {
-  color: var(--cp-color-white);
+  padding: calc(var(--cp-spacing)*0.25rem) calc(var(--cp-spacing)*0.35rem);
 }
 
 .ls-input.--toggle-input input[type=checkbox] + .toggle {

@@ -1,0 +1,10 @@
+.c-field {
+
+    > label {
+        @apply font-bold mb-2 inline-block;
+    }
+}
+
+.c-field__required {
+    color: var(--color-red);
+}

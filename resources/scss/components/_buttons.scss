@@ -3,7 +3,7 @@
 }
 
 .a-button {
-    @apply font-bold;
+    @apply font-bold inline-block;
 
     color: var(--cp-color-white);
     background-color: var(--cp-color-primary);

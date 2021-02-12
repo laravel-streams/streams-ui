@@ -1,0 +1,20 @@
+.c-form {
+
+    form {}
+
+    &__fields {
+        @apply flex flex-wrap;
+    }
+
+    &__field {
+        @apply w-full my-2;
+    }
+
+    &__controls {
+        @apply flex items-center;
+    
+        > nav:first-of-type {
+            @apply flex-grow mr-2;
+        }
+    }
+}

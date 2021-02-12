@@ -1,19 +1,25 @@
-input[type="text"],
-input[type="password"],
-input[type="email"],
-input[type="number"],
-input[type="url"],
-input[type="date"],
-input[type="datetime-local"],
-input[type="month"],
-input[type="week"],
-input[type="time"],
-input[type="search"],
-input[type="tel"] {
-    
-}
+.c-input {
 
-input[type="checkbox"],
-input[type="radio"] {
-    
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="number"],
+    input[type="url"],
+    input[type="date"],
+    input[type="datetime-local"],
+    input[type="month"],
+    input[type="week"],
+    input[type="time"],
+    input[type="search"],
+    input[type="tel"],
+    textarea {
+        color: var(--cp-color-dark);
+        background-color: var(--cp-color-light);
+        
+        border-radius: calc(var(--cp-radius)*.5rem);
+        padding: calc(var(--cp-spacing)*0.25rem) calc(var(--cp-spacing)*0.35rem);
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {}
 }

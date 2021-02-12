@@ -1,5 +1,5 @@
 <!-- tabs.blade.php -->
-<div class="ls-tabs">
+<div class="c-tabs">
 
     <ul>
         @foreach ($section['tabs'] as $slug => $tab)
@@ -12,7 +12,7 @@
         @endforeach
     </ul>
 
-    <div class="ls-tabs__content">
+    <div class="c-tabs__content">
         @foreach ($section['tabs'] as $slug => $tab)
         <div id="{{ $form->options->get('prefix') }}{{ Arr::get($tab, 'slug', $slug) }}-tab"
             class="tabs__pane {{ $loop->first ? 'active' : '' }}">
