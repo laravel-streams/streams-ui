@@ -5,12 +5,12 @@
 .a-button {
     @apply font-bold inline-block;
 
-    color: var(--cp-color-white);
-    background-color: var(--cp-color-primary);
-    border-radius: calc(var(--cp-radius)*.5rem);
-    padding: calc(var(--cp-spacing)*0.35rem) calc(var(--cp-spacing)*0.5rem);
+    color: var(--ls-color-white);
+    background-color: var(--ls-color-primary);
+    border-radius: calc(var(--ls-radius)*.5rem);
+    padding: calc(var(--ls-spacing)*0.35rem) calc(var(--ls-spacing)*0.5rem);
 
     span {
-        color: var(--cp-color-white);
+        color: var(--ls-color-white);
     }
 }

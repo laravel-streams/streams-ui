@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
 
-    margin-left: calc(var(--cp-spacing)*.5rem);
+    margin-left: calc(var(--ls-spacing)*.5rem);
 
     >div {
         position: relative;
@@ -16,20 +16,20 @@
             align-items: center;
             border-radius: 999px;
             justify-content: center;
-            height: calc(var(--cp-spacing)*1.5rem);
-            width: calc(var(--cp-spacing)*1.5rem);
+            height: calc(var(--ls-spacing)*1.5rem);
+            width: calc(var(--ls-spacing)*1.5rem);
             border: 2px solid transparent;
             outline: none;
 
             &:active,
             &:focus {
-                border-color: var(--cp-color-primary);
+                border-color: var(--ls-color-primary);
             }
 
             svg,
             img {
-                width: calc(var(--cp-spacing)*1.25rem);
-                height: calc(var(--cp-spacing)*1.25rem);
+                width: calc(var(--ls-spacing)*1.25rem);
+                height: calc(var(--ls-spacing)*1.25rem);
             }
 
             svg {

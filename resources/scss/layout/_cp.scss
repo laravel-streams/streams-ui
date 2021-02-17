@@ -1,7 +1,7 @@
 .o-cp {
     @apply m-0 flex min-w-full min-h-screen;
     
-    background-color: var(--cp-color-light);
+    background-color: var(--ls-color-light);
 
     &__sidebar {
         @apply w-3/12 shadow-sm;

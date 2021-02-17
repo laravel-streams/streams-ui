@@ -13,11 +13,11 @@
     input[type="search"],
     input[type="tel"],
     textarea {
-        color: var(--cp-color-dark);
-        background-color: var(--cp-color-light);
+        color: var(--ls-color-dark);
+        background-color: var(--ls-color-light);
         
-        border-radius: calc(var(--cp-radius)*.5rem);
-        padding: calc(var(--cp-spacing)*0.25rem) calc(var(--cp-spacing)*0.35rem);
+        border-radius: calc(var(--ls-radius)*.5rem);
+        padding: calc(var(--ls-spacing)*0.25rem) calc(var(--ls-spacing)*0.35rem);
     }
 
     input[type="checkbox"],

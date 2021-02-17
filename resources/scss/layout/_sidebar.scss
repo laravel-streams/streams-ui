@@ -20,10 +20,10 @@
                 &.-active {
                     @apply font-bold;
 
-                    //background-color: var(--cp-color-light); // @todo light-overlay
+                    //background-color: var(--ls-color-light); // @todo light-overlay
                     //background-color: #ffffff15; // Lighten
                     background-color: #00000015; // Darken
-                    //color: var(--cp-color-dark); // Darken
+                    //color: var(--ls-color-dark); // Darken
                 }
             }
 

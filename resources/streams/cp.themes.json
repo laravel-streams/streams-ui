@@ -15,36 +15,36 @@
         "spacing": {
             "type": "decimal",
             "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--cp-spacing', this.value)"
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--ls-spacing', this.value)"
         },
         "radius": {
             "type": "decimal",
             "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--cp-radius', this.value)"
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--ls-radius', this.value)"
         },
         "light": {
             "type": "color",
             "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--cp-color-light', this.value)",
-            "input.attributes.oninput": "document.documentElement.style.setProperty('--cp-color-light', this.value)"
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--ls-color-light', this.value)",
+            "input.attributes.oninput": "document.documentElement.style.setProperty('--ls-color-light', this.value)"
         },
         "dark": {
             "type": "color",
             "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--cp-color-dark', this.value)",
-            "input.attributes.oninput": "document.documentElement.style.setProperty('--cp-color-dark', this.value)"
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--ls-color-dark', this.value)",
+            "input.attributes.oninput": "document.documentElement.style.setProperty('--ls-color-dark', this.value)"
         },
         "primary": {
             "type": "color",
             "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--cp-color-primary', this.value)",
-            "input.attributes.oninput": "document.documentElement.style.setProperty('--cp-color-primary', this.value)"
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--ls-color-primary', this.value)",
+            "input.attributes.oninput": "document.documentElement.style.setProperty('--ls-color-primary', this.value)"
         },
         "secondary": {
             "type": "color",
             "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--cp-color-secondary', this.value)",
-            "input.attributes.oninput": "document.documentElement.style.setProperty('--cp-color-secondary', this.value)"
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--ls-color-secondary', this.value)",
+            "input.attributes.oninput": "document.documentElement.style.setProperty('--ls-color-secondary', this.value)"
         }
     },
     "ui": {

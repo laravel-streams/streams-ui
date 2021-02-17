@@ -8,13 +8,13 @@
 @if ($theme)
 <style>
     :root {
-        --cp-spacing: {{ $theme->spacing }};
-        --cp-radius: {{ $theme->radius }};
+        --ls-spacing: {{ $theme->spacing }};
+        --ls-radius: {{ $theme->radius }};
 
-        --cp-color-light: {{ $theme->light }};
-        --cp-color-dark: {{ $theme->dark }};
-        --cp-color-primary: {{ $theme->primary }};
-        --cp-color-secondary: {{ $theme->secondary }};
+        --ls-color-light: {{ $theme->light }};
+        --ls-color-dark: {{ $theme->dark }};
+        --ls-color-primary: {{ $theme->primary }};
+        --ls-color-secondary: {{ $theme->secondary }};
     }
 </style>
 @endif
