@@ -7,7 +7,7 @@
 
             tr {
                 th {
-                    @apply px-4 py-2 text-left font-medium;
+                    @apply px-8 py-4 text-left font-medium;
 
                     background-color: rgba(0, 0, 0, 0.10);
                 }
@@ -28,19 +28,14 @@
                 }
 
                 td {
-                    @apply px-4 py-1 whitespace-nowrap;
+                    @apply px-8 py-4 whitespace-nowrap;
                 }
             }
         }
     }
 
     &__content {
-        @apply shadow-sm;
-
-        overflow: hidden;
-        margin: calc(var(--cp-spacing)*0.5rem);
-        background-color: var(--cp-color-white);
-        border-radius: calc(var(--cp-radius)*.5rem);
+        @apply shadow-sm m-4 bg-white rounded-lg overflow-hidden;
     }
 
     &__buttons {
@@ -53,6 +48,6 @@
     &__actions,
     &__limiter,
     &__meta {
-        @apply px-4 py-1 whitespace-nowrap;
+        @apply px-8 py-4 whitespace-nowrap;
     }
 }

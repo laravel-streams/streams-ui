@@ -1,44 +1,25 @@
 {
     "default": {
         "id": "default",
-        "density": 2,
-        "radius": 0.5,
+        "spacing": 1,
+        "radius": 1,
         "dark": "#000000",
         "light": "#f5f5f5",
-        "primary": "#4e42d9",
-        "topbar_bg_color": "#cccccc",
-        "topbar_text_color": "#000000",
-        "sidebar_bg_color": "#cccccc",
-        "sidebar_text_color": "#000000",
-        "brand_mode": "--brand-sidebar"
+        "primary": "#4e42d9"
     },
     "dark": {
         "id": "dark",
-        "density": 2,
-        "radius": 0.5,
+        "spacing": 1,
+        "radius": 1,
         "dark": "#B8B8B8",
         "light": "#030306",
-        "primary": "#4e42d9",
-        "topbar_bg_color": "#111113",
-        "topbar_text_color": "#ffffff",
-        "sidebar_bg_color": "#111113",
-        "sidebar_text_color": "#ffffff",
-        "input_bg_color": "#1c1c1c",
-        "input_text_color": "#ffffff",
-        "brand_mode": "--brand-sidebar"
+        "primary": "#4e42d9"
     },
     "bada55": {
-        "density": 1,
-        "radius": 0.5,
+        "spacing": 1,
+        "radius": 1,
         "light": "#ffffff",
         "dark": "#000000",
-        "primary": "#bada55",
-        "topbar_bg_color": "#cccccc",
-        "topbar_text_color": "#000000",
-        "sidebar_bg_color": "#bada55",
-        "sidebar_text_color": "#3c4700",
-        "brand_mode": "--brand-sidebar",
-        "input_bg_color": "#ededed",
-        "input_text_color": "#000000"
+        "primary": "#bada55"
     }
 }

@@ -10,9 +10,7 @@
     }
 
     &__topbar {
-        @apply w-full shadow-sm;
-        
-        height: calc(var(--cp-spacing)*2.5rem);
+        @apply w-full shadow-sm h-20;
     }
 
     &__main {
