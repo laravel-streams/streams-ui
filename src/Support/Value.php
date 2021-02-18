@@ -5,6 +5,7 @@ namespace Streams\Ui\Support;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\View;
+use Streams\Core\Entry\Contract\EntryInterface;
 
 class Value
 {
@@ -52,7 +53,7 @@ class Value
         /**
          * Check for basic entry attribute values.
          */
-        if (is_object($entry) && $entry->{$value}) {
+        if (is_object($entry) && $entry instanceof EntryInterface) {
             $value = $entry->{$value};
         }
 

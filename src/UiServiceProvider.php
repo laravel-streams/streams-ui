@@ -3,21 +3,20 @@
 namespace Streams\Ui;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
+use Streams\Ui\Input\Input;
 use Streams\Core\Field\Field;
 use Streams\Core\Stream\Stream;
+use Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Table\TableBuilder;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Form\FormBuilder;
-use Streams\Ui\Input\Input;
-use Streams\Ui\Table\TableBuilder;
 
 class UiServiceProvider extends ServiceProvider
 {

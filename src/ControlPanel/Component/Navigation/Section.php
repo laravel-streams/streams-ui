@@ -40,12 +40,12 @@ class Section extends Component
         ], $attributes));
     }
 
-    public function url()
+    public function url(array $extra = [])
     {
         $target = Arr::get($this->attributes, 'href') ?: ('@cp/' . $this->id);
 
         if (Str::startsWith($target, '@cp/')) {
-            return URL::cp(ltrim(substr($target, 4), '/'));
+            return URL::cp(ltrim(substr($target, 4), '/'), $extra);
         }
 
         return URL::url($target);

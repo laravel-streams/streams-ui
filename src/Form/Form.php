@@ -105,7 +105,9 @@ class Form extends Component
      */
     public function open(array $options = [])
     {
-        $options['url'] = $this->options->get('url') ?: $this->url();
+        $keyName = $this->stream->config('key_name', 'id');
+
+        $options['url'] = $this->options->get('url') ?: ($this->url() . ($this->entry ? '?entry=' . $this->entry->{$keyName} : null));
 
         $options['files'] = true; // multipart/form-data
 
@@ -164,7 +166,32 @@ class Form extends Component
     {
         $values = $this->values->all();
 
-        $rules = $this->rules->map(function ($rules) {
+        $rules = $this->rules->map(function ($rules, $field) {
+
+            array_map(function (&$rule) use ($field) {
+
+                if (Str::startsWith($rule, 'unique')) {
+
+                    // @todo get prefixes are dumb
+                    $parameters = $this->stream->ruleParameters($field, 'unique');
+
+                    if (!$parameters) {
+                        $parameters[] = $this->stream->handle;
+                    }
+
+                    if (count($parameters) === 1) {
+                        $parameters[] = $field;
+                    }
+
+                    if (count($parameters) === 2 && $this->entry && $ignore = $this->entry->{$field}) {
+                        $parameters[] = $ignore;
+                        $parameters[] = $field;
+                    }
+
+                    $rule = 'unique:' . implode(',', $parameters);
+                }
+            }, $rules);
+
             return implode('|', array_unique($rules));
         })->all();
 

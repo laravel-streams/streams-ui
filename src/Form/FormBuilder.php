@@ -5,13 +5,14 @@ namespace Streams\Ui\Form;
 use Streams\Ui\Form\Form;
 use Illuminate\Support\Arr;
 use Streams\Ui\Button\Button;
+use Streams\Core\Stream\Stream;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Support\Normalizer;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Streams\Ui\Form\FormAuthorizer;
+use Streams\Core\Repository\Repository;
 use Streams\Core\Support\Facades\Resolver;
-use Streams\Ui\Form\Component\Field\Field;
 use Streams\Core\Support\Facades\Evaluator;
 use Streams\Ui\Form\Component\Action\Action;
 use Streams\Ui\Form\Component\Action\ActionRegistry;
@@ -78,7 +79,7 @@ class FormBuilder extends Builder
 
     public function repository()
     {
-        if ($this->repository instanceof RepositoryInterface) {
+        if ($this->repository instanceof Repository) {
             return $this->repository;
         }
 
@@ -140,7 +141,7 @@ class FormBuilder extends Builder
          * Fallback to using the repository
          * to get and/or paginate the results.
          */
-        if ($this->repository() instanceof RepositoryInterface) {
+        if ($this->repository() instanceof Repository) {
 
             $this->criteria = $this->repository()->newCriteria();
 

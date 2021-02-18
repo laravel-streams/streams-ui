@@ -31,8 +31,8 @@ class Number extends Input
     public function htmlAttributes(array $attributes = [])
     {
         return parent::htmlAttributes(array_merge([
-            'min' => Arr::get($this->field->stream->getRuleParameters($this->field->handle, 'min'), 0),
-            'max' => Arr::get($this->field->stream->getRuleParameters($this->field->handle, 'max'), 0),
+            'min' => Arr::get($this->field->stream->ruleParameters($this->field->handle, 'min'), 0),
+            'max' => Arr::get($this->field->stream->ruleParameters($this->field->handle, 'max'), 0),
         ], $attributes));
     }
 }
