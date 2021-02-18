@@ -53,7 +53,7 @@ class Value
         /**
          * Check for basic entry attribute values.
          */
-        if (is_object($entry) && $entry instanceof EntryInterface) {
+        if (is_object($entry) && method_exists($entry, 'getAttribute')) {
             $value = $entry->{$value};
         }
 
