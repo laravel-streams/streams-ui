@@ -69,7 +69,7 @@ class UiController extends StreamsController
         if (!$stream = $data->get('stream')) {
             return;
         }
-
+        
         $action = Request::route()->action;
 
         // @todo this needs work

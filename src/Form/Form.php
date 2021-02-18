@@ -219,9 +219,12 @@ class Form extends Component
         }
 
         if ($this->errors->isNotEmpty()) {
+            
             foreach ($this->errors->messages() as $errors) {
                 Messages::error(implode("\n\r", $errors));
             }
+
+            $this->response = Redirect::back()->with('messages', Messages::get());
         }
     }
 

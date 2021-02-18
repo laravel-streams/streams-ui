@@ -7,7 +7,6 @@
         'x-init' => 'init()'
     ]) !!}
 
-
     @section('layout')
     @include('ui::forms.layout')
     @show
