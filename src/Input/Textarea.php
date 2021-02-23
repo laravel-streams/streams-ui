@@ -24,6 +24,31 @@ class Textarea extends Input
         ], $attributes));
     }
 
+    public function setValueAttribute($value)
+    {
+        if (is_array($value)) {
+            $value = implode("\n", $value);
+        }
+
+        $this->setPrototypeAttributeValue('value', $value);
+    }
+
+    public function requestValue()
+    {
+        $value = parent::requestValue();
+
+        $array = \Streams\Core\Field\Type\Arr::class;
+
+        $array = get_class($this->field->type()) == $array
+            || is_subclass_of($this->field->type(), $array);
+
+        if ($array) {
+            $value = explode("\n", $value);
+        }
+
+        return $value;
+    }
+
     /**
      * Return the HTML attributes array.
      *

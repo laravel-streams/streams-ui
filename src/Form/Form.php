@@ -158,7 +158,7 @@ class Form extends Component
         }
 
         foreach ($this->fields as $field) {
-            $this->values->put($field->handle, Request::file($this->prefix($field->handle)) ?: $this->request($field->handle));
+            $this->values->put($field->handle, $field->input()->requestValue());
         }
     }
 
