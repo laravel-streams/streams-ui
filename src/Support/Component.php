@@ -82,7 +82,7 @@ class Component implements Arrayable, Jsonable
     public function render()
     {
         $payload = [
-            Str::camel($this->as ?: $this->component) => $this,
+            Str::camel($this->component) => $this,
         ];
 
         return View::make($this->template, $payload);
