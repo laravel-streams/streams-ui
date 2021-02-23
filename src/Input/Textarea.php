@@ -24,26 +24,26 @@ class Textarea extends Input
         ], $attributes));
     }
 
-    public function setValueAttribute($value)
+    public function load($value)
     {
         if (is_array($value)) {
             $value = implode("\n", $value);
         }
 
-        $this->setPrototypeAttributeValue('value', $value);
+        return parent::load($value);
     }
 
-    public function requestValue()
+    public function value()
     {
-        $value = parent::requestValue();
+        $value = parent::value();
 
-        $array = \Streams\Core\Field\Type\Arr::class;
+        $type = $this->field->type();
 
-        $array = get_class($this->field->type()) == $array
-            || is_subclass_of($this->field->type(), $array);
-
-        if ($array) {
-            $value = explode("\n", $value);
+        if (
+            is_a($type, \Streams\Core\Field\Type\Arr::class)
+            || is_subclass_of($type, \Streams\Core\Field\Type\Arr::class)
+            ) {
+            return explode("\n", $value);
         }
 
         return $value;

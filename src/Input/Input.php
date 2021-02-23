@@ -26,9 +26,23 @@ class Input extends Component
         ], $attributes));
     }
 
-    public function requestValue()
+    public function post()
     {
-        return Request::file($this->name()) ?: $this->request($this->name());
+        $this->load(Request::file($this->name()) ?: $this->request($this->name()));
+
+        return $this;
+    }
+
+    public function load($value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    public function value()
+    {
+        return $this->value;
     }
 
     public function attributes(array $attributes = [])

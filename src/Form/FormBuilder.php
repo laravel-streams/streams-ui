@@ -180,7 +180,7 @@ class FormBuilder extends Builder
         $collection->each(function ($field) use ($fields) {
 
             if ($this->entry) {
-                $field->setPrototypeAttribute('input.value', $this->entry->{$field->handle});
+                $field->input()->load($this->entry->{$field->handle});
             }
 
             if (!$extra = Arr::get($fields, $field->handle, [])) {

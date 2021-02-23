@@ -152,13 +152,14 @@ class Form extends Component
 
     public function load()
     {
-        // @todo foreach meta fields? ID should be a field.. - marked meta?
-        if ($id = $this->request('id')) {
-            $this->values->put('id', $id);
+        $keyName = $this->stream->config('key_name', 'id');
+
+        if ($key = $this->request($keyName)) {
+            $this->values->put($keyName, $key);
         }
 
         foreach ($this->fields as $field) {
-            $this->values->put($field->handle, $field->input()->requestValue());
+            $this->values->put($field->handle, $field->input()->post()->value());
         }
     }
 
