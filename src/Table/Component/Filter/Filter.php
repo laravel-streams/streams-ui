@@ -47,14 +47,14 @@ class Filter extends Component
     {
         $attributes = ['field' => $this];
 
-        $attributes[ 'value' ] = $this->value();
-        $attributes[ 'name' ]  = $this->inputName();
-
         $attributes = array_diff_key($this->getPrototypeAttributes(), array_flip([
             'classes',
             'template',
             'component',
         ]));
+
+        $attributes['value'] = $this->value();
+        $attributes['name']  = $this->inputName();
 
         return App::make('streams.ui.input.' . ($this->input ?: 'input'), [
             'attributes' => $attributes,

@@ -240,10 +240,6 @@ class TableBuilder extends Builder
 
     public function detectFilters()
     {
-        if ($this->instance->filters->active()->isNotEmpty()) {
-            return;
-        }
-
         $this->instance->filters->each(function ($filter) {
             $filter->active = Request::has($this->instance->prefix(/*'filter_' .*/ $filter->handle));
         });
