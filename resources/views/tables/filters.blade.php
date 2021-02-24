@@ -1,19 +1,28 @@
 <!-- filters.blade.php -->
 @if ($table->filters->isNotEmpty())
 <div class="c-table__filters">
-    {!! Form::open([
-        'method' => 'get',
-    ]) !!}
-    @foreach ($table->filters as $filter)
-        @include('ui::tables.filter', ['filter' => $filter])
-    @endforeach
+    <div class="c-filters">
+        
+        {!! Form::open([
+            'method' => 'get',
+        ]) !!}
+        
+        <div class="c-filters__inputs">
+        @foreach ($table->filters as $filter)
+            <div class="c-input -{{ $filter->type }}-filter">
+                {{ $filter->input()->render() }}
+            </div>
+            @endforeach
+        </div>
+    
+        <div class="c-buttons">
+            <button class="a-button" type="submit" value="Filter">Filter</button>
+    
+            <a class="a-button -secondary" href="{{ $table->clearUrl() }}">Clear</a>
+        </div>
+    
+        {!! Form::close() !!}
 
-    <div class="c-buttons">
-        <button class="c-button" type="submit" value="Filter">Filter</button>
-
-        <a class="c-button" href="{{ $table->clearUrl() }}">Clear</a>
     </div>
-
-    {!! Form::close() !!}
 </div>
 @endif
