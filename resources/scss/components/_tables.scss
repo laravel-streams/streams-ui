@@ -10,6 +10,11 @@
                     @apply px-8 py-4 text-left font-medium;
 
                     background-color: rgba(0, 0, 0, 0.10);
+
+                    &.c-table__selector {
+                        width: 1px;
+                        @apply px-8 pr-0;
+                    }
                 }
             }
         }
@@ -29,6 +34,11 @@
 
                 td {
                     @apply px-8 py-4 whitespace-nowrap;
+
+                    &.c-table__selector {
+                        width: 1px;
+                        @apply px-8 pr-0;
+                    }
                 }
             }
         }
@@ -39,6 +49,10 @@
     }
 
     &__buttons {
+
+        nav {
+            @apply justify-end;
+        }
         
         .a-button {
             @apply font-medium px-2 py-1;

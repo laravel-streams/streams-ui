@@ -1,14 +1,12 @@
 .c-filters {
-    @apply shadow-sm m-4 bg-white rounded-lg overflow-hidden;
+    @apply shadow-sm m-4 bg-white rounded-lg overflow-hidden p-4;
 
     form {
-        @apply flex;
+        @apply flex gap-4;
     }
 
     &__inputs {
-        > div {
-            @apply m-4;
-        }
+        @apply flex gap-4;
     }
 
     // &__actions,
