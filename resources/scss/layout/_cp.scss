@@ -4,7 +4,7 @@
     background-color: var(--ls-color-light);
 
     &__sidebar {
-        @apply w-3/12 shadow-sm;
+        @apply w-3/12 shadow-sm h-full;
     
         max-width: 300px;
     }
