@@ -60,6 +60,8 @@ class UiController extends StreamsController
 
     public function resolveSection(Collection $data)
     {
+        $action = $data->get('action');
+
         if (!$section = Request::route()->parameter('section')) {
             return;
         }
@@ -68,11 +70,13 @@ class UiController extends StreamsController
             return;
         }
 
-        if ($stream = Arr::get($section->route, 'stream')) {
-            $data->put('stream', Streams::make($stream));
-        } elseif (Streams::has($section->id)) {
-            $data->put('stream', Streams::make($section->id));
+        $action = Arr::undot($action + (array) $section->route);
+
+        if (!isset($action['stream'])) {
+            $action['stream'] = $section->id;
         }
+        
+        $data->put('action', $action);
     }
 
     /**
@@ -90,17 +94,17 @@ class UiController extends StreamsController
             return;
         }
 
-        $action = Request::route()->action;
-
+        $action = $data->get('action');
+        
         // @todo this needs work
         // control panel builder
-        if (isset($action['ui.cp']) && $action['ui.cp'] == true) {
+        if (Arr::get($action, 'ui.cp') == true) {
             View::share('cp', (new ControlPanelBuilder())->build());
         }
 
-        if (isset($action['ui.component'])) {
-
-            $component = $stream->{$action['ui.component']}([
+        if ($component = Arr::get($action, 'ui.component')) {
+        
+            $component = $stream->{$component}(Arr::get($action, 'ui.handle', 'default'), [
                 'entry' => $data->get('entry')
             ]);
 
