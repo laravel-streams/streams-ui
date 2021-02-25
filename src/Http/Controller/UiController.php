@@ -2,12 +2,14 @@
 
 namespace Streams\Ui\Http\Controller;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
+use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\ControlPanel\ControlPanelBuilder;
 use Streams\Core\Http\Controller\StreamsController;
 
@@ -22,6 +24,7 @@ class UiController extends StreamsController
 {
 
     protected $steps = [
+        'resolve_section',
         'resolve_stream',
         'resolve_entry',
         'resolve_view',
@@ -44,7 +47,7 @@ class UiController extends StreamsController
 
         return Redirect::to($home->url());
     }
-    
+
     /**
      * Handle the request.
      * 
@@ -53,6 +56,23 @@ class UiController extends StreamsController
     public function handle()
     {
         return parent::handle();
+    }
+
+    public function resolveSection(Collection $data)
+    {
+        if (!$section = Request::route()->parameter('section')) {
+            return;
+        }
+
+        if (!$section = Streams::entries('cp.navigation')->find($section)) {
+            return;
+        }
+
+        if ($stream = Arr::get($section->route, 'stream')) {
+            $data->put('stream', Streams::make($stream));
+        } elseif (Streams::has($section->id)) {
+            $data->put('stream', Streams::make($section->id));
+        }
     }
 
     /**
@@ -69,7 +89,7 @@ class UiController extends StreamsController
         if (!$stream = $data->get('stream')) {
             return;
         }
-        
+
         $action = Request::route()->action;
 
         // @todo this needs work
@@ -77,7 +97,7 @@ class UiController extends StreamsController
         if (isset($action['ui.cp']) && $action['ui.cp'] == true) {
             View::share('cp', (new ControlPanelBuilder())->build());
         }
-        
+
         if (isset($action['ui.component'])) {
 
             $component = $stream->{$action['ui.component']}([

@@ -130,19 +130,19 @@ class UiServiceProvider extends ServiceProvider
                 /**
                  * Route navigation first.
                  */
-                Streams::entries('cp.navigation')->get()
-                    ->filter(function ($section) {
-                        return $section->route;
-                    })->each(function ($section) {
-                        Route::streams(Arr::get($section->route, 'uri', $section->id), array_merge([
-                            'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
-                        ], $section->route));
-                    });
+                // Streams::entries('cp.navigation')->get()
+                //     ->filter(function ($section) {
+                //         return $section->route;
+                //     })->each(function ($section) {
+                //         Route::streams(Arr::get($section->route, 'uri', $section->id), array_merge([
+                //             'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
+                //         ], $section->route));
+                //     });
 
                 // @todo Configure this later
-                $index = '{stream}';
-                $create = '{stream}/create';
-                $edit = '{stream}/{entry}/edit';
+                $index = '{section}';
+                $create = '{section}/create';
+                $edit = '{section}/{entry}/edit';
 
                 $table = 'ui/{stream}/table/{table?}';
                 $form = 'ui/{stream}/form/{form?}';
