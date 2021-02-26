@@ -1,6 +1,14 @@
 .c-dropdown {
     
     &__content {
-        @apply block;
+        @apply block absolute top-full right-0 shadow-sm bg-white rounded-lg overflow-hidden mt-2;
+
+        a {
+            @apply whitespace-nowrap px-4 py-2 block;
+
+            &:hover {
+                @apply bg-secondary text-white;
+            }
+        }
     }
 }

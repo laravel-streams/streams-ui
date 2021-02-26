@@ -334,7 +334,30 @@
 }
 
 .c-dropdown__content {
+  background-color: var(--ls-color-white);
+  border-radius: calc(var(--ls-radius)*0.5rem);
   display: block;
+  margin-top: calc(var(--ls-spacing)*0.5rem);
+  overflow: hidden;
+  position: absolute;
+  right: 0px;
+  top: 100%;
+  --tw-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.c-dropdown__content a {
+  display: block;
+  padding-top: calc(var(--ls-spacing)*0.5rem);
+  padding-bottom: calc(var(--ls-spacing)*0.5rem);
+  padding-left: calc(var(--ls-spacing)*1rem);
+  padding-right: calc(var(--ls-spacing)*1rem);
+  white-space: nowrap;
+}
+
+.c-dropdown__content a:hover {
+  background-color: var(--ls-color-secondary);
+  color: var(--ls-color-white);
 }
 
 .c-input input[type=text], .c-input input[type=password], .c-input input[type=email], .c-input input[type=number], .c-input input[type=url], .c-input input[type=date], .c-input input[type=datetime-local], .c-input input[type=month], .c-input input[type=week], .c-input input[type=time], .c-input input[type=search], .c-input input[type=tel], .c-input textarea, .c-input select {
