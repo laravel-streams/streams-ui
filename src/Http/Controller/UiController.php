@@ -61,13 +61,13 @@ class UiController extends StreamsController
     public function resolveSection(Collection $data)
     {
         $action = $data->get('action');
-
+        
         if (!$section = Request::route()->parameter('section')) {
             return;
         }
 
-        if (!isset($action['stream'])) {
-            
+        if (!isset($action['stream']) && Streams::has($section)) {
+
             $action['stream'] = $section;
 
             $data->put('action', $action);
@@ -90,11 +90,11 @@ class UiController extends StreamsController
     public function resolveResponse(Collection $data)
     {
         if ($data->has('response')) {
-            return;
+            parent::resolveResponse($data);
         }
 
         if (!$stream = $data->get('stream')) {
-            return;
+            parent::resolveResponse($data);
         }
 
         $action = $data->get('action');

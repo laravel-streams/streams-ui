@@ -20,9 +20,9 @@
     "bada55": {
         "spacing": 1,
         "radius": 1,
-        "light": "#ffffff",
-        "dark": "#000000",
-        "primary": "#bada55",
-        "secondary": "#1f1f1f"
+        "light": "#f9fbf9",
+        "dark": "#333333",
+        "primary": "#90b909",
+        "secondary": "#6f6d6d"
     }
 }

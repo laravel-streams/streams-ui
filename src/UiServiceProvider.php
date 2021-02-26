@@ -128,7 +128,14 @@ class UiServiceProvider extends ServiceProvider
             Route::prefix(Config::get('streams.ui.cp.prefix'))->middleware(['cp'])->group(function () {
 
                 /**
-                 * Route navigation first.
+                 * Load route file first.
+                 */
+                if (file_exists($routes = base_path('routes/cp.php'))) {
+                    include $routes;
+                }
+
+                /**
+                 * Route navigation next.
                  */
                 // Streams::entries('cp.navigation')->get()
                 //     ->filter(function ($section) {
@@ -186,10 +193,6 @@ class UiServiceProvider extends ServiceProvider
                     'ui.component' => 'form',
                     'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
                 ]);
-
-                if (file_exists($routes = base_path('routes/cp.php'))) {
-                    include $routes;
-                }
             });
         }
     }
