@@ -67,7 +67,7 @@ class Value
                 'value' => $value,
                 $term   => $entry,
             ]);
-dd('Test');
+
             $value = data_get([$term => $entry], $value, $value);
         }
 

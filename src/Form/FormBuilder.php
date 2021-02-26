@@ -257,7 +257,7 @@ class FormBuilder extends Builder
              * Default guesser for cancel button.
              */
             if ($button['button'] == 'cancel' && !isset($button['attributes']['href']) && $stream) {
-                $button['attributes']['href'] = URL::route('ui::cp.index', ['stream' => $stream->handle]);
+                $button['attributes']['href'] = URL::route('ui::cp.index', ['section' => $stream->handle]);
             }
         }
 

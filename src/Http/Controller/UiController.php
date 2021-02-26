@@ -66,15 +66,18 @@ class UiController extends StreamsController
             return;
         }
 
+        if (!isset($action['stream'])) {
+            
+            $action['stream'] = $section;
+
+            $data->put('action', $action);
+        }
+
         if (!$section = Streams::entries('cp.navigation')->find($section)) {
             return;
         }
 
-        $action = Arr::undot($action + (array) $section->route);
-
-        if (!isset($action['stream'])) {
-            $action['stream'] = $section->id;
-        }
+        $action = Arr::undot((array) $section->route + $action);
         
         $data->put('action', $action);
     }
