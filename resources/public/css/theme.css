@@ -1,3 +1,7 @@
+[x-cloak] {
+  display: none !important;
+}
+
 .o-cp {
   display: flex;
   height: 100vh;
@@ -38,10 +42,11 @@
   align-items: center;
   height: 100%;
   margin: 0px;
+  padding-left: calc(var(--ls-spacing)*1rem);
+  padding-right: calc(var(--ls-spacing)*1rem);
   width: 100%;
   color: var(--ls-color-dark);
   background-color: var(--ls-color-white);
-  padding: 0 calc(var(--ls-spacing)*1rem);
 }
 
 .c-topbar__buttons {
@@ -287,57 +292,48 @@
 .c-shortcuts {
   display: flex;
   align-items: center;
-  margin-left: calc(var(--ls-spacing)*.5rem);
+  gap: calc(var(--ls-spacing)*1rem);
 }
 
 .c-shortcuts > div {
   position: relative;
 }
 
-.c-shortcuts > div > a,
-.c-shortcuts > div > button {
-  padding: 0;
-  border: none;
+.c-shortcuts > div > a, .c-shortcuts > div > button {
+  background-color: transparent;
+  border-color: transparent;
+  border-radius: 9999px;
+  border-width: 0px;
+  display: inline-block;
   display: flex;
-  background: none;
   align-items: center;
-  border-radius: 999px;
   justify-content: center;
-  height: calc(var(--ls-spacing)*1.5rem);
-  width: calc(var(--ls-spacing)*1.5rem);
-  border: 2px solid transparent;
-  outline: none;
+  height: calc(var(--ls-spacing)*2.5rem);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  padding: 0px;
+  width: calc(var(--ls-spacing)*2.5rem);
 }
 
-.c-shortcuts > div > a:active, .c-shortcuts > div > a:focus,
-.c-shortcuts > div > button:active,
-.c-shortcuts > div > button:focus {
-  border-color: var(--ls-color-primary);
+.c-shortcuts > div > a:active, .c-shortcuts > div > a:focus, .c-shortcuts > div > button:active, .c-shortcuts > div > button:focus {
+  --tw-shadow: 0 0 0 3px var(--ls-color-primary);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.c-shortcuts > div > a svg,
-.c-shortcuts > div > a img,
-.c-shortcuts > div > button svg,
-.c-shortcuts > div > button img {
-  width: calc(var(--ls-spacing)*1.25rem);
-  height: calc(var(--ls-spacing)*1.25rem);
+.c-shortcuts > div > a svg, .c-shortcuts > div > a img, .c-shortcuts > div > button svg, .c-shortcuts > div > button img {
+  height: calc(var(--ls-spacing)*2.5rem);
+  width: calc(var(--ls-spacing)*2.5rem);
 }
 
-.c-shortcuts > div > a svg,
-.c-shortcuts > div > button svg {
-  color: var(--topbar-text-color);
+.c-shortcuts > div > a svg, .c-shortcuts > div > button svg {
+  color: var(--ls-color-dark);
 }
 
-.c-shortcuts > div > a img,
-.c-shortcuts > div > button img {
-  border-radius: 999px;
+.c-shortcuts > div > a img, .c-shortcuts > div > button img {
+  border-radius: 9999px;
 }
 
 .c-dropdown__content {
-  display: none;
-}
-
-.c-dropdown.-open__content {
   display: block;
 }
 
@@ -349,6 +345,13 @@
   padding-left: calc(var(--ls-spacing)*1rem);
   padding-right: calc(var(--ls-spacing)*1rem);
   color: var(--ls-color-dark);
+}
+
+.c-input input[type=text]:active, .c-input input[type=text]:focus, .c-input input[type=password]:active, .c-input input[type=password]:focus, .c-input input[type=email]:active, .c-input input[type=email]:focus, .c-input input[type=number]:active, .c-input input[type=number]:focus, .c-input input[type=url]:active, .c-input input[type=url]:focus, .c-input input[type=date]:active, .c-input input[type=date]:focus, .c-input input[type=datetime-local]:active, .c-input input[type=datetime-local]:focus, .c-input input[type=month]:active, .c-input input[type=month]:focus, .c-input input[type=week]:active, .c-input input[type=week]:focus, .c-input input[type=time]:active, .c-input input[type=time]:focus, .c-input input[type=search]:active, .c-input input[type=search]:focus, .c-input input[type=tel]:active, .c-input input[type=tel]:focus, .c-input textarea:active, .c-input textarea:focus, .c-input select:active, .c-input select:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --tw-shadow: 0 0 0 3px var(--ls-color-primary);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .c-input select {

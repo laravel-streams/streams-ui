@@ -15,6 +15,11 @@
     textarea,
     select {
         @apply py-2 px-4 text-dark bg-light rounded;
+
+        &:active,
+        &:focus {
+            @apply outline-none shadow-outline;
+        }
     }
 
     select {

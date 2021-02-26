@@ -22,7 +22,7 @@
         "radius": 1,
         "light": "#f9fbf9",
         "dark": "#333333",
-        "primary": "#90b909",
-        "secondary": "#6f6d6d"
+        "primary": "#93b61c",
+        "secondary": "#8bc5e0"
     }
 }
