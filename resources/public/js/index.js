@@ -148,8 +148,8 @@ module.exports = window["streams"]["core"];
 /******/ 		};
 /******/ 		
 /******/ 		var deferredModules = [
-/******/ 			["./resources/lib/index.js"],
-/******/ 			["./resources/scss/theme.scss"]
+/******/ 			["./resources/scss/theme.scss"],
+/******/ 			["./resources/lib/index.js"]
 /******/ 		];
 /******/ 		// no chunk on demand loading
 /******/ 		

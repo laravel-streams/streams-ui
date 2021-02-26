@@ -3,8 +3,8 @@
     
     @section('form')
     {!! $form->open([
-        'x-data' => "app.get('form')({$form->toJson()})",
-        'x-init' => 'init()'
+        //'x-data' => "app.get('form')({$form->toJson()})",
+        //'x-init' => 'init()'
     ]) !!}
 
     @section('layout')
