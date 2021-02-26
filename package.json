@@ -15,14 +15,13 @@
         "alpinejs": "^2.7",
         "easymde": "^2.13",
         "mousetrap": "^1.6",
-        "noty": "^3.2.0-beta",
-        "tailwindcss": "^2.0.3"
+        "tailwindcss": "^2.0"
     },
     "devDependencies": {
         "axios": "^0.21",
         "laravel-mix": "^6.0",
         "postcss": "^8.1",
-        "sass": "^1.32.7",
-        "sass-loader": "^8.0.2"
+        "sass": "^1.32",
+        "sass-loader": "^8.0"
     }
 }

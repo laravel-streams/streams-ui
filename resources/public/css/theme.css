@@ -183,8 +183,8 @@
 }
 
 .c-table table tbody tr td {
-  padding-top: calc(var(--ls-spacing)*1rem);
-  padding-bottom: calc(var(--ls-spacing)*1rem);
+  padding-top: calc(var(--ls-spacing)*0.75rem);
+  padding-bottom: calc(var(--ls-spacing)*0.75rem);
   padding-left: calc(var(--ls-spacing)*2rem);
   padding-right: calc(var(--ls-spacing)*2rem);
   white-space: nowrap;
@@ -349,7 +349,6 @@
   padding-left: calc(var(--ls-spacing)*1rem);
   padding-right: calc(var(--ls-spacing)*1rem);
   color: var(--ls-color-dark);
-  width: 100%;
 }
 
 .c-input select {
@@ -362,7 +361,7 @@
   background-position: calc(100% - 1.25em) center;
 }
 
-input[type=text].a-input, input[type=password].a-input, input[type=email].a-input, input[type=number].a-input, input[type=url].a-input, input[type=date].a-input, input[type=datetime-local].a-input, input[type=month].a-input, input[type=week].a-input, input[type=time].a-input, input[type=search].a-input, input[type=tel].a-input, textarea.a-input {
+input[type=text].a-input, input[type=password].a-input, input[type=email].a-input, input[type=number].a-input, input[type=url].a-input, input[type=date].a-input, input[type=datetime-local].a-input, input[type=month].a-input, input[type=week].a-input, input[type=time].a-input, input[type=search].a-input, input[type=tel].a-input, select.a-input, textarea.a-input {
   background-color: var(--ls-color-light);
   border-radius: calc(var(--ls-radius)*0.25rem);
   padding-top: calc(var(--ls-spacing)*0.5rem);
@@ -370,7 +369,17 @@ input[type=text].a-input, input[type=password].a-input, input[type=email].a-inpu
   padding-left: calc(var(--ls-spacing)*1rem);
   padding-right: calc(var(--ls-spacing)*1rem);
   color: var(--ls-color-dark);
-  width: 100%;
+}
+
+select.a-input {
+  padding-right: 2.5rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%23000000%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  background-size: 0.6em;
+  background-repeat: no-repeat;
+  background-position: calc(100% - 1.25em) center;
 }
 
 .ls-input.--toggle-input input[type=checkbox] + .toggle {

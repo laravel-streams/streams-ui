@@ -3,7 +3,7 @@
 
     <label>{{ __('ui::labels.show') }}</label>
 
-    <select onchange="window.location=this.value;">
+    <select class="a-input" onchange="window.location=this.value;">
         @foreach (['all', 5, 10, 15, 25, 50, 75, 100, 150] as $item)
         <option
             {{ $table->options->get('limit', $table->pagination->perPage()) == $item ? 'selected' : '' }}
