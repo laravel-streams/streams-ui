@@ -12,7 +12,7 @@
             <div class="text-2xl text-black dark:text-dark cursor-pointer"
             x-on:show-modal.window="open(); load($event.detail.url)"
             x-on:close-modal.window="close()">
-                <span x-html="content">...</span>
+                {{-- <span x-html="content">...</span> --}}
                 <span @click="isOpen() ? close() : show();"> (CLOSE)</span>
             </div>
         </div>

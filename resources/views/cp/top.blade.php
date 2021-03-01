@@ -2,7 +2,7 @@
 <div class="o-cp__topbar">
     <div class="c-topbar">
         
-        <div class="c-topbar__buttons">
+        <div class="c-topbar__buttons" x-data="{}">
             {!! $cp->buttons !!}
         </div>
 

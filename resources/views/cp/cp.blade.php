@@ -30,8 +30,8 @@
     @include('ui::cp.assets')
     @include('ui::cp.messages')
 
-    {{-- @include('ui::cp.surfaces')
-    @include('ui::cp.modal') --}}
+    @include('ui::cp.surfaces')
+    {{-- @include('ui::cp.modal') --}}
 
 </body>
 
