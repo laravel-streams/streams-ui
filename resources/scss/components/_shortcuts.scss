@@ -6,7 +6,7 @@
 
         > a,
         > button {
-            @apply h-10 w-10 p-0 inline-block border-0 border-transparent outline-none flex items-center justify-center rounded-full bg-transparent;
+            @apply h-10 w-10 p-0 inline-block border-0 border-transparent outline-none flex items-center justify-center rounded-full bg-transparent cursor-pointer;
 
             &:active,
             &:focus {
