@@ -233,6 +233,10 @@ class TableBuilder extends Builder
 
         $this->loadInstanceWith('filters', $filters, Filter::class);
 
+        if ($first = $this->instance->filters->first()) {
+            $first->setPrototypeAttribute('attributes.data-keymap', 'f');
+        }
+
         $this->filters = $filters;
 
         return $this->instance->filters;

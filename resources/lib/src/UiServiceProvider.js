@@ -22,7 +22,7 @@ export class UiServiceProvider extends ServiceProvider {
 
             Mousetrap.bind(trigger.dataset.keymap, function (event) {
                 event.preventDefault();
-                trigger.click();
+                trigger.tagName == 'INPUT' ? trigger.focus() : trigger.click();
             });
         });
 
