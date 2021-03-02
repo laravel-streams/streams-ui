@@ -14,7 +14,7 @@
     input[type="tel"],
     textarea,
     select {
-        @apply py-2 px-4 text-dark bg-light rounded;
+        @apply py-2 px-4 text-dark bg-light rounded w-full;
 
         &:active,
         &:focus {
@@ -22,7 +22,7 @@
         }
     }
 
-    select {
+    select:not([multiple]) {
 
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -54,10 +54,10 @@ input[type="search"].a-input,
 input[type="tel"].a-input,
 select.a-input,
 textarea.a-input {
-    @apply py-2 px-4 text-dark bg-light rounded;
+    @apply py-2 px-4 text-dark bg-light rounded w-full;
 }
 
-select.a-input {
+select.a-input:not([multiple]) {
     padding-right: 2.5rem;
     -webkit-appearance: none;
     -moz-appearance: none;

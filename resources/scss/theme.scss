@@ -1,5 +1,8 @@
 @import "utilities/index";
 
+@import "inputs/input";
+@import "inputs/toggle";
+
 @import "layout/cp";
 @import "layout/topbar";
 @import "layout/sidebar";
@@ -13,6 +16,4 @@
 @import "components/shortcuts";
 @import "components/dropdowns";
 
-@import "inputs/input";
-@import "inputs/toggle";
 // @import "inputs/markdown";

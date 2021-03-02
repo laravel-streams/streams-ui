@@ -76,6 +76,9 @@ class ButtonRegistry
             'text' => 'ui::buttons.save',
             'icon' => 'save',
             'context' => 'success',
+            'attributes' => [
+                'data-keymap' => 'command+s',
+            ]
         ],
         'update'        => [
             'text' => 'ui::buttons.save',

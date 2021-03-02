@@ -59,8 +59,10 @@
         }
     }
 
-    &__filters {
-        
+    &__limiter {
+        select {
+            @apply w-auto;
+        }
     }
 
     &__actions,

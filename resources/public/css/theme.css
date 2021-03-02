@@ -6,8 +6,108 @@
   display: none;
 }
 
+.hud-only.-keymap {
+  background-color: var(--ls-color-black);
+  border-radius: calc(var(--ls-radius)*0.125rem);
+  padding-left: calc(var(--ls-spacing)*0.5rem);
+  padding-right: calc(var(--ls-spacing)*0.5rem);
+}
+
 .-hud .hud-only {
   display: inherit;
+}
+
+.c-input input[type=text], .c-input input[type=password], .c-input input[type=email], .c-input input[type=number], .c-input input[type=url], .c-input input[type=date], .c-input input[type=datetime-local], .c-input input[type=month], .c-input input[type=week], .c-input input[type=time], .c-input input[type=search], .c-input input[type=tel], .c-input textarea, .c-input select {
+  background-color: var(--ls-color-light);
+  border-radius: calc(var(--ls-radius)*0.25rem);
+  padding-top: calc(var(--ls-spacing)*0.5rem);
+  padding-bottom: calc(var(--ls-spacing)*0.5rem);
+  padding-left: calc(var(--ls-spacing)*1rem);
+  padding-right: calc(var(--ls-spacing)*1rem);
+  color: var(--ls-color-dark);
+  width: 100%;
+}
+
+.c-input input[type=text]:active, .c-input input[type=text]:focus, .c-input input[type=password]:active, .c-input input[type=password]:focus, .c-input input[type=email]:active, .c-input input[type=email]:focus, .c-input input[type=number]:active, .c-input input[type=number]:focus, .c-input input[type=url]:active, .c-input input[type=url]:focus, .c-input input[type=date]:active, .c-input input[type=date]:focus, .c-input input[type=datetime-local]:active, .c-input input[type=datetime-local]:focus, .c-input input[type=month]:active, .c-input input[type=month]:focus, .c-input input[type=week]:active, .c-input input[type=week]:focus, .c-input input[type=time]:active, .c-input input[type=time]:focus, .c-input input[type=search]:active, .c-input input[type=search]:focus, .c-input input[type=tel]:active, .c-input input[type=tel]:focus, .c-input textarea:active, .c-input textarea:focus, .c-input select:active, .c-input select:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --tw-shadow: 0 0 0 3px var(--ls-color-primary);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.c-input select:not([multiple]) {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%23000000%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  background-size: 0.6em;
+  background-repeat: no-repeat;
+  background-position: calc(100% - 1.25em) center;
+}
+
+input[type=text].a-input, input[type=password].a-input, input[type=email].a-input, input[type=number].a-input, input[type=url].a-input, input[type=date].a-input, input[type=datetime-local].a-input, input[type=month].a-input, input[type=week].a-input, input[type=time].a-input, input[type=search].a-input, input[type=tel].a-input, select.a-input, textarea.a-input {
+  background-color: var(--ls-color-light);
+  border-radius: calc(var(--ls-radius)*0.25rem);
+  padding-top: calc(var(--ls-spacing)*0.5rem);
+  padding-bottom: calc(var(--ls-spacing)*0.5rem);
+  padding-left: calc(var(--ls-spacing)*1rem);
+  padding-right: calc(var(--ls-spacing)*1rem);
+  color: var(--ls-color-dark);
+  width: 100%;
+}
+
+select.a-input:not([multiple]) {
+  padding-right: 2.5rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%23000000%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  background-size: 0.6em;
+  background-repeat: no-repeat;
+  background-position: calc(100% - 1.25em) center;
+}
+
+.ls-input.--toggle-input input[type=checkbox] + .toggle {
+  width: 60px;
+  height: 32px;
+  padding: 4px;
+  border-radius: 42px;
+  background: #B7BABF;
+  box-sizing: border-box;
+  transition: background 0.5s ease;
+}
+
+.ls-input.--toggle-input input[type=checkbox] + .toggle .toggle-pill {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  margin-left: 0;
+  transition: margin 0.08s cubic-bezier(0.77, 0.49, 1, 1);
+}
+
+.ls-input.--toggle-input input[type=checkbox]:checked + .toggle {
+  background: #3076F6;
+  transition: background 0.5s ease;
+}
+
+.ls-input.--toggle-input input[type=checkbox]:checked + .toggle .toggle-pill {
+  margin-left: calc(100% - 24px);
+}
+
+.ls-input.--toggle-input input[type=checkbox]:focus + .toggle {
+  background: #3076F6;
+}
+
+.ls-input.--toggle-input input[type=checkbox] {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
 }
 
 .o-cp {
@@ -231,6 +331,10 @@
   padding-right: calc(var(--ls-spacing)*0.5rem);
 }
 
+.c-table__limiter select {
+  width: auto;
+}
+
 .c-table__actions, .c-table__limiter, .c-table__meta {
   padding-top: calc(var(--ls-spacing)*1rem);
   padding-bottom: calc(var(--ls-spacing)*1rem);
@@ -368,95 +472,4 @@
 .c-dropdown__content a:hover {
   background-color: var(--ls-color-secondary);
   color: var(--ls-color-white);
-}
-
-.c-input input[type=text], .c-input input[type=password], .c-input input[type=email], .c-input input[type=number], .c-input input[type=url], .c-input input[type=date], .c-input input[type=datetime-local], .c-input input[type=month], .c-input input[type=week], .c-input input[type=time], .c-input input[type=search], .c-input input[type=tel], .c-input textarea, .c-input select {
-  background-color: var(--ls-color-light);
-  border-radius: calc(var(--ls-radius)*0.25rem);
-  padding-top: calc(var(--ls-spacing)*0.5rem);
-  padding-bottom: calc(var(--ls-spacing)*0.5rem);
-  padding-left: calc(var(--ls-spacing)*1rem);
-  padding-right: calc(var(--ls-spacing)*1rem);
-  color: var(--ls-color-dark);
-}
-
-.c-input input[type=text]:active, .c-input input[type=text]:focus, .c-input input[type=password]:active, .c-input input[type=password]:focus, .c-input input[type=email]:active, .c-input input[type=email]:focus, .c-input input[type=number]:active, .c-input input[type=number]:focus, .c-input input[type=url]:active, .c-input input[type=url]:focus, .c-input input[type=date]:active, .c-input input[type=date]:focus, .c-input input[type=datetime-local]:active, .c-input input[type=datetime-local]:focus, .c-input input[type=month]:active, .c-input input[type=month]:focus, .c-input input[type=week]:active, .c-input input[type=week]:focus, .c-input input[type=time]:active, .c-input input[type=time]:focus, .c-input input[type=search]:active, .c-input input[type=search]:focus, .c-input input[type=tel]:active, .c-input input[type=tel]:focus, .c-input textarea:active, .c-input textarea:focus, .c-input select:active, .c-input select:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  --tw-shadow: 0 0 0 3px var(--ls-color-primary);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.c-input select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%23000000%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E");
-  background-size: 0.6em;
-  background-repeat: no-repeat;
-  background-position: calc(100% - 1.25em) center;
-}
-
-input[type=text].a-input, input[type=password].a-input, input[type=email].a-input, input[type=number].a-input, input[type=url].a-input, input[type=date].a-input, input[type=datetime-local].a-input, input[type=month].a-input, input[type=week].a-input, input[type=time].a-input, input[type=search].a-input, input[type=tel].a-input, select.a-input, textarea.a-input {
-  background-color: var(--ls-color-light);
-  border-radius: calc(var(--ls-radius)*0.25rem);
-  padding-top: calc(var(--ls-spacing)*0.5rem);
-  padding-bottom: calc(var(--ls-spacing)*0.5rem);
-  padding-left: calc(var(--ls-spacing)*1rem);
-  padding-right: calc(var(--ls-spacing)*1rem);
-  color: var(--ls-color-dark);
-}
-
-select.a-input {
-  padding-right: 2.5rem;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%23000000%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E");
-  background-size: 0.6em;
-  background-repeat: no-repeat;
-  background-position: calc(100% - 1.25em) center;
-}
-
-.ls-input.--toggle-input input[type=checkbox] + .toggle {
-  width: 60px;
-  height: 32px;
-  padding: 4px;
-  border-radius: 42px;
-  background: #B7BABF;
-  box-sizing: border-box;
-  transition: background 0.5s ease;
-}
-
-.ls-input.--toggle-input input[type=checkbox] + .toggle .toggle-pill {
-  display: block;
-  width: 24px;
-  height: 24px;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-  margin-left: 0;
-  transition: margin 0.08s cubic-bezier(0.77, 0.49, 1, 1);
-}
-
-.ls-input.--toggle-input input[type=checkbox]:checked + .toggle {
-  background: #3076F6;
-  transition: background 0.5s ease;
-}
-
-.ls-input.--toggle-input input[type=checkbox]:checked + .toggle .toggle-pill {
-  margin-left: calc(100% - 24px);
-}
-
-.ls-input.--toggle-input input[type=checkbox]:focus + .toggle {
-  background: #3076F6;
-}
-
-.ls-input.--toggle-input input[type=checkbox] {
-  position: absolute;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  width: 1px;
-  margin: -1px;
 }
