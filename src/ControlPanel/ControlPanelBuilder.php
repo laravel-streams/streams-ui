@@ -116,7 +116,7 @@ class ControlPanelBuilder extends Builder
         }
 
         $shortcuts = Streams::entries('cp.shortcuts')
-            ->orderBy('sort_order', 'desc')
+            ->orderBy('sort_order', 'asc')
             ->get();
 
         // 'view_site' => [
