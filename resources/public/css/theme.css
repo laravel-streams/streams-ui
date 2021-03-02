@@ -2,6 +2,14 @@
   display: none !important;
 }
 
+.hud-only {
+  display: none;
+}
+
+.-hud .hud-only {
+  display: inherit;
+}
+
 .o-cp {
   display: flex;
   height: 100vh;

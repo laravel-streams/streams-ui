@@ -87,6 +87,9 @@ class ButtonRegistry
             'icon' => 'fa fa-asterisk',
             'context' => 'success',
             'primary' => true,
+            'attributes' => [
+                'data-keymap' => 'n',
+            ],
         ],
         'new'           => [
             'text' => 'ui::buttons.new',

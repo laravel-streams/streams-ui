@@ -156,7 +156,12 @@ class ControlPanelBuilder extends Builder
 
         foreach ($buttons as &$attributes) {
             if ($registered = $registry->get(Arr::pull($attributes, 'button'))) {
-                $attributes = array_replace_recursive($registered, $attributes);
+
+                $htmlAttributes = Arr::pull($attributes, 'attributes', []);
+
+                $attributes = array_replace($registered, $attributes);
+
+                $attributes['attributes'] = array_replace($attributes['attributes'], $htmlAttributes);
             }
         }
 
