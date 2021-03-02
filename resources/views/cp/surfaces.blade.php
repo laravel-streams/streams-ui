@@ -8,7 +8,7 @@
         >Close</div>
     </div>
 
-    <div class="surfaces__stack">
+    <div class="surfaces__stack" x-show="enabled">
         Oh. Hai.
     </div>
 

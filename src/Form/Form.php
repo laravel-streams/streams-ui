@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Redirect;
 use Streams\Core\Support\Facades\Messages;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Facades\Session;
 use Streams\Ui\Form\Component\Field\FieldCollection;
 use Streams\Ui\Form\Component\Action\ActionCollection;
 
@@ -215,8 +216,8 @@ class Form extends Component
 
         $this->errors = $this->validator->messages();
 
-        if (!$this->errors->isEmpty()) {
-            Messages::success('You win!');
+        if ($this->errors->isEmpty()) {
+            Messages::success(trans('ui::messages.save_success')); // @todo success! configure..
         }
 
         if ($this->errors->isNotEmpty()) {
@@ -260,7 +261,7 @@ class Form extends Component
             ]);
         }
 
-        $this->response ?: $this->response = Redirect::back();
+        $this->response ?: $this->response = Redirect::back()->with('messages', Messages::get());
     }
 
     protected function extendValidation(Form $form, Factory $factory): void

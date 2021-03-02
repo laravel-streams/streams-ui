@@ -22,7 +22,5 @@ class Save
         $form->stream->repository()->save($entry);
 
         $form->entry = $form->entry = $entry;
-
-        Messages::success(trans('ui::messages.save_success'));
     }
 }

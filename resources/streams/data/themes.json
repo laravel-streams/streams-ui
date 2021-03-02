@@ -9,15 +9,15 @@
         "secondary": "#1f1f1f"
     },
     "dark": {
-        "id": "dark",
         "spacing": 1,
         "radius": 1,
-        "dark": "#B8B8B8",
+        "dark": "#b8b8b8",
         "light": "#030306",
         "primary": "#4e42d9",
         "secondary": "#1f1f1f"
     },
     "bada55": {
+        "id": "bada55",
         "spacing": 1,
         "radius": 1,
         "light": "#f9fbf9",
