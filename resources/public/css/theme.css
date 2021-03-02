@@ -283,6 +283,15 @@ select.a-input:not([multiple]) {
   padding-right: 0px;
 }
 
+.c-table table thead tr th svg {
+  display: inline;
+  height: calc(var(--ls-spacing)*1.25rem);
+  margin-left: calc(var(--ls-spacing)*0.25rem);
+  opacity: 0.5;
+  vertical-align: middle;
+  width: calc(var(--ls-spacing)*1.25rem);
+}
+
 .c-table table tbody tr {
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;

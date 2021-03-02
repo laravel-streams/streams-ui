@@ -15,6 +15,10 @@
                         width: 1px;
                         @apply px-8 pr-0;
                     }
+
+                    svg {
+                        @apply h-5 w-5 inline align-middle ml-1 opacity-50;
+                    }
                 }
             }
         }
