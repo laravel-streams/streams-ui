@@ -4,7 +4,7 @@
     <div class="fixed top-0 left-0 h-screen w-screen z-40 inset-0 overflow-y-auto" x-show="visible" x-cloak>
 
         <div
-            x-on:load-modal.window="console.log($event.detail); loadModal($event.detail);"
+            x-on:load-modal.window="loadModal($event.detail);"
             x-on:show-modal.window="showModal();"
             x-on:hide-modal.window="hideModal()"
             class="absolute top-0 left-0 h-screen w-screen bg-black opacity-50"></div>
@@ -14,8 +14,8 @@
             <div class="absolute w-1/2 align-top overflow-scroll bg-white rounded-lg text-left shadow-xl max-h-screen">
                 <div class="text-2xl text-black dark:text-dark cursor-pointer"
                 >
-                    <span x-html="content">...</span>
                     <span @click="visible === true ? hideModal() : showModal();"> (CLOSE)</span>
+                    <span x-html="content">...</span>
                 </div>
             </div>
 
