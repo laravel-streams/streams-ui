@@ -3,9 +3,7 @@
 namespace Streams\Ui\Layout;
 
 use Streams\Ui\Support\Component;
-use Streams\Ui\Button\ButtonCollection;
 use Streams\Ui\Layout\Component\Shortcut\ShortcutCollection;
-use Streams\Ui\Layout\Component\Navigation\NavigationCollection;
 
 class Layout extends Component
 {
@@ -19,18 +17,17 @@ class Layout extends Component
     protected function initializePrototype(array $attributes)
     {
         $this->loadPrototypeProperties([
-            'layout' => [
+            'content' => [
                 'type' => 'collection',
-                'config' => [
-                    'abstract' => ShortcutCollection::class,
-                ],
             ],
         ]);
 
         return parent::initializePrototype(array_merge([
-            'buttons' => [],
-            'shortcuts' => [],
-            'navigation' => [],
+            // 'buttons' => [],
+            // 'shortcuts' => [],
+            'content' => [],
+            'component' => 'layout',
+            'template'  => 'ui::layouts.layout',
         ], $attributes));
     }
 }

@@ -54,7 +54,7 @@
                     // Check if target is a selector
                     if (params.target.includes('#') || params.target.includes('.')) {
 
-                        this.content = document.querySelector(params.target).innerHtml;
+                        this.content = document.querySelector(params.target).innerHTML;
 
                         return;
 

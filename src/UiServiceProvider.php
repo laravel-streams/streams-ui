@@ -3,6 +3,7 @@
 namespace Streams\Ui;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Streams\Ui\Input\Input;
 use Streams\Core\Field\Field;
 use Streams\Core\Stream\Stream;
@@ -151,8 +152,7 @@ class UiServiceProvider extends ServiceProvider
                 $create = '{section}/create';
                 $edit = '{section}/{entry}/edit';
 
-                $table = 'ui/{stream}/table/{table?}';
-                $form = 'ui/{stream}/form/{form?}';
+                $component = 'ui/{stream}/{component}/{handle?}';
 
                 Route::streams($index, [
                     'verb' => 'get',
@@ -180,17 +180,8 @@ class UiServiceProvider extends ServiceProvider
                     'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
                 ]);
 
-                Route::streams($table, [
+                Route::streams($component, [
                     'ui.cp' => false,
-                    //'as' => 'ui::cp.edit',
-                    'ui.component' => 'table',
-                    'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
-                ]);
-
-                Route::streams($form, [
-                    'ui.cp' => false,
-                    //'as' => 'ui::cp.edit',
-                    'ui.component' => 'form',
                     'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
                 ]);
             });
@@ -202,47 +193,40 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function extendStream()
     {
-        Stream::macro('form', function ($form = 'default', $attributes = []) {
+        Stream::macro('ui', function ($component, $handle = 'default', $attributes = []) {
 
-            if (is_array($form)) {
-                $attributes = $form;
-                $form = 'default';
+            if (is_array($handle)) {
+                $attributes = $handle;
+                $handle = 'default';
             }
 
-            if (!$configured = Arr::get($this->ui, 'forms.' . $form)) {
-                $configured = Arr::get($this->ui, 'form', []);
+            if (!$configured = Arr::get($this->ui, Str::plural($component) . '.' . $handle)) {
+                $configured = Arr::get($this->ui, $component, []);
             }
 
             $configured = Arr::undot($configured);
 
             $attributes = array_merge($attributes, $configured);
-
+            
             $attributes['stream'] = $this;
-            $attributes['handle'] = $form;
+            $attributes['handle'] = $handle;
 
-            return new FormBuilder($attributes);
+            if (!$builder = Arr::pull($attributes, 'builder')) {
+
+                $class = Str::studly($component);
+
+                $builder = "Streams\Ui\\{$class}\\{$class}Builder";
+            }
+
+            return new $builder($attributes);
+        });
+
+        Stream::macro('form', function ($form = 'default', $attributes = []) {
+            return $this->ui('form', $form, $attributes);
         });
 
         Stream::macro('table', function ($table = 'default', $attributes = []) {
-
-            /** @var \Streams\Core\Stream\Stream $this */
-            if (is_array($table)) {
-                $attributes = $table;
-                $table = 'default';
-            }
-
-            if (!$configured = Arr::get($this->ui, 'tables.' . $table)) {
-                $configured = Arr::get($this->ui, 'table', []);
-            }
-
-            $configured = Arr::undot($configured);
-
-            $attributes = array_merge($attributes, $configured);
-
-            $attributes['stream'] = $this;
-            $attributes['handle'] = $table;
-
-            return new TableBuilder($attributes);
+            return $this->ui('table', $table, $attributes);
         });
     }
 

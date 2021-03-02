@@ -105,9 +105,9 @@ class UiController extends StreamsController
             View::share('cp', (new ControlPanelBuilder())->build());
         }
 
-        if ($component = Arr::get($action, 'ui.component')) {
+        if ($component = Arr::get($action, 'ui.component', request('component'))) {
         
-            $component = $stream->{$component}(Arr::get($action, 'ui.handle', 'default'), [
+            $component = $stream->ui($component, Arr::get($action, 'ui.handle', request('handle', 'default')), [
                 'entry' => $data->get('entry')
             ]);
 
