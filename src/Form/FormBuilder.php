@@ -259,6 +259,8 @@ class FormBuilder extends Builder
             if ($button['button'] == 'cancel' && !isset($button['attributes']['href']) && $stream) {
                 $button['attributes']['href'] = URL::route('ui::cp.index', ['section' => $stream->handle]);
             }
+
+            $button = Arr::parse($button, ['entry' => $this->entry]);
         }
 
         $registry = app(ButtonRegistry::class);
