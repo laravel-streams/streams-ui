@@ -233,6 +233,10 @@ class TableBuilder extends Builder
 
         $this->loadInstanceWith('filters', $filters, Filter::class);
 
+        if ($first = $this->instance->filters->first()) {
+            $first->setPrototypeAttribute('attributes.data-keymap', 'f');
+        }
+
         $this->filters = $filters;
 
         return $this->instance->filters;
@@ -240,10 +244,6 @@ class TableBuilder extends Builder
 
     public function detectFilters()
     {
-        if ($this->instance->filters->active()->isNotEmpty()) {
-            return;
-        }
-
         $this->instance->filters->each(function ($filter) {
             $filter->active = Request::has($this->instance->prefix(/*'filter_' .*/ $filter->handle));
         });

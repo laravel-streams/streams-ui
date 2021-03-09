@@ -1,0 +1,17 @@
+[x-cloak] {
+    display: none !important;
+}
+
+.hud-only {
+    display: none;
+
+    &.-keymap {
+        @apply px-2 rounded-sm bg-black;
+    }
+}
+
+.-hud {
+    .hud-only {
+        display: inherit;
+    }
+}

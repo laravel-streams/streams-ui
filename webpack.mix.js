@@ -21,13 +21,12 @@ mix
                     'axios': ['streams', 'core', 'axios'],
                 },
                 output: {
-                    //path: path.resolve('./resources/public'),
-                    filename: 'js/[name].js',
-                    chunkFilename: 'js/chunk.[name].js',
                     library: ['streams', 'ui'],
-                    publicPath: '/vendor/streams/ui/',
-                    libraryTarget: 'window'
+                    libraryTarget: 'window',
                 }
             };
         })
+    .override(config => {
+        config.entry['/resources/public/js/index'] = config.entry['/resources/public/js/index'].reverse()
+    })
     .sourceMaps();

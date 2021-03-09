@@ -116,7 +116,7 @@ class ControlPanelBuilder extends Builder
         }
 
         $shortcuts = Streams::entries('cp.shortcuts')
-            ->orderBy('sort_order', 'desc')
+            ->orderBy('sort_order', 'asc')
             ->get();
 
         // 'view_site' => [
@@ -156,7 +156,12 @@ class ControlPanelBuilder extends Builder
 
         foreach ($buttons as &$attributes) {
             if ($registered = $registry->get(Arr::pull($attributes, 'button'))) {
-                $attributes = array_replace_recursive($registered, $attributes);
+
+                $htmlAttributes = Arr::pull($attributes, 'attributes', []);
+
+                $attributes = array_replace($registered, $attributes);
+
+                $attributes['attributes'] = array_replace($attributes['attributes'], $htmlAttributes);
             }
         }
 

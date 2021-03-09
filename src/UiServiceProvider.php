@@ -3,21 +3,21 @@
 namespace Streams\Ui;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Streams\Ui\Input\Input;
 use Streams\Core\Field\Field;
 use Streams\Core\Stream\Stream;
+use Streams\Ui\Form\FormBuilder;
+use Streams\Ui\Table\TableBuilder;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Form\FormBuilder;
-use Streams\Ui\Input\Input;
-use Streams\Ui\Table\TableBuilder;
 
 class UiServiceProvider extends ServiceProvider
 {
@@ -129,24 +129,30 @@ class UiServiceProvider extends ServiceProvider
             Route::prefix(Config::get('streams.ui.cp.prefix'))->middleware(['cp'])->group(function () {
 
                 /**
-                 * Route navigation first.
+                 * Load route file first.
                  */
-                Streams::entries('cp.navigation')->get()
-                    ->filter(function ($section) {
-                        return $section->route;
-                    })->each(function ($section) {
-                        Route::streams(Arr::get($section->route, 'uri', $section->id), array_merge([
-                            'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
-                        ], $section->route));
-                    });
+                if (file_exists($routes = base_path('routes/cp.php'))) {
+                    include $routes;
+                }
+
+                /**
+                 * Route navigation next.
+                 */
+                // Streams::entries('cp.navigation')->get()
+                //     ->filter(function ($section) {
+                //         return $section->route;
+                //     })->each(function ($section) {
+                //         Route::streams(Arr::get($section->route, 'uri', $section->id), array_merge([
+                //             'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
+                //         ], $section->route));
+                //     });
 
                 // @todo Configure this later
-                $index = '{stream}';
-                $create = '{stream}/create';
-                $edit = '{stream}/{entry}/edit';
+                $index = '{section}';
+                $create = '{section}/create';
+                $edit = '{section}/{entry}/edit';
 
-                $table = 'ui/{stream}/table/{table?}';
-                $form = 'ui/{stream}/form/{form?}';
+                $component = 'ui/{stream}/{component}/{handle?}';
 
                 Route::streams($index, [
                     'verb' => 'get',
@@ -174,23 +180,10 @@ class UiServiceProvider extends ServiceProvider
                     'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
                 ]);
 
-                Route::streams($table, [
+                Route::streams($component, [
                     'ui.cp' => false,
-                    //'as' => 'ui::cp.edit',
-                    'ui.component' => 'table',
                     'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
                 ]);
-
-                Route::streams($form, [
-                    'ui.cp' => false,
-                    //'as' => 'ui::cp.edit',
-                    'ui.component' => 'form',
-                    'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
-                ]);
-
-                if (file_exists($routes = base_path('routes/cp.php'))) {
-                    include $routes;
-                }
             });
         }
     }
@@ -200,47 +193,40 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function extendStream()
     {
-        Stream::macro('form', function ($form = 'default', $attributes = []) {
+        Stream::macro('ui', function ($component, $handle = 'default', $attributes = []) {
 
-            if (is_array($form)) {
-                $attributes = $form;
-                $form = 'default';
+            if (is_array($handle)) {
+                $attributes = $handle;
+                $handle = 'default';
             }
 
-            if (!$configured = Arr::get($this->ui, 'forms.' . $form)) {
-                $configured = Arr::get($this->ui, 'form', []);
+            if (!$configured = Arr::get($this->ui, Str::plural($component) . '.' . $handle)) {
+                $configured = Arr::get($this->ui, $component, []);
             }
 
             $configured = Arr::undot($configured);
 
             $attributes = array_merge($attributes, $configured);
-
+            
             $attributes['stream'] = $this;
-            $attributes['handle'] = $form;
+            $attributes['handle'] = $handle;
 
-            return new FormBuilder($attributes);
+            if (!$builder = Arr::pull($attributes, 'builder')) {
+
+                $class = Str::studly($component);
+
+                $builder = "Streams\Ui\\{$class}\\{$class}Builder";
+            }
+
+            return new $builder($attributes);
+        });
+
+        Stream::macro('form', function ($form = 'default', $attributes = []) {
+            return $this->ui('form', $form, $attributes);
         });
 
         Stream::macro('table', function ($table = 'default', $attributes = []) {
-
-            /** @var \Streams\Core\Stream\Stream $this */
-            if (is_array($table)) {
-                $attributes = $table;
-                $table = 'default';
-            }
-
-            if (!$configured = Arr::get($this->ui, 'tables.' . $table)) {
-                $configured = Arr::get($this->ui, 'table', []);
-            }
-
-            $configured = Arr::undot($configured);
-
-            $attributes = array_merge($attributes, $configured);
-
-            $attributes['stream'] = $this;
-            $attributes['handle'] = $table;
-
-            return new TableBuilder($attributes);
+            return $this->ui('table', $table, $attributes);
         });
     }
 

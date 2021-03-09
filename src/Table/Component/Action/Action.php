@@ -25,11 +25,8 @@ class Action extends Button
     protected function initializePrototype(array $attributes)
     {
         return parent::initializePrototype(array_merge([
-            'component' => 'action',
-            //'template' => 'ui::buttons.button',
-
+            'component' => 'button',
             'tag' => 'button',
-            'as' => 'button',
             'url' => null,
             'text' => null,
             'entry' => null,

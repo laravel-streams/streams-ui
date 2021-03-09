@@ -1,7 +1,7 @@
 <div class="c-topbar__shortcuts" x-data="{}">
     <div class="c-shortcuts">
     @foreach ($cp->shortcuts as $shortcut)
-    <div class="c-dropdown" x-data="{show: false}">
+    <div class="c-dropdown" x-data="{show: false}" x-cloak>
     
         {!! $shortcut->open([
             '@click' => 'show == true ? show = false : show = true',

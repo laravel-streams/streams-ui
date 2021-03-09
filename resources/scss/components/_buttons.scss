@@ -1,16 +1,26 @@
 .c-buttons {
-    display: flex;
+    @apply flex justify-items-center items-center gap-1;
 }
 
 .a-button {
-    @apply font-bold inline-block;
-
-    color: var(--cp-color-white);
-    background-color: var(--cp-color-primary);
-    border-radius: calc(var(--cp-radius)*.5rem);
-    padding: calc(var(--cp-spacing)*0.35rem) calc(var(--cp-spacing)*0.5rem);
+    @apply py-2 px-4 font-bold inline-block rounded text-white bg-primary cursor-pointer;
 
     span {
-        color: var(--cp-color-white);
+        color: var(--ls-color-white);
+    }
+
+    &.-primary {
+        color: var(--ls-color-white);
+        background-color: var(--ls-color-primary);
+    }
+
+    &.-secondary {
+        color: var(--ls-color-white);
+        background-color: var(--ls-color-secondary);
+    }
+
+    &.-link {
+        color: var(--ls-color-black);
+        background-color: var(--ls-color-transparent);
     }
 }

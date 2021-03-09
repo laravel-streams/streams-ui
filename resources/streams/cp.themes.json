@@ -12,77 +12,39 @@
             },
             "required": true
         },
-        "density": {
+        "spacing": {
             "type": "decimal",
             "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--cp-spacing', this.value)"
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--ls-spacing', this.value)"
         },
         "radius": {
             "type": "decimal",
             "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--cp-radius', this.value)"
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--ls-radius', this.value)"
         },
         "light": {
             "type": "color",
             "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--cp-color-light', this.value)",
-            "input.attributes.oninput": "document.documentElement.style.setProperty('--cp-color-light', this.value)"
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--ls-color-light', this.value)",
+            "input.attributes.oninput": "document.documentElement.style.setProperty('--ls-color-light', this.value)"
         },
         "dark": {
             "type": "color",
             "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--cp-color-dark', this.value)",
-            "input.attributes.oninput": "document.documentElement.style.setProperty('--cp-color-dark', this.value)"
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--ls-color-dark', this.value)",
+            "input.attributes.oninput": "document.documentElement.style.setProperty('--ls-color-dark', this.value)"
         },
         "primary": {
             "type": "color",
             "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--cp-color-primary', this.value)",
-            "input.attributes.oninput": "document.documentElement.style.setProperty('--cp-color-primary', this.value)"
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--ls-color-primary', this.value)",
+            "input.attributes.oninput": "document.documentElement.style.setProperty('--ls-color-primary', this.value)"
         },
-        "topbar_bg_color": {
+        "secondary": {
             "type": "color",
             "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--topbar-bg-color', this.value)",
-            "input.attributes.oninput": "document.documentElement.style.setProperty('--topbar-bg-color', this.value)"
-        },
-        "topbar_text_color": {
-            "type": "color",
-            "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--topbar-text-color', this.value)",
-            "input.attributes.oninput": "document.documentElement.style.setProperty('--topbar-text-color', this.value)"
-        },
-        "sidebar_bg_color": {
-            "type": "color",
-            "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--sidebar-bg-color', this.value)",
-            "input.attributes.oninput": "document.documentElement.style.setProperty('--sidebar-bg-color', this.value)"
-        },
-        "sidebar_text_color": {
-            "type": "color",
-            "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--sidebar-text-color', this.value)",
-            "input.attributes.oninput": "document.documentElement.style.setProperty('--sidebar-text-color', this.value)"
-        },
-        "input_bg_color": {
-            "type": "color",
-            "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--input-bg-color', this.value)",
-            "input.attributes.oninput": "document.documentElement.style.setProperty('--input-bg-color', this.value)"
-        },
-        "input_text_color": {
-            "type": "color",
-            "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--input-text-color', this.value)",
-            "input.attributes.oninput": "document.documentElement.style.setProperty('--input-text-color', this.value)"
-        },
-        "brand_mode": {
-            "type": "select",
-            "required": true,
-            "config.options": {
-                "--brand-topbar": "Belongs to Topbar",
-                "--brand-sidebar": "Belongs to Sidebar"
-            }
+            "input.attributes.onchange": "document.documentElement.style.setProperty('--ls-color-secondary', this.value)",
+            "input.attributes.oninput": "document.documentElement.style.setProperty('--ls-color-secondary', this.value)"
         }
     },
     "ui": {

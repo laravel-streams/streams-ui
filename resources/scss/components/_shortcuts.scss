@@ -1,43 +1,29 @@
 .c-shortcuts {
-    display: flex;
-    align-items: center;
-
-    margin-left: calc(var(--cp-spacing)*.5rem);
+    @apply flex items-center gap-4;
 
     >div {
         position: relative;
 
         > a,
         > button {
-            padding: 0;
-            border: none;
-            display: flex;
-            background: none;
-            align-items: center;
-            border-radius: 999px;
-            justify-content: center;
-            height: calc(var(--cp-spacing)*1.5rem);
-            width: calc(var(--cp-spacing)*1.5rem);
-            border: 2px solid transparent;
-            outline: none;
+            @apply h-10 w-10 p-0 inline-block border-0 border-transparent outline-none flex items-center justify-center rounded-full bg-transparent cursor-pointer;
 
             &:active,
             &:focus {
-                border-color: var(--cp-color-primary);
+                @apply shadow-outline;
             }
 
             svg,
             img {
-                width: calc(var(--cp-spacing)*1.25rem);
-                height: calc(var(--cp-spacing)*1.25rem);
+                @apply h-10 w-10;
             }
 
             svg {
-                color: var(--topbar-text-color);
+                @apply text-dark;
             }
 
             img {
-                border-radius: 999px;
+                @apply rounded-full;
             }
         }
     }

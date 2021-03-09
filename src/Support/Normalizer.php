@@ -172,13 +172,8 @@ class Normalizer
             /**
              * Move all data-*|x-* keys to attributes.
              */
-            foreach ($item as $attribute => $value) {
-                
-                if (Str::is('data-*', $attribute)) {
-                    Arr::set($item, 'attributes.' . $attribute, Arr::pull($item, $attribute));
-                }
-
-                if (Str::is('x-*', $attribute)) {
+            foreach (array_keys($item) as $attribute) {
+                if (Str::is(['data-*', 'x-*', '@*'], $attribute)) {
                     Arr::set($item, 'attributes.' . $attribute, Arr::pull($item, $attribute));
                 }
             }

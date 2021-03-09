@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Redirect;
 use Streams\Core\Support\Facades\Messages;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Facades\Session;
 use Streams\Ui\Form\Component\Field\FieldCollection;
 use Streams\Ui\Form\Component\Action\ActionCollection;
 
@@ -105,7 +106,9 @@ class Form extends Component
      */
     public function open(array $options = [])
     {
-        $options['url'] = $this->options->get('url') ?: $this->url();
+        $keyName = $this->stream->config('key_name', 'id');
+
+        $options['url'] = $this->options->get('url') ?: ($this->url() . ($this->entry ? '?entry=' . $this->entry->{$keyName} : null));
 
         $options['files'] = true; // multipart/form-data
 
@@ -150,13 +153,14 @@ class Form extends Component
 
     public function load()
     {
-        // @todo foreach meta fields? ID should be a field.. - marked meta?
-        if ($id = $this->request('id')) {
-            $this->values->put('id', $id);
+        $keyName = $this->stream->config('key_name', 'id');
+
+        if ($key = $this->request($keyName)) {
+            $this->values->put($keyName, $key);
         }
 
         foreach ($this->fields as $field) {
-            $this->values->put($field->handle, Request::file($this->prefix($field->handle)) ?: $this->request($field->handle));
+            $this->values->put($field->handle, $field->input()->post()->value());
         }
     }
 
@@ -164,7 +168,32 @@ class Form extends Component
     {
         $values = $this->values->all();
 
-        $rules = $this->rules->map(function ($rules) {
+        $rules = $this->rules->map(function ($rules, $field) {
+
+            array_map(function (&$rule) use ($field) {
+
+                if (Str::startsWith($rule, 'unique')) {
+
+                    // @todo get prefixes are dumb
+                    $parameters = $this->stream->ruleParameters($field, 'unique');
+
+                    if (!$parameters) {
+                        $parameters[] = $this->stream->handle;
+                    }
+
+                    if (count($parameters) === 1) {
+                        $parameters[] = $field;
+                    }
+
+                    if (count($parameters) === 2 && $this->entry && $ignore = $this->entry->{$field}) {
+                        $parameters[] = $ignore;
+                        $parameters[] = $field;
+                    }
+
+                    $rule = 'unique:' . implode(',', $parameters);
+                }
+            }, $rules);
+
             return implode('|', array_unique($rules));
         })->all();
 
@@ -187,14 +216,17 @@ class Form extends Component
 
         $this->errors = $this->validator->messages();
 
-        if (!$this->errors->isEmpty()) {
-            Messages::success('You win!');
+        if ($this->errors->isEmpty()) {
+            Messages::success(trans('ui::messages.save_success')); // @todo success! configure..
         }
 
         if ($this->errors->isNotEmpty()) {
+            
             foreach ($this->errors->messages() as $errors) {
                 Messages::error(implode("\n\r", $errors));
             }
+
+            $this->response = Redirect::back()->with('messages', Messages::get());
         }
     }
 
@@ -229,7 +261,7 @@ class Form extends Component
             ]);
         }
 
-        $this->response ?: $this->response = Redirect::back();
+        $this->response ?: $this->response = Redirect::back()->with('messages', Messages::get());
     }
 
     protected function extendValidation(Form $form, Factory $factory): void

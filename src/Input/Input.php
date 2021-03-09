@@ -4,14 +4,8 @@ namespace Streams\Ui\Input;
 
 use Illuminate\Support\Arr;
 use Streams\Ui\Support\Component;
+use Illuminate\Support\Facades\Request;
 
-/**
- * @property string                                 template
- * @property string                                 component
- * @property string[]                               classes
- * @property string                                 type
- * @property \Streams\Ui\Form\Component\Field\Field field
- */
 class Input extends Component
 {
 
@@ -31,6 +25,25 @@ class Input extends Component
             'placeholder' => null,
             'field' => null,
         ], $attributes));
+    }
+
+    public function post()
+    {
+        $this->load(Request::file($this->name()) ?: $this->request($this->name()));
+
+        return $this;
+    }
+
+    public function load($value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    public function value()
+    {
+        return $this->value;
     }
 
     public function attributes(array $attributes = [])

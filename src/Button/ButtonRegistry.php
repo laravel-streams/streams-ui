@@ -76,6 +76,9 @@ class ButtonRegistry
             'text' => 'ui::buttons.save',
             'icon' => 'save',
             'context' => 'success',
+            'attributes' => [
+                'data-keymap' => 'command+s',
+            ]
         ],
         'update'        => [
             'text' => 'ui::buttons.save',
@@ -87,6 +90,9 @@ class ButtonRegistry
             'icon' => 'fa fa-asterisk',
             'context' => 'success',
             'primary' => true,
+            'attributes' => [
+                'data-keymap' => 'n',
+            ],
         ],
         'new'           => [
             'text' => 'ui::buttons.new',

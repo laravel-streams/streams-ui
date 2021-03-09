@@ -3,9 +3,7 @@
 namespace Streams\Ui\Support;
 
 use Illuminate\Support\Arr;
-use Illuminate\Http\JsonResponse;
 use Streams\Core\Support\Workflow;
-use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Traits\Macroable;
@@ -116,7 +114,7 @@ class Builder
             if (!ViewFacade::shared('cp')) {
                 ViewFacade::share('cp', (new ControlPanelBuilder())->build());
             }
-
+            
             return Response::view('ui::cp', ['content' => $this->render()]);
         }
 

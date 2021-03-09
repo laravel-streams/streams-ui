@@ -1,58 +1,42 @@
 .c-sidebar {
-    @apply m-0 p-0 flex flex-col min-w-full min-h-screen;
-
-    color: var(--cp-color-white);
-    background-color: var(--cp-color-primary);
+    @apply m-0 p-0 flex flex-col min-w-full min-h-screen text-white bg-primary;
 
     &__brand {
-        display: flex;
-        align-items: center;
-        justify-content: left;
-        height: calc(var(--cp-spacing)*2.5rem);
-        padding: 0 calc(var(--cp-spacing)*1rem);
+        @apply flex items-center justify-start h-20 p-8;
 
         a {
-            @apply text-2xl;
-
-            color: var(--cp-color-white);
+            @apply text-2xl text-white;
         }
     }
 
     &__nav {
-        @apply flex-grow;
-        padding: calc(var(--cp-spacing)*.5rem);
+        @apply flex-grow p-4;
 
         nav {
 
-            > a {
-                @apply block;
-
-                padding: calc(var(--cp-spacing)*.5rem);
-                border-radius: calc(var(--cp-radius)*.5rem);
+            >a {
+                @apply block p-4 rounded-lg;
 
                 &.-active {
                     @apply font-bold;
 
-                    //background-color: var(--cp-color-light); // @todo light-overlay
+                    //background-color: var(--ls-color-light); // @todo light-overlay
                     //background-color: #ffffff15; // Lighten
                     background-color: #00000015; // Darken
-                    //color: var(--cp-color-dark); // Darken
+                    //color: var(--ls-color-dark); // Darken
                 }
             }
 
             ul {
-                margin-bottom: calc(var(--cp-spacing)*.5rem);
+                @apply mb-4;
 
                 li {
                     @apply list-disc ml-4;
-                    
+
                     &.-has-active {}
 
                     a {
-                        @apply block;
-
-                        padding: calc(var(--cp-spacing)*.125rem);
-                        padding-left: 0;
+                        @apply block p-1 pl-0;
 
                         &.-active {
                             @apply font-bold;

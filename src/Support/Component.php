@@ -88,7 +88,7 @@ class Component implements Arrayable, Jsonable
         return View::make($this->template, $payload);
     }
 
-    public function url()
+    public function url(array $extra = [])
     {
         if (!$stream = $this->stream) {
             return;
@@ -97,7 +97,7 @@ class Component implements Arrayable, Jsonable
         $type = Str::singular($this->component);
         $default = "ui/{$stream->handle}/{$type}/{$this->handle}";
 
-        return URL::cp(Arr::get($this->options, 'url', $default));
+        return URL::cp(Arr::get($this->options, 'url', $default), $extra);
     }
 
     public function request($key, $default = null)

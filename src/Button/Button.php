@@ -82,16 +82,16 @@ class Button extends Component
         ], $attributes)));
     }
 
-    public function url()
+    public function url(array $extra = [])
     {
         if (!$target = Arr::get($this->attributes, 'href')) {
             return null;
         }
 
         if (Str::startsWith($target, '@cp/')) {
-            return URL::cp(ltrim(substr($target, 4), '/'));
+            return URL::cp(ltrim(substr($target, 4), '/'), $extra);
         }
 
-        return URL::to($target);
+        return URL::to($target, $extra);
     }
 }
