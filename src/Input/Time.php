@@ -31,8 +31,8 @@ class Time extends Input
     {
         return parent::attributes(array_merge([
             'step' => (int) (Arr::get($this->field->config, 'step', 1) ?: 1),
-            'min' => $this->field->getRuleParameter('min'),
-            'max' => $this->field->getRuleParameter('max'),
+            'min' => Arr::get($this->field->ruleParameters('min'), 0),
+            'max' => Arr::get($this->field->ruleParameters('max'), 0),
         ], $attributes));
     }
 }

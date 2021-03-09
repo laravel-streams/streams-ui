@@ -31,8 +31,8 @@ class Datetime extends Input
     {
         return parent::attributes(array_merge([
             'step' => (int) (Arr::get($this->field->config, 'step', 1) ?: 1),
-            'min' => $this->field->getRuleParameter('after'),
-            'max' => $this->field->getRuleParameter('before'),
+            'min' => Arr::get($this->field->ruleParameters('after'), 0),
+            'max' => Arr::get($this->field->ruleParameters('before'), 0),
         ], $attributes));
     }
 }

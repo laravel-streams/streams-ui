@@ -33,8 +33,8 @@ class Decimal extends Number
     {
         return parent::attributes(array_merge([
             'step' => (Arr::get($this->field->config, 'step', 0.1) ?: 0.1),
-            'min' => $this->field->getRuleParameter('min'),
-            'max' => $this->field->getRuleParameter('max'),
+            'min' => Arr::get($this->field->ruleParameters('min'), 0),
+            'max' => Arr::get($this->field->ruleParameters('max'), 0),
         ], $attributes));
     }
 }

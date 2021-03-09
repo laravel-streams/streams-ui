@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Input;
 
+use Illuminate\Support\Arr;
 use Streams\Ui\Support\Component;
 
 /**
@@ -40,7 +41,7 @@ class Input extends Component
             'readonly' => $this->field->readonly,
             'disabled' => $this->field->disabled,
             'required' => $this->field->hasRule('required'),
-            'pattern' => trim($this->field->pattern ?: $this->field->getRuleParameter('regex'), "//"),
+            'pattern' => trim($this->field->pattern ?: Arr::get($this->field->ruleParameters('regex'), 0), "//"),
             'value' => $this->value,
             'type' => $this->type,
             'id' => $this->id(),
