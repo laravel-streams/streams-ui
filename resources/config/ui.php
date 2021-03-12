@@ -21,13 +21,6 @@ return [
         'prefix' => env('STREAMS_CP_PREFIX', 'cp'),
 
         /**
-         * Define additional CP middleware.
-         */
-        'middleware' => [
-            //\App\Http\Middleware\RickRoll::class,
-        ],
-
-        /**
          * The active theme.
          */
         'theme' => env('STREAMS_CP_THEME', 'default'),
