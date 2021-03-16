@@ -8,4 +8,3 @@
     ]) !!}> {{ $value }}
 </label>    
 @endforeach
-</select>
