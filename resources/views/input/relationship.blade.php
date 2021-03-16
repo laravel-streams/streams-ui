@@ -3,7 +3,7 @@
 ]) !!}>
 
 @if (!$input->field->isRequired())
-    <option>---</option>
+    <option value="">---</option>
 @endif
 
 @foreach ($input->options() as $key => $value)

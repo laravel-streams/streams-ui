@@ -4,7 +4,7 @@
 ]) !!}>
 
 @if (!$input->field->isRequired())
-    <option>---</option>
+    <option value="">---</option>
 @endif
 
 @foreach ($input->field->config['options'] as $key => $value)
