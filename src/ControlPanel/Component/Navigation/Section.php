@@ -24,9 +24,9 @@ class Section extends Component
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototype(array $attributes)
+    protected function initializePrototypeTrait(array $attributes)
     {
-        return parent::initializePrototype(array_merge([
+        return parent::initializePrototypeTrait(array_merge([
             'component' => 'section',
             'template' => null,
 

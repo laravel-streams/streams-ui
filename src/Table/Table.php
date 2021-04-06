@@ -27,7 +27,7 @@ class Table extends Component
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototype(array $attributes)
+    protected function initializePrototypeTrait(array $attributes)
     {
         $this->loadPrototypeProperties([
             'views' => [
@@ -72,7 +72,7 @@ class Table extends Component
             ],
         ]);
 
-        parent::initializePrototype(array_merge([
+        parent::initializePrototypeTrait(array_merge([
             'component' => 'table',
             'template' => 'ui::tables.table',
 

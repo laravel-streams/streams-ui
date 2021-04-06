@@ -16,7 +16,7 @@ class CheckboxesTest extends TestCase
         Streams::load(base_path('vendor/streams/ui/tests/litmus.json'));
     }
 
-    public function testInitializePrototype()
+    public function testinitializePrototypeTrait()
     {
         $input = Streams::make('testing.litmus')->fields->checkboxes->input();
 
