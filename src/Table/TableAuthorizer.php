@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Table;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Gate;
 
 /**
@@ -26,24 +27,27 @@ class TableAuthorizer
          * take precedense over the 
          * model policy.
          */
-        $policy = $builder->policy;
+        $policy = Arr::get($builder->options, 'policy');
+        $ability = Arr::get($builder->options, 'ability') ?: 'viewAny';
+
+        $stream = $builder->stream;
+
+        $abstract = $stream->entries()->newInstance();
+
+        if ($policy === true) {
+            $policy = $stream->policy;
+        }
+
+        if (!$policy) {
+            return true;
+        }
+
+        if (is_string($policy) && class_exists($policy) && Gate::getPolicyFor($abstract)) {
+            return Gate::allows($ability, $abstract);
+        }
         
-        if ($policy && !Gate::any((array) $policy)) {
-            abort(403);
-        }
-
-        /**
-         * Default behavior is to
-         * rely on the model policy.
-         */
-        if (!$builder->stream) {
-            return;
-        }
-
-        $model = $builder->stream->model;
-
-        if ($model && !Gate::allows('viewAny', $model)) {
-            abort(403);
+        if (is_string($policy) && !class_exists($policy)) {
+            return Gate::allows($policy);
         }
     }
 }

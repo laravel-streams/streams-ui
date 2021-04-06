@@ -190,7 +190,9 @@ class TableBuilder extends Builder
 
     public function authorizeTable(TableAuthorizer $authorizer)
     {
-        $authorizer->authorize($this);
+        if (!$authorizer->authorize($this)) {
+            abort(403);
+        }
     }
 
     public function makeFilters()
@@ -245,7 +247,7 @@ class TableBuilder extends Builder
     public function detectFilters()
     {
         $this->instance->filters->each(function ($filter) {
-            $filter->active = Request::has($this->instance->prefix(/*'filter_' .*/ $filter->handle));
+            $filter->active = Request::has($this->instance->prefix(/*'filter_' .*/$filter->handle));
         });
     }
 
