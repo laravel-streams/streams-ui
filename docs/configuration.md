@@ -1,11 +1,11 @@
 ---
 title: Configuration
 category: getting_started
-intro: 'Streams UI uses Laravel config files and environment variables for application-level settings.'
+intro: Configuring the UI.
 sort: 2
-stage: drafting
 enabled: true
 ---
+
 ## Configuration Files
 
 Published configuration files reside in `config/streams/`.
@@ -17,16 +17,22 @@ Published configuration files reside in `config/streams/`.
 
 ### Publishing Configuration
 
-Use the following command to publish configuration files to your project's `config/streams` directory.
+Use the following command to publish configuration files.
 
 ```bash
-php artisan vendor:publish --vendor=Streams\\Ui\\UiServiceProvider --tag=config
+php artisan vendor:publish --provider=Streams\\Ui\\StreamsServiceProvider --tag=config
 ```
 
-### Publishing Streams
+The above command will copy configuration files from their package location to the directory mentioned above so that you can modify them directly and commit them to your version control system.
 
-Use the following command to publish package streams to your project streams directory.
+## Configuring the UI
 
-```bash
-php artisan vendor:publish --vendor=Streams\\Ui\\UiServiceProvider --tag=streams
+Below are the contents of the published configuration file:
+
+```php
+// config/streams/ui.php
+
+return [
+    // Waiting
+];
 ```

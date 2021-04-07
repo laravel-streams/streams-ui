@@ -5,32 +5,22 @@ intro:
 enabled: true
 ---
 
-## Getting Started
+## Downloading
 
-### Download
-
-Download the Streams UI package using Composer.
+This package is added to existing Laravel projects as a dependency by requiring it with Composer.
 
 ```bash
 composer require streams/ui
 ```
 
-You might consider starting with the [Streams starter application](/docs/installation).
-
-### Publish Assets
-
-Use the following command to publish the public assets required for this package.
-
-```bash
-php artisan vendor:publish --vendor=Streams\\Ui\\UiServiceProvider --tag=public
-```
+Streams UI comes pre-configured with the [Streams starter application](/docs/installation).
 
 ## Updating
 
-From within your project, use Composer to update individual packages:
+From within your project, use Composer to update this individual package:
 
 ```bash
 composer update streams/ui --with-dependencies
 ```
 
-You can, of course, update your entire project using `composer update`.
+You can also update your entire project using `composer update`.
