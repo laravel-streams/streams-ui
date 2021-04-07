@@ -58,7 +58,7 @@ class Filter extends Component
         $attributes['name']  = $this->inputName();
         $attributes['placeholder']  = Str::title($this->name());
 
-        return App::make('streams.ui.input.' . ($this->input ?: 'input'), [
+        return App::make('streams.ui.input_types.' . ($this->input ?: 'input'), [
             'attributes' => $attributes,
         ]);
     }

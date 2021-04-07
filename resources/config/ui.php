@@ -2,31 +2,31 @@
 
 return [
 
-    'cp' => [
+    /**
+     * Specify whether the CP is enabled or not.
+     */
+    'cp_enabled' => env('STREAMS_CP_ENABLED', true),
 
-        /*
-        |--------------------------------------------------------------------------
-        | Control Panel Customization
-        |--------------------------------------------------------------------------
-        |
-        | Support for control panel configuration is
-        | currently limited to the Streams module.
-        |
-        */
+    /**
+     * This is the URI  prefix
+     * for the control panel.
+     */
+    'cp_prefix' => env('STREAMS_CP_PREFIX', 'cp'),
 
-        /**
-         * This is the URI  prefix
-         * for the control panel.
-         */
-        'prefix' => env('STREAMS_CP_PREFIX', 'cp'),
+    /**
+     * The active theme.
+     */
+    'cp_theme' => env('STREAMS_CP_THEME', 'default'),
 
-        /**
-         * The active theme.
-         */
-        'theme' => env('STREAMS_CP_THEME', 'default'),
-    ],
+    /**
+     * The active theme.
+     */
+    'cp_middleware' => env('STREAMS_CP_MIDDLEWARE', 'cp'),
 
-    'inputs' => [
+    /**
+     * Specify input types.
+     */
+    'input_types' => [
         'text' => \Streams\Ui\Input\Input::class,
         'hash' => \Streams\Ui\Input\Input::class, // Default
         'input' => \Streams\Ui\Input\Input::class,

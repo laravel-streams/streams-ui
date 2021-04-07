@@ -118,13 +118,13 @@ class UiServiceProvider extends ServiceProvider
     {
         if (!$this->app->routesAreCached()) {
 
-            Route::streams(Config::get('streams.ui.cp.prefix'), [
+            Route::streams(Config::get('streams.ui.cp_prefix'), [
                 'verb' => 'get',
                 'as' => 'ui::cp.home',
                 'uses' => '\Streams\Ui\Http\Controller\UiController@index',
             ]);
 
-            Route::prefix(Config::get('streams.ui.cp.prefix'))->middleware(['cp'])->group(function () {
+            Route::prefix(Config::get('streams.ui.cp_prefix'))->middleware(Config::get('streams.ui.cp_middleware'))->group(function () {
 
                 /**
                  * Load route file first.
@@ -233,10 +233,10 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function extendField()
     {
-        $inputs = Config::get('streams.ui.inputs');
+        $inputs = Config::get('streams.ui.input_types', []);
 
         foreach ($inputs as $abstract => $concrete) {
-            $this->app->bind("streams.ui.input.{$abstract}", $concrete);
+            $this->app->bind("streams.ui.input_types.{$abstract}", $concrete);
         }
 
         Field::macro('input', function (array $attributes = []) {
@@ -253,7 +253,7 @@ class UiServiceProvider extends ServiceProvider
                     return $this->input;
                 }
 
-                return App::make("streams.ui.input.{$this->input['type']}", [
+                return App::make("streams.ui.input_types.{$this->input['type']}", [
                     'attributes' => $attributes,
                 ]);
             });
@@ -275,7 +275,7 @@ class UiServiceProvider extends ServiceProvider
     {
         URL::macro('cp', function ($path, $extra = [], $secure = null) {
             return URL::to(
-                Config::get('streams.ui.cp.prefix', 'cp') . rtrim('/' . $path, '/'),
+                Config::get('streams.ui.cp_prefix', 'cp') . rtrim('/' . $path, '/'),
                 $extra,
                 $secure
             );

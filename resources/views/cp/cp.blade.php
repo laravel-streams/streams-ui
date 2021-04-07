@@ -4,7 +4,7 @@
 
 @php
     $theme = Streams::entries('cp.themes')
-        ->find(Config::get('streams.ui.cp.theme', 'default'));
+        ->find(Config::get('streams.ui.cp_theme', 'default'));
 
     View::share('theme', $theme);
 @endphp
