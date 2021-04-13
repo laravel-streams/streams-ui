@@ -4,9 +4,7 @@
         "path": "streams/cp/shortcuts",
         "format": "json"
     },
-    "config": {
-        "prototype": "Streams\\Ui\\ControlPanel\\Component\\Shortcut\\Shortcut"
-    },
+    "abstract": "Streams\\Ui\\ControlPanel\\Component\\Shortcut\\Shortcut",
     "fields": {
         "id": "slug",
         "title": "string",

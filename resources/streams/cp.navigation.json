@@ -4,10 +4,8 @@
         "path": "streams/cp/navigation",
         "format": "json"
     },
-    "config": {
-        "prototype": "Streams\\Ui\\ControlPanel\\Component\\Navigation\\Section",
-        "collection": "Streams\\Ui\\ControlPanel\\Component\\Navigation\\NavigationCollection"
-    },
+    "abstract": "Streams\\Ui\\ControlPanel\\Component\\Navigation\\Section",
+    "collection": "Streams\\Ui\\ControlPanel\\Component\\Navigation\\NavigationCollection",
     "fields": {
         "id": "slug",
         "title": "string",
