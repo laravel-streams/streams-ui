@@ -24,17 +24,12 @@ class LayoutBuilder extends Builder
     protected function initializePrototypeTrait(array $attributes)
     {
         return parent::initializePrototypeTrait(array_merge([
-            
+
             'content' => [],
 
             'steps' => [
                 'make_component' => [$this, 'make'],
-
                 'make_content' => [$this, 'makeContent'],
-                // 'detect_navigation' => [$this, 'detectNavigation'],
-
-                // 'make_shortcuts' => [$this, 'makeShortcuts'],
-                // 'make_buttons' => [$this, 'makeButtons'],
             ],
 
             'component' => 'layout',
@@ -49,9 +44,16 @@ class LayoutBuilder extends Builder
         if ($this->instance->content->isNotEmpty()) {
             return $this->instance->content;
         }
-        
+
         $content = $this->content;
 
-        return $this->instance->content = $content;
+        foreach ($content as $handle => $content) {
+
+            if (!isset($content['type'])) {
+                $content['type'] = $handle;
+            }
+        }
+
+        return $this->instance->content = new LayoutCollection($content);
     }
 }
