@@ -3,7 +3,7 @@ title: Layouts
 category: components
 intro:
 sort: 2
-enabled: true
+enabled: false
 ---
 
 - **Intro:** Introduce the idea in one sentence.

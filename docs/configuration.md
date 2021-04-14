@@ -25,7 +25,7 @@ php artisan vendor:publish --provider=Streams\\Ui\\UiServiceProvider --tag=confi
 
 The above command will copy configuration files from their package location to the directory mentioned above so that you can modify them directly and commit them to your version control system.
 
-## Configuring the CP
+## Configuring the UI
 
 Below are the contents of the published configuration file:
 
@@ -105,7 +105,7 @@ return [
 
 ### CP Middleware
 
-CP middleware an be configured in your application's HTTP kernel. By default, the **web** middleware group is passed through as well.
+Control panel middleware an be configured in your application's HTTP kernel. By default, the **web** middleware group is passed through as well.
 
 ```php
 // app/Http/Kernel.php
@@ -119,6 +119,4 @@ protected $middlewareGroups = [
 
 ### Routes File
 
-The `app/Providers/RouteServiceProvider.php` file typically uses the `api` middleware group when loading the `routes/api.php` file. By default this file is compatible with this package and routes defined there will be properly prefixed and grouped.
-
-If you configure a non-standard middleware group to use, you will have to adjust all the above files accordingly.
+You can use the the `routes/cp.php` file to define additional routes for the control panel. Routes defined there will be automatically prefixed and grouped.
