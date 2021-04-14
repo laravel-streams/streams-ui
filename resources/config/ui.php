@@ -18,10 +18,18 @@ return [
      */
     'cp_theme' => env('STREAMS_CP_THEME', 'default'),
 
-    /**
-     * The active theme.
+    /*
+     * Specify the CP fallback policy.
+     * 
+     * This policy will be ran if no stream, route,
+     * or component policy is otherwise specified.
      */
-    'cp_middleware' => env('STREAMS_CP_MIDDLEWARE', 'cp'),
+    'cp_policy' => env('STREAMS_CP_POLICY'),
+
+    /*
+     * Specify the CP group middleware.
+     */
+    'cp_middleware' => ['web', 'cp'],
 
     /**
      * Specify input types.

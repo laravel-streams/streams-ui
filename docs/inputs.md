@@ -2,10 +2,9 @@
 title: Inputs
 category: core_concepts
 intro:
+sort: 99
+enabled: true
 ---
-
-- Introduction
-- Configuring Inputs
 
 - **Intro:** Introduce the idea in one sentence.
 - **Explanation:** An elevator pitch that signals the reader to continue or not (keep looking for relevant page).

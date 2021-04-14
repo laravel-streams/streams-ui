@@ -11,16 +11,18 @@ Streams UI provides an extensible interface for creating any user interface your
 
 ### Control Panel
 
-The Streams platform provides a consistent, user-friendly, and performant control panel that puts you in control of every aspect.
+Streams UI provides an extensible, user-friendly, and performant control panel that gives you control of every detail.
 
 - [Control Panel](cp)
+- [Theming](#todo-theming)
 
 ### UI Components
 
-Several flexible UI components are available and can be used both within and outside of a control panel. We use a factory-like `builder` pattern and utilize [Svelte](https://svelte.dev/) to provide native JS components where applicable.
+Streams UI comes with a number of core components.
 
 - [Tables](tables)
 - [Forms](forms)
+- [Buttons](buttons)
 
 ### Input Types
 

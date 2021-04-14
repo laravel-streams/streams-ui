@@ -2,7 +2,7 @@
 __created_at: 1612057067
 __updated_at: 1612057067
 title: Forms
-category: basics
+category: core_concepts
 intro: null
 sort: 20
 enabled: true
