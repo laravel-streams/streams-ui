@@ -1,6 +1,6 @@
 ---
 title: Layouts
-category: core_concepts
+category: components
 intro:
 sort: 2
 enabled: true

@@ -1,6 +1,6 @@
 ---
 title: Buttons
-category: core_concepts
+category: components
 intro:
 sort: 99
 enabled: false

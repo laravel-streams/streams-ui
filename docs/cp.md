@@ -2,7 +2,7 @@
 __created_at: 1612057264
 __updated_at: 1612057264
 title: Control Panel
-category: core_concepts
+category: components
 sort: 0
 enabled: true
 stage: outlining

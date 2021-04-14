@@ -2,7 +2,7 @@
 __created_at: 1612056481
 __updated_at: 1612056481
 title: Builders
-category: core_concepts
+category: components
 sort: 10
 stage: outlining
 enabled: false
