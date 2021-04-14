@@ -1,27 +1,29 @@
 ---
-title: Introduction
+title: Streams UI
+link_title: Introduction
+intro: Extensible components for managing streams and entry data.
 enabled: true
 ---
 
-## Streams UI
+## Introduction
 
-The Streams UI package provides UI resources, including a control panel. The UI system extends the [stream domain information](../core/streams#domain-information).
+Streams UI provides an extensible interface for creating any user interface your project might require.
 
-### Input Types
+### Control Panel
 
-Input types separate the concerns of [data-modeling](domain-entities) vs. data-management and provide a refreshing new layer of flexibility.
+The Streams platform provides a consistent, user-friendly, and performant control panel that puts you in control of every aspect.
 
-- [Input Types](inputs)
+- [Control Panel](cp)
 
 ### UI Components
 
 Several flexible UI components are available and can be used both within and outside of a control panel. We use a factory-like `builder` pattern and utilize [Svelte](https://svelte.dev/) to provide native JS components where applicable.
 
-- [Builders](builders)
-- [Components](components)
+- [Tables](tables)
+- [Forms](forms)
 
-### Control Panel
+### Input Types
 
-The Streams platform provides a consistent, user-friendly, and "hella-performant" control panel that puts you in control of every aspect. Zero configuration is necessary by default.
+Input types separate the concerns of data-modeling from data-management and provides a refreshing layer of flexibility between the two.
 
-- [Control Panel](cp)
+- [Input Types](inputs)
