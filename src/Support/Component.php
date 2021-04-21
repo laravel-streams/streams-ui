@@ -29,7 +29,7 @@ class Component implements Arrayable, Jsonable
     use FiresCallbacks;
 
     use Prototype {
-        Prototype::initializePrototypeInstance as private initializePrototype;
+        Prototype::initializePrototypeAttributes as private initializePrototype;
     }
 
     /**
