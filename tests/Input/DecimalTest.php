@@ -16,7 +16,7 @@ class DecimalTest extends TestCase
         Streams::load(base_path('vendor/streams/ui/tests/litmus.json'));
     }
 
-    public function testinitializePrototypeTrait()
+    public function testinitializePrototypeInstance()
     {
         $input = Streams::make('testing.litmus')->fields->decimal->input();
 

@@ -103,9 +103,9 @@ class ComponentTest extends TestCase
 
 class TestComponent extends Component
 {
-    protected function initializePrototypeTrait(array $attributes)
+    protected function initializePrototypeInstance(array $attributes)
     {
-        return parent::initializePrototypeTrait(array_merge([
+        return parent::initializePrototypeInstance(array_merge([
             'handle' => 'example',
             'template' => 'ui::tests/component',
             'component' => 'input',

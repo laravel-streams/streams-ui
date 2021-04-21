@@ -22,9 +22,9 @@ class Column extends Component
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototypeTrait(array $attributes)
+    protected function initializePrototypeInstance(array $attributes)
     {
-        return parent::initializePrototypeTrait(array_merge([
+        return parent::initializePrototypeInstance(array_merge([
             'component' => 'column',
             'view' => null,
             'value' => null,

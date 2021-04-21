@@ -34,9 +34,9 @@ class FormBuilder extends Builder
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototypeTrait(array $attributes)
+    protected function initializePrototypeInstance(array $attributes)
     {
-        return parent::initializePrototypeTrait(array_merge([
+        return parent::initializePrototypeInstance(array_merge([
             'async' => false,
             'handler' => null,
             'read_only' => false,

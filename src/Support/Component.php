@@ -29,7 +29,7 @@ class Component implements Arrayable, Jsonable
     use FiresCallbacks;
 
     use Prototype {
-        Prototype::initializePrototypeTrait as private initializePrototype;
+        Prototype::initializePrototypeInstance as private initializePrototype;
     }
 
     /**
@@ -38,7 +38,7 @@ class Component implements Arrayable, Jsonable
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototypeTrait(array $attributes)
+    protected function initializePrototypeInstance(array $attributes)
     {
         return $this->initializePrototype(array_merge([
             'handle' => null,

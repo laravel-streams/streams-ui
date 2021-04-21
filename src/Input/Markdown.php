@@ -13,9 +13,9 @@ class Markdown extends Input
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototypeTrait(array $attributes)
+    protected function initializePrototypeInstance(array $attributes)
     {
-        return parent::initializePrototypeTrait(array_merge([
+        return parent::initializePrototypeInstance(array_merge([
             'template' => 'ui::input/markdown',
             'component' => 'input',
         ], $attributes));
