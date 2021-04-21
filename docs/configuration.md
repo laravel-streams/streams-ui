@@ -25,6 +25,16 @@ php artisan vendor:publish --provider=Streams\\Ui\\UiServiceProvider --tag=confi
 
 The above command will copy configuration files from their package location to the directory mentioned above so that you can modify them directly and commit them to your version control system.
 
+### Publishing Streams
+
+Use the following command if you would like to publish and modify stream definitions used by this package.
+
+```bash
+php artisan vendor:publish --provider=Streams\\Ui\\UiServiceProvider --tag=streams
+```
+
+The above command will copy stream definition files from their package location to the `streams` directory so that you can modify them and commit them to your version control system.
+
 ## Configuring the UI
 
 Below are the contents of the published configuration file:
@@ -103,7 +113,7 @@ return [
 ];
 ```
 
-### CP Middleware
+### Control Panel Middleware
 
 Control panel middleware an be configured in your application's HTTP kernel. By default, the **web** middleware group is passed through as well.
 

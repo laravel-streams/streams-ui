@@ -2,163 +2,98 @@
 __created_at: 1612057264
 __updated_at: 1612057264
 title: Control Panel
-category: components
+category: core_concepts
 sort: 0
 enabled: true
 stage: outlining
 ---
 
+1. [ ] **What** is a control panel?
+1. [ ] How do you **access** the control panel?
+2. [ ] How do you **build** the control panel?
+3. [ ] How do you **secure** the control panel?
+4. [ ] How do you **customize** the control panel?
+
+
 ## Introduction
 
-The control panel is an easily configurable administrative tool.
+The control panel system wraps output with a highly configurable user interface layout.
+
+### Routing
+
+You can use the the `routes/cp.php` file to define additional routes for the control panel. Routes defined there will be automatically prefixed and grouped.
+
+Additionally, you can use the Route facade and **cp** method to define control panel routes.
+
+```bash
+Route::cp('custom/example/{entry}', 'Your\Controller@method');
+```
+
+- [Streams Core Routing](/docs/core/routing)
 
 ### Configuration
 
-*Control panel theme configuration is currently in development.*
+Before continueing please [enable the control panel](configuration#configuring-the-ui).
 
-### Responses
+## Components
 
-The control panel will **automatically** wrap other builder view responses with the `ui::cp` layout *when responses are generated within the control panel URI prefix*.
+Multiple stream-enhanced components are used to assemble the control panel.
 
-Both examples are wrapped by the `ui::cp` view layout.
+### Navigation
 
-```php
-// GET: {cp_prefix}/{example}
-use Streams\Core\Support\Facades\Streams;
+Navigation sections define the basic functional structure of your control panel.
 
-return Streams::make('example')->table()->response();
-```
-
-```php
-// GET: random/{example}
-use Streams\Core\Support\Facades\Streams;
-
-return Streams::make('example')->table([
-    'options.cp_enabled' => true,
-])->response();
-```
-
-
-## Navigation
-
-Navigation sections are the primary building blocks of the control panel.
-
-## Creating Navigation
-
-### Manually
-
-You can manually create a JSON file with the below [attributes](#attributes) in the navigation directory.
-
-### Using Streams CLI
-
-You can create a new `cp.navigation` entry using [streams-cli](../cli/introduction).
-
-```bash
-php artisan entries:create cp.navigation
-```
-
-## Component
-
-### Attributes
+#### Defining Navigation
 
 ```json
-// // streams/cp/navigation/{id}.json
+// streams/cp/navigation/users.json
 {
-    "title": "Documentation",
-    "stream": "docs",
-    "parent": null,
-    "buttons": {},
-    "route": {}
+    "title": "Users"
 }
 ```
 
-#### id `slug`
+#### Available Properties
 
-The unique handle of the shortcut.
-
-#### title `string`
-
-A (translatable) string for display purposes.
-
-#### stream `string`
-
-The contextual stream for this navigation section. Forms will create entries for this stream and tables will display entries for this stream, for example. The **id** will be assumed the same as the stream handle if not configured.
-
-#### parent `string`
-
-The **id** of the parent navigation item. Two levels of nesting are supported out of the box.
-
-#### buttons `array`
-
-An associated array of [buttons](buttons).
-
-#### route `array`
-
-An associated array of additional [route information](../core/routing).
+Name | Type | Default | Description
+--|---|---|--
+`text` | [string](/docs/core/fields/string) | `null` |  The link text.
+`dropdown` | [object](#dropdowns) | `null` |  [Dropdown](dropdowns) items.
 
 
+### Shortcuts
 
-## Shortcuts
+Shortcuts define globally displayed, highly configurable, actionable items.
 
-Shortcuts are the basic building blocks of the control panel **topbar**.
 
-## Creating Shortcuts
-
-### Manually
-
-You can manually create a JSON file with the below [attributes](#attributes) in the shortcuts directory.
-
-### Using Streams CLI
-
-You can create a new `cp.shortcuts` entry using [streams-cli](../cli/introduction).
-
-```bash
-php artisan entries:create cp.shortcuts
-```
-
-## Component
-
-### Attributes
+#### Basic Example
+#### Dropdowns
 
 ```json
-// // streams/cp/shortcuts/{id}.json
+// streams/cp/shortcuts/profile.json
 {
-    "image": "/auth/avatar",
-    "icon": "far-user-circle",
-    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\">
-  <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z\" />
-</svg>",
+    "sort_order": 99,
+    "image": "/user/avatar",
     "dropdown": {
         "profile": {
             "text": "Visit Website",
-            "href": "/",
-            "target": "_blank"
-        },
-        "logout": {
-            "text": "Logout",
-            "href": "/logout",
+            "attributes.href": "/",
             "target": "_blank"
         }
     }
 }
 ```
 
-#### id `slug`
 
-The unique handle of the shortcut.
+### Layouts
 
-#### image `string`
+Layouts define how to render the main content area of the control panel.
 
-Any valid [image source](../core/images#image-sources).
 
-#### icon `string`
+### Themes
 
-Any valid [icon identifier](icons).
+Themes define globally accessible variables for the UI. Themes are defined by the `cp.themes` stream:
 
-#### svg `string`
 
-An SVG content string.
+## Extending
 
-#### dropdown `array`
-
-An associative array of dropdown menu items indexed by **handle**.
+By [publishing](configuration#publish-streams) the Streams UI package streams you can customize anything you need.

@@ -2,12 +2,19 @@
 __created_at: 1612057092
 __updated_at: 1612057092
 title: Tables
-category: components
+category: core_concepts
 intro: null
 sort: 10
 enabled: true
 stage: outlining
 ---
+
+1. [ ] **What** are tables?
+1. [ ] How do you **use** tables?
+2. [ ] How do you **build** tables?
+3. [ ] How do you **secure** tables?
+4. [ ] How do you **extend** tables?
+
 ## Introduction
 
 Table builders help you quickly build up table components.

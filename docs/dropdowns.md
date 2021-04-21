@@ -1,16 +1,37 @@
 ---
-title: Buttons
+title: Dropdowns
 category: core_concepts
 intro:
-sort: 99
+sort: 100
 enabled: true
 ---
 
-1. [ ] **What** are buttons?
-1. [ ] How do you **use** buttons?
-2. [ ] How do you **build** buttons?
-3. [ ] How do you **secure** buttons?
-4. [ ] How do you **extend** buttons?
+1. [ ] **What** are dropdowns?
+1. [ ] How do you **use** dropdowns?
+2. [ ] How do you **build** dropdowns?
+3. [ ] How do you **secure** dropdowns?
+4. [ ] How do you **extend** dropdowns?
+
+## Introduction
+
+Dropdowns are a sub-component that can be used to display dropdown content.
+
+```json
+{
+    // ...
+    "dropdown": {
+        "home": {
+            "text": "View Front",
+            "attributes.href": "/",
+            "attributes.target": "_blank"
+        },
+        "logout": {
+            "text": "Logout",
+            "attributes.href": "/logout"
+        }
+    }
+}
+```
 
 - **Intro:** Introduce the idea in one sentence.
 - **Explanation:** An elevator pitch that signals the reader to continue or not (keep looking for relevant page).

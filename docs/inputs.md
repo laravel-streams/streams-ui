@@ -1,6 +1,6 @@
 ---
 title: Inputs
-category: components
+category: core_concepts
 intro:
 sort: 99
 enabled: false

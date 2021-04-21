@@ -8,6 +8,9 @@
     "collection": "Streams\\Ui\\ControlPanel\\Component\\Navigation\\NavigationCollection",
     "fields": {
         "id": "slug",
+        "svg": "string",
+        "icon": "string",
+        "image": "string",
         "title": "string",
         "parent": {
             "type": "relationship",

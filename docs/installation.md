@@ -15,6 +15,16 @@ composer require streams/ui
 
 Streams UI comes pre-configured with the [Streams starter application](/docs/installation).
 
+### Publishing Assets
+
+Use the following command to publish public assets for this package.
+
+```bash
+php artisan vendor:publish --provider=Streams\\Ui\\UiServiceProvider --tag=public
+```
+
+The above command will copy public assets from their package location to the `public/vendor` directory.
+
 ## Updating
 
 From within your project, use Composer to update this individual package:

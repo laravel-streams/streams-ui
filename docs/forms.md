@@ -2,12 +2,19 @@
 __created_at: 1612057067
 __updated_at: 1612057067
 title: Forms
-category: components
+category: core_concepts
 intro: null
 sort: 20
 enabled: true
 stage: outlining
 ---
+
+1. [ ] **What** are forms?
+1. [ ] How do you **use** forms?
+2. [ ] How do you **build** forms?
+3. [ ] How do you **secure** forms?
+4. [ ] How do you **extend** forms?
+
 ## Introduction
 
 Form builders help you quickly build up form components.

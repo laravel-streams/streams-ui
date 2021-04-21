@@ -14,73 +14,27 @@
         },
         "spacing": {
             "type": "decimal",
-            "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--ls-spacing', this.value)"
+            "required": true
         },
         "radius": {
             "type": "decimal",
-            "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--ls-radius', this.value)"
+            "required": true
         },
         "light": {
             "type": "color",
-            "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--ls-color-light', this.value)",
-            "input.attributes.oninput": "document.documentElement.style.setProperty('--ls-color-light', this.value)"
+            "required": true
         },
         "dark": {
             "type": "color",
-            "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--ls-color-dark', this.value)",
-            "input.attributes.oninput": "document.documentElement.style.setProperty('--ls-color-dark', this.value)"
+            "required": true
         },
         "primary": {
             "type": "color",
-            "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--ls-color-primary', this.value)",
-            "input.attributes.oninput": "document.documentElement.style.setProperty('--ls-color-primary', this.value)"
+            "required": true
         },
         "secondary": {
             "type": "color",
-            "required": true,
-            "input.attributes.onchange": "document.documentElement.style.setProperty('--ls-color-secondary', this.value)",
-            "input.attributes.oninput": "document.documentElement.style.setProperty('--ls-color-secondary', this.value)"
-        }
-    },
-    "ui": {
-        "table": {
-            "buttons": {
-                "edit": {}
-            }
-        },
-        "form": {
-            "layout": {
-                "tabs": {
-                    "base": {
-                        "fields": {
-                            "id": {},
-                            "density": {
-                                "width": "25%"
-                            },
-                            "radius": {
-                                "width": "25%"
-                            }
-                        }
-                    },
-                    "topbar": {
-                        "fields": [
-                            "topbar_bg_color",
-                            "topbar_text_color"
-                        ]
-                    },
-                    "sidebar": {
-                        "fields": [
-                            "sidebar_bg_color",
-                            "sidebar_text_color"
-                        ]
-                    }
-                }
-            }
+            "required": true
         }
     }
 }
