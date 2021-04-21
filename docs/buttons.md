@@ -2,7 +2,7 @@
 title: Buttons
 category: components
 intro:
-sort: 99
+sort: 189
 enabled: true
 ---
 

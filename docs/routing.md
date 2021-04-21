@@ -1,19 +1,12 @@
 ---
 __created_at: 1612057264
 __updated_at: 1612057264
-title: Control Panel
-category: core_concepts
+title: Routing
+category: control_panel
 sort: 0
 enabled: true
 stage: outlining
 ---
-
-1. [ ] **What** is a control panel?
-2. [ ] How do you **build** the control panel?
-1. [ ] How do you **using** the control panel?
-3. [ ] How do you **secure** the control panel?
-4. [ ] How do you **customize** the control panel?
-
 
 - **Intro:** Introduce the idea in one sentence.
 - **Explanation:** An elevator pitch that signals the reader to continue or not (keep looking for relevant page).
