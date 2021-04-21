@@ -28,7 +28,7 @@ class Form extends Component
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototypeInstance(array $attributes)
+    protected function initializePrototypeAttributes(array $attributes)
     {
         $this->loadPrototypeProperties([
             'values' => [
@@ -74,7 +74,7 @@ class Form extends Component
             ],
         ]);
 
-        return parent::initializePrototypeInstance(array_merge([
+        return parent::initializePrototypeAttributes(array_merge([
             'component' => 'form',
             'template' => 'ui::forms.form',
 

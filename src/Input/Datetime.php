@@ -13,9 +13,9 @@ class Datetime extends Input
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototypeInstance(array $attributes)
+    protected function initializePrototypeAttributes(array $attributes)
     {
-        return parent::initializePrototypeInstance(array_merge([
+        return parent::initializePrototypeAttributes(array_merge([
             'template' => 'ui::input/datetime',
             'type' => 'datetime-local',
         ], $attributes));

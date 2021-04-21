@@ -22,7 +22,7 @@ class Row extends Component
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototypeInstance(array $attributes)
+    protected function initializePrototypeAttributes(array $attributes)
     {
         $this->loadPrototypeProperties([
             'columns' => [
@@ -36,7 +36,7 @@ class Row extends Component
             ],
         ]);
         
-        return parent::initializePrototypeInstance(array_merge([
+        return parent::initializePrototypeAttributes(array_merge([
             'key' => null,
             'entry' => null,
             'table' => null,

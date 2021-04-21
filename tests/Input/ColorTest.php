@@ -16,7 +16,7 @@ class ColorTest extends TestCase
         Streams::load(base_path('vendor/streams/ui/tests/litmus.json'));
     }
 
-    public function testinitializePrototypeInstance()
+    public function testinitializePrototypeAttributes()
     {
         $input = Streams::make('testing.litmus')->fields->color->input();
 

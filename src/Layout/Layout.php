@@ -14,7 +14,7 @@ class Layout extends Component
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototypeInstance(array $attributes)
+    protected function initializePrototypeAttributes(array $attributes)
     {
         $this->loadPrototypeProperties([
             'content' => [
@@ -22,7 +22,7 @@ class Layout extends Component
             ],
         ]);
 
-        return parent::initializePrototypeInstance(array_merge([
+        return parent::initializePrototypeAttributes(array_merge([
             // 'buttons' => [],
             // 'shortcuts' => [],
             'content' => [],
