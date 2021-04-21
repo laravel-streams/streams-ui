@@ -2,22 +2,24 @@
 __created_at: 1612057264
 __updated_at: 1612057264
 title: Control Panel
-category: core_concepts
+category: components
 sort: 0
 enabled: true
 stage: outlining
 ---
 
 1. [ ] **What** is a control panel?
-1. [ ] How do you **access** the control panel?
 2. [ ] How do you **build** the control panel?
+1. [ ] How do you **using** the control panel?
 3. [ ] How do you **secure** the control panel?
 4. [ ] How do you **customize** the control panel?
 
 
 ## Introduction
 
-The control panel system wraps output with a highly configurable user interface layout.
+Streams UI provides an interface for building data-driven, highly configurable control panels that can be integrated with any admin panel or UI kit.
+
+A sensible and generic control panel UI theme is available by default.
 
 ### Routing
 

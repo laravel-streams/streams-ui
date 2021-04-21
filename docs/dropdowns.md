@@ -1,6 +1,6 @@
 ---
 title: Dropdowns
-category: core_concepts
+category: components
 intro:
 sort: 100
 enabled: true
