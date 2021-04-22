@@ -1,22 +1,49 @@
 ---
-title: Component
-category: core_concepts
+title: Components
+category: basics
 intro:
-sort: 100
+sort: 0
 enabled: true
 ---
 
-1. [ ] **What** are components?
-1. [ ] How do you **use** components?
-2. [ ] How do you **build** components?
-3. [ ] How do you **secure** components?
-4. [ ] How do you **extend** components?
+Components encapsulate the structural properties, rendering, and logical behavior of UI objects which they represent such as forms, tables, and buttons.
 
-- **Intro:** Introduce the idea in one sentence.
-- **Explanation:** An elevator pitch that signals the reader to continue or not (keep looking for relevant page).
-- **Sections/Features:** Separate sections/sub-sections (h2s/h3s) consistently. This will build the ToC.
-    - Attributes
-- **Next Steps:** Next actions to take that are intentional versus simply additional reading.
-- **Code Examples:** Code examples and snippets.
-- **Insights:** Tips, post scriptum, creative links.
-- **Additional Reading:** Link to related ideas/topics/guides/recipes.
+## Configuring Components
+
+Components are configured within the [stream definition](/docs/core/streams).
+
+```json
+// streams/contacts.json
+{
+    // ...
+    "ui": {
+        "tables": {
+            "example": {
+                // ...
+            }
+        },
+        "forms": {
+            "example": {
+                // ...
+            }
+        }
+    }
+}
+```
+
+## Accessing UI
+
+You can use the `ui` method to build any configured UI component for a stream.
+
+```php
+$table = Streams::make('contacts')->ui('tables.example');
+$form = Streams::make('contacts')->ui('forms.example');
+```
+
+### Control Panel API
+
+You can use the control panel API to access any configured UI component for a stream.
+
+```php
+GET|POST  /cp/ui/{stream}/{component}/{handle?}
+```

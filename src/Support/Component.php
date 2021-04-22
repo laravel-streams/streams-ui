@@ -124,4 +124,28 @@ class Component implements Arrayable, Jsonable
     {
         return $this->template ? (string) $this->render() : '';
     }
+
+    /**
+     * Mapp methods to expanded values.
+     *
+     * @param $method
+     * @param $arguments
+     * @return mixed
+     */
+    public function __call($method, $arguments)
+    {
+        if (static::hasMacro($method)) {
+            return $this->callMacroable($method, $arguments);
+        }
+
+        $key = Str::snake($method);
+
+        if ($this->hasPrototypeAttribute($key)) {
+            return $this->expandPrototypeAttribute($key);
+        }
+
+        throw new \BadMethodCallException(sprintf(
+            'Method %s::%s does not exist.', static::class, $method
+        ));
+    }
 }

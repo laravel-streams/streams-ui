@@ -1,9 +1,9 @@
 ---
 __created_at: 1612057264
 __updated_at: 1612057264
-title: Routing
-category: control_panel
-sort: 0
+title: Control Panel
+category: basics
+sort: 10
 enabled: true
 stage: outlining
 ---
