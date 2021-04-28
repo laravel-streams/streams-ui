@@ -19,7 +19,6 @@ class Value
      */
     public static function make($parameters, $entry, $term = 'entry', $payload = [])
     {
-
         /**
          * Load the termed entry.
          */
@@ -52,7 +51,7 @@ class Value
         /**
          * Check for basic entry attribute values.
          */
-        if (is_object($entry) && method_exists($entry, 'getAttribute')) {
+        if (is_object($entry) && method_exists($entry, 'hasAttribute') && $entry->hasAttribute($value)) {
             $value = $entry->{$value};
         }
 
