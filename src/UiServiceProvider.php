@@ -298,6 +298,31 @@ class UiServiceProvider extends ServiceProvider
                 ]);
             });
         });
+
+        Field::when('initializing', function ($callbackData) {
+            
+            $attributes = $callbackData->get('attributes');
+            
+            if (!isset($attributes['input'])) {
+                $attributes['input'] = [];
+            }
+    
+            if (is_string($attributes['input'])) {
+                $attributes['input'] = [
+                    'type' => $attributes['input'],
+                ];
+            }
+    
+            if (is_string($attributes['type']) && strpos($attributes['type'], '|')) {
+                list($attributes['type'], $attributes['input']['type']) = explode('|', $attributes['type']);
+            }
+    
+            if (!isset($attributes['input']['type'])) {
+                $attributes['input']['type'] = $attributes['type'];
+            }
+
+            $callbackData->put('attributes', $attributes);
+        });
     }
 
     /**

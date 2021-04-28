@@ -33,6 +33,28 @@ class Component implements Arrayable, Jsonable
     }
 
     /**
+     * Create a new class instance.
+     *
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        $callbackData = new Collection([
+            'attributes' => $attributes,
+        ]);
+
+        $this->fire('initializing', [
+            'callbackData' => $callbackData,
+        ]);
+
+        $this->initializePrototypeAttributes($callbackData->get('attributes'));
+
+        $this->fire('initialized', [
+            $this->component => $this,
+        ]);
+    }
+
+    /**
      * Initialize the prototype.
      *
      * @param array $attributes
@@ -145,7 +167,9 @@ class Component implements Arrayable, Jsonable
         }
 
         throw new \BadMethodCallException(sprintf(
-            'Method %s::%s does not exist.', static::class, $method
+            'Method %s::%s does not exist.',
+            static::class,
+            $method
         ));
     }
 }
