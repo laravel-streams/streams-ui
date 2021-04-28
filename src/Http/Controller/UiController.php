@@ -53,7 +53,7 @@ class UiController extends StreamsController
      * 
      * @return Response
      */
-    public function handle()
+    public function __invoke()
     {
         return parent::handle();
     }
@@ -61,7 +61,7 @@ class UiController extends StreamsController
     public function resolveSection(Collection $data)
     {
         $action = $data->get('action');
-        
+
         if (!$section = Request::route()->parameter('section')) {
             return;
         }
@@ -78,7 +78,7 @@ class UiController extends StreamsController
         }
 
         $action = Arr::undot((array) $section->route + $action);
-        
+
         $data->put('action', $action);
     }
 
@@ -98,7 +98,7 @@ class UiController extends StreamsController
         }
 
         $action = $data->get('action');
-        
+
         // @todo this needs work
         // control panel builder
         if (Arr::get($action, 'ui.cp_enabled') == true) {
@@ -106,7 +106,7 @@ class UiController extends StreamsController
         }
 
         if ($component = Arr::get($action, 'ui.component', request('component'))) {
-        
+            
             $component = $stream->ui($component, Arr::get($action, 'ui.handle', request('handle', 'default')), [
                 'entry' => $data->get('entry')
             ]);

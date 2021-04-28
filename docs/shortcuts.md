@@ -1,17 +1,26 @@
 ---
 __created_at: 1612057264
 __updated_at: 1612057264
-title: Control Panel
-link_title: Getting Started
+title: Shortcuts
 category: control_panel
 sort: 10
 enabled: true
 stage: outlining
 ---
 
+- **Intro:** Introduce the idea in one sentence.
+- **Explanation:** An elevator pitch that signals the reader to continue or not (keep looking for relevant page).
+- **Sections/Features:** Separate sections/sub-sections (h2s/h3s) consistently. This will build the ToC.
+- **Next Steps:** Next actions to take that are intentional versus simply additional reading.
+- **Code Examples:** Code examples and snippets.
+- **Insights:** Tips, post scriptum, creative links.
+- **Additional Reading:** Link to related ideas/topics/guides/recipes.
+
+
+
 ## Introduction
 
-The control panel is data driven and 
+Streams UI provides an interface for building data-driven, highly configurable control panels that can be integrated with any admin panel or UI kit.
 
 A sensible and generic control panel UI theme is available by default.
 

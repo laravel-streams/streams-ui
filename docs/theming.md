@@ -1,6 +1,6 @@
 ---
 title: Theming
-category: advanced
+category: frontend
 sort: 99
 stage: outlining
 enabled: true

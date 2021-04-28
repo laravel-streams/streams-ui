@@ -1,14 +1,29 @@
 ---
 title: Components
-category: basics
+link_title: Getting Started
+category: components
 intro:
 sort: 0
 enabled: true
 ---
 
-Components encapsulate the structural properties, rendering, and logical behavior of UI objects which they represent such as forms, tables, and buttons.
+## Introduction
 
-## Configuring Components
+Components are the foundation of the Streams UI system. They encapsulate the structural properties, rendering, and logical behavior of UI objects such as forms, tables, and buttons.
+
+### Available Components
+
+The components available out of the box are:
+
+- [Tables](tables)
+- [Forms](forms)
+
+Some components are meant to be used within others:
+
+- [Buttons](buttons)
+- [Dropdowns](dropdowns)
+
+### Configuring Components
 
 Components are configured within the [stream definition](/docs/core/streams).
 

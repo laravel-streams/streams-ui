@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
+use Streams\Ui\Http\Middleware\LoadUi;
 use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
 use Streams\Core\Support\Facades\Streams;
@@ -26,7 +27,7 @@ class UiServiceProvider extends ServiceProvider
      * @var array
      */
     public $aliases = [
-        //'UI' => \Streams\Ui\Support\Facades\UI::class
+        'ui' => \Streams\Ui\Support\Facades\UI::class
     ];
 
     /**
@@ -62,10 +63,12 @@ class UiServiceProvider extends ServiceProvider
     {
         $this->registerStreams();
         $this->registerConfig();
-        $this->registerRoutes();
 
+        $this->extendRouter();
         $this->extendStream();
         $this->extendField();
+
+        $this->registerRoutes();
     }
 
     public function boot()
@@ -189,6 +192,40 @@ class UiServiceProvider extends ServiceProvider
         }
     }
 
+    protected function extendRouter()
+    {
+        Route::macro('ui', function ($uri, $route) {
+
+            Route::middleware([
+                LoadUi::class,
+            ])
+                ->group(function () use ($uri, $route) {
+
+                    $route['uses'] = Arr::get($route, 'uses') ?: '\Streams\Ui\Http\Controller\UiController';
+
+                    Route::streams($uri, $route);
+                });
+        });
+
+        Route::macro('cp', function ($uri, $route) {
+
+            Route::prefix(Config::get('streams.ui.cp_prefix'))
+                ->middleware(Config::get('streams.ui.cp_middleware'))
+                ->middleware([
+                    LoadUi::class,
+                ])
+                ->group(function () use ($uri, $route) {
+
+                    $route['uses'] = Arr::get($route, 'uses') ?: '\Streams\Ui\Http\Controller\UiController';
+
+                    $route['ui.cp'] = true;
+                    $route['ui.cp_enabled'] = true;
+
+                    Route::streams($uri, $route);
+                });
+        });
+    }
+
     /**
      * Extend stream objects.
      */
@@ -208,7 +245,7 @@ class UiServiceProvider extends ServiceProvider
             $configured = Arr::undot($configured);
 
             $attributes = array_merge($attributes, $configured);
-            
+
             $attributes['stream'] = $this;
             $attributes['handle'] = $handle;
 
