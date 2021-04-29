@@ -8,13 +8,6 @@ use Collective\Html\HtmlFacade;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\URL;
 
-/**
- * Class Section
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
 class Section extends Component
 {
 
