@@ -94,4 +94,90 @@ class Button extends Component
 
         return URL::to($target, $extra);
     }
+
+    public function onInitializing($callbackData)
+    {
+        $attributes = $callbackData->get('attributes');
+
+        $attributes = Arr::undot($attributes);
+
+        $this->normalizeHtmlAttributes($attributes);
+        $this->guessButtonInput($attributes);
+        $this->mergeButtonInput($attributes);
+
+        $callbackData->put('attributes', $attributes);
+    }
+
+    protected function normalizeHtmlAttributes(&$attributes)
+    {
+
+        /**
+         * Make sure they exist.
+         */
+        $attributes['attributes'] = Arr::get($attributes, 'attributes', []);
+
+        /**
+         * Move the HREF if any to attributes.
+         */
+        if (isset($attributes['href'])) {
+            Arr::set($attributes['attributes'], 'href', Arr::pull($attributes, 'href'));
+        }
+
+        /**
+         * Move the URL if any to attributes.
+         */
+        if (isset($attributes['url'])) {
+            Arr::set($attributes['attributes'], 'url', Arr::pull($attributes, 'url'));
+        }
+
+        /**
+         * Move the target if any to attributes.
+         */
+        if (isset($attributes['target'])) {
+            Arr::set($attributes['attributes'], 'target', Arr::pull($attributes, 'target'));
+        }
+
+        /**
+         * Move all data-*|x-* keys to attributes.
+         */
+        foreach (array_keys($attributes) as $attribute) {
+            if (Str::is(['data-*', 'x-*', '@*'], $attribute)) {
+                Arr::set($attributes, 'attributes.' . $attribute, Arr::pull($attributes, $attribute));
+            }
+        }
+
+        /**
+         * Make sure the HREF is absolute.
+         */
+        if (
+            isset($attributes['attributes']['href']) &&
+            is_string($attributes['attributes']['href']) &&
+            !Str::startsWith($attributes['attributes']['href'], ['http', '{', '//'])
+        ) {
+            $attributes['attributes']['href'] = url($attributes['attributes']['href']);
+        }
+    }
+
+    protected function guessButtonInput(&$attributes)
+    {
+
+        /**
+         * Default guesser for cancel button.
+         */
+        if (isset($attributes['button']) && $attributes['button'] == 'cancel' && !isset($attributes['attributes']['href']) && $attributes['stream']) {
+            $attributes['attributes']['href'] = URL::route('ui::cp.index', ['section' => $attributes['stream']->handle]);
+        }
+
+        $attributes = Arr::parse($attributes, ['entry' => Arr::get($attributes, 'entry')]);
+    }
+    
+    protected function mergeButtonInput(&$attributes)
+    {
+
+        $registry = app(ButtonRegistry::class);
+
+        if ($registered = $registry->get(Arr::pull($attributes, 'button'))) {
+            $attributes = array_replace_recursive($registered, $attributes);
+        }
+    }
 }

@@ -358,6 +358,8 @@ class TableBuilder extends Builder
             return $this->instance->buttons;
         }
 
+        
+
         $stream = $this->stream;
         $buttons = $this->buttons;
 

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Streams\Ui\Form\FormAuthorizer;
 use Streams\Core\Repository\Repository;
+use Streams\Ui\Button\ButtonCollection;
 use Streams\Core\Support\Facades\Resolver;
 use Streams\Core\Support\Facades\Evaluator;
 use Streams\Ui\Form\Component\Action\Action;
@@ -236,6 +237,27 @@ class FormBuilder extends Builder
         if ($this->instance->buttons->isNotEmpty()) {
             return $this->instance->buttons;
         }
+
+        $buttons = $this->buttons ?: ['cancel'];
+
+        /**
+         * Minimal standardization
+         */
+        array_walk($buttons, function (&$button, $key) {
+
+            $button = is_string($button) ? [
+                'button' => $button,
+            ] : $button;
+
+            $button['handle'] = Arr::get($button, 'handle', $key);
+
+            $button['stream'] = $this->stream;
+
+            $button = new Button($button);
+        });
+
+        return $this->instance->buttons = $this->buttons = new ButtonCollection($buttons);
+        dd($buttons[0]->toArray());
 
         $buttons = $this->buttons;
         $stream = $this->stream;
