@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\ControlPanel\Component\Shortcut;
+namespace Streams\Ui\ControlPanel\Shortcut;
 
 use Streams\Ui\Button\Button;
 

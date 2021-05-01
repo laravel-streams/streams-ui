@@ -4,8 +4,8 @@
         "path": "streams/cp/navigation",
         "format": "json"
     },
-    "abstract": "Streams\\Ui\\ControlPanel\\Component\\Navigation\\Section",
-    "collection": "Streams\\Ui\\ControlPanel\\Component\\Navigation\\NavigationCollection",
+    "abstract": "Streams\\Ui\\ControlPanel\\Navigation\\Section",
+    "collection": "Streams\\Ui\\ControlPanel\\Navigation\\NavigationCollection",
     "fields": {
         "id": "slug",
         "svg": "string",

@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\ControlPanel\Component\Navigation;
+namespace Streams\Ui\ControlPanel\Navigation;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;

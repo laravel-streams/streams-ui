@@ -46,8 +46,7 @@ class UiServiceProvider extends ServiceProvider
      */
     public $singletons = [
         \Streams\Ui\Support\Breadcrumb::class => \Streams\Ui\Support\Breadcrumb::class,
-        \Streams\Ui\ControlPanel\ControlPanelBuilder::class => \Streams\Ui\ControlPanel\ControlPanelBuilder::class,
-
+        
         // Get rid of these registries and register something to IoC like streams.ui.button.save using internal naming - do whatever you want otherwise.
         \Streams\Ui\Button\ButtonRegistry::class => \Streams\Ui\Button\ButtonRegistry::class,
         \Streams\Ui\Table\Component\View\ViewRegistry::class => \Streams\Ui\Table\Component\View\ViewRegistry::class,

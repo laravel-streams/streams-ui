@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Ui\ControlPanel\ControlPanel;
 use Streams\Core\Http\Controller\StreamsController;
 
 /**
@@ -37,11 +37,14 @@ class UiController extends StreamsController
      * 
      * @return RedirectResponse
      */
-    public function index(ControlPanelBuilder $builder)
+    public function index()
     {
-        $navigation = $builder->makeNavigation();
+        $home = Streams::entries('cp.navigation')
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('handle', 'asc')
+            ->first();
 
-        if (!$home = $navigation->first()) {
+        if (!$home) {
             abort(404);
         }
 
@@ -102,11 +105,12 @@ class UiController extends StreamsController
         // @todo this needs work
         // control panel builder
         if (Arr::get($action, 'ui.cp_enabled') == true) {
-            View::share('cp', (new ControlPanelBuilder())->build());
+            //View::share('cp', (new ControlPanelBuilder())->build());
+            View::share('cp', new ControlPanel());
         }
 
         if ($component = Arr::get($action, 'ui.component', request('component'))) {
-            
+
             $component = $stream->ui($component, Arr::get($action, 'ui.handle', request('handle', 'default')), [
                 'entry' => $data->get('entry')
             ]);
