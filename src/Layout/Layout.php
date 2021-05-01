@@ -3,7 +3,7 @@
 namespace Streams\Ui\Layout;
 
 use Streams\Ui\Support\Component;
-use Streams\Ui\Layout\Component\Shortcut\ShortcutCollection;
+use Streams\Ui\Layout\Shortcut\ShortcutCollection;
 
 class Layout extends Component
 {

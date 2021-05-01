@@ -12,16 +12,16 @@ use Streams\Ui\Support\Normalizer;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Request;
-use Streams\Ui\Table\Component\Row\Row;
-use Streams\Ui\Table\Component\View\View;
-use Streams\Ui\Table\Component\Action\Action;
-use Streams\Ui\Table\Component\Column\Column;
-use Streams\Ui\Table\Component\Filter\Filter;
-use Streams\Ui\Table\Component\View\ViewHandler;
-use Streams\Ui\Table\Component\View\ViewRegistry;
-use Streams\Ui\Table\Component\Action\ActionRegistry;
-use Streams\Ui\Table\Component\Button\ButtonRegistry;
-use Streams\Ui\Table\Component\Filter\FilterRegistry;
+use Streams\Ui\Table\Row\Row;
+use Streams\Ui\Table\View\View;
+use Streams\Ui\Table\Action\Action;
+use Streams\Ui\Table\Column\Column;
+use Streams\Ui\Table\Filter\Filter;
+use Streams\Ui\Table\View\ViewHandler;
+use Streams\Ui\Table\View\ViewRegistry;
+use Streams\Ui\Table\Action\ActionRegistry;
+use Streams\Ui\Table\Button\ButtonRegistry;
+use Streams\Ui\Table\Filter\FilterRegistry;
 use Streams\Core\Repository\Contract\RepositoryInterface;
 
 class TableBuilder extends Builder

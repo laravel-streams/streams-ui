@@ -15,7 +15,7 @@ use Streams\Core\Support\Facades\Messages;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\Facades\Session;
-use Streams\Ui\Form\Component\Field\FieldCollection;
+use Streams\Ui\Form\Field\FieldCollection;
 use Streams\Ui\Form\Action\ActionCollection;
 
 

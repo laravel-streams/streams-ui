@@ -7,9 +7,9 @@ use Streams\Core\Support\Workflow;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Request;
 use Streams\Ui\Button\ButtonCollection;
-use Streams\Ui\Table\Component\View\ViewCollection;
-use Streams\Ui\Table\Component\Action\ActionCollection;
-use Streams\Ui\Table\Component\Filter\FilterCollection;
+use Streams\Ui\Table\View\ViewCollection;
+use Streams\Ui\Table\Action\ActionCollection;
+use Streams\Ui\Table\Filter\FilterCollection;
 
 /**
  * Class Table

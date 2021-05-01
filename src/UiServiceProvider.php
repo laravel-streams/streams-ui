@@ -49,8 +49,8 @@ class UiServiceProvider extends ServiceProvider
         
         // Get rid of these registries and register something to IoC like streams.ui.button.save using internal naming - do whatever you want otherwise.
         \Streams\Ui\Button\ButtonRegistry::class => \Streams\Ui\Button\ButtonRegistry::class,
-        \Streams\Ui\Table\Component\View\ViewRegistry::class => \Streams\Ui\Table\Component\View\ViewRegistry::class,
-        \Streams\Ui\Table\Component\Filter\FilterRegistry::class => \Streams\Ui\Table\Component\Filter\FilterRegistry::class,
+        \Streams\Ui\Table\View\ViewRegistry::class => \Streams\Ui\Table\View\ViewRegistry::class,
+        \Streams\Ui\Table\Filter\FilterRegistry::class => \Streams\Ui\Table\Filter\FilterRegistry::class,
     ];
 
     /**
