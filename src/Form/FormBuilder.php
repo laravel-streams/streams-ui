@@ -7,25 +7,16 @@ use Illuminate\Support\Arr;
 use Streams\Ui\Button\Button;
 use Streams\Core\Stream\Stream;
 use Streams\Ui\Support\Builder;
+use Streams\Ui\Form\Action\Action;
 use Streams\Ui\Support\Normalizer;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\URL;
 use Streams\Ui\Form\FormAuthorizer;
 use Streams\Core\Repository\Repository;
 use Streams\Ui\Button\ButtonCollection;
 use Streams\Core\Support\Facades\Resolver;
 use Streams\Core\Support\Facades\Evaluator;
-use Streams\Ui\Form\Component\Action\Action;
-use Streams\Ui\Form\Component\Action\ActionRegistry;
-use Streams\Ui\Form\Component\Button\ButtonRegistry;
+use Streams\Ui\Form\Action\ActionCollection;
 
-/**
- * Class FormBuilder
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
 class FormBuilder extends Builder
 {
 
@@ -56,7 +47,9 @@ class FormBuilder extends Builder
             'buttons' => [],
             'sections' => [],
 
-            'options' => [],
+            'config' => [
+                'auto_query' => true,
+            ],
 
             'component' => 'form',
             'form' => Form::class,
@@ -198,36 +191,25 @@ class FormBuilder extends Builder
 
     public function makeActions()
     {
-        $this->make();
+        $actions = $this->actions ?: ['save'];
 
-        if ($this->instance->actions->isNotEmpty()) {
-            return $this->instance->actions;
-        }
+        /**
+         * Minimal standardization
+         */
+        array_walk($actions, function (&$action, $key) {
 
-        $actions = $this->actions;
+            $action = is_string($action) ? [
+                'action' => $action,
+            ] : $action;
 
-        if (!$actions) {
-            $actions = [
-                'save',
-            ];
-        }
+            $action['handle'] = Arr::get($action, 'handle', $key);
 
-        $actions = Normalizer::normalize($actions, 'action');
-        $actions = Normalizer::fillWithKey($actions, 'handle');
+            $action['stream'] = $this->stream;
 
-        $registry = app(ActionRegistry::class);
+            $action = new Action($action);
+        });
 
-        foreach ($actions as &$attributes) {
-            if ($registered = $registry->get(Arr::pull($attributes, 'action'))) {
-                $attributes = array_replace_recursive($registered, $attributes);
-            }
-        }
-
-        $this->loadInstanceWith('actions', $actions, Action::class);
-
-        $this->actions = $actions;
-
-        return $this->instance->actions;
+        return $this->instance->actions = $this->actions = new ActionCollection($actions);
     }
 
     public function makeButtons()
@@ -257,46 +239,5 @@ class FormBuilder extends Builder
         });
 
         return $this->instance->buttons = $this->buttons = new ButtonCollection($buttons);
-        dd($buttons[0]->toArray());
-
-        $buttons = $this->buttons;
-        $stream = $this->stream;
-
-        if (!$buttons) {
-            $buttons = [
-                'cancel',
-            ];
-        }
-
-        $buttons = Normalizer::normalize($buttons, 'button');
-        $buttons = Normalizer::fillWithKey($buttons, 'handle');
-        $buttons = Normalizer::fillWithKey($buttons, 'button');
-        $buttons = Normalizer::attributes($buttons);
-
-        foreach ($buttons as &$button) {
-
-            /**
-             * Default guesser for cancel button.
-             */
-            if ($button['button'] == 'cancel' && !isset($button['attributes']['href']) && $stream) {
-                $button['attributes']['href'] = URL::route('ui::cp.index', ['section' => $stream->handle]);
-            }
-
-            $button = Arr::parse($button, ['entry' => $this->entry]);
-        }
-
-        $registry = app(ButtonRegistry::class);
-
-        foreach ($buttons as &$attributes) {
-            if ($registered = $registry->get(Arr::pull($attributes, 'button'))) {
-                $attributes = array_replace_recursive($registered, $attributes);
-            }
-        }
-
-        $this->loadInstanceWith('buttons', $buttons, Button::class);
-
-        $this->buttons = $buttons;
-
-        return $this->instance->buttons;
     }
 }

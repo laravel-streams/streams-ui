@@ -1,4 +1,4 @@
-<?php namespace Streams\Ui\Form\Component\Button;
+<?php namespace Streams\Ui\Form\Button;
 
 use Illuminate\Support\Arr;
 use Streams\Ui\Button\ButtonRegistry as ButtonButtonRegistry;

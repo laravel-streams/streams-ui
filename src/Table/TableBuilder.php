@@ -3,26 +3,26 @@
 namespace Streams\Ui\Table;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
-use Streams\Core\Repository\Contract\RepositoryInterface;
-use Streams\Core\Stream\Stream;
 use Streams\Ui\Button\Button;
+use Streams\Ui\Support\Value;
+use Streams\Core\Stream\Stream;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Support\Normalizer;
-use Streams\Ui\Support\Value;
-use Streams\Ui\Table\Component\Action\Action;
-use Streams\Ui\Table\Component\Action\ActionRegistry;
-use Streams\Ui\Table\Component\Button\ButtonRegistry;
-use Streams\Ui\Table\Component\Column\Column;
-use Streams\Ui\Table\Component\Filter\Filter;
-use Streams\Ui\Table\Component\Filter\FilterRegistry;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Request;
 use Streams\Ui\Table\Component\Row\Row;
 use Streams\Ui\Table\Component\View\View;
+use Streams\Ui\Table\Component\Action\Action;
+use Streams\Ui\Table\Component\Column\Column;
+use Streams\Ui\Table\Component\Filter\Filter;
 use Streams\Ui\Table\Component\View\ViewHandler;
 use Streams\Ui\Table\Component\View\ViewRegistry;
+use Streams\Ui\Table\Component\Action\ActionRegistry;
+use Streams\Ui\Table\Component\Button\ButtonRegistry;
+use Streams\Ui\Table\Component\Filter\FilterRegistry;
+use Streams\Core\Repository\Contract\RepositoryInterface;
 
 class TableBuilder extends Builder
 {
@@ -48,8 +48,8 @@ class TableBuilder extends Builder
             'buttons' => [],
             'actions' => [],
 
-            'options' => [
-                'cp_enabled' => false,
+            'config' => [
+                'auto_query' => true,
             ],
 
             'component' => 'table',

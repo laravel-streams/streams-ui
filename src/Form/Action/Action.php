@@ -1,7 +1,8 @@
 <?php
 
-namespace Streams\Ui\Form\Component\Action;
+namespace Streams\Ui\Form\Action;
 
+use Illuminate\Support\Arr;
 use Streams\Ui\Button\Button;
 
 /**
@@ -56,5 +57,15 @@ class Action extends Button
             'type'  => $this->type,
             'name'  => 'action',
         ], $attributes);
+    }
+
+    protected function mergeButtonInput(&$attributes)
+    {
+
+        $registry = app(ActionRegistry::class);
+
+        if ($registered = $registry->get(Arr::pull($attributes, 'action'))) {
+            $attributes = array_replace_recursive($registered, $attributes);
+        }
     }
 }

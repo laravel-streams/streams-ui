@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Form\Component\Action\Handler;
+namespace Streams\Ui\Form\Action\Handler;
 
 use Streams\Ui\Form\Form;
 use Streams\Core\Support\Facades\Messages;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Form\Component\Action;
+namespace Streams\Ui\Form\Action;
 
 use Streams\Ui\Button\ButtonCollection;
 

@@ -1,8 +1,8 @@
-<?php namespace Streams\Ui\Form\Component\Action;
+<?php namespace Streams\Ui\Form\Action;
 
 use Illuminate\Support\Arr;
 use Streams\Ui\Button\ButtonRegistry;
-use Streams\Ui\Form\Component\Action\Handler\Save;
+use Streams\Ui\Form\Action\Handler\Save;
 
 /**
  * Class ActionRegistry
