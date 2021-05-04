@@ -1,9 +1,9 @@
 <?php
 
-namespace Streams\Ui\ControlPanel\Shortcut;
+namespace Streams\Ui\Layout\Shortcut;
 
 use Illuminate\Support\Collection;
-use Streams\Ui\ControlPanel\Component\Shortcut\Shortcut;
+use Streams\Ui\Layout\Component\Shortcut\Shortcut;
 
 /**
  * Class ShortcutCollection
