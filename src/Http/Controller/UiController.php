@@ -105,7 +105,6 @@ class UiController extends StreamsController
         // @todo this needs work
         // control panel builder
         if (Arr::get($action, 'ui.cp_enabled') == true) {
-            //View::share('cp', (new ControlPanelBuilder())->build());
             View::share('cp', new ControlPanel());
         }
 

@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use Streams\Ui\ControlPanel\ControlPanelBuilder;
+use Streams\Ui\ControlPanel\ControlPanel;
 
 class LoadUi
 {
@@ -25,8 +25,8 @@ class LoadUi
         /**
          * Enable the CP or not.
          */
-        if (Arr::get($action, 'ui.cp_enabled') == true) {
-            View::share('cp', (new ControlPanelBuilder())->build());
+        if (Arr::get($action, 'ui.cp_enabled') == true && !View::shared('cp')) {
+            View::share('cp', new ControlPanel());
         }
 
         //dd($action);

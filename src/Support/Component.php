@@ -8,10 +8,13 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Response;
+use Streams\Core\Support\Facades\Streams;
 use Illuminate\Contracts\Support\Jsonable;
 use Streams\Core\Support\Facades\Hydrator;
 use Streams\Core\Support\Traits\Prototype;
 use Illuminate\Contracts\Support\Arrayable;
+use Streams\Core\Stream\Stream;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
 /**
@@ -53,6 +56,33 @@ class Component implements Arrayable, Jsonable
             $this->component => $this,
         ]);
     }
+
+
+    public function response()
+    {
+        if ($this->response) {
+            return $this->response;
+        }
+
+        if (Request::method() == 'POST') {
+            $this->post();
+        }
+
+        if (!$this->async && Request::ajax()) {
+            return Response::view($this->render());
+        }
+
+        if ($this->async == true && Request::ajax()) {
+            return Response::json($this);
+        }
+
+        if (View::shared('cp')) {
+            return Response::view('ui::cp', ['content' => $this->render()]);
+        }
+
+        return Response::view('ui::ui', ['content' => $this->render()]);
+    }
+
 
     /**
      * Initialize the prototype.
