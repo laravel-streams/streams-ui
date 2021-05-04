@@ -338,12 +338,6 @@ class Form extends Component
     {
         $attributes = $callbackData->get('attributes');
 
-        if (isset($attributes['stream']) && is_string($attributes['stream']) && !$attributes['stream'] instanceof Stream) {
-            $attributes['stream'] = Streams::make($attributes['stream']);
-        }
-
-        $this->stream = Arr::get($attributes, 'stream');
-
         $this->query();
         //$this->authorize($attributes);
 
@@ -446,10 +440,8 @@ class Form extends Component
         return $this->fields = $attributes['fields'] = $fields;
     }
 
-    public function makeActions(&$attributes)
+    public function setActionsAttribute($actions)
     {
-        $actions = $attributes['actions'];
-        
         /**
          * Minimal standardization
          */
@@ -466,7 +458,7 @@ class Form extends Component
             $action = new Action($action);
         });
 
-        return $this->actions = new ActionCollection($attributes['actions']);
+        return $this->setPrototypeAttributeValue('actions', new ActionCollection($actions));
     }
 
     public function makeButtons(&$attributes)

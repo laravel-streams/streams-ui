@@ -4,13 +4,6 @@ use Illuminate\Support\Arr;
 use Streams\Ui\Button\ButtonRegistry;
 use Streams\Ui\Form\Action\Handler\Save;
 
-/**
- * Class ActionRegistry
- *
- * @link    http://pyrocms.com/
- * @author  PyroCMS, Inc. <support@pyrocms.com>
- * @author  Ryan Thompson <ryan@pyrocms.com>
- */
 class ActionRegistry
 {
 
