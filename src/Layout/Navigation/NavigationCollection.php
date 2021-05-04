@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\ControlPanel\Navigation;
+namespace Streams\Ui\Layout\Navigation;
 
 use Illuminate\Support\Collection;
 
