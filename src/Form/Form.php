@@ -4,6 +4,7 @@ namespace Streams\Ui\Form;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Streams\Ui\Button\Button;
 use Collective\Html\FormFacade;
 use Streams\Core\Stream\Stream;
 use Streams\Ui\Support\Component;
@@ -341,7 +342,9 @@ class Form extends Component
             $attributes['stream'] = Streams::make($attributes['stream']);
         }
 
-        $this->query($attributes);
+        $this->stream = Arr::get($attributes, 'stream');
+
+        $this->query();
         //$this->authorize($attributes);
 
         $this->makeFields($attributes);
@@ -379,7 +382,7 @@ class Form extends Component
          */
         if ($this->entry && is_object($this->entry)) {
 
-            $this->instance->entry = $this->entry;
+            $this->entry = $this->entry;
 
             return;
         }
@@ -392,7 +395,7 @@ class Form extends Component
 
             $this->criteria = $this->repository()->newCriteria();
 
-            $this->instance->entry = $this->criteria->find($this->entry);
+            $this->entry = $this->criteria->find($this->entry);
 
             return;
         }
@@ -466,9 +469,9 @@ class Form extends Component
         return $this->actions = new ActionCollection($attributes['actions']);
     }
 
-    public function makeButtons()
+    public function makeButtons(&$attributes)
     {
-        $buttons = $this->buttons ?: ['cancel'];
+        $buttons = $attributes['buttons'] ?: ['cancel'];
 
         /**
          * Minimal standardization

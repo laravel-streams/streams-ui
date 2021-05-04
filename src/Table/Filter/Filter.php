@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Table\Filter;
 
+use Collective\Html\FormFacade;
 use Illuminate\Support\Str;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\App;
@@ -44,9 +45,9 @@ class Filter extends Component
      *
      * @return null|string
      */
-    public function input()
+    public function render()
     {
-        $attributes = ['field' => $this];
+        $attributes = ['field' => $this->field];
 
         $attributes = array_diff_key($this->getPrototypeAttributes(), array_flip([
             'classes',
@@ -55,12 +56,9 @@ class Filter extends Component
         ]));
 
         $attributes['value'] = $this->value();
-        $attributes['name']  = $this->inputName();
-        $attributes['placeholder']  = Str::title($this->name());
+        $attributes['placeholder'] = $this->placeholder ?: Str::title($this->handle);
 
-        return App::make('streams.ui.input_types.' . ($this->input ?: 'input'), [
-            'attributes' => $attributes,
-        ]);
+        return FormFacade::input('text',  $this->inputName(), null);
     }
 
     /**
