@@ -14,7 +14,6 @@ use Illuminate\Contracts\Support\Jsonable;
 use Streams\Core\Support\Facades\Hydrator;
 use Streams\Core\Support\Traits\Prototype;
 use Illuminate\Contracts\Support\Arrayable;
-use Streams\Core\Stream\Stream;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
 /**
