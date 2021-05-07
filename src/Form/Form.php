@@ -6,7 +6,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Streams\Ui\Button\Button;
 use Collective\Html\FormFacade;
-use Streams\Core\Stream\Stream;
 use Streams\Ui\Support\Component;
 use Streams\Core\Support\Workflow;
 use Streams\Ui\Form\Action\Action;
@@ -15,7 +14,6 @@ use Illuminate\Support\Facades\Gate;
 use Streams\Core\Repository\Repository;
 use Streams\Ui\Button\ButtonCollection;
 use Illuminate\Support\Facades\Redirect;
-use Streams\Core\Support\Facades\Streams;
 use Streams\Core\Support\Facades\Messages;
 use Streams\Core\Support\Facades\Resolver;
 use Streams\Ui\Form\Field\FieldCollection;
@@ -23,10 +21,12 @@ use Streams\Core\Support\Facades\Evaluator;
 use Illuminate\Contracts\Validation\Factory;
 use Streams\Ui\Form\Action\ActionCollection;
 use Illuminate\Contracts\Validation\Validator;
-
+use Streams\Ui\Support\Traits\HasRepository;
 
 class Form extends Component
 {
+
+    use HasRepository;
 
     /**
      * Initialize the prototype.
@@ -247,31 +247,6 @@ class Form extends Component
         if ($action = $this->actions->get($this->request('action'))) {
             $action->active = true;
         }
-    }
-
-    public function repository()
-    {
-        if ($this->repository instanceof Repository) {
-            return $this->repository;
-        }
-
-        /**
-         * Default to configured.
-         */
-        if ($this->repository) {
-            return $this->repository = App::make($this->repository, [
-                'builder' => $this,
-            ]);
-        }
-
-        /**
-         * Fallback for Streams.
-         */
-        if (!$this->repository && $this->stream instanceof Stream) {
-            return $this->repository = $this->stream->repository();
-        }
-
-        return null;
     }
 
     public function handle()

@@ -11,16 +11,15 @@ use Streams\Ui\Table\View\View;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Collection;
 use Streams\Core\Support\Workflow;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Streams\Ui\Table\Action\Action;
 use Streams\Ui\Table\Column\Column;
 use Streams\Ui\Table\Filter\Filter;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;
-use Streams\Core\Repository\Repository;
 use Streams\Ui\Button\ButtonCollection;
 use Streams\Core\Support\Facades\Streams;
+use Streams\Ui\Support\Traits\HasRepository;
 use Streams\Ui\Table\View\ViewCollection;
 use Streams\Ui\Table\Action\ActionCollection;
 use Streams\Ui\Table\Filter\FilterCollection;
@@ -34,6 +33,8 @@ use Streams\Ui\Table\Filter\FilterCollection;
  */
 class Table extends Component
 {
+
+    use HasRepository;
 
     /**
      * Initialize the prototype.
@@ -107,6 +108,11 @@ class Table extends Component
         ], $attributes));
     }
 
+    /**
+     * Return if the rows are selectable or not.
+     *
+     * @return bool
+     */
     public function isSelectable(): bool
     {
         return ($this->actions->isNotEmpty() || $this->options->get('selectable'));
@@ -119,20 +125,12 @@ class Table extends Component
 
     public function post()
     {
-        $workflow = (new Workflow([
-            'detect' => [$this, 'detect'],
-            'handle' => [$this, 'handle'],
-        ]))->passThrough($this);
-
         $this->fire('posting', [
             'table' => $this,
-            'workflow' => $workflow
         ]);
 
-        $workflow->process([
-            'table' => $this,
-            'workflow' => $workflow
-        ]);
+        $this->detect();
+        $this->handle();
 
         $this->fire('posted', [
             'table' => $this
@@ -197,33 +195,8 @@ class Table extends Component
         $this->makeButtons($attributes);
         $this->makeColumns($attributes);
         $this->makeRows($attributes);
-        
+
         $callbackData->put('attributes', $attributes);
-    }
-
-    public function repository()
-    {
-        if ($this->repository instanceof Repository) {
-            return $this->repository;
-        }
-
-        /**
-         * Default to configured.
-         */
-        if ($this->repository) {
-            return $this->repository = App::make($this->repository, [
-                'builder' => $this,
-            ]);
-        }
-
-        /**
-         * Fallback for Streams.
-         */
-        if (!$this->repository && $this->stream instanceof Stream) {
-            return $this->repository = $this->stream->repository();
-        }
-
-        return null;
     }
 
     public function query()
@@ -399,7 +372,7 @@ class Table extends Component
             ] : $column;
 
             $column['handle'] = Arr::get($column, 'handle', $key);
-            
+
             $column['value'] = Arr::get($column, 'value', $column['handle']);
 
             $column['stream'] = $this->stream;
@@ -431,10 +404,10 @@ class Table extends Component
             ]);
         });
 
-        $rows->each(function ($row) {
+        $rows->each(function ($row) use ($attributes) {
 
             // Load Columns
-            foreach ($this->columns ?: [] as $key => $column) {
+            foreach (Arr::get($attributes, 'columns') ?: [] as $key => $column) {
 
                 $clone = clone ($column);
 
@@ -444,7 +417,7 @@ class Table extends Component
             }
 
             // Load Buttons
-            foreach ($this->buttons ?: [] as $button) {
+            foreach (Arr::get($attributes, 'buttons') ?: [] as $button) {
 
                 $clone = clone ($button);
 

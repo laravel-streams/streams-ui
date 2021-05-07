@@ -81,6 +81,15 @@ class Button extends Component
         ], $attributes)));
     }
 
+    public function text()
+    {
+        if ($this->text === false) {
+            return null;
+        }
+
+        return $this->text ?: ($this->text = Str::title(Str::humanize($this->handle)));
+    }
+
     public function url(array $extra = [])
     {
         if (!$target = Arr::get($this->attributes, 'href')) {

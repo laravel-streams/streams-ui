@@ -15,7 +15,7 @@
     <x-{{ $button->icon }}/>
     @endif
 
-    <span>{{ __($button->text) }}</span>
+    <span>{{ __($button->text()) }}</span>
 
     {!! $button->close() !!}
     
@@ -32,7 +32,7 @@
 
 {!! $button->open() !!}
 {{-- <i v-show="button.icon" :class="button.icon"></i> --}}
-{{ __($button->text) }} 
+{{ __($button->text()) }} 
 @if (isset($button->attributes['data-keymap']))
     <span class="hud-only -keymap">{{ $button->attributes['data-keymap'] }}</span>
 @endif

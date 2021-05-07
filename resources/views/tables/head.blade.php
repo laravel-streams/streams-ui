@@ -7,24 +7,26 @@
         
         @if ($table->isSelectable())
         <th class="c-table__selector">
-        <input type="checkbox" x-on:click="alert('Select all');">
+        <input type="checkbox" x-on:click="alert('Toggle all');">
         </th>
         @endif
 
         @foreach ($table->columns as $column)
         <th {!! $column->htmlAttributes() !!}>
 
-            @if ($column->sortable)
+            @if ($column->isSortable())
             <a href="{{ $column->href() }}">
-                {!! $column->heading !!}
-                @if ($column->direction == 'asc')
+                {!! __($column->heading()) !!}
+                @if ($column->direction() == 'asc')
                 @svg('heroicon-o-sort-ascending')
-                @elseif ($column->direction == 'desc')
+                @elseif ($column->direction() == 'desc')
                 @svg('heroicon-o-sort-descending')
+                @else
+                @svg('heroicon-o-switch-vertical')
                 @endif
             </a>
             @else
-            {!! $column->heading !!}
+            {!! __($column->heading()) !!}
             @endif
         </th>
         @endforeach
