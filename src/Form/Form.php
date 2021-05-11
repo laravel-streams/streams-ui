@@ -313,7 +313,6 @@ class Form extends Component
     {
         $attributes = $callbackData->get('attributes');
 
-        $this->query();
         //$this->authorize($attributes);
 
         $this->makeFields($attributes);
@@ -324,6 +323,17 @@ class Form extends Component
         $attributes['validators'] = array_merge(Arr::get($attributes, 'validators', []), $attributes['stream']->validators);
 
         $callbackData->put('attributes', $attributes);
+    }
+
+    public function onInitialized()
+    {
+        $this->query();
+
+        if ($this->entry) {
+            $this->fields->each(function ($field) {
+                $field->input()->load($this->entry->{$field->handle});
+            });
+        }
     }
 
     public function query()

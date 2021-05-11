@@ -111,7 +111,8 @@ class UiController extends StreamsController
         if ($component = Arr::get($action, 'ui.component', request('component'))) {
 
             $component = $stream->ui($component, Arr::get($action, 'ui.handle', request('handle', 'default')), [
-                'entry' => $data->get('entry')
+                'stream' => $data->get('stream'),
+                'entry' => $data->get('entry'),
             ]);
 
             $data->put('response', $component->response());

@@ -58,6 +58,11 @@ class Column extends Component
         return URL::current() . '?order_by=' . ($this->field ?: $this->handle) . '&sort=' . $direction;
     }
 
+    public function current()
+    {
+        return $this->direction ?: Request::get($this->prefix . 'sort');
+    }
+
     public function direction()
     {
         return $this->direction ?: Request::get($this->prefix . 'sort');
