@@ -105,14 +105,14 @@ class UiController extends StreamsController
         // @todo this needs work
         // control panel builder
         if (Arr::get($action, 'ui.cp_enabled') == true) {
-            //View::share('cp', (new ControlPanelBuilder())->build());
             View::share('cp', new ControlPanel());
         }
 
         if ($component = Arr::get($action, 'ui.component', request('component'))) {
 
             $component = $stream->ui($component, Arr::get($action, 'ui.handle', request('handle', 'default')), [
-                'entry' => $data->get('entry')
+                'stream' => $data->get('stream'),
+                'entry' => $data->get('entry'),
             ]);
 
             $data->put('response', $component->response());

@@ -2,9 +2,9 @@
 
 namespace Streams\Ui\Table\Column;
 
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Request;
 use Streams\Ui\Support\Component;
+use Illuminate\Support\Facades\URL;
 
 /**
  * Class Column
@@ -41,7 +41,7 @@ class Column extends Component
     {
         $direction = null;
 
-        $current = $this->direction;
+        $current = $this->direction();
 
         if (!$current) {
             $direction = 'asc';
@@ -55,6 +55,43 @@ class Column extends Component
             return URL::current();
         }
 
-        return URL::current() . '?order_by=' . $this->field . '&sort=' . $direction;
+        return URL::current() . '?order_by=' . ($this->field ?: $this->handle) . '&sort=' . $direction;
+    }
+
+    public function current()
+    {
+        return $this->direction ?: Request::get($this->prefix . 'sort');
+    }
+
+    public function direction()
+    {
+        return $this->direction ?: Request::get($this->prefix . 'sort');
+    }
+
+    public function isSortable()
+    {
+        if (is_bool($this->sortable)) {
+
+            return $this->sortable;
+        }
+
+        return $this->stream && $this->stream->fields->has($this->field ?: $this->handle);
+    }
+
+    public function heading()
+    {
+        if ($this->heading === false) {
+            return null;
+        }
+
+        if (
+            !$this->heading
+            && $this->stream
+            && $this->stream->fields->has($this->handle)
+        ) {
+            return $this->heading = $this->stream->fields->get($this->handle)->name();
+        }
+
+        return $this->heading;
     }
 }

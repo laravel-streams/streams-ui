@@ -252,7 +252,7 @@ class UiServiceProvider extends ServiceProvider
 
                 $class = Str::studly($component);
 
-                $builder = "Streams\Ui\\{$class}\\{$class}Builder";
+                $builder = "Streams\Ui\\{$class}\\{$class}";
             }
 
             return new $builder($attributes);

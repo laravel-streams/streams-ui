@@ -10,7 +10,7 @@
         <div class="c-filters__inputs">
         @foreach ($table->filters as $filter)
             <div class="c-input -{{ $filter->type }}-filter">
-                {{ $filter->input()->render() }}
+                {{ $filter->render() }}
             </div>
             @endforeach
         </div>

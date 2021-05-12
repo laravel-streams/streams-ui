@@ -4,10 +4,13 @@ namespace Streams\Ui\Support;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Streams\Core\Stream\Stream;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Response;
+use Streams\Core\Support\Facades\Streams;
 use Illuminate\Contracts\Support\Jsonable;
 use Streams\Core\Support\Facades\Hydrator;
 use Streams\Core\Support\Traits\Prototype;
@@ -39,6 +42,12 @@ class Component implements Arrayable, Jsonable
      */
     public function __construct(array $attributes = [])
     {
+        $attributes = Arr::undot($attributes);
+
+        if (isset($attributes['stream']) && is_string($attributes['stream']) && !$attributes['stream'] instanceof Stream) {
+            $this->stream = $attributes['stream'] = Streams::make($attributes['stream']);
+        }
+        
         $callbackData = new Collection([
             'attributes' => $attributes,
         ]);
@@ -53,6 +62,32 @@ class Component implements Arrayable, Jsonable
             $this->component => $this,
         ]);
     }
+
+    public function response()
+    {
+        if ($this->response) {
+            return $this->response;
+        }
+
+        if (Request::method() == 'POST') {
+            $this->post();
+        }
+
+        if (!$this->async && Request::ajax()) {
+            return Response::view($this->render());
+        }
+
+        if ($this->async == true && Request::ajax()) {
+            return Response::json($this);
+        }
+
+        if (View::shared('cp')) {
+            return Response::view('ui::cp', ['content' => $this->render()]);
+        }
+
+        return Response::view('ui::ui', ['content' => $this->render()]);
+    }
+
 
     /**
      * Initialize the prototype.
