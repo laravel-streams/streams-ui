@@ -361,9 +361,7 @@ class Table extends Component
     public function makeColumns(array &$attributes)
     {
         $columns = Arr::get($attributes, 'columns', [
-            'id' => [
-                'heading' => 'ID',
-            ]
+            'id' => [],
         ]);
 
         /**

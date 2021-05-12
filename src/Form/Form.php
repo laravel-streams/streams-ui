@@ -427,6 +427,8 @@ class Form extends Component
 
     public function setActionsAttribute($actions)
     {
+        $actions = $actions ?: ['save' => []];
+        
         /**
          * Minimal standardization
          */
