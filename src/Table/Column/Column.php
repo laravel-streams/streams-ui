@@ -84,8 +84,12 @@ class Column extends Component
             return null;
         }
 
-        if ($this->stream && $this->stream->fields->has($this->handle)) {
-            return $this->stream->fields->get($this->handle)->name();
+        if (
+            !$this->heading
+            && $this->stream
+            && $this->stream->fields->has($this->handle)
+        ) {
+            return $this->heading = $this->stream->fields->get($this->handle)->name();
         }
 
         return $this->heading;
