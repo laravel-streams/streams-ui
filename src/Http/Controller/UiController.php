@@ -64,8 +64,9 @@ class UiController extends StreamsController
     public function resolveSection(Collection $data)
     {
         $action = $data->get('action');
+        $route = $data->get('route');
 
-        if (!$section = Request::route()->parameter('section')) {
+        if (!$section = $route->parameter('section')) {
             return;
         }
 

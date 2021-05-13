@@ -7,13 +7,13 @@
 
             tr {
                 th {
-                    @apply px-8 py-4 text-left font-medium;
+                    @apply px-4 py-4 text-left font-medium whitespace-nowrap;
 
                     background-color: rgba(0, 0, 0, 0.10);
 
                     &.c-table__selector {
                         width: 1px;
-                        @apply px-8 pr-0;
+                        @apply px-8 pr-2;
                     }
 
                     svg {
@@ -37,7 +37,7 @@
                 }
 
                 td {
-                    @apply px-8 py-3 whitespace-nowrap;
+                    @apply px-4 py-3 whitespace-nowrap;
 
                     &.c-table__selector {
                         width: 1px;
