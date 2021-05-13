@@ -33,12 +33,12 @@ Components are configured within the [stream definition](/docs/core/streams).
     // ...
     "ui": {
         "tables": {
-            "example": {
+            "default": {
                 // ...
             }
         },
         "forms": {
-            "example": {
+            "default": {
                 // ...
             }
         }

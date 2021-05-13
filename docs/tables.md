@@ -68,8 +68,8 @@ The following parameters are available.
 
 ```json
 {
-    "stream": "contacts",
-    "table": "default",
+    "stream": null,
+    "table": null,
     "views": [],
     "filters": [],
     "columns": [],
@@ -77,10 +77,21 @@ The following parameters are available.
     "actions": [],
     "options": [],
 
-    "builder": "App\\MyTableBuilder",
     "template": "ui::tables.table"
 }
 ```
+
+| Name | Default | Description |
+| - | - | - |
+| stream | null | The contextual stream. |
+| table | default | The table configuration to use. |
+| views | [] | The table views. |
+| filters | [] | The table filters. |
+| columns | ['id' => []] | The table columns. |
+| buttons | [] | The table buttons. |
+| actions | [] | The table actions. |
+| template | ui::tables.table | The table template view. |
+
 
 ##### stream `string|Stream`
 
