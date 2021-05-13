@@ -5,7 +5,6 @@ namespace Streams\Ui\Table\Filter;
 use Collective\Html\FormFacade;
 use Illuminate\Support\Str;
 use Streams\Ui\Support\Component;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Request;
 use Streams\Ui\Table\Filter\Query\GenericFilterQuery;
 
@@ -55,10 +54,9 @@ class Filter extends Component
             'component',
         ]));
 
-        $attributes['value'] = $this->value();
-        $attributes['placeholder'] = $this->placeholder ?: Str::title($this->handle);
-
-        return FormFacade::input('text',  $this->inputName(), null);
+        return FormFacade::input('text', $this->inputName(), $this->value(), [
+            'placeholder' => $this->placeholder ?: Str::title($this->handle),
+        ]);
     }
 
     /**

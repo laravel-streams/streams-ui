@@ -11,6 +11,7 @@ use Streams\Ui\Table\View\View;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Collection;
 use Streams\Core\Support\Workflow;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Streams\Ui\Table\Action\Action;
 use Streams\Ui\Table\Column\Column;
@@ -19,8 +20,8 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;
 use Streams\Ui\Button\ButtonCollection;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Support\Traits\HasRepository;
 use Streams\Ui\Table\View\ViewCollection;
+use Streams\Ui\Support\Traits\HasRepository;
 use Streams\Ui\Table\Action\ActionCollection;
 use Streams\Ui\Table\Filter\FilterCollection;
 
@@ -186,7 +187,7 @@ class Table extends Component
         // $this->applyView($attributes);
 
         $this->makeFilters($attributes);
-        // $this->detect_filters($attributes);
+        
         $this->query($attributes);
 
         //$this->authorize($attributes);
@@ -199,7 +200,7 @@ class Table extends Component
         $callbackData->put('attributes', $attributes);
     }
 
-    public function query()
+    public function query(array $attributes)
     {
 
         /**
@@ -210,19 +211,19 @@ class Table extends Component
         /**
          * Filter Query
          */
-        // foreach ($this->filters->active() as $filter) {
+        foreach (Arr::get($attributes, 'filters', []) as $filter) {
 
-        //     /*
-        //     * If the handler is a callable string or Closure
-        //     * then call it using the IoC container.
-        //     */
-        //     $query = $filter->query ?: [$filter, 'query'];
+            /*
+            * If the handler is a callable string or Closure
+            * then call it using the IoC container.
+            */
+            $query = $filter->query ?: [$filter, 'query'];
 
-        //     App::call($query, [
-        //         'builder' => $this,
-        //         'filter' => $filter,
-        //     ], 'handle');
-        // }
+            App::call($query, [
+                'table' => $this,
+                'filter' => $filter,
+            ], 'handle');
+        }
 
         /**
          * Order query
@@ -296,6 +297,12 @@ class Table extends Component
             $filter['handle'] = Arr::get($filter, 'handle', $key);
 
             $filter['stream'] = $attributes['stream'];
+
+            $value = Request::get(Arr::get($attributes, 'options.prefix').$filter['handle']);
+
+            if ($filter['active'] = (bool) $value) {
+                $filter['value'] = $value;
+            }
 
             $filter = new Filter($filter);
         });
@@ -513,12 +520,5 @@ class Table extends Component
         if ($model && !Gate::allows('viewAny', $model)) {
             abort(403);
         }
-    }
-
-    public function detectFilters()
-    {
-        $this->filters->each(function ($filter) {
-            $filter->active = Request::has($this->prefix(/*'filter_' .*/$filter->handle));
-        });
     }
 }

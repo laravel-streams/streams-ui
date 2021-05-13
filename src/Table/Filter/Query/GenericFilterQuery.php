@@ -2,17 +2,11 @@
 
 namespace Streams\Ui\Table\Filter\Query;
 
+use Streams\Ui\Table\Table;
 use Streams\Ui\Table\TableBuilder;
 use Streams\Ui\Table\Filter\Filter;
 use Streams\Core\Criteria\Contract\CriteriaInterface;
 
-/**
- * Class GenericFilterQuery
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
 class GenericFilterQuery
 {
 
@@ -22,8 +16,8 @@ class GenericFilterQuery
      * @param TableBuilder $builder
      * @param CriteriaInterface $criteria
      */
-    public function handle(TableBuilder $builder, Filter $filter)
+    public function handle(Table $table, Filter $filter)
     {
-        $builder->criteria->where($filter->column ?: $filter->handle, 'LIKE', '%' . $filter->value() . '%');
+        $table->criteria->where($filter->column ?: $filter->handle, 'LIKE', '%' . $filter->value() . '%');
     }
 }
