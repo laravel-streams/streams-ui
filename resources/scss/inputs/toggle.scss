@@ -1,4 +1,4 @@
-.ls-input.--toggle-input input[type="checkbox"]+.toggle {
+.c-input.-toggle-input input[type="checkbox"]+.toggle {
     width: 60px;
     height: 32px;
     padding: 4px;
@@ -19,7 +19,7 @@
     }
 }
 
-.ls-input.--toggle-input input[type="checkbox"]:checked+.toggle {
+.c-input.-toggle-input input[type="checkbox"]:checked+.toggle {
     background: #3076F6;
     transition: background 0.5s ease;
 
@@ -28,11 +28,11 @@
     }
 }
 
-.ls-input.--toggle-input input[type="checkbox"]:focus+.toggle {
+.c-input.-toggle-input input[type="checkbox"]:focus+.toggle {
     background: #3076F6;
 }
 
-.ls-input.--toggle-input input[type="checkbox"] {
+.c-input.-toggle-input input[type="checkbox"] {
     // visually hidden but accessible
     // credit: https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
     position: absolute;
