@@ -1,12 +1,10 @@
 {
     "handle": "testing.litmus",
     "description": "Used for testing.",
-    
     "source": {
         "path": "vendor/streams/ui/tests/data/litmus",
         "format": "json"
     },
-
     "fields": {
         "text": {
             "type": "text",
@@ -117,6 +115,10 @@
                     "baz": "Baz"
                 }
             }
+        },
+        "checkbox": {
+            "type": "boolean|checkbox",
+            "label": "Checkbox Input"
         },
         "textarea": {
             "type": "string|textarea",

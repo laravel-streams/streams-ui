@@ -2,9 +2,9 @@
 
 namespace Streams\Ui\Tests\Support;
 
-use Illuminate\Support\Collection;
 use Tests\TestCase;
 use Streams\Ui\Table\Table;
+use Illuminate\Support\Collection;
 use Streams\Core\Repository\Repository;
 use Streams\Core\Support\Facades\Streams;
 
@@ -22,7 +22,7 @@ class TableTest extends TestCase
     {
         $stream = Streams::make('testing.examples');
 
-        $table = $stream->table()->build();
+        $table = $stream->table();
 
         $this->assertEquals(true, $table->isSelectable());
 
@@ -39,7 +39,7 @@ class TableTest extends TestCase
     {
         $stream = Streams::make('testing.examples');
 
-        $table = $stream->table()->build();
+        $table = $stream->table();
 
         $this->assertEquals(false, $table->isSortable());
     }

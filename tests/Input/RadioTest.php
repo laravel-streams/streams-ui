@@ -33,7 +33,7 @@ class RadioTest extends TestCase
         $input->value = 'bar';
 
         $this->assertStringContainsString('value="foo"', (string) $input->render());
-        $this->assertStringContainsString('value="bar" checked', (string) $input->render());
+        $this->assertStringContainsString('value="bar" type="radio" id="radio-input" checked', (string) $input->render());
     }
 
     public function testHtmlAttributes()

@@ -67,5 +67,6 @@ return [
 
         'toggle' => \Streams\Ui\Input\Toggle::class,
         'boolean' => \Streams\Ui\Input\Checkbox::class, // Default
+        'checkbox' => \Streams\Ui\Input\Checkbox::class,
     ],
 ];
