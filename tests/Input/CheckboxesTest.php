@@ -34,12 +34,10 @@ class CheckboxesTest extends TestCase
         ], $input->field->config['options']);
     }
 
-    // public function testHtmlAttributes()
-    // {
-    //     $input = Streams::make('testing.litmus')->fields->date->input();
+    public function testHtmlAttributes()
+    {
+        $input = Streams::make('testing.litmus')->fields->checkboxes->input();
 
-    //     $this->assertStringContainsString('type="date"', $input->htmlAttributes());
-    //     $this->assertStringContainsString('min="2021-01-01"', $input->htmlAttributes());
-    //     $this->assertStringContainsString('max="2121-01-01"', $input->htmlAttributes());
-    // }
+        $this->assertStringContainsString('id="checkboxes-input"', $input->htmlAttributes());
+    }
 }
