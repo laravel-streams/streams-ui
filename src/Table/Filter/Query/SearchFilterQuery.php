@@ -3,10 +3,10 @@
 namespace Streams\Ui\Table\Filter\Query;
 
 use Illuminate\Support\Arr;
+use Streams\Ui\Table\Table;
 use Illuminate\Support\Facades\App;
-use Illuminate\Database\Eloquent\Builder;
-use Streams\Ui\Table\TableBuilder;
 use Streams\Ui\Table\Filter\Filter;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class SearchFilterQuery
@@ -21,44 +21,58 @@ class SearchFilterQuery
     /**
      * Handle the filter.
      *
+     * @param TableBuilder $builder
+     * @param CriteriaInterface $criteria
+     */
+    public function handle(Table $table, Filter $filter)
+    {
+        $search = $filter->fields ?: ([$filter->column ?: $filter->handle]);
+
+        dd($search);
+        $table->criteria->where($filter->column ?: $filter->handle, 'LIKE', '%' . $filter->value() . '%');
+    }
+
+    /**
+     * Handle the filter.
+     *
      * @param Builder $query
      * @param Filter $filter
      */
-    public function handle(Builder $query, TableBuilder $builder, Filter $filter)
-    {
-        $stream = $filter->stream;
+    // public function handle(Builder $query, Table $table, Filter $filter)
+    // {
+    //     $stream = $filter->stream;
 
-        $query->where(
-            function (Builder $query) use ($filter, $stream, $builder) {
+    //     $query->where(
+    //         function (Builder $query) use ($filter, $stream, $table) {
 
-                /* @var Builder|HasAttributes $query */
-                $casts = $query
-                    ->getModel()
-                    ->getCasts();
+    //             /* @var Builder|HasAttributes $query */
+    //             $casts = $query
+    //                 ->getModel()
+    //                 ->getCasts();
 
-                foreach ($filter->columns as $column) {
+    //             foreach ($filter->columns as $column) {
 
-                    $value = $filter->getValue();
+    //                 $value = $filter->getValue();
 
-                    if (Arr::get($casts, $column) == 'json') {
-                        $value = addslashes(substr(json_encode($value), 1, -1));
-                    }
+    //                 if (Arr::get($casts, $column) == 'json') {
+    //                     $value = addslashes(substr(json_encode($value), 1, -1));
+    //                 }
 
-                    $query->orWhere($column, 'LIKE', "%{$value}%");
-                }
+    //                 $query->orWhere($column, 'LIKE', "%{$value}%");
+    //             }
 
-                foreach ($filter->fields as $field) {
+    //             foreach ($filter->fields as $field) {
 
-                    $filter->field = $field;
+    //                 $filter->field = $field;
 
-                    $fieldType      = $stream->fields->get($field)->type();
-                    $fieldTypeQuery = $fieldType->query;
+    //                 $fieldType      = $stream->fields->get($field)->type();
+    //                 $fieldTypeQuery = $fieldType->query;
 
-                    $fieldTypeQuery->setConstraint('or');
+    //                 $fieldTypeQuery->setConstraint('or');
 
-                    App::call($fieldTypeQuery, compact('query', 'filter', 'builder', 'stream'), 'filter');
-                }
-            }
-        );
-    }
+    //                 App::call($fieldTypeQuery, compact('query', 'filter', 'builder', 'stream'), 'filter');
+    //             }
+    //         }
+    //     );
+    // }
 }

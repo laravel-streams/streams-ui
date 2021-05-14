@@ -2,8 +2,8 @@
 
 namespace Streams\Ui\Table\Filter;
 
-use Collective\Html\FormFacade;
 use Illuminate\Support\Str;
+use Collective\Html\FormFacade;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\Request;
 use Streams\Ui\Table\Filter\Query\GenericFilterQuery;

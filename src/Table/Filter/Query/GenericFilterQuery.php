@@ -18,6 +18,15 @@ class GenericFilterQuery
      */
     public function handle(Table $table, Filter $filter)
     {
-        $table->criteria->where($filter->column ?: $filter->handle, 'LIKE', '%' . $filter->value() . '%');
+        if (!$filter->fields) {
+
+            $table->criteria->where($filter->column ?: $filter->handle, 'LIKE', '%' . $filter->value() . '%');
+
+            return;
+        }
+
+        foreach ($filter->fields as $field) {
+            $table->criteria->orWhere($field, 'LIKE', '%' . $filter->value() . '%');
+        }
     }
 }
