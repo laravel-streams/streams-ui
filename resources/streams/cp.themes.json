@@ -28,6 +28,22 @@
             "type": "color",
             "required": true
         },
+        "white": {
+            "type": "color",
+            "required": true
+        },
+        "black": {
+            "type": "color",
+            "required": true
+        },
+        "text": {
+            "type": "color",
+            "required": true
+        },
+        "buttons": {
+            "type": "color",
+            "required": true
+        },
         "primary": {
             "type": "color",
             "required": true

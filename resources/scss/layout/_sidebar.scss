@@ -1,11 +1,14 @@
+.text-buttons {
+    color: var(--ls-color-buttons);
+}
 .c-sidebar {
-    @apply m-0 p-0 flex flex-col min-w-full min-h-screen text-white bg-primary;
+    @apply m-0 p-0 flex flex-col min-w-full min-h-screen bg-primary;
 
     &__brand {
         @apply flex items-center justify-start h-20 p-8;
 
         a {
-            @apply text-2xl text-white;
+            @apply text-2xl text-buttons;
         }
     }
 
@@ -15,7 +18,7 @@
         nav {
 
             >a {
-                @apply block p-4 rounded-lg;
+                @apply block p-4 rounded-lg text-buttons;
 
                 &.-active {
                     @apply font-bold;
@@ -31,12 +34,12 @@
                 @apply mb-4;
 
                 li {
-                    @apply list-disc ml-4;
+                    @apply list-none ml-8;
 
                     &.-has-active {}
 
                     a {
-                        @apply block p-1 pl-0;
+                        @apply block p-1 pl-0 text-buttons;
 
                         &.-active {
                             @apply font-bold;

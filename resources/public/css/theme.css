@@ -110,12 +110,17 @@ select.a-input:not([multiple]) {
   margin: -1px;
 }
 
+.color-text {
+  color: var(--ls-color-text);
+}
+
 .o-cp {
   display: flex;
   height: 100vh;
   margin: 0px;
   overflow: hidden;
   width: 100%;
+  color: var(--ls-color-text);
   background-color: var(--ls-color-light);
 }
 
@@ -160,6 +165,10 @@ select.a-input:not([multiple]) {
   flex-grow: 1;
 }
 
+.text-buttons {
+  color: var(--ls-color-buttons);
+}
+
 .c-sidebar {
   background-color: var(--ls-color-primary);
   display: flex;
@@ -168,7 +177,6 @@ select.a-input:not([multiple]) {
   min-height: 100vh;
   min-width: 100%;
   padding: 0px;
-  color: var(--ls-color-white);
 }
 
 .c-sidebar__brand {
@@ -182,7 +190,8 @@ select.a-input:not([multiple]) {
 .c-sidebar__brand a {
   font-size: 1.5rem;
   line-height: 2rem;
-  color: var(--ls-color-white);
+  color: var(--ls-color-buttons);
+  color: var(--ls-color-buttons);
 }
 
 .c-sidebar__nav {
@@ -194,6 +203,8 @@ select.a-input:not([multiple]) {
   border-radius: calc(var(--ls-radius)*0.5rem);
   display: block;
   padding: calc(var(--ls-spacing)*1rem);
+  color: var(--ls-color-buttons);
+  color: var(--ls-color-buttons);
 }
 
 .c-sidebar__nav nav > a.-active {
@@ -206,14 +217,16 @@ select.a-input:not([multiple]) {
 }
 
 .c-sidebar__nav nav ul li {
-  list-style-type: disc;
-  margin-left: calc(var(--ls-spacing)*1rem);
+  list-style-type: none;
+  margin-left: calc(var(--ls-spacing)*2rem);
 }
 
 .c-sidebar__nav nav ul li a {
   display: block;
   padding: calc(var(--ls-spacing)*0.25rem);
   padding-left: 0px;
+  color: var(--ls-color-buttons);
+  color: var(--ls-color-buttons);
 }
 
 .c-sidebar__nav nav ul li a.-active {
@@ -372,6 +385,10 @@ select.a-input:not([multiple]) {
   gap: calc(var(--ls-spacing)*1rem);
 }
 
+.text-buttons {
+  color: var(--ls-color-buttons);
+}
+
 .c-buttons {
   display: flex;
   align-items: center;
@@ -389,25 +406,26 @@ select.a-input:not([multiple]) {
   padding-bottom: calc(var(--ls-spacing)*0.5rem);
   padding-left: calc(var(--ls-spacing)*1rem);
   padding-right: calc(var(--ls-spacing)*1rem);
-  color: var(--ls-color-white);
+  color: var(--ls-color-buttons);
+  color: var(--ls-color-buttons);
 }
 
 .a-button span {
-  color: var(--ls-color-white);
+  color: var(--ls-color-buttons);
 }
 
 .a-button.-primary {
-  color: var(--ls-color-white);
+  color: var(--ls-color-buttons);
   background-color: var(--ls-color-primary);
 }
 
 .a-button.-secondary {
-  color: var(--ls-color-white);
+  color: var(--ls-color-buttons);
   background-color: var(--ls-color-secondary);
 }
 
 .a-button.-link {
-  color: var(--ls-color-black);
+  color: var(--ls-color-text);
   background-color: var(--ls-color-transparent);
 }
 

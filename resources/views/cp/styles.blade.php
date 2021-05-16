@@ -9,13 +9,30 @@
 @if ($theme)
 <style>
     :root {
-        --ls-spacing: {{ $theme->spacing }};
-        --ls-radius: {{ $theme->radius }};
+        @php
 
-        --ls-color-light: {{ $theme->light }};
-        --ls-color-dark: {{ $theme->dark }};
-        --ls-color-primary: {{ $theme->primary }};
-        --ls-color-secondary: {{ $theme->secondary }};
+            $styles = array_filter([
+                '--ls-spacing' => $theme->spacing,
+                '--ls-radius' => $theme->radius,
+                
+                '--ls-color-light' => $theme->light,
+                '--ls-color-dark' => $theme->dark,
+                
+                '--ls-color-black' => $theme->black,
+                '--ls-color-white' => $theme->white,
+                
+                '--ls-color-primary' => $theme->primary,
+                '--ls-color-secondary' => $theme->secondary,
+                
+                '--ls-color-text' => $theme->text,
+                '--ls-color-buttons' => $theme->buttons,
+            ]);
+
+        @endphp
+
+        @foreach ($styles as $key => $value)
+        {{ $key }}: {{ $value }};
+        @endforeach
     }
 </style>
 @endif

@@ -1,5 +1,9 @@
+.color-text {
+    color: var(--ls-color-text);
+}
+
 .o-cp {
-    @apply m-0 flex w-full h-screen overflow-hidden;
+    @apply m-0 flex w-full h-screen overflow-hidden color-text;
     
     background-color: var(--ls-color-light);
 
