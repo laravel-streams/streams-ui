@@ -292,6 +292,10 @@ class UiServiceProvider extends ServiceProvider
                     return $this->input;
                 }
 
+                if (!isset($this->input['type'])) {
+                    throw new \Exception("Missing input type for field [{$this->handle}] in stream [{$this->stream->handle}]");
+                }
+
                 if (!App::has("streams.ui.input_types.{$this->input['type']}")) {
                     throw new \Exception("Invalid input type [{$this->input['type']}] for field [{$this->handle}] in stream [{$this->stream->handle}]");
                 }
