@@ -498,5 +498,6 @@ select.a-input:not([multiple]) {
 
 .c-dropdown__content a:hover {
   background-color: var(--ls-color-secondary);
-  color: var(--ls-color-white);
+  color: var(--ls-color-buttons);
+  color: var(--ls-color-buttons);
 }
