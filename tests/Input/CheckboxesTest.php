@@ -31,7 +31,7 @@ class CheckboxesTest extends TestCase
             'foo' => 'Foo',
             'bar' => 'Bar',
             'baz' => 'Baz',
-        ], $input->field->config['options']);
+        ], $input->field->type()->options());
     }
 
     public function testHtmlAttributes()

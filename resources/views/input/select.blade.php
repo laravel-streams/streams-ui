@@ -7,7 +7,7 @@
     <option value="">---</option>
 @endif
 
-@foreach ($input->field->config['options'] as $key => $value)
+@foreach ($input->field->type()->options() as $key => $value)
     <option {{ $key == $input->value ? 'selected' : null }} value="{{ $key }}">{{ $value }}</option>
 @endforeach
 </select>

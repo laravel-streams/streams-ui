@@ -57,6 +57,7 @@ return [
 
         'integer' => \Streams\Ui\Input\Integer::class,
         'decimal' => \Streams\Ui\Input\Decimal::class,
+        'float' => \Streams\Ui\Input\Decimal::class,
 
         'textarea' => \Streams\Ui\Input\Textarea::class,
         'markdown' => \Streams\Ui\Input\Markdown::class,

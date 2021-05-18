@@ -30,7 +30,7 @@ class SelectTest extends TestCase
         $this->assertEquals([
             'foo' => 'Foo',
             'bar' => 'Bar',
-        ], $input->field->config['options']);
+        ], $input->field->type()->options());
     }
 
     // public function testHtmlAttributes()

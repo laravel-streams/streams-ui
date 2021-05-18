@@ -1,5 +1,5 @@
 <!-- radio.blade.php -->
-@foreach ($input->field->config['options'] as $key => $value)
+@foreach ($input->field->type()->options() as $key => $value)
 <label class="inline-flex items-center">
     <input {!! $input->htmlAttributes([
         'value' => $key,
