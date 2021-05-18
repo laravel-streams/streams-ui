@@ -352,6 +352,7 @@ class Form extends Component
 
         if ($this->entry) {
             $this->fields->each(function ($field) {
+                $field->type()->setPrototypeAttribute('value', $this->entry->{$field->handle});
                 $field->input()->load($this->entry->{$field->handle});
             });
         }

@@ -33,4 +33,19 @@ class Multiselect extends Input
             'name' => $this->name() . '[]',
         ], $attributes));
     }
+
+    public function load($value)
+    {
+        if (
+            isset($value)
+            && is_string($value)
+            && $json = json_decode($value, true)
+            ) {
+                $value = $json;
+        }
+        
+        $this->value = $value;
+
+        return $this;
+    }
 }
