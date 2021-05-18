@@ -211,7 +211,7 @@ class Table extends Component
         /**
          * Filter Query
          */
-        foreach (Arr::get($attributes, 'filters', []) as $filter) {
+        foreach ((new FilterCollection($attributes['filters']))->active() as $filter) {
 
             /*
             * If the handler is a callable string or Closure
