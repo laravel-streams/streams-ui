@@ -6,6 +6,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Streams\Ui\Button\Button;
 use Streams\Ui\Support\Component;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Request;
 use Streams\Ui\Button\ButtonCollection;
 use Streams\Core\Support\Facades\Streams;
@@ -137,6 +138,10 @@ class ControlPanel extends Component
             $button['handle'] = Arr::get($button, 'handle', $key);
 
             $button['stream'] = $this->stream;
+
+            if (!isset($button['attributes']['href'])) {
+                $button['attributes']['href'] = URL::cp(Request::segment(2) . '/' . $button['handle']);
+            }
 
             $button = new Button($button);
         });
