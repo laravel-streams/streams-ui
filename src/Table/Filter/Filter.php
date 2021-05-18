@@ -55,7 +55,7 @@ class Filter extends Component
         ]));
 
         return FormFacade::input('text', $this->inputName(), $this->value(), [
-            'placeholder' => $this->placeholder ?: Str::title($this->handle),
+            'placeholder' => $this->placeholder ?: Str::title(Str::humanize($this->handle)),
         ]);
     }
 
