@@ -4,6 +4,7 @@ namespace Streams\Ui\ControlPanel;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Streams\Ui\Button\Button;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\Request;
 use Streams\Ui\Button\ButtonCollection;
@@ -106,6 +107,10 @@ class ControlPanel extends Component
 
             $this->stream = $this->stream ?: $match->stream;
             $this->entry = $this->entry ?: $match->entry;
+            
+            if ($match->buttons) {
+                $this->buttons = $match->buttons;
+            }
         }
     }
 
@@ -114,5 +119,28 @@ class ControlPanel extends Component
         $this->shortcuts = Streams::entries('cp.shortcuts')
             ->orderBy('sort_order', 'asc')
             ->get();
+    }
+
+    public function setButtonsAttribute($buttons)
+    {
+        $buttons = $buttons ?: ['cancel'];
+
+        /**
+         * Minimal standardization
+         */
+        array_walk($buttons, function (&$button, $key) {
+
+            $button = is_string($button) ? [
+                'button' => $button,
+            ] : $button;
+
+            $button['handle'] = Arr::get($button, 'handle', $key);
+
+            $button['stream'] = $this->stream;
+
+            $button = new Button($button);
+        });
+
+        return $this->setPrototypeAttributeValue('buttons', new ButtonCollection($buttons));
     }
 }
