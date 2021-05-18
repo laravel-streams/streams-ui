@@ -39,12 +39,13 @@ return [
         'hash' => \Streams\Ui\Input\Input::class, // Default
         'input' => \Streams\Ui\Input\Input::class,
         'string' => \Streams\Ui\Input\Input::class, // Default
-
+        
         'date' => \Streams\Ui\Input\Date::class,
         'time' => \Streams\Ui\Input\Time::class,
         'datetime' => \Streams\Ui\Input\Datetime::class,
-
+        
         'slug' => \Streams\Ui\Input\Slug::class,
+        'email' => \Streams\Ui\Input\Input::class,
 
         'color' => \Streams\Ui\Input\Color::class,
         'radio' => \Streams\Ui\Input\Radio::class,
