@@ -65,12 +65,12 @@ class Component implements Arrayable, Jsonable
 
     public function response()
     {
-        if ($this->response) {
-            return $this->response;
-        }
-
         if (Request::method() == 'POST') {
             $this->post();
+        }
+
+        if ($this->response) {
+            return $this->response;
         }
 
         if (!$this->async && Request::ajax()) {
@@ -78,6 +78,10 @@ class Component implements Arrayable, Jsonable
         }
 
         if ($this->async == true && Request::ajax()) {
+            return Response::json($this);
+        }
+
+        if (Request::expectsJson()) {
             return Response::json($this);
         }
 

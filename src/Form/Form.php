@@ -11,17 +11,20 @@ use Streams\Core\Support\Workflow;
 use Streams\Ui\Form\Action\Action;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Request;
 use Streams\Core\Repository\Repository;
 use Streams\Ui\Button\ButtonCollection;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
+use Streams\Ui\Form\Action\Handler\Save;
 use Streams\Core\Support\Facades\Messages;
 use Streams\Core\Support\Facades\Resolver;
 use Streams\Ui\Form\Field\FieldCollection;
 use Streams\Core\Support\Facades\Evaluator;
 use Illuminate\Contracts\Validation\Factory;
 use Streams\Ui\Form\Action\ActionCollection;
-use Illuminate\Contracts\Validation\Validator;
 use Streams\Ui\Support\Traits\HasRepository;
+use Illuminate\Contracts\Validation\Validator;
 
 class Form extends Component
 {
@@ -257,7 +260,8 @@ class Form extends Component
 
         $active = $this->actions->active();
 
-        $handler = $this->handler ?: $active->handler;
+        // @todo Tmp
+        $handler = $this->handler ?: ($active->handler ?: Save::class);
 
         if (is_string($handler) && !Str::contains($handler, '@')) {
             $handler .= '@handle';
@@ -267,6 +271,23 @@ class Form extends Component
             App::call($handler, [
                 'form' => $this,
             ]);
+        }
+
+        if (Request::expectsJson()) {
+            $this->response = Response::json([
+                'data' => null,
+                'meta' => [
+                    // 'parameters' => Request::route()->parameters(),
+                    // 'query' => Request::query(),
+                ],
+                'links' => [
+                    // 'self' => URL::to(Request::path()),
+                    // 'index' => URL::route('ls.api.entries.index', ['stream' => $stream]),
+                ],
+                'errors' => [
+                    //"Action [view] authorized for [{$stream}]."
+                ]
+                ], 200);
         }
 
         $this->response ?: $this->response = Redirect::back()->with('messages', Messages::get());
