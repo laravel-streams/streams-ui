@@ -45,8 +45,9 @@ class UiServiceProvider extends ServiceProvider
      * @var array
      */
     public $singletons = [
+        'ui' => \Streams\Ui\Support\UiManager::class,
         \Streams\Ui\Support\Breadcrumb::class => \Streams\Ui\Support\Breadcrumb::class,
-        
+
         // Get rid of these registries and register something to IoC like streams.ui.button.save using internal naming - do whatever you want otherwise.
         \Streams\Ui\Button\ButtonRegistry::class => \Streams\Ui\Button\ButtonRegistry::class,
         \Streams\Ui\Table\View\ViewRegistry::class => \Streams\Ui\Table\View\ViewRegistry::class,
@@ -307,23 +308,23 @@ class UiServiceProvider extends ServiceProvider
         });
 
         Field::when('initializing', function ($callbackData) {
-            
+
             $attributes = $callbackData->get('attributes');
-            
+
             if (!isset($attributes['input'])) {
                 $attributes['input'] = [];
             }
-    
+
             if (is_string($attributes['input'])) {
                 $attributes['input'] = [
                     'type' => $attributes['input'],
                 ];
             }
-    
+
             if (is_string($attributes['type']) && strpos($attributes['type'], '|')) {
                 list($attributes['type'], $attributes['input']['type']) = explode('|', $attributes['type']);
             }
-    
+
             if (!isset($attributes['input']['type'])) {
                 $attributes['input']['type'] = $attributes['type'];
             }

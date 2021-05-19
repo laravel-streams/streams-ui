@@ -10,7 +10,6 @@ use Streams\Core\Stream\Stream;
 use Streams\Ui\Table\View\View;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Collection;
-use Streams\Core\Support\Workflow;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Streams\Ui\Table\Action\Action;

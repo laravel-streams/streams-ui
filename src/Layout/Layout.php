@@ -2,8 +2,9 @@
 
 namespace Streams\Ui\Layout;
 
+use Illuminate\Support\Arr;
 use Streams\Ui\Support\Component;
-use Streams\Ui\Layout\Shortcut\ShortcutCollection;
+use Streams\Ui\Support\Facades\UI;
 
 class Layout extends Component
 {
@@ -23,11 +24,22 @@ class Layout extends Component
         ]);
 
         return parent::initializePrototypeAttributes(array_merge([
-            // 'buttons' => [],
-            // 'shortcuts' => [],
-            'content' => [],
             'component' => 'layout',
             'template'  => 'ui::layouts.layout',
+            'content' => [],
         ], $attributes));
+    }
+
+    public function setContentAttribute($value)
+    {
+        foreach ($value as $key => &$content) {
+
+            $content['handle'] = Arr::get($content, 'handle', $key);
+            $content['component'] = Arr::get($content, 'component', $key);
+
+            $content = UI::make(Arr::get($content, 'component'), $content);
+        }
+
+        $this->setPrototypeAttributeValue('content', $value);
     }
 }

@@ -50,7 +50,7 @@ class UiManager
      */
     public function make($name, array $attributes = [])
     {
-        if (!$component = Arr::get($this->component, $name)) {
+        if (!$component = Arr::get($this->components, $name)) {
             throw new Exception("Component [{$name}] not found.");
         }
 
