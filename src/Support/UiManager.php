@@ -31,6 +31,8 @@ class UiManager
             'layout' => \Streams\Ui\Layout\Layout::class,
             'button' => \Streams\Ui\Button\Button::class,
             'cp' => \Streams\Ui\ControlPanel\ControlPanel::class,
+            
+            'fields' => \Streams\Ui\Layout\Fields::class,
         ];
     }
 
