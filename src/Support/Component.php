@@ -44,6 +44,7 @@ class Component implements Arrayable, Jsonable
     public function __construct(array $attributes = [])
     {
         $attributes = Arr::undot($attributes);
+        $attributes = Arr::parse($attributes, $attributes);
 
         if (isset($attributes['stream']) && is_string($attributes['stream'])) {
             $attributes['stream'] = Streams::make($attributes['stream']);
