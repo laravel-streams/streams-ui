@@ -32,12 +32,16 @@ class Layout extends Component
 
     public function setContentAttribute($value)
     {
-        foreach ($value as $key => &$content) {
+        foreach ($value as $key => $content) {
 
             $content['handle'] = Arr::get($content, 'handle', $key);
             $content['component'] = Arr::get($content, 'component', $key);
 
-            $content = UI::make(Arr::get($content, 'component'), $content);
+            if (is_null(Arr::get($content, 'stream'))) {
+                $content['stream'] = $this->stream;
+            }
+
+            $value[$key] = UI::make(Arr::get($content, 'component'), $content);
         }
 
         $this->setPrototypeAttributeValue('content', $value);

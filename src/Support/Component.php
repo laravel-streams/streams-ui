@@ -4,7 +4,6 @@ namespace Streams\Ui\Support;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Streams\Core\Stream\Stream;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
@@ -35,6 +34,8 @@ class Component implements Arrayable, Jsonable
         Prototype::initializePrototypeAttributes as private initializePrototype;
     }
 
+    public $stream;
+
     /**
      * Create a new class instance.
      *
@@ -44,8 +45,12 @@ class Component implements Arrayable, Jsonable
     {
         $attributes = Arr::undot($attributes);
 
-        if (isset($attributes['stream']) && is_string($attributes['stream']) && !$attributes['stream'] instanceof Stream) {
-            $this->stream = $attributes['stream'] = Streams::make($attributes['stream']);
+        if (isset($attributes['stream']) && is_string($attributes['stream'])) {
+            $attributes['stream'] = Streams::make($attributes['stream']);
+        }
+
+        if (isset($attributes['stream'])) {
+            $this->stream = $attributes['stream'];
         }
         
         $callbackData = new Collection([

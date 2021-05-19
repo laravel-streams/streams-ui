@@ -287,6 +287,7 @@ select.a-input:not([multiple]) {
   padding-right: calc(var(--ls-spacing)*1rem);
   text-align: left;
   white-space: nowrap;
+  color: var(--ls-color-text);
   background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -324,6 +325,7 @@ select.a-input:not([multiple]) {
   padding-left: calc(var(--ls-spacing)*1rem);
   padding-right: calc(var(--ls-spacing)*1rem);
   white-space: nowrap;
+  color: var(--ls-color-text);
 }
 
 .c-table table tbody tr td.c-table__selector {
