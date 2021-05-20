@@ -7,6 +7,8 @@ use Illuminate\Support\Str;
 use Streams\Ui\Input\Input;
 use Streams\Core\Field\Field;
 use Streams\Core\Stream\Stream;
+use Streams\Core\Support\Provider;
+use Streams\Ui\Support\Facades\UI;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Lang;
@@ -14,12 +16,10 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
 use Streams\Ui\Http\Middleware\LoadUi;
-use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Support\Facades\UI;
 
-class UiServiceProvider extends ServiceProvider
+class UiServiceProvider extends Provider
 {
 
     /**
@@ -36,9 +36,7 @@ class UiServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    public $bindings = [
-        //\Streams\Core\Stream\Contract\StreamRepositoryInterface::class  => \Streams\Core\Stream\StreamRepository::class,
-    ];
+    public $bindings = [];
 
     /**
      * The singleton bindings.
@@ -49,7 +47,7 @@ class UiServiceProvider extends ServiceProvider
         'ui' => \Streams\Ui\Support\UiManager::class,
         \Streams\Ui\Support\Breadcrumb::class => \Streams\Ui\Support\Breadcrumb::class,
 
-        // Get rid of these registries and register something to IoC like streams.ui.button.save using internal naming - do whatever you want otherwise.
+        // @todo Get rid of these registries and register something to IoC like streams.ui.button.save using internal naming - do whatever you want otherwise.
         \Streams\Ui\Button\ButtonRegistry::class => \Streams\Ui\Button\ButtonRegistry::class,
         \Streams\Ui\Table\View\ViewRegistry::class => \Streams\Ui\Table\View\ViewRegistry::class,
         \Streams\Ui\Table\Filter\FilterRegistry::class => \Streams\Ui\Table\Filter\FilterRegistry::class,
@@ -74,6 +72,8 @@ class UiServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        parent::boot();
+
         $this->extendUrl();
         $this->extendView();
         $this->extendLang();
