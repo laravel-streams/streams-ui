@@ -4,6 +4,7 @@ namespace Streams\Ui\Support;
 
 use Exception;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Traits\Macroable;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
@@ -31,7 +32,7 @@ class UiManager
             'layout' => \Streams\Ui\Layout\Layout::class,
             'button' => \Streams\Ui\Button\Button::class,
             'cp' => \Streams\Ui\ControlPanel\ControlPanel::class,
-            
+
             'fields' => \Streams\Ui\Layout\Fields::class,
         ];
     }
@@ -44,11 +45,11 @@ class UiManager
      */
     public function make($name, array $attributes = [])
     {
-        if (!$component = Arr::get($this->components, $name)) {
-            throw new Exception("Component [{$name}] not found.");
-        }
+        $component = Arr::get($this->components, $name, 'ui.components.' . $name);
 
-        return new $component($attributes);
+        return App::make($component, [
+            'attributes' => $attributes,
+        ]);
     }
 
     /**

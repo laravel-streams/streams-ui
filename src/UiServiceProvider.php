@@ -17,6 +17,7 @@ use Streams\Ui\Http\Middleware\LoadUi;
 use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
 use Streams\Core\Support\Facades\Streams;
+use Streams\Ui\Support\Facades\UI;
 
 class UiServiceProvider extends ServiceProvider
 {
@@ -249,14 +250,7 @@ class UiServiceProvider extends ServiceProvider
             $attributes['stream'] = $this;
             $attributes['handle'] = $handle;
 
-            if (!$builder = Arr::pull($attributes, 'builder')) {
-
-                $class = Str::studly($component);
-
-                $builder = "Streams\Ui\\{$class}\\{$class}";
-            }
-
-            return new $builder($attributes);
+            return UI::make($component, $attributes);
         });
 
         Stream::macro('form', function ($form = 'default', $attributes = []) {
@@ -307,7 +301,7 @@ class UiServiceProvider extends ServiceProvider
             });
         });
 
-        Field::when('initializing', function ($callbackData) {
+        Field::addCallbackListener('initializing', function ($callbackData) {
 
             $attributes = $callbackData->get('attributes');
 
