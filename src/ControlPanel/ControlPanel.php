@@ -52,15 +52,6 @@ class ControlPanel extends Component
         ], $attributes));
     }
 
-    public function onInitializing($callbackData)
-    {
-        $attributes = $callbackData->get('attributes');
-
-        $attributes = Arr::undot($attributes);
-
-        $callbackData->put('attributes', $attributes);
-    }
-
     public function onInitialized()
     {
         $this->loadNavigation();
