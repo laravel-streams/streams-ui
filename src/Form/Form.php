@@ -433,6 +433,14 @@ class Form extends Component
     {
         $fields = $attributes['stream']->fields;
 
+        $attributes['fields'] = Arr::undot($attributes['fields']);
+
+        foreach ($attributes['fields'] as $key => $field) {
+            if (Arr::get($field, 'enabled') === false) {
+                $fields->forget($key);
+            }
+        }
+
         $fields->each(function ($field) use ($attributes) {
 
             if ($this->entry) {
