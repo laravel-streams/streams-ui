@@ -181,7 +181,7 @@ class Form extends Component
 
         $rules = $this->rules->map(function ($rules, $field) {
 
-            array_map(function (&$rule) use ($field) {
+            array_walk($rules, function (&$rule) use ($field) {
 
                 if (Str::startsWith($rule, 'unique')) {
 
@@ -203,7 +203,7 @@ class Form extends Component
 
                     $rule = 'unique:' . implode(',', $parameters);
                 }
-            }, $rules);
+            });
 
             return implode('|', array_unique($rules));
         })->all();
