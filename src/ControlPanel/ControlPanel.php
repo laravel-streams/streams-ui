@@ -52,6 +52,15 @@ class ControlPanel extends Component
         ], $attributes));
     }
 
+    public function onInitializing($callbackData)
+    {
+        $attributes = $callbackData->get('attributes');
+        
+        $this->setPrototypeAttributes($attributes);
+
+        //dd($this->buttons);
+    }
+
     public function onInitialized()
     {
         $this->loadNavigation();
@@ -115,7 +124,7 @@ class ControlPanel extends Component
 
     public function setButtonsAttribute($buttons)
     {
-        $buttons = $buttons ?: ['cancel'];
+        $buttons = $buttons ?: [];
 
         /**
          * Minimal standardization
