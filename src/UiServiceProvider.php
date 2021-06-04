@@ -354,6 +354,17 @@ class UiServiceProvider extends Provider
      */
     protected function extendView()
     {
+        $this->callAfterResolving('view', function ($view) {
+            if (isset($this->app->config['view']['paths']) &&
+                is_array($this->app->config['view']['paths'])) {
+                foreach ($this->app->config['view']['paths'] as $viewPath) {
+                    if (is_dir($appPath = $viewPath.'/vendor/streams/ui')) {
+                        $view->addNamespace('ui', $appPath);
+                    }
+                }
+            }
+        });
+
         View::addNamespace('ui', base_path('vendor/streams/ui/resources/views'));
     }
 
@@ -365,6 +376,10 @@ class UiServiceProvider extends Provider
         $this->publishes([
             __DIR__ . '/../resources/public' => public_path('vendor/streams/ui'),
         ], 'public');
+
+        $this->publishes([
+            __DIR__ . '/../resources/views' => base_path('resources/views/vendor/streams/ui'),
+        ], 'views');
 
         Assets::addPath('ui', 'vendor/streams/ui');
 
