@@ -76,12 +76,12 @@ class ControlPanel extends Component
             ->get();
 
         Streams::collection()->filter(function ($stream) {
-            return isset($stream->ui['section']);
+            return isset($stream->ui['cp']['section']);
         })->each(function ($stream) {
 
             $attributes = array_merge([
                 'id' => $stream->handle,
-            ], $stream->ui['section']);
+            ], $stream->ui['cp']['section']);
 
             $this->navigation->add(new Section($attributes));
         });

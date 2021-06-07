@@ -59,10 +59,12 @@ Navigation sections for streams can also be defined directly within the stream.
 // streams/users.json
 {
     "ui": {
-        "section": {
-            "title": "Users",
-            "buttons": {
-                "create": {}
+        "cp": {
+            "section": {
+                "title": "Users",
+                "buttons": {
+                    "create": {}
+                }
             }
         }
     }
