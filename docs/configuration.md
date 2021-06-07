@@ -113,6 +113,37 @@ return [
 ];
 ```
 
+### Service Provider Support
+
+[Streams Providers](/docs/core/providers) can easily register UI configuration using the `registerStreamsUi` method.
+
+```php
+namespace App\Providers;
+
+use Streams\Core\Support\Provider;
+use App\Streams\Ui\Input\PeopleInput;
+use App\Streams\Ui\Widget\Widget;
+
+class StreamsServiceProvider extends Provider
+{
+
+    /**
+     * Register the provider.
+     */
+    public function register()
+    {
+        $this->registerStreamsUi([
+            'inputs' => [
+                'people' => PeopleInput::class,
+            ],
+            'components' => [
+                'relatives' => RelativesInput::class,
+            ],
+        ]);
+    }
+}
+```
+
 ### Control Panel Middleware
 
 Control panel middleware an be configured in your application's HTTP kernel. By default, the **web** middleware group is passed through as well.
