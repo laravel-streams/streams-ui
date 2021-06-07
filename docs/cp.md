@@ -44,7 +44,28 @@ Navigation sections define the basic functional structure of your control panel.
 ```json
 // streams/cp/navigation/users.json
 {
-    "title": "Users"
+    "title": "Users",
+    "buttons": {
+        "create": {}
+    }
+}
+```
+
+#### Stream Navigation
+
+Navigation sections for streams can also be defined directly within the stream.
+
+```json
+// streams/users.json
+{
+    "ui": {
+        "section": {
+            "title": "Users",
+            "buttons": {
+                "create": {}
+            }
+        }
+    }
 }
 ```
 
