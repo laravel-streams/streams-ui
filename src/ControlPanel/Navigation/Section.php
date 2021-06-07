@@ -48,7 +48,7 @@ class Section extends Component
             return URL::cp(ltrim(substr($target, 4), '/'), $extra);
         }
 
-        return URL::url($target);
+        return URL::to($target);
     }
 
     public function link(array $attributes = [])
