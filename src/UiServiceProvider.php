@@ -63,6 +63,8 @@ class UiServiceProvider extends Provider
         $this->registerStreams();
         $this->registerConfig();
 
+        $this->extendProvider();
+
         $this->extendRouter();
         $this->extendStream();
         $this->extendField();
@@ -355,10 +357,12 @@ class UiServiceProvider extends Provider
     protected function extendView()
     {
         $this->callAfterResolving('view', function ($view) {
-            if (isset($this->app->config['view']['paths']) &&
-                is_array($this->app->config['view']['paths'])) {
+            if (
+                isset($this->app->config['view']['paths']) &&
+                is_array($this->app->config['view']['paths'])
+            ) {
                 foreach ($this->app->config['view']['paths'] as $viewPath) {
-                    if (is_dir($appPath = $viewPath.'/vendor/streams/ui')) {
+                    if (is_dir($appPath = $viewPath . '/vendor/streams/ui')) {
                         $view->addNamespace('ui', $appPath);
                     }
                 }
@@ -388,5 +392,23 @@ class UiServiceProvider extends Provider
         Assets::register('ui::css/variables.css');
 
         Assets::register('ui::js/index.js');
+    }
+
+    protected function extendProvider()
+    {
+        Provider::macro('registerStreamsUi', function ($ui) {
+
+            foreach (Arr::get($ui, 'inputs', []) as $handle => $input) {
+                $this->app->bind("streams.ui.input_types.{$handle}", $input);
+            }
+
+            foreach (Arr::get($ui, 'components', []) as $name => $component) {
+                UI::register($name, $component);
+            }
+        });
+
+        Provider::addCallbackListener('registered', function () {
+            dd('Broken');
+        });
     }
 }
