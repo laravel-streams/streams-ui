@@ -12,6 +12,7 @@ use Streams\Ui\Button\ButtonCollection;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\ControlPanel\Shortcut\ShortcutCollection;
 use Streams\Ui\ControlPanel\Navigation\NavigationCollection;
+use Streams\Ui\ControlPanel\Navigation\Section;
 
 class ControlPanel extends Component
 {
@@ -55,7 +56,7 @@ class ControlPanel extends Component
     public function onInitializing($callbackData)
     {
         $attributes = $callbackData->get('attributes');
-        
+
         $this->setPrototypeAttributes($attributes);
 
         //dd($this->buttons);
@@ -73,6 +74,21 @@ class ControlPanel extends Component
             ->orderBy('sort_order', 'asc')
             ->orderBy('handle', 'asc')
             ->get();
+
+        Streams::collection()->filter(function ($stream) {
+            return isset($stream->ui['section']);
+        })->each(function ($stream) {
+
+            $attributes = array_merge([
+                'id' => $stream->handle,
+            ], $stream->ui['section']);
+
+            $this->navigation->add(new Section($attributes));
+        });
+
+        $this->navigation = $this->navigation->sortBy(function($section) {
+            return (int) $section->sort_order ?: 0;
+        });
 
         $match = null;
 
@@ -108,7 +124,7 @@ class ControlPanel extends Component
 
             $this->stream = $this->stream ?: $match->stream;
             $this->entry = $this->entry ?: $match->entry;
-            
+
             if ($match->buttons) {
                 $this->buttons = $match->buttons;
             }
