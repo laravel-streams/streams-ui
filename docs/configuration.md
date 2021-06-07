@@ -137,7 +137,7 @@ class StreamsServiceProvider extends Provider
                 'people' => PeopleInput::class,
             ],
             'components' => [
-                'relatives' => RelativesInput::class,
+                 'widget' => Widget::class,
             ],
         ]);
     }
