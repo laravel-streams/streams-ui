@@ -38,10 +38,7 @@ class UiController extends StreamsController
      */
     public function index()
     {
-        $home = Streams::entries('cp.navigation')
-            ->orderBy('sort_order', 'asc')
-            ->orderBy('handle', 'asc')
-            ->first();
+        $home = (new ControlPanel())->navigation->first();
 
         if (!$home) {
             abort(404);
