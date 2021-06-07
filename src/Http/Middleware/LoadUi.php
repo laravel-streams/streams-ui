@@ -29,8 +29,6 @@ class LoadUi
             View::share('cp', new ControlPanel());
         }
 
-        //dd($action);
-
         return $next($request);
     }
 }
