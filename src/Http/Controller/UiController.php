@@ -38,10 +38,7 @@ class UiController extends StreamsController
      */
     public function index()
     {
-        $home = Streams::entries('cp.navigation')
-            ->orderBy('sort_order', 'asc')
-            ->orderBy('handle', 'asc')
-            ->first();
+        $home = (new ControlPanel())->navigation->first();
 
         if (!$home) {
             abort(404);
@@ -92,6 +89,14 @@ class UiController extends StreamsController
      */
     public function resolveResponse(Collection $data)
     {
+        $action = $data->get('action');
+
+        // @todo this needs work
+        // control panel builder
+        if (Arr::get($action, 'ui.cp_enabled') == true && !View::shared('cp')) {
+            View::share('cp', new ControlPanel());
+        }
+
         if ($data->has('response')) {
             parent::resolveResponse($data);
         }
@@ -100,16 +105,8 @@ class UiController extends StreamsController
             parent::resolveResponse($data);
         }
 
-        $action = $data->get('action');
+        if ($data->get('stream') && $component = Arr::get($action, 'ui.component', request('component'))) {
 
-        // @todo this needs work
-        // control panel builder
-        if (Arr::get($action, 'ui.cp_enabled') == true) {
-            View::share('cp', new ControlPanel());
-        }
-
-        if ($component = Arr::get($action, 'ui.component', request('component'))) {
-            
             $component = $stream->ui($component, Arr::get($action, 'ui.handle', request('handle', 'default')), [
                 'stream' => $data->get('stream'),
                 'entry' => $data->get('entry'),

@@ -40,6 +40,13 @@ class Section extends Component
         ], $attributes));
     }
 
+    public function onInitializing($callbackData)
+    {
+        $attributes = $callbackData->get('attributes');
+
+        $callbackData->put('attributes', $attributes);
+    }
+
     public function url(array $extra = [])
     {
         $target = Arr::get($this->attributes, 'href') ?: ('@cp/' . $this->id);
@@ -48,7 +55,7 @@ class Section extends Component
             return URL::cp(ltrim(substr($target, 4), '/'), $extra);
         }
 
-        return URL::url($target);
+        return URL::to($target);
     }
 
     public function link(array $attributes = [])
