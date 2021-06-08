@@ -24,7 +24,7 @@
     
     @else
 
-    <div class="c-table__contents --empty">
+    <div class="c-table__content --empty p-4">
         {{ trans('ui::messages.no_results') }}
     </div>
 
