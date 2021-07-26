@@ -65,7 +65,7 @@ class UiController extends StreamsController
         if (!$section = $route->parameter('section')) {
             return;
         }
-
+        
         if (!isset($action['stream']) && Streams::has($section)) {
 
             $action['stream'] = $section;
@@ -76,7 +76,7 @@ class UiController extends StreamsController
         if (!$section = Streams::entries('cp.navigation')->find($section)) {
             return;
         }
-
+        
         $action = Arr::undot((array) $section->route + $action);
 
         $data->put('action', $action);
