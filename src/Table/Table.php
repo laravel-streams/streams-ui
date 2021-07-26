@@ -177,7 +177,7 @@ class Table extends Component
             $attributes['stream'] = Streams::make($attributes['stream']);
         }
 
-        $this->options = new Collection();
+        $this->options = new Collection(Arr::get($attributes, 'options', []));
 
         $this->stream = Arr::get($attributes, 'stream');
 
@@ -231,11 +231,9 @@ class Table extends Component
             $this->criteria->orderBy($name, $this->request('sort', 'asc'));
         }
 
-        // if (!$name && $this->options->has('order_by')) {
-        //     foreach ($this->options->get('order_by') as $name => $sort) {
-        //         $this->criteria->orderBy($name, $sort);
-        //     }
-        // }
+        foreach ($this->options->get('order_by', []) as $name => $sort) {
+            $this->criteria->orderBy($name, $sort);
+        }
 
         /**
          * Finish query
