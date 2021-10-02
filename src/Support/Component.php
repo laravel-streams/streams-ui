@@ -18,13 +18,13 @@ use Streams\Core\Support\Traits\FiresCallbacks;
 
 /**
  *
- * @property string handle
- * @property string template
- * @property mixed component
- * @property array classes
- * @property array attributes
- * @property Collection data
- * @property \Streams\Core\Stream\Stream stream
+ * @property string $handle
+ * @property string $template
+ * @property mixed $component
+ * @property array $classes
+ * @property array $attributes
+ * @property Collection $data
+ * @property \Streams\Core\Stream\Stream $stream
  */
 class Component implements Arrayable, Jsonable
 {
@@ -53,7 +53,7 @@ class Component implements Arrayable, Jsonable
         if (isset($attributes['stream'])) {
             $this->stream = $attributes['stream'];
         }
-        
+
         $callbackData = new Collection([
             'attributes' => $attributes,
         ]);

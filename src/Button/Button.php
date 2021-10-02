@@ -3,12 +3,26 @@
 namespace Streams\Ui\Button;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Streams\Ui\Support\Component;
-use Illuminate\Support\Facades\URL;
 use Streams\Ui\Support\Traits\HasAttributes;
 use Streams\Ui\Support\Traits\HasDropdown;
 
+/**
+ * @property string $template  default is 'ui::buttons.button',
+ * @property string $tag  default is 'a',
+ * @property string $url  default is null,
+ * @property mixed $text  default is null,
+ * @property mixed $entry  default is null,
+ * @property mixed $policy  default is null,
+ * @property bool $enabled  default is true,
+ * @property bool $primary  default is false,
+ * @property bool $disabled  default is false,
+ * @property string $type  default is 'default',
+ * @property array<string> $classes  default is []
+ * @property array $attributes  default is [],
+ */
 class Button extends Component
 {
 
