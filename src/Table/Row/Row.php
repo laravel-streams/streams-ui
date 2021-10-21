@@ -12,6 +12,11 @@ use Streams\Ui\Button\ButtonCollection;
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
+ * @property Collection|\Streams\Ui\Table\Column\Column[] $columns
+ * @property ButtonCollection|\Streams\Ui\Button\Button[] $buttons
+ * @property string|int $key
+ * @property \Streams\Core\Entry\Entry $entry
+ * @property \Streams\Ui\Table\Table $table
  */
 class Row extends Component
 {
@@ -35,7 +40,7 @@ class Row extends Component
                 ],
             ],
         ]);
-        
+
         return parent::initializePrototypeAttributes(array_merge([
             'key' => null,
             'entry' => null,

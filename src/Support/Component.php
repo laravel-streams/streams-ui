@@ -20,10 +20,13 @@ use Streams\Core\Support\Traits\FiresCallbacks;
  *
  * @property string $handle
  * @property string $template
+ * @property boolean $async
  * @property mixed $component
  * @property array $classes
  * @property array $attributes
+ * @property array{prefix:string,url:string} $options
  * @property Collection $data
+ * @property \Illuminate\Http\Response $response
  * @property \Streams\Core\Stream\Stream $stream
  */
 class Component implements Arrayable, Jsonable

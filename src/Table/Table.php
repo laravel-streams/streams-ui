@@ -30,6 +30,11 @@ use Streams\Ui\Table\Filter\FilterCollection;
  * @link    http://pyrocms.com/
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
+ * @property Collection|\Streams\Ui\Table\Row\Row[] $rows
+ * @property ViewCollection|\Streams\Ui\Table\View\View[] $views
+ * @property ActionCollection|\Streams\Ui\Table\View\View[] $actions
+ * @property FilterCollection|\Streams\Ui\Table\Filter\Filter[] $filters
+ * @property ButtonCollection|\Streams\Ui\Button\Button[] $buttons
  */
 class Table extends Component
 {
@@ -186,7 +191,7 @@ class Table extends Component
         // $this->applyView($attributes);
 
         $this->makeFilters($attributes);
-        
+
         $this->query($attributes);
 
         //$this->authorize($attributes);
@@ -497,7 +502,7 @@ class Table extends Component
 
         /**
          * Configured policy options
-         * take precedense over the 
+         * take precedense over the
          * model policy.
          */
         $policy = $this->options->get('policy');
@@ -509,7 +514,7 @@ class Table extends Component
         /**
          * Default behavior is to
          * rely on the model policy.
-         * 
+         *
          * @todo Use stream here instead
          */
         $model = null; //$this->model;

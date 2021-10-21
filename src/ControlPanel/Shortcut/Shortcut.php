@@ -4,6 +4,11 @@ namespace Streams\Ui\ControlPanel\Shortcut;
 
 use Streams\Ui\Button\Button;
 
+/**
+ * @property bool $active
+ * @property bool $favorite
+ * @property \Streams\Ui\ControlPanel\Navigation\Section $sections
+ */
 class Shortcut extends Button
 {
 

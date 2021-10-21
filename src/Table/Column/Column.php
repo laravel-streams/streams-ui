@@ -12,6 +12,15 @@ use Illuminate\Support\Facades\URL;
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
+ * @property \Streams\Core\Entry\Entry $entry
+ * @property string $view
+ * @property string $direction
+ * @property string $prefix
+ * @property mixed $value
+ * @property mixed $heading
+ * @property mixed $wrapper
+ * @property bool $sortable
+ * @property \Streams\Core\Field\Field $field
  */
 class Column extends Component
 {
