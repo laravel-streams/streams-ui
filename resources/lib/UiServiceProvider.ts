@@ -1,5 +1,5 @@
 import Mousetrap from 'mousetrap';
-import {ServiceProvider} from '@streams/core';
+import {ServiceProvider} from '@laravel-streams/core';
 
 export class UiServiceProvider extends ServiceProvider {
 
@@ -7,7 +7,7 @@ export class UiServiceProvider extends ServiceProvider {
 
         const keymaps = document.querySelectorAll('[data-keymap]');
 
-        keymaps.forEach(function (trigger) {
+        keymaps.forEach(function (trigger:HTMLElement) {
 
             // Mousetrap.stopCallback = function(e, element, combo) {
 
@@ -15,7 +15,7 @@ export class UiServiceProvider extends ServiceProvider {
             //     if ((' ' + element.className + ' ').indexOf(' mousetrap ') > -1) {
             //         return false;
             //     }
-            
+
             //     // stop for input, select, and textarea
             //     return element.tagName == 'INPUT' || element.tagName == 'SELECT' || element.tagName == 'TEXTAREA' || (element.contentEditable && element.contentEditable == 'true');
             // };
