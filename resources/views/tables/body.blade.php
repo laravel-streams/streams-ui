@@ -1,4 +1,9 @@
+<?php
+/** @var \Streams\Ui\Table\Table $table */
+?>
+
 <!-- body.blade.php -->
+{{ $table->view }}
 <tbody>
     @section('rows')
     @foreach ($table->rows as $row)

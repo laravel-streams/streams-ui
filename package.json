@@ -2,13 +2,30 @@
     "name": "@laravel-streams/ui",
     "version": "1.0.0",
     "scripts": {
-        "dev": "npm run development",
+        "dev": "mix",
         "development": "mix",
         "watch": "mix watch",
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
         "production": "mix --production"
+    },
+    "streams": {
+        "output": {
+            "name": [
+                "streams",
+                "ui"
+            ],
+            "type": "assign"
+        },
+        "src": "resources/lib",
+        "bundler": "mix",
+        "scripts": {
+            "dev": "dev",
+            "prod": "build",
+            "watch": "watch",
+            "test": null
+        }
     },
     "dependencies": {
         "alpinejs": "^2.7",
@@ -17,8 +34,9 @@
         "tailwindcss": "^2.0"
     },
     "devDependencies": {
+        "@laravel-streams/mix-extension": "^1.0.0",
         "axios": "^0.21",
-        "laravel-mix": "^6.0",
+        "laravel-mix": "^6.0.34",
         "postcss": "^8.1",
         "sass": "^1.32",
         "sass-loader": "^8.0"
