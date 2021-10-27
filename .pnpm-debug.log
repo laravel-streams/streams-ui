@@ -1,0 +1,21 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1,
+    "workspacePrefix": "/home/radic/projects/streams"
+  },
+  "1 error pnpm": {
+    "errno": 2,
+    "code": "ELIFECYCLE",
+    "pkgid": "@laravel-streams/ui@1.0.0",
+    "stage": "dev",
+    "script": "mix",
+    "pkgname": "@laravel-streams/ui",
+    "err": {
+      "name": "pnpm",
+      "message": "@laravel-streams/ui@1.0.0 dev: `mix`\nExit status 2",
+      "code": "ELIFECYCLE",
+      "stack": "pnpm: @laravel-streams/ui@1.0.0 dev: `mix`\nExit status 2\n    at EventEmitter.<anonymous> (/home/radic/.nvm/versions/node/v14.18.1/lib/node_modules/pnpm/dist/pnpm.cjs:104979:20)\n    at EventEmitter.emit (events.js:400:28)\n    at ChildProcess.<anonymous> (/home/radic/.nvm/versions/node/v14.18.1/lib/node_modules/pnpm/dist/pnpm.cjs:92968:18)\n    at ChildProcess.emit (events.js:400:28)\n    at maybeClose (internal/child_process.js:1058:16)\n    at Process.ChildProcess._handle.onexit (internal/child_process.js:293:5)"
+    }
+  },
+  "2 warn pnpm:global": " Local package.json exists, but node_modules missing, did you mean to install?"
+}
