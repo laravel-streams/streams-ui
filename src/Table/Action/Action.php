@@ -12,6 +12,8 @@ use Streams\Ui\Table\Action\ActionHandler;
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
+ * @typescript
+ * @property bool $action
  */
 class Action extends Button
 {

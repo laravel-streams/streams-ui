@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\URL;
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
+ * @typescript
  * @property \Streams\Core\Entry\Entry $entry
  * @property string $view
  * @property string $direction

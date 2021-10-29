@@ -14,6 +14,11 @@ use Streams\Ui\ControlPanel\Shortcut\ShortcutCollection;
 use Streams\Ui\ControlPanel\Navigation\NavigationCollection;
 use Streams\Ui\ControlPanel\Navigation\Section;
 
+/**
+ *
+ * @typescript
+ *
+ */
 class ControlPanel extends Component
 {
 

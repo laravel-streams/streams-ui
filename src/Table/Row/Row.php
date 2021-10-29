@@ -12,6 +12,7 @@ use Streams\Ui\Button\ButtonCollection;
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
+ * @typescript
  * @property Collection|\Streams\Ui\Table\Column\Column[] $columns
  * @property ButtonCollection|\Streams\Ui\Button\Button[] $buttons
  * @property string|int $key

@@ -6,6 +6,11 @@ use Illuminate\Support\Arr;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\Request;
 
+/**
+ *
+ * @typescript
+ *
+ */
 class Input extends Component
 {
 

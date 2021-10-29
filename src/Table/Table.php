@@ -30,11 +30,12 @@ use Streams\Ui\Table\Filter\FilterCollection;
  * @link    http://pyrocms.com/
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
+ * @typescript
  * @property Collection|\Streams\Ui\Table\Row\Row[] $rows
- * @property ViewCollection|\Streams\Ui\Table\View\View[] $views
- * @property ActionCollection|\Streams\Ui\Table\View\View[] $actions
- * @property FilterCollection|\Streams\Ui\Table\Filter\Filter[] $filters
- * @property ButtonCollection|\Streams\Ui\Button\Button[] $buttons
+ * @property \Streams\Ui\Table\View\ViewCollection|\Streams\Ui\Table\View\View[] $views
+ * @property \Streams\Ui\Table\Action\ActionCollection|\Streams\Ui\Table\View\View[] $actions
+ * @property \Streams\Ui\Table\Filter\FilterCollection|\Streams\Ui\Table\Filter\Filter[] $filters
+ * @property \Streams\Ui\Button\ButtonCollection|\Streams\Ui\Button\Button[] $buttons
  */
 class Table extends Component
 {
