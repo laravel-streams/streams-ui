@@ -29,12 +29,12 @@ use Illuminate\Contracts\Validation\Validator;
 /**
  *
  * @typescript
- * @property array<string,mixed> $values
- * @property array<string,mixed> $options
- * @property array<string,mixed> $rules
- * @property array<string,mixed> $validators
+ * @property \Illuminate\Support\Collection $values
+ * @property \Illuminate\Support\Collection $options
+ * @property \Illuminate\Support\Collection $rules
+ * @property \Illuminate\Support\Collection $validators
  * @property array $errors
- * @property array $sections
+ * @property \Illuminate\Support\Collection $sections
  * @property \Streams\Ui\Form\Field\FieldCollection|\Streams\Core\Field\FieldType[] $fields
  * @property \Streams\Ui\Form\Action\ActionCollection|\Streams\Ui\Form\Action\Action[] $actions
  * @property \Streams\Ui\Button\ButtonCollection|\Streams\Ui\Button\Button[] $buttons

@@ -31,9 +31,10 @@ use Streams\Ui\Table\Filter\FilterCollection;
  * @author  PyroCMS, Inc. <support@pyrocms.com>
  * @author  Ryan Thompson <ryan@pyrocms.com>
  * @typescript
- * @property Collection|\Streams\Ui\Table\Row\Row[] $rows
+ * @property \Illuminate\Support\Collection|\Streams\Ui\Table\Row\Row[] $rows
  * @property \Streams\Ui\Table\View\ViewCollection|\Streams\Ui\Table\View\View[] $views
- * @property \Streams\Ui\Table\Action\ActionCollection|\Streams\Ui\Table\View\View[] $actions
+ * @property \Illuminate\Support\Collection|\Streams\Ui\Table\Column\Column[] $columns
+ * @property \Streams\Ui\Table\Action\ActionCollection|\Streams\Ui\Table\Action\Action[] $actions
  * @property \Streams\Ui\Table\Filter\FilterCollection|\Streams\Ui\Table\Filter\Filter[] $filters
  * @property \Streams\Ui\Button\ButtonCollection|\Streams\Ui\Button\Button[] $buttons
  */
