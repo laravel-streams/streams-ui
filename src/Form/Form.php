@@ -360,22 +360,6 @@ class Form extends Component
 
     public function query()
     {
-        /*
-         * If the builder has an entry handler
-         * then call it through the container and
-         * let it load the entry itself.
-         */
-        if (
-            (is_string($this->entry) && class_exists($this->entry))
-            || $this->entry instanceof \Closure
-        ) {
-
-            $entry = Resolver::resolve($this->entry, compact('builder'));
-
-            $this->entry = Evaluator::evaluate($entry ?: $this->entry, compact('builder'));
-
-            return;
-        }
 
         /**
          * If the builder already has
