@@ -10,6 +10,7 @@ use Streams\Ui\Support\Traits\HasAttributes;
 use Streams\Ui\Support\Traits\HasDropdown;
 
 /**
+ * @typescript
  * @property string $template  default is 'ui::buttons.button',
  * @property string $tag  default is 'a',
  * @property string $url  default is null,

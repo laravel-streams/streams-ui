@@ -24,6 +24,19 @@ use Streams\Ui\Form\Action\ActionCollection;
 use Streams\Ui\Support\Traits\HasRepository;
 use Illuminate\Contracts\Validation\Validator;
 
+/**
+ *
+ * @typescript
+ * @property \Illuminate\Support\Collection $values
+ * @property \Illuminate\Support\Collection $options
+ * @property \Illuminate\Support\Collection $rules
+ * @property \Illuminate\Support\Collection $validators
+ * @property array $errors
+ * @property \Illuminate\Support\Collection $sections
+ * @property \Streams\Ui\Form\Field\FieldCollection|\Streams\Core\Field\FieldType[] $fields
+ * @property \Streams\Ui\Form\Action\ActionCollection|\Streams\Ui\Form\Action\Action[] $actions
+ * @property \Streams\Ui\Button\ButtonCollection|\Streams\Ui\Button\Button[] $buttons
+ */
 class Form extends Component
 {
 
@@ -389,7 +402,7 @@ class Form extends Component
 
         /**
          * Configured policy options
-         * take precedense over the 
+         * take precedense over the
          * model policy.
          */
         $policy = $this->options->get('policy');
@@ -401,7 +414,7 @@ class Form extends Component
         /**
          * Default behavior is to
          * rely on the model policy.
-         * 
+         *
          * @todo Use stream here instead
          */
         $model = null; //$this->model;
@@ -440,7 +453,7 @@ class Form extends Component
     public function setActionsAttribute($actions)
     {
         $actions = $actions ?: ['save' => []];
-        
+
         /**
          * Minimal standardization
          */

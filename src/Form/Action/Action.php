@@ -10,6 +10,8 @@ use Streams\Ui\Button\Button;
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
+ * @typescript
+ * @property bool $action
  */
 class Action extends Button
 {

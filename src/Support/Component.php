@@ -17,15 +17,15 @@ use Illuminate\Contracts\Support\Arrayable;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
 /**
- *
+ * @typescript
  * @property string $handle
  * @property string $template
  * @property boolean $async
  * @property mixed $component
  * @property array $classes
- * @property array $attributes
- * @property array{prefix:string,url:string} $options
- * @property Collection $data
+ * @property array<string,mixed> $attributes
+ * @property array<string,mixed> $options
+ * @property \Illuminate\Support\Collection $data
  * @property \Illuminate\Http\Response $response
  * @property \Streams\Core\Stream\Stream $stream
  */

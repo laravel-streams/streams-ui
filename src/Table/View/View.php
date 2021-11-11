@@ -13,6 +13,7 @@ use Streams\Ui\Table\Filter\FilterCollection;
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
+ * @typescript
  * @property string $text default ' => null,
  * @property string $icon default ' => null,
  * @property string $label default ' => null,
