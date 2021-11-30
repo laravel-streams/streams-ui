@@ -66,7 +66,7 @@ class UiController extends StreamsController
             return;
         }
         
-        if (!isset($action['stream']) && Streams::has($section)) {
+        if (!isset($action['stream']) && Streams::exists($section)) {
 
             $action['stream'] = $section;
 
