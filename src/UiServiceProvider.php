@@ -107,7 +107,7 @@ class UiServiceProvider extends Provider
         $streams = ['cp.navigation', 'cp.shortcuts', 'cp.themes'];
 
         foreach ($streams as $stream) {
-            if (!Streams::has($stream)) {
+            if (!Streams::exists($stream)) {
                 Streams::load($prefix . $stream . '.json');
             }
         }
