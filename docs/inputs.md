@@ -3,7 +3,7 @@ title: Inputs
 category: components
 intro:
 sort: 99
-enabled: false
+enabled: true
 ---
 
 - **Intro:** Introduce the idea in one sentence.

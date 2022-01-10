@@ -15,43 +15,13 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\ServiceProvider;
 use Streams\Ui\Http\Middleware\LoadUi;
 use Streams\Core\Support\Facades\Assets;
 use Streams\Core\Support\Facades\Streams;
 
-class UiServiceProvider extends Provider
+class UiServiceProvider extends ServiceProvider
 {
-
-    /**
-     * The class aliases.
-     *
-     * @var array
-     */
-    public $aliases = [
-        'ui' => \Streams\Ui\Support\Facades\UI::class
-    ];
-
-    /**
-     * The class bindings.
-     *
-     * @var array
-     */
-    public $bindings = [];
-
-    /**
-     * The singleton bindings.
-     *
-     * @var array
-     */
-    public $singletons = [
-        'ui' => \Streams\Ui\Support\UiManager::class,
-        \Streams\Ui\Support\Breadcrumb::class => \Streams\Ui\Support\Breadcrumb::class,
-
-        // @todo Get rid of these registries and register something to IoC like streams.ui.button.save using internal naming - do whatever you want otherwise.
-        \Streams\Ui\Button\ButtonRegistry::class => \Streams\Ui\Button\ButtonRegistry::class,
-        \Streams\Ui\Table\View\ViewRegistry::class => \Streams\Ui\Table\View\ViewRegistry::class,
-        \Streams\Ui\Table\Filter\FilterRegistry::class => \Streams\Ui\Table\Filter\FilterRegistry::class,
-    ];
 
     /**
      * Register the service provider.
@@ -60,6 +30,11 @@ class UiServiceProvider extends Provider
      */
     public function register()
     {
+        App::alias('UI', \Streams\Ui\Support\Facades\UI::class);
+        App::alias('ui', \Streams\Ui\Support\UiManager::class);
+
+        App::singleton(\Streams\Ui\Support\Breadcrumb::class);
+
         $this->registerStreams();
         $this->registerConfig();
 

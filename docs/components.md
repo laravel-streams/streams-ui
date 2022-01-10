@@ -1,7 +1,6 @@
 ---
 title: Components
-link_title: Getting Started
-category: components
+category: basics
 intro:
 sort: 0
 enabled: true

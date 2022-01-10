@@ -10,8 +10,8 @@
     ],
     "require": {
         "streams/core": "^2.0",
-        "blade-ui-kit/blade-icons": "^0.5",
-        "blade-ui-kit/blade-heroicons": "^0.3"
+        "blade-ui-kit/blade-icons": "^1.1",
+        "blade-ui-kit/blade-heroicons": "^1.2"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.19"
