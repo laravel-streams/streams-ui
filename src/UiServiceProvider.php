@@ -7,7 +7,6 @@ use Illuminate\Support\Str;
 use Streams\Ui\Input\Input;
 use Streams\Core\Field\Field;
 use Streams\Core\Stream\Stream;
-use Streams\Core\Support\Provider;
 use Streams\Ui\Support\Facades\UI;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
@@ -38,8 +37,6 @@ class UiServiceProvider extends ServiceProvider
         $this->registerStreams();
         $this->registerConfig();
 
-        $this->extendProvider();
-
         $this->extendRouter();
         $this->extendStream();
         $this->extendField();
@@ -49,8 +46,6 @@ class UiServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        parent::boot();
-
         $this->extendUrl();
         $this->extendView();
         $this->extendLang();
@@ -367,23 +362,5 @@ class UiServiceProvider extends ServiceProvider
         Assets::register('ui::css/variables.css');
 
         Assets::register('ui::js/index.js');
-    }
-
-    protected function extendProvider()
-    {
-        Provider::macro('registerStreamsUi', function ($ui) {
-
-            foreach (Arr::get($ui, 'inputs', []) as $handle => $input) {
-                $this->app->bind("streams.ui.input_types.{$handle}", $input);
-            }
-
-            foreach (Arr::get($ui, 'components', []) as $name => $component) {
-                UI::register($name, $component);
-            }
-        });
-
-        Provider::addCallbackListener('registered', function () {
-            dd('Broken');
-        });
     }
 }
