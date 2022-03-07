@@ -1,7 +1,10 @@
 {
     "name": "streams/ui",
-    "description": "The official UI package for Laravel Streams.",
     "type": "streams-addon",
+    "description": "A RESTful inspired UI for Laravel Streams.",
+    "license": "MIT",
+    "prefer-stable": true,
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Ryan Thompson",
@@ -9,12 +12,10 @@
         }
     ],
     "require": {
-        "streams/core": "^2.0",
-        "blade-ui-kit/blade-icons": "^1.1",
-        "blade-ui-kit/blade-heroicons": "^1.2"
+        "streams/core": "^2.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.19"
+        "streams/testing": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -38,6 +39,5 @@
                 "Streams\\Ui\\UiServiceProvider"
             ]
         }
-    },
-    "license": "MIT"
+    }
 }
