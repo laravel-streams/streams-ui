@@ -1,13 +1,12 @@
 import Mousetrap from 'mousetrap';
-import {ServiceProvider} from '@laravel-streams/core';
+import { ServiceProvider } from '../Core';
 
 export class UiServiceProvider extends ServiceProvider {
-
     boot() {
 
         const keymaps = document.querySelectorAll('[data-keymap]');
 
-        keymaps.forEach(function (trigger:HTMLElement) {
+        keymaps.forEach(function (trigger: HTMLElement) {
 
             // Mousetrap.stopCallback = function(e, element, combo) {
 
