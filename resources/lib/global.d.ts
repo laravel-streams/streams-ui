@@ -1,6 +1,6 @@
 declare global {
     export interface StreamsGlobal {
-        core: typeof import('./index');
+        ui: typeof import('./');
     }
 
     export interface Window {

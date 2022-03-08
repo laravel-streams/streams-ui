@@ -17,7 +17,6 @@ mix
     });
 
 mix.override(config => {
-
     return config;
 })
 

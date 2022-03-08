@@ -129,7 +129,7 @@ export class Application extends Container {
      */
     public async initialize(options: ApplicationInitOptions = {}) {
         this.events.emit('Application:initialize:defaultConfig', defaultConfig);
-        options.config = deepmerge(defaultConfig, options.config);
+        options.config = deepmerge(defaultConfig, options.config || {});
         // options = {
         //     providers: [],
         //     ...options,

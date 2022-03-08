@@ -1,8 +1,34 @@
 import Mousetrap from 'mousetrap';
 import { ServiceProvider } from '../Core';
+import { ElementCollection } from './ElementCollection';
+import './Elements';
+
+declare module '../Core/Foundation/Application' {
+    interface Application {
+        elements: ElementCollection;
+    }
+}
 
 export class UiServiceProvider extends ServiceProvider {
+    register() {
+        this.app.instance('elements', new ElementCollection()).addBindingGetter('elements');
+    }
+
     boot() {
+        let Alert = this.app.elements.get('alert');
+
+        class MyAlert extends Alert {
+            sfd() {
+
+            }
+        }
+
+        this.app.elements.set('alert', MyAlert);
+    }
+
+
+
+    bootKeymap(){
 
         const keymaps = document.querySelectorAll('[data-keymap]');
 

@@ -3,7 +3,9 @@
 namespace Streams\Ui;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Str;
+use Streams\Ui\Component\Alert;
 use Streams\Ui\Input\Input;
 use Streams\Core\Field\Field;
 use Streams\Core\Stream\Stream;
@@ -29,6 +31,13 @@ class UiServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->instance('ui.components',collect(config('ui.components',[])));
+        $this->app->booted(function($app){
+            foreach($app['ui.components'] as $name => $class) {
+                Blade::component($name,$class);
+            }
+        });
+
         App::alias('UI', \Streams\Ui\Support\Facades\UI::class);
         App::alias('ui', \Streams\Ui\Support\UiManager::class);
 
@@ -42,6 +51,11 @@ class UiServiceProvider extends ServiceProvider
         $this->extendField();
 
         $this->registerRoutes();
+
+
+        Route::any('test',function(){
+            return view('ui::test');
+        });
     }
 
     public function boot()
@@ -288,7 +302,7 @@ class UiServiceProvider extends ServiceProvider
             }
 
             if (is_string($attributes['type']) && strpos($attributes['type'], '|')) {
-                list($attributes['type'], $attributes['input']['type']) = explode('|', $attributes['type']);
+                [$attributes['type'], $attributes['input']['type']] = explode('|', $attributes['type']);
             }
 
             if (!isset($attributes['input']['type'])) {
