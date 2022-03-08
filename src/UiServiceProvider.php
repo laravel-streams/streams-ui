@@ -37,8 +37,8 @@ class UiServiceProvider extends ServiceProvider
         $this->registerStreams();
         $this->registerConfig();
 
-        $this->extendRouter();
         $this->extendStream();
+        $this->extendRouter();
         $this->extendField();
     }
 
@@ -48,7 +48,7 @@ class UiServiceProvider extends ServiceProvider
         $this->extendView();
         $this->extendLang();
         $this->extendAssets();
-
+        
         $this->registerRoutes();
     }
 

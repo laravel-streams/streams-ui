@@ -61,8 +61,8 @@ class UiController extends EntryController
         
         $section = Arr::get($action, 'ui.component');
 
-        $section = Streams::make('films');
-        dd($section);
+        $section = Streams::make('docs');
+        dd($section->ui('table'));
         /** This is no longer different from parent:: */
 
 
