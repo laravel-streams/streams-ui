@@ -6,20 +6,15 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\ControlPanel\ControlPanel;
-use Streams\Core\Http\Controller\StreamsController;
+use Streams\Core\Http\Controller\EntryController;
+use Streams\Ui\Support\Facades\UI;
 
-/**
- * Class UiController
- *
- * @link    http://pyrocms.com/
- * @author  PyroCMS, Inc. <support@pyrocms.com>
- * @author  Ryan Thompson <ryan@pyrocms.com>
- */
-class UiController extends StreamsController
+class UiController extends EntryController
 {
 
     protected $steps = [
@@ -47,14 +42,31 @@ class UiController extends StreamsController
         return Redirect::to($home->url());
     }
 
-    /**
-     * Handle the request.
-     * 
-     * @return Response
-     */
     public function __invoke()
-    {
-        return parent::handle();
+    { 
+        $data = collect();
+
+        $data->put('route', Request::route());
+        $data->put('action', Request::route()->action);
+ 
+        $this->resolveStream($data);
+        $this->resolveEntry($data);
+        $this->resolveView($data);
+        $this->resolveRedirect($data);
+        $this->resolveResponse($data);
+
+
+        /** This is different from parent:: */
+        $action = Request::route()->action;
+        
+        $section = Arr::get($action, 'ui.component');
+
+        $section = Streams::make('films');
+        dd($section);
+        /** This is no longer different from parent:: */
+
+
+        return $data->get('response') ?: abort(404);
     }
 
     public function resolveSection(Collection $data)
@@ -87,7 +99,7 @@ class UiController extends StreamsController
      *
      * @param \Illuminate\Support\Collection $data
      */
-    public function resolveResponse(Collection $data)
+    public function resolveResponse(Collection $data): void
     {
         $action = $data->get('action');
 
