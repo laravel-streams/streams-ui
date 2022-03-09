@@ -1,4 +1,5 @@
 import { Application } from '../Foundation/Application';
+export declare const isServiceProviderClass: (value: any) => value is IServiceProviderClass;
 export declare class ServiceProvider implements IServiceProvider {
     app: Application;
     constructor(app: Application);

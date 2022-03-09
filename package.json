@@ -13,12 +13,7 @@
         "production": "mix --production",
         "dts": "tsc --project webpack.tsconfig.json --emitDeclarationOnly",
         "dts:copy": "cp resources/lib/global.d.ts resources/public/js/global.d.ts",
-        "test": "TS_NODE_PROJECT=./tsconfig.test.json mocha",
-        "stencil:build": "stencil build --docs",
-        "stencil:start": "stencil build --dev --watch --serve",
-        "stencil:test": "stencil test --spec --e2e",
-        "stencil:test.watch": "stencil test --spec --e2e --watchAll",
-        "stencil:generate": "stencil generate"
+        "test": "TS_NODE_PROJECT=./tsconfig.test.json mocha"
     },
     "streams": {
         "output": {
@@ -51,10 +46,10 @@
         "mousetrap": "^1.6.5",
         "@microsoft/fast-element": "^1.8.0",
         "reflect-metadata": "^0.1.13",
+        "classnames": "^2.3.1",
         "tailwindcss": "^2.0"
     },
     "devDependencies": {
-        "classnames": "^2.3.1",
         "@types/classnames": "^2.3.1",
         "@laravel-streams/mix-extension": "^1.0.0",
         "@types/alpinejs": "^3.7.0",
