@@ -74,6 +74,7 @@ return [
     'components'    => [
         'ui-alert' => \Streams\Ui\Component\Alert::class,
         'ui-cp' => \Streams\Ui\Component\ControlPanel::class,
-        'ui-cp-top-bar' => \Streams\Ui\Component\ControlPanelTopBar::class,
+        'ui-cp-topbar' => \Streams\Ui\Component\ControlPanelTopBar::class,
+        'ui-cp-sidebar' => \Streams\Ui\Component\ControlPanelSidebar::class
     ],
 ];

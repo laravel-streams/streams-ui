@@ -12,6 +12,6 @@ class ControlPanelTopBar extends Component
 
     public function render()
     {
-        return view('ui::components.cp-top-bar');
+        return view('ui::components.cp-topbar');
     }
 }

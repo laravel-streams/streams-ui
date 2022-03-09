@@ -17,43 +17,32 @@
 <div>
     <x-ui::cp brand-mode="ffa">
         <x-slot name="sidebar">
-            <div class="c-sidebar"> {{-- shold be a component --}}
-                sidebar
-                <my-element>sdf</my-element>
-            </div>
+            @area('sidebar')
         </x-slot>
         <x-slot name="topbar">
-            <x-ui::cp-top-bar>
-                Top Bar
-            </x-ui::cp-top-bar>
+            @stack('topbar')
         </x-slot>
-
-        sdfsdf
-        <x-ui::alert type="success">
-            Hello
-        </x-ui::alert>
+        @yield('content')
     </x-ui::cp>
 </div>
 
 <script>
-window.addEventListener('DOMContentLoaded', function(){
+window.addEventListener('DOMContentLoaded', function () {
     var streams = window.streams;
     streams.ui.app.initialize({
         providers: [
             streams.ui.CoreServiceProvider,
             streams.ui.UiServiceProvider,
         ],
-        config: {
-            ui: {
-
-            }
+        config   : {
+            ui: {}
         }
-    }).then(function (app){
-        return app.boot()
-    }).then(function (app){
-        return app.start()
+    }).then(function (app) {
+        return app.boot();
+    }).then(function (app) {
+        return app.start();
     });
-})
+});
 </script>
 </body>
 </html>

@@ -58,6 +58,7 @@ const template = html<Alert>`
 export class Alert extends FASTElement {
     @attr type: string;
 
+
     types: string[] = [ 'success', 'error', 'warning', 'info' ];
 
     getClasses() {

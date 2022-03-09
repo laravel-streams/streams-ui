@@ -1,12 +1,12 @@
-<ui-cp {{$attributes->merge(['brand_mode' => $brandMode, 'style' => 'overflow: visible; flex-direction: row;'])}}>
-    <div slot="sidebar"  style=""> <!-- should be component too -->
+<ui-cp {{ $attributes->merge(['brand_mode' => $brandMode]) }}>
+    <x-ui::cp-sidebar slot="sidebar">
         {{ $sidebar ?? '' }}
-    </div>
-    <div slot="topbar" class="o-cp__topbar" style="width: 20%">
+    </x-ui::cp-sidebar>
+    <x-ui::cp-topbar slot="topbar">
         {{ $topbar ?? '' }}
-    </div>
-    <div class="o-cp__content">
-        {{ $slot }}
-    </div>
+    </x-ui::cp-topbar>
+
+    {{ $slot }}
+
 
 </ui-cp>

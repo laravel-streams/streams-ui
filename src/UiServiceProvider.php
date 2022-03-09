@@ -54,7 +54,11 @@ class UiServiceProvider extends ServiceProvider
 
 
         Route::any('test',function(){
-            return view('ui::test');
+            /** @var \Illuminate\View\View $view */
+            $view = view('ui::test2');
+            $view->getFactory()->startPush('sidebar',view('ui::test3'));
+            $view->getFactory()->startPush('topbar','Top  bar');
+            return $view;
         });
     }
 
