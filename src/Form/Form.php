@@ -52,49 +52,76 @@ class Form extends Component
     {
         $this->loadPrototypeProperties([
             'values' => [
-                'type' => 'collection',
+                'type' => 'array',
+                'config' => [
+                    'wrapper' => 'collection',
+                ],
             ],
             'options' => [
-                'type' => 'collection',
+                'type' => 'array',
+                'config' => [
+                    'wrapper' => 'collection',
+                ],
             ],
 
             'rules' => [
-                'type' => 'collection',
+                'type' => 'array',
+                'config' => [
+                    'wrapper' => 'collection',
+                ],
             ],
             'validators' => [
-                'type' => 'collection',
+                'type' => 'array',
+                'config' => [
+                    'wrapper' => 'collection',
+                ],
             ],
 
             'errors' => [
-                //'type' => 'collection',
+                //'type' => 'array',
+                'config' => [
+                    'wrapper' => 'collection',
+                ],
                 // 'config' => [
                 //     'abstract' => MessageBag::class,
                 // ],
             ],
             'fields' => [
-                'type' => 'collection',
+                'type' => 'array',
+                'config' => [
+                    'wrapper' => 'collection',
+                ],
                 'config' => [
                     'abstract' => FieldCollection::class,
                 ],
             ],
             'actions' => [
-                'type' => 'collection',
+                'type' => 'array',
+                'config' => [
+                    'wrapper' => 'collection',
+                ],
                 'config' => [
                     'abstract' => ActionCollection::class,
                 ],
             ],
             'buttons' => [
-                'type' => 'collection',
+                'type' => 'array',
+                'config' => [
+                    'wrapper' => 'collection',
+                ],
                 'config' => [
                     'abstract' => ButtonCollection::class,
                 ],
             ],
             'sections' => [
-                'type' => 'collection',
+                'type' => 'array',
+                'config' => [
+                    'wrapper' => 'collection',
+                ],
             ],
         ]);
 
-        return parent::initializePrototypeAttributes(array_merge([
+        return parent::loadPrototypeAttributes(array_merge([
             'component' => 'form',
             'template' => 'ui::forms.form',
 
@@ -346,7 +373,7 @@ class Form extends Component
         $attributes = $callbackData->get('attributes');
 
         //$this->authorize($attributes);
-
+return;// @todo hrmm
         $this->makeFields($attributes);
         // $this->makeActions($attributes);
         // $this->makeButtons($attributes);
@@ -367,6 +394,8 @@ class Form extends Component
                 $field->input()->load($this->entry->{$field->handle});
             });
         }
+
+        $this->initializePrototypeAttributes([]);
     }
 
     public function query()
@@ -387,11 +416,9 @@ class Form extends Component
          * Fallback to using the repository
          * to get and/or paginate the results.
          */
-        if ($this->repository() instanceof Repository) {
+        if ($this->entry && $this->repository() instanceof Repository) {
 
-            $this->criteria = $this->repository()->newCriteria();
-
-            $this->entry = $this->criteria->find($this->entry);
+            $this->entry = $this->repository()->find($this->entry);
 
             return;
         }

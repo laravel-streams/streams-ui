@@ -140,29 +140,29 @@ class UiServiceProvider extends ServiceProvider
                         'uses' => \Streams\Ui\Http\Controller\UiController::class,
                     ]);
 
-                    // Route::streams($create, [
-                    //     'verb' => 'get',
-                    //     'ui.cp' => true,
-                    //     'ui.cp_enabled' => true,
-                    //     'entry' => false,
-                    //     'as' => 'streams.ui.cp.create',
-                    //     'ui.component' => 'form',
-                    //     'uses' => \Streams\Ui\Http\Controller\UiController::class,
-                    // ]);
+                    Route::streams($create, [
+                        'verb' => 'get',
+                        'ui.cp' => true,
+                        'ui.cp_enabled' => true,
+                        'entry' => false,
+                        'as' => 'streams.ui.cp.create',
+                        'ui.component' => 'form',
+                        'uses' => \Streams\Ui\Http\Controller\UiController::class,
+                    ]);
+ 
+                    Route::streams($edit, [
+                        'verb' => 'get',
+                        'ui.cp' => true,
+                        'ui.cp_enabled' => true,
+                        'as' => 'streams.ui.cp.edit',
+                        'ui.component' => 'form',
+                        'uses' => \Streams\Ui\Http\Controller\UiController::class,
+                    ]);
 
-                    // Route::streams($edit, [
-                    //     'verb' => 'get',
-                    //     'ui.cp' => true,
-                    //     'ui.cp_enabled' => true,
-                    //     'as' => 'streams.ui.cp.edit',
-                    //     'ui.component' => 'form',
-                    //     'uses' => \Streams\Ui\Http\Controller\UiController::class,
-                    // ]);
-
-                    // Route::streams($component, [
-                    //     'ui.cp' => false,
-                    //     'uses' => \Streams\Ui\Http\Controller\UiController::class,
-                    // ]);
+                    Route::streams($component, [
+                        'ui.cp' => false,
+                        'uses' => \Streams\Ui\Http\Controller\UiController::class,
+                    ]);
                 });
         }
     }

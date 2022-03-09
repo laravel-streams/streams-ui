@@ -39,19 +39,15 @@ class Component implements Arrayable, Jsonable
 
     public function __construct(array $attributes = [])
     {
+        if (isset($attributes['stream']) && is_string($attributes['stream'])) {
+            $this->stream = Streams::make($attributes['stream']);
+        }
+
+        $attributes['stream'] = $this->stream;
+
         $callbackData = new Collection([
             'attributes' => $attributes,
         ]);
-
-        $stream = Arr::get($attributes, 'stream');
-
-        if ($stream && !$stream instanceof Stream) {
-            $stream = new Stream($stream);
-        }
-
-        if ($stream) {
-            $this->stream = $stream;
-        }
 
         $this->fire('initializing', [
             'callbackData' => $callbackData,
@@ -132,7 +128,8 @@ class Component implements Arrayable, Jsonable
      */
     protected function initializePrototypeAttributes(array $attributes)
     {
-        return $this->initializePrototype(array_merge([
+        
+        return $this->loadPrototypeAttributes(array_merge([
             'handle' => null,
             'template' => null,
             'component' => null,
