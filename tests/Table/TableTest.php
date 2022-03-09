@@ -2,21 +2,12 @@
 
 namespace Streams\Ui\Tests\Support;
 
-use Tests\TestCase;
-use Streams\Ui\Table\Table;
+use Streams\Ui\Tests\UiTestCase;
 use Illuminate\Support\Collection;
-use Streams\Core\Repository\Repository;
 use Streams\Core\Support\Facades\Streams;
 
-class TableTest extends TestCase
+class TableTest extends UiTestCase
 {
-
-    public function setUp(): void
-    {
-        $this->createApplication();
-
-        Streams::load(base_path('vendor/streams/ui/tests/examples.json'));
-    }
 
     public function testIsSelectable()
     {

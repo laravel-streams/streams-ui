@@ -5,7 +5,6 @@ namespace Streams\Ui;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Str;
-use Streams\Ui\Component\Alert;
 use Streams\Ui\Input\Input;
 use Streams\Core\Field\Field;
 use Streams\Core\Stream\Stream;
@@ -15,9 +14,10 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\ServiceProvider;
 use Streams\Ui\Http\Middleware\LoadUi;
+use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
 use Streams\Core\Support\Facades\Streams;
 
@@ -38,19 +38,20 @@ class UiServiceProvider extends ServiceProvider
             }
         });
 
-        App::alias('UI', \Streams\Ui\Support\Facades\UI::class);
-        App::alias('ui', \Streams\Ui\Support\UiManager::class);
+        AliasLoader::getInstance([
+            'UI' => \Streams\Ui\Support\Facades\UI::class,
+        ])->register();
 
         App::singleton(\Streams\Ui\Support\Breadcrumb::class);
+        App::singleton('ui', \Streams\Ui\Support\UiManager::class);
 
         $this->registerStreams();
         $this->registerConfig();
 
+        $this->extendStream();
         $this->extendRouter();
         $this->extendStream();
         $this->extendField();
-
-        $this->registerRoutes();
 
 
         Route::any('test',function(){
@@ -68,6 +69,8 @@ class UiServiceProvider extends ServiceProvider
         $this->extendView();
         $this->extendLang();
         $this->extendAssets();
+
+        $this->registerRoutes();
     }
 
     /**
@@ -114,72 +117,81 @@ class UiServiceProvider extends ServiceProvider
 
             Route::streams(Config::get('streams.ui.cp_prefix'), [
                 'verb' => 'get',
-                'as' => 'ui::cp.home',
+                'as' => 'streams.ui.cp.home',
                 'uses' => '\Streams\Ui\Http\Controller\UiController@index',
             ]);
 
-            Route::prefix(Config::get('streams.ui.cp_prefix'))->middleware(Config::get('streams.ui.cp_middleware'))->group(function () {
+            Route::prefix(Config::get('streams.ui.cp_prefix'))
+                ->middleware(Config::get('streams.ui.cp_middleware'))
+                ->group(function () {
 
-                /**
-                 * Load route file first.
-                 */
-                if (file_exists($routes = base_path('routes/cp.php'))) {
-                    include $routes;
-                }
+                    /**
+                     * Load route file first.
+                     */
+                    if (file_exists($routes = base_path('routes/cp.php'))) {
+                        include $routes;
+                    }
 
-                /**
-                 * Route navigation next.
-                 */
-                // Streams::entries('cp.navigation')->get()
-                //     ->filter(function ($section) {
-                //         return $section->route;
-                //     })->each(function ($section) {
-                //         Route::streams(Arr::get($section->route, 'uri', $section->id), array_merge([
-                //             'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
-                //         ], $section->route));
-                //     });
+                    /**
+                     * Route navigation next.
+                     */
+                    // Streams::entries('cp.navigation')->get()
+                    //     ->filter(function ($section) {
+                    //         return $section->route;
+                    //     })->each(function ($section) {
+                    //         Route::streams(Arr::get($section->route, 'uri', $section->id), array_merge([
+                    //             'uses' => \Streams\Ui\Http\Controller\UiController::class,
+                    //         ], $section->route));
+                    //     });
 
-                // @todo Configure this later
-                $index = '{section}';
-                $create = '{section}/create';
-                $edit = '{section}/{entry}/edit';
+                    // @todo Configure this later
+                    $index = '{section}';
+                    $create = '{section}/create';
+                    $edit = '{section}/{entry}/edit';
 
-                $component = 'ui/{stream}/{component}/{handle?}';
+                    $component = 'ui/{stream}/{component}/{handle?}';
 
-                Route::streams($index, [
-                    'verb' => 'get',
-                    'ui.cp' => true,
+                    Route::streams('/', [
+                        'verb' => 'get',
+                        'as' => 'streams.ui.cp.home',
+                        'uses' => \Streams\Ui\Http\Controller\UiController::class,
+                    ]);
+
+                    Route::streams($index, [
+                        'verb' => 'get',
+                        'ui.cp' => true,
+                        'ui.cp_enabled' => true,
                     'ui.cp_enabled' => true,
-                    'entry' => false,
-                    'as' => 'ui::cp.index',
-                    'ui.component' => 'table',
-                    'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
-                ]);
+                        'ui.component' => 'table',
+                        'as' => 'streams.ui.cp.index',
+                        'uses' => \Streams\Ui\Http\Controller\UiController::class,
+                    ]);
 
-                Route::streams($create, [
-                    'verb' => 'get',
-                    'ui.cp' => true,
+                    Route::streams($create, [
+                        'verb' => 'get',
+                        'ui.cp' => true,
+                        'ui.cp_enabled' => true,
+                        'entry' => false,
+                        'as' => 'streams.ui.cp.create',
+                        'ui.component' => 'form',
+                        'uses' => \Streams\Ui\Http\Controller\UiController::class,
+                    ]);
+
+                    Route::streams($edit, [
+                        'verb' => 'get',
+                        'ui.cp' => true,
+                        'ui.cp_enabled' => true,
                     'ui.cp_enabled' => true,
-                    'entry' => false,
-                    'as' => 'ui::cp.create',
-                    'ui.component' => 'form',
-                    'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
-                ]);
+                        'ui.component' => 'form',
+                        'as' => 'streams.ui.cp.edit',
+                        'uses' => \Streams\Ui\Http\Controller\UiController::class,
+                    ]);
 
-                Route::streams($edit, [
-                    'verb' => 'get',
-                    'ui.cp' => true,
-                    'ui.cp_enabled' => true,
-                    'as' => 'ui::cp.edit',
-                    'ui.component' => 'form',
-                    'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
-                ]);
-
-                Route::streams($component, [
-                    'ui.cp' => false,
-                    'uses' => '\Streams\Ui\Http\Controller\UiController@handle',
-                ]);
-            });
+                    Route::streams($component, [
+                        'ui.cp' => false,
+                        'uses' => \Streams\Ui\Http\Controller\UiController::class,
+                    ]);
+                });
         }
     }
 
@@ -192,7 +204,7 @@ class UiServiceProvider extends ServiceProvider
             ])
                 ->group(function () use ($uri, $route) {
 
-                    $route['uses'] = Arr::get($route, 'uses') ?: '\Streams\Ui\Http\Controller\UiController';
+                    $route['uses'] = Arr::get($route, 'uses') ?: \Streams\Ui\Http\Controller\UiController::class;
 
                     Route::streams($uri, $route);
                 });
@@ -207,7 +219,7 @@ class UiServiceProvider extends ServiceProvider
                 ])
                 ->group(function () use ($uri, $route) {
 
-                    $route['uses'] = Arr::get($route, 'uses') ?: '\Streams\Ui\Http\Controller\UiController';
+                    $route['uses'] = Arr::get($route, 'uses') ?: \Streams\Ui\Http\Controller\UiController::class;
 
                     $route['ui.cp'] = true;
                     $route['ui.cp_enabled'] = true;
@@ -375,10 +387,10 @@ class UiServiceProvider extends ServiceProvider
 
         Assets::addPath('ui', 'vendor/streams/ui');
 
-        Assets::register('ui::css/theme.css');
-        Assets::register('ui::css/tailwind.css');
-        Assets::register('ui::css/variables.css');
+        Assets::register('streams.ui.css/theme.css');
+        Assets::register('streams.ui.css/tailwind.css');
+        Assets::register('streams.ui.css/variables.css');
 
-        Assets::register('ui::js/index.js');
+        Assets::register('streams.ui.js/index.js');
     }
 }

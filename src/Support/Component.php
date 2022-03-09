@@ -4,6 +4,7 @@ namespace Streams\Ui\Support;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Streams\Core\Stream\Stream;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
@@ -31,24 +32,13 @@ use Streams\Core\Support\Traits\FiresCallbacks;
  */
 class Component implements Arrayable, Jsonable
 {
+    use Prototype;
     use FiresCallbacks;
-
-    use Prototype {
-        Prototype::initializePrototypeAttributes as private initializePrototype;
-    }
 
     public $stream;
 
-    /**
-     * Create a new class instance.
-     *
-     * @param array $attributes
-     */
     public function __construct(array $attributes = [])
     {
-        $attributes = Arr::undot($attributes);
-        $attributes = Arr::parse($attributes, $attributes);
-
         if (isset($attributes['stream']) && is_string($attributes['stream'])) {
             $attributes['stream'] = Streams::make($attributes['stream']);
         }
@@ -56,7 +46,7 @@ class Component implements Arrayable, Jsonable
         if (isset($attributes['stream'])) {
             $this->stream = $attributes['stream'];
         }
-
+        
         $callbackData = new Collection([
             'attributes' => $attributes,
         ]);
@@ -65,12 +55,44 @@ class Component implements Arrayable, Jsonable
             'callbackData' => $callbackData,
         ]);
 
+        $this->syncOriginalPrototypeAttributes($callbackData->get('attributes'));
+
+        //$this->setRawPrototypeAttributes($callbackData->get('attributes'));
+
         $this->initializePrototypeAttributes($callbackData->get('attributes'));
 
         $this->fire('initialized', [
-            $this->component => $this,
+            'field' => $this,
         ]);
     }
+    
+    // public function __construct(array $attributes = [])
+    // {
+    //     $attributes = Arr::undot($attributes);
+    //     $attributes = Arr::parse($attributes, $attributes);
+
+    //     if (isset($attributes['stream']) && is_string($attributes['stream'])) {
+    //         $attributes['stream'] = Streams::make($attributes['stream']);
+    //     }
+
+    //     if (isset($attributes['stream'])) {
+    //         $this->stream = $attributes['stream'];
+    //     }
+
+    //     $callbackData = new Collection([
+    //         'attributes' => $attributes,
+    //     ]);
+
+    //     $this->fire('initializing', [
+    //         'callbackData' => $callbackData,
+    //     ]);
+
+    //     $this->initializePrototypeAttributes($callbackData->get('attributes'));
+
+    //     $this->fire('initialized', [
+    //         $this->component => $this,
+    //     ]);
+    // }
 
     public function response()
     {
@@ -110,7 +132,7 @@ class Component implements Arrayable, Jsonable
      */
     protected function initializePrototypeAttributes(array $attributes)
     {
-        return $this->initializePrototype(array_merge([
+        return $this->setRawPrototypeAttributes(array_merge([
             'handle' => null,
             'template' => null,
             'component' => null,
@@ -127,7 +149,7 @@ class Component implements Arrayable, Jsonable
         }
 
         $classes = array_unique(
-            array_merge(explode(' ', $this->class), $this->classes, $extra)
+            array_merge(explode(' ', $this->class), (array) $this->classes, $extra)
         );
 
         return trim(implode(' ', $classes));

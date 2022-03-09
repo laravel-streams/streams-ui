@@ -11,13 +11,6 @@ use Streams\Core\Support\Facades\Streams;
 class ComponentTest extends TestCase
 {
 
-    public function setUp(): void
-    {
-        $this->createApplication();
-
-        Streams::load(base_path('vendor/streams/ui/tests/examples.json'));
-    }
-
     public function testUrl()
     {
         $component = new TestComponent();

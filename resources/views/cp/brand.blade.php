@@ -1,6 +1,6 @@
 <div class="c-sidebar__brand">
     <div>
-        <a href="{{ URL::route('ui::cp.home') }}">
+        <a href="{{ URL::route('streams.ui.cp.home') }}">
             {{ __(config('app.name')) }}
         </a>
     </div>
