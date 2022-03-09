@@ -133,8 +133,16 @@ class UiServiceProvider extends ServiceProvider
 
                     $component = 'ui/{stream}/{component}/{handle?}';
 
+                    Route::streams('/', [
+                        'verb' => 'get',
+                        'as' => 'streams.ui.cp.home',
+                        'uses' => \Streams\Ui\Http\Controller\UiController::class,
+                    ]);
+
                     Route::streams($index, [
                         'verb' => 'get',
+                        'ui.cp' => true,
+                        'ui.cp_enabled' => true,
                         'ui.component' => 'table',
                         'as' => 'streams.ui.cp.index',
                         'uses' => \Streams\Ui\Http\Controller\UiController::class,
@@ -154,8 +162,8 @@ class UiServiceProvider extends ServiceProvider
                         'verb' => 'get',
                         'ui.cp' => true,
                         'ui.cp_enabled' => true,
-                        'as' => 'streams.ui.cp.edit',
                         'ui.component' => 'form',
+                        'as' => 'streams.ui.cp.edit',
                         'uses' => \Streams\Ui\Http\Controller\UiController::class,
                     ]);
 

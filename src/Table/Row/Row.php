@@ -32,12 +32,15 @@ class Row extends Component
     {
         $this->loadPrototypeProperties([
             'columns' => [
-                'type' => 'collection',
+                'type' => 'array',
+                'config' => [
+                    'wrapper' => 'collection',
+                ],
             ],
             'buttons' => [
-                'type' => 'collection',
+                'type' => 'array',
                 'config' => [
-                    'abstract' => ButtonCollection::class,
+                    'wrapper' => ButtonCollection::class,
                 ],
             ],
         ]);

@@ -53,48 +53,63 @@ class Table extends Component
     {
         $this->loadPrototypeProperties([
             'views' => [
-                'type' => 'collection',
+                'type' => 'array',
                 'config' => [
-                    'abstract' => ViewCollection::class,
+                    'wrapper' => ViewCollection::class,
                 ],
             ],
             'actions' => [
-                'type' => 'collection',
+                'type' => 'array',
                 'config' => [
-                    'abstract' => ActionCollection::class,
+                    'wrapper' => ActionCollection::class,
                 ],
             ],
             'filters' => [
-                'type' => 'collection',
+                'type' => 'array',
                 'config' => [
-                    'abstract' => FilterCollection::class,
+                    'wrapper' => FilterCollection::class,
                 ],
             ],
 
             'rows' => [
-                'type' => 'collection',
+                'type' => 'array',
+                'config' => [
+                    'wrapper' => 'collection',
+                ],
             ],
             'buttons' => [
-                'type' => 'collection',
+                'type' => 'array',
                 'config' => [
-                    'abstract' => ButtonCollection::class,
+                    'wrapper' => ButtonCollection::class,
                 ],
             ],
             'columns' => [
-                'type' => 'collection',
+                'type' => 'array',
+                'config' => [
+                    'wrapper' => 'collection',
+                ],
             ],
             'headers' => [
-                'type' => 'collection',
+                'type' => 'array',
+                'config' => [
+                    'wrapper' => 'collection',
+                ],
             ],
             'entries' => [
-                'type' => 'collection',
+                'type' => 'array',
+                'config' => [
+                    'wrapper' => 'collection',
+                ],
             ],
             'options' => [
-                'type' => 'collection',
+                'type' => 'array',
+                'config' => [
+                    'wrapper' => 'collection',
+                ],
             ],
         ]);
 
-        parent::initializePrototypeAttributes(array_merge([
+        parent::loadPrototypeAttributes(array_merge([
             'component' => 'table',
             'template' => 'ui::tables.table',
 
@@ -179,10 +194,6 @@ class Table extends Component
     public function onInitializing($callbackData)
     {
         $attributes = $callbackData->get('attributes');
-
-        if (isset($attributes['stream']) && is_string($attributes['stream']) && !$attributes['stream'] instanceof Stream) {
-            $attributes['stream'] = Streams::make($attributes['stream']);
-        }
 
         $this->options = new Collection(Arr::get($attributes, 'options', []));
 

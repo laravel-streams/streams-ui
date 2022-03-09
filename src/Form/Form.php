@@ -78,7 +78,7 @@ class Form extends Component
             ],
 
             'errors' => [
-                //'type' => 'array',
+                'type' => 'array',
                 'config' => [
                     'wrapper' => 'collection',
                 ],
@@ -89,28 +89,19 @@ class Form extends Component
             'fields' => [
                 'type' => 'array',
                 'config' => [
-                    'wrapper' => 'collection',
-                ],
-                'config' => [
-                    'abstract' => FieldCollection::class,
+                    'wrapper' => FieldCollection::class,
                 ],
             ],
             'actions' => [
                 'type' => 'array',
                 'config' => [
-                    'wrapper' => 'collection',
-                ],
-                'config' => [
-                    'abstract' => ActionCollection::class,
+                    'wrapper' => ActionCollection::class,
                 ],
             ],
             'buttons' => [
                 'type' => 'array',
                 'config' => [
-                    'wrapper' => 'collection',
-                ],
-                'config' => [
-                    'abstract' => ButtonCollection::class,
+                    'wrapper' => ButtonCollection::class,
                 ],
             ],
             'sections' => [

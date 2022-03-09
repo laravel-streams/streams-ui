@@ -32,21 +32,21 @@ class ControlPanel extends Component
     {
         $this->loadPrototypeProperties([
             'buttons' => [
-                'type' => 'collection',
+                'type' => 'array',
                 'config' => [
-                    'abstract' => ButtonCollection::class,
+                    'wrapper' => ButtonCollection::class,
                 ],
             ],
             'navigation' => [
-                'type' => 'collection',
+                'type' => 'array',
                 'config' => [
-                    'abstract' => NavigationCollection::class,
+                    'wrapper' => NavigationCollection::class,
                 ],
             ],
             'shortcuts' => [
-                'type' => 'collection',
+                'type' => 'array',
                 'config' => [
-                    'abstract' => ShortcutCollection::class,
+                    'wrapper' => ShortcutCollection::class,
                 ],
             ],
         ]);

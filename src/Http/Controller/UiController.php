@@ -61,9 +61,9 @@ class UiController extends EntryController
         
         $section = Arr::get($action, 'ui.component');
 
-        $section = Streams::make('docs');
+        $stream = Streams::make('docs');
         
-        dd($section->ui('form')->response());
+        $data->put('response', $stream->ui($section)->response());
         /** This is no longer different from parent:: */
 
 

@@ -40,11 +40,13 @@ class Component implements Arrayable, Jsonable
     public function __construct(array $attributes = [])
     {
         if (isset($attributes['stream']) && is_string($attributes['stream'])) {
-            $this->stream = Streams::make($attributes['stream']);
+            $attributes['stream'] = Streams::make($attributes['stream']);
         }
 
-        $attributes['stream'] = $this->stream;
-
+        if (isset($attributes['stream'])) {
+            $this->stream = $attributes['stream'];
+        }
+        
         $callbackData = new Collection([
             'attributes' => $attributes,
         ]);
@@ -55,7 +57,9 @@ class Component implements Arrayable, Jsonable
 
         $this->syncOriginalPrototypeAttributes($callbackData->get('attributes'));
 
-        $this->setRawPrototypeAttributes($callbackData->get('attributes'));
+        //$this->setRawPrototypeAttributes($callbackData->get('attributes'));
+
+        $this->initializePrototypeAttributes($callbackData->get('attributes'));
 
         $this->fire('initialized', [
             'field' => $this,
@@ -128,8 +132,7 @@ class Component implements Arrayable, Jsonable
      */
     protected function initializePrototypeAttributes(array $attributes)
     {
-        
-        return $this->loadPrototypeAttributes(array_merge([
+        return $this->setRawPrototypeAttributes(array_merge([
             'handle' => null,
             'template' => null,
             'component' => null,
@@ -146,7 +149,7 @@ class Component implements Arrayable, Jsonable
         }
 
         $classes = array_unique(
-            array_merge(explode(' ', $this->class), $this->classes, $extra)
+            array_merge(explode(' ', $this->class), (array) $this->classes, $extra)
         );
 
         return trim(implode(' ', $classes));

@@ -3,7 +3,7 @@
 <html lang="en">
 
 @php
-    $theme = Streams::entries('cp.themes')
+    $theme = Streams::repository('cp.themes')
         ->find(Config::get('streams.ui.cp_theme', 'default'));
 
     View::share('theme', $theme);
