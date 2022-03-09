@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Config;
 use Streams\Ui\Http\Middleware\LoadUi;
 use Illuminate\Support\ServiceProvider;
@@ -29,10 +30,12 @@ class UiServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        App::alias('UI', \Streams\Ui\Support\Facades\UI::class);
-        App::alias('ui', \Streams\Ui\Support\UiManager::class);
-
+        AliasLoader::getInstance([
+            'UI' => \Streams\Ui\Support\Facades\UI::class,
+        ])->register();
+        
         App::singleton(\Streams\Ui\Support\Breadcrumb::class);
+        App::singleton('ui', \Streams\Ui\Support\UiManager::class);
 
         $this->registerStreams();
         $this->registerConfig();
