@@ -1,12 +1,10 @@
 import 'reflect-metadata';
 import { AsyncContainerModule, Container, interfaces } from 'inversify';
 import getDecorators from 'inversify-inject-decorators';
-import { Dispatcher } from '../Dispatcher/Dispatcher';
-import { Repository } from '../Config/Repository';
-import { ApplicationInitOptions, Configuration } from '../types/config';
-import { IServiceProvider, IServiceProviderClass } from '../Support/ServiceProvider';
-import { isServiceProviderClass, makeLog } from '../Support/utils';
-import { Constructor, ServiceProvider } from '../Support';
+import { Dispatcher } from '../Dispatcher';
+import { Repository } from '../Config';
+import { ApplicationInitOptions, Configuration } from '../types';
+import { Constructor, IServiceProvider, IServiceProviderClass, isServiceProviderClass, makeLog, ServiceProvider } from '../Support';
 import { defaultConfig } from '../defaultConfig';
 import deepmerge from 'deepmerge';
 import ServiceIdentifier = interfaces.ServiceIdentifier;
@@ -417,7 +415,7 @@ export class Application extends Container {
 const app = Application.instance;
 
 const { lazyInject: inject } = getDecorators(app);
-export { injectable,id,decorate,named,optional,unmanaged,targetName,tagged,postConstruct } from 'inversify';
+export { injectable, id, decorate, named, optional, unmanaged, targetName, tagged, postConstruct } from 'inversify';
 export {
     app,
     inject,

@@ -12,6 +12,6 @@ class ControlPanel extends Component
     }
     public function render()
     {
-        return view('ui::components.control-panel');
+        return view('ui::components.cp');
     }
 }

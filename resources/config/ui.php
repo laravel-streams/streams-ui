@@ -73,6 +73,7 @@ return [
     ],
     'components'    => [
         'ui-alert' => \Streams\Ui\Component\Alert::class,
-        'ui-control-panel' => \Streams\Ui\Component\ControlPanel::class,
+        'ui-cp' => \Streams\Ui\Component\ControlPanel::class,
+        'ui-cp-top-bar' => \Streams\Ui\Component\ControlPanelTopBar::class,
     ],
 ];

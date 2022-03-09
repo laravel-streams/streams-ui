@@ -13,7 +13,8 @@ mix
         sourcemaps    : false,
     })
     .streams({
-        name: ['streams', 'ui']
+        name: ['streams', 'ui'],
+        analyze:true
     });
 
 mix.override(config => {

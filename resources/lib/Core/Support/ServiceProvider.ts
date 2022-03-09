@@ -1,5 +1,8 @@
 import { Application } from '../Foundation/Application';
 
+
+export const isServiceProviderClass = (value: any): value is IServiceProviderClass => !(value instanceof ServiceProvider);
+
 export class ServiceProvider implements IServiceProvider {
 
     constructor(public app: Application) {}

@@ -46,13 +46,15 @@
         "eventemitter2": "^6.4.4",
         "inversify": "^5.1",
         "inversify-inject-decorators": "^3.1",
-        "lit": "^2.2.0",
         "lz-string": "^1.4.4",
         "mousetrap": "^1.6.5",
+        "@microsoft/fast-element": "^1.8.0",
         "reflect-metadata": "^0.1.13",
         "tailwindcss": "^2.0"
     },
     "devDependencies": {
+        "classnames": "^2.3.1",
+        "@types/classnames": "^2.3.1",
         "@laravel-streams/mix-extension": "^1.0.0",
         "@types/alpinejs": "^3.7.0",
         "@types/chai": "^4.2.22",
