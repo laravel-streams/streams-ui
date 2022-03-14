@@ -1,12 +1,12 @@
 @extends('ui::test')
 
-@push('topbar')
-    <div>asdfsadf</div>
-@endpush
+@area('header','title')
+    <div>Title</div>
+@endarea
 
-@push('sidebar')
-    <div>Fooo</div>
-@endpush
+@area('sidebar','title')
+    <div>Sidebar Title</div>
+@endarea
 
 @section('content')
 

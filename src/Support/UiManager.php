@@ -7,6 +7,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Traits\Macroable;
 use Streams\Core\Support\Traits\FiresCallbacks;
+use Streams\Ui\View\AreaCollection;
+use Streams\Ui\View\AreaItem;
 
 class UiManager
 {

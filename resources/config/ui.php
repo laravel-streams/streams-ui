@@ -72,9 +72,10 @@ return [
         'checkbox' => \Streams\Ui\Input\Checkbox::class,
     ],
     'components'    => [
-        'ui-alert' => \Streams\Ui\Component\Alert::class,
-        'ui-cp' => \Streams\Ui\Component\ControlPanel::class,
-        'ui-cp-topbar' => \Streams\Ui\Component\ControlPanelTopBar::class,
-        'ui-cp-sidebar' => \Streams\Ui\Component\ControlPanelSidebar::class
+        'ui-alert' => \Streams\Ui\Component\Components\Alert::class,
+        'ui-toolbar' => \Streams\Ui\Component\Components\Toolbar::class,
+        'ui-cp' => \Streams\Ui\Component\ControlPanel\ControlPanel::class,
+        'ui-cp-topbar' => \Streams\Ui\Component\ControlPanel\ControlPanelHeader::class,
+        'ui-cp-sidebar' => \Streams\Ui\Component\ControlPanel\ControlPanelSidebar::class
     ],
 ];

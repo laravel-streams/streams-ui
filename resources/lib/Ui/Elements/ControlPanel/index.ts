@@ -1,5 +1,5 @@
 export * from './ControlPanel';
-export * from './ControlPanelTopBar';
+export * from './ControlPanelHeader';
 export * from './ControlPanelSidebar';
 
 // lazy load

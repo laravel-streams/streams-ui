@@ -9,18 +9,20 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
 
     <script defer src="{{ asset('vendor/streams/ui/js/ui.js') }}"></script>
+{{--
     <link href="{{ asset('vendor/streams/ui/css/variables.css') }}" rel="stylesheet" data-element-import>
     <link href="{{ asset('vendor/streams/ui/css/tailwind.css') }}" rel="stylesheet" data-element-import>
     <link href="{{ asset('vendor/streams/ui/css/theme.css') }}" rel="stylesheet" data-element-import>
+--}}
 </head>
 <body>
-<div>
+<div id="root">
     <x-ui::cp brand-mode="ffa">
         <x-slot name="sidebar">
-            @area('sidebar')
+            @region('sidebar')
         </x-slot>
-        <x-slot name="topbar">
-            @stack('topbar')
+        <x-slot name="header">
+            @region('header')
         </x-slot>
         @yield('content')
     </x-ui::cp>
