@@ -1,9 +1,9 @@
 <?php
 
-namespace Streams\Ui\Component;
+namespace Streams\Ui\Component\ControlPanel;
 
-use Illuminate\Support\Facades\View;
 use Illuminate\View\Component;
+use function view;
 
 class ControlPanelSidebar extends Component
 {
@@ -12,6 +12,6 @@ class ControlPanelSidebar extends Component
     }
     public function render()
     {
-        return view('ui::components.cp-sidebar');
+        return view('ui::components.cp.sidebar');
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace Streams\Ui\Component;
+namespace Streams\Ui\Component\ControlPanel;
 
-use Illuminate\Support\Facades\View;
 use Illuminate\View\Component;
+use function view;
 
 class ControlPanel extends Component
 {

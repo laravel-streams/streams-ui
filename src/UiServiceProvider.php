@@ -2,24 +2,27 @@
 
 namespace Streams\Ui;
 
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
-use Streams\Ui\Input\Input;
+use Illuminate\View\Factory;
 use Streams\Core\Field\Field;
 use Streams\Core\Stream\Stream;
-use Streams\Ui\Support\Facades\UI;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\Facades\Config;
-use Streams\Ui\Http\Middleware\LoadUi;
-use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
 use Streams\Core\Support\Facades\Streams;
+use Streams\Ui\Http\Middleware\LoadUi;
+use Streams\Ui\Input\Input;
+use Streams\Ui\Support\Facades\UI;
+use Streams\Ui\View\ManagesAreas;
+use Streams\Ui\View\Regions;
 
 class UiServiceProvider extends ServiceProvider
 {
@@ -31,36 +34,33 @@ class UiServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->instance('ui.components',collect(config('ui.components',[])));
-        $this->app->booted(function($app){
-            foreach($app['ui.components'] as $name => $class) {
-                Blade::component($name,$class);
-            }
-        });
+        $this->app->singleton(\Streams\Ui\Support\Breadcrumb::class);
+        $this->app->singleton('ui', \Streams\Ui\Support\UiManager::class);
+
+        $this->app->singleton(\Streams\Ui\View\Regions::class);
+        $this->app->singleton(\Streams\Ui\View\ManagesAreas::class);
 
         AliasLoader::getInstance([
             'UI' => \Streams\Ui\Support\Facades\UI::class,
         ])->register();
 
-        App::singleton(\Streams\Ui\Support\Breadcrumb::class);
-        App::singleton('ui', \Streams\Ui\Support\UiManager::class);
 
         $this->registerStreams();
         $this->registerConfig();
+        $this->registerComponents();
 
         $this->extendStream();
         $this->extendRouter();
         $this->extendStream();
         $this->extendField();
 
-
-        Route::any('test',function(){
+        Route::get('/test',function(){
             /** @var \Illuminate\View\View $view */
-            $view = view('ui::test2');
-            $view->getFactory()->startPush('sidebar',view('ui::test3'));
-            $view->getFactory()->startPush('topbar','Top  bar');
+
+            $view = view('ui::test2')->render();
             return $view;
-        });
+        })->name('test');
+
     }
 
     public function boot()
@@ -71,6 +71,47 @@ class UiServiceProvider extends ServiceProvider
         $this->extendAssets();
 
         $this->registerRoutes();
+        $this->bootBladeDirectives();
+
+        $this->testRegionsProgrammatically();
+    }
+
+    protected function testRegionsProgrammatically()
+    {
+        /** @var Regions $regions */
+        $regions = $this->app->make(Regions::class);
+        $regions->setAreaContent('sidebar','foo','<div>This is Fooo</div>');
+        $regions->setArea('sidebar','foo2','ui::sidebar-foo2');
+        // test override
+        $regions->setAreaContent('sidebar','title','<div>Sidebar Overide Title</div>');
+    }
+
+    protected function registerComponents()
+    {
+        $components = collect(config('streams.ui.components', []));
+        $this->app->instance('ui.components', $components);
+        $this->app->booted(function ($app) {
+            foreach ($app[ 'ui.components' ] as $name => $class) {
+                Blade::component($name, $class);
+            }
+        });
+    }
+
+    public function bootBladeDirectives()
+    {
+        Factory::mixin($this->app->make(ManagesAreas::class));
+
+        Blade::directive('region', function ($expression) {
+            return "<?php echo \$__env->yieldRegionContent({$expression}); ?>";
+        });
+
+        Blade::directive('area', function ($expression) {
+            return "<?php \$__env->startArea({$expression}); ?>";
+        });
+
+        Blade::directive('endarea', function () {
+            return "<?php \$__env->stopArea(); ?>";
+        });
     }
 
     /**
@@ -85,7 +126,7 @@ class UiServiceProvider extends ServiceProvider
         }
 
         $this->publishes([
-            __DIR__ . '/../resources/config/ui.php' => config_path('streams/ui.php')
+            __DIR__ . '/../resources/config/ui.php' => config_path('streams/ui.php'),
         ], 'config');
     }
 
@@ -94,17 +135,17 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function registerStreams()
     {
-        $prefix = __DIR__ . '/../resources/streams/';
-        $streams = ['cp.navigation', 'cp.shortcuts', 'cp.themes'];
+        $prefix  = __DIR__ . '/../resources/streams/';
+        $streams = [ 'cp.navigation', 'cp.shortcuts', 'cp.themes' ];
 
         foreach ($streams as $stream) {
-            if (!Streams::exists($stream)) {
+            if ( ! Streams::exists($stream)) {
                 Streams::load($prefix . $stream . '.json');
             }
         }
 
         $this->publishes([
-            __DIR__ . '/../resources/streams/' => base_path('streams/')
+            __DIR__ . '/../resources/streams/' => base_path('streams/'),
         ], 'streams');
     }
 
@@ -113,11 +154,11 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function registerRoutes()
     {
-        if (!$this->app->routesAreCached()) {
+        if ( ! $this->app->routesAreCached()) {
 
             Route::streams(Config::get('streams.ui.cp_prefix'), [
                 'verb' => 'get',
-                'as' => 'streams.ui.cp.home',
+                'as'   => 'streams.ui.cp.home',
                 'uses' => '\Streams\Ui\Http\Controller\UiController@index',
             ]);
 
@@ -145,51 +186,51 @@ class UiServiceProvider extends ServiceProvider
                     //     });
 
                     // @todo Configure this later
-                    $index = '{section}';
+                    $index  = '{section}';
                     $create = '{section}/create';
-                    $edit = '{section}/{entry}/edit';
+                    $edit   = '{section}/{entry}/edit';
 
                     $component = 'ui/{stream}/{component}/{handle?}';
 
                     Route::streams('/', [
                         'verb' => 'get',
-                        'as' => 'streams.ui.cp.home',
+                        'as'   => 'streams.ui.cp.home',
                         'uses' => \Streams\Ui\Http\Controller\UiController::class,
                     ]);
 
                     Route::streams($index, [
-                        'verb' => 'get',
-                        'ui.cp' => true,
+                        'verb'          => 'get',
+                        'ui.cp'         => true,
                         'ui.cp_enabled' => true,
-                    'ui.cp_enabled' => true,
-                        'ui.component' => 'table',
-                        'as' => 'streams.ui.cp.index',
-                        'uses' => \Streams\Ui\Http\Controller\UiController::class,
+                        'ui.cp_enabled' => true,
+                        'ui.component'  => 'table',
+                        'as'            => 'streams.ui.cp.index',
+                        'uses'          => \Streams\Ui\Http\Controller\UiController::class,
                     ]);
 
                     Route::streams($create, [
-                        'verb' => 'get',
-                        'ui.cp' => true,
+                        'verb'          => 'get',
+                        'ui.cp'         => true,
                         'ui.cp_enabled' => true,
-                        'entry' => false,
-                        'as' => 'streams.ui.cp.create',
-                        'ui.component' => 'form',
-                        'uses' => \Streams\Ui\Http\Controller\UiController::class,
+                        'entry'         => false,
+                        'as'            => 'streams.ui.cp.create',
+                        'ui.component'  => 'form',
+                        'uses'          => \Streams\Ui\Http\Controller\UiController::class,
                     ]);
 
                     Route::streams($edit, [
-                        'verb' => 'get',
-                        'ui.cp' => true,
+                        'verb'          => 'get',
+                        'ui.cp'         => true,
                         'ui.cp_enabled' => true,
-                    'ui.cp_enabled' => true,
-                        'ui.component' => 'form',
-                        'as' => 'streams.ui.cp.edit',
-                        'uses' => \Streams\Ui\Http\Controller\UiController::class,
+                        'ui.cp_enabled' => true,
+                        'ui.component'  => 'form',
+                        'as'            => 'streams.ui.cp.edit',
+                        'uses'          => \Streams\Ui\Http\Controller\UiController::class,
                     ]);
 
                     Route::streams($component, [
                         'ui.cp' => false,
-                        'uses' => \Streams\Ui\Http\Controller\UiController::class,
+                        'uses'  => \Streams\Ui\Http\Controller\UiController::class,
                     ]);
                 });
         }
@@ -204,7 +245,7 @@ class UiServiceProvider extends ServiceProvider
             ])
                 ->group(function () use ($uri, $route) {
 
-                    $route['uses'] = Arr::get($route, 'uses') ?: \Streams\Ui\Http\Controller\UiController::class;
+                    $route[ 'uses' ] = Arr::get($route, 'uses') ?: \Streams\Ui\Http\Controller\UiController::class;
 
                     Route::streams($uri, $route);
                 });
@@ -219,10 +260,10 @@ class UiServiceProvider extends ServiceProvider
                 ])
                 ->group(function () use ($uri, $route) {
 
-                    $route['uses'] = Arr::get($route, 'uses') ?: \Streams\Ui\Http\Controller\UiController::class;
+                    $route[ 'uses' ] = Arr::get($route, 'uses') ?: \Streams\Ui\Http\Controller\UiController::class;
 
-                    $route['ui.cp'] = true;
-                    $route['ui.cp_enabled'] = true;
+                    $route[ 'ui.cp' ]         = true;
+                    $route[ 'ui.cp_enabled' ] = true;
 
                     Route::streams($uri, $route);
                 });
@@ -238,10 +279,10 @@ class UiServiceProvider extends ServiceProvider
 
             if (is_array($handle)) {
                 $attributes = $handle;
-                $handle = 'default';
+                $handle     = 'default';
             }
 
-            if (!$configured = Arr::get($this->ui, Str::plural($component) . '.' . $handle)) {
+            if ( ! $configured = Arr::get($this->ui, Str::plural($component) . '.' . $handle)) {
                 $configured = Arr::get($this->ui, $component, []);
             }
 
@@ -249,8 +290,8 @@ class UiServiceProvider extends ServiceProvider
 
             $attributes = array_merge($attributes, $configured);
 
-            $attributes['stream'] = $this;
-            $attributes['handle'] = $handle;
+            $attributes[ 'stream' ] = $this;
+            $attributes[ 'handle' ] = $handle;
 
             return UI::make($component, $attributes);
         });
@@ -279,7 +320,7 @@ class UiServiceProvider extends ServiceProvider
 
             return $this->once($this->stream->handle . '.' . $this->handle . '.' . $this->type . '-' . md5(json_encode($attributes)), function () use ($attributes) {
 
-                $attributes['field'] = Arr::get($attributes, 'field', $this);
+                $attributes[ 'field' ] = Arr::get($attributes, 'field', $this);
 
                 $attributes = $attributes + $this->input;
 
@@ -289,11 +330,11 @@ class UiServiceProvider extends ServiceProvider
                     return $this->input;
                 }
 
-                if (!isset($this->input['type'])) {
+                if ( ! isset($this->input[ 'type' ])) {
                     throw new \Exception("Missing input type for field [{$this->handle}] in stream [{$this->stream->handle}]");
                 }
 
-                if (!App::has("streams.ui.input_types.{$this->input['type']}")) {
+                if ( ! App::has("streams.ui.input_types.{$this->input['type']}")) {
                     throw new \Exception("Invalid input type [{$this->input['type']}] for field [{$this->handle}] in stream [{$this->stream->handle}]");
                 }
 
@@ -307,22 +348,22 @@ class UiServiceProvider extends ServiceProvider
 
             $attributes = $callbackData->get('attributes');
 
-            if (!isset($attributes['input'])) {
-                $attributes['input'] = [];
+            if ( ! isset($attributes[ 'input' ])) {
+                $attributes[ 'input' ] = [];
             }
 
-            if (is_string($attributes['input'])) {
-                $attributes['input'] = [
-                    'type' => $attributes['input'],
+            if (is_string($attributes[ 'input' ])) {
+                $attributes[ 'input' ] = [
+                    'type' => $attributes[ 'input' ],
                 ];
             }
 
-            if (is_string($attributes['type']) && strpos($attributes['type'], '|')) {
-                [$attributes['type'], $attributes['input']['type']] = explode('|', $attributes['type']);
+            if (is_string($attributes[ 'type' ]) && strpos($attributes[ 'type' ], '|')) {
+                [ $attributes[ 'type' ], $attributes[ 'input' ][ 'type' ] ] = explode('|', $attributes[ 'type' ]);
             }
 
-            if (!isset($attributes['input']['type'])) {
-                $attributes['input']['type'] = $attributes['type'];
+            if ( ! isset($attributes[ 'input' ][ 'type' ])) {
+                $attributes[ 'input' ][ 'type' ] = $attributes[ 'type' ];
             }
 
             $callbackData->put('attributes', $attributes);
@@ -358,10 +399,10 @@ class UiServiceProvider extends ServiceProvider
     {
         $this->callAfterResolving('view', function ($view) {
             if (
-                isset($this->app->config['view']['paths']) &&
-                is_array($this->app->config['view']['paths'])
+                isset($this->app->config[ 'view' ][ 'paths' ]) &&
+                is_array($this->app->config[ 'view' ][ 'paths' ])
             ) {
-                foreach ($this->app->config['view']['paths'] as $viewPath) {
+                foreach ($this->app->config[ 'view' ][ 'paths' ] as $viewPath) {
                     if (is_dir($appPath = $viewPath . '/vendor/streams/ui')) {
                         $view->addNamespace('ui', $appPath);
                     }
@@ -369,7 +410,7 @@ class UiServiceProvider extends ServiceProvider
             }
         });
 
-        View::addNamespace('ui', base_path('vendor/streams/ui/resources/views'));
+        View::addNamespace('ui', __DIR__ . '/../resources/views');
     }
 
     /**
@@ -379,10 +420,11 @@ class UiServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ . '/../resources/public' => public_path('vendor/streams/ui'),
+            __DIR__ . '/../resources/fonts'  => public_path('vendor/streams/ui/fonts'),
         ], 'public');
 
         $this->publishes([
-            __DIR__ . '/../resources/views' => base_path('resources/views/vendor/streams/ui'),
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/streams/ui'),
         ], 'views');
 
         Assets::addPath('ui', 'vendor/streams/ui');

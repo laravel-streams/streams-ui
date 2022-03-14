@@ -26,7 +26,7 @@ export function element(...args): ClassDecorator {
         class Type extends type {
             constructor() {
                 super();
-                importStylesheets(this as any);
+                //importStylesheets(this as any);
                 console.log('hello this is', definition.name, { definition, instance: this });
             }
         }
