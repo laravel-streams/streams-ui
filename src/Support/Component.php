@@ -30,7 +30,7 @@ use Streams\Core\Support\Traits\FiresCallbacks;
  * @property \Illuminate\Http\Response $response
  * @property \Streams\Core\Stream\Stream $stream
  */
-class Element implements Arrayable, Jsonable
+class Component implements Arrayable, Jsonable
 {
     use Prototype;
     use FiresCallbacks;
@@ -59,7 +59,7 @@ class Element implements Arrayable, Jsonable
 
         //$this->setRawPrototypeAttributes($callbackData->get('attributes'));
 
-        $this->initializeElementPrototype($callbackData->get('attributes'));
+        $this->initializeComponentPrototype($callbackData->get('attributes'));
 
         $this->fire('initialized', [
             'field' => $this,
@@ -102,7 +102,7 @@ class Element implements Arrayable, Jsonable
      * @param array $attributes
      * @return $this
      */
-    protected function initializeElementPrototype(array $attributes)
+    protected function initializeComponentPrototype(array $attributes)
     {
         return $this->setRawPrototypeAttributes(array_merge([
             'handle' => null,

@@ -5,7 +5,7 @@ namespace Streams\Ui\Button;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
-use Streams\Ui\Support\Element;
+use Streams\Ui\Support\Component;
 use Streams\Ui\Support\Traits\HasAttributes;
 use Streams\Ui\Support\Traits\HasDropdown;
 
@@ -24,7 +24,7 @@ use Streams\Ui\Support\Traits\HasDropdown;
  * @property array<string> $classes  default is []
  * @property array $attributes  default is [],
  */
-class Button extends Element
+class Button extends Component
 {
 
     use HasDropdown;
@@ -36,9 +36,9 @@ class Button extends Element
      * @param array $attributes
      * @return $this
      */
-    protected function initializeElementPrototype(array $attributes)
+    protected function initializeComponentPrototype(array $attributes)
     {
-        return parent::initializeElementPrototype(array_merge([
+        return parent::initializeComponentPrototype(array_merge([
             'component' => 'button',
             'template'  => 'ui::buttons.button',
 
