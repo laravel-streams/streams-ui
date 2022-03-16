@@ -28,7 +28,7 @@ class ControlPanel extends Component
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototypeAttributes(array $attributes)
+    protected function initializeElementPrototype(array $attributes)
     {
         $this->loadPrototypeProperties([
             'buttons' => [
@@ -51,7 +51,7 @@ class ControlPanel extends Component
             ],
         ]);
 
-        return parent::initializePrototypeAttributes(array_merge([
+        return parent::initializeElementPrototype(array_merge([
             'buttons' => [],
             'shortcuts' => [],
             'navigation' => [],

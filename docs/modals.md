@@ -1,16 +1,17 @@
 ---
-title: Layouts
+title: Modals
 category: elements
 intro:
-sort: 100
+sort: 199
 enabled: true
 ---
 
-1. [ ] **What** are layouts?
-1. [ ] How do you **use** layouts?
-2. [ ] How do you **build** layouts?
-3. [ ] How do you **secure** layouts?
-4. [ ] How do you **extend** layouts?
+1. [ ] **What** are dropdowns?
+1. [ ] How do you **use** dropdowns?
+2. [ ] How do you **build** dropdowns?
+3. [ ] How do you **secure** dropdowns?
+4. [ ] How do you **extend** dropdowns?
+
 
 - **Intro:** Introduce the idea in one sentence.
 - **Explanation:** An elevator pitch that signals the reader to continue or not (keep looking for relevant page).

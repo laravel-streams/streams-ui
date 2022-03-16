@@ -13,9 +13,9 @@ class Relationship extends Input
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototypeAttributes(array $attributes)
+    protected function initializeElementPrototype(array $attributes)
     {
-        return parent::initializePrototypeAttributes(array_merge([
+        return parent::initializeElementPrototype(array_merge([
             'template' => 'ui::input/relationship',
         ], $attributes));
     }

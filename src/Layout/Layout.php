@@ -16,9 +16,9 @@ class Layout extends Component
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototypeAttributes(array $attributes)
+    protected function initializeElementPrototype(array $attributes)
     {
-        return parent::initializePrototypeAttributes(array_merge([
+        return parent::initializeElementPrototype(array_merge([
             'component' => 'layout',
             'template'  => 'ui::layouts.layout',
             'content' => [],

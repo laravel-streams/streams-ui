@@ -15,9 +15,9 @@ class Fields extends Component
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototypeAttributes(array $attributes)
+    protected function initializeElementPrototype(array $attributes)
     {
-        return parent::initializePrototypeAttributes(array_merge([
+        return parent::initializeElementPrototype(array_merge([
             'component' => 'fields',
             'template'  => 'ui::layouts.fields',
             'content' => [],
