@@ -48,7 +48,7 @@ class Form extends Component
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototypeAttributes(array $attributes)
+    protected function initializeComponentPrototype(array $attributes)
     {
         $this->loadPrototypeProperties([
             'values' => [
@@ -386,7 +386,7 @@ return;// @todo hrmm
             });
         }
 
-        $this->initializePrototypeAttributes([]);
+        $this->initializeComponentPrototype([]);
     }
 
     public function query()

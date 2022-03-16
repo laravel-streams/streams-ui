@@ -49,7 +49,7 @@ class Table extends Component
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototypeAttributes(array $attributes)
+    protected function initializeComponentPrototype(array $attributes)
     {
         $this->loadPrototypeProperties([
             'views' => [

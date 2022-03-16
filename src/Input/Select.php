@@ -11,9 +11,9 @@ class Select extends Input
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototypeAttributes(array $attributes)
+    protected function initializeComponentPrototype(array $attributes)
     {
-        return parent::initializePrototypeAttributes(array_merge([
+        return parent::initializeComponentPrototype(array_merge([
             'template' => 'ui::input/select',
             'type' => null,
         ], $attributes));

@@ -24,9 +24,9 @@ class Action extends Button
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototypeAttributes(array $attributes)
+    protected function initializeComponentPrototype(array $attributes)
     {
-        return parent::initializePrototypeAttributes(array_merge([
+        return parent::initializeComponentPrototype(array_merge([
             'component' => 'button',
             'tag' => 'button',
             'url' => null,

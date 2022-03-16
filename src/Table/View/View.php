@@ -37,9 +37,9 @@ class View extends Component
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototypeAttributes(array $attributes)
+    protected function initializeComponentPrototype(array $attributes)
     {
-        return parent::initializePrototypeAttributes(array_merge([
+        return parent::initializeComponentPrototype(array_merge([
             'component' => 'view',
             'template' => 'ui::tables.view',
 

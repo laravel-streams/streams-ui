@@ -59,7 +59,7 @@ class Component implements Arrayable, Jsonable
 
         //$this->setRawPrototypeAttributes($callbackData->get('attributes'));
 
-        $this->initializePrototypeAttributes($callbackData->get('attributes'));
+        $this->initializeComponentPrototype($callbackData->get('attributes'));
 
         $this->fire('initialized', [
             'field' => $this,
@@ -87,7 +87,7 @@ class Component implements Arrayable, Jsonable
     //         'callbackData' => $callbackData,
     //     ]);
 
-    //     $this->initializePrototypeAttributes($callbackData->get('attributes'));
+    //     $this->initializeComponentPrototype($callbackData->get('attributes'));
 
     //     $this->fire('initialized', [
     //         $this->component => $this,
@@ -130,7 +130,7 @@ class Component implements Arrayable, Jsonable
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototypeAttributes(array $attributes)
+    protected function initializeComponentPrototype(array $attributes)
     {
         return $this->setRawPrototypeAttributes(array_merge([
             'handle' => null,

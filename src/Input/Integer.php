@@ -13,9 +13,9 @@ class Integer extends Number
      * @param array $attributes
      * @return $this
      */
-    protected function initializePrototypeAttributes(array $attributes)
+    protected function initializeComponentPrototype(array $attributes)
     {
-        return parent::initializePrototypeAttributes(array_merge([
+        return parent::initializeComponentPrototype(array_merge([
             'template' => 'ui::input/integer',
             'config' => [
                 'step' => 1,
