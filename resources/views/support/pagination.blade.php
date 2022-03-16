@@ -11,7 +11,7 @@
                 </a>
             @endif
 
-            {{-- Pagination Elements --}}
+            {{-- Pagination Components --}}
             @foreach ($elements as $element)
                 {{-- "Three Dots" Separator --}}
                 @if (is_string($element))
@@ -73,7 +73,7 @@
                         </a>
                     @endif
 
-                    {{-- Pagination Elements --}}
+                    {{-- Pagination Components --}}
                     @foreach ($elements as $element)
                         {{-- "Three Dots" Separator --}}
                         @if (is_string($element))

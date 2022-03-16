@@ -18,9 +18,9 @@ class Shortcut extends Button
      * @param array $attributes
      * @return $this
      */
-    protected function initializeElementPrototype(array $attributes)
+    protected function initializeComponentPrototype(array $attributes)
     {
-        return parent::initializeElementPrototype(array_merge([
+        return parent::initializeComponentPrototype(array_merge([
             'component' => 'shortcut',
 
             'tag' => 'button',
