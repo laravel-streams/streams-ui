@@ -1,6 +1,6 @@
 ---
 title: Inputs
-category: components
+category: elements
 intro:
 sort: 99
 enabled: true

@@ -30,7 +30,7 @@ use Streams\Core\Support\Traits\FiresCallbacks;
  * @property \Illuminate\Http\Response $response
  * @property \Streams\Core\Stream\Stream $stream
  */
-class Component implements Arrayable, Jsonable
+class Element implements Arrayable, Jsonable
 {
     use Prototype;
     use FiresCallbacks;
@@ -59,41 +59,13 @@ class Component implements Arrayable, Jsonable
 
         //$this->setRawPrototypeAttributes($callbackData->get('attributes'));
 
-        $this->initializeComponentPrototype($callbackData->get('attributes'));
+        $this->initializeElementPrototype($callbackData->get('attributes'));
 
         $this->fire('initialized', [
             'field' => $this,
         ]);
     }
     
-    // public function __construct(array $attributes = [])
-    // {
-    //     $attributes = Arr::undot($attributes);
-    //     $attributes = Arr::parse($attributes, $attributes);
-
-    //     if (isset($attributes['stream']) && is_string($attributes['stream'])) {
-    //         $attributes['stream'] = Streams::make($attributes['stream']);
-    //     }
-
-    //     if (isset($attributes['stream'])) {
-    //         $this->stream = $attributes['stream'];
-    //     }
-
-    //     $callbackData = new Collection([
-    //         'attributes' => $attributes,
-    //     ]);
-
-    //     $this->fire('initializing', [
-    //         'callbackData' => $callbackData,
-    //     ]);
-
-    //     $this->initializeComponentPrototype($callbackData->get('attributes'));
-
-    //     $this->fire('initialized', [
-    //         $this->component => $this,
-    //     ]);
-    // }
-
     public function response()
     {
         if (Request::method() == 'POST') {
@@ -130,7 +102,7 @@ class Component implements Arrayable, Jsonable
      * @param array $attributes
      * @return $this
      */
-    protected function initializeComponentPrototype(array $attributes)
+    protected function initializeElementPrototype(array $attributes)
     {
         return $this->setRawPrototypeAttributes(array_merge([
             'handle' => null,
@@ -152,14 +124,14 @@ class Component implements Arrayable, Jsonable
             array_merge(explode(' ', $this->class), (array) $this->classes, $extra)
         );
 
-        return trim(implode(' ', $classes));
+        return array_values(array_filter(array_unique($classes)));
     }
 
     public function attributes(array $attributes = [])
     {
         $class = Arr::pull($attributes, 'class');
 
-        return array_filter(array_merge([
+        return array_filter(array_replace_recursive([
             'class' => $this->class($class),
         ], (array) $this->getPrototypeAttribute('attributes', []), $attributes), function ($value) {
             return !is_null($value) && $value !== '';
@@ -177,17 +149,13 @@ class Component implements Arrayable, Jsonable
             Str::camel($this->component) => $this,
         ];
 
-        return View::make($this->template, $payload);
+        return View::make($this->template, $payload)->render();
     }
 
     public function url(array $extra = [])
     {
-        if (!$stream = $this->stream) {
-            return;
-        }
-
         $type = Str::singular($this->component);
-        $default = "ui/{$stream->handle}/{$type}/{$this->handle}";
+        $default = "ui/{$this->stream->handle}/{$type}/{$this->handle}";
 
         return URL::cp(Arr::get($this->options, 'url', $default), $extra);
     }

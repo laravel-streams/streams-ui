@@ -1,6 +1,6 @@
 ---
 title: Buttons
-category: components
+category: elements
 intro:
 sort: 189
 enabled: true

@@ -1,6 +1,6 @@
 ---
 title: Dropdowns
-category: components
+category: elements
 intro:
 sort: 199
 enabled: true

@@ -47,7 +47,7 @@ class UiManager
      */
     public function make($name, array $attributes = [])
     {
-        $component = Arr::get($this->components, $name, 'ui.components.' . $name);
+        $component = Arr::get($this->components, $name, 'ui.elements.' . $name);
 
         return App::make($component, [
             'attributes' => $attributes,

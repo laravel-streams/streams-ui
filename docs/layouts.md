@@ -1,6 +1,6 @@
 ---
 title: Layouts
-category: components
+category: elements
 intro:
 sort: 100
 enabled: true

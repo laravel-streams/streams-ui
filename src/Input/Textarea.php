@@ -13,9 +13,9 @@ class Textarea extends Input
      * @param array $attributes
      * @return $this
      */
-    protected function initializeComponentPrototype(array $attributes)
+    protected function initializeElementPrototype(array $attributes)
     {
-        return parent::initializeComponentPrototype(array_merge([
+        return parent::initializeElementPrototype(array_merge([
             'template' => 'ui::input/textarea',
             'type' => null,
             'config' => [

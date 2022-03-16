@@ -32,9 +32,9 @@ class Column extends Component
      * @param array $attributes
      * @return $this
      */
-    protected function initializeComponentPrototype(array $attributes)
+    protected function initializeElementPrototype(array $attributes)
     {
-        return parent::initializeComponentPrototype(array_merge([
+        return parent::initializeElementPrototype(array_merge([
             'component' => 'column',
             'view' => null,
             'value' => null,

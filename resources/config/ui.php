@@ -71,7 +71,11 @@ return [
         'boolean'  => \Streams\Ui\Input\Checkbox::class, // Default
         'checkbox' => \Streams\Ui\Input\Checkbox::class,
     ],
+    'elements'    => [
+        'buttons' => \Streams\Ui\Button\Button::class,
+    ],
     'components'    => [
+        'streams-ui-alert' => \Streams\Ui\Button\ButtonBlade::class,
         'ui-alert' => \Streams\Ui\Component\Components\Alert::class,
         'ui-toolbar' => \Streams\Ui\Component\Components\Toolbar::class,
         'ui-cp' => \Streams\Ui\Component\ControlPanel\ControlPanel::class,

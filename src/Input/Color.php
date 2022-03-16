@@ -11,9 +11,9 @@ class Color extends Input
      * @param array $attributes
      * @return $this
      */
-    protected function initializeComponentPrototype(array $attributes)
+    protected function initializeElementPrototype(array $attributes)
     {
-        return parent::initializeComponentPrototype(array_merge([
+        return parent::initializeElementPrototype(array_merge([
             'template' => 'ui::input/color',
             'type' => 'color',
         ], $attributes));
