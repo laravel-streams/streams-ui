@@ -1,24 +1,55 @@
 import Mousetrap from 'mousetrap';
-import { ServiceProvider } from '../Core';
-import { ElementCollection } from './ElementCollection';
-import './Elements';
-import { DefinitionCollection } from './DefinitionCollection';
+import { Application, ServiceProvider } from '../Core';
+import { Toolbar } from './Elements';
+import { StreamsUiConfiguration } from './types';
+import { UIManager } from './UIManager';
+import { FASTElementDefinition } from '@microsoft/fast-element';
+import { DefaultTheme, ThemeManager } from './Theme';
 
 declare module '../Core/Foundation/Application' {
     interface Application {
-        elements: ElementCollection;
-        definitions:DefinitionCollection
+        ui: UIManager;
+    }
+}
+declare module '../Core/types/config' {
+    interface Configuration {
+        ui: StreamsUiConfiguration;
     }
 }
 
+
 export class UiServiceProvider extends ServiceProvider {
+    configure(config: Application['config']) {
+        config.ui = {
+            theme       : 'default',
+            fontPath    : '/vendor/streams/ui/fonts',
+            rootSelector: '#root',
+            normalize   : true,
+        };
+    }
+
     register() {
-        this.app.instance('elements', new ElementCollection()).addBindingGetter('elements');
-        this.app.instance('definitions', new DefinitionCollection()).addBindingGetter('definitions');
+        this.app.singleton('ui', UIManager).addBindingGetter('ui');
+        this.app.singleton('themes', ThemeManager).addBindingGetter('themes');
+
+        // @todo move this to Application.start()
+        this.app.events.on('Application:start', values => {
+            this.app.ui.themes.load(this.app.config.ui.theme);
+
+            console.log(values, this.app, this.app.ui.elements);
+            for ( const item of this.app.ui.elements ) {
+                this.app.ui.definitions.set(item.name, new FASTElementDefinition(item.element, item.definition).define());
+            }
+        });
     }
 
     boot() {
-        let uiAlert = this.app.elements.get('ui-alert');
+        this.app.ui.themes.register('default', DefaultTheme);
+        let uiToolbar = this.app.ui.elements.get<typeof Toolbar>('ui-toolbar');
+
+        uiToolbar.element.defaultCss.space.backgroundColor = 'black';
+
+        let uiAlert = this.app.ui.elements.get('ui-alert');
 
         class MyAlert extends uiAlert.element {
             sfd() {
@@ -26,7 +57,7 @@ export class UiServiceProvider extends ServiceProvider {
             }
         }
 
-        this.app.elements.set(uiAlert.name, MyAlert, uiAlert.definition);
+        this.app.ui.elements.set(uiAlert.name, MyAlert, uiAlert.definition);
     }
 
 

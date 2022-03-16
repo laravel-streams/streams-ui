@@ -1,4 +1,6 @@
-
+import './Elements';
+export * from './Elements';
 export * from './UiServiceProvider';
-export * from './ElementCollection';
-export * from './Support/decorators';
+export * from './Support';
+export * from './Theme';
+

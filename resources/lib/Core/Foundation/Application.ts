@@ -6,7 +6,6 @@ import { Repository } from '../Config';
 import { ApplicationInitOptions, Configuration } from '../types';
 import { Constructor, IServiceProvider, IServiceProviderClass, isServiceProviderClass, makeLog, ServiceProvider } from '../Support';
 import { defaultConfig } from '../defaultConfig';
-import deepmerge from 'deepmerge';
 import ServiceIdentifier = interfaces.ServiceIdentifier;
 
 const log = makeLog('Application');
@@ -112,6 +111,7 @@ export class Application extends Container {
             skipBaseClassChecks: true,
         });
 
+        this.instance('app', this)
         this.singleton('events', Dispatcher).addBindingGetter('events');
 
         this.events.any(
@@ -126,36 +126,12 @@ export class Application extends Container {
      * @returns
      */
     public async initialize(options: ApplicationInitOptions = {}) {
-        this.events.emit('Application:initialize:defaultConfig', defaultConfig);
-        options.config = deepmerge(defaultConfig, options.config || {});
-        // options = {
-        //     providers: [],
-        //     ...options,
-        //     config: {
-        //         ...defaultConfig,
-        //         ...options.config,
-        //         http   : {
-        //             ...defaultConfig.http,
-        //             ...options.config?.http || {},
-        //             etag: {
-        //                 ...defaultConfig.http.etag,
-        //                 ...options.config?.http?.etag || {},
-        //             },
-        //         },
-        //         streams: {
-        //             ...defaultConfig.streams,
-        //             ...options.config?.streams || {},
-        //         },
-        //     },
-        // };
-
         this.events.emit('Application:initialize', options);
-
-        this.instance('config', Repository.asProxy(options.config)).addBindingGetter('config');
-
+        this.events.emit('Application:initialize:defaultConfig', defaultConfig);
+        this.instance('config', Repository.asProxy(defaultConfig)).addBindingGetter('config');
         await this.loadProviders(options.providers);
+        this.config.merge(options.config || {});
         await this.registerProviders(this.providers);
-
         this.events.emit('Application:initialized', this);
         return this;
     }
@@ -218,8 +194,9 @@ export class Application extends Container {
          * this {@see Application.start()} method has received.
          */
 
-        this.events.emit('Application:started', this);
+        this.started=true;
 
+        this.events.emit('Application:started', this);
         return this;
     };
 
@@ -266,10 +243,18 @@ export class Application extends Container {
          * and load those first.
          */
         if ( 'providers' in provider && Reflect.getMetadata('providers', provider) !== true ) {
-
             Reflect.defineMetadata('providers', true, provider);
-
             await this.loadProviders(provider.providers);
+        }
+
+        /**
+         * Check if the provider has
+         * other providers to load
+         * and load those first.
+         */
+        if ( 'configure' in provider && Reflect.getMetadata('configure', provider) !== true ) {
+            Reflect.defineMetadata('configure', true, provider);
+            provider.configure(this.config);
         }
 
         /**

@@ -1,4 +1,4 @@
-import { cssRule, fontFace } from 'typestyle';
+import { cssRule, fontFace,style } from 'typestyle';
 import { b } from './variables';
 import { normalize as addNormalize, setupPage } from 'csstips';
 import { constants } from '../constants';
@@ -36,5 +36,5 @@ cssRule('html, body', {
 cssRule('body', {
     color          : b('font_color'),
     backgroundColor: b('background_color'),
-    fontFamily     : b('font_family'),
+    fontFamily     : b('font_family')
 });

@@ -21,6 +21,8 @@ export interface IServiceProvider {
     singletons?: Record<string, Constructor>;
     bindings?: Record<string, Constructor>;
 
+    configure?(config: Application['config']): void;
+
     register?(): any | Promise<any>;
 
     boot?(): any | Promise<any>;

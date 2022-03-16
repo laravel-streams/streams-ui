@@ -1,5 +1,3 @@
 <ui-cp-header {{$attributes}}>
-    <ui-toolbar>
-        {{ $slot }}
-    </ui-toolbar>
+    {{ $slot }}
 </ui-cp-header>

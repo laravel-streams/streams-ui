@@ -1,3 +1,7 @@
+import { Join, PathsToStringProps } from '../../Core/types/helpers';
+import { getSetDescendantProp } from '../../Core';
+import { color, Color } from './Color';
+
 export var red        = {
     '50'  : '#FFEBEE',
     '100' : '#FFCDD2',
@@ -293,7 +297,7 @@ export var blueGrey   = {
 export var black      = '#000000';
 export var white      = '#FFFFFF';
 
-const colors: Colors = {
+export const colors = {
     red,
     pink,
     purple,
@@ -319,46 +323,50 @@ const colors: Colors = {
 
 export default colors;
 
-export interface SimpleColorValues {
-    50: string;
-    100: string;
-    200: string;
-    300: string;
-    400: string;
-    500: string;
-    600: string;
-    700: string;
-    800: string;
-    900: string;
-}
+export type DotNotatedColorKeys = Join<PathsToStringProps<typeof colors>, '.'>
+export const c = (key: DotNotatedColorKeys): Color => color(getSetDescendantProp(colors, key));
 
-export interface ExtendedColorValues extends SimpleColorValues {
-    a100: string;
-    a200: string;
-    a400: string;
-    a700: string;
-}
 
-export interface Colors {
-    red: ExtendedColorValues;
-    pink: ExtendedColorValues;
-    purple: ExtendedColorValues;
-    deepPurple: ExtendedColorValues;
-    indigo: ExtendedColorValues;
-    blue: ExtendedColorValues;
-    lightBlue: ExtendedColorValues;
-    cyan: ExtendedColorValues;
-    teal: ExtendedColorValues;
-    green: ExtendedColorValues;
-    lightGreen: ExtendedColorValues;
-    lime: ExtendedColorValues;
-    yellow: ExtendedColorValues;
-    amber: ExtendedColorValues;
-    orange: ExtendedColorValues;
-    deepOrange: ExtendedColorValues;
-    brown: SimpleColorValues;
-    grey: SimpleColorValues;
-    blueGrey: SimpleColorValues;
-    black: string;
-    white: string;
-}
+// export interface SimpleColorValues {
+//     50: string;
+//     100: string;
+//     200: string;
+//     300: string;
+//     400: string;
+//     500: string;
+//     600: string;
+//     700: string;
+//     800: string;
+//     900: string;
+// }
+//
+// export interface ExtendedColorValues extends SimpleColorValues {
+//     a100: string;
+//     a200: string;
+//     a400: string;
+//     a700: string;
+// }
+//
+// export interface Colors {
+//     red: ExtendedColorValues;
+//     pink: ExtendedColorValues;
+//     purple: ExtendedColorValues;
+//     deepPurple: ExtendedColorValues;
+//     indigo: ExtendedColorValues;
+//     blue: ExtendedColorValues;
+//     lightBlue: ExtendedColorValues;
+//     cyan: ExtendedColorValues;
+//     teal: ExtendedColorValues;
+//     green: ExtendedColorValues;
+//     lightGreen: ExtendedColorValues;
+//     lime: ExtendedColorValues;
+//     yellow: ExtendedColorValues;
+//     amber: ExtendedColorValues;
+//     orange: ExtendedColorValues;
+//     deepOrange: ExtendedColorValues;
+//     brown: SimpleColorValues;
+//     grey: SimpleColorValues;
+//     blueGrey: SimpleColorValues;
+//     black: string;
+//     white: string;
+// }

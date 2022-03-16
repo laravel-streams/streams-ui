@@ -1,12 +1,11 @@
 import { attr, css, FASTElement, html, volatile, when } from '@microsoft/fast-element';
-import { element } from '../../Support/decorators';
+import { element } from '../../Support';
 import classNames from 'classnames';
-import { darken, theme } from '../../Theme';
-import { variables } from '../../Theme/variables';
+import { darken, theme, variables } from '../../Theme';
 
 const styles   = css`
     .alert {
-        padding: 10px 10px ;
+        padding: 10px 10px;
         margin: 5px;
         border: 1px solid transparent;
     }
@@ -49,7 +48,8 @@ const template = html<Alert>`
     <div class="${x => x.classes}">
         <slot name="content">
             <slot name="label">
-                ${when(x => x.label, () => html`<div class="label">${x => x.label}</div>`)}
+                ${when(x => x.label, () => html`
+                    <div class="label">${x => x.label}</div>`)}
             </slot>
             <p class="message">
                 <slot></slot>
@@ -57,7 +57,6 @@ const template = html<Alert>`
         </slot>
     </div>
 `;
-
 
 @element('ui-alert', { template, styles })
 export class Alert extends FASTElement {

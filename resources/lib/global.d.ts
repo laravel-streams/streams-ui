@@ -1,9 +1,9 @@
 declare global {
-    export interface StreamsGlobal {
-        ui: typeof import('./');
+    interface StreamsGlobal {
+        ui: typeof import('./index');
     }
 
-    export interface Window {
+    interface Window {
         streams: StreamsGlobal;
     }
 }

@@ -1,5 +1,5 @@
 import { attr, css, FASTElement, html, observable, slotted } from '@microsoft/fast-element';
-import { element } from '../../Support/decorators';
+import { element } from '../../Support';
 import { theme } from '../../Theme';
 
 

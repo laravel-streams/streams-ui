@@ -1,12 +1,13 @@
 @extends('ui::test')
 
 @area('header','title')
-    <div>Title</div>
+<div>Title</div>
 @endarea
 
 @area('sidebar','title')
-    <div>Sidebar Title</div>
+<div>Sidebar Title</div>
 @endarea
+
 
 @section('content')
 
@@ -22,7 +23,7 @@
         Could not find the thing you are looking for
     </x-ui::alert>
 
-    <x-ui::alert type="error">
+    <x-ui::alert type="error" class="target">
         Something went wrong
     </x-ui::alert>
 
@@ -31,7 +32,7 @@
         The information has been stored
     </x-ui::alert>
 
-    <x-ui::alert type="info"  label="Information Stored">
+    <x-ui::alert type="info" label="Information Stored">
         The information has been stored
     </x-ui::alert>
 
@@ -43,5 +44,17 @@
         Something went wrong
     </x-ui::alert>
 
-
 @endsection
+
+@area('scripts','changeTarget')
+<script>
+window.addEventListener('load', function () {
+    console.log('load')
+    streams.ui.onStarted(function (app) {
+        const toolbar = document.getElementsByTagName('ui-toolbar')[0];
+        console.log('onStarted',{app,toolbar})
+        toolbar.css.space.border = '3px solid blue';
+    });
+});
+</script>
+@endarea

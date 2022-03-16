@@ -11,6 +11,7 @@
         "hot": "mix watch --hot",
         "prod": "npm run production",
         "production": "mix --production",
+        "clean": "rm -rf resources/public/*",
         "dts": "tsc --project webpack.tsconfig.json --emitDeclarationOnly",
         "dts:copy": "cp resources/lib/global.d.ts resources/public/js/global.d.ts",
         "test": "TS_NODE_PROJECT=./tsconfig.test.json mocha"
@@ -33,6 +34,11 @@
         }
     },
     "dependencies": {
+        "@laravel-streams/api-client": "^1.0.0",
+        "camelcase": "^6.2.0",
+        "collect.js": "^4.29.3",
+        "deepmerge": "^4.2.2",
+        "tapable": "^2.2.1",
         "axios": "^0.21.4",
         "debug": "^4.3.2",
         "eventemitter2": "^6.4.4",
@@ -46,7 +52,8 @@
         "classnames": "^2.3.1",
         "typestyle": "^2.3.0",
         "csstips": "^1.2.0",
-        "mousetrap": "^1.6.5"
+        "mousetrap": "^1.6.5",
+        "object-observer": "^5.0.0"
     },
     "devDependencies": {
         "@types/classnames": "^2.3.1",

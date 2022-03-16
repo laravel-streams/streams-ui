@@ -27,7 +27,8 @@
         ]
     },
     "include": [
-        "resources/lib"
+        "resources/lib",
+        "webpack.mix.ts"
     ],
     "exclude": [
         "node_modules",

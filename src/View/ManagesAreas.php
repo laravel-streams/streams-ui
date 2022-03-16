@@ -8,26 +8,24 @@ class ManagesAreas
 {
     public array $areaStack = [];
 
-    public ?Regions $regions = null;
-
-    public function regions(): Regions
-    {
-        if ( ! $this->regions) {
-            $this->regions = resolve(Regions::class);
-        }
-        return $this->regions;
-    }
 
     public function startArea()
     {
         $me = $this;
-        return function ($regionName, $areaName, string $view = null) use (&$me) {
+
+        return
+            /**
+             * @param string $region The name of the region
+             * @param string $name The name to define this area
+             * @param string|null $view The view name to use instead of content
+             */
+            function (string $region, string $name, string $view = null) use (&$me) {
             if ($view === null) {
                 if (ob_start()) {
-                    $me->areaStack[] = compact('regionName', 'areaName', 'view');
+                    $me->areaStack[] = compact('region', 'name', 'view');
                 }
             } else {
-                $me->areaStack[] = compact('regionName', 'areaName', 'view');
+                $me->areaStack[] = compact('region', 'name', 'view');
             }
         };
     }
@@ -35,21 +33,21 @@ class ManagesAreas
     public function stopArea()
     {
         $me = $this;
-        return function () use ($me) {
+        return  function () use ($me) {
             if (empty($me->areaStack)) {
                 throw new InvalidArgumentException('Cannot end a area stack without first starting one.');
             }
 
-            return tap(array_pop($me->areaStack), function ($last) use ($me) {
+            return tap(array_pop($me->areaStack), static function ($last) use ($me) {
                 $area = (object)[
-                    'name'    => $last[ 'areaName' ],
+                    'name'    => $last[ 'name' ],
                     'view'    => $last[ 'view' ],
                     'content' => null,
                 ];
                 if ($last[ 'view' ] === null) {
                     $area->content = ob_get_clean();
                 }
-                $region = $me->regions()->ensure($last[ 'regionName' ]);
+                $region = resolve(Regions::class)->ensure($last[ 'region' ]);
                 // if area exist, then this has been done from service provider with the purpose of overriding this directives area
                 if ( ! $region->has($area->name)) {
                     $region->put($area->name, $area);
@@ -61,8 +59,8 @@ class ManagesAreas
     public function yieldRegionContent()
     {
         $me = $this;
-        return function ($name) use ($me) {
-            $areas   = $me->regions()->ensure($name)->all();
+        return function (string $name) use ($me) {
+            $areas   = resolve(Regions::class)->ensure($name)->all();
             $content = '';
             foreach ($areas as $area) {
                 if ($area->view !== null) {

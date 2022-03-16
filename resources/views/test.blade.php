@@ -16,13 +16,15 @@
     --}}
 </head>
 <body style="display: none">
-
 <x-ui::cp brand-mode="ffa">
     <x-slot name="sidebar">
         @region('sidebar')
     </x-slot>
     <x-slot name="header">
-        @region('header')
+        <x-ui::toolbar>
+            @region('header')
+            toolbar
+        </x-ui::toolbar>
     </x-slot>
     @yield('content')
 </x-ui::cp>
@@ -36,7 +38,9 @@ window.addEventListener('DOMContentLoaded', function () {
             streams.ui.UiServiceProvider,
         ],
         config   : {
-            ui: {}
+            ui: {
+
+            }
         }
     }).then(function (app) {
         return app.boot();
@@ -47,5 +51,6 @@ window.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
+@region('scripts')
 </body>
 </html>
