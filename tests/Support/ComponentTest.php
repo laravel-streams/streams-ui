@@ -2,10 +2,10 @@
 
 namespace Streams\Ui\Tests\Support;
 
+use Streams\Ui\Button\Button;
 use Streams\Core\Stream\Stream;
-use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Support\Component;
 use Streams\Ui\Tests\UiTestCase;
+use Streams\Ui\Support\Component;
 
 class ComponentTest extends UiTestCase
 {
@@ -88,11 +88,11 @@ class ComponentTest extends UiTestCase
 
     public function test_it_renders_its_template()
     {
-        $component = new Component([
-            'template' => 'ui::support/component',
+        $component = new Button([
+            'text' => 'Test Text',
         ]);
 
-        $this->assertSame("Foo Bar\n", $component->render());
+        $this->assertStringContainsString('Test Text', $component->render());
     }
 
     public function test_it_returns_its_api_url()
@@ -114,6 +114,37 @@ class ComponentTest extends UiTestCase
         ]);
 
         $this->assertSame('custom_test_foo', $component->prefix('foo'));
+    }
+
+    public function test_it_returns_request_input()
+    {
+        $this->get('?custom_test_foo=bar');
+
+        $component = new Button([
+            'stream' => 'films',
+            'options' => [
+                'prefix' => 'custom_test_',
+            ],
+        ]);
+
+        $this->assertSame('bar', $component->request('foo'));
+    }
+
+    public function test_it_returns_responses()
+    {
+        $this->get('');
+
+        $component = new Button([
+            'stream' => 'films',
+            'options' => [
+                'prefix' => 'custom_test_',
+            ],
+        ]);
+
+        $this->assertInstanceOf(
+            \Symfony\Component\HttpFoundation\Response::class,
+            $component->response()
+        );
     }
 }
 
