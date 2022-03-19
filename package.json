@@ -12,6 +12,7 @@
         "prod": "npm run production",
         "production": "mix --production",
         "clean": "rm -rf resources/public/*",
+        "ts": "tsc --project webpack.tsconfig.json",
         "dts": "tsc --project webpack.tsconfig.json --emitDeclarationOnly",
         "dts:copy": "cp resources/lib/global.d.ts resources/public/js/global.d.ts",
         "test": "TS_NODE_PROJECT=./tsconfig.test.json mocha"
@@ -34,7 +35,6 @@
         }
     },
     "dependencies": {
-        "@laravel-streams/api-client": "^1.0.0",
         "camelcase": "^6.2.0",
         "collect.js": "^4.29.3",
         "deepmerge": "^4.2.2",
@@ -57,6 +57,15 @@
     },
     "devDependencies": {
         "@types/classnames": "^2.3.1",
+        "webpack-system-register": "^1.6.0",
+        "systemjs-webpack-interop": "^2.3.7",
+        "systemjs": "^6.12.1",
+        "@types/systemjs": "^6.1.1",
+        "requirejs": "^2.3.6",
+        "@types/requirejs": "^2.1.34",
+        "fs-extra": "^10.0.1",
+        "@types/fs-extra": "^9.0.13",
+
 
         "@laravel-streams/mix-extension": "^1.0.0",
         "@types/alpinejs": "^3.7.0",
@@ -79,6 +88,8 @@
         "postcss": "^8.1",
         "prismjs": "^1.23.0",
         "resolve-url-loader": "^3.1.2",
+        "shelljs": "^0.8.5",
+        "@types/shelljs": "^0.8.11",
         "sass": "^1.27.0",
         "sass-loader": "^8.0.0",
         "should": "^13.2.3",

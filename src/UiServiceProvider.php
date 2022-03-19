@@ -2,27 +2,27 @@
 
 namespace Streams\Ui;
 
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
-use Streams\Ui\Input\Input;
 use Illuminate\View\Factory;
-use Streams\Ui\View\Regions;
 use Streams\Core\Field\Field;
 use Streams\Core\Stream\Stream;
-use Streams\Ui\View\ManagesAreas;
-use Streams\Ui\Support\Facades\UI;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\Facades\Config;
-use Streams\Ui\Http\Middleware\LoadUi;
-use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
 use Streams\Core\Support\Facades\Streams;
+use Streams\Ui\Http\Middleware\LoadUi;
+use Streams\Ui\Input\Input;
+use Streams\Ui\Support\Facades\UI;
+use Streams\Ui\View\ManagesAreas;
+use Streams\Ui\View\Regions;
 
 class UiServiceProvider extends ServiceProvider
 {
@@ -35,15 +35,41 @@ class UiServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(\Streams\Ui\Support\Breadcrumb::class);
-        $this->app->singleton('ui', \Streams\Ui\Support\UiManager::class);
 
-        $this->app->singleton(\Streams\Ui\View\Regions::class);
-        $this->app->singleton(\Streams\Ui\View\ManagesAreas::class);
-
+        $this->app->singleton(\Streams\Ui\Support\UiManager::class);
+        $this->app->alias(\Streams\Ui\Support\UiManager::class, 'ui');
         AliasLoader::getInstance([
             'UI' => \Streams\Ui\Support\Facades\UI::class,
         ])->register();
+        $this->app->resolving(\Streams\Ui\Support\UiManager::class, function (\Streams\Ui\Support\UiManager $ui) {
+            $ui->providers()
+                ->set('streams.ui.core', 'streams.ui.CoreServiceProvider')
+                ->set('streams.ui.ui', 'streams.ui.UiServiceProvider');
+            $ui->config()->set('debug', $this->app->config[ 'app.debug' ]);
+            if (isset($this->app->session)) {
+                $ui->config()->set('csrf', $this->app->session->token());
+            }
+            $ui->config()->set('ui', [
+                'theme'        => 'default',
+                'fontPath'     => '/vendor/streams/ui/fonts',
+                'rootSelector' => '#root',
+                'normalize'    => true,
+            ]);
+            $ui->config()->set('streams', [
+                'baseURL' => '/api',
+                'etag'    => [
+                    'enabled'     => true,
+                    'manifestKey' => 'streams',
+                ],
+                'headers' => [
+                    'X-Requested-With' => 'XMLHttpRequest',
+                ],
+            ]);
+            return $ui;
+        });
 
+        $this->app->singleton(\Streams\Ui\View\Regions::class);
+        $this->app->singleton(\Streams\Ui\View\ManagesAreas::class);
 
         $this->registerConfig();
         $this->registerStreams();
@@ -54,13 +80,12 @@ class UiServiceProvider extends ServiceProvider
         $this->extendStream();
         $this->extendField();
 
-        Route::get('/test',function(){
+        Route::get('/test', function () {
             /** @var \Illuminate\View\View $view */
 
             $view = view('ui::test2')->render();
             return $view;
         })->name('test');
-
     }
 
     public function boot()
@@ -80,10 +105,10 @@ class UiServiceProvider extends ServiceProvider
     {
         /** @var Regions $regions */
         $regions = $this->app->make(Regions::class);
-        $regions->setAreaContent('sidebar','foo','<div>This is Fooo</div>');
-        $regions->setArea('sidebar','foo2','ui::sidebar-foo2');
+        $regions->setAreaContent('sidebar', 'foo', '<div>This is Fooo</div>');
+        $regions->setArea('sidebar', 'foo2', 'ui::sidebar-foo2');
         // test override
-        $regions->setAreaContent('sidebar','title','<div>Sidebar Overide Title</div>');
+        $regions->setAreaContent('sidebar', 'title', '<div>Sidebar Overide Title</div>');
     }
 
     protected function registerComponents()
@@ -292,7 +317,7 @@ class UiServiceProvider extends ServiceProvider
 
             $attributes[ 'stream' ] = $this;
             $attributes[ 'handle' ] = $handle;
-            
+
             return UI::make($component, $attributes);
         });
 
