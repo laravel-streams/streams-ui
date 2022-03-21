@@ -5,6 +5,7 @@
         "module": "commonjs",
         "jsx": "preserve",
         "jsxFactory": "h",
+        "allowJs": true,
         "moduleResolution": "node",
         "experimentalDecorators": true,
         "skipLibCheck": true,

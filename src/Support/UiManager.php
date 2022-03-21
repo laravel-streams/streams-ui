@@ -2,14 +2,13 @@
 
 namespace Streams\Ui\Support;
 
-use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Traits\Macroable;
+use Streams\Ui\Support\Javascript\Config;
 use Streams\Core\Support\Traits\FiresCallbacks;
-use Streams\Ui\View\AreaCollection;
-use Streams\Ui\View\AreaItem;
+use Illuminate\Support\Facades\Config as ConfigFacade;
+use Streams\Ui\Support\Javascript\ServiceProviderCollection;
 
 class UiManager
 {
@@ -17,14 +16,29 @@ class UiManager
     use Macroable;
     use FiresCallbacks;
 
+    /**
+     * Registered UI components.
+     *
+     * @var array<string,string>
+     */
     protected array $components;
+
+    /** Javascript Application Configuration */
+    protected Config $config;
+
+    /** Javascript Application Service Providers */
+    protected ServiceProviderCollection $providers;
+
 
     public function __construct()
     {
-        $this->components = Config::get('streams.ui.components', []);
+        $this->config = new Config();
+        $this->providers = new ServiceProviderCollection();
+
+        $this->components = ConfigFacade::get('ui.components');
     }
 
-    public function make(string $name, array $attributes = [])
+    public function make(string $name, array $attributes = []): Component
     {
         if (!$component = Arr::get($this->components, $name)) {
             throw new \Exception("Component [$name] does not exist.");
@@ -35,17 +49,20 @@ class UiManager
         ]);
     }
 
-    /**
-     * Register a named image.
-     *
-     * @param string $name
-     * @param mixed $component
-     * @return $this
-     */
-    public function register($name, $component)
+    public function register($name, $component): static
     {
         $this->components[$name] = $component;
 
         return $this;
+    }
+
+    public function config(): Config
+    {
+        return $this->config;
+    }
+
+    public function providers(): ServiceProviderCollection
+    {
+        return $this->providers;
     }
 }

@@ -13,7 +13,7 @@ declare module '../Core/Foundation/Application' {
 }
 declare module '../Core/types/config' {
     interface Configuration {
-        ui: StreamsUiConfiguration;
+        ui?: StreamsUiConfiguration;
     }
 }
 

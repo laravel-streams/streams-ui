@@ -1,4 +1,4 @@
-import { Application } from '../Foundation/Application';
+import { Application } from '../Foundation';
 
 
 export const isServiceProviderClass = (value: any): value is IServiceProviderClass => !(value instanceof ServiceProvider);

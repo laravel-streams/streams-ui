@@ -11,9 +11,6 @@ use Illuminate\Support\Facades\Facade;
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  *
- * @method static \Streams\Ui\Component\Component make($handle = null)
- * @method static string handle()
- * @method static \Streams\Ui\Component\ComponentManager switch($handle = null)
  */
 class UI extends Facade
 {
@@ -25,6 +22,6 @@ class UI extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'ui';
+        return \Streams\Ui\Support\UiManager::class;
     }
 }
