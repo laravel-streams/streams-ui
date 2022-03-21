@@ -8,7 +8,7 @@ import { checkWebpackConfig, modifyWebpackConfig } from 'systemjs-webpack-intero
 
 mix
 .ts('resources/lib/index.ts', '')
-// .sass('resources/scss/variables.scss', 'css')
+.sass('resources/scss/variables.scss', 'css')
 .copyDirectory('resources/public/js', '../../../public/vendor/streams/ui/js')
 .sourceMaps(false)
 .streams({

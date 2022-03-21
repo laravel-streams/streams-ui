@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Traits\Macroable;
 use Streams\Ui\Support\Javascript\Config;
 use Streams\Core\Support\Traits\FiresCallbacks;
-use Illuminate\Support\Facades\Config as ConfigFacade;
 use Streams\Ui\Support\Javascript\ServiceProviderCollection;
 
 class UiManager
@@ -35,7 +34,10 @@ class UiManager
         $this->config = new Config();
         $this->providers = new ServiceProviderCollection();
 
-        $this->components = ConfigFacade::get('ui.components');
+        $this->components = [
+            'table' => \Streams\Ui\Table\Table::class,
+            'button' => \Streams\Ui\Button\Button::class,
+        ];
     }
 
     public function make(string $name, array $attributes = []): Component
