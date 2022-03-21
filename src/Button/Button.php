@@ -48,9 +48,9 @@ class Button extends Component
             'primary'  => false,
             'disabled' => false,
             'type'     => 'default',
-            // 'classes'  => [
-            //     'a-button',
-            // ],
+            'classes'  => [
+                'a-button',
+            ],
             'attributes' => [],
         ], $attributes));
     }
