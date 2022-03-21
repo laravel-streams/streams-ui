@@ -35,6 +35,7 @@ class UiManager
         $this->providers = new ServiceProviderCollection();
 
         $this->components = [
+            'form' => \Streams\Ui\Form\Form::class,
             'table' => \Streams\Ui\Table\Table::class,
             'button' => \Streams\Ui\Button\Button::class,
         ];

@@ -427,6 +427,8 @@ class Table extends Component
 
         $rows->each(function ($row) use ($attributes) {
 
+            $columns = $row->columns;
+
             // Load Columns
             foreach (Arr::get($attributes, 'columns') ?: [] as $key => $column) {
 
@@ -434,8 +436,12 @@ class Table extends Component
 
                 $clone->value = Value::make($clone->value, $row->entry);
 
-                $row->columns->put($key, $clone);
+                $columns->put($key, $clone);
             }
+
+            $row->columns = $columns;
+
+            $buttons = $row->buttons;
 
             // Load Buttons
             foreach (Arr::get($attributes, 'buttons') ?: [] as $button) {
@@ -447,8 +453,10 @@ class Table extends Component
                     'stream' => $this->stream,
                 ]));
 
-                $row->buttons->put($clone->handle, $clone);
+                $buttons->put($clone->handle, $clone);
             }
+
+            $row->buttons = $buttons;
         });
 
         $attributes['rows'] = $rows;
