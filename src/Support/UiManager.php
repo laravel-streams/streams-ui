@@ -5,6 +5,7 @@ namespace Streams\Ui\Support;
 use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Traits\Macroable;
 use Streams\Core\Support\Traits\FiresCallbacks;
 use Streams\Ui\View\AreaCollection;
@@ -16,38 +17,18 @@ class UiManager
     use Macroable;
     use FiresCallbacks;
 
-    /**
-     * Registered UI components.
-     *
-     * @var array
-     */
-    protected $components;
+    protected array $components;
 
-    /**
-     * Create a new class instance.
-     */
     public function __construct()
     {
-        $this->components = [
-            'form' => \Streams\Ui\Form\Form::class,
-            'table' => \Streams\Ui\Table\Table::class,
-            'layout' => \Streams\Ui\Layout\Layout::class,
-            'button' => \Streams\Ui\Button\Button::class,
-            'cp' => \Streams\Ui\ControlPanel\ControlPanel::class,
-
-            'fields' => \Streams\Ui\Layout\Fields::class,
-        ];
+        $this->components = Config::get('streams.ui.components', []);
     }
 
-    /**
-     * Make a new image instance.
-     *
-     * @param  mixed $source
-     * @return Image
-     */
-    public function make($name, array $attributes = [])
+    public function make(string $name, array $attributes = [])
     {
-        $component = Arr::get($this->components, $name, 'ui.components.' . $name);
+        if (!$component = Arr::get($this->components, $name)) {
+            throw new \Exception("Component [$name] does not exist.");
+        }
 
         return App::make($component, [
             'attributes' => $attributes,

@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Request;
 use Streams\Ui\Button\ButtonCollection;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\Table\View\ViewCollection;
-use Streams\Ui\Support\Traits\HasRepository;
 use Streams\Ui\Table\Action\ActionCollection;
 use Streams\Ui\Table\Filter\FilterCollection;
 
@@ -40,8 +39,6 @@ use Streams\Ui\Table\Filter\FilterCollection;
  */
 class Table extends Component
 {
-
-    use HasRepository;
 
     /**
      * Initialize the prototype.
@@ -223,7 +220,7 @@ class Table extends Component
         /**
          * Start Query
          */
-        $this->criteria = $this->repository()->newCriteria();
+        $this->criteria = $this->stream->repository()->newCriteria();
 
         /**
          * Filter Query

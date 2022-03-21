@@ -5,25 +5,16 @@ namespace Streams\Ui\Support;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\View;
+use Streams\Core\Entry\Contract\EntryInterface;
 
 class Value
 {
-
-    /**
-     * Make a value from the parameters and entry.
-     *
-     * @param $parameters
-     * @param $payload
-     * @param array $payload
-     * @return mixed|string
-     */
-    public static function make($parameters, $entry, $term = 'entry', $payload = [])
-    {
-        /**
-         * Load the termed entry.
-         */
-        $payload[$term] = $entry;
-
+    public static function make(
+        string|array $parameters,
+        mixed $entry = null,
+        string $term = 'entry'
+    ): string {
+        
         /*
          * If a flat value was sent in
          * then convert it to an array.
@@ -51,8 +42,8 @@ class Value
         /**
          * Check for basic entry attribute values.
          */
-        if (is_object($entry) && method_exists($entry, 'hasAttribute') && $entry->hasAttribute($value)) {
-            $value = $entry->{$value};
+        if (is_object($entry) && $entry instanceof EntryInterface) {
+            $value = $entry->getAttribute($value);
         }
 
         /**
@@ -95,13 +86,6 @@ class Value
             $value = Str::purify($value);
         }
 
-        /**
-         * Ensure we have a string.
-         */
-        if (!is_string($value)) {
-            $value = json_encode($value);
-        }
-
-        return $value;
+        return (string) $value;
     }
 }

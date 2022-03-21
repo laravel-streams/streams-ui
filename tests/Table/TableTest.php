@@ -11,7 +11,7 @@ class TableTest extends UiTestCase
 
     public function testIsSelectable()
     {
-        $stream = Streams::make('testing.examples');
+        $stream = Streams::make('films');
 
         $table = $stream->table();
 

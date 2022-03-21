@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Tests\Support;
 
+use Streams\Core\Field\Decorator\StringDecorator;
 use Streams\Ui\Button\Button;
 use Streams\Core\Stream\Stream;
 use Streams\Ui\Tests\UiTestCase;
@@ -134,17 +135,68 @@ class ComponentTest extends UiTestCase
     {
         $this->get('');
 
-        $component = new Button([
-            'stream' => 'films',
-            'options' => [
-                'prefix' => 'custom_test_',
-            ],
-        ]);
+        $component = new Button;
 
         $this->assertInstanceOf(
             \Symfony\Component\HttpFoundation\Response::class,
             $component->response()
         );
+    }
+
+    public function test_it_can_set_response_returned()
+    {
+        $response = $this->get('?custom_test_foo=bar');
+
+        $component = new Button([
+            'stream' => 'films',
+            'text' => [
+                'prefix' => 'custom_test_',
+            ],
+        ]);
+
+        $component->response = $response;
+
+        $this->assertInstanceOf(
+            \Illuminate\Testing\TestResponse::class,
+            $component->response()
+        );
+    }
+    
+    public function test_it_supports_macros()
+    {
+        Button::macro('testMacro', function() {
+            $this->text = 'Test Text';
+        });
+
+        $component = new Button([
+            'stream' => 'films',
+        ]);
+
+        $component->testMacro();
+        
+        $this->assertEquals('Test Text', $component->text);
+    }
+
+    public function test_it_automatically_decorates_attributes()
+    {
+        $component = new Button([
+            'stream' => 'films',
+            'foo' => 'Bar',
+        ]);
+
+        $this->assertInstanceOf(StringDecorator::class, $component->foo());
+    }
+
+    public function test_it_throws_exceptions_for_unmapped_methods()
+    {
+        $component = new Button([
+            'stream' => 'films',
+            'foo' => 'Bar',
+        ]);
+
+        $this->expectException(\Exception::class);
+
+        $component->noSuchMethod();
     }
 }
 

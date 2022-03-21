@@ -15,6 +15,7 @@ use Illuminate\Contracts\Support\Jsonable;
 use Streams\Core\Support\Facades\Hydrator;
 use Streams\Core\Support\Traits\Prototype;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Traits\Macroable;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
 /**
@@ -34,6 +35,10 @@ class Component implements Arrayable, Jsonable
 {
     use Prototype;
     use FiresCallbacks;
+
+    use Macroable {
+        Macroable::__call as private callMacroable;
+    }
 
     public $stream;
 
@@ -68,24 +73,12 @@ class Component implements Arrayable, Jsonable
     
     public function response()
     {
-        if (Request::method() == 'POST') {
-            $this->post();
-        }
-
         if ($this->response) {
             return $this->response;
         }
 
-        if (!$this->async && Request::ajax()) {
-            return Response::view($this->render());
-        }
-
-        if ($this->async == true && Request::ajax()) {
-            return Response::json($this);
-        }
-
-        if (Request::expectsJson()) {
-            return Response::json($this);
+        if (Request::method() == 'POST') {
+            dd('Implement post method.');
         }
 
         if (View::shared('cp')) {
@@ -201,7 +194,7 @@ class Component implements Arrayable, Jsonable
         $key = Str::snake($method);
 
         if ($this->hasPrototypeAttribute($key)) {
-            return $this->expandPrototypeAttribute($key);
+            return $this->decoratePrototypeAttribute($key);
         }
 
         throw new \BadMethodCallException(sprintf(

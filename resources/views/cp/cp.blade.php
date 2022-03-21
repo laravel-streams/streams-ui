@@ -2,12 +2,12 @@
 <!doctype html>
 <html lang="en">
 
-@php
+{{-- @php
     $theme = Streams::repository('cp.themes')
         ->find(Config::get('streams.ui.cp_theme', 'default'));
 
     View::share('theme', $theme);
-@endphp
+@endphp --}}
 
 <head>
     @include('ui::cp.head')
@@ -15,7 +15,7 @@
 
 <body>
     
-    <div class="o-cp {{ $theme->brand_mode }}">
+    <div class="o-cp {{-- {{ $theme->brand_mode }} --}}">
 
         @include('ui::cp.sidebar')
 

@@ -6,7 +6,7 @@
 
 {!! Assets::collection('styles')->tags() !!}
 
-@if ($theme)
+{{-- @if ($theme)
 <style>
     :root {
         @php
@@ -35,4 +35,4 @@
         @endforeach
     }
 </style>
-@endif
+@endif --}}

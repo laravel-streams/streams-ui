@@ -21,7 +21,6 @@ use Streams\Core\Support\Facades\Messages;
 use Streams\Ui\Form\Field\FieldCollection;
 use Illuminate\Contracts\Validation\Factory;
 use Streams\Ui\Form\Action\ActionCollection;
-use Streams\Ui\Support\Traits\HasRepository;
 use Illuminate\Contracts\Validation\Validator;
 
 /**
@@ -40,14 +39,6 @@ use Illuminate\Contracts\Validation\Validator;
 class Form extends Component
 {
 
-    use HasRepository;
-
-    /**
-     * Initialize the prototype.
-     *
-     * @param array $attributes
-     * @return $this
-     */
     protected function initializeComponentPrototype(array $attributes)
     {
         $this->loadPrototypeProperties([

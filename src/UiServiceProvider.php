@@ -76,6 +76,7 @@ class UiServiceProvider extends ServiceProvider
         $this->testRegionsProgrammatically();
     }
 
+    // @todo this is going away. ViewIncludes has names now
     protected function testRegionsProgrammatically()
     {
         /** @var Regions $regions */

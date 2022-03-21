@@ -3,11 +3,10 @@
 namespace Streams\Ui\Button;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Streams\Ui\Support\Component;
+use Illuminate\Support\Facades\URL;
 use Streams\Ui\Support\Traits\HasAttributes;
-use Streams\Ui\Support\Traits\HasDropdown;
 
 /**
  * @typescript
@@ -26,8 +25,6 @@ use Streams\Ui\Support\Traits\HasDropdown;
  */
 class Button extends Component
 {
-
-    use HasDropdown;
     use HasAttributes;
 
     /**
@@ -51,9 +48,9 @@ class Button extends Component
             'primary'  => false,
             'disabled' => false,
             'type'     => 'default',
-            'classes'  => [
-                'a-button',
-            ],
+            // 'classes'  => [
+            //     'a-button',
+            // ],
             'attributes' => [],
         ], $attributes));
     }
@@ -68,7 +65,7 @@ class Button extends Component
     {
         $attributes = Arr::htmlAttributes($this->attributes($attributes));
 
-        return '<' . $this->tag . ' ' . $attributes . '>';
+        return '<' . $this->tag . $attributes . '>';
     }
 
     /**
@@ -102,7 +99,11 @@ class Button extends Component
             return null;
         }
 
-        return $this->text ?: ($this->text = Str::title(Str::humanize($this->handle)));
+        if ($this->text === null) {
+            $this->text = Str::title(Str::humanize($this->handle));
+        }
+
+        return $this->text;
     }
 
     public function url(array $extra = [])
@@ -111,12 +112,7 @@ class Button extends Component
             return null;
         }
 
-        if (Str::startsWith($target, '@cp/')) {
-            return URL::cp(ltrim(substr($target, 4), '/'), $extra);
-        }
-
-        // @todo TEST parsing
-        return URL::to(Str::parse($target, ['entry' => ['id' => 'TESTING']]), $extra);
+        return URL::to(Str::parse($target));
     }
 
     public function onInitializing($callbackData)
