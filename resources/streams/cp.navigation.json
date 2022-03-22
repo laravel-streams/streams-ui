@@ -1,11 +1,13 @@
 {
     "handle": "cp.navigation",
-    "source": {
-        "path": "streams/cp/navigation",
-        "format": "json"
+    "config": {
+        "source": {
+            "path": "streams/cp/navigation",
+            "format": "json"
+        },
+        "abstract": "Streams\\Ui\\ControlPanel\\Navigation\\Section",
+        "collection": "Streams\\Ui\\ControlPanel\\Navigation\\NavigationCollection"
     },
-    "abstract": "Streams\\Ui\\ControlPanel\\Navigation\\Section",
-    "collection": "Streams\\Ui\\ControlPanel\\Navigation\\NavigationCollection",
     "fields": {
         "id": "slug",
         "svg": "string",

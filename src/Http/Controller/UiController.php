@@ -47,6 +47,8 @@ class UiController extends EntryController
         $data->put('route', Request::route());
         $data->put('action', Request::route()->action);
 
+        $this->resolveSection($data);
+
         $this->resolveStream($data);
         $this->resolveEntry($data);
         $this->resolveView($data);
@@ -72,7 +74,7 @@ class UiController extends EntryController
             $data->put('action', $action);
         }
 
-        if (!$section = Streams::entries('cp.navigation')->find($section)) {
+        if (!$section = Streams::repository('cp.navigation')->find($section)) {
             return;
         }
 

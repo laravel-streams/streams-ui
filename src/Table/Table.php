@@ -147,7 +147,7 @@ class Table extends Component
         $this->fire('posting', [
             'table' => $this,
         ]);
-
+dd('Test');
         $this->detect();
         $this->handle();
 

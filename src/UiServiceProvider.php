@@ -2,6 +2,7 @@
 
 namespace Streams\Ui;
 
+use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Streams\Ui\Input\Input;
@@ -256,6 +257,7 @@ class UiServiceProvider extends ServiceProvider
 
                     Route::streams($component, [
                         'ui.cp' => false,
+                        'csrf' => false,
                         'uses'  => \Streams\Ui\Http\Controller\UiController::class,
                     ]);
                 });
