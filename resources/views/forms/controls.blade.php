@@ -4,12 +4,12 @@
         <div class="c-form__controls">
             @if(!$form->options->get('read_only'))
             <nav>
-                {!! $form->actions->render() !!}
+                {!! $form->actions->map->render()->implode('') !!}
             </nav>
             @endif
         
             <nav>
-                {!! $form->buttons->render() !!}
+                {!! $form->buttons->map->render()->implode('') !!}
             </nav>    
         </div>    
     </div>    

@@ -1,3 +1,3 @@
 @foreach ($layout->content ?: [] as $content)
-    {!! $content->render() !!}
+    {!! $content->map->render()->implode('') !!}
 @endforeach

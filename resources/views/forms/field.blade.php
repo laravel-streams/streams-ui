@@ -12,7 +12,7 @@
         
         <div class="c-field__input">
             <div class="c-input -{{ $field->input['type'] }}-input">
-                {!! $field->input()->render() !!}
+                {!! $field->input()->map->render()->implode('') !!}
             </div>
         </div>
 
