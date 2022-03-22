@@ -1,5 +1,5 @@
 .text-buttons {
-    color: var(--ls-color-buttons);
+    color: var(--ui-color-buttons);
 }
 .c-sidebar {
     min-width: 300px;
@@ -24,10 +24,10 @@
                 &.-active {
                     @apply font-bold;
 
-                    //background-color: var(--ls-color-light); // @todo light-overlay
+                    //background-color: var(--ui-color-light); // @todo light-overlay
                     //background-color: #ffffff15; // Lighten
                     background-color: #00000015; // Darken
-                    //color: var(--ls-color-dark); // Darken
+                    //color: var(--ui-color-dark); // Darken
                 }
             }
 

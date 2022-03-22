@@ -1,6 +1,6 @@
 ---
 title: Modals
-category: elements
+category: components
 intro:
 sort: 199
 enabled: true

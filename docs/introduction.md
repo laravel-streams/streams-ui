@@ -17,7 +17,7 @@ The basics of using this package.
 - [Components](components)
  
 
-### UI Components
+### Components
 
 Streams UI comes with a number of core components.
 

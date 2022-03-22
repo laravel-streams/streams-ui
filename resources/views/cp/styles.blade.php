@@ -12,20 +12,20 @@
         @php
 
             $styles = array_filter([
-                '--ls-spacing' => $theme->spacing,
-                '--ls-radius' => $theme->radius,
+                '--ui-spacing' => $theme->spacing,
+                '--ui-radius' => $theme->radius,
                 
-                '--ls-color-light' => $theme->light,
-                '--ls-color-dark' => $theme->dark,
+                '--ui-color-light' => $theme->light,
+                '--ui-color-dark' => $theme->dark,
                 
-                '--ls-color-black' => $theme->black,
-                '--ls-color-white' => $theme->white,
+                '--ui-color-black' => $theme->black,
+                '--ui-color-white' => $theme->white,
                 
-                '--ls-color-primary' => $theme->primary,
-                '--ls-color-secondary' => $theme->secondary,
+                '--ui-color-primary' => $theme->primary,
+                '--ui-color-secondary' => $theme->secondary,
                 
-                '--ls-color-text' => $theme->text,
-                '--ls-color-buttons' => $theme->buttons,
+                '--ui-color-text' => $theme->text,
+                '--ui-color-buttons' => $theme->buttons,
             ]);
 
         @endphp

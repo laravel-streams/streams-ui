@@ -7,10 +7,10 @@
 }
 
 .hud-only.-keymap {
-  background-color: var(--ls-color-black);
-  border-radius: calc(var(--ls-radius)*0.125rem);
-  padding-left: calc(var(--ls-spacing)*0.5rem);
-  padding-right: calc(var(--ls-spacing)*0.5rem);
+  background-color: var(--ui-color-black);
+  border-radius: calc(var(--ui-radius)*0.125rem);
+  padding-left: calc(var(--ui-spacing)*0.5rem);
+  padding-right: calc(var(--ui-spacing)*0.5rem);
 }
 
 .-hud .hud-only {
@@ -18,20 +18,20 @@
 }
 
 .c-input input[type=text], .c-input input[type=password], .c-input input[type=email], .c-input input[type=number], .c-input input[type=url], .c-input input[type=date], .c-input input[type=datetime-local], .c-input input[type=month], .c-input input[type=week], .c-input input[type=time], .c-input input[type=search], .c-input input[type=tel], .c-input textarea, .c-input select {
-  background-color: var(--ls-color-light);
-  border-radius: calc(var(--ls-radius)*0.25rem);
-  padding-top: calc(var(--ls-spacing)*0.5rem);
-  padding-bottom: calc(var(--ls-spacing)*0.5rem);
-  padding-left: calc(var(--ls-spacing)*1rem);
-  padding-right: calc(var(--ls-spacing)*1rem);
-  color: var(--ls-color-dark);
+  background-color: var(--ui-color-light);
+  border-radius: calc(var(--ui-radius)*0.25rem);
+  padding-top: calc(var(--ui-spacing)*0.5rem);
+  padding-bottom: calc(var(--ui-spacing)*0.5rem);
+  padding-left: calc(var(--ui-spacing)*1rem);
+  padding-right: calc(var(--ui-spacing)*1rem);
+  color: var(--ui-color-dark);
   width: 100%;
 }
 
 .c-input input[type=text]:active, .c-input input[type=text]:focus, .c-input input[type=password]:active, .c-input input[type=password]:focus, .c-input input[type=email]:active, .c-input input[type=email]:focus, .c-input input[type=number]:active, .c-input input[type=number]:focus, .c-input input[type=url]:active, .c-input input[type=url]:focus, .c-input input[type=date]:active, .c-input input[type=date]:focus, .c-input input[type=datetime-local]:active, .c-input input[type=datetime-local]:focus, .c-input input[type=month]:active, .c-input input[type=month]:focus, .c-input input[type=week]:active, .c-input input[type=week]:focus, .c-input input[type=time]:active, .c-input input[type=time]:focus, .c-input input[type=search]:active, .c-input input[type=search]:focus, .c-input input[type=tel]:active, .c-input input[type=tel]:focus, .c-input textarea:active, .c-input textarea:focus, .c-input select:active, .c-input select:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
-  --tw-shadow: 0 0 0 3px var(--ls-color-primary);
+  --tw-shadow: 0 0 0 3px var(--ui-color-primary);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
@@ -46,13 +46,13 @@
 }
 
 input[type=text].a-input, input[type=password].a-input, input[type=email].a-input, input[type=number].a-input, input[type=url].a-input, input[type=date].a-input, input[type=datetime-local].a-input, input[type=month].a-input, input[type=week].a-input, input[type=time].a-input, input[type=search].a-input, input[type=tel].a-input, select.a-input, textarea.a-input {
-  background-color: var(--ls-color-light);
-  border-radius: calc(var(--ls-radius)*0.25rem);
-  padding-top: calc(var(--ls-spacing)*0.5rem);
-  padding-bottom: calc(var(--ls-spacing)*0.5rem);
-  padding-left: calc(var(--ls-spacing)*1rem);
-  padding-right: calc(var(--ls-spacing)*1rem);
-  color: var(--ls-color-dark);
+  background-color: var(--ui-color-light);
+  border-radius: calc(var(--ui-radius)*0.25rem);
+  padding-top: calc(var(--ui-spacing)*0.5rem);
+  padding-bottom: calc(var(--ui-spacing)*0.5rem);
+  padding-left: calc(var(--ui-spacing)*1rem);
+  padding-right: calc(var(--ui-spacing)*1rem);
+  color: var(--ui-color-dark);
   width: 100%;
 }
 
@@ -111,7 +111,7 @@ select.a-input:not([multiple]) {
 }
 
 .color-text {
-  color: var(--ls-color-text);
+  color: var(--ui-color-text);
 }
 
 .o-cp {
@@ -120,8 +120,8 @@ select.a-input:not([multiple]) {
   margin: 0px;
   overflow: hidden;
   width: 100%;
-  color: var(--ls-color-text);
-  background-color: var(--ls-color-light);
+  color: var(--ui-color-text);
+  background-color: var(--ui-color-light);
 }
 
 .o-cp__sidebar {
@@ -133,7 +133,7 @@ select.a-input:not([multiple]) {
 }
 
 .o-cp__topbar {
-  height: calc(var(--ls-spacing)*5rem);
+  height: calc(var(--ui-spacing)*5rem);
   --tw-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   width: 100%;
@@ -155,10 +155,10 @@ select.a-input:not([multiple]) {
   align-items: center;
   height: 100%;
   margin: 0px;
-  padding: calc(var(--ls-spacing)*1rem);
+  padding: calc(var(--ui-spacing)*1rem);
   width: 100%;
-  color: var(--ls-color-dark);
-  background-color: var(--ls-color-white);
+  color: var(--ui-color-dark);
+  background-color: var(--ui-color-white);
 }
 
 .c-topbar__buttons {
@@ -166,12 +166,12 @@ select.a-input:not([multiple]) {
 }
 
 .text-buttons {
-  color: var(--ls-color-buttons);
+  color: var(--ui-color-buttons);
 }
 
 .c-sidebar {
   min-width: 300px;
-  background-color: var(--ls-color-primary);
+  background-color: var(--ui-color-primary);
   display: flex;
   flex-direction: column;
   margin: 0px;
@@ -183,28 +183,28 @@ select.a-input:not([multiple]) {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  height: calc(var(--ls-spacing)*5rem);
-  padding: calc(var(--ls-spacing)*2rem);
+  height: calc(var(--ui-spacing)*5rem);
+  padding: calc(var(--ui-spacing)*2rem);
 }
 
 .c-sidebar__brand a {
   font-size: 1.5rem;
   line-height: 2rem;
-  color: var(--ls-color-buttons);
-  color: var(--ls-color-buttons);
+  color: var(--ui-color-buttons);
+  color: var(--ui-color-buttons);
 }
 
 .c-sidebar__nav {
   flex-grow: 1;
-  padding: calc(var(--ls-spacing)*1rem);
+  padding: calc(var(--ui-spacing)*1rem);
 }
 
 .c-sidebar__nav nav > a {
-  border-radius: calc(var(--ls-radius)*0.5rem);
+  border-radius: calc(var(--ui-radius)*0.5rem);
   display: block;
-  padding: calc(var(--ls-spacing)*1rem);
-  color: var(--ls-color-buttons);
-  color: var(--ls-color-buttons);
+  padding: calc(var(--ui-spacing)*1rem);
+  color: var(--ui-color-buttons);
+  color: var(--ui-color-buttons);
 }
 
 .c-sidebar__nav nav > a.-active {
@@ -213,20 +213,20 @@ select.a-input:not([multiple]) {
 }
 
 .c-sidebar__nav nav ul {
-  margin-bottom: calc(var(--ls-spacing)*1rem);
+  margin-bottom: calc(var(--ui-spacing)*1rem);
 }
 
 .c-sidebar__nav nav ul li {
   list-style-type: none;
-  margin-left: calc(var(--ls-spacing)*2rem);
+  margin-left: calc(var(--ui-spacing)*2rem);
 }
 
 .c-sidebar__nav nav ul li a {
   display: block;
-  padding: calc(var(--ls-spacing)*0.25rem);
+  padding: calc(var(--ui-spacing)*0.25rem);
   padding-left: 0px;
-  color: var(--ls-color-buttons);
-  color: var(--ls-color-buttons);
+  color: var(--ui-color-buttons);
+  color: var(--ui-color-buttons);
 }
 
 .c-sidebar__nav nav ul li a.-active {
@@ -234,13 +234,13 @@ select.a-input:not([multiple]) {
 }
 
 .c-card {
-  background-color: var(--ls-color-white);
-  border-radius: calc(var(--ls-radius)*0.5rem);
-  margin: calc(var(--ls-spacing)*1rem);
+  background-color: var(--ui-color-white);
+  border-radius: calc(var(--ui-radius)*0.5rem);
+  margin: calc(var(--ui-spacing)*1rem);
 }
 
 .c-card__content {
-  padding: calc(var(--ls-spacing)*1rem);
+  padding: calc(var(--ui-spacing)*1rem);
 }
 
 .c-form__fields {
@@ -249,8 +249,8 @@ select.a-input:not([multiple]) {
 }
 
 .c-form__field {
-  margin-top: calc(var(--ls-spacing)*0.5rem);
-  margin-bottom: calc(var(--ls-spacing)*0.5rem);
+  margin-top: calc(var(--ui-spacing)*0.5rem);
+  margin-bottom: calc(var(--ui-spacing)*0.5rem);
   width: 100%;
 }
 
@@ -261,14 +261,14 @@ select.a-input:not([multiple]) {
 
 .c-form__controls > nav:first-of-type {
   flex-grow: 1;
-  margin-right: calc(var(--ls-spacing)*0.5rem);
+  margin-right: calc(var(--ui-spacing)*0.5rem);
 }
 
 .c-field > label {
   display: inline-block;
   font-weight: 700;
-  margin-bottom: calc(var(--ls-spacing)*0.5rem);
-  color: var(--ls-color-text);
+  margin-bottom: calc(var(--ui-spacing)*0.5rem);
+  color: var(--ui-color-text);
 }
 
 .c-field__required {
@@ -281,30 +281,30 @@ select.a-input:not([multiple]) {
 
 .c-table table thead tr th {
   font-weight: 500;
-  padding-top: calc(var(--ls-spacing)*1rem);
-  padding-bottom: calc(var(--ls-spacing)*1rem);
-  padding-left: calc(var(--ls-spacing)*1rem);
-  padding-right: calc(var(--ls-spacing)*1rem);
+  padding-top: calc(var(--ui-spacing)*1rem);
+  padding-bottom: calc(var(--ui-spacing)*1rem);
+  padding-left: calc(var(--ui-spacing)*1rem);
+  padding-right: calc(var(--ui-spacing)*1rem);
   text-align: left;
   white-space: nowrap;
-  color: var(--ls-color-text);
+  color: var(--ui-color-text);
   background-color: rgba(0, 0, 0, 0.1);
 }
 
 .c-table table thead tr th.c-table__selector {
   width: 1px;
-  padding-left: calc(var(--ls-spacing)*2rem);
-  padding-right: calc(var(--ls-spacing)*2rem);
-  padding-right: calc(var(--ls-spacing)*0.5rem);
+  padding-left: calc(var(--ui-spacing)*2rem);
+  padding-right: calc(var(--ui-spacing)*2rem);
+  padding-right: calc(var(--ui-spacing)*0.5rem);
 }
 
 .c-table table thead tr th svg {
   display: inline;
-  height: calc(var(--ls-spacing)*1.25rem);
-  margin-left: calc(var(--ls-spacing)*0.25rem);
+  height: calc(var(--ui-spacing)*1.25rem);
+  margin-left: calc(var(--ui-spacing)*0.25rem);
   opacity: 0.5;
   vertical-align: middle;
-  width: calc(var(--ls-spacing)*1.25rem);
+  width: calc(var(--ui-spacing)*1.25rem);
 }
 
 .c-table table tbody tr {
@@ -320,25 +320,25 @@ select.a-input:not([multiple]) {
 }
 
 .c-table table tbody tr td {
-  padding-top: calc(var(--ls-spacing)*0.75rem);
-  padding-bottom: calc(var(--ls-spacing)*0.75rem);
-  padding-left: calc(var(--ls-spacing)*1rem);
-  padding-right: calc(var(--ls-spacing)*1rem);
+  padding-top: calc(var(--ui-spacing)*0.75rem);
+  padding-bottom: calc(var(--ui-spacing)*0.75rem);
+  padding-left: calc(var(--ui-spacing)*1rem);
+  padding-right: calc(var(--ui-spacing)*1rem);
   white-space: nowrap;
-  color: var(--ls-color-text);
+  color: var(--ui-color-text);
 }
 
 .c-table table tbody tr td.c-table__selector {
   width: 1px;
-  padding-left: calc(var(--ls-spacing)*2rem);
-  padding-right: calc(var(--ls-spacing)*2rem);
+  padding-left: calc(var(--ui-spacing)*2rem);
+  padding-right: calc(var(--ui-spacing)*2rem);
   padding-right: 0px;
 }
 
 .c-table__content {
-  background-color: var(--ls-color-white);
-  border-radius: calc(var(--ls-radius)*0.5rem);
-  margin: calc(var(--ls-spacing)*1rem);
+  background-color: var(--ui-color-white);
+  border-radius: calc(var(--ui-radius)*0.5rem);
+  margin: calc(var(--ui-spacing)*1rem);
   overflow: hidden;
   --tw-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
@@ -350,10 +350,10 @@ select.a-input:not([multiple]) {
 
 .c-table__buttons .a-button {
   font-weight: 500;
-  padding-top: calc(var(--ls-spacing)*0.25rem);
-  padding-bottom: calc(var(--ls-spacing)*0.25rem);
-  padding-left: calc(var(--ls-spacing)*0.5rem);
-  padding-right: calc(var(--ls-spacing)*0.5rem);
+  padding-top: calc(var(--ui-spacing)*0.25rem);
+  padding-bottom: calc(var(--ui-spacing)*0.25rem);
+  padding-left: calc(var(--ui-spacing)*0.5rem);
+  padding-right: calc(var(--ui-spacing)*0.5rem);
 }
 
 .c-table__limiter select {
@@ -361,81 +361,81 @@ select.a-input:not([multiple]) {
 }
 
 .c-table__actions, .c-table__limiter, .c-table__meta {
-  padding-top: calc(var(--ls-spacing)*1rem);
-  padding-bottom: calc(var(--ls-spacing)*1rem);
-  padding-left: calc(var(--ls-spacing)*2rem);
-  padding-right: calc(var(--ls-spacing)*2rem);
+  padding-top: calc(var(--ui-spacing)*1rem);
+  padding-bottom: calc(var(--ui-spacing)*1rem);
+  padding-left: calc(var(--ui-spacing)*2rem);
+  padding-right: calc(var(--ui-spacing)*2rem);
   white-space: nowrap;
 }
 
 .c-filters {
-  background-color: var(--ls-color-white);
-  border-radius: calc(var(--ls-radius)*0.5rem);
-  margin: calc(var(--ls-spacing)*1rem);
+  background-color: var(--ui-color-white);
+  border-radius: calc(var(--ui-radius)*0.5rem);
+  margin: calc(var(--ui-spacing)*1rem);
   overflow: hidden;
-  padding: calc(var(--ls-spacing)*1rem);
+  padding: calc(var(--ui-spacing)*1rem);
   --tw-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .c-filters form {
   display: flex;
-  gap: calc(var(--ls-spacing)*1rem);
+  gap: calc(var(--ui-spacing)*1rem);
 }
 
 .c-filters__inputs {
   display: flex;
-  gap: calc(var(--ls-spacing)*1rem);
+  gap: calc(var(--ui-spacing)*1rem);
 }
 
 .text-buttons {
-  color: var(--ls-color-buttons);
+  color: var(--ui-color-buttons);
 }
 
 .c-buttons {
   display: flex;
   align-items: center;
   justify-items: center;
-  gap: calc(var(--ls-spacing)*0.25rem);
+  gap: calc(var(--ui-spacing)*0.25rem);
 }
 
 .a-button {
-  background-color: var(--ls-color-primary);
-  border-radius: calc(var(--ls-radius)*0.25rem);
+  background-color: var(--ui-color-primary);
+  border-radius: calc(var(--ui-radius)*0.25rem);
   cursor: pointer;
   display: inline-block;
   font-weight: 700;
-  padding-top: calc(var(--ls-spacing)*0.5rem);
-  padding-bottom: calc(var(--ls-spacing)*0.5rem);
-  padding-left: calc(var(--ls-spacing)*1rem);
-  padding-right: calc(var(--ls-spacing)*1rem);
-  color: var(--ls-color-buttons);
-  color: var(--ls-color-buttons);
+  padding-top: calc(var(--ui-spacing)*0.5rem);
+  padding-bottom: calc(var(--ui-spacing)*0.5rem);
+  padding-left: calc(var(--ui-spacing)*1rem);
+  padding-right: calc(var(--ui-spacing)*1rem);
+  color: var(--ui-color-buttons);
+  color: var(--ui-color-buttons);
 }
 
 .a-button span {
-  color: var(--ls-color-buttons);
+  color: var(--ui-color-buttons);
 }
 
 .a-button.-primary {
-  color: var(--ls-color-buttons);
-  background-color: var(--ls-color-primary);
+  color: var(--ui-color-buttons);
+  background-color: var(--ui-color-primary);
 }
 
 .a-button.-secondary {
-  color: var(--ls-color-buttons);
-  background-color: var(--ls-color-secondary);
+  color: var(--ui-color-buttons);
+  background-color: var(--ui-color-secondary);
 }
 
 .a-button.-link {
-  color: var(--ls-color-text);
-  background-color: var(--ls-color-transparent);
+  color: var(--ui-color-text);
+  background-color: var(--ui-color-transparent);
 }
 
 .c-shortcuts {
   display: flex;
   align-items: center;
-  gap: calc(var(--ls-spacing)*1rem);
+  gap: calc(var(--ui-spacing)*1rem);
 }
 
 .c-shortcuts > div {
@@ -452,25 +452,25 @@ select.a-input:not([multiple]) {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: calc(var(--ls-spacing)*2.5rem);
+  height: calc(var(--ui-spacing)*2.5rem);
   outline: 2px solid transparent;
   outline-offset: 2px;
   padding: 0px;
-  width: calc(var(--ls-spacing)*2.5rem);
+  width: calc(var(--ui-spacing)*2.5rem);
 }
 
 .c-shortcuts > div > a:active, .c-shortcuts > div > a:focus, .c-shortcuts > div > button:active, .c-shortcuts > div > button:focus {
-  --tw-shadow: 0 0 0 3px var(--ls-color-primary);
+  --tw-shadow: 0 0 0 3px var(--ui-color-primary);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .c-shortcuts > div > a svg, .c-shortcuts > div > a img, .c-shortcuts > div > button svg, .c-shortcuts > div > button img {
-  height: calc(var(--ls-spacing)*2.5rem);
-  width: calc(var(--ls-spacing)*2.5rem);
+  height: calc(var(--ui-spacing)*2.5rem);
+  width: calc(var(--ui-spacing)*2.5rem);
 }
 
 .c-shortcuts > div > a svg, .c-shortcuts > div > button svg {
-  color: var(--ls-color-dark);
+  color: var(--ui-color-dark);
 }
 
 .c-shortcuts > div > a img, .c-shortcuts > div > button img {
@@ -478,10 +478,10 @@ select.a-input:not([multiple]) {
 }
 
 .c-dropdown__content {
-  background-color: var(--ls-color-white);
-  border-radius: calc(var(--ls-radius)*0.5rem);
+  background-color: var(--ui-color-white);
+  border-radius: calc(var(--ui-radius)*0.5rem);
   display: block;
-  margin-top: calc(var(--ls-spacing)*0.5rem);
+  margin-top: calc(var(--ui-spacing)*0.5rem);
   overflow: hidden;
   position: absolute;
   right: 0px;
@@ -492,15 +492,15 @@ select.a-input:not([multiple]) {
 
 .c-dropdown__content a {
   display: block;
-  padding-top: calc(var(--ls-spacing)*0.5rem);
-  padding-bottom: calc(var(--ls-spacing)*0.5rem);
-  padding-left: calc(var(--ls-spacing)*1rem);
-  padding-right: calc(var(--ls-spacing)*1rem);
+  padding-top: calc(var(--ui-spacing)*0.5rem);
+  padding-bottom: calc(var(--ui-spacing)*0.5rem);
+  padding-left: calc(var(--ui-spacing)*1rem);
+  padding-right: calc(var(--ui-spacing)*1rem);
   white-space: nowrap;
 }
 
 .c-dropdown__content a:hover {
-  background-color: var(--ls-color-secondary);
-  color: var(--ls-color-buttons);
-  color: var(--ls-color-buttons);
+  background-color: var(--ui-color-secondary);
+  color: var(--ui-color-buttons);
+  color: var(--ui-color-buttons);
 }

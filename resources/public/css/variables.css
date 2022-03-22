@@ -2,33 +2,33 @@
   /** ---------------------------
    * Colors
    --------------------------- */
-  --ls-color-light: #efefef;
-  --ls-color-dark: #151515;
-  --ls-color-black: #000;
-  --ls-color-white: #fff;
-  --ls-color-gray: #6B7280;
-  --ls-color-red: #EF4444;
-  --ls-color-yellow: #F59E0B;
-  --ls-color-green: #10B981;
-  --ls-color-blue: #3B82F6;
-  --ls-color-primary: #4e42d9;
-  --ls-color-secondary: #1f1f1f;
-  --ls-color-text: #1f1f1f;
-  --ls-color-buttons: #efefef;
+  --ui-color-light: #efefef;
+  --ui-color-dark: #151515;
+  --ui-color-black: #000;
+  --ui-color-white: #fff;
+  --ui-color-gray: #6B7280;
+  --ui-color-red: #EF4444;
+  --ui-color-yellow: #F59E0B;
+  --ui-color-green: #10B981;
+  --ui-color-blue: #3B82F6;
+  --ui-color-primary: #4e42d9;
+  --ui-color-secondary: #1f1f1f;
+  --ui-color-text: #1f1f1f;
+  --ui-color-buttons: #efefef;
   /** ---------------------------
    * Space
    --------------------------- */
-  --ls-spacing: 1;
-  --ls-radius: 1;
-  --ls-screen-sm: 640px;
-  --ls-screen-md: 768px;
-  --ls-screen-lg: 1024px;
-  --ls-screen-xl: 1280px;
-  --ls-screen-2xl: 1536px;
+  --ui-spacing: 1;
+  --ui-radius: 1;
+  --ui-screen-sm: 640px;
+  --ui-screen-md: 768px;
+  --ui-screen-lg: 1024px;
+  --ui-screen-xl: 1280px;
+  --ui-screen-2xl: 1536px;
   /** ---------------------------
    * Fonts
    --------------------------- */
-  --ls-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --ls-font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
-  --ls-font-mono: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --ui-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --ui-font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
+  --ui-font-mono: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }

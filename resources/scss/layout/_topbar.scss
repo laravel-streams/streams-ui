@@ -1,8 +1,8 @@
 .c-topbar {
     @apply m-0 p-4 h-full w-full flex items-center;
     
-    color: var(--ls-color-dark);
-    background-color: var(--ls-color-white);
+    color: var(--ui-color-dark);
+    background-color: var(--ui-color-white);
 
     &__buttons {
         @apply flex-grow;
