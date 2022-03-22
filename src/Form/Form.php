@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;
 use Streams\Core\Repository\Repository;
-use Streams\Ui\Button\ButtonCollection;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Streams\Ui\Form\Action\Handler\Save;
@@ -22,6 +21,7 @@ use Streams\Ui\Form\Field\FieldCollection;
 use Illuminate\Contracts\Validation\Factory;
 use Streams\Ui\Form\Action\ActionCollection;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Collection;
 
 /**
  *
@@ -34,7 +34,7 @@ use Illuminate\Contracts\Validation\Validator;
  * @property \Illuminate\Support\Collection $sections
  * @property \Streams\Ui\Form\Field\FieldCollection|\Streams\Core\Field\FieldType[] $fields
  * @property \Streams\Ui\Form\Action\ActionCollection|\Streams\Ui\Form\Action\Action[] $actions
- * @property \Streams\Ui\Button\ButtonCollection|\Streams\Ui\Button\Button[] $buttons
+ * @property \Illuminate\Support\Collection|\Streams\Ui\Button\Button[] $buttons
  */
 class Form extends Component
 {
@@ -92,7 +92,7 @@ class Form extends Component
             'buttons' => [
                 'type' => 'array',
                 'config' => [
-                    'wrapper' => ButtonCollection::class,
+                    'wrapper' => 'collection',
                 ],
             ],
             'sections' => [
@@ -502,6 +502,6 @@ return;// @todo hrmm
             $button = new Button($button);
         });
 
-        return $this->instance->buttons = $this->buttons = new ButtonCollection($buttons);
+        return $this->instance->buttons = $this->buttons = new Collection($buttons);
     }
 }

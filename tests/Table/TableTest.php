@@ -9,15 +9,17 @@ use Streams\Core\Support\Facades\Streams;
 class TableTest extends UiTestCase
 {
 
-    public function testIsSelectable()
+    public function test_it_is_selectable()
     {
         $stream = Streams::make('films');
 
         $table = $stream->table();
 
-        $this->assertEquals(true, $table->isSelectable());
+        $this->assertEquals(false, $table->isSelectable());
 
-        $table->options->put('selectable', false);
+        $table->options->put('selectable', true);
+
+        $table->actions = collect(['test']);
 
         $this->assertEquals(true, $table->isSelectable());
 
@@ -26,9 +28,9 @@ class TableTest extends UiTestCase
         $this->assertEquals(false, $table->isSelectable());
     }
 
-    public function testIsSortable()
+    public function test_it_is_sortable()
     {
-        $stream = Streams::make('testing.examples');
+        $stream = Streams::make('films');
 
         $table = $stream->table();
 

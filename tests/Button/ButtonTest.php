@@ -2,10 +2,8 @@
 
 namespace Streams\Ui\Tests\Support;
 
-use Streams\Ui\Tests\UiTestCase;
-use Illuminate\Support\Collection;
-use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\Button\Button;
+use Streams\Ui\Tests\UiTestCase;
 
 class ButtonTest extends UiTestCase
 {

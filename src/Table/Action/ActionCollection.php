@@ -2,17 +2,10 @@
 
 namespace Streams\Ui\Table\Action;
 
-use Streams\Ui\Button\ButtonCollection;
+use Illuminate\Support\Collection;
 use Streams\Ui\Table\Action\Action;
 
-/**
- * Class ActionCollection
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
-class ActionCollection extends ButtonCollection
+class ActionCollection extends Collection
 {
 
     /**

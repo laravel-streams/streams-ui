@@ -25,7 +25,7 @@
 
         <td class="c-table__buttons">
             <nav class="c-buttons">
-            {!! $row->buttons->render() !!}
+            {!! $row->buttons->pluck('render')->implode('') !!}
             </nav>
         </td>
 

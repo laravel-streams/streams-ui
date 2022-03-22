@@ -2,11 +2,13 @@
 
 namespace Streams\Ui\Tests\Support;
 
-use Streams\Core\Field\Decorator\StringDecorator;
 use Streams\Ui\Button\Button;
 use Streams\Core\Stream\Stream;
 use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Support\Component;
+use Illuminate\Support\Facades\View;
+use Streams\Ui\ControlPanel\ControlPanel;
+use Streams\Core\Field\Decorator\StringDecorator;
 
 class ComponentTest extends UiTestCase
 {
@@ -141,6 +143,26 @@ class ComponentTest extends UiTestCase
             \Symfony\Component\HttpFoundation\Response::class,
             $component->response()
         );
+    }
+
+    public function test_it_returns_post_responses()
+    {
+        $this->post('');
+
+        $component = new Button;
+
+        $this->assertTrue(is_string($component->response()));
+    }
+
+    public function test_it_returns_cp_responses()
+    {
+        View::share('cp', new ControlPanel());
+        
+        $this->get('');
+
+        $component = new Button;
+
+        $this->assertTrue(is_string($component->response()));
     }
 
     public function test_it_can_set_response_returned()

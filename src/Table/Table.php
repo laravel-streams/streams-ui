@@ -17,7 +17,6 @@ use Streams\Ui\Table\Column\Column;
 use Streams\Ui\Table\Filter\Filter;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;
-use Streams\Ui\Button\ButtonCollection;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\Table\View\ViewCollection;
 use Streams\Ui\Table\Action\ActionCollection;
@@ -35,7 +34,7 @@ use Streams\Ui\Table\Filter\FilterCollection;
  * @property \Illuminate\Support\Collection|\Streams\Ui\Table\Column\Column[] $columns
  * @property \Streams\Ui\Table\Action\ActionCollection|\Streams\Ui\Table\Action\Action[] $actions
  * @property \Streams\Ui\Table\Filter\FilterCollection|\Streams\Ui\Table\Filter\Filter[] $filters
- * @property \Streams\Ui\Button\ButtonCollection|\Streams\Ui\Button\Button[] $buttons
+ * @property \Illuminate\Support\Collection|\Streams\Ui\Button\Button[] $buttons
  */
 class Table extends Component
 {
@@ -77,7 +76,7 @@ class Table extends Component
             'buttons' => [
                 'type' => 'array',
                 'config' => [
-                    'wrapper' => ButtonCollection::class,
+                    'wrapper' => 'collection',
                 ],
             ],
             'columns' => [
@@ -419,7 +418,7 @@ class Table extends Component
                 'columns' => collect($attributes['columns'])->map(function ($column) {
                     return clone ($column);
                 }),
-                'buttons' => (new ButtonCollection($attributes['buttons']))->map(function ($button) {
+                'buttons' => (new Collection($attributes['buttons']))->map(function ($button) {
                     return clone ($button);
                 }),
             ]);

@@ -313,52 +313,24 @@ class ButtonRegistry
         ],
     ];
 
-    /**
-     * Get a button.
-     *
-     * @param  $button
-     * @return array|null
-     */
-    public function get($button)
+    public function get(string $button): array|null
     {
-        if (!$button) {
-            return null;
-        }
-
         return Arr::get($this->buttons, $button);
     }
 
-    /**
-     * Register a button.
-     *
-     * @param        $button
-     * @param  array $parameters
-     * @return $this
-     */
-    public function register($button, array $parameters)
+    public function register(string $button, array $parameters): static
     {
         Arr::set($this->buttons, $button, $parameters);
 
         return $this;
     }
 
-    /**
-     * Get the buttons.
-     *
-     * @return array
-     */
-    public function getButtons()
+    public function getButtons(): array
     {
         return $this->buttons;
     }
 
-    /**
-     * Set the buttons.
-     *
-     * @param array $buttons
-     * @return $this
-     */
-    public function setButtons(array $buttons)
+    public function setButtons(array $buttons): static
     {
         $this->buttons = $buttons;
 

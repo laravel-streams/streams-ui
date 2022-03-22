@@ -2,8 +2,8 @@
 
 namespace Streams\Ui\Table\View;
 
-use Streams\Ui\Button\ButtonCollection;
 use Streams\Ui\Support\Component;
+use Illuminate\Support\Collection;
 use Streams\Ui\Table\Action\ActionCollection;
 use Streams\Ui\Table\Filter\FilterCollection;
 
@@ -22,7 +22,7 @@ use Streams\Ui\Table\Filter\FilterCollection;
  * @property \Streams\Ui\Table\Column\Column[] $columns default ' => null,
  * @property \Streams\Core\Entry\Entry[] $entries default ' => null,
  * @property FilterCollection|\Streams\Ui\Table\Filter\Filter[] $filters
- * @property ButtonCollection|\Streams\Ui\Button\Button[] $buttons
+ * @property Collection|\Streams\Ui\Button\Button[] $buttons
  * @property ViewHandler $handler default ' => null,
  * @property ViewQuery $query default ' => null,
  * @property bool $active default ' => false,

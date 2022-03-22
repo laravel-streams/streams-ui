@@ -4,18 +4,17 @@ namespace Streams\Ui\Support;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Streams\Core\Stream\Stream;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Traits\Macroable;
 use Streams\Core\Support\Facades\Streams;
 use Illuminate\Contracts\Support\Jsonable;
 use Streams\Core\Support\Facades\Hydrator;
 use Streams\Core\Support\Traits\Prototype;
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Traits\Macroable;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
 /**
@@ -78,7 +77,7 @@ class Component implements Arrayable, Jsonable
         }
 
         if (Request::method() == 'POST') {
-            dd('Implement post method.');
+            return $this->post();
         }
 
         if (View::shared('cp')) {
@@ -88,6 +87,10 @@ class Component implements Arrayable, Jsonable
         return Response::view('ui::ui', ['content' => $this->render()]);
     }
 
+    public function post()
+    {
+        return $this->render();
+    }
 
     /**
      * Initialize the prototype.

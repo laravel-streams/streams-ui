@@ -3,7 +3,7 @@
     <div class="c-topbar">
         
         <div class="c-topbar__buttons" x-data="{}">
-            {!! $cp->buttons !!}
+            {!! $cp->buttons()->pluck('render')->implode('') !!}
         </div>
 
         @include('ui::cp.shortcuts')

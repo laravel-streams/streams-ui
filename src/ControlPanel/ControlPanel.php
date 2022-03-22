@@ -3,12 +3,12 @@
 namespace Streams\Ui\ControlPanel;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Streams\Ui\Button\Button;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Request;
-use Streams\Ui\Button\ButtonCollection;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\ControlPanel\Shortcut\ShortcutCollection;
 use Streams\Ui\ControlPanel\Navigation\NavigationCollection;
@@ -34,7 +34,7 @@ class ControlPanel extends Component
             'buttons' => [
                 'type' => 'array',
                 'config' => [
-                    'wrapper' => ButtonCollection::class,
+                    'wrapper' => 'collection',
                 ],
             ],
             'navigation' => [
@@ -167,6 +167,6 @@ class ControlPanel extends Component
             $button = new Button($button);
         });
 
-        return $this->setPrototypeAttributeValue('buttons', new ButtonCollection($buttons));
+        return $this->setPrototypeAttributeValue('buttons', new Collection($buttons));
     }
 }
