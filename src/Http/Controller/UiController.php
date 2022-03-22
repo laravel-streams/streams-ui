@@ -8,11 +8,9 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Response;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\ControlPanel\ControlPanel;
 use Streams\Core\Http\Controller\EntryController;
-use Streams\Ui\Support\Facades\UI;
 
 class UiController extends EntryController
 {
@@ -43,29 +41,17 @@ class UiController extends EntryController
     }
 
     public function __invoke()
-    { 
+    {
         $data = collect();
 
         $data->put('route', Request::route());
         $data->put('action', Request::route()->action);
- 
+
         $this->resolveStream($data);
         $this->resolveEntry($data);
         $this->resolveView($data);
         $this->resolveRedirect($data);
         $this->resolveResponse($data);
-
-
-        /** This is different from parent:: */
-        $action = Request::route()->action;
-        
-        $section = Arr::get($action, 'ui.component');
-
-        $stream = Streams::make('docs');
-        
-        $data->put('response', $stream->ui($section)->response());
-        /** This is no longer different from parent:: */
-
 
         return $data->get('response') ?: abort(404);
     }
@@ -78,7 +64,7 @@ class UiController extends EntryController
         if (!$section = $route->parameter('section')) {
             return;
         }
-        
+
         if (!isset($action['stream']) && Streams::exists($section)) {
 
             $action['stream'] = $section;
@@ -89,7 +75,7 @@ class UiController extends EntryController
         if (!$section = Streams::entries('cp.navigation')->find($section)) {
             return;
         }
-        
+
         $action = Arr::undot((array) $section->route + $action);
 
         $data->put('action', $action);
@@ -118,10 +104,10 @@ class UiController extends EntryController
             parent::resolveResponse($data);
         }
 
-        if ($data->get('stream') && $component = Arr::get($action, 'ui.component', request('component'))) {
+        if ($stream && $component = Arr::get($action, 'ui.component', request('component'))) {
 
             $component = $stream->ui($component, Arr::get($action, 'ui.handle', request('handle', 'default')), [
-                'stream' => $data->get('stream'),
+                'stream' => $stream,
                 'entry' => $data->get('entry'),
             ]);
 

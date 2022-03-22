@@ -2,27 +2,27 @@
 
 namespace Streams\Ui;
 
-use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Streams\Ui\Input\Input;
 use Illuminate\View\Factory;
+use Streams\Ui\View\Regions;
 use Streams\Core\Field\Field;
 use Streams\Core\Stream\Stream;
+use Streams\Ui\View\ManagesAreas;
+use Streams\Ui\Support\Facades\UI;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\Facades\Config;
+use Streams\Ui\Http\Middleware\LoadUi;
+use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Http\Middleware\LoadUi;
-use Streams\Ui\Input\Input;
-use Streams\Ui\Support\Facades\UI;
-use Streams\Ui\View\ManagesAreas;
-use Streams\Ui\View\Regions;
 
 class UiServiceProvider extends ServiceProvider
 {
