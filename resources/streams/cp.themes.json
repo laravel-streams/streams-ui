@@ -54,19 +54,5 @@
             "required": true
         }
     },
-    "ui": {
-        "tables": {
-            "default": {
-                "buttons": {
-                    "edit": {
-                        "href": "cp/cp.themes/{entry.id}/edit"
-                    }
-                }
-            }
-        },
-        "forms": {
-            "default": {
-            }
-        }
-    }
+    "ui": {}
 }

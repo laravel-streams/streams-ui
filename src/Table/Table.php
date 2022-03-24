@@ -114,38 +114,6 @@ class Table extends Component
         ], $attributes));
     }
 
-    public function setViewsAttribute($value)
-    {
-        array_walk($value, function (&$view, $key) {
-
-            if ($view instanceof View) {
-                return;
-            }
-
-            $filter['stream'] = $this->stream;
-
-            $view = new View($view);
-        });
-
-        $this->setPrototypeAttributeValue('views', $value);
-    }
-
-    public function setFiltersAttribute($value)
-    {
-        array_walk($value, function (&$filter, $key) {
-
-            if ($filter instanceof Filter) {
-                return;
-            }
-
-            $filter['stream'] = $this->stream;
-
-            $filter = new Filter($filter);
-        });
-
-        $this->setPrototypeAttributeValue('filters', $value);
-    }
-
     public function post()
     {
         $this->fire('posting', [

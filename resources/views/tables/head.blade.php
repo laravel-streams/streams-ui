@@ -14,7 +14,7 @@
         @foreach ($table->columns as $column)
         <th {!! $column->htmlAttributes() !!}>
 
-            @if ($column->sortable)
+            @if ($column->isSortable())
             <a href="{{ $column->href() }}">
                 {!! __($column->heading()) !!}
                 @if ($column->direction() == 'asc')

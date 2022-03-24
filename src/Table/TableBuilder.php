@@ -23,14 +23,14 @@ class TableBuilder extends Builder
 {
     public function process(array $payload = []): void
     {
-        //$this->addStep('make_views', self::class . '@makeViews');
+        $this->addStep('make_views', self::class . '@makeViews');
         // $this->addStep('detect_view', self::class . '@detectView');
         // $this->addStep('apply_view', self::class . '@applyView');
 
-        //$this->addStep('make_filters', self::class . '@makeFilters');
+        $this->addStep('make_filters', self::class . '@makeFilters');
         $this->addStep('load_filters', self::class . '@loadFilters');
-        
-        $this->addStep('query', self::class . '@query');
+
+        $this->addStep('load_entries', self::class . '@loadEntries');
 
         //$thiscomponent->addStep('authorize', self::class . '@authorize');
 
@@ -42,8 +42,35 @@ class TableBuilder extends Builder
         parent::process($payload);
     }
 
-    public function query(Component $component, Collection $attributes)
+    public function makeViews(Component $component)
     {
+        $component->views = $component->views->map(function($view) use ($component) {
+            
+            $view['stream'] = $component->stream;
+
+            return new View($view);
+        });
+    }
+
+    public function makeFilters(Component $component)
+    {
+        $component->filters = $component->filters->map(function($view) use ($component) {
+            
+            $view['stream'] = $component->stream;
+
+            return new Filter($view);
+        });
+    }
+
+    public function loadEntries(Component $component)
+    {
+        if ($component->entries->isNotEmpty()) {
+            return;
+        }
+
+        if (!$component->stream) {
+            return;
+        }
 
         /**
          * Start Query
@@ -98,88 +125,54 @@ class TableBuilder extends Builder
         }
     }
 
-    public function makeActions(Component $component, Collection $attributes)
+    public function makeActions(Component $component)
     {
-        $actions = Arr::get($attributes, 'actions', []);
+        $component->actions = $component->actions->map(function($action) use ($component) {
+            
+            $action['stream'] = $component->stream;
 
-        /**
-         * Minimal standardization
-         */
-        array_walk($actions, function (&$action, $key) use ($attributes) {
-
-            $action = is_string($action) ? [
-                'action' => $action,
-            ] : $action;
-
-            $action['handle'] = Arr::get($action, 'handle', $key);
-
-            $action['stream'] = $attributes['stream'];
-
-            $action = new Action($action);
+            return new Action($action);
         });
-
-        $component->actions = $actions;
     }
 
-    public function makeButtons(Component $component, Collection $attributes)
+    public function makeButtons(Component $component)
     {
-        $buttons = Arr::get($attributes, 'buttons', []);
-
-        /**
-         * Minimal standardization
-         */
-        array_walk($buttons, function (&$button, $key) use ($component) {
-
-            $button = is_string($button) ? [
-                'button' => $button,
-            ] : $button;
-
-            $button['handle'] = Arr::get($button, 'handle', $key);
-
+        $component->buttons = $component->buttons->map(function($button) use ($component) {
+            
             $button['stream'] = $component->stream;
 
-            $button['attributes'] = Arr::get($button, 'attributes', []);
-
-            if (
-                isset($button['handle'])
-                && !isset($button['attributes']['href'])
-            ) {
+            if (!isset($button['attributes']['href'])) {
                 $button['attributes']['href'] = URL::current() . '/{entry.id}/' . $button['handle'];
             }
 
-            $button = new Button($button);
+            return new Button($button);
         });
-
-        $component->buttons = $buttons;
     }
 
-    public function makeColumns(Component $component, Collection $attributes)
+    public function makeColumns(Component $component)
     {
-        $columns = Arr::get($attributes, 'columns', [
-            'id' => [],
-        ]);
-
-        /**
-         * Minimal standardization
-         */
-        array_walk($columns, function (&$column, $key) use ($component) {
-
-            $column = is_string($column) ? [
-                'column' => $column,
-            ] : $column;
-
-            $column['handle'] = Arr::get($column, 'handle', $key);
+        $component->columns = $component->columns->map(function($column) use ($component) {
+            
+            $column['stream'] = $component->stream;
 
             $column['value'] = Arr::get($column, 'value', $column['handle']);
 
-            $column['stream'] = $component->stream;
-
             $column['attributes'] = Arr::get($column, 'attributes', []);
 
-            $column = new Column($column);
+            if (!isset($column['attributes']['href'])) {
+                $column['attributes']['href'] = URL::current() . '/{entry.id}/' . $column['handle'];
+            }
+
+            return new Column($column);
         });
 
-        $component->columns = $columns;
+        if ($component->columns->isEmpty()) {
+            $component->columns = $component->columns->put('id', new Column([
+                'value' => 'id',
+                'handle' => 'id',
+                'heading' => 'ID',
+            ]));
+        }
     }
 
     public function makeRows(Component $component, Collection $attributes)
