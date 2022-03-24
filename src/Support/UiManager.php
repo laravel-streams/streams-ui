@@ -36,7 +36,9 @@ class UiManager
 
         $this->components = [
             'form' => \Streams\Ui\Form\Form::class,
+            'alert' => \Streams\Ui\Alert\Alert::class,
             'table' => \Streams\Ui\Table\Table::class,
+            'avatar' => \Streams\Ui\Avatar\Avatar::class,
             'button' => \Streams\Ui\Button\Button::class,
             'cp' => \Streams\Ui\ControlPanel\ControlPanel::class,
         ];

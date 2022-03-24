@@ -1,18 +1,27 @@
 <?php
 
-namespace Streams\Ui\Component\Components;
+namespace Streams\Ui\Blade\Components;
 
+use Streams\Ui\Button\Button;
 use Illuminate\View\Component;
 use Illuminate\Support\Facades\View;
 
 class ButtonComponent extends Component
 {
-    public function __construct()
-    {
-    }
-
     public function render()
     {
-        return View::make('ui::components.button');
+        return function (array $data) {
+            
+            $button = new Button($data['attributes']->getAttributes());
+
+            if ($data['slot']->isNotEmpty()) {
+                $button->text = $data['slot'];
+            }
+     
+            return View::make('ui::buttons.button', [
+                'button' => $button,
+            ])->render();
+        };
+        
     }
 }

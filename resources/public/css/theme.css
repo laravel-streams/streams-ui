@@ -264,6 +264,29 @@ select.a-input:not([multiple]) {
   margin-right: calc(var(--ui-spacing)*0.5rem);
 }
 
+.a-alert {
+  background-color: var(--ui-color-secondary);
+  border-radius: calc(var(--ui-radius)*0.25rem);
+  padding-top: calc(var(--ui-spacing)*1rem);
+  padding-bottom: calc(var(--ui-spacing)*1rem);
+  padding-left: calc(var(--ui-spacing)*2rem);
+  padding-right: calc(var(--ui-spacing)*2rem);
+  color: var(--ui-color-buttons);
+  color: var(--ui-color-buttons);
+}
+
+.a-alert.-green {
+  background-color: var(--ui-color-green);
+}
+
+.a-alert.-blue {
+  background-color: var(--ui-color-blue);
+}
+
+.a-alert.-red {
+  background-color: var(--ui-color-red);
+}
+
 .c-field > label {
   display: inline-block;
   font-weight: 700;
@@ -366,6 +389,15 @@ select.a-input:not([multiple]) {
   padding-left: calc(var(--ui-spacing)*2rem);
   padding-right: calc(var(--ui-spacing)*2rem);
   white-space: nowrap;
+}
+
+.a-avatar > div {
+  overflow: hidden;
+}
+
+.a-avatar > div > img {
+  min-height: 100%;
+  min-width: 100%;
 }
 
 .c-filters {

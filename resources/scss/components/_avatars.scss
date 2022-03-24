@@ -1,0 +1,10 @@
+.a-avatar {
+    
+    > div {
+        overflow: hidden;
+
+        > img {
+            @apply min-h-full min-w-full;
+        }
+    }
+}

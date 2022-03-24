@@ -72,13 +72,13 @@ return [
         'checkbox' => \Streams\Ui\Input\Checkbox::class,
     ],
     'components'    => [
-        'table' => \Streams\Ui\Table\Table::class,
-        'button' => \Streams\Ui\Button\Button::class,
-        'streams-ui-alert' => \Streams\Ui\Button\ButtonBlade::class,
-        'ui-alert' => \Streams\Ui\Component\Components\Alert::class,
-        'ui-toolbar' => \Streams\Ui\Component\Components\Toolbar::class,
-        'ui-cp' => \Streams\Ui\Component\ControlPanel\ControlPanel::class,
-        'ui-cp-topbar' => \Streams\Ui\Component\ControlPanel\ControlPanelHeader::class,
-        'ui-cp-sidebar' => \Streams\Ui\Component\ControlPanel\ControlPanelSidebar::class
+        // 'table' => \Streams\Ui\Table\Table::class,
+        'button' => \Streams\Ui\Blade\Components\ButtonComponent::class,
+        // 'streams-ui-alert' => \Streams\Ui\Button\ButtonBlade::class,
+        // 'ui-alert' => \Streams\Ui\Component\Components\Alert::class,
+        // 'ui-toolbar' => \Streams\Ui\Component\Components\Toolbar::class,
+        // 'ui-cp' => \Streams\Ui\Component\ControlPanel\ControlPanel::class,
+        // 'ui-cp-topbar' => \Streams\Ui\Component\ControlPanel\ControlPanelHeader::class,
+        // 'ui-cp-sidebar' => \Streams\Ui\Component\ControlPanel\ControlPanelSidebar::class
     ],
 ];

@@ -1,0 +1,19 @@
+.c-alerts {
+    //@apply flex justify-items-center items-center gap-1;
+}
+
+.a-alert {
+    @apply py-4 px-8 rounded text-buttons bg-secondary;
+
+    &.-green {
+        @apply bg-green;
+    }
+
+    &.-blue {
+        @apply bg-blue;
+    }
+
+    &.-red {
+        @apply bg-red;
+    }
+}
