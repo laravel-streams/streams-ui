@@ -199,7 +199,7 @@ class UiServiceProvider extends ServiceProvider
                     $create = '{section}/create';
                     $edit   = '{section}/{entry}/edit';
 
-                    $component = 'ui/{stream}/{component}/{handle?}';
+                    $component = 'ui/{stream}/{component}/{handle?}/{entry?}';
 
                     Route::streams('/', [
                         'verb' => 'get',

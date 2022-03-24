@@ -4,6 +4,7 @@ namespace Streams\Ui\Http\Controller;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Streams\Ui\Support\Facades\UI;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Request;
@@ -11,7 +12,6 @@ use Illuminate\Support\Facades\Redirect;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\ControlPanel\ControlPanel;
 use Streams\Core\Http\Controller\EntryController;
-use Streams\Ui\Support\Facades\UI;
 
 class UiController extends EntryController
 {
@@ -52,6 +52,7 @@ class UiController extends EntryController
 
         $this->resolveStream($data);
         $this->resolveEntry($data);
+        
         $this->resolveView($data);
         $this->resolveRedirect($data);
         $this->resolveResponse($data);
