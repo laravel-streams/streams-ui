@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Redirect;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\ControlPanel\ControlPanel;
 use Streams\Core\Http\Controller\EntryController;
+use Streams\Ui\Support\Facades\UI;
 
 class UiController extends EntryController
 {
@@ -95,7 +96,7 @@ class UiController extends EntryController
         // @todo this needs work
         // control panel builder
         if (Arr::get($action, 'ui.cp_enabled') == true && !View::shared('cp')) {
-            View::share('cp', new ControlPanel());
+            View::share('cp', UI::make('cp'));
         }
 
         if ($data->has('response')) {

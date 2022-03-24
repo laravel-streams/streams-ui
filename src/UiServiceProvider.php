@@ -2,15 +2,12 @@
 
 namespace Streams\Ui;
 
-use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Streams\Ui\Input\Input;
 use Illuminate\View\Factory;
-use Streams\Ui\View\Regions;
 use Streams\Core\Field\Field;
 use Streams\Core\Stream\Stream;
-use Streams\Ui\View\ManagesAreas;
 use Streams\Ui\Support\Facades\UI;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
@@ -76,9 +73,6 @@ class UiServiceProvider extends ServiceProvider
             return $ui;
         });
 
-        $this->app->singleton(\Streams\Ui\View\Regions::class);
-        $this->app->singleton(\Streams\Ui\View\ManagesAreas::class);
-
         $this->registerConfig();
         $this->registerStreams();
         $this->registerComponents();
@@ -104,20 +98,7 @@ class UiServiceProvider extends ServiceProvider
         $this->extendAssets();
 
         $this->registerRoutes();
-        $this->bootBladeDirectives();
-
-        $this->testRegionsProgrammatically();
-    }
-
-    // @todo this is going away. ViewIncludes has names now
-    protected function testRegionsProgrammatically()
-    {
-        /** @var Regions $regions */
-        $regions = $this->app->make(Regions::class);
-        $regions->setAreaContent('sidebar', 'foo', '<div>This is Fooo</div>');
-        $regions->setArea('sidebar', 'foo2', 'ui::sidebar-foo2');
-        // test override
-        $regions->setAreaContent('sidebar', 'title', '<div>Sidebar Overide Title</div>');
+        //$this->bootBladeDirectives();
     }
 
     protected function registerComponents()

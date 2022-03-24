@@ -3,7 +3,7 @@
 
     @include('ui::tables.views')
     @include('ui::tables.filters')
-    
+
     @if ($table->rows->isNotEmpty())
 
     {!! Form::open([

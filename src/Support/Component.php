@@ -10,26 +10,12 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Traits\Macroable;
-use Streams\Core\Support\Facades\Streams;
 use Illuminate\Contracts\Support\Jsonable;
 use Streams\Core\Support\Facades\Hydrator;
 use Streams\Core\Support\Traits\Prototype;
 use Illuminate\Contracts\Support\Arrayable;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
-/**
- * @typescript
- * @property string $handle
- * @property string $template
- * @property boolean $async
- * @property mixed $component
- * @property array $classes
- * @property array<string,mixed> $attributes
- * @property array<string,mixed> $options
- * @property \Illuminate\Support\Collection $data
- * @property \Illuminate\Http\Response $response
- * @property \Streams\Core\Stream\Stream $stream
- */
 class Component implements Arrayable, Jsonable
 {
     use Prototype;
@@ -43,33 +29,23 @@ class Component implements Arrayable, Jsonable
 
     public function __construct(array $attributes = [])
     {
-        if (isset($attributes['stream']) && is_string($attributes['stream'])) {
-            $attributes['stream'] = Streams::make($attributes['stream']);
-        }
-
-        if (isset($attributes['stream'])) {
-            $this->stream = $attributes['stream'];
-        }
-        
-        $callbackData = new Collection([
-            'attributes' => $attributes,
-        ]);
-
-        $this->fire('initializing', [
-            'callbackData' => $callbackData,
-        ]);
-
-        $this->syncOriginalPrototypeAttributes($callbackData->get('attributes'));
-
-        //$this->setRawPrototypeAttributes($callbackData->get('attributes'));
-
-        $this->initializeComponentPrototype($callbackData->get('attributes'));
-
-        $this->fire('initialized', [
-            'field' => $this,
-        ]);
+        $this->build($attributes);
     }
-    
+
+    protected function build(array $attributes = [])
+    {
+        $builder = $this->builder ?: Builder::class;
+
+        $attributes = collect($attributes);
+
+        (new $builder())
+            ->passThrough($this)
+            ->process([
+                'component' => $this,
+                'attributes' => $attributes,
+            ]);
+    }
+
     public function response()
     {
         if ($this->response) {
@@ -98,7 +74,7 @@ class Component implements Arrayable, Jsonable
      * @param array $attributes
      * @return $this
      */
-    protected function initializeComponentPrototype(array $attributes)
+    public function initializeComponentPrototype(array $attributes)
     {
         return $this->setRawPrototypeAttributes(array_merge([
             'handle' => null,

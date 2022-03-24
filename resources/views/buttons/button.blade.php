@@ -12,7 +12,7 @@
     @endif
 
     @if ($button->icon)
-    <x-{{ $button->icon }}/>
+    {{-- <x-{{ $button->icon }}/> --}}
     @endif
 
     <span>{{ __($button->text()) }}</span>

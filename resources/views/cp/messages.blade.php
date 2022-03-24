@@ -22,7 +22,7 @@
             <p>{{ $message['content'] }}</p>
         </div>
         <button class="opacity-75 hover:opacity-100 self-end" onclick="this.parentNode.remove();">
-            <x-heroicon-s-x class="h-6 w-6" />
+            {{-- <x-heroicon-s-x class="h-6 w-6" /> --}}
         </button>
     </div>
 

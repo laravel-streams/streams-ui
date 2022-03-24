@@ -39,7 +39,7 @@ use Illuminate\Support\Collection;
 class Form extends Component
 {
 
-    protected function initializeComponentPrototype(array $attributes)
+    public function initializeComponentPrototype(array $attributes)
     {
         $this->loadPrototypeProperties([
             'values' => [

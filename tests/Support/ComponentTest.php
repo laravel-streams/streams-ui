@@ -162,7 +162,10 @@ class ComponentTest extends UiTestCase
 
         $component = new Button;
 
-        $this->assertTrue(is_string($component->response()));
+        $this->assertInstanceOf(
+            \Symfony\Component\HttpFoundation\Response::class,
+            $component->response()
+        );
     }
 
     public function test_it_can_set_response_returned()

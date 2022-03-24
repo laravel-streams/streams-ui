@@ -38,6 +38,7 @@ class UiManager
             'form' => \Streams\Ui\Form\Form::class,
             'table' => \Streams\Ui\Table\Table::class,
             'button' => \Streams\Ui\Button\Button::class,
+            'cp' => \Streams\Ui\ControlPanel\ControlPanel::class,
         ];
     }
 
