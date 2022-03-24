@@ -28,7 +28,8 @@ class TableBuilder extends Builder
         // $this->addStep('apply_view', self::class . '@applyView');
 
         //$this->addStep('make_filters', self::class . '@makeFilters');
-
+        $this->addStep('load_filters', self::class . '@loadFilters');
+        
         $this->addStep('query', self::class . '@query');
 
         //$thiscomponent->addStep('authorize', self::class . '@authorize');
@@ -288,5 +289,17 @@ class TableBuilder extends Builder
         }
 
         $handler->handle($this, $active);
+    }
+
+    public function loadFilters(Component $component)
+    {
+        $component->filters->map(function ($filter) use ($component) {
+
+            $value = Request::get(Arr::get($component->options, 'prefix') . $filter->handle);
+
+            if ($filter->active = ($value !== null)) {
+                $filter->value = $value;
+            }
+        });
     }
 }

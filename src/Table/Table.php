@@ -161,12 +161,6 @@ class Table extends Component
 
             $filter['stream'] = $this->stream;
 
-            //$value = Request::get(Arr::get($attributes, 'options.prefix') . $filter['handle']);
-
-            // if ($filter['active'] = (bool) $value) {
-            //     $filter['value'] = $value;
-            // }
-
             $filter = new Filter($filter);
         });
 

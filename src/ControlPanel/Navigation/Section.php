@@ -33,13 +33,6 @@ class Section extends Component
         ], $attributes));
     }
 
-    public function onInitializing($callbackData)
-    {
-        $attributes = $callbackData->get('attributes');
-
-        $callbackData->put('attributes', $attributes);
-    }
-
     public function url(array $extra = [])
     {
         $target = Arr::get($this->attributes, 'href') ?: ('@cp/' . $this->id);

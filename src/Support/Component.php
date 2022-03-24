@@ -110,7 +110,7 @@ class Component implements Arrayable, Jsonable
 
         return array_filter(array_replace_recursive([
             'class' => $this->class($class),
-        ], (array) $this->attributes->all(), $attributes), function ($value) {
+        ], $this->attributes ? $this->attributes->all() : [], $attributes), function ($value) {
             return !is_null($value) && $value !== '';
         });
     }
