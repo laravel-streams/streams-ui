@@ -3,6 +3,7 @@
 namespace Streams\Ui\ControlPanel;
 
 use Illuminate\Support\Str;
+use Streams\Ui\Button\Button;
 use Streams\Ui\Support\Builder;
 use Illuminate\Support\Facades\Request;
 use Streams\Core\Support\Facades\Streams;
@@ -89,6 +90,10 @@ class ControlPanelBuilder extends Builder
         if ($match->buttons) {
             $component->buttons = $match->buttons;
         }
+
+        $component->buttons = $component->buttons->map(function($button) {
+            return new Button($button);
+        });
     }
 
     public function loadShortcuts(ControlPanel $component)

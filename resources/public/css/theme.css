@@ -427,6 +427,26 @@ select.a-input:not([multiple]) {
   background-color: var(--ui-color-secondary);
 }
 
+.a-button.-red {
+  color: var(--ui-color-light);
+  background-color: var(--ui-color-red);
+}
+
+.a-button.-blue {
+  color: var(--ui-color-light);
+  background-color: var(--ui-color-blue);
+}
+
+.a-button.-green {
+  color: var(--ui-color-light);
+  background-color: var(--ui-color-green);
+}
+
+.a-button.-yellow {
+  color: var(--ui-color-light);
+  background-color: var(--ui-color-yellow);
+}
+
 .a-button.-link {
   color: var(--ui-color-text);
   background-color: var(--ui-color-transparent);

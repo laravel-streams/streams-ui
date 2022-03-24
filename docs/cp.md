@@ -1,6 +1,4 @@
 ---
-__created_at: 1612057264
-__updated_at: 1612057264
 title: Control Panel
 link_title: Getting Started
 category: control_panel

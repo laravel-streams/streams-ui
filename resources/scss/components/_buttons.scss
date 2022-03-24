@@ -23,6 +23,26 @@
         background-color: var(--ui-color-secondary);
     }
 
+    &.-red {
+        color: var(--ui-color-light);
+        background-color: var(--ui-color-red);
+    }
+
+    &.-blue {
+        color: var(--ui-color-light);
+        background-color: var(--ui-color-blue);
+    }
+
+    &.-green {
+        color: var(--ui-color-light);
+        background-color: var(--ui-color-green);
+    }
+
+    &.-yellow {
+        color: var(--ui-color-light);
+        background-color: var(--ui-color-yellow);
+    }
+
     &.-link {
         color: var(--ui-color-text);
         background-color: var(--ui-color-transparent);
