@@ -9,7 +9,6 @@ use Streams\Ui\Table\Row\Row;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Table\View\View;
 use Streams\Ui\Support\Component;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Streams\Ui\Table\Action\Action;
@@ -17,7 +16,6 @@ use Streams\Ui\Table\Column\Column;
 use Streams\Ui\Table\Filter\Filter;
 use Streams\Ui\Table\View\ViewHandler;
 use Illuminate\Support\Facades\Request;
-use Streams\Ui\Table\Filter\FilterCollection;
 
 class TableBuilder extends Builder
 {

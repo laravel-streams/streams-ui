@@ -58,31 +58,4 @@ class ControlPanel extends Component
             'builder' => ControlPanelBuilder::class,
         ], $attributes));
     }
-
-    public function setButtonsAttribute($buttons)
-    {
-        $buttons = $buttons ?: [];
-
-        /**
-         * Minimal standardization
-         */
-        array_walk($buttons, function (&$button, $key) {
-
-            $button = is_string($button) ? [
-                'button' => $button,
-            ] : $button;
-
-            $button['handle'] = Arr::get($button, 'handle', $key);
-
-            $button['stream'] = $this->stream;
-
-            if (!isset($button['attributes']['href'])) {
-                $button['attributes']['href'] = URL::cp(Request::segment(2) . '/' . $button['handle']);
-            }
-
-            $button = new Button($button);
-        });
-
-        return $this->setPrototypeAttributeValue('buttons', new Collection($buttons));
-    }
 }

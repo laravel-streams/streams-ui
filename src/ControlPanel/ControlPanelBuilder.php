@@ -3,18 +3,22 @@
 namespace Streams\Ui\ControlPanel;
 
 use Illuminate\Support\Str;
-use Streams\Core\Support\Workflow;
+use Streams\Ui\Support\Builder;
 use Illuminate\Support\Facades\Request;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\ControlPanel\ControlPanel;
 use Streams\Ui\ControlPanel\Navigation\Section;
 
-class ControlPanelBuilder extends Workflow
+class ControlPanelBuilder extends Builder
 {
-    public array $steps = [
-        'load_navigation' => self::class . '@loadNavigation',
-        'load_shortcuts' => self::class . '@loadShortcuts',
-    ];
+    public function process(array $payload = []): void
+    {
+        $this->addStep('load_navigation', self::class . '@loadNavigation');
+        $this->addStep('detect_navigation', self::class . '@detectNavigation');
+        $this->addStep('load_shortcuts', self::class . '@loadShortcuts');
+
+        parent::process($payload);
+    }
 
     public function loadNavigation(ControlPanel $component)
     {
@@ -23,21 +27,28 @@ class ControlPanelBuilder extends Workflow
             ->orderBy('handle', 'asc')
             ->get();
 
-        Streams::collection()->filter(function ($stream) use ($component) {
+        Streams::collection()->filter(function ($stream) {
             return isset($stream->ui['cp']['section']);
-        })->each(function ($stream) {
+        })->each(function ($stream) use ($component) {
 
             $attributes = array_merge([
-                'id' => $stream->handle,
+                'id' => $stream->id,
+                'stream' => $stream,
+                'handle' => $stream->id,
             ], $stream->ui['cp']['section']);
 
-            $component->navigation->add(new Section($attributes));
+            $section = new Section($attributes);
+
+            $component->navigation = $component->navigation->put($section->handle, $section);
         });
 
         $component->navigation = $component->navigation->sortBy(function($section) {
             return (int) $section->sort_order ?: 0;
         });
-
+    }
+    
+    public function detectNavigation(ControlPanel $component)
+    {
         $match = null;
 
         $url = Request::fullUrl();
@@ -55,7 +66,11 @@ class ControlPanelBuilder extends Workflow
             $match = $link;
         });
 
-        if ($match && $match->parent) {
+        if (!$match) {
+            return;
+        }
+
+        if ($match->parent) {
 
             if (!$parent = $component->navigation->first(function ($item) use ($match) {
                 return $item->id == $match->parent;
@@ -66,16 +81,13 @@ class ControlPanelBuilder extends Workflow
             $match->buttons = $match->buttons ?: $parent->buttons;
         }
 
-        if ($match) {
+        $match->active = true;
 
-            $match->active = true;
+        $component->stream = $component->stream ?: $match->stream;
+        $component->entry = $component->entry ?: $match->entry;
 
-            $component->stream = $component->stream ?: $match->stream;
-            $component->entry = $component->entry ?: $match->entry;
-
-            if ($match->buttons) {
-                $component->buttons = $match->buttons;
-            }
+        if ($match->buttons) {
+            $component->buttons = $match->buttons;
         }
     }
 

@@ -1,6 +1,6 @@
 ---
-title: Theming
-category: developers
+title: Themes
+category: basics
 sort: 99
 stage: outlining
 enabled: true
@@ -23,24 +23,8 @@ enabled: true
 
 Streams UI theming makes use of variables, configuration, and templating to effect the output of the UI.
 
-- Only CSS variables for easy customization
-- Uses existing services/utilities to "set up the theme"
-- Themes are applied at runtime
-
 ### Themes
 
 - Themes are [Streams addons](#addons/themes) that configure the UI.
-- Themes can be applied easily.
-## Configuration
 
-- We need to stash component views and more in config for customization (reference applications)
-
-## Registered Assets
-
-```php
-Assets::register('ui::widget.css', 'ui::css/widget.css');
-Assets::register('ui::widget.js', 'ui::js/widget.js');
-
-Assets::load('ui::widget.css');
-Assets::load('ui::widget.js');
-```
+## Installation

@@ -34,7 +34,9 @@ class ButtonTest extends UiTestCase
     public function test_it_returns_urls()
     {
         $component = new Button([
-            'href' => '#test',
+            'attributes' => [
+                'href' => '#test',
+            ],
         ]);
 
         $this->assertSame(url('#test'), $component->url());
