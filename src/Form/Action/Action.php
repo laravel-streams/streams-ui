@@ -51,7 +51,7 @@ class Action extends Button
      *
      * @param array $attributes
      */
-    public function attributes(array $attributes = [])
+    public function attributes(array $attributes = []): array
     {
         return array_merge(parent::attributes(), [
             'value' => $this->handle,

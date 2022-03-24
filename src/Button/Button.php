@@ -48,6 +48,7 @@ class Button extends Component
     public function attributes(array $attributes = []): array
     {
         return parent::attributes(array_filter(array_merge([
+            'entry'  => null,
             'name'  => $this->name,
             'value' => $this->value,
             'class' => $this->class(),
@@ -74,6 +75,9 @@ class Button extends Component
             $target = $this->attributes->get('href');
         }
 
-        return $target ? URL::to(Value::make($target)) : null;
+        return $target ? URL::to(Str::parse($target, [
+            'entry' => $this->entry,
+            'stream' => $this->stream,
+        ])) : null;
     }
 }

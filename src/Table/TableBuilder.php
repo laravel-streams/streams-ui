@@ -44,9 +44,9 @@ class TableBuilder extends Builder
 
     public function makeViews(Component $component)
     {
-        $component->views = $component->views->map(function($view) use ($component) {
-            
-            $view['stream'] = $component->stream;
+        $component->views = $component->views->map(function ($view) use ($component) {
+
+            $view['table'] = $component->table;
 
             return new View($view);
         });
@@ -54,9 +54,9 @@ class TableBuilder extends Builder
 
     public function makeFilters(Component $component)
     {
-        $component->filters = $component->filters->map(function($view) use ($component) {
-            
-            $view['stream'] = $component->stream;
+        $component->filters = $component->filters->map(function ($view) use ($component) {
+
+            $view['table'] = $component->table;
 
             return new Filter($view);
         });
@@ -127,9 +127,9 @@ class TableBuilder extends Builder
 
     public function makeActions(Component $component)
     {
-        $component->actions = $component->actions->map(function($action) use ($component) {
-            
-            $action['stream'] = $component->stream;
+        $component->actions = $component->actions->map(function ($action) use ($component) {
+
+            $action['table'] = $component->table;
 
             return new Action($action);
         });
@@ -137,9 +137,9 @@ class TableBuilder extends Builder
 
     public function makeButtons(Component $component)
     {
-        $component->buttons = $component->buttons->map(function($button) use ($component) {
-            
-            $button['stream'] = $component->stream;
+        $component->buttons = $component->buttons->map(function ($button) use ($component) {
+
+            $button['table'] = $component->table;
 
             if (!isset($button['attributes']['href'])) {
                 $button['attributes']['href'] = URL::current() . '/{entry.id}/' . $button['handle'];
@@ -151,8 +151,9 @@ class TableBuilder extends Builder
 
     public function makeColumns(Component $component)
     {
-        $component->columns = $component->columns->map(function($column) use ($component) {
-            
+        $component->columns = $component->columns->map(function ($column) use ($component) {
+
+            $column['table'] = $component;
             $column['stream'] = $component->stream;
 
             $column['value'] = Arr::get($column, 'value', $column['handle']);
@@ -175,45 +176,34 @@ class TableBuilder extends Builder
         }
     }
 
-    public function makeRows(Component $component, Collection $attributes)
+    public function makeRows(Component $component)
     {
-        $rows = $component->entries->map(function ($entry) use ($component, $attributes) {
+        $rows = $component->entries->map(function ($entry) use ($component) {
             return new Row([
                 'handle' => $entry->id,
                 'key' => $entry->id,
 
                 'entry' => $entry,
-                'table' => $component->instance,
+                'table' => $component,
+                
+                'stream' => $component->stream,
 
                 'columns' => $component->columns->map(function ($column) {
                     return clone ($column);
-                }),
+                })->keyBy('handle'),
                 'buttons' => $component->buttons->map(function ($button) {
                     return clone ($button);
-                }),
+                })->keyBy('handle'),
             ]);
         });
 
-        $rows->each(function ($row) use ($component, $attributes) {
+        $rows->each(function ($row) use ($component) {
 
-            $columns = $row->columns->keyBy('handle');
+            $row->columns = $row->columns->each(function ($column) use ($row) {
+                $column->value = Value::make($column->value, $row->entry);
+            });
 
-            // Load Columns
-            foreach ($component->columns as $column) {
-
-                $clone = clone ($column);
-
-                $clone->value = Value::make($clone->value, $row->entry);
-
-                $columns->put($column->handle, $clone);
-            }
-
-            $row->columns = $columns;
-
-            $buttons = $row->buttons->keyBy('handle');
-
-            // Load Buttons
-            foreach ($columns->get('buttons', []) as $button) {
+            $row->buttons = $component->buttons->map(function ($button) use ($row, $component) {
 
                 $clone = clone ($button);
 
@@ -222,10 +212,8 @@ class TableBuilder extends Builder
                     'stream' => $component->stream,
                 ]));
 
-                $buttons->put($clone->handle, $clone);
-            }
-
-            $row->buttons = $buttons;
+                return $clone;
+            });
         });
 
         $component->rows = $rows;
@@ -251,12 +239,7 @@ class TableBuilder extends Builder
         if (!$active = $component->views->active()) {
             return;
         }
-
-        // Nothing to do.
-        if (!$active) {
-            return;
-        }
-
+        
         if ($active->filters) {
             $component->filters = $active->filters;
         }
@@ -286,7 +269,7 @@ class TableBuilder extends Builder
 
     public function loadFilters(Component $component)
     {
-        $component->filters->map(function ($filter) use ($component) {
+        $component->filters->each(function ($filter) use ($component) {
 
             $value = Request::get(Arr::get($component->options, 'prefix') . $filter->handle);
 

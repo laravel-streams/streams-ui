@@ -14,7 +14,7 @@ class Value
         mixed $entry = null,
         string $term = 'entry'
     ): string {
-        
+
         /*
          * If a flat value was sent in
          * then convert it to an array.
@@ -42,7 +42,11 @@ class Value
         /**
          * Check for basic entry attribute values.
          */
-        if (is_object($entry) && $entry instanceof EntryInterface) {
+        if (
+            is_object($entry)
+            && $entry instanceof EntryInterface
+            && $entry->hasAttribute($value)
+        ) {
             $value = $entry->getAttribute($value);
         }
 
@@ -54,7 +58,7 @@ class Value
 
             $value = Str::parse($value, [
                 'value' => $value,
-                $term   => $entry,
+                $term => $entry,
             ]);
 
             $value = data_get([$term => $entry], $value, $value);
@@ -75,7 +79,7 @@ class Value
         if ($wrapper = Arr::get($parameters, 'wrapper')) {
             $value = Str::parse($wrapper, [
                 'value' => $value,
-                $term => $entry
+                $term => $entry,
             ]);
         }
 
