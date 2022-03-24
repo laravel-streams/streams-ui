@@ -107,7 +107,7 @@ class UiServiceProvider extends ServiceProvider
         $this->app->instance('ui.components', $components);
         $this->app->booted(function ($app) {
             foreach ($app['ui.components'] as $name => $class) {
-                Blade::component('ui-' . $name, $class);
+                Blade::component($name, $class);
             }
         });
     }
