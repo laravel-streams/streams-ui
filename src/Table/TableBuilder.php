@@ -23,11 +23,11 @@ class TableBuilder extends Builder
 {
     public function process(array $payload = []): void
     {
-        $this->addStep('make_views', self::class . '@makeViews');
+        //$this->addStep('make_views', self::class . '@makeViews');
         // $this->addStep('detect_view', self::class . '@detectView');
         // $this->addStep('apply_view', self::class . '@applyView');
 
-        $this->addStep('make_filters', self::class . '@makeFilters');
+        //$this->addStep('make_filters', self::class . '@makeFilters');
 
         $this->addStep('query', self::class . '@query');
 
@@ -39,58 +39,6 @@ class TableBuilder extends Builder
         $this->addStep('make_rows', self::class . '@makeRows');
 
         parent::process($payload);
-    }
-
-    public function makeViews(Component $component, Collection $attributes)
-    {
-        $views = Arr::get($attributes, 'views', []);
-
-        /**
-         * Minimal standardization
-         */
-        array_walk($views, function (&$view, $key) use ($attributes) {
-
-            $view = is_string($view) ? [
-                'view' => $view,
-            ] : $view;
-
-            $view['handle'] = Arr::get($view, 'handle', $key);
-
-            $view['stream'] = $attributes['stream'];
-
-            $view = new View($view);
-        });
-
-        $component->views = $views;
-    }
-
-    public function makeFilters(Component $component, Collection $attributes)
-    {
-        $filters = Arr::get($attributes, 'filters', []);
-
-        /**
-         * Minimal standardization
-         */
-        array_walk($filters, function (&$filter, $key) use ($attributes) {
-
-            $filter = is_string($filter) ? [
-                'filter' => $filter,
-            ] : $filter;
-
-            $filter['handle'] = Arr::get($filter, 'handle', $key);
-
-            $filter['stream'] = $attributes['stream'];
-
-            $value = Request::get(Arr::get($attributes, 'options.prefix') . $filter['handle']);
-
-            if ($filter['active'] = (bool) $value) {
-                $filter['value'] = $value;
-            }
-
-            $filter = new Filter($filter);
-        });
-
-        $component->filters = $filters;
     }
 
     public function query(Component $component, Collection $attributes)
@@ -254,7 +202,7 @@ class TableBuilder extends Builder
 
         $rows->each(function ($row) use ($component, $attributes) {
 
-            $columns = $row->columns;
+            $columns = $row->columns->keyBy('handle');
 
             // Load Columns
             foreach ($component->columns as $column) {

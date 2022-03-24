@@ -4,12 +4,14 @@ namespace Streams\Ui\Support;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Streams\Ui\Support\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Traits\Macroable;
+use Streams\Core\Support\Facades\Streams;
 use Illuminate\Contracts\Support\Jsonable;
 use Streams\Core\Support\Facades\Hydrator;
 use Streams\Core\Support\Traits\Prototype;
@@ -29,21 +31,37 @@ class Component implements Arrayable, Jsonable
 
     public function __construct(array $attributes = [])
     {
-        $this->build($attributes);
-    }
+        $this->initializeComponentPrototype();
 
-    protected function build(array $attributes = [])
-    {
         $builder = $this->builder ?: Builder::class;
 
-        $attributes = collect($attributes);
-
-        (new $builder())
+        (new $builder)
             ->passThrough($this)
             ->process([
                 'component' => $this,
-                'attributes' => $attributes,
+                'attributes' => collect($attributes),
             ]);
+    }
+
+    public function initializeComponentPrototype(array $attributes = [])
+    {
+        $this->loadPrototypeProperties([
+            'attributes' => [
+                'type' => 'array',
+                'config' => [
+                    'wrapper' => 'collection',
+                ],
+            ]
+        ]);
+
+        return $this->loadPrototypeAttributes(array_merge([
+            'handle' => null,
+            'template' => null,
+            'component' => null,
+            'classes' => [],
+            'attributes' => [],
+            'data' => new Collection(),
+        ], $attributes));
     }
 
     public function response()
@@ -57,7 +75,7 @@ class Component implements Arrayable, Jsonable
         }
 
         if (View::shared('cp')) {
-            return Response::view('ui::cp', ['content' => $this->render()]);
+            return $this->cp();
         }
 
         return Response::view('ui::ui', ['content' => $this->render()]);
@@ -65,25 +83,12 @@ class Component implements Arrayable, Jsonable
 
     public function post()
     {
-        return $this->render();
+        //
     }
 
-    /**
-     * Initialize the prototype.
-     *
-     * @param array $attributes
-     * @return $this
-     */
-    public function initializeComponentPrototype(array $attributes)
+    public function cp()
     {
-        return $this->setRawPrototypeAttributes(array_merge([
-            'handle' => null,
-            'template' => null,
-            'component' => null,
-            'classes' => [],
-            'attributes' => [],
-            'data' => new Collection(),
-        ], $attributes));
+        return Response::view('ui::cp', ['content' => $this->render()]);
     }
 
     public function class($extra = [])
@@ -105,7 +110,7 @@ class Component implements Arrayable, Jsonable
 
         return array_filter(array_replace_recursive([
             'class' => $this->class($class),
-        ], (array) $this->getPrototypeAttribute('attributes', []), $attributes), function ($value) {
+        ], (array) $this->attributes->all(), $attributes), function ($value) {
             return !is_null($value) && $value !== '';
         });
     }
@@ -140,6 +145,15 @@ class Component implements Arrayable, Jsonable
     public function prefix($target = null): string
     {
         return Arr::get($this->options, 'prefix') . $target;
+    }
+
+    public function setStreamAttribute($value)
+    {
+        if (is_string($value)) {
+            $value = Streams::make($value);
+        }
+
+        $this->stream = $value;
     }
 
     public function toArray()

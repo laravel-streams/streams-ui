@@ -292,7 +292,12 @@ class UiServiceProvider extends ServiceProvider
                 $handle     = 'default';
             }
 
-            if (!$configured = Arr::get($this->ui, Str::plural($component) . '.' . $handle)) {
+            $configured = Arr::first(
+                Arr::get($this->ui, Str::plural($component), []),
+                fn ($config, $key) => Arr::get($config, 'handle') == $handle || $key == $handle
+            );
+
+            if (!$configured) {
                 $configured = Arr::get($this->ui, $component, []);
             }
 

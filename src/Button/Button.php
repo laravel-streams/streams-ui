@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\URL;
 class Button extends Component
 {
 
-    public function initializeComponentPrototype(array $attributes)
+    public function initializeComponentPrototype(array $attributes = [])
     {
         return parent::initializeComponentPrototype(array_merge([
             'component' => 'button',
@@ -70,10 +70,10 @@ class Button extends Component
 
     public function url(array $extra = []): string|null
     {
-        if (!$target = Arr::get($this->attributes, 'href')) {
-            return null;
+        if (!$target = $this->attributes->get('url')) {
+            $target = $this->attributes->get('href');
         }
 
-        return URL::to(Value::make($target));
+        return $target ? URL::to(Value::make($target)) : null;
     }
 }

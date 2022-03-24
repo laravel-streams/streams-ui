@@ -11,7 +11,7 @@ class Multiselect extends Input
      * @param array $attributes
      * @return $this
      */
-    public function initializeComponentPrototype(array $attributes)
+    public function initializeComponentPrototype(array $attributes = [])
     {
         return parent::initializeComponentPrototype(array_merge([
             'template' => 'ui::input/multiselect',

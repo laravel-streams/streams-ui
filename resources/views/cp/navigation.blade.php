@@ -17,7 +17,7 @@
         @if ($children->isNotEmpty())
         <ul>
             @foreach ($children as $child)
-                <li class="{{ $child->active ? '-has-active' : '' }}"">
+                <li class="{{ $child->active ? '-has-active' : '' }}">
                     {!! $child->link([
                         'class' => ($child->active ? '-active' : '')
                     ]) !!}

@@ -47,7 +47,7 @@ class Table extends Component
      * @param array $attributes
      * @return $this
      */
-    public function initializeComponentPrototype(array $attributes)
+    public function initializeComponentPrototype(array $attributes = [])
     {
         $this->loadPrototypeProperties([
             'views' => [
@@ -69,6 +69,13 @@ class Table extends Component
                 ],
             ],
 
+            'attributes' => [
+                'type' => 'array',
+                'config' => [
+                    'wrapper' => 'collection',
+                ],
+            ],
+            
             'rows' => [
                 'type' => 'array',
                 'config' => [
@@ -107,7 +114,7 @@ class Table extends Component
             ],
         ]);
 
-        parent::loadPrototypeAttributes(array_merge([
+        parent::initializeComponentPrototype(array_merge([
             'component' => 'table',
             'template' => 'ui::tables.table',
 
@@ -128,19 +135,42 @@ class Table extends Component
         ], $attributes));
     }
 
-    /**
-     * Return if the rows are selectable or not.
-     *
-     * @return bool
-     */
-    public function isSelectable(): bool
+    public function setViewsAttribute($value)
     {
-        return ($this->actions->isNotEmpty() || $this->options->get('selectable'));
+        array_walk($value, function (&$view, $key) {
+
+            if ($view instanceof View) {
+                return;
+            }
+
+            $filter['stream'] = $this->stream;
+
+            $view = new View($view);
+        });
+
+        $this->setPrototypeAttributeValue('views', $value);
     }
 
-    public function isSortable(): bool
+    public function setFiltersAttribute($value)
     {
-        return (bool) $this->options->get('sortable');
+        array_walk($value, function (&$filter, $key) {
+
+            if ($filter instanceof Filter) {
+                return;
+            }
+
+            $filter['stream'] = $this->stream;
+
+            //$value = Request::get(Arr::get($attributes, 'options.prefix') . $filter['handle']);
+
+            // if ($filter['active'] = (bool) $value) {
+            //     $filter['value'] = $value;
+            // }
+
+            $filter = new Filter($filter);
+        });
+
+        $this->setPrototypeAttributeValue('filters', $value);
     }
 
     public function post()

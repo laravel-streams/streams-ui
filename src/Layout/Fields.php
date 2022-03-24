@@ -15,7 +15,7 @@ class Fields extends Component
      * @param array $attributes
      * @return $this
      */
-    public function initializeComponentPrototype(array $attributes)
+    public function initializeComponentPrototype(array $attributes = [])
     {
         return parent::initializeComponentPrototype(array_merge([
             'component' => 'fields',

@@ -13,7 +13,7 @@
             <input type="hidden" name="{{ $table->prefix('row[]') }}" value="{{ $row->key }}" />
         </td>
 
-        @if ($table->isSelectable())
+        @if ($table->selectable)
         <td class="c-table__selector">
             <input type="checkbox" name="{{ $table->prefix('selected[]') }}" value="{{ $row->key }}" />
         </td>

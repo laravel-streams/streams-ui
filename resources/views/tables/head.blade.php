@@ -5,7 +5,7 @@
         <!-- ID Spacer -->
         <th class="hidden"></th>
         
-        @if ($table->isSelectable())
+        @if ($table->selectable)
         <th class="c-table__selector">
         <input type="checkbox" x-on:click="alert('Toggle all');">
         </th>
@@ -14,7 +14,7 @@
         @foreach ($table->columns as $column)
         <th {!! $column->htmlAttributes() !!}>
 
-            @if ($column->isSortable())
+            @if ($column->sortable)
             <a href="{{ $column->href() }}">
                 {!! __($column->heading()) !!}
                 @if ($column->direction() == 'asc')

@@ -28,7 +28,7 @@ class ControlPanel extends Component
      * @param array $attributes
      * @return $this
      */
-    public function initializeComponentPrototype(array $attributes)
+    public function initializeComponentPrototype(array $attributes = [])
     {
         $this->loadPrototypeProperties([
             'buttons' => [
