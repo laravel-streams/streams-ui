@@ -4,10 +4,10 @@ namespace Streams\Ui;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Streams\Ui\Input\Input;
 use Illuminate\View\Factory;
 use Streams\Core\Field\Field;
 use Streams\Core\Stream\Stream;
+use Streams\Ui\Components\Input;
 use Streams\Ui\Support\Facades\UI;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
@@ -40,38 +40,6 @@ class UiServiceProvider extends ServiceProvider
         AliasLoader::getInstance([
             'UI' => \Streams\Ui\Support\Facades\UI::class,
         ])->register();
-
-        $this->app->resolving(\Streams\Ui\Support\UiManager::class, function (\Streams\Ui\Support\UiManager $ui) {
-
-            $ui->providers()
-                ->set('streams.ui.core', 'streams.ui.CoreServiceProvider')
-                ->set('streams.ui.ui', 'streams.ui.UiServiceProvider');
-            $ui->config()->set('debug', $this->app->config['app.debug']);
-
-            if (isset($this->app->session)) {
-                $ui->config()->set('csrf', $this->app->session->token());
-            }
-
-            $ui->config()->set('ui', [
-                'theme'        => 'default',
-                'fontPath'     => '/vendor/streams/ui/fonts',
-                'rootSelector' => '#root',
-                'normalize'    => true,
-            ]);
-
-            $ui->config()->set('streams', [
-                'baseURL' => '/api',
-                'etag'    => [
-                    'enabled'     => true,
-                    'manifestKey' => 'streams',
-                ],
-                'headers' => [
-                    'X-Requested-With' => 'XMLHttpRequest',
-                ],
-            ]);
-
-            return $ui;
-        });
 
         $this->registerConfig();
         $this->registerStreams();
@@ -333,30 +301,29 @@ class UiServiceProvider extends ServiceProvider
 
         Field::macro('input', function (array $attributes = []) {
 
-            return $this->once($this->stream->handle . '.' . $this->handle . '.' . $this->type . '-' . md5(json_encode($attributes)), function () use ($attributes) {
+            if ($this->input instanceof Input) {
+                return $this->input;
+            }
+            
+            $attributes = Arr::add($attributes, 'field', $this);
+            
+            $this->input = $this->input ?: [
+                'type' => 'input',
+            ];
 
-                $attributes['field'] = Arr::get($attributes, 'field', $this);
+            $attributes = $attributes + (array) $this->input;
 
-                $attributes = $attributes + (array) $this->input;
+            Arr::pull($attributes, 'type');
+            
+            if (!isset($this->input['type'])) {
+                throw new \Exception("Missing input type for field [{$this->handle}] in stream [{$this->stream->id}]");
+            }
 
-                Arr::pull($attributes, 'type');
+            if (!App::has("streams.ui.input_types.{$this->input['type']}")) {
+                throw new \Exception("Invalid input type [{$this->input['type']}] for field [{$this->handle}] in stream [{$this->stream->id}]");
+            }
 
-                if ($this->input instanceof Input) {
-                    return $this->input;
-                }
-
-                if (!isset($this->input['type'])) {
-                    throw new \Exception("Missing input type for field [{$this->handle}] in stream [{$this->stream->handle}]");
-                }
-
-                if (!App::has("streams.ui.input_types.{$this->input['type']}")) {
-                    throw new \Exception("Invalid input type [{$this->input['type']}] for field [{$this->handle}] in stream [{$this->stream->handle}]");
-                }
-
-                return App::make("streams.ui.input_types.{$this->input['type']}", [
-                    'attributes' => $attributes,
-                ]);
-            });
+            return $this->input = UI::make($this->input['type'], $attributes);
         });
 
         Field::addCallbackListener('initializing', function ($callbackData) {

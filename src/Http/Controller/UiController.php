@@ -7,10 +7,10 @@ use Illuminate\Support\Collection;
 use Streams\Ui\Support\Facades\UI;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\RedirectResponse;
+use Streams\Ui\Components\ControlPanel;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\ControlPanel\ControlPanel;
 use Streams\Core\Http\Controller\EntryController;
 
 class UiController extends EntryController

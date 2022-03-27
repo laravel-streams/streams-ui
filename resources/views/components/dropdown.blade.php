@@ -1,27 +1,27 @@
 <div class="c-dropdown" x-data="{show: false}">
 
-    {!! $dropdown->button([
+    {{-- {!! $dropdown->button([
         'x-on:click' => 'show == true ? show = false : show = true; return false;',
         'x-on:click.away' => 'show = false',
-    ])->open() !!}
+    ])->open() !!} --}}
     
-    @if ($button->svg)
-    {!! $button->svg !!}
+    @if ($dropdown->svg)
+    {!! $dropdown->svg !!}
     @endif
 
-    @if ($button->icon)
-    {{-- <x-{{ $button->icon }}/> --}}
+    @if ($dropdown->icon)
+    {{-- <x-{{ $dropdown->icon }}/> --}}
     @endif
 
-    <span>{{ __($button->text()) }}</span>
+    {{-- <span>{{ __($dropdown->text()) }}</span> --}}
 
-    {!! $button->close() !!}
+    {{-- {!! $dropdown->close() !!} --}}
     
     <div class="c-dropdown__content" x-show="show">
         <div>
-            @foreach ($button->dropdown as $item)
+            {{-- @foreach ($dropdown->dropdown as $item)
             <a {!! Html::attributes($item['attributes']) !!}><span>{{ $item['text'] }}</span></a>
-            @endforeach
+            @endforeach --}}
         </div>
     </div>
 

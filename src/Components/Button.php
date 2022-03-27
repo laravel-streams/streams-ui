@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\URL;
 
 class Button extends Component
 {
-
     public function initializeComponentPrototype(array $attributes = [])
     {
         return parent::initializeComponentPrototype(array_merge([

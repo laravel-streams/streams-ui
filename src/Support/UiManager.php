@@ -17,12 +17,14 @@ class UiManager
     public function __construct()
     {
         $this->components = [
-            'form' => \Streams\Ui\Form\Form::class,
-            'alert' => \Streams\Ui\Alert\Alert::class,
-            'table' => \Streams\Ui\Table\Table::class,
-            'avatar' => \Streams\Ui\Avatar\Avatar::class,
+            'form' => \Streams\Ui\Components\Form::class,
+            'input' => \Streams\Ui\Components\Input::class,
+            'table' => \Streams\Ui\Components\Table::class,
+            'alert' => \Streams\Ui\Components\Alert::class,
+            'avatar' => \Streams\Ui\Components\Avatar::class,
             'button' => \Streams\Ui\Components\Button::class,
-            'cp' => \Streams\Ui\ControlPanel\ControlPanel::class,
+            'dropdown' => \Streams\Ui\Components\Dropdown::class,
+            'cp' => \Streams\Ui\Components\ControlPanel::class,
         ];
     }
 

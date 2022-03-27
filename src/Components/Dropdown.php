@@ -1,13 +1,8 @@
 <?php
 
-namespace Streams\Ui\Dropdown;
+namespace Streams\Ui\Components;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Streams\Ui\Support\Value;
 use Streams\Ui\Support\Component;
-use Illuminate\Support\Facades\URL;
-
 class Dropdown extends Component
 {
 

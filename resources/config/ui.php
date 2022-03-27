@@ -35,7 +35,7 @@ return [
      * Specify input types.
      */
     'input_types'   => [
-        'text'   => \Streams\Ui\Input\Input::class,
+        'text'   => \Streams\Ui\Components\Input::class,
         'hash'   => \Streams\Ui\Input\Input::class, // Default
         'input'  => \Streams\Ui\Input\Input::class,
         'string' => \Streams\Ui\Input\Input::class, // Default

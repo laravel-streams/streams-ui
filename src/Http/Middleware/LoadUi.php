@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use Streams\Ui\ControlPanel\ControlPanel;
+use Streams\Ui\Components\ControlPanel;
 
 class LoadUi
 {
