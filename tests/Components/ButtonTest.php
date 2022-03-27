@@ -1,8 +1,8 @@
 <?php
 
-namespace Streams\Ui\Tests\Support;
+namespace Streams\Ui\Tests\Components;
 
-use Streams\Ui\Button\Button;
+use Streams\Ui\Components\Button;
 use Streams\Ui\Tests\UiTestCase;
 
 class ButtonTest extends UiTestCase

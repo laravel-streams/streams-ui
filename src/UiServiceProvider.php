@@ -337,7 +337,7 @@ class UiServiceProvider extends ServiceProvider
 
                 $attributes['field'] = Arr::get($attributes, 'field', $this);
 
-                $attributes = $attributes + $this->input;
+                $attributes = $attributes + (array) $this->input;
 
                 Arr::pull($attributes, 'type');
 

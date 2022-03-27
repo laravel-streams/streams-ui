@@ -4,6 +4,7 @@ namespace Streams\Ui\Table;
 
 use Streams\Ui\Table\View\View;
 use Streams\Ui\Support\Component;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Streams\Ui\Table\Filter\Filter;
 use Illuminate\Support\Facades\Gate;
@@ -54,7 +55,7 @@ class Table extends Component
                     'wrapper' => 'collection',
                 ],
             ],
-            
+
             'rows' => [
                 'type' => 'array',
                 'config' => [
@@ -114,7 +115,7 @@ class Table extends Component
         ], $attributes));
     }
 
-    public function post()
+    public function post(): void
     {
         $this->fire('posting', [
             'table' => $this,
@@ -126,11 +127,9 @@ class Table extends Component
         $this->fire('posted', [
             'table' => $this
         ]);
-
-        return $this;
     }
 
-    public function detect()
+    protected function detect(): void
     {
         if ($this->actions->active()) {
             return;
@@ -141,16 +140,21 @@ class Table extends Component
         }
     }
 
-    public function handle()
+    protected function handle(): void
     {
-        if (!$active = $this->actions->active()) {
-            return;
-        }
+        $active = $this->actions->active();
 
         $selected = (array) $this->request('selected');
 
-        $active->handle([
+        $handler = $this->post;
+
+        if (!$handler && !$active->handler) {
+            return;
+        }
+
+        App::call($handler ?: $active->handler, [
             'table' => $this,
+            'action' => $active,
             'selected' => $selected,
         ]);
     }

@@ -3,7 +3,7 @@
 namespace Streams\Ui\ControlPanel;
 
 use Illuminate\Support\Str;
-use Streams\Ui\Button\Button;
+use Streams\Ui\Components\Button;
 use Streams\Ui\Support\Builder;
 use Illuminate\Support\Facades\Request;
 use Streams\Core\Support\Facades\Streams;

@@ -3,7 +3,7 @@
 namespace Streams\Ui\Table;
 
 use Illuminate\Support\Arr;
-use Streams\Ui\Button\Button;
+use Streams\Ui\Components\Button;
 use Streams\Ui\Support\Value;
 use Streams\Ui\Table\Row\Row;
 use Streams\Ui\Support\Builder;
@@ -130,7 +130,7 @@ class TableBuilder extends Builder
             $action['table'] = $component->table;
 
             return new Action($action);
-        });
+        })->keyBy('handle');
     }
 
     public function makeButtons(Component $component)

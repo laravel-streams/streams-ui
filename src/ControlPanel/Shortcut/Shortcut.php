@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\ControlPanel\Shortcut;
 
-use Streams\Ui\Button\Button;
+use Streams\Ui\Components\Button;
 
 /**
  * @property bool $active

@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Blade\Components;
 
-use Streams\Ui\Button\Button;
+use Streams\Ui\Components\Button;
 use Illuminate\View\Component;
 use Illuminate\Support\Facades\View;
 
@@ -18,7 +18,7 @@ class ButtonComponent extends Component
                 $button->text = $data['slot'];
             }
      
-            return View::make('ui::buttons.button', [
+            return View::make('ui::components.button', [
                 'button' => $button,
             ])->render();
         };

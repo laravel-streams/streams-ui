@@ -5,7 +5,7 @@ namespace Streams\Ui\ControlPanel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Streams\Ui\Button\Button;
+use Streams\Ui\Components\Button;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Request;

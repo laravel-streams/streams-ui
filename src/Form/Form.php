@@ -4,7 +4,7 @@ namespace Streams\Ui\Form;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Streams\Ui\Button\Button;
+use Streams\Ui\Components\Button;
 use Collective\Html\FormFacade;
 use Streams\Ui\Support\Component;
 use Streams\Core\Support\Workflow;
@@ -38,6 +38,8 @@ use Illuminate\Support\Collection;
  */
 class Form extends Component
 {
+
+    public string $builder = FormBuilder::class;
 
     public function initializeComponentPrototype(array $attributes = [])
     {
@@ -129,13 +131,7 @@ class Form extends Component
         ], $attributes));
     }
 
-    /**
-     * Return the opening form tag.
-     *
-     * @param  array $options
-     * @return string
-     */
-    public function open(array $options = [])
+    public function open(array $options = []): string
     {
         $keyName = $this->stream->config('key_name', 'id');
 
@@ -146,12 +142,7 @@ class Form extends Component
         return FormFacade::open($options);
     }
 
-    /**
-     * Return the closing form tag.
-     *
-     * @return string
-     */
-    public function close()
+    public function close(): string
     {
         return FormFacade::close();
     }
@@ -348,64 +339,6 @@ class Form extends Component
         };
     }
 
-
-
-    public function onInitializing($callbackData)
-    {
-        $attributes = $callbackData->get('attributes');
-
-        //$this->authorize($attributes);
-return;// @todo hrmm
-        $this->makeFields($attributes);
-        // $this->makeActions($attributes);
-        // $this->makeButtons($attributes);
-
-        $attributes['rules'] = array_merge(Arr::get($attributes, 'rules', []), $attributes['stream']->rules);
-        $attributes['validators'] = array_merge(Arr::get($attributes, 'validators', []), $attributes['stream']->validators);
-
-        $callbackData->put('attributes', $attributes);
-    }
-
-    public function onInitialized()
-    {
-        $this->query();
-
-        if ($this->entry) {
-            $this->fields->each(function ($field) {
-                $field->type()->setPrototypeAttribute('value', $this->entry->{$field->handle});
-                $field->input()->load($this->entry->{$field->handle});
-            });
-        }
-
-        $this->initializeComponentPrototype([]);
-    }
-
-    public function query()
-    {
-
-        /**
-         * If the builder already has
-         * an entry then just use that.
-         */
-        if ($this->entry && is_object($this->entry)) {
-
-            $this->entry = $this->entry;
-
-            return;
-        }
-
-        /*
-         * Fallback to using the repository
-         * to get and/or paginate the results.
-         */
-        if ($this->entry && $this->repository() instanceof Repository) {
-
-            $this->entry = $this->repository()->find($this->entry);
-
-            return;
-        }
-    }
-
     public function authorize()
     {
 
@@ -431,77 +364,5 @@ return;// @todo hrmm
         if ($model && !Gate::allows($this->entry ? 'edit' : 'create', $model)) {
             abort(403);
         }
-    }
-
-    public function makeFields(&$attributes)
-    {
-        $fields = $attributes['stream']->fields;
-
-        $attributes['fields'] = Arr::undot(Arr::get($attributes, 'fields', []));
-
-        foreach ($attributes['fields'] as $key => $field) {
-            if (Arr::get($field, 'enabled') === false) {
-                $fields->forget($key);
-            }
-        }
-
-        $fields->each(function ($field) use ($attributes) {
-
-            if ($this->entry) {
-                $field->input()->load($this->entry->{$field->handle});
-            }
-
-            if ($extra = Arr::get($attributes, 'fields.' . $field->handle, [])) {
-                $field->loadPrototypeAttributes($extra);
-            }
-        });
-
-        return $this->fields = $attributes['fields'] = $fields;
-    }
-
-    public function setActionsAttribute($actions)
-    {
-        $actions = $actions ?: ['save' => []];
-
-        /**
-         * Minimal standardization
-         */
-        array_walk($actions, function (&$action, $key) {
-
-            $action = is_string($action) ? [
-                'action' => $action,
-            ] : $action;
-
-            $action['handle'] = Arr::get($action, 'handle', $key);
-
-            $action['stream'] = $this->stream;
-
-            $action = new Action($action);
-        });
-
-        return $this->setPrototypeAttributeValue('actions', new ActionCollection($actions));
-    }
-
-    public function makeButtons(&$attributes)
-    {
-        $buttons = $attributes['buttons'] ?: ['cancel'];
-
-        /**
-         * Minimal standardization
-         */
-        array_walk($buttons, function (&$button, $key) {
-
-            $button = is_string($button) ? [
-                'button' => $button,
-            ] : $button;
-
-            $button['handle'] = Arr::get($button, 'handle', $key);
-
-            $button['stream'] = $this->stream;
-
-            $button = new Button($button);
-        });
-
-        return $this->instance->buttons = $this->buttons = new Collection($buttons);
     }
 }

@@ -1,11 +1,9 @@
-<!-- button.blade.php -->
-@if ($button->dropdown)
 <div class="c-dropdown" x-data="{show: false}">
 
-    {!! $button->open([
+    {!! $dropdown->button([
         'x-on:click' => 'show == true ? show = false : show = true; return false;',
         'x-on:click.away' => 'show = false',
-    ]) !!}
+    ])->open() !!}
     
     @if ($button->svg)
     {!! $button->svg !!}
@@ -28,13 +26,3 @@
     </div>
 
 </div>
-@else
-
-{!! $button->open() !!}
-{{-- <i v-show="button.icon" :class="button.icon"></i> --}}
-{{ __($button->text()) }} 
-@if (isset($button->attributes['data-keymap']))
-    <span class="hud-only -keymap">{{ $button->attributes['data-keymap'] }}</span>
-@endif
-{!! $button->close() !!}
-@endif

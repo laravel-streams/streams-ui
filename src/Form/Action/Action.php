@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Form\Action;
 
-use Streams\Ui\Button\Button;
+use Streams\Ui\Components\Button;
 
 /**
  * Class Action

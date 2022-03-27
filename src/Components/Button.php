@@ -1,10 +1,9 @@
 <?php
 
-namespace Streams\Ui\Button;
+namespace Streams\Ui\Components;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Streams\Ui\Support\Value;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\URL;
 
@@ -15,7 +14,7 @@ class Button extends Component
     {
         return parent::initializeComponentPrototype(array_merge([
             'component' => 'button',
-            'template'  => 'ui::buttons.button',
+            'template'  => 'ui::components.button',
 
             'tag'      => 'a',
             'url'      => null,

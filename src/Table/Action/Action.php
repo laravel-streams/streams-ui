@@ -2,19 +2,10 @@
 
 namespace Streams\Ui\Table\Action;
 
-use Streams\Ui\Button\Button;
+use Streams\Ui\Components\Button;
 use Illuminate\Support\Facades\App;
-use Streams\Ui\Table\Action\ActionHandler;
 
-/**
- * Class Action
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- * @typescript
- * @property bool $action
- */
+
 class Action extends Button
 {
 
@@ -53,8 +44,10 @@ class Action extends Button
 
     public function handle(array $payload = [])
     {
-        $payload['action'] = $this;
+        if (!$this->handler) {
+            return;
+        }
 
-        return App::call($this->handler, $payload, 'handle');
+        App::call($this->handler, $payload);
     }
 }
