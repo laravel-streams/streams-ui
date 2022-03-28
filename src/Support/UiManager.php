@@ -26,6 +26,7 @@ class UiManager
             'cp' => \Streams\Ui\Components\ControlPanel::class,
             'dropdown' => \Streams\Ui\Components\Dropdown::class,
             
+            'array' => \Streams\Ui\Components\Input::class,
             'string' => \Streams\Ui\Components\Input::class,
             'object' => \Streams\Ui\Components\Input::class,
             
@@ -39,6 +40,7 @@ class UiManager
             'integer' => \Streams\Ui\Components\Inputs\Integer::class,
             'textarea' => \Streams\Ui\Components\Inputs\Textarea::class,
             'markdown' => \Streams\Ui\Components\Inputs\Markdown::class,
+            'relationship' => \Streams\Ui\Components\Inputs\Relationship::class,
         ];
     }
 

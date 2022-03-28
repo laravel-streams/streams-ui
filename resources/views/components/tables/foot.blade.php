@@ -5,11 +5,13 @@
     @if ($table->actions->isNotEmpty() || $table->pagination)
     <tr>
         <td colspan="100%">
-            <div>
+            <div class="flex items-center justify-between">
 
-                <div class="c-table__actions">
+                @if ($table->actions->isNotEmpty())
+                <div class="c-table__actions ml-4 flex-grow">
                     {!! $table->actions->map->render()->implode('') !!}
                 </div>
+                @endif
 
 
                 @if ($table->pagination)
@@ -47,9 +49,18 @@
     <tr class="">
         <td colspan="100%">
             
-            <small class="c-table__meta">
-                {{ $table->options->get('total_results') }} {{ trans_choice('ui::labels.results', $table->options->get('total_results')) }}
-            </small>
+            <div class="c-table__meta">
+                {{-- {{ $table->options->get('total_results') }} {{ trans_choice('ui::labels.results', $table->options->get('total_results')) }} --}}
+                <p class="text-sm text-gray-700 leading-5">
+                    {!! __('Showing') !!}
+                    <span class="font-medium">{{ $table->pagination->firstItem() }}</span>
+                    {!! __('to') !!}
+                    <span class="font-medium">{{ $table->pagination->lastItem() }}</span>
+                    {!! __('of') !!}
+                    <span class="font-medium">{{ $table->pagination->total() }}</span>
+                    {!! __('results') !!}
+                </p>
+            </div>
 
         </td>
     </tr>

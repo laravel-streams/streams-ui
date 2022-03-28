@@ -46,11 +46,8 @@ class Input extends Component
 
     public function setValueAttribute($value)
     {
-        if (is_object($value)) {
-            
-            $this->value = json_encode($value);
-
-            return;
+        if (is_object($value) || is_array($value)) {
+            $value = json_encode($value);
         }
 
         $this->value = $value;

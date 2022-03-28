@@ -386,9 +386,13 @@ select.a-input:not([multiple]) {
 .c-table__actions, .c-table__limiter, .c-table__meta {
   padding-top: calc(var(--ui-spacing)*1rem);
   padding-bottom: calc(var(--ui-spacing)*1rem);
-  padding-left: calc(var(--ui-spacing)*2rem);
-  padding-right: calc(var(--ui-spacing)*2rem);
+  padding-left: calc(var(--ui-spacing)*1rem);
+  padding-right: calc(var(--ui-spacing)*1rem);
   white-space: nowrap;
+}
+
+.c-table__pagination {
+  margin-right: calc(var(--ui-spacing)*1rem);
 }
 
 .a-avatar > div {

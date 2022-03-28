@@ -106,21 +106,18 @@ class TableBuilder extends Builder
         /**
          * Finish query
          */
-        $component->options['total_results'] = $total = $component->criteria->count();
+        $component->options = $component->options->put(
+            'total_results',
+            $component->criteria->count()
+        );
 
-        /**
-         * @todo This terminology and parameters need reviewed/revisited.
-         */
-        if ($component->options->get('paginate', true)) {
+        $component->pagination = $component->criteria->paginate([
+            'page_name' => $component->options->get('prefix') . 'page',
+            'limit_name' => $component->options->get('limit') . 'limit',
+            'total_results' => $component->options->get('total_results'),
+        ]);
 
-            $component->pagination = $component->criteria->paginate([
-                'page_name' => $component->options->get('prefix') . 'page',
-                'limit_name' => $component->options->get('limit') . 'limit',
-                'total_results' => $component->options->get('total_results'),
-            ]);
-
-            $component->entries = $component->pagination->getCollection();
-        }
+        $component->entries = $component->pagination->getCollection();
     }
 
     public function makeActions(Component $component)
@@ -183,7 +180,7 @@ class TableBuilder extends Builder
 
                 'entry' => $entry,
                 'table' => $component,
-                
+
                 'stream' => $component->stream,
 
                 'columns' => $component->columns->map(function ($column) {
@@ -237,7 +234,7 @@ class TableBuilder extends Builder
         if (!$active = $component->views->active()) {
             return;
         }
-        
+
         if ($active->filters) {
             $component->filters = $active->filters;
         }
