@@ -69,7 +69,7 @@ class Component implements Arrayable, Jsonable
         if ($this->response) {
             return $this->response;
         }
-
+        
         if (Request::method() == 'POST') {
             return $this->post();
         }
@@ -83,7 +83,7 @@ class Component implements Arrayable, Jsonable
 
     public function post()
     {
-        //
+        return $this->response;
     }
 
     public function cp()

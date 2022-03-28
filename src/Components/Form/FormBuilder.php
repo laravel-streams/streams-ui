@@ -17,6 +17,7 @@ use Streams\Ui\Components\Table\Column\Column;
 use Streams\Ui\Components\Table\Filter\Filter;
 use Streams\Ui\Components\Table\View\ViewHandler;
 use Streams\Ui\Components\Form\Action\ActionCollection;
+use Streams\Ui\Components\Form\Action\Handler\Save;
 
 class FormBuilder extends Builder
 {
@@ -68,6 +69,7 @@ class FormBuilder extends Builder
         if ($component->actions->isEmpty()) {
             $component->actions = $component->actions->add([
                 'handle' => 'save',
+                'handler' => Save::class
             ]);
         }
 
@@ -76,7 +78,7 @@ class FormBuilder extends Builder
             $action['form'] = $this;
 
             return new Action($action);
-        });
+        })->keyBy('handle');
     }
 
     public function makeButtons(Component $component)
@@ -92,7 +94,7 @@ class FormBuilder extends Builder
             $action['form'] = $this;
 
             return new Button($button);
-        });
+        })->keyBy('handle');
     }
 
     public function loadFields(Component $component)

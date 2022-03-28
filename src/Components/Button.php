@@ -48,7 +48,7 @@ class Button extends Component
         return parent::attributes(array_filter(array_merge([
             'entry'  => null,
             'name'  => $this->name,
-            'value' => $this->value,
+            'value' => $this->handle,
             'class' => $this->class(),
             'href' => $this->url(),
         ], $attributes)));

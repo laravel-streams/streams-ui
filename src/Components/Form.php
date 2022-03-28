@@ -171,7 +171,7 @@ class Form extends Component
             'form' => $this
         ]);
 
-        return $this;
+        return $this->response;
     }
 
     public function load()
@@ -179,11 +179,14 @@ class Form extends Component
         $keyName = $this->stream->config('key_name', 'id');
 
         if ($key = $this->request($keyName)) {
-            $this->values->put($keyName, $key);
+            $this->values = $this->values->put($keyName, $key);
         }
 
         foreach ($this->fields as $field) {
-            $this->values->put($field->handle, $field->input()->post()->value());
+            $this->values = $this->values->put(
+                $field->handle,
+                $field->input()->post()->value
+            );
         }
     }
 
@@ -245,7 +248,7 @@ class Form extends Component
 
         if ($this->errors->isNotEmpty()) {
 
-            foreach ($this->errors->messages() as $errors) {
+            foreach ($this->errors->all() as $errors) {
                 Messages::error(implode("\n\r", $errors));
             }
 
@@ -270,11 +273,12 @@ class Form extends Component
             return;
         }
 
-        $active = $this->actions->active();
+        $handler = $this->handler;
 
-        // @todo Tmp
-        $handler = $this->handler ?: ($active->handler ?: Save::class);
-
+        if (!$handler && $active = $this->actions->active()) {
+            $handler = $active->handler;
+        }        
+        
         if (is_string($handler) && !Str::contains($handler, '@')) {
             $handler .= '@handle';
         }
@@ -299,10 +303,11 @@ class Form extends Component
                 'errors' => [
                     //"Action [view] authorized for [{$stream}]."
                 ]
-                ], 200);
+            ], 200);
         }
 
-        $this->response ?: $this->response = Redirect::back()->with('messages', Messages::get());
+        $this->response ?: $this->response = Redirect::back()->with('messages', Messages::get())
+        ;
     }
 
     protected function extendValidation(Form $form, Factory $factory): void
