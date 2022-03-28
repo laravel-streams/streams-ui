@@ -304,7 +304,7 @@ class UiServiceProvider extends ServiceProvider
             $attributes = Arr::add($attributes, 'field', $this);
 
             $this->input = $this->input ?: [
-                'type' => 'input',
+                'type' => $this->type,
             ];
 
             $attributes = $attributes + (array) $this->input;

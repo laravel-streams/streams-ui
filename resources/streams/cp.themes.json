@@ -54,5 +54,16 @@
             "required": true
         }
     },
-    "ui": {}
+    "ui": {
+        "tables": [
+            {
+                "handle": "default",
+                "buttons": [
+                    {
+                        "handle": "edit"
+                    }
+                ]
+            }
+        ]
+    }
 }

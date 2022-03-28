@@ -26,12 +26,18 @@ class UiManager
             'cp' => \Streams\Ui\Components\ControlPanel::class,
             'dropdown' => \Streams\Ui\Components\Dropdown::class,
             
+            'string' => \Streams\Ui\Components\Input::class,
+            'object' => \Streams\Ui\Components\Input::class,
+            
             'date' => \Streams\Ui\Components\Inputs\Date::class,
+            'slug' => \Streams\Ui\Components\Inputs\Slug::class,
+            'color' => \Streams\Ui\Components\Inputs\Color::class,
             'number' => \Streams\Ui\Components\Inputs\Number::class,
             'select' => \Streams\Ui\Components\Inputs\Select::class,
             'toggle' => \Streams\Ui\Components\Inputs\Toggle::class,
             'decimal' => \Streams\Ui\Components\Inputs\Decimal::class,
             'integer' => \Streams\Ui\Components\Inputs\Integer::class,
+            'textarea' => \Streams\Ui\Components\Inputs\Textarea::class,
             'markdown' => \Streams\Ui\Components\Inputs\Markdown::class,
         ];
     }

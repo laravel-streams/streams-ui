@@ -6,8 +6,8 @@
 
 {!! Assets::collection('styles')->tags() !!}
 
-{{-- @if ($theme)
-<style>
+@if (isset($theme))
+<style>{dd('Test')}
     :root {
         @php
 
@@ -35,4 +35,4 @@
         @endforeach
     }
 </style>
-@endif --}}
+@endif

@@ -18,7 +18,7 @@ class Decimal extends Number
     public function initializeComponentPrototype(array $attributes = [])
     {
         return parent::initializeComponentPrototype(array_merge([
-            'template' => 'ui::components.input.decimal',
+            'template' => 'ui::components.inputs.decimal',
             'config' => [
                 'step' => 0.1,
             ],

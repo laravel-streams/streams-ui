@@ -16,7 +16,7 @@ class Slug extends Input
     public function initializeComponentPrototype(array $attributes = [])
     {
         return parent::initializeComponentPrototype(array_merge([
-            'template' => 'ui::input/slug',
+            'template' => 'ui::components.inputs.slug',
         ], $attributes));
     }
 }

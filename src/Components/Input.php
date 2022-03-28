@@ -44,6 +44,18 @@ class Input extends Component
         return $this->name ?: ($this->prefix . $this->field->handle);
     }
 
+    public function setValueAttribute($value)
+    {
+        if (is_object($value)) {
+            
+            $this->value = json_encode($value);
+
+            return;
+        }
+
+        $this->value = $value;
+    }
+
     public function attributes(array $attributes = [])
     {
         return parent::attributes(array_merge([
