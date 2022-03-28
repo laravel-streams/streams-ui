@@ -23,8 +23,16 @@ class UiManager
             'alert' => \Streams\Ui\Components\Alert::class,
             'avatar' => \Streams\Ui\Components\Avatar::class,
             'button' => \Streams\Ui\Components\Button::class,
-            'dropdown' => \Streams\Ui\Components\Dropdown::class,
             'cp' => \Streams\Ui\Components\ControlPanel::class,
+            'dropdown' => \Streams\Ui\Components\Dropdown::class,
+            
+            'date' => \Streams\Ui\Components\Inputs\Date::class,
+            'number' => \Streams\Ui\Components\Inputs\Number::class,
+            'select' => \Streams\Ui\Components\Inputs\Select::class,
+            'toggle' => \Streams\Ui\Components\Inputs\Toggle::class,
+            'decimal' => \Streams\Ui\Components\Inputs\Decimal::class,
+            'integer' => \Streams\Ui\Components\Inputs\Integer::class,
+            'markdown' => \Streams\Ui\Components\Inputs\Markdown::class,
         ];
     }
 

@@ -89,7 +89,7 @@ select.a-input:not([multiple]) {
 }
 
 .c-input.-toggle-input input[type=checkbox]:checked + .toggle {
-  background: #3076F6;
+  background: var(--ui-color-primary);
   transition: background 0.5s ease;
 }
 
@@ -98,7 +98,7 @@ select.a-input:not([multiple]) {
 }
 
 .c-input.-toggle-input input[type=checkbox]:focus + .toggle {
-  background: #3076F6;
+  background: var(--ui-color-primary);
 }
 
 .c-input.-toggle-input input[type=checkbox] {

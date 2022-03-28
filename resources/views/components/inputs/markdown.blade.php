@@ -1,6 +1,3 @@
-<?php /** @var \Streams\Ui\Input\Markdown $input */ ?>
-
-<!-- markdown.blade.php -->
 <textarea {!! $input->htmlAttributes([
     'rows' => 10,
     //'x-data' => "sterams.core.app.get('input.markdown')({$input->toJson()})",

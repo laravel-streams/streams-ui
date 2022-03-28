@@ -301,29 +301,27 @@ class UiServiceProvider extends ServiceProvider
 
         Field::macro('input', function (array $attributes = []) {
 
-            if ($this->input instanceof Input) {
-                return $this->input;
-            }
-            
             $attributes = Arr::add($attributes, 'field', $this);
-            
+
             $this->input = $this->input ?: [
                 'type' => 'input',
             ];
 
             $attributes = $attributes + (array) $this->input;
 
-            Arr::pull($attributes, 'type');
-            
-            if (!isset($this->input['type'])) {
-                throw new \Exception("Missing input type for field [{$this->handle}] in stream [{$this->stream->id}]");
-            }
+            return $this->once(
+                $this->stream->id . $this->handle . 'input',
+                function () use ($attributes) {
 
-            if (!App::has("streams.ui.input_types.{$this->input['type']}")) {
-                throw new \Exception("Invalid input type [{$this->input['type']}] for field [{$this->handle}] in stream [{$this->stream->id}]");
-            }
+                    Arr::pull($attributes, 'type');
 
-            return $this->input = UI::make($this->input['type'], $attributes);
+                    if (!isset($this->input['type'])) {
+                        throw new \Exception("Missing input type for field [{$this->handle}] in stream [{$this->stream->id}]");
+                    }
+
+                    return UI::make($this->input['type'], $attributes);
+                }
+            );
         });
 
         Field::addCallbackListener('initializing', function ($callbackData) {

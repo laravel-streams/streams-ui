@@ -18,7 +18,7 @@ class Markdown extends Input
     public function initializeComponentPrototype(array $attributes = [])
     {
         return parent::initializeComponentPrototype(array_merge([
-            'template' => 'ui::input/markdown',
+            'template' => 'ui::components.inputs.markdown',
             'component' => 'input',
         ], $attributes));
     }

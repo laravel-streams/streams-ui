@@ -10,7 +10,7 @@
         </label>
         
         <div class="c-field__input">
-            <div class="c-input -{{ $field->input()->component }}-input">
+            <div class="c-input -{{ Arr::get($field->input, 'type', 'input') }}-input">
                 {!! $field->input()->render() !!}
             </div>
         </div>

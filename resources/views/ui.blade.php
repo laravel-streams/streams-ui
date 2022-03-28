@@ -5,8 +5,8 @@
     View::share('theme', $theme);
 @endphp
 
-@include('ui::cp.styles')
+@include('ui::components.cp.styles')
 
 {!! $content !!}
 
-@include('ui::cp.assets')
+@include('ui::components.cp.assets')

@@ -6,13 +6,6 @@ use Streams\Ui\Components\Input;
 
 use Illuminate\Support\Arr;
 
-/**
- * Class Number
- *
- * @link    http://pyrocms.com/
- * @author  PyroCMS, Inc. <support@pyrocms.com>
- * @author  Ryan Thompson <ryan@pyrocms.com>
- */
 class Number extends Input
 {
 
@@ -25,7 +18,7 @@ class Number extends Input
     public function initializeComponentPrototype(array $attributes = [])
     {
         return parent::initializeComponentPrototype(array_merge([
-            'template' => 'ui::input/number',
+            'template' => 'ui::components.input.number',
             'type' => 'number',
         ], $attributes));
     }
@@ -33,8 +26,8 @@ class Number extends Input
     public function htmlAttributes(array $attributes = [])
     {
         return parent::htmlAttributes(array_merge([
-            'min' => Arr::get($this->field->stream->ruleParameters($this->field->handle, 'min'), 0),
-            'max' => Arr::get($this->field->stream->ruleParameters($this->field->handle, 'max'), 0),
+            'min' => Arr::get($this->field->ruleParameters($this->field->handle, 'min'), 0),
+            'max' => Arr::get($this->field->ruleParameters($this->field->handle, 'max'), 0),
         ], $attributes));
     }
 }
