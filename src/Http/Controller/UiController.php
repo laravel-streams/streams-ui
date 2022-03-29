@@ -85,6 +85,26 @@ class UiController extends EntryController
         $data->put('action', $action);
     }
 
+    protected function resolveEntry(Collection $data): void
+    {
+        if (!$stream = $data->get('stream')) {
+            return;
+        }
+
+        if ($data->has('entry')) {
+            return;
+        }
+
+        if ($entry = Request::query('entry')) {
+
+            $data->put('entry', $stream->repository()->find($entry));
+
+            return;
+        }
+
+        parent::resolveEntry($data);
+    }
+
     /**
      * Resolve the response.
      *

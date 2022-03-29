@@ -12,10 +12,11 @@ class Button extends Component
     public string $component = 'button';
     public string $template = 'ui::components.button';
 
+    public ?object $entry = null;
+
     public string $tag = 'a';
     public ?string $url = null;
     public ?string $text = null;
-    public ?string $entry = null;
     public ?string $policy = null;
     
     public bool $enabled = true;
