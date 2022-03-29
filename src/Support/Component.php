@@ -4,6 +4,8 @@ namespace Streams\Ui\Support;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Streams\Core\Field\Field;
+use Streams\Core\Stream\Stream;
 use Streams\Ui\Support\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\URL;
@@ -18,6 +20,9 @@ use Streams\Core\Support\Traits\Prototype;
 use Illuminate\Contracts\Support\Arrayable;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
+/**
+ * @method Collection attributes
+ */
 class Component implements Arrayable, Jsonable
 {
     use Prototype;
@@ -27,11 +32,30 @@ class Component implements Arrayable, Jsonable
         Macroable::__call as private callMacroable;
     }
 
-    public $stream;
+    public Stream $stream;
+
+    public ?string $handle;
+    public ?string $component;
+    public ?string $template;
+
+    #[Field([
+        'config' => [
+            'wrapper' => 'collection',
+        ],
+    ])]
+    public array $classes = [];
+
+    #[Field([
+        'config' => [
+            'wrapper' => 'collection',
+        ],
+    ])]
+    public array $attributes;
 
     public function __construct(array $attributes = [])
     {
         $this->initializeComponentPrototype();
+        $this->syncPublicPrototypeAttributes();
 
         $builder = $this->builder ?: Builder::class;
 
@@ -58,8 +82,6 @@ class Component implements Arrayable, Jsonable
             'handle' => null,
             'template' => null,
             'component' => null,
-            'classes' => [],
-            'attributes' => [],
             'data' => new Collection(),
         ], $attributes));
     }
@@ -69,7 +91,7 @@ class Component implements Arrayable, Jsonable
         if ($this->response) {
             return $this->response;
         }
-        
+
         if (Request::method() == 'POST') {
             return $this->post();
         }
@@ -108,16 +130,16 @@ class Component implements Arrayable, Jsonable
     {
         $class = Arr::pull($attributes, 'class');
 
-        return array_filter(array_replace_recursive([
+        return collect(array_filter(array_replace_recursive([
             'class' => $this->class($class),
-        ], $this->attributes ? $this->attributes->all() : [], $attributes), function ($value) {
+        ], $this->attributes, $attributes), function ($value) {
             return !is_null($value) && $value !== '';
-        });
+        }));
     }
 
     public function htmlAttributes(array $attributes = [])
     {
-        return Arr::htmlAttributes($this->attributes($attributes));
+        return Arr::htmlAttributes($this->attributes($attributes)->all());
     }
 
     public function render()
