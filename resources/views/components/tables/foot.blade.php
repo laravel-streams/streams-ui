@@ -22,7 +22,7 @@
                     <select class="a-input" onchange="window.location=this.value;">
                         @foreach (['all', 5, 10, 15, 25, 50, 75, 100, 150] as $item)
                         <option
-                            {{ $table->options->get('limit', $table->pagination->perPage()) == $item ? 'selected' : '' }}
+                            {{ $table->config()->collect()->get('limit', $table->pagination->perPage()) == $item ? 'selected' : '' }}
                             value="{{ url()->current() }}?{{ http_build_query([($table->prefix('limit')) => $item] + request()->query()) }}">
                             @if ($item == 'all')
                             {{ trans('ui::labels.all') }}</option>
@@ -45,7 +45,7 @@
     @endif
     @show
 
-    @if ($table->options->has('total_results'))
+    @if ($table->config()->collect()->has('total_results'))
     <tr class="">
         <td colspan="100%">
             

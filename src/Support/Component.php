@@ -32,7 +32,7 @@ class Component implements Arrayable, Jsonable
         Macroable::__call as private callMacroable;
     }
 
-    public Stream $stream;
+    public ?Stream $stream = null;
 
     #[Field([
         'type' => 'slug',
@@ -42,8 +42,13 @@ class Component implements Arrayable, Jsonable
     #[Field([
         'type' => 'string',
     ])]
+    public string $builder = Builder::class;
+
+    #[Field([
+        'type' => 'string',
+    ])]
     public string $template;
-    
+
     #[Field([
         'type' => 'string',
     ])]
@@ -61,15 +66,20 @@ class Component implements Arrayable, Jsonable
             'wrapper' => 'collection',
         ],
     ])]
-    public array $attributes = [];
+    public $attributes = [];
+
+    #[Field([
+        'config' => [
+            'wrapper' => 'collection',
+        ],
+    ])]
+    public $config = [];
 
     public function __construct(array $attributes = [])
     {
         $this->syncPrototypePropertyAttributes();
 
-        $builder = $this->builder ?: Builder::class;
-
-        (new $builder)
+        (new $this->builder)
             ->passThrough($this)
             ->process([
                 'component' => $this,

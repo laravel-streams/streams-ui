@@ -2,61 +2,82 @@
 
 namespace Streams\Ui\Components;
 
+use Streams\Core\Field\Field;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;
-use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Components\Table\View\View;
 use Streams\Ui\Components\Table\TableBuilder;
-use Streams\Ui\Components\Table\Filter\Filter;
 use Streams\Ui\Components\Table\View\ViewCollection;
 use Streams\Ui\Components\Table\Action\ActionCollection;
 use Streams\Ui\Components\Table\Filter\FilterCollection;
 
-/**
- * @property \Illuminate\Support\Collection|\Streams\Ui\Components\Table\Row\Row[] $rows
- * @property \Illuminate\Support\Collection|\Streams\Ui\Button\Button[] $buttons
- * @property \Illuminate\Support\Collection|\Streams\Ui\Components\Table\Column\Column[] $columns
- * @property \Streams\Ui\Components\Table\View\ViewCollection|\Streams\Ui\Components\Table\View\View[] $views
- * @property \Streams\Ui\Components\Table\Action\ActionCollection|\Streams\Ui\Components\Table\Action\Action[] $actions
- * @property \Streams\Ui\Components\Table\Filter\FilterCollection|\Streams\Ui\Components\Table\Filter\Filter[] $filters
- */
 class Table extends Component
 {
-
+    public string $component = 'table';
     public string $builder = TableBuilder::class;
+    public string $template = 'ui::components.table';
+
+    #[Field([
+        'type' => 'array',
+        'config' => [
+            'wrapper' => ViewCollection::class,
+        ],
+    ])]
+    public $views;
+
+    #[Field([
+        'type' => 'array',
+        'config' => [
+            'wrapper' => ActionCollection::class,
+        ],
+    ])]
+    public $actions;
+
+    #[Field([
+        'type' => 'array',
+        'config' => [
+            'wrapper' => FilterCollection::class,
+        ],
+    ])]
+    public $filters;
+
+    #[Field([
+        'type' => 'array',
+        'config' => [
+            'wrapper' => 'collection',
+        ],
+    ])]
+    public $columns;
+
+    #[Field([
+        'type' => 'array',
+        'config' => [
+            'wrapper' => 'collection',
+        ],
+    ])]
+    public $buttons;
+
+    #[Field([
+        'type' => 'array',
+        'config' => [
+            'wrapper' => 'collection',
+        ],
+    ])]
+    public $entries;
+
+    #[Field([
+        'type' => 'array',
+        'config' => [
+            'wrapper' => 'collection',
+        ],
+    ])]
+    public $rows;
 
     public function initializeComponentPrototype(array $attributes = [])
     {
         $this->loadPrototypeProperties([
-            'views' => [
-                'type' => 'array',
-                'config' => [
-                    'wrapper' => ViewCollection::class,
-                ],
-            ],
-            'actions' => [
-                'type' => 'array',
-                'config' => [
-                    'wrapper' => ActionCollection::class,
-                ],
-            ],
-            'filters' => [
-                'type' => 'array',
-                'config' => [
-                    'wrapper' => FilterCollection::class,
-                ],
-            ],
-
-            'attributes' => [
-                'type' => 'array',
-                'config' => [
-                    'wrapper' => 'collection',
-                ],
-            ],
-
             'rows' => [
                 'type' => 'array',
                 'config' => [
@@ -64,12 +85,6 @@ class Table extends Component
                 ],
             ],
             'buttons' => [
-                'type' => 'array',
-                'config' => [
-                    'wrapper' => 'collection',
-                ],
-            ],
-            'columns' => [
                 'type' => 'array',
                 'config' => [
                     'wrapper' => 'collection',
@@ -87,33 +102,7 @@ class Table extends Component
                     'wrapper' => 'collection',
                 ],
             ],
-            'options' => [
-                'type' => 'array',
-                'config' => [
-                    'wrapper' => 'collection',
-                ],
-            ],
         ]);
-
-        parent::initializeComponentPrototype(array_merge([
-            'component' => 'table',
-            'template' => 'ui::components.table',
-
-            'views' => [],
-            'filters' => [],
-            'columns' => [],
-            'buttons' => [],
-            'actions' => [],
-            'options' => [],
-
-            'entries' => [],
-            'rows' => [],
-
-            'class' => null,
-            'classes' => [],
-
-            'attributes' => [],
-        ], $attributes));
     }
 
     public function post(): void
@@ -173,7 +162,7 @@ class Table extends Component
          * take precedense over the
          * model policy.
          */
-        $policy = $this->options->get('policy');
+        $policy = $this->config->get('policy');
 
         if ($policy && !Gate::any((array) $policy)) {
             abort(403);

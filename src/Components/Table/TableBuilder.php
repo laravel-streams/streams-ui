@@ -42,7 +42,7 @@ class TableBuilder extends Builder
 
     public function makeViews(Component $component)
     {
-        $component->views = $component->views->map(function ($view) use ($component) {
+        $component->views = $component->views()->collect()->map(function ($view) use ($component) {
 
             $view['table'] = $component->table;
 
@@ -52,7 +52,7 @@ class TableBuilder extends Builder
 
     public function makeFilters(Component $component)
     {
-        $component->filters = $component->filters->map(function ($view) use ($component) {
+        $component->filters = $component->filters()->collect()->map(function ($view) use ($component) {
 
             $view['table'] = $component->table;
 
@@ -62,7 +62,7 @@ class TableBuilder extends Builder
 
     public function loadEntries(Component $component)
     {
-        if ($component->entries->isNotEmpty()) {
+        if ($component->entries && $component->entries()->isNotEmpty()) {
             return;
         }
 
@@ -78,7 +78,7 @@ class TableBuilder extends Builder
         /**
          * Filter Query
          */
-        foreach ($component->filters->active() as $filter) {
+        foreach ($component->getPrototypeAttribute('filters')->active() as $filter) {
 
             /*
             * If the handler is a callable string or Closure
@@ -99,22 +99,19 @@ class TableBuilder extends Builder
             $component->criteria->orderBy($name, $component->request('sort', 'asc'));
         }
 
-        foreach ($component->options->get('order_by', []) as $name => $sort) {
+        foreach ($component->config()->get('order_by', []) as $name => $sort) {
             $component->criteria->orderBy($name, $sort);
         }
 
         /**
          * Finish query
          */
-        $component->options = $component->options->put(
-            'total_results',
-            $component->criteria->count()
-        );
+        $component->config['total_results'] = $component->criteria->count();
 
         $component->pagination = $component->criteria->paginate([
-            'page_name' => $component->options->get('prefix') . 'page',
-            'limit_name' => $component->options->get('limit') . 'limit',
-            'total_results' => $component->options->get('total_results'),
+            'page_name' => $component->config()->get('prefix') . 'page',
+            'limit_name' => $component->config()->get('limit') . 'limit',
+            'total_results' => $component->config()->get('total_results'),
         ]);
 
         $component->entries = $component->pagination->getCollection();
@@ -122,17 +119,17 @@ class TableBuilder extends Builder
 
     public function makeActions(Component $component)
     {
-        $component->actions = $component->actions->map(function ($action) use ($component) {
+        $component->actions = $component->actions()->collect()->map(function ($action) use ($component) {
 
             $action['table'] = $component->table;
 
             return new Action($action);
-        })->keyBy('handle');
+        });
     }
 
     public function makeButtons(Component $component)
     {
-        $component->buttons = $component->buttons->map(function ($button) use ($component) {
+        $component->buttons = $component->buttons()->collect()->map(function ($button) use ($component) {
 
             $button['table'] = $component->table;
 
@@ -146,7 +143,7 @@ class TableBuilder extends Builder
 
     public function makeColumns(Component $component)
     {
-        $component->columns = $component->columns->map(function ($column) use ($component) {
+        $component->columns = $component->columns()->collect()->map(function ($column) use ($component) {
 
             $column['table'] = $component;
             $column['stream'] = $component->stream;
@@ -173,7 +170,7 @@ class TableBuilder extends Builder
 
     public function makeRows(Component $component)
     {
-        $rows = $component->entries->map(function ($entry) use ($component) {
+        $rows = $component->entries()->collect()->map(function ($entry) use ($component) {
             return new Row([
                 'handle' => $entry->id,
                 'key' => $entry->id,
@@ -216,22 +213,22 @@ class TableBuilder extends Builder
 
     public function detectView(Component $component)
     {
-        if ($component->views->active()) {
+        if ($component->views()->active()) {
             return;
         }
 
-        if ($view = $component->views->findByHandle(Request::get($component->options->get('prefix') . 'view'))) {
+        if ($view = $component->views()->findByHandle(Request::get($component->options->get('prefix') . 'view'))) {
             $view->active = true;
         }
 
-        if (!$view && $view = $component->views->first()) {
+        if (!$view && $view = $component->views()->first()) {
             $view->active = true;
         }
     }
 
     public function applyView(Component $component, ViewHandler $handler)
     {
-        if (!$active = $component->views->active()) {
+        if (!$active = $component->views()->active()) {
             return;
         }
 
