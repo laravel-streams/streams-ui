@@ -34,9 +34,20 @@ class Component implements Arrayable, Jsonable
 
     public Stream $stream;
 
+    #[Field([
+        'type' => 'slug',
+    ])]
     public string $handle;
-    public string $component;
+
+    #[Field([
+        'type' => 'string',
+    ])]
     public string $template;
+    
+    #[Field([
+        'type' => 'string',
+    ])]
+    public string $component;
 
     #[Field([
         'config' => [
@@ -54,7 +65,7 @@ class Component implements Arrayable, Jsonable
 
     public function __construct(array $attributes = [])
     {
-        $this->syncPublicPrototypeAttributes();
+        $this->syncPrototypePropertyAttributes();
 
         $builder = $this->builder ?: Builder::class;
 
