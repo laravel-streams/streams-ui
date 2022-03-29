@@ -34,9 +34,9 @@ class Component implements Arrayable, Jsonable
 
     public Stream $stream;
 
-    public ?string $handle;
-    public ?string $component;
-    public ?string $template;
+    public string $handle;
+    public string $component;
+    public string $template;
 
     #[Field([
         'config' => [
@@ -50,11 +50,10 @@ class Component implements Arrayable, Jsonable
             'wrapper' => 'collection',
         ],
     ])]
-    public array $attributes;
+    public array $attributes = [];
 
     public function __construct(array $attributes = [])
     {
-        $this->initializeComponentPrototype();
         $this->syncPublicPrototypeAttributes();
 
         $builder = $this->builder ?: Builder::class;
@@ -65,25 +64,6 @@ class Component implements Arrayable, Jsonable
                 'component' => $this,
                 'attributes' => collect($attributes),
             ]);
-    }
-
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        $this->loadPrototypeProperties([
-            'attributes' => [
-                'type' => 'array',
-                'config' => [
-                    'wrapper' => 'collection',
-                ],
-            ]
-        ]);
-
-        return $this->loadPrototypeAttributes(array_merge([
-            'handle' => null,
-            'template' => null,
-            'component' => null,
-            'data' => new Collection(),
-        ], $attributes));
     }
 
     public function response()

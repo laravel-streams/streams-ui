@@ -6,22 +6,19 @@ use Streams\Ui\Support\Component;
 
 class Alert extends Component
 {
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        return parent::initializeComponentPrototype(array_merge([
-            'component' => 'alert',
-            'template'  => 'ui::components.alert',
+    public string $component = 'alert';
 
-            'text'     => null,
-            'disabled' => false,
-            'type'     => 'secondary',
-            'classes'  => [
-                'a-alert',
-            ],
-            'buttons' => [],
-            'attributes' => [],
-        ], $attributes));
-    }
+    public string $template = 'ui::components.alert';
+
+    public string $text = 'Something just happened.';
+    public string $type = 'secondary';
+    
+    public array $classes  = [
+        'a-alert',
+    ];
+
+    public array $buttons = [];
+    public array $attributes = [];
 
     public function class($extra = [])
     {

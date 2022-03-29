@@ -275,7 +275,7 @@ class UiServiceProvider extends ServiceProvider
 
             $attributes['stream'] = $this;
             $attributes['handle'] = $handle;
-
+            
             return UI::make($component, $attributes);
         });
 

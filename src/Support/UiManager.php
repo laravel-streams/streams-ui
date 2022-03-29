@@ -51,7 +51,6 @@ class UiManager
         }
 
         // @todo Callbacks
-
         return App::make($component, [
             'attributes' => $attributes,
         ]);

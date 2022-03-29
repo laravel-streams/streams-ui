@@ -9,31 +9,28 @@ use Illuminate\Support\Facades\URL;
 
 class Button extends Component
 {
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        return parent::initializeComponentPrototype(array_merge([
-            'component' => 'button',
-            'template'  => 'ui::components.button',
+    public string $component = 'button';
+    public string $template = 'ui::components.button';
 
-            'tag'      => 'a',
-            'url'      => null,
-            'text'     => null,
-            'entry'    => null,
-            'policy'   => null,
-            'enabled'  => true,
-            'primary'  => false,
-            'disabled' => false,
-            'type'     => 'default',
-            'classes'  => [
-                'a-button',
-            ],
-            'attributes' => [],
-        ], $attributes));
-    }
+    public string $tag = 'a';
+    public ?string $url = null;
+    public ?string $text = null;
+    public ?string $entry = null;
+    public ?string $policy = null;
+    
+    public bool $enabled = true;
+    public bool $primary = false;
+    public bool $disabled = false;
+    
+    public string $type = 'default';
+
+    public array $classes = [
+        'a-button',
+    ];
 
     public function open(array $attributes = []): string
     {
-        $attributes = Arr::htmlAttributes($this->attributes($attributes));
+        $attributes = $this->htmlAttributes($attributes);
 
         return '<' . $this->tag . $attributes . '>';
     }
@@ -43,7 +40,7 @@ class Button extends Component
         return '</' . $this->tag . '>';
     }
 
-    public function attributes(array $attributes = []): array
+    public function attributes(array $attributes = [])
     {
         return parent::attributes(array_filter(array_merge([
             'entry'  => null,
@@ -69,8 +66,8 @@ class Button extends Component
 
     public function url(array $extra = []): string|null
     {
-        if (!$target = $this->attributes->get('url')) {
-            $target = $this->attributes->get('href');
+        if (!$target = Arr::get($this->attributes, 'url')) {
+            $target = Arr::get($this->attributes, 'href');
         }
 
         return $target ? URL::to(Str::parse($target, [
