@@ -25,7 +25,7 @@ class Button extends Component
     
     public string $type = 'default';
 
-    public array $classes = [
+    public $classes = [
         'a-button',
     ];
 

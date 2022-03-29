@@ -4,6 +4,7 @@ namespace Streams\Ui\Components;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Streams\Core\Field\Field;
 use Collective\Html\FormFacade;
 use Streams\Ui\Components\Button;
 use Streams\Ui\Support\Component;
@@ -42,101 +43,76 @@ class Form extends Component
 
     public string $builder = FormBuilder::class;
 
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        $this->loadPrototypeProperties([
-            'values' => [
-                'type' => 'array',
-                'config' => [
-                    'wrapper' => 'collection',
-                ],
-            ],
-            'options' => [
-                'type' => 'array',
-                'config' => [
-                    'wrapper' => 'collection',
-                ],
-            ],
+    public string $component = 'form';
+    public string $template = 'ui::components.form';
 
-            'rules' => [
-                'type' => 'array',
-                'config' => [
-                    'wrapper' => 'collection',
-                ],
-            ],
-            'validators' => [
-                'type' => 'array',
-                'config' => [
-                    'wrapper' => 'collection',
-                ],
-            ],
+    public ?string $repository = null;
 
-            'errors' => [
-                'type' => 'array',
-                'config' => [
-                    'wrapper' => 'collection',
-                ],
-                // 'config' => [
-                //     'abstract' => MessageBag::class,
-                // ],
-            ],
-            'fields' => [
-                'type' => 'array',
-                'config' => [
-                    'wrapper' => FieldCollection::class,
-                ],
-            ],
-            'actions' => [
-                'type' => 'array',
-                'config' => [
-                    'wrapper' => ActionCollection::class,
-                ],
-            ],
-            'buttons' => [
-                'type' => 'array',
-                'config' => [
-                    'wrapper' => 'collection',
-                ],
-            ],
-            'sections' => [
-                'type' => 'array',
-                'config' => [
-                    'wrapper' => 'collection',
-                ],
-            ],
-        ]);
+    public ?string $handler = null;
 
-        return parent::loadPrototypeAttributes(array_merge([
-            'component' => 'form',
-            'template' => 'ui::components.form',
+    public $errors = [];
 
-            'stream' => null,
-            'repository' => null,
+    #[Field([
+        'type' => 'array',
+        'config' => [
+            'wrapper' => 'collection',
+        ],
+    ])]
+    public $values = [];
 
-            'entry' => null,
+    #[Field([
+        'type' => 'array',
+        'config' => [
+            'wrapper' => 'collection',
+        ],
+    ])]
+    public $rules = [];
 
-            //'handler' => FormHandler::class, // Action sets this
+    #[Field([
+        'type' => 'array',
+        'config' => [
+            'wrapper' => 'collection',
+        ],
+    ])]
+    public $validators = [];
 
-            'errors' => [],
+    #[Field([
+        'type' => 'array',
+        'config' => [
+            'wrapper' => FieldCollection::class,
+        ],
+    ])]
+    public $fields = [];
 
-            'values' => [],
-            'options' => [],
+    #[Field([
+        'type' => 'array',
+        'config' => [
+            'wrapper' => ActionCollection::class,
+        ],
+    ])]
+    public $actions = [];
 
-            'rules' => [],
-            'validators' => [],
+    #[Field([
+        'type' => 'array',
+        'config' => [
+            'wrapper' => 'collection',
+        ],
+    ])]
+    public $buttons = [];
 
-            'fields' => [],
-            'actions' => [],
-            'buttons' => [],
-            'sections' => [],
-        ], $attributes));
-    }
+    #[Field([
+        'type' => 'array',
+        'config' => [
+            'wrapper' => 'collection',
+        ],
+    ])]
+    public $sections = [];
 
     public function open(array $options = []): string
     {
         $keyName = $this->stream->config('key_name', 'id');
 
-        $options['url'] = $this->options->get('url') ?: ($this->url() . ($this->entry ? '?entry=' . $this->entry->{$keyName} : null));
+        $options['url'] = $this->config()->get('url') ?: ($this->url() . ($this->entry ? '?entry=' . $this->entry->{$keyName} : null));
 
         $options['files'] = true; // multipart/form-data
 

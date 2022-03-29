@@ -91,7 +91,7 @@ class ControlPanelBuilder extends Builder
             $component->buttons = $match->buttons;
         }
 
-        $component->buttons = $component->buttons->map(function($button) {
+        $component->buttons = $component->buttons()->map(function($button) {
             return new Button($button);
         });
     }

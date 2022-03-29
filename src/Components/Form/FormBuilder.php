@@ -59,15 +59,15 @@ class FormBuilder extends Builder
 
     public function makeFields(Component $component)
     {
-        $component->fields = $component->fields->filter(fn ($field) => $field->enabled !== false);
+        $component->fields = $component->actions()->collect()->filter(fn ($field) => $field->enabled !== false);
 
         $component->fields = $component->stream->fields;
     }
 
     public function makeActions(Component $component)
     {
-        if ($component->actions->isEmpty()) {
-            $component->actions = $component->actions->add([
+        if ($component->actions()->collect()->isEmpty()) {
+            $component->actions = $component->actions()->collect()->add([
                 'handle' => 'save',
                 'handler' => Save::class
             ]);
@@ -83,13 +83,13 @@ class FormBuilder extends Builder
 
     public function makeButtons(Component $component)
     {
-        if ($component->buttons->isEmpty()) {
-            $component->buttons = $component->buttons->add([
+        if ($component->buttons()->collect()->isEmpty()) {
+            $component->buttons = $component->buttons()->collect()->add([
                 'handle' => 'cancel',
             ]);
         }
 
-        $component->buttons = $component->buttons->map(function($button) {
+        $component->buttons = $component->buttons()->collect()->map(function($button) {
 
             $action['form'] = $this;
 

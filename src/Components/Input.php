@@ -8,19 +8,17 @@ use Illuminate\Support\Facades\Request;
 
 class Input extends Component
 {
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        return parent::initializeComponentPrototype(array_merge([
-            'template' => 'ui::components.input',
-            'component' => 'input',
-            'placeholder' => null,
-            'classes' => [
-                'a-input',
-            ],
-            'type' => 'text',
-            'field' => null,
-        ], $attributes));
-    }
+    public string $template = 'ui::components.input';
+    public string $component = 'input';
+    
+    public $classes = [
+        'a-input',
+    ];
+
+    public $field = null;
+    
+    public string $type = 'text';
+    public ?string $placeholder = null;
 
     public function config(string $key, $default = null)
     {

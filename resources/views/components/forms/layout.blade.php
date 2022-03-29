@@ -1,4 +1,4 @@
-@if ($form->sections->isnotEmpty())
+@if ($form->sections()->isnotEmpty())
     @foreach ($form->sections as $section)
         @if (isset($section['view']))
             @include($section['view'])

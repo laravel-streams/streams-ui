@@ -2,12 +2,12 @@
 <div class="c-sidebar__nav">
     <nav>
 
-        @foreach ($cp->navigation->filter(function($section) {
+        @foreach ($cp->navigation()->filter(function($section) {
             return !$section->parent;
         }) as $section)
         
         @php
-            $children = $cp->navigation->children($section);
+            $children = $cp->navigation()->children($section);
         @endphp
 
         {!! $section->link([

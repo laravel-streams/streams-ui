@@ -10,6 +10,7 @@ use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Request;
+use Streams\Core\Support\Facades\Hydrator;
 use Streams\Ui\Components\Table\Row\Row;
 use Streams\Ui\Components\Table\View\View;
 use Streams\Ui\Components\Table\Action\Action;
@@ -199,7 +200,7 @@ class TableBuilder extends Builder
 
                 $clone = clone ($button);
 
-                $clone->setPrototypeAttributes(Arr::parse($button->getPrototypeAttributes(), [
+                $clone->setPrototypeAttributes(Arr::parse(Hydrator::dehydrate($button), [
                     'entry' => $row->entry,
                     'stream' => $component->stream,
                 ]));

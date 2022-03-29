@@ -11,27 +11,14 @@ use Illuminate\Support\Facades\URL;
 class Section extends Component
 {
 
-    /**
-     * Initialize the prototype.
-     *
-     * @param array $attributes
-     * @return $this
-     */
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        return parent::initializeComponentPrototype(array_merge([
-            'component' => 'section',
-            'template' => null,
+    public string $component = 'section';
 
-            'title' => null,
-            'policy' => null,
-            //'breadcrumb' => null,
+    public ?string $title = null;
+    public ?string $policy = null;
 
-            'active' => false,
+    public bool $active = false;
 
-            'buttons' => [],
-        ], $attributes));
-    }
+    public $buttons = [];
 
     public function url(array $extra = [])
     {
@@ -49,7 +36,7 @@ class Section extends Component
         return HtmlFacade::link(
             $this->url(),
             $this->title,
-            $this->attributes($attributes)
+            $this->htmlAttributes($attributes)
         );
     }
 

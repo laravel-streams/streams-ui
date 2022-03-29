@@ -2,7 +2,7 @@
 <div class="c-card">
     <div class="c-card__content">
         <div class="c-form__controls">
-            @if(!$form->options->get('read_only'))
+            @if(!$form->config()->get('read_only'))
             <nav>
                 {!! $form->actions->map->render()->implode('') !!}
             </nav>

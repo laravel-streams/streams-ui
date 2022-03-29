@@ -32,7 +32,7 @@ class Component implements Arrayable, Jsonable
         Macroable::__call as private callMacroable;
     }
 
-    public ?Stream $stream = null;
+    public $stream = null;
 
     #[Field([
         'type' => 'slug',
@@ -59,7 +59,7 @@ class Component implements Arrayable, Jsonable
             'wrapper' => 'collection',
         ],
     ])]
-    public array $classes = [];
+    public $classes = [];
 
     #[Field([
         'config' => [
@@ -157,7 +157,7 @@ class Component implements Arrayable, Jsonable
         $type = Str::singular($this->component);
         $default = "ui/{$this->stream->handle}/{$type}/{$this->handle}";
 
-        return URL::cp(Arr::get($this->options, 'url', $default), $extra);
+        return URL::cp(Arr::get($this->config, 'url', $default), $extra);
     }
 
     public function request($key, $default = null)
@@ -167,7 +167,7 @@ class Component implements Arrayable, Jsonable
 
     public function prefix($target = null): string
     {
-        return Arr::get($this->options, 'prefix') . $target;
+        return Arr::get($this->config, 'prefix') . $target;
     }
 
     public function setStreamAttribute($value)
