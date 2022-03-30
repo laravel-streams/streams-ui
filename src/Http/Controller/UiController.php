@@ -138,6 +138,13 @@ class UiController extends EntryController
             $data->put('response', $component->response());
         }
 
+        if (!$stream && $generic = Arr::get($action, 'ui.component', request('component'))) {
+
+            $generic = UI::make($generic, Request::query());
+
+            $data->put('response', $generic->response());
+        }
+
         parent::resolveResponse($data);
     }
 }

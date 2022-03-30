@@ -2,9 +2,9 @@
 
 namespace Streams\Ui\Tests\Support;
 
-use Streams\Ui\Button\Button;
-use Streams\Ui\Support\Component;
 use Streams\Ui\Tests\UiTestCase;
+use Streams\Ui\Components\Button;
+use Streams\Ui\Support\Component;
 use Streams\Ui\Support\Facades\UI;
 
 class UiManagerTest extends UiTestCase

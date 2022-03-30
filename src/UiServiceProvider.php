@@ -7,9 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\View\Factory;
 use Streams\Core\Field\Field;
 use Streams\Core\Stream\Stream;
-use Streams\Ui\Components\Input;
 use Streams\Ui\Support\Facades\UI;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
@@ -25,12 +23,7 @@ use Streams\Core\Support\Facades\Streams;
 class UiServiceProvider extends ServiceProvider
 {
 
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(\Streams\Ui\Support\Breadcrumb::class);
 
@@ -143,24 +136,9 @@ class UiServiceProvider extends ServiceProvider
                 ->middleware(Config::get('streams.ui.cp_middleware'))
                 ->group(function () {
 
-                    /**
-                     * Load route file first.
-                     */
                     if (file_exists($routes = base_path('routes/cp.php'))) {
                         include $routes;
                     }
-
-                    /**
-                     * Route navigation next.
-                     */
-                    // Streams::entries('cp.navigation')->get()
-                    //     ->filter(function ($section) {
-                    //         return $section->route;
-                    //     })->each(function ($section) {
-                    //         Route::streams(Arr::get($section->route, 'uri', $section->id), array_merge([
-                    //             'uses' => \Streams\Ui\Http\Controller\UiController::class,
-                    //         ], $section->route));
-                    //     });
 
                     // @todo Configure this later
                     $index  = '{section}';

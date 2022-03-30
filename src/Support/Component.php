@@ -20,10 +20,7 @@ use Streams\Core\Support\Traits\Prototype;
 use Illuminate\Contracts\Support\Arrayable;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
-/**
- * @method Collection attributes
- */
-class Component implements Arrayable, Jsonable
+abstract class Component implements Arrayable, Jsonable
 {
     use Prototype;
     use FiresCallbacks;
@@ -37,7 +34,7 @@ class Component implements Arrayable, Jsonable
     #[Field([
         'type' => 'slug',
     ])]
-    public string $handle;
+    public string $handle = '';
 
     #[Field([
         'type' => 'string',
@@ -47,7 +44,7 @@ class Component implements Arrayable, Jsonable
     #[Field([
         'type' => 'string',
     ])]
-    public string $template;
+    public string $template = '';
 
     #[Field([
         'type' => 'string',

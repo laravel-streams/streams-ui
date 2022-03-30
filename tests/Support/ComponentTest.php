@@ -2,12 +2,12 @@
 
 namespace Streams\Ui\Tests\Support;
 
-use Streams\Ui\Button\Button;
 use Streams\Core\Stream\Stream;
 use Streams\Ui\Tests\UiTestCase;
+use Streams\Ui\Components\Button;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\View;
-use Streams\Ui\ControlPanel\ControlPanel;
+use Streams\Ui\Components\ControlPanel;
 use Streams\Core\Field\Decorator\StringDecorator;
 
 class ComponentTest extends UiTestCase
@@ -72,7 +72,7 @@ class ComponentTest extends UiTestCase
                 'original',
             ],
             'data-foo' => 'bar',
-        ], $component->attributes());
+        ], $component->attributes()->all());
     }
 
     public function test_it_returns_html_attributes_as_string()
@@ -111,7 +111,7 @@ class ComponentTest extends UiTestCase
     public function test_it_prefixes_strings()
     {
         $component = new Component([
-            'options' => [
+            'config' => [
                 'prefix' => 'custom_test_',
             ],
         ]);
@@ -125,7 +125,7 @@ class ComponentTest extends UiTestCase
 
         $component = new Button([
             'stream' => 'films',
-            'options' => [
+            'config' => [
                 'prefix' => 'custom_test_',
             ],
         ]);
@@ -157,24 +157,24 @@ class ComponentTest extends UiTestCase
     //     );
     // }
 
-    public function test_it_returns_cp_responses()
-    {
-        View::share('cp', new ControlPanel());
+    // public function test_it_returns_cp_responses()
+    // {
+    //     View::share('cp', new ControlPanel());
         
-        $this->get('');
+    //     $this->get('');
 
-        $component = new Button;
+    //     $component = new Button;
 
-        $this->assertInstanceOf(
-            \Symfony\Component\HttpFoundation\Response::class,
-            $component->cp()
-        );
+    //     $this->assertInstanceOf(
+    //         \Symfony\Component\HttpFoundation\Response::class,
+    //         $component->cp()
+    //     );
 
-        $this->assertInstanceOf(
-            \Symfony\Component\HttpFoundation\Response::class,
-            $component->response()
-        );
-    }
+    //     $this->assertInstanceOf(
+    //         \Symfony\Component\HttpFoundation\Response::class,
+    //         $component->response()
+    //     );
+    // }
 
     public function test_it_can_set_response_returned()
     {
@@ -182,7 +182,7 @@ class ComponentTest extends UiTestCase
 
         $component = new Button([
             'stream' => 'films',
-            'text' => [
+            'config' => [
                 'prefix' => 'custom_test_',
             ],
         ]);
