@@ -3,14 +3,18 @@
 namespace Streams\Ui\Http\Controller;
 
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Request;
 use Streams\Ui\Support\Facades\UI;
+use Illuminate\Support\Facades\Request;
 
-class RenderComponent extends Controller
+class ComponentAction extends Controller
 {
-    public function __invoke($component)
+    public function __invoke($component, $action = null)
     {
         $component = UI::make($component, Request::input());
+
+        if ($action) {
+            $component->{$action}();
+        }
 
         return $component->render();
     }

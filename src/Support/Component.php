@@ -39,12 +39,12 @@ abstract class Component implements Arrayable, Jsonable
     #[Field([
         'type' => 'string',
     ])]
-    public string $builder = Builder::class;
+    protected string $builder = Builder::class;
 
     #[Field([
         'type' => 'string',
     ])]
-    public string $template = '';
+    protected string $template = '';
 
     #[Field([
         'type' => 'string',
@@ -63,14 +63,14 @@ abstract class Component implements Arrayable, Jsonable
             'wrapper' => 'collection',
         ],
     ])]
-    public $attributes = [];
+    protected $attributes = [];
 
     #[Field([
         'config' => [
             'wrapper' => 'collection',
         ],
     ])]
-    public $config = [];
+    protected $config = [];
 
     public function __construct(array $attributes = [])
     {

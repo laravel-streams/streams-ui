@@ -1,26 +1,39 @@
 import Alpine from 'alpinejs';
 import morphdom from 'morphdom';
 
+import Component from './Component/index';
+
 window.Alpine = Alpine;
 
 Alpine.start();
 
-const components = Array.from(document.querySelectorAll('[ui\\:id]'));
+class UI {
 
-async function componentWasClicked(e) {
-    
-    const id = e.target.getAttribute('ui:id');
-    const data = JSON.parse(e.target.getAttribute('ui:data'));
+    constructor(config = {}) {
 
-    delete data.attributes;
+        const defaults = {
+            prefix: 'ui'
+        }
 
-    data.text = 'TESTED';
+        this.config = Object.assign({}, defaults, config);
 
-    const params = new URLSearchParams(data);
+        this.components = {};
+    }
 
-    const response = await fetch('/cp/ui/' + data.component + '?' + params);
+    start() {
 
-    morphdom(e.target, await response.text());
+        /**
+         * Find and initialize all
+         * components found on screen.
+         */
+        Array.from(document.querySelectorAll(`[${this.config.prefix}\\:id]`)).forEach(element => {
+            this.components[element.getAttribute(`${this.config.prefix}:id`)] = new Component(element);
+        });
+    }
 }
 
-components.forEach((component) => component.addEventListener('click', componentWasClicked));
+window.streams = window.streams || {};
+
+window.streams.ui = new UI;
+
+window.streams.ui.start();

@@ -107,7 +107,15 @@ class TableBuilder extends Builder
         /**
          * Finish query
          */
-        $component->config['total_results'] = $component->criteria->count();
+        $total = $component->criteria->count();
+
+        $config = $component->getPrototypeAttribute('config');
+
+        $config['total_results'] = $total;
+
+        $component->setPrototypeAttribute('config', $config);
+
+
 
         $component->pagination = $component->criteria->paginate([
             'page_name' => $component->config()->get('prefix') . 'page',
