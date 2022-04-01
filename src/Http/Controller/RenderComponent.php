@@ -12,6 +12,6 @@ class RenderComponent extends Controller
     {
         $component = UI::make($component, Request::input());
 
-        return $component->response();
+        return $component->render();
     }
 }
