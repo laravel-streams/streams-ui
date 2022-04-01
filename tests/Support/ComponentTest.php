@@ -4,38 +4,36 @@ namespace Streams\Ui\Tests\Support;
 
 use Streams\Core\Stream\Stream;
 use Streams\Ui\Tests\UiTestCase;
-use Streams\Ui\Components\Button;
 use Streams\Ui\Support\Component;
-use Illuminate\Support\Facades\View;
-use Streams\Ui\Components\ControlPanel;
 use Streams\Core\Field\Decorator\StringDecorator;
+use Streams\Ui\Components\Button;
 
 class ComponentTest extends UiTestCase
 {
     public function test_it_is_arrayable()
     {
-        $this->assertIsArray((new Component([
+        $this->assertIsArray((new ComponentTestComponent([
             'tile' => 'Films',
         ]))->toArray());
     }
 
     public function test_it_is_jsonable()
     {
-        $this->assertJson((new Component([
+        $this->assertJson((new ComponentTestComponent([
             'tile' => 'Films',
         ]))->toJson());
     }
 
     public function test_it_casts_to_string_as_json()
     {
-        $this->assertSame('', (string) new Component([
+        $this->assertSame('', (string) new ComponentTestComponent([
             'tile' => 'Films',
         ]));
     }
 
     public function test_it_converts_text_stream_values()
     {
-        $component = new Component([
+        $component = new ComponentTestComponent([
             'stream' => 'films',
         ]);
 
@@ -44,7 +42,7 @@ class ComponentTest extends UiTestCase
 
     public function test_it_returns_class_attribute_as_array()
     {
-        $component = new Component([
+        $component = new ComponentTestComponent([
             'classes' => [
                 'original',
             ],
@@ -58,7 +56,7 @@ class ComponentTest extends UiTestCase
 
     public function test_it_returns_attributes_as_array()
     {
-        $component = new Component([
+        $component = new ComponentTestComponent([
             'attributes' => [
                 'data-foo' => 'bar',
             ],
@@ -77,7 +75,7 @@ class ComponentTest extends UiTestCase
 
     public function test_it_returns_html_attributes_as_string()
     {
-        $component = new Component([
+        $component = new ComponentTestComponent([
             'attributes' => [
                 'data-foo' => 'bar',
             ],
@@ -91,7 +89,7 @@ class ComponentTest extends UiTestCase
 
     public function test_it_renders_its_template()
     {
-        $component = new Button([
+        $component = new ComponentTestComponent([
             'text' => 'Test Text',
         ]);
 
@@ -100,7 +98,7 @@ class ComponentTest extends UiTestCase
 
     public function test_it_returns_its_api_url()
     {
-        $component = new CustomTestComponent([
+        $component = new ComponentTestComponent([
             'stream' => 'films',
             'component' => 'custom_test',
         ]);
@@ -110,7 +108,7 @@ class ComponentTest extends UiTestCase
 
     public function test_it_prefixes_strings()
     {
-        $component = new Component([
+        $component = new ComponentTestComponent([
             'config' => [
                 'prefix' => 'custom_test_',
             ],
@@ -123,7 +121,7 @@ class ComponentTest extends UiTestCase
     {
         $this->get('?custom_test_foo=bar');
 
-        $component = new Button([
+        $component = new ComponentTestComponent([
             'stream' => 'films',
             'config' => [
                 'prefix' => 'custom_test_',
@@ -137,7 +135,7 @@ class ComponentTest extends UiTestCase
     {
         $this->get('');
 
-        $component = new Button;
+        $component = new ComponentTestComponent;
 
         $this->assertInstanceOf(
             \Symfony\Component\HttpFoundation\Response::class,
@@ -149,7 +147,7 @@ class ComponentTest extends UiTestCase
     // {
     //     $this->post('');
 
-    //     $component = new Button;
+    //     $component = new ComponentTestComponent;
 
     //     $this->assertInstanceOf(
     //         \Symfony\Component\HttpFoundation\Response::class,
@@ -163,7 +161,7 @@ class ComponentTest extends UiTestCase
         
     //     $this->get('');
 
-    //     $component = new Button;
+    //     $component = new ComponentTestComponent;
 
     //     $this->assertInstanceOf(
     //         \Symfony\Component\HttpFoundation\Response::class,
@@ -180,7 +178,7 @@ class ComponentTest extends UiTestCase
     {
         $response = $this->get('?custom_test_foo=bar');
 
-        $component = new Button([
+        $component = new ComponentTestComponent([
             'stream' => 'films',
             'config' => [
                 'prefix' => 'custom_test_',
@@ -197,11 +195,11 @@ class ComponentTest extends UiTestCase
     
     public function test_it_supports_macros()
     {
-        Button::macro('testMacro', function() {
+        ComponentTestComponent::macro('testMacro', function() {
             $this->text = 'Test Text';
         });
 
-        $component = new Button([
+        $component = new ComponentTestComponent([
             'stream' => 'films',
         ]);
 
@@ -212,7 +210,7 @@ class ComponentTest extends UiTestCase
 
     public function test_it_automatically_decorates_attributes()
     {
-        $component = new Button([
+        $component = new ComponentTestComponent([
             'stream' => 'films',
             'foo' => 'Bar',
         ]);
@@ -222,7 +220,7 @@ class ComponentTest extends UiTestCase
 
     public function test_it_throws_exceptions_for_unmapped_methods()
     {
-        $component = new Button([
+        $component = new ComponentTestComponent([
             'stream' => 'films',
             'foo' => 'Bar',
         ]);
@@ -233,6 +231,7 @@ class ComponentTest extends UiTestCase
     }
 }
 
-class CustomTestComponent extends Component
+class ComponentTestComponent extends Component
 {
+
 }

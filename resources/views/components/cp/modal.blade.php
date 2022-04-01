@@ -1,5 +1,5 @@
 <!-- modal.blade.php -->
-<div x-data="modal()">
+<div _x-data="modal()">
 
     <div class="fixed top-0 left-0 h-screen w-screen z-40 inset-0 overflow-y-auto" x-show="visible" x-cloak>
 

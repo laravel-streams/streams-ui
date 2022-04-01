@@ -17,72 +17,35 @@ use Streams\Ui\Components\Table\Filter\Query\GenericFilterQuery;
  */
 class Filter extends Component
 {
+    public string $component = 'filter';
+    public string $template = 'ui::form.input';
 
-    /**
-     * Initialize the prototype.
-     *
-     * @param array $attributes
-     * @return $this
-     */
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        return parent::initializeComponentPrototype(array_merge([
-            'component' => 'filter',
-            'template' => 'ui::form.input',
+    public string $handle;
 
-            'handle' => null,
-            'field' => null,
-            'stream' => null,
-            'prefix' => null,
-            'column' => null,
+    public ?string $field = null;
+    public ?string $prefix = null;
+    public ?string $column = null;
+    public ?string $placeholder = null;
 
-            'placeholder' => null,
+    public bool $active = false;
+    public bool $exact = false;
 
-            'active' => false,
-            'exact' => false,
+    public ?string $query = GenericFilterQuery::class;
 
-            'query' => GenericFilterQuery::class,
-        ], $attributes));
-    }
-
-    /**
-     * @todo finish this
-     * Get the filter input.
-     *
-     * @return null|string
-     */
     public function render()
     {
-        $attributes = ['field' => $this->field];
-
-        $attributes = array_diff_key($this->getPrototypeAttributes(), array_flip([
-            'classes',
-            'template',
-            'component',
-        ]));
-
         return FormFacade::input('text', $this->inputName(), $this->value(), [
             'placeholder' => $this->placeholder ?: Str::title(Str::humanize($this->handle)),
         ]);
     }
 
-    /**
-     * Get the filter value.
-     *
-     * @return null|string
-     */
     public function value()
     {
         return Request::get($this->inputName());
     }
 
-    /**
-     * Get the filter name.
-     *
-     * @return string
-     */
     public function inputName()
     {
-        return $this->prefix . /*'filter_' .*/ $this->handle;
+        return $this->prefix . 'filter_' . $this->handle;
     }
 }

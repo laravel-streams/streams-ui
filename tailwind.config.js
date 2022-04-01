@@ -13,7 +13,6 @@ module.exports = {
             '2xl': '1536px',
         },
         colors: {
-            
             light: 'var(--ui-color-light)',
             dark: 'var(--ui-color-dark)',
             primary: 'var(--ui-color-primary)',

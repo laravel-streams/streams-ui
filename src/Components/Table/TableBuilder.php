@@ -264,7 +264,7 @@ class TableBuilder extends Builder
     {
         $component->filters->each(function ($filter) use ($component) {
 
-            $value = Request::get(Arr::get($component->options, 'prefix') . $filter->handle);
+            $value = Request::get($filter->inputName());
 
             if ($filter->active = ($value !== null)) {
                 $filter->value = $value;

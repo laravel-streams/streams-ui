@@ -209,7 +209,7 @@ select.a-input:not([multiple]) {
 
 .c-sidebar__nav nav > a.-active {
   font-weight: 700;
-  background-color: #00000015;
+  background-color: rgba(0, 0, 0, 0.0823529412);
 }
 
 .c-sidebar__nav nav ul {

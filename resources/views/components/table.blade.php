@@ -1,4 +1,4 @@
-<div class="c-table" x-data="{}">
+<div class="c-table">
 
     @include('ui::components.tables.views')
     @include('ui::components.tables.filters')

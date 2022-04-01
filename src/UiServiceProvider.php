@@ -147,6 +147,12 @@ class UiServiceProvider extends ServiceProvider
 
                     $component = 'ui/{stream}/{component}/{handle?}/{entry?}';
 
+                    Route::streams('/ui/{component}', [
+                        'verb' => 'get',
+                        'as'   => 'streams.ui.component',
+                        'uses' => \Streams\Ui\Http\Controller\RenderComponent::class,
+                    ]);
+
                     Route::streams('/', [
                         'verb' => 'get',
                         'as'   => 'streams.ui.cp.home',

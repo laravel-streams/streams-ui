@@ -2,17 +2,19 @@
   /** ---------------------------
    * Colors
    --------------------------- */
-  --ui-color-light: #efefef;
-  --ui-color-dark: #151515;
   --ui-color-black: #000;
   --ui-color-white: #fff;
   --ui-color-gray: #6B7280;
+  --ui-color-light: #efefef;
+  --ui-color-dark: #151515;
   --ui-color-red: #EF4444;
   --ui-color-yellow: #F59E0B;
   --ui-color-green: #10B981;
   --ui-color-blue: #3B82F6;
   --ui-color-primary: #4e42d9;
   --ui-color-secondary: #1f1f1f;
+  --ui-color-accent: #9f42d9;
+  --ui-color-neutral: #6B7280;
   --ui-color-text: #1f1f1f;
   --ui-color-buttons: #efefef;
   /** ---------------------------

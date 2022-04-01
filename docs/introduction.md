@@ -7,34 +7,11 @@ enabled: true
 
 ## Introduction
 
-Streams UI provides an extensible interface for creating any user interface your project might require.
+Streams UI provides an extensible full-stack system for creating dynamic user interfaces.
 
+@todo 
 
-### The Basics
-
-The basics of using this package.
-
-- [Components](components)
- 
-
-### Components
-
-Streams UI comes with a number of core components.
-
-- [Tables](tables)
-- [Forms](forms)
-- [Buttons](buttons)
-
-### Control Panel
-
-This package provides an extensible, user-friendly, and performant control panel that gives you access to every detail.
-
-- [Control Panel](cp)
-- [Theming](theming)
-  
-
-- ### Input Types
-
-Input types separate the concerns of data-modeling from data-management and provides a refreshing layer of flexibility between the two.
-
-- [Input Types](inputs)
+- Frontend (ui:id, ui:click, etc)
+- Backend (components, routing, etc)
+- Extending/Configuring
+- Advanced Stuff

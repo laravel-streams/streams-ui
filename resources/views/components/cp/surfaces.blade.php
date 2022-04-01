@@ -1,5 +1,5 @@
 {{-- <div x-data="window.streams.core.app.surfaces()"> --}}
-<div x-data="surfaces()">
+<div _x-data="surfaces()">
     
     <div class="absolute top-0 left-0 h-screen w-screen bg-white dark:bg-black z-40 border-8 border-black dark:border-white overflow-scroll" x-show="enabled" x-cloak>
         

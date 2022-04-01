@@ -137,6 +137,11 @@ abstract class Component implements Arrayable, Jsonable
 
     public function htmlAttributes(array $attributes = [])
     {
+        $id = Str::random(20);
+
+        $attributes['ui:id'] = $id;
+        $attributes['ui:data'] = json_encode(array_filter($this->toArray()));
+
         return Arr::htmlAttributes($this->attributes($attributes)->all());
     }
 

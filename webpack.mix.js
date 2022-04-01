@@ -1,6 +1,3 @@
-// require('ts-node/register/transpile-only');
-// require('./webpack.mix.ts');
-
 let mix = require('laravel-mix');
 const tailwindcss = require('tailwindcss');
 

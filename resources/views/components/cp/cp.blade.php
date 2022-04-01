@@ -31,8 +31,8 @@
     @include('ui::components.cp.assets')
     @include('ui::components.cp.messages')
 
-    @include('ui::components.cp.surfaces')
-    @include('ui::components.cp.modal')
+    {{-- @include('ui::components.cp.surfaces') --}}
+    {{-- @include('ui::components.cp.modal') --}}
 
 </body>
 
