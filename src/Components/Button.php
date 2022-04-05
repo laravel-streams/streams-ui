@@ -29,10 +29,16 @@ class Button extends Component
         'a-button',
     ];
 
+
+
+    public $count = 1;
+
     public function test()
     {
         $this->text = 'TESTING!';
     }
+
+
 
     public function open(array $attributes = []): string
     {

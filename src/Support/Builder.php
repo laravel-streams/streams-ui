@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Support;
 
+use Illuminate\Support\Arr;
 use Streams\Core\Stream\Stream;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Collection;
@@ -32,6 +33,8 @@ class Builder extends Workflow
 
     public function loadAttributes(Component $component, Collection $attributes)
     {
-        $component->loadPrototypeAttributes($attributes->all());
+        $component->loadPrototypeAttributes(Arr::parse($attributes->all(), [
+            $component->getPrototypeAttribute('component') => $attributes->all() + ['count' => 1] + $component->toArray()
+        ]));
     }
 }

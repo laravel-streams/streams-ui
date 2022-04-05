@@ -55,8 +55,10 @@ export default class Component {
                         const method = directive.element.getAttribute(directive.name) || 'render';
 
                         const response = await fetch('/cp/ui/' + this.data.component + '/' + method + '?' + params);
-            
-                        morphdom(event.target, await response.text());
+
+                        const json = await response.json();
+
+                        morphdom(event.target, json.dom);
                     });
                 }
             });

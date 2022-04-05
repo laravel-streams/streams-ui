@@ -203,7 +203,7 @@ class TableBuilder extends Builder
             $row->columns = $row->columns->each(function ($column) use ($row) {
                 $column->value = Value::make($column->value, $row->entry);
             });
-
+            
             $row->buttons = $component->buttons->map(function ($button) use ($row, $component) {
 
                 $clone = clone ($button);
@@ -212,6 +212,10 @@ class TableBuilder extends Builder
                     'entry' => $row->entry,
                     'stream' => $component->stream,
                 ]));
+
+                $clone->attributes = Arr::parse($clone->attributes ?: [], [
+                    'entry' => $row->entry,
+                ]);
 
                 return $clone;
             });
