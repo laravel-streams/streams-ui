@@ -11,6 +11,7 @@ use Streams\Ui\Support\Facades\UI;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
+use Streams\Ui\Blade\BladeComponent;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\AliasLoader;
@@ -36,7 +37,6 @@ class UiServiceProvider extends ServiceProvider
 
         $this->registerConfig();
         $this->registerStreams();
-        $this->registerComponents();
 
         $this->extendStream();
         $this->extendRouter();
@@ -59,34 +59,30 @@ class UiServiceProvider extends ServiceProvider
         $this->extendAssets();
 
         $this->registerRoutes();
-        //$this->bootBladeDirectives();
+        $this->registerBladeComponents();
+        $this->registerBladeDirectives();
     }
 
-    protected function registerComponents()
+    protected function registerBladeComponents()
     {
-        $components = collect(config('streams.ui.components', []));
-        $this->app->instance('ui.components', $components);
-        $this->app->booted(function ($app) {
-            foreach ($app['ui.components'] as $name => $class) {
-                Blade::component($name, $class);
+        $this->app->booted(function () {
+
+            $components = array_keys(UI::getComponents());
+
+            foreach ($components as $name) {
+                Blade::component('ui-' . $name, BladeComponent::class);
             }
         });
     }
 
-    public function bootBladeDirectives()
+    public function registerBladeDirectives()
     {
-        Factory::mixin($this->app->make(ManagesAreas::class));
-
-        Blade::directive('region', function ($expression) {
-            return "<?php echo \$__env->yieldRegionContent({$expression}); ?>";
+        Factory::macro('ui', function(string $name, array $attributes = []) {
+            return UI::make($name, $attributes);
         });
 
-        Blade::directive('area', function ($expression) {
-            return "<?php \$__env->startArea({$expression}); ?>";
-        });
-
-        Blade::directive('endarea', function () {
-            return "<?php \$__env->stopArea(); ?>";
+        Blade::directive('ui', function ($parameters) {
+            return "<?php echo \$__env->ui({$parameters}); ?>";
         });
     }
 

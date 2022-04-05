@@ -25,11 +25,11 @@ class UiManager
             'button' => \Streams\Ui\Components\Button::class,
             'cp' => \Streams\Ui\Components\ControlPanel::class,
             'dropdown' => \Streams\Ui\Components\Dropdown::class,
-            
+
             'array' => \Streams\Ui\Components\Input::class,
             'string' => \Streams\Ui\Components\Input::class,
             'object' => \Streams\Ui\Components\Input::class,
-            
+
             'date' => \Streams\Ui\Components\Inputs\Date::class,
             'slug' => \Streams\Ui\Components\Inputs\Slug::class,
             'color' => \Streams\Ui\Components\Inputs\Color::class,
@@ -61,6 +61,11 @@ class UiManager
         $this->components[$name] = $component;
 
         return $this;
+    }
+
+    public function getComponents()
+    {
+        return $this->components;
     }
 
     // protected $buttons = [
@@ -105,7 +110,7 @@ class UiManager
     //     'primary'       => [
     //         'context' => 'primary',
     //     ],
-        
+
     //     /*
     //      * Success Buttons
     //      */
@@ -304,7 +309,7 @@ class UiManager
     //         'context' => 'warning',
     //         'icon' => 'cog',
     //     ],
-        
+
     //     /*
     //      * Danger Buttons
     //      */
