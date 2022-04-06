@@ -24,7 +24,7 @@ class TableBuilder extends Builder
     public function process(array $payload = []): void
     {
         $this->addStep('make_views', self::class . '@makeViews');
-        // $this->addStep('detect_view', self::class . '@detectView');
+        $this->addStep('detect_view', self::class . '@detectView');
         // $this->addStep('apply_view', self::class . '@applyView');
 
         $this->addStep('make_filters', self::class . '@makeFilters');
@@ -233,7 +233,7 @@ class TableBuilder extends Builder
             return;
         }
 
-        if ($view = $component->views()->findByHandle(Request::get($component->options->get('prefix') . 'view'))) {
+        if ($view = $component->views()->findByHandle(Request::get($component->prefix('view')))) {
             $view->active = true;
         }
 

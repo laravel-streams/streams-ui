@@ -1,14 +1,9 @@
 <!-- views.blade.php -->
-@if ($table->views->isNotEmpty())
+@if ($table->views()->isNotEmpty())
 <nav class="c-table__views">
-    @foreach ($table->views as $view)
+    @foreach ($table->views()->all() as $view)
         <a {!! $view->htmlAttributes() !!}>
-            {{ __($view->text) }}
-            @if ($view->label)
-            <span>
-                {{ $view->label }}
-            </span>
-            @endif
+            {{ __($view->text()) }}
         </a>
     @endforeach
 </nav>

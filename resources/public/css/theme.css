@@ -358,6 +358,35 @@ select.a-input:not([multiple]) {
   padding-right: 0px;
 }
 
+.c-table__views {
+  background-color: var(--ui-color-white);
+  border-radius: calc(var(--ui-radius)*0.5rem);
+  margin: calc(var(--ui-spacing)*1rem);
+  overflow: hidden;
+  padding: calc(var(--ui-spacing)*1rem);
+  --tw-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.c-table__view:hover {
+  background-color: var(--ui-color-light);
+}
+
+.c-table__view {
+  border-radius: calc(var(--ui-radius)*0.25rem);
+  cursor: pointer;
+  display: inline-block;
+  padding-left: calc(var(--ui-spacing)*0.75rem);
+  padding-right: calc(var(--ui-spacing)*0.75rem);
+  padding-top: calc(var(--ui-spacing)*0.375rem);
+  padding-bottom: calc(var(--ui-spacing)*0.375rem);
+}
+
+.c-table__view.--active {
+  color: var(--ui-color-buttons);
+  background-color: var(--ui-color-primary);
+}
+
 .c-table__content {
   background-color: var(--ui-color-white);
   border-radius: calc(var(--ui-radius)*0.5rem);

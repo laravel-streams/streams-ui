@@ -6,11 +6,13 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Streams\Core\Field\Field;
 use Collective\Html\FormFacade;
+use Streams\Ui\Components\Form;
 use Streams\Ui\Components\Button;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Collection;
 use Streams\Core\Support\Workflow;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;
 use Streams\Core\Repository\Repository;
@@ -346,5 +348,13 @@ class Form extends Component
         if ($model && !Gate::allows($this->entry ? 'edit' : 'create', $model)) {
             abort(403);
         }
+    }
+
+    public function url(array $extra = [])
+    {
+        $type = Str::singular($this->component);
+        $default = "ui/{$this->stream->handle}/{$type}/{$this->handle}";
+
+        return URL::cp(Arr::get($this->config, 'url', $default), $extra);
     }
 }

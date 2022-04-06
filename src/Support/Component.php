@@ -154,13 +154,14 @@ abstract class Component implements Arrayable, Jsonable
         return View::make($this->template, $payload)->render();
     }
 
-    public function url(array $extra = [])
-    {
-        $type = Str::singular($this->component);
-        $default = "ui/{$this->stream->handle}/{$type}/{$this->handle}";
+    // @todo route
+    // public function url(array $extra = [])
+    // {
+    //     $type = Str::singular($this->component);
+    //     $default = "ui/{$this->stream->handle}/{$type}/{$this->handle}";
 
-        return URL::cp(Arr::get($this->config, 'url', $default), $extra);
-    }
+    //     return URL::cp(Arr::get($this->config, 'url', $default), $extra);
+    // }
 
     public function request($key, $default = null)
     {

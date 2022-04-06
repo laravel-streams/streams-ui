@@ -2,70 +2,71 @@
 
 namespace Streams\Ui\Components\Table\View;
 
+use Illuminate\Support\Str;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\URL;
+use Streams\Ui\Components\Table\View\ViewQuery;
+use Streams\Ui\Components\Table\View\ViewHandler;
 use Streams\Ui\Components\Table\Action\ActionCollection;
 use Streams\Ui\Components\Table\Filter\FilterCollection;
 
-/**
- * Class View
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- * @typescript
- * @property string $text default ' => null,
- * @property string $icon default ' => null,
- * @property string $label default ' => null,
- * @property string $prefix default ' => null,
- * @property ActionCollection|\Streams\Ui\Components\Table\View\View[] $actions
- * @property \Streams\Ui\Components\Table\Column\Column[] $columns default ' => null,
- * @property \Streams\Core\Entry\Entry[] $entries default ' => null,
- * @property FilterCollection|\Streams\Ui\Components\Table\Filter\Filter[] $filters
- * @property Collection|\Streams\Ui\Button\Button[] $buttons
- * @property ViewHandler $handler default ' => null,
- * @property ViewQuery $query default ' => null,
- * @property bool $active default ' => false,
- * @property string $context default ' => 'danger',
- */
 class View extends Component
 {
+    public string $template = 'ui::components.tables.view';
+    public string $component = 'view';
 
-    /**
-     * Initialize the prototype.
-     *
-     * @param array $attributes
-     * @return $this
-     */
-    public function initializeComponentPrototype(array $attributes = [])
+    public ?string $text = null;
+    
+    public ?string $icon = null;
+    public ?string $label = null;
+
+    public array $actions = [];
+    public array $buttons = [];
+    public array $columns = [];
+    public array $entries = [];
+    public array $filters = [];
+
+    public bool $active = false;
+
+    public $classes = [
+        'c-table__view',
+    ];
+
+    public string $query = ViewQuery::class;
+    public string $handler = ViewHandler::class;
+
+    public function attributes(array $attributes = [])
     {
-        return parent::initializeComponentPrototype(array_merge([
-            'component' => 'view',
-            'template' => 'ui::tables.view',
+        return parent::attributes(array_filter(array_merge([
+            'href' => $this->url(),
+        ], $attributes)));
+    }
 
-            'handle' => null,
-            'text' => null,
-            'icon' => null,
-            'label' => null,
-            'query' => null,
-            'prefix' => null,
-            'actions' => null,
-            'buttons' => null,
-            'columns' => null,
-            'entries' => null,
-            'filters' => null,
-            'handler' => null,
-            'options' => null,
-            'active' => false,
-            'context' => 'danger',
+    public function class($extra = [])
+    {
+        if ($this->active) {
+            $extra[] = '--active';
+        }
+        
+        return parent::class($extra);
+    }
 
-            'classes' => [
-                'ls-table__view',
-            ],
-            'attributes' => [],
+    public function text(): string|null
+    {
+        if ($this->text === false) {
+            return null;
+        }
 
-            'query' => ViewQuery::class,
-            'handler' => ViewHandler::class,
-        ], $attributes));
+        if ($this->text === null) {
+            $this->text = Str::title(Str::humanize($this->handle));
+        }
+
+        return $this->text;
+    }
+
+    public function url()
+    {
+        return URL::current() . '?' . $this->prefix('view') . '=' . $this->handle;
     }
 }

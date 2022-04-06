@@ -2,6 +2,8 @@
 
 namespace Streams\Ui\Components;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Streams\Core\Field\Field;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\App;
@@ -179,5 +181,13 @@ class Table extends Component
         if ($model && !Gate::allows('viewAny', $model)) {
             abort(403);
         }
+    }
+
+    public function url(array $extra = [])
+    {
+        $type = Str::singular($this->component);
+        $default = "ui/{$this->stream->handle}/{$type}/{$this->handle}";
+
+        return URL::cp(Arr::get($this->config, 'url', $default), $extra);
     }
 }

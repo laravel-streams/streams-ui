@@ -48,6 +48,19 @@
         }
     }
 
+    &__views {
+        @apply shadow-sm m-4 bg-white rounded-lg overflow-hidden p-4;
+    }
+
+    &__view {
+        @apply py-1.5 px-3 inline-block rounded cursor-pointer hover:bg-light;
+
+        &.--active {
+            color: var(--ui-color-buttons);
+            background-color: var(--ui-color-primary);
+        }
+    }
+
     &__content {
         @apply shadow-sm m-4 bg-white rounded-lg overflow-hidden;
     }
