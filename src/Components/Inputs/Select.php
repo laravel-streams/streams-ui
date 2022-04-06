@@ -6,5 +6,5 @@ use Streams\Ui\Components\Input;
 
 class Select extends Input
 {
-    public $template = 'ui::components.inputs.select';
+    public string $template = 'ui::components.inputs.select';
 }

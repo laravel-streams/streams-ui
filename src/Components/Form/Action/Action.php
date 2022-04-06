@@ -20,7 +20,6 @@ class Action extends Button
     
     public string $type = 'default';
 
-    // Extended
     public $redirect = null;
 
     public bool $active = false;
