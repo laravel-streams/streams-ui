@@ -48,7 +48,7 @@ export default class Component {
 
                 if (directive.type == 'click') {
                     
-                    this.element.addEventListener('click', async event => {
+                    this.element.addEventListener('click', async () => {
 
                         const params = new URLSearchParams(this.data);
 
@@ -58,7 +58,25 @@ export default class Component {
 
                         const json = await response.json();
 
-                        morphdom(event.target, json.dom);
+                        morphdom(this.element, json.dom);
+                    });
+                }
+
+                if (directive.type == 'listen') {
+                    
+                    const attribute = directive.element.getAttribute(directive.name) || 'render';
+                    
+                    const [event, method] = attribute.split('.');
+                    
+                    window.addEventListener(event, async () => {
+
+                        const params = new URLSearchParams(this.data);
+
+                        const response = await fetch('/cp/ui/' + this.data.component + '/' + method + '?' + params);
+
+                        const json = await response.json();
+
+                        morphdom(this.element, json.dom);
                     });
                 }
             });

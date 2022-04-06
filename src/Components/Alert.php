@@ -13,12 +13,11 @@ class Alert extends Component
     public string $text = 'Something just happened.';
     public string $type = 'secondary';
     
-    public array $classes  = [
+    public $classes  = [
         'a-alert',
     ];
 
     public array $buttons = [];
-    public array $attributes = [];
 
     public function class($extra = [])
     {

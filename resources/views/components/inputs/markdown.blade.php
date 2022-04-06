@@ -14,7 +14,6 @@
 }" class="prose">
 
     <textarea {!! $input->htmlAttributes([
-        'rows' => 10,
         'x-ref' => 'editor',
         ]) !!}>{{ $input->value }}</textarea>
 

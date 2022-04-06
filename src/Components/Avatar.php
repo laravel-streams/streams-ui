@@ -6,12 +6,8 @@ use Streams\Ui\Support\Component;
 
 class Avatar extends Component
 {
-    public array $classes = [
+    public $classes = [
         'a-avatar',
-    ];
-
-    public array $attributes = [
-        'style' => 'margin: 1rem;',
     ];
 
     public string $component = 'avatar';
