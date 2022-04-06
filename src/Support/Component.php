@@ -145,11 +145,11 @@ abstract class Component implements Arrayable, Jsonable
         return Arr::htmlAttributes($this->attributes($attributes)->all());
     }
 
-    public function render()
+    public function render(array $payload = [])
     {
-        $payload = [
+        $payload = array_merge($payload, [
             Str::camel($this->component) => $this,
-        ];
+        ]);
 
         return View::make($this->template, $payload)->render();
     }

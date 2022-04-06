@@ -33,7 +33,7 @@ class BladeComponent extends Component
 
             return $instance->render([
                 $instance->component => $instance
-            ] + $attributes);
+            ] + $attributes + $data['__laravel_slots']);
         };
     }
 }

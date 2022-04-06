@@ -40,7 +40,7 @@ class Section extends Component
         );
     }
 
-    public function render()
+    public function render(array $payload = [])
     {
         return $this->link();
     }

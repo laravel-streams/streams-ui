@@ -18,7 +18,11 @@
     
     <div class="o-cp {{ isset($theme) ? $theme->brand_mode : null }}">
 
-        @include('ui::components.cp.sidebar')
+        @if (isset($sidebar))
+            {!! $sidebar !!}
+        @else
+            @include('ui::components.cp.sidebar')
+        @endif
 
         <div class="o-cp__main">
             @include('ui::components.cp.top')

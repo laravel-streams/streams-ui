@@ -1,4 +1,8 @@
 <!-- content.blade.php -->
 <div class="o-cp__content">
-    @yield('content')
+    @if (isset($slot))
+        {!! $slot !!}
+    @else
+        @yield('content')
+    @endif
 </div>

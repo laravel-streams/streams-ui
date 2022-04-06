@@ -62,6 +62,45 @@ export default class Component {
                     });
                 }
 
+                if (directive.type == 'keydown') {
+                    
+                    this.element.addEventListener('keydown', async (event) => {
+
+                        if (
+                            directive.modifiers[0]
+                            && event.key.toLowerCase() !== directive.modifiers[0]
+                        ) {
+                            return;
+                        }
+
+                        const params = new URLSearchParams(this.data);
+
+                        const method = directive.element.getAttribute(directive.name) || 'render';
+
+                        const response = await fetch('/cp/ui/' + this.data.component + '/' + method + '?' + params);
+
+                        const json = await response.json();
+
+                        morphdom(this.element, json.dom);
+                    });
+                }
+
+                if (directive.type == 'submit') {
+                    
+                    this.element.addEventListener('submit', async (event) => {
+
+                        const params = new URLSearchParams(this.data);
+
+                        const method = directive.element.getAttribute(directive.name) || 'render';
+
+                        const response = await fetch('/cp/ui/' + this.data.component + '/' + method + '?' + params);
+
+                        const json = await response.json();
+
+                        morphdom(this.element, json.dom);
+                    });
+                }
+
                 if (directive.type == 'listen') {
                     
                     const attribute = directive.element.getAttribute(directive.name) || 'render';
