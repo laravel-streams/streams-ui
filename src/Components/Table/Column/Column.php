@@ -2,47 +2,20 @@
 
 namespace Streams\Ui\Components\Table\Column;
 
-use Illuminate\Support\Facades\Request;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Request;
 
-/**
- * Class Column
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- * @typescript
- * @property \Streams\Core\Entry\Entry $entry
- * @property string $view
- * @property string $direction
- * @property string $prefix
- * @property mixed $value
- * @property mixed $heading
- * @property mixed $wrapper
- * @property bool $sortable
- * @property \Streams\Core\Field\Field $field
- */
 class Column extends Component
 {
 
-    /**
-     * Initialize the prototype.
-     *
-     * @param array $attributes
-     * @return $this
-     */
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        return parent::initializeComponentPrototype(array_merge([
-            'component' => 'column',
-            'view' => null,
-            'value' => null,
-            'entry' => null,
-            'heading' => null,
-            'wrapper' => null,
-        ], $attributes));
-    }
+    public string $component = 'column';
+    
+    // public string $view = null;
+    // public string $value = null;
+    // public string $entry = null;
+    // public string $heading = null;
+    // public string $wrapper = null;
 
     /**
      * Return the column sorted URL.
@@ -65,7 +38,16 @@ class Column extends Component
             return URL::current();
         }
 
-        return URL::current() . '?order_by=' . ($this->field ?: $this->handle) . '&sort=' . $direction;
+        $query = [
+            'sort' => $direction,
+            'order_by' => ($this->field ?: $this->handle),
+        ];
+
+        if ($view = Request::get($this->table->prefix('view'))) {
+            $query[$this->table->prefix('view')] = $view;
+        }
+
+        return URL::current() . '?' . http_build_query($query);
     }
 
     public function current()

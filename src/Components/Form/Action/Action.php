@@ -4,54 +4,28 @@ namespace Streams\Ui\Components\Form\Action;
 
 use Streams\Ui\Components\Button;
 
-/**
- * Class Action
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- * @typescript
- * @property bool $action
- */
 class Action extends Button
 {
-    /**
-     * Initialize the prototype.
-     *
-     * @param array $attributes
-     * @return $this
-     */
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        return parent::initializeComponentPrototype(array_merge([
-            'component' => 'button',
-            'tag'      => 'button',
-            'url'      => null,
-            'text'     => null,
-            'entry'    => null,
-            'policy'   => null,
-            'enabled'  => true,
-            'primary'  => false,
-            'disabled' => false,
-            'type'     => 'default',
+    public string $component = 'action';
+    
+    public string $tag = 'button';
+    
+    public ?string $url = null;
+    public ?string $text = null;
+    public ?string $entry = null;
+    public ?string $policy = null;
+    
+    public bool $enabled = true;
+    public bool $disabled = false;
+    
+    public string $type = 'default';
 
-            // Extended
-            'prefix'   => null,
-            'redirect' => null,
+    // Extended
+    public $redirect = null;
 
-            'save'   => true,
-            'active' => false,
+    public bool $active = false;
 
-            'handle'  => 'default',
-        ], $attributes));
-    }
-
-    /**
-     * Return merged attributes.
-     *
-     * @param array $attributes
-     */
-    public function attributes(array $attributes = []): array
+    public function attributes(array $attributes = [])
     {
         return array_merge(parent::attributes(), [
             'value' => $this->handle,

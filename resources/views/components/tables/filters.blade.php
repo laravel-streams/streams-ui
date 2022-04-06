@@ -6,6 +6,18 @@
         {!! Form::open([
             'method' => 'get',
         ]) !!}
+
+        @if ($view = $table->views()->active())
+            <input type="hidden" name="{{ $table->prefix('view') }}" value="{{ $view->handle }}">
+        @endif
+
+        {{-- @if ($view = $table->views()->active())
+            <input type="hidden" name="{{ $table->prefix('sort') }}" value="{{ $view->handle }}">
+        @endif
+
+        @if ($view = $table->views()->active())
+            <input type="hidden" name="{{ $table->prefix('order_by') }}" value="{{ $view->handle }}">
+        @endif --}}
         
         <div class="c-filters__inputs">
         @foreach ($table->filters as $filter)

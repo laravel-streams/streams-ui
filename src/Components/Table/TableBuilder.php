@@ -3,7 +3,6 @@
 namespace Streams\Ui\Components\Table;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
 use Streams\Ui\Support\Value;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Components\Button;
@@ -11,8 +10,8 @@ use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Request;
-use Streams\Core\Support\Facades\Hydrator;
 use Streams\Ui\Components\Table\Row\Row;
+use Streams\Core\Support\Facades\Hydrator;
 use Streams\Ui\Components\Table\View\View;
 use Streams\Ui\Components\Table\Action\Action;
 use Streams\Ui\Components\Table\Column\Column;
@@ -25,7 +24,7 @@ class TableBuilder extends Builder
     {
         $this->addStep('make_views', self::class . '@makeViews');
         $this->addStep('detect_view', self::class . '@detectView');
-        // $this->addStep('apply_view', self::class . '@applyView');
+        $this->addStep('apply_view', self::class . '@applyView');
 
         $this->addStep('make_filters', self::class . '@makeFilters');
         $this->addStep('load_filters', self::class . '@loadFilters');

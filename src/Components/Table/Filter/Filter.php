@@ -8,13 +8,6 @@ use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\Request;
 use Streams\Ui\Components\Table\Filter\Query\GenericFilterQuery;
 
-/**
- *
- * @typescript
- * @property bool $active default ' => false,
- * @property bool $exact default ' => false
- * @property \Streams\Ui\Components\Table\Filter\FilterQuery $query default ' => null,
- */
 class Filter extends Component
 {
     public string $component = 'filter';
