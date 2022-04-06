@@ -8,13 +8,6 @@ use Streams\Ui\Components\Table\Action\Handler\Export;
 use Streams\Ui\Components\Table\Action\Handler\Reorder;
 use Streams\Ui\Components\Table\Action\Handler\ForceDelete;
 
-/**
- * Class ActionRegistry
- *
- * @link    http://pyrocms.com/
- * @author  PyroCMS, Inc. <support@pyrocms.com>
- * @author  Ryan Thompson <ryan@pyrocms.com>
- */
 class ActionRegistry
 {
 

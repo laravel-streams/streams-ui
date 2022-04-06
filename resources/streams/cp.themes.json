@@ -1,8 +1,10 @@
 {
     "handle": "cp.themes",
-    "source": {
-        "file": "vendor/streams/ui/resources/streams/data/themes.json",
-        "type": "file"
+    "config": {
+        "source": {
+            "file": "vendor/streams/ui/resources/streams/data/themes.json",
+            "type": "file"
+        }
     },
     "fields": {
         "id": {

@@ -4,16 +4,14 @@ namespace Streams\Ui\Components\Table\View;
 
 use Illuminate\Support\Str;
 use Streams\Ui\Support\Component;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\URL;
 use Streams\Ui\Components\Table\View\ViewQuery;
 use Streams\Ui\Components\Table\View\ViewHandler;
-use Streams\Ui\Components\Table\Action\ActionCollection;
-use Streams\Ui\Components\Table\Filter\FilterCollection;
 
 class View extends Component
 {
     public string $template = 'ui::components.tables.view';
+    
     public string $component = 'view';
 
     public ?string $text = null;

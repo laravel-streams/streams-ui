@@ -6,40 +6,21 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Streams\Core\Field\Field;
 use Collective\Html\FormFacade;
-use Streams\Ui\Components\Form;
-use Streams\Ui\Components\Button;
 use Streams\Ui\Support\Component;
-use Illuminate\Support\Collection;
 use Streams\Core\Support\Workflow;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;
-use Streams\Core\Repository\Repository;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Streams\Core\Support\Facades\Messages;
 use Streams\Ui\Components\Form\FormBuilder;
 use Illuminate\Contracts\Validation\Factory;
-use Streams\Ui\Components\Form\Action\Action;
 use Illuminate\Contracts\Validation\Validator;
-use Streams\Ui\Components\Form\Action\Handler\Save;
 use Streams\Ui\Components\Form\Field\FieldCollection;
 use Streams\Ui\Components\Form\Action\ActionCollection;
 
-/**
- *
- * @typescript
- * @property \Illuminate\Support\Collection $values
- * @property \Illuminate\Support\Collection $options
- * @property \Illuminate\Support\Collection $rules
- * @property \Illuminate\Support\Collection $validators
- * @property array $errors
- * @property \Illuminate\Support\Collection $sections
- * @property \Streams\Ui\Components\Form\Field\FieldCollection|\Streams\Core\Field\FieldType[] $fields
- * @property \Streams\Ui\Components\Form\Action\ActionCollection|\Streams\Ui\Components\Form\Action\Action[] $actions
- * @property \Illuminate\Support\Collection|\Streams\Ui\Button\Button[] $buttons
- */
 class Form extends Component
 {
 

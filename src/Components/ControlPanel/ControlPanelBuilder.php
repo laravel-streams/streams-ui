@@ -40,7 +40,7 @@ class ControlPanelBuilder extends Builder
 
             $section = new Section($attributes);
 
-            $component->navigation = $component->navigation->put($section->handle, $section);
+            $component->navigation = $component->navigation()->put($section->handle, $section);
         });
 
         $component->navigation = $component->navigation->sortBy(function($section) {
