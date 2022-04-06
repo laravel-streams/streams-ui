@@ -9,8 +9,9 @@ enabled: true
 
 Streams UI is a utility-first system for creating dynamic user interfaces.
 
-## Components
+## Quickstart
 
-Components are the building blocks of the UI system.
+### Install Streams UI
+### Configure Streams UI
 
-- [Components](/docs/ui/components)
+### Define A Component

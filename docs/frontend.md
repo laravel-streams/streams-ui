@@ -1,7 +1,7 @@
 ---
 title: Frontend
 category: basics
-sort: 199
+sort: 2
 stage: outlining
 enabled: true
 ---
