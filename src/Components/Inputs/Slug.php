@@ -6,17 +6,5 @@ use Streams\Ui\Components\Input;
 
 class Slug extends Input
 {
-    
-    /**
-     * Initialize the prototype.
-     *
-     * @param array $attributes
-     * @return $this
-     */
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        return parent::initializeComponentPrototype(array_merge([
-            'template' => 'ui::components.inputs.slug',
-        ], $attributes));
-    }
+    public string $template = 'ui::components.inputs.slug';
 }

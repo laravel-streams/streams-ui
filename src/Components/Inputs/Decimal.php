@@ -2,28 +2,15 @@
 
 namespace Streams\Ui\Components\Inputs;
 
-use Streams\Ui\Components\Input;
-
 use Illuminate\Support\Arr;
 
 class Decimal extends Number
 {
-
-    /**
-     * Initialize the prototype.
-     *
-     * @param array $attributes
-     * @return $this
-     */
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        return parent::initializeComponentPrototype(array_merge([
-            'template' => 'ui::components.inputs.decimal',
-            'config' => [
-                'step' => 0.1,
-            ],
-        ], $attributes));
-    }
+    public string $template = 'ui::components.inputs.decimal';
+    
+    public $config = [
+        'step' => 0.1,
+    ];
 
     /**
      * Return the HTML attributes array.

@@ -8,12 +8,7 @@ use Streams\Core\Support\Facades\Streams;
 
 class Relationship extends Input
 {
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        return parent::initializeComponentPrototype(array_merge([
-            'template' => 'ui::components.inputs.relationship',
-        ], $attributes));
-    }
+    public string $template = 'ui::components.inputs.relationship';
 
     public function options()
     {

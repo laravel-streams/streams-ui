@@ -41,6 +41,8 @@ class UiManager
             'textarea' => \Streams\Ui\Components\Inputs\Textarea::class,
             'markdown' => \Streams\Ui\Components\Inputs\Markdown::class,
             'relationship' => \Streams\Ui\Components\Inputs\Relationship::class,
+            
+            'boolean' => \Streams\Ui\Components\Inputs\Checkbox::class,
         ];
     }
 

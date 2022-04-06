@@ -4,16 +4,15 @@ __updated_at: 1612057092
 title: Tables
 category: components
 intro: null
-sort: 10
 enabled: true
 stage: outlining
 ---
 
 1. [ ] **What** are tables?
-1. [ ] How do you **use** tables?
-2. [ ] How do you **build** tables?
-3. [ ] How do you **secure** tables?
-4. [ ] How do you **extend** tables?
+2. [ ] How do you **use** tables?
+3. [ ] How do you **build** tables?
+4. [ ] How do you **secure** tables?
+5. [ ] How do you **extend** tables?
 
 - **Intro:** Introduce the idea in one sentence.
 - **Explanation:** An elevator pitch that signals the reader to continue or not (keep looking for relevant page).

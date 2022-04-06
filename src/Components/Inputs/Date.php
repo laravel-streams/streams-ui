@@ -8,13 +8,8 @@ use Illuminate\Support\Arr;
 
 class Date extends Input
 {
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        return parent::initializeComponentPrototype(array_merge([
-            'template' => 'ui::components.inputs.date',
-            'type' => 'date',
-        ], $attributes));
-    }
+    public string $template = 'ui::components.inputs.date';
+    public string $type = 'date';
 
     /**
      * Return the HTML attributes array.

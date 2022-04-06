@@ -6,27 +6,10 @@ use Streams\Ui\Components\Input;
 
 class Checkboxes extends Input
 {
+    public string $template = 'ui::components.input.checkboxes';
 
-    /**
-     * Initialize the prototype.
-     *
-     * @param array $attributes
-     * @return $this
-     */
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        return parent::initializeComponentPrototype(array_merge([
-            'template' => 'ui::input/checkboxes',
-            'type' => 'checkbox',
-        ], $attributes));
-    }
+    public string $type = 'checkbox';
 
-    /**
-     * Return the HTML attributes array.
-     *
-     * @param array $attributes
-     * @return array
-     */
     public function attributes(array $attributes = [])
     {
         return parent::attributes(array_merge([

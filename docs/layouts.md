@@ -1,16 +1,14 @@
 ---
 title: Layouts
 category: components
-intro:
-sort: 100
 enabled: true
 ---
 
 1. [ ] **What** are layouts?
-1. [ ] How do you **use** layouts?
-2. [ ] How do you **build** layouts?
-3. [ ] How do you **secure** layouts?
-4. [ ] How do you **extend** layouts?
+2. [ ] How do you **use** layouts?
+3. [ ] How do you **build** layouts?
+4. [ ] How do you **secure** layouts?
+5. [ ] How do you **extend** layouts?
 
 - **Intro:** Introduce the idea in one sentence.
 - **Explanation:** An elevator pitch that signals the reader to continue or not (keep looking for relevant page).

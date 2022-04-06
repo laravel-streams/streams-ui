@@ -155,11 +155,11 @@ class Form extends Component
         $keyName = $this->stream->config('key_name', 'id');
 
         if ($key = $this->request($keyName)) {
-            $this->values = $this->values->put($keyName, $key);
+            $this->values = $this->values()->put($keyName, $key);
         }
 
         foreach ($this->fields as $field) {
-            $this->values = $this->values->put(
+            $this->values = $this->values()->put(
                 $field->handle,
                 $field->input()->post()->value
             );
@@ -168,9 +168,9 @@ class Form extends Component
 
     public function validate(Factory $factory)
     {
-        $values = $this->values->all();
+        $values = $this->values()->all();
 
-        $rules = $this->rules->map(function ($rules, $field) {
+        $rules = $this->rules()->map(function ($rules, $field) {
 
             array_walk($rules, function (&$rule) use ($field) {
 
@@ -234,11 +234,11 @@ class Form extends Component
 
     public function detect()
     {
-        if ($this->actions->active()) {
+        if ($this->actions()->active()) {
             return;
         }
 
-        if ($action = $this->actions->get($this->request('action'))) {
+        if ($action = $this->actions()->get($this->request('action'))) {
             $action->active = true;
         }
     }
@@ -251,7 +251,7 @@ class Form extends Component
 
         $handler = $this->handler;
 
-        if (!$handler && $active = $this->actions->active()) {
+        if (!$handler && $active = $this->actions()->active()) {
             $handler = $active->handler;
         }        
         

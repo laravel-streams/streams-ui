@@ -1,8 +1,15 @@
 ---
-title: Inputs
+title: Avatars
 category: components
 enabled: true
 ---
+
+1. [ ] **What** are dropdowns?
+2. [ ] How do you **use** dropdowns?
+3. [ ] How do you **build** dropdowns?
+4. [ ] How do you **secure** dropdowns?
+5. [ ] How do you **extend** dropdowns?
+
 
 - **Intro:** Introduce the idea in one sentence.
 - **Explanation:** An elevator pitch that signals the reader to continue or not (keep looking for relevant page).

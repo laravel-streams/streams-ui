@@ -172,15 +172,6 @@ abstract class Component implements Arrayable, Jsonable
         return Arr::get($this->config, 'prefix') . $target;
     }
 
-    public function setStreamAttribute($value)
-    {
-        if (is_string($value)) {
-            $value = Streams::make($value);
-        }
-
-        $this->stream = $value;
-    }
-
     public function toArray()
     {
         return Hydrator::dehydrate($this, ['observers', 'listeners']);

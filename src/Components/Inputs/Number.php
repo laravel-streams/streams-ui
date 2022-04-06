@@ -8,20 +8,9 @@ use Illuminate\Support\Arr;
 
 class Number extends Input
 {
+    public string $template = 'ui::components.input.number';
 
-    /**
-     * Initialize the prototype.
-     *
-     * @param array $attributes
-     * @return $this
-     */
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        return parent::initializeComponentPrototype(array_merge([
-            'template' => 'ui::components.input.number',
-            'type' => 'number',
-        ], $attributes));
-    }
+    public string $type = 'number';
 
     public function htmlAttributes(array $attributes = [])
     {

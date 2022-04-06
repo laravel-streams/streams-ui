@@ -1,16 +1,14 @@
 ---
 title: Modals
 category: components
-intro:
-sort: 199
 enabled: true
 ---
 
 1. [ ] **What** are dropdowns?
-1. [ ] How do you **use** dropdowns?
-2. [ ] How do you **build** dropdowns?
-3. [ ] How do you **secure** dropdowns?
-4. [ ] How do you **extend** dropdowns?
+2. [ ] How do you **use** dropdowns?
+3. [ ] How do you **build** dropdowns?
+4. [ ] How do you **secure** dropdowns?
+5. [ ] How do you **extend** dropdowns?
 
 
 - **Intro:** Introduce the idea in one sentence.

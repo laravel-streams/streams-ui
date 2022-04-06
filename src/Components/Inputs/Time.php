@@ -8,27 +8,10 @@ use Illuminate\Support\Arr;
 
 class Time extends Input
 {
+    public string $template = 'ui::components.input.time';
 
-    /**
-     * Initialize the prototype.
-     *
-     * @param array $attributes
-     * @return $this
-     */
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        return parent::initializeComponentPrototype(array_merge([
-            'template' => 'ui::input/time',
-            'type' => 'time',
-        ], $attributes));
-    }
+    public string $type = 'time';
 
-    /**
-     * Return the HTML attributes array.
-     *
-     * @param array $attributes
-     * @return array
-     */
     public function attributes(array $attributes = [])
     {
         return parent::attributes(array_merge([

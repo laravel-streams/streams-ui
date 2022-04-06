@@ -6,15 +6,11 @@ use Illuminate\Support\Arr;
 
 class Integer extends Number
 {
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        return parent::initializeComponentPrototype(array_merge([
-            'template' => 'ui::components.inputs.integer',
-            'config' => [
-                'step' => 1,
-            ],
-        ], $attributes));
-    }
+    public string $template = 'ui::components.inputs.integer';
+    
+    public $config = [
+        'step' => 1,
+    ];
 
     public function attributes(array $attributes = [])
     {

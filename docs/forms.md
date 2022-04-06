@@ -3,17 +3,15 @@ __created_at: 1612057067
 __updated_at: 1612057067
 title: Forms
 category: components
-intro: null
-sort: 20
 enabled: true
 stage: outlining
 ---
 
 1. [ ] **What** are forms?
-1. [ ] How do you **use** forms?
-2. [ ] How do you **build** forms?
-3. [ ] How do you **secure** forms?
-4. [ ] How do you **extend** forms?
+2. [ ] How do you **use** forms?
+3. [ ] How do you **build** forms?
+4. [ ] How do you **secure** forms?
+5. [ ] How do you **extend** forms?
 
 
 - **Intro:** Introduce the idea in one sentence.

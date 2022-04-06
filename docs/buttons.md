@@ -1,16 +1,14 @@
 ---
 title: Buttons
 category: components
-intro:
-sort: 189
 enabled: true
 ---
 
 1. [ ] **What** are buttons?
-1. [ ] How do you **use** buttons?
-2. [ ] How do you **build** buttons?
-3. [ ] How do you **secure** buttons?
-4. [ ] How do you **extend** buttons?
+2. [ ] How do you **use** buttons?
+3. [ ] How do you **build** buttons?
+4. [ ] How do you **secure** buttons?
+5. [ ] How do you **extend** buttons?
 
 - **Intro:** Introduce the idea in one sentence.
 - **Explanation:** An elevator pitch that signals the reader to continue or not (keep looking for relevant page).

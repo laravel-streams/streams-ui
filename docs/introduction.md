@@ -7,11 +7,10 @@ enabled: true
 
 ## Introduction
 
-Streams UI provides an extensible full-stack system for creating dynamic user interfaces.
+Streams UI is a utility-first system for creating dynamic user interfaces.
 
-@todo 
+## Components
 
-- Frontend (ui:id, ui:click, etc)
-- Backend (components, routing, etc)
-- Extending/Configuring
-- Advanced Stuff
+Components are the building blocks of the UI system.
+
+- [Components](/docs/ui/components)

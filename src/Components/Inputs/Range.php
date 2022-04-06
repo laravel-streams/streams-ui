@@ -8,21 +8,9 @@ use Illuminate\Support\Arr;
 
 class Range extends Input
 {
+    public string $template = 'ui::components.input.range';
 
-    /**
-     * Initialize the prototype.
-     *
-     * @param array $attributes
-     * @return $this
-     */
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        return parent::initializeComponentPrototype(array_merge([
-            'template' => 'ui::input/range',
-            'type' => 'range',
-            'classes' => [],
-        ], $attributes));
-    }
+    public string $type = 'range';
 
     public function attributes(array $attributes = [])
     {

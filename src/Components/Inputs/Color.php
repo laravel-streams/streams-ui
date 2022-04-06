@@ -6,11 +6,6 @@ use Streams\Ui\Components\Input;
 
 class Color extends Input
 {
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        return parent::initializeComponentPrototype(array_merge([
-            'template' => 'ui::components.inputs.color',
-            'type' => 'color',
-        ], $attributes));
-    }
+    public string $template = 'ui::components.inputs.color';
+    public string $type = 'color';
 }

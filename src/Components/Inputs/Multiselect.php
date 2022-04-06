@@ -6,27 +6,8 @@ use Streams\Ui\Components\Input;
 
 class Multiselect extends Input
 {
+    public string $template = 'ui::components.input.multiselect';
 
-    /**
-     * Initialize the prototype.
-     *
-     * @param array $attributes
-     * @return $this
-     */
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        return parent::initializeComponentPrototype(array_merge([
-            'template' => 'ui::input/multiselect',
-            'type' => null,
-        ], $attributes));
-    }
-
-    /**
-     * Return the HTML attributes array.
-     *
-     * @param array $attributes
-     * @return array
-     */
     public function attributes(array $attributes = [])
     {
         return parent::attributes(array_merge([

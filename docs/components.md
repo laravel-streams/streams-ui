@@ -1,11 +1,26 @@
 ---
 title: Components
 category: basics
-intro:
 sort: 0
 enabled: true
 stage: outlining
 ---
+
+
+1. [ ] **What** is it?
+1. [ ] How do you **use** it?
+2. [ ] How do you **build** it?
+3. [ ] How do you **extend** it?
+
+- **Intro:** Introduce the idea in one sentence.
+- **Explanation:** An elevator pitch that signals the reader to continue or not (keep looking for relevant page).
+- **Sections/Features:** Separate sections/sub-sections (h2s/h3s) consistently. This will build the ToC.
+- **Next Steps:** Next actions to take that are intentional versus simply additional reading.
+- **Code Examples:** Code examples and snippets.
+- **Insights:** Tips, post scriptum, creative links.
+- **Additional Reading:** Link to related ideas/topics/guides/recipes.
+
+
 
 ## Introduction
 
@@ -15,7 +30,7 @@ UI Components are the foundation of the Streams UI system. They encapsulate the 
 
 Below is a complete list of all first-party UI components:
 
-@foreach (Streams::entries('docs_ui')->where('category', 'components')->orderBy('sort', 'ASC')->orderBy('name', 'ASC')->get() as $entry)
+@foreach (Streams::entries('docs-ui')->where('category', 'components')->orderBy('sort', 'ASC')->orderBy('name', 'ASC')->get() as $entry)
  - <a href="{{ $entry->id }}">{{ $entry->title }} ({{ $entry->decorate('stage') }})</a>
 @endforeach
 

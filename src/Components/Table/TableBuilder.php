@@ -3,6 +3,7 @@
 namespace Streams\Ui\Components\Table;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Streams\Ui\Support\Value;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Components\Button;
@@ -179,7 +180,7 @@ class TableBuilder extends Builder
 
     public function makeRows(Component $component)
     {
-        $rows = $component->entries()->collect()->map(function ($entry) use ($component) {
+        $rows = $component->entries->map(function ($entry) use ($component) {
             return new Row([
                 'handle' => $entry->id,
                 'key' => $entry->id,
@@ -188,6 +189,7 @@ class TableBuilder extends Builder
                 'table' => $component,
 
                 'stream' => $component->stream,
+                'table' => $component,
 
                 'columns' => $component->columns->map(function ($column) {
                     return clone ($column);
@@ -215,12 +217,13 @@ class TableBuilder extends Builder
 
                 $clone->attributes = Arr::parse($clone->attributes ?: [], [
                     'entry' => $row->entry,
+                    'stream' => $component->stream,
                 ]);
-
+                
                 return $clone;
             });
         });
-
+        
         $component->rows = $rows;
     }
 
