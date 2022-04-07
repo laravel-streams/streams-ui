@@ -179,7 +179,7 @@ class TableBuilder extends Builder
 
     public function makeRows(Component $component)
     {
-        $rows = $component->entries->map(function ($entry) use ($component) {
+        $rows = $component->entries()->collect()->map(function ($entry) use ($component) {
             return new Row([
                 'handle' => $entry->id,
                 'key' => $entry->id,

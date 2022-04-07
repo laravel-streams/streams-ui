@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\URL;
 
 class Section extends Component
 {
-
     public string $component = 'section';
 
     public ?string $title = null;
@@ -19,6 +18,19 @@ class Section extends Component
     public bool $active = false;
 
     public $buttons = [];
+
+    public function title(): string|null
+    {
+        if ($this->title === false) {
+            return null;
+        }
+
+        if ($this->title === null) {
+            $this->title = Str::title(Str::humanize($this->id));
+        }
+
+        return $this->title;
+    }
 
     public function url(array $extra = [])
     {
@@ -35,7 +47,7 @@ class Section extends Component
     {
         return HtmlFacade::link(
             $this->url(),
-            $this->title,
+            $this->title(),
             $this->htmlAttributes($attributes)
         );
     }

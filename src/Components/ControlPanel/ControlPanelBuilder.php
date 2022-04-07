@@ -54,7 +54,7 @@ class ControlPanelBuilder extends Builder
 
         $url = Request::fullUrl();
 
-        $component->navigation->each(function ($link) use ($url, &$match) {
+        $component->navigation()->each(function ($link) use ($url, &$match) {
 
             if (!Str::startsWith($url, $link->url())) {
                 return;
@@ -73,7 +73,7 @@ class ControlPanelBuilder extends Builder
 
         if ($match->parent) {
 
-            if (!$parent = $component->navigation->first(function ($item) use ($match) {
+            if (!$parent = $component->navigation()->first(function ($item) use ($match) {
                 return $item->id == $match->parent;
             })) {
                 throw new \Exception("Navigation [{$match->id}] parent [{$match->parent}] does not exist.");
@@ -84,8 +84,8 @@ class ControlPanelBuilder extends Builder
 
         $match->active = true;
 
-        $component->stream = $component->stream ?: $match->stream;
-        $component->entry = $component->entry ?: $match->entry;
+        $component->stream = isset($component->stream) ? $component->stream : $match->stream;
+        $component->entry = isset($component->entry) ? $component->entry: $match->entry;
 
         if ($match->buttons) {
             $component->buttons = $match->buttons;

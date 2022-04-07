@@ -19,7 +19,7 @@
             @foreach ($children as $child)
                 <li class="{{ $child->active ? '-has-active' : '' }}">
                     {!! $child->link([
-                        'class' => ($child->active ? '-active' : '')
+                        'class' => ($child->active ? '-active' : ''),
                     ]) !!}
                 </li>
             @endforeach
