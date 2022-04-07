@@ -18,9 +18,10 @@ class UiManager
     {
         $this->components = [
             'form' => \Streams\Ui\Components\Form::class,
+            'alert' => \Streams\Ui\Components\Alert::class,
             'input' => \Streams\Ui\Components\Input::class,
             'table' => \Streams\Ui\Components\Table::class,
-            'alert' => \Streams\Ui\Components\Alert::class,
+            'modal' => \Streams\Ui\Components\Modal::class,
             'avatar' => \Streams\Ui\Components\Avatar::class,
             'button' => \Streams\Ui\Components\Button::class,
             'cp' => \Streams\Ui\Components\ControlPanel::class,

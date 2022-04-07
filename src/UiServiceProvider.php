@@ -70,7 +70,7 @@ class UiServiceProvider extends ServiceProvider
             $components = array_keys(UI::getComponents());
 
             foreach ($components as $name) {
-                Blade::component('ui-' . $name, BladeComponent::class);
+                Blade::component($name, BladeComponent::class);
             }
         });
     }

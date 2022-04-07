@@ -25,7 +25,7 @@ class Filter extends Component
 
     public ?string $query = GenericFilterQuery::class;
 
-    public function render()
+    public function render(array $payload = [])
     {
         return FormFacade::input('text', $this->inputName(), $this->value(), [
             'placeholder' => $this->placeholder ?: Str::title(Str::humanize($this->handle)),
