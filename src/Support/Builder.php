@@ -18,7 +18,7 @@ class Builder extends Workflow
         'load_attributes' => self::class . '@loadAttributes',
     ];
 
-    public function castStream(Collection $attributes)
+    public function castStream(Component $component, Collection $attributes)
     {
         if (!$stream = $attributes->get('stream')) {
             return;
@@ -29,7 +29,7 @@ class Builder extends Workflow
         }
 
         if (is_string($stream)) {
-            $attributes->put('stream', Streams::make($stream));
+            $attributes = $attributes->put('stream', Streams::make($stream));
         }
     }
 
@@ -55,6 +55,10 @@ class Builder extends Workflow
 
     public function loadAttributes(Component $component, Collection $attributes)
     {
+        if ($stream = $attributes->pull('stream')) {
+            $component->stream = $stream;
+        }
+
         $component->loadPrototypeAttributes(
             Arr::parse($attributes->all(), $component->toArray())
         );

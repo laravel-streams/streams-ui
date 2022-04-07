@@ -3,6 +3,7 @@
 namespace Streams\Ui\Components\Table;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Streams\Ui\Support\Value;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Components\Button;
@@ -41,7 +42,7 @@ class TableBuilder extends Builder
         parent::process($payload);
     }
 
-    public function makeViews(Component $component)
+    public function makeViews(Component $component, Collection $attributes)
     {
         $component->views = $component->views()->collect()->map(function ($view) use ($component) {
 
@@ -63,14 +64,14 @@ class TableBuilder extends Builder
 
     public function loadEntries(Component $component)
     {
-        if ($component->entries && $component->entries()->isNotEmpty()) {
+        if ($component->entries && !$component->entries) {
             return;
         }
-
+        
         if (!$component->stream) {
             return;
         }
-
+        
         /**
          * Start Query
          */
