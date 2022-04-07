@@ -29,7 +29,7 @@ abstract class Component implements Arrayable, Jsonable
         Macroable::__call as private callMacroable;
     }
 
-    public $stream = null;
+    public ?Stream $stream = null;
 
     #[Field([
         'type' => 'slug',
