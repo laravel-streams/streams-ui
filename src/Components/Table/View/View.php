@@ -31,7 +31,7 @@ class View extends Component
         'c-table__view',
     ];
 
-    public string $query = ViewQuery::class;
+    public $query = ViewQuery::class;
     public string $handler = ViewHandler::class;
 
     public function attributes(array $attributes = [])

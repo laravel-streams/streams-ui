@@ -4,28 +4,11 @@ namespace Streams\Ui\Components\Table\View;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Builder;
-use Streams\Ui\Components\Table\TableBuilder;
 use Streams\Ui\Components\Table\View\View;
+use Streams\Ui\Components\Table\TableBuilder;
 
-/**
- * Class ViewQuery
- *
- * @link   http://pyrocms.com/
- * @author PyroCMS, Inc. <support@pyrocms.com>
- * @author Ryan Thompson <ryan@pyrocms.com>
- */
 class ViewQuery
 {
-
-    /**
-     * Handle the view query.
-     *
-     * @param  TableBuilder $builder
-     * @param  Builder $query
-     * @param  View $view
-     * @return mixed
-     * @throws \Exception
-     */
     public function handle(TableBuilder $builder, Builder $query, View $view)
     {
         if (!$query = $view->query) {

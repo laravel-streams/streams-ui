@@ -77,6 +77,26 @@ class TableBuilder extends Builder
          */
         $component->criteria = $component->stream->repository()->newCriteria();
 
+        // @todo move this somewhere nice
+        if ($view = $component->views()->active()) {
+            foreach ((array) $view->query as $step) {
+
+                if (is_string($step)) {
+                    // App::call($step, [
+                    //     'query' => $component->criteria,
+                    //     'table' => $component,
+                    //     'view' => $view,
+                    // ], 'handle');
+                }
+                
+                if (is_array($step)) {
+                    foreach ($step as $method => $arguments) {
+                        $component->criteria->{$method}(...$arguments);
+                    }
+                }
+            }
+        }
+
         /**
          * Filter Query
          */
