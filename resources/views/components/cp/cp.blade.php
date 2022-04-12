@@ -27,7 +27,6 @@
         <div class="o-cp__main">
             @include('ui::components.cp.top')
             @include('ui::components.cp.content')
-            {{-- @include('ui::components.cp.footer') --}}
         </div>
 
     </div>

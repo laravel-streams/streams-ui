@@ -13,6 +13,7 @@
 
             {{-- Pagination Components --}}
             @foreach ($elements as $element)
+                
                 {{-- "Three Dots" Separator --}}
                 @if (is_string($element))
                     <span class="py-1 px-3 text-sm font-bold text-black border-2 border-primary inline-block cursor-default text-accent">{{ $element }}</span>
@@ -114,8 +115,10 @@
                             </span>
                         </span>
                     @endif
+
                 </span>
             </div>
+            
         </div>
     </nav>
 @endif
