@@ -39,14 +39,14 @@
             return;
         }
     }
-}">
+}" x-on:keydown.escape.window="visible = false">
 
     <div class="fixed top-0 left-0 h-screen w-screen z-40 inset-0 overflow-y-auto" x-show="visible" x-cloak>
 
         <div
             x-on:load-modal.window="loadModal($event.detail);"
             x-on:show-modal.window="showModal();"
-            x-on:hide-modal.window="hideModal()"
+            x-on:hide-modal.window="hideModal();"
             class="absolute top-0 left-0 h-screen w-screen bg-dark opacity-50"></div>
 
         <div class="flex flex-col items-center justify-center h-screen w-screen">

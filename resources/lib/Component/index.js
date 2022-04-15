@@ -1,5 +1,6 @@
-import morphdom from "morphdom";
-
+import { walk } from "../util/walk";
+import Directive from "../Directive";
+import DOMElement from "../dom/dom_element";
 export default class Component {
 
     constructor(element) {
@@ -8,9 +9,9 @@ export default class Component {
 
         this.id = element.getAttribute('id');
 
-        const initialData = JSON.parse(this.extractAttribute('data'));
+        const data = JSON.parse(this.extractAttribute('data'));
 
-        this.data = initialData || {};
+        this.data = data || {};
 
         this.initialize();
     }
@@ -24,111 +25,42 @@ export default class Component {
         return value;
     }
 
+    initialize() {
+        this.directives = this.extractDirectives();
+    }
+
+    extractDirectives() {
+        return Array.from(this.element.getAttributeNames()
+            .filter(name => name.match(new RegExp('ui:')))
+            .map(name => {
+                return new Directive(name, this);
+                //return new ElementDirective(type, modifiers, name, this.el)
+            }));
+    }
+
     get(name) {
         return this.data[name];
     }
 
-    initialize() {
+    walk(callback, callbackWhenNewComponentIsEncountered = element => { }) {
+        walk(this.element, (node) => {
 
-        this.directives = Array.from(this.element.getAttributeNames()
-            .filter(name => name.match(new RegExp('ui:')))
-            .map(name => {
-                const [type, ...modifiers] = name.replace(new RegExp('ui:'), '').split('.')
+            //const element = new DOMElement(node)
+            const element = new DOMElement(node);
 
-                return {
-                    'name': name,
-                    'type': type,
-                    'modifiers': modifiers,
-                    'element': this.element
-                }
-                //return new ElementDirective(type, modifiers, name, this.el)
-            }));
+            // Skip the root component element.
+            if (element.isSameNode(this.element)) { callback(element); return; }
 
-            this.directives.forEach(directive => {
+            // If we encounter a nested component, skip walking that tree.
+            //if (element.isComponentRootEl()) {
+            if (element.hasAttribute('id')) {
 
-                if (directive.type == 'click') {
-                    
-                    this.element.addEventListener('click', async () => {
+                callbackWhenNewComponentIsEncountered(element)
 
-                        const params = new URLSearchParams(this.data);
+                return false;
+            }
 
-                        const method = directive.element.getAttribute(directive.name) || 'render';
-
-                        if (method.startsWith('javascript:')) {
-
-                            const script = document.createElement("script");
-                            
-                            script.text = method.substr(11);
-
-                            document.body.appendChild(script);
-
-                            return;
-                        }
-
-                        const response = await fetch('/cp/ui/' + this.data.component + '/' + method + '?' + params);
-
-                        const json = await response.json();
-
-                        morphdom(this.element, json.dom);
-                    });
-                }
-
-                if (directive.type == 'keydown') {
-                    
-                    this.element.addEventListener('keydown', async (event) => {
-
-                        if (
-                            directive.modifiers[0]
-                            && event.key.toLowerCase() !== directive.modifiers[0]
-                        ) {
-                            return;
-                        }
-
-                        const params = new URLSearchParams(this.data);
-
-                        const method = directive.element.getAttribute(directive.name) || 'render';
-
-                        const response = await fetch('/cp/ui/' + this.data.component + '/' + method + '?' + params);
-
-                        const json = await response.json();
-
-                        morphdom(this.element, json.dom);
-                    });
-                }
-
-                if (directive.type == 'submit') {
-                    
-                    this.element.addEventListener('submit', async (event) => {
-
-                        const params = new URLSearchParams(this.data);
-
-                        const method = directive.element.getAttribute(directive.name) || 'render';
-
-                        const response = await fetch('/cp/ui/' + this.data.component + '/' + method + '?' + params);
-
-                        const json = await response.json();
-
-                        morphdom(this.element, json.dom);
-                    });
-                }
-
-                if (directive.type == 'listen') {
-                    
-                    const attribute = directive.element.getAttribute(directive.name) || 'render';
-                    
-                    const [event, method] = attribute.split('.');
-                    
-                    window.addEventListener(event, async () => {
-
-                        const params = new URLSearchParams(this.data);
-
-                        const response = await fetch('/cp/ui/' + this.data.component + '/' + method + '?' + params);
-
-                        const json = await response.json();
-
-                        morphdom(this.element, json.dom);
-                    });
-                }
-            });
+            callback(element)
+        })
     }
 }
