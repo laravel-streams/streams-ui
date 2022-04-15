@@ -1,6 +1,5 @@
 import { walk } from "../util/walk";
 import Directive from "../Directive";
-import DOMElement from "../dom/dom_element";
 export default class Component {
 
     constructor(element) {
@@ -45,8 +44,7 @@ export default class Component {
     walk(callback, callbackWhenNewComponentIsEncountered = element => { }) {
         walk(this.element, (node) => {
 
-            //const element = new DOMElement(node)
-            const element = new DOMElement(node);
+            const element = node;
 
             // Skip the root component element.
             if (element.isSameNode(this.element)) { callback(element); return; }

@@ -1,4 +1,8 @@
 import morphdom from "morphdom";
+import Submit from "../Event/submit.js";
+import Click from "./../Event/click.js";
+import Keydown from "../Event/keydown.js";
+import Listener from "../Event/listener.js";
 
 export default class Directive {
 
@@ -12,6 +16,8 @@ export default class Directive {
         this.type = type;
         this.modifiers = modifiers;
 
+        this.event = null;
+
         this.initialize();
     }
 
@@ -19,104 +25,20 @@ export default class Directive {
 
         switch (this.type) {
             case 'click':
-                this.registerClick();
+                this.event = new Click(this);
                 break;
             case 'keydown':
-                this.registerKeydown();
+                this.event = new Keydown(this);
                 break;
             case 'submit':
-                this.registerSubmit();
+                this.event = new Submit(this);
                 break;
             case 'listen':
-                this.registerEventListener();
+                this.event = new Listener(this);
                 break;
 
             default:
                 break;
         }
-    }
-
-    // @todo
-    registerClick() {
-        this.component.element.addEventListener('click', async () => {
-
-            const params = new URLSearchParams(this.component.data);
-
-            const method = this.component.element.getAttribute(this.name) || 'render';
-
-            if (method.startsWith('javascript:')) {
-
-                const script = document.createElement("script");
-
-                script.text = method.substr(11);
-
-                document.body.appendChild(script);
-
-                return;
-            }
-
-            const response = await fetch('/cp/ui/' + this.component.data.component + '/' + method + '?' + params);
-
-            const json = await response.json();
-
-            morphdom(this.component.element, json.dom);
-        });
-    }
-
-    // @todo
-    registerKeydown() {
-        this.component.element.addEventListener('keydown', async (event) => {
-
-            if (
-                this.modifiers[0]
-                && event.key.toLowerCase() !== this.modifiers[0]
-            ) {
-                return;
-            }
-
-            const params = new URLSearchParams(this.component.data);
-
-            const method = this.component.element.getAttribute(this.name) || 'render';
-
-            const response = await fetch('/cp/ui/' + this.component.data.component + '/' + method + '?' + params);
-
-            const json = await response.json();
-
-            morphdom(this.component.element, json.dom);
-        });
-    }
-
-    // @todo
-    registerSubmit() {
-        this.component.element.addEventListener('submit', async (event) => {
-
-            const params = new URLSearchParams(this.component.data);
-
-            const method = this.component.element.getAttribute(this.name) || 'render';
-
-            const response = await fetch('/cp/ui/' + this.component.data.component + '/' + method + '?' + params);
-
-            const json = await response.json();
-
-            morphdom(this.component.element, json.dom);
-        });
-    }
-
-    // @todo
-    registerEventListener() {
-        const attribute = this.component.element.getAttribute(this.name) || 'render';
-
-            const [event, method] = attribute.split('.');
-
-            window.addEventListener(event, async () => {
-
-                const params = new URLSearchParams(this.component.data);
-
-                const response = await fetch('/cp/ui/' + this.component.data.component + '/' + method + '?' + params);
-
-                const json = await response.json();
-
-                morphdom(this.component.element, json.dom);
-            });
     }
 }
