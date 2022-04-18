@@ -51,7 +51,7 @@
             
             <div class="c-table__meta">
                 {{-- {{ $table->options->get('total_results') }} {{ trans_choice('ui::labels.results', $table->options->get('total_results')) }} --}}
-                <p class="text-sm text-gray-700 leading-5">
+                <p class="text-sm text-dark leading-5 opacity-50">
                     {!! __('Showing') !!}
                     <span class="font-medium">{{ $table->pagination->firstItem() }}</span>
                     {!! __('to') !!}

@@ -3,10 +3,10 @@
 namespace Streams\Ui\Support;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Streams\Core\Stream\Stream;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use Streams\Core\Support\Workflow;
 use Streams\Core\Support\Facades\Streams;
 
