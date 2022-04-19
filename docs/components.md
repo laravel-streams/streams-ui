@@ -95,7 +95,7 @@ $table = new Table([
 UI components are paired with corresponding [Laravel Blade components](https://laravel.com/docs/blade#components) which you may access manually in a similar manner.
 
 ```blade
-@verbatim<x-streams-ui-table stream="contacts"/>@endverbatim
+@verbatim<x-table stream="contacts"/>@endverbatim
 ```
 
 Each component documents its own configuration documentation.

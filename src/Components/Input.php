@@ -56,10 +56,10 @@ class Input extends Component
         return parent::attributes(array_merge([
             'name' => $this->name(),
             'placeholder' => $this->placeholder,
-            'readonly' => $this->field->readonly,
-            'disabled' => $this->field->disabled,
-            'required' => $this->field->hasRule('required'),
-            'pattern' => trim($this->field->pattern ?: Arr::get($this->field->ruleParameters('regex'), 0), "//"),
+            'readonly' => $this->field?->readonly,
+            'disabled' => $this->field?->disabled,
+            'required' => $this->field?->hasRule('required'),
+            'pattern' => trim($this->field?->pattern ?: Arr::get($this->field?->ruleParameters('regex'), 0), "//"),
             'value' => $this->value,
             'type' => $this->type,
         ], $attributes));

@@ -2,6 +2,7 @@
 title: Buttons
 category: components
 enabled: true
+stage: outlining
 ---
 
 1. [ ] **What** are buttons?
@@ -18,3 +19,24 @@ enabled: true
 - **Code Examples:** Code examples and snippets.
 - **Insights:** Tips, post scriptum, creative links.
 - **Additional Reading:** Link to related ideas/topics/guides/recipes.
+
+
+## Introduction
+
+Buttons allow users to take actions and make choices.They are typically placed throughout your UI, in places like:
+
+- Forms
+- Cards
+- Modals
+- Tables
+- Toolbars
+
+## Basic Usage
+
+```blade
+@verbatim<x-button>View Dashboard</x-button>@endverbatim
+```
+
+### Icons
+
+- [Icons](icons)

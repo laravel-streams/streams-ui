@@ -11,6 +11,8 @@ class Modal extends Component
     
     public string $template  = 'ui::components.modal';
 
+    public bool $open = false;
+
     public function title(): string|null
     {
         if ($this->title === false) {

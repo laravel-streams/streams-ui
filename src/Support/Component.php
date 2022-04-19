@@ -5,15 +5,11 @@ namespace Streams\Ui\Support;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Streams\Core\Field\Field;
-use Streams\Core\Stream\Stream;
 use Streams\Ui\Support\Builder;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Traits\Macroable;
-use Streams\Core\Support\Facades\Streams;
 use Illuminate\Contracts\Support\Jsonable;
 use Streams\Core\Support\Facades\Hydrator;
 use Streams\Core\Support\Traits\Prototype;
@@ -140,7 +136,7 @@ abstract class Component implements Arrayable, Jsonable
         $id = Str::random(20);
 
         $attributes['ui:id'] = $id;
-        $attributes['ui:data'] = json_encode(array_filter($this->toArray()));
+        $attributes['ui:data'] = json_encode($this->toArray());
 
         return Arr::htmlAttributes($this->attributes($attributes)->all());
     }
@@ -175,7 +171,10 @@ abstract class Component implements Arrayable, Jsonable
 
     public function toArray()
     {
-        return Hydrator::dehydrate($this, ['observers', 'listeners']);
+        $allowed = $this->getPrototypeProperties();
+        $attributes = $this->getPrototypeAttributes();
+
+        return array_intersect_key($attributes, $allowed);
     }
 
     public function toJson($options = 0)

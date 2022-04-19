@@ -2,6 +2,7 @@
 title: Inputs
 category: components
 enabled: true
+stage: outlining
 ---
 
 - **Intro:** Introduce the idea in one sentence.

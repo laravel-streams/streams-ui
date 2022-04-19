@@ -42,13 +42,6 @@ class UiServiceProvider extends ServiceProvider
         $this->extendRouter();
         $this->extendStream();
         $this->extendField();
-
-        Route::get('/test', function () {
-            /** @var \Illuminate\View\View $view */
-
-            $view = view('ui::test2')->render();
-            return $view;
-        })->name('test');
     }
 
     public function boot()

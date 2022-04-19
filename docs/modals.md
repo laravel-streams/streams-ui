@@ -2,6 +2,7 @@
 title: Modals
 category: components
 enabled: true
+stage: outlining
 ---
 
 1. [ ] **What** are dropdowns?
