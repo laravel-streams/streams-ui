@@ -19,7 +19,7 @@ export default class Component {
 
         const value = this.element.getAttribute('ui:' + name);
 
-        this.element.removeAttribute(name);
+        this.element.removeAttribute('ui:' + name);
 
         return value;
     }
