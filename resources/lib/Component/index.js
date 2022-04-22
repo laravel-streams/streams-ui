@@ -6,7 +6,7 @@ export default class Component {
 
         this.element = element;
 
-        this.id = element.getAttribute('id');
+        this.id = element.getAttribute('ui:' + 'id');
 
         const data = JSON.parse(this.extractAttribute('data'));
 

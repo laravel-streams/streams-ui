@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Support\Jsonable;
-use Streams\Core\Support\Facades\Hydrator;
 use Streams\Core\Support\Traits\Prototype;
 use Illuminate\Contracts\Support\Arrayable;
 use Streams\Core\Support\Traits\FiresCallbacks;
@@ -59,7 +58,7 @@ abstract class Component implements Arrayable, Jsonable
             'wrapper' => 'collection',
         ],
     ])]
-    protected $attributes = [];
+    public $attributes = [];
 
     #[Field([
         'config' => [
@@ -133,9 +132,6 @@ abstract class Component implements Arrayable, Jsonable
 
     public function htmlAttributes(array $attributes = [])
     {
-        $id = Str::random(20);
-
-        $attributes['ui:id'] = $id;
         $attributes['ui:data'] = json_encode($this->toArray());
 
         return Arr::htmlAttributes($this->attributes($attributes)->all());

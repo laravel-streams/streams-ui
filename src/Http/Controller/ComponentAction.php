@@ -11,14 +11,15 @@ class ComponentAction extends Controller
 {
     public function __invoke($component, $action = null)
     {
-        $component = UI::make($component, Request::input());
+        $component = UI::make($component, json_decode(Request::get('data'), true) ?: []);
 
         if ($action) {
             $component->{$action}();
         }
-
+        
         return Response::json([
             'dom' => (string) $component->render(),
+            'data' => $component->toArray(),
         ]);
     }
 }

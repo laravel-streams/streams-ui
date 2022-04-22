@@ -22,6 +22,10 @@ export default class Submit /*extends Event*/ {
             const json = await response.json();
 
             morphdom(this.directive.component.element, json.dom);
+
+            this.directive.component.id = json.data.attributes['ui:id'];
+
+            this.directive.component.data = json.data;
         });
     }
 }    

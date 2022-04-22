@@ -1,7 +1,7 @@
 import morphdom from "morphdom";
 import Event from ".";
 
-export default class Click /*extends Event*/ {
+export default class Poll /*extends Event*/ {
     
     constructor(directive) {
 
@@ -11,7 +11,10 @@ export default class Click /*extends Event*/ {
     }
 
     initialize() {
-        this.directive.component.element.addEventListener('click', async (event) => {
+
+        const interval = this.directive.modifiers[0] ?? 2000;
+
+        setInterval(async () => {
 
             //const params = new URLSearchParams(this.directive.component.data);
 
@@ -32,11 +35,11 @@ export default class Click /*extends Event*/ {
 
             const json = await response.json();
 
-            morphdom(event.target, json.dom);
+            morphdom(this.directive.component.element, json.dom);
 
             this.directive.component.id = json.data.attributes['ui:id'];
 
             this.directive.component.data = json.data;
-        });
+        }, interval);
     }
 }

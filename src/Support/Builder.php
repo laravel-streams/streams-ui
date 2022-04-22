@@ -62,5 +62,12 @@ class Builder extends Workflow
         $component->loadPrototypeAttributes(
             Arr::parse($attributes->all(), $component->toArray())
         );
+
+        // Set the UI ID
+        if (!isset($component->attributes['ui:id'])) {
+            $component->attributes = array_merge($component->attributes, [
+                'ui:id' => Str::random(20),
+            ]);
+        }
     }
 }

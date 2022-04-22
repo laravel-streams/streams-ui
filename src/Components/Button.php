@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Components;
 
+use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Streams\Ui\Support\Component;
@@ -28,18 +29,7 @@ class Button extends Component
     public $classes = [
         'a-button',
     ];
-
-
-
-    public $count = 1;
-
-    public function test()
-    {
-        $this->text = 'TESTING!';
-    }
-
-
-
+    
     public function open(array $attributes = []): string
     {
         $attributes = $this->htmlAttributes($attributes);

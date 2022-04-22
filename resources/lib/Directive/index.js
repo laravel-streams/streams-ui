@@ -3,6 +3,7 @@ import Submit from "../Event/submit.js";
 import Click from "./../Event/click.js";
 import Keydown from "../Event/keydown.js";
 import Listener from "../Event/listener.js";
+import Poll from "../Event/poll.js";
 
 export default class Directive {
 
@@ -35,6 +36,9 @@ export default class Directive {
                 break;
             case 'listen':
                 this.event = new Listener(this);
+                break;
+            case 'poll':
+                this.event = new Poll(this);
                 break;
 
             default:
