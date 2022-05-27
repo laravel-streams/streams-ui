@@ -18,8 +18,10 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Config;
 use Streams\Ui\Http\Middleware\LoadUi;
 use Illuminate\Support\ServiceProvider;
+use Streams\Core\Field\Types\EmailFieldType;
 use Streams\Core\Support\Facades\Assets;
 use Streams\Core\Support\Facades\Streams;
+use Streams\Ui\Components\Input;
 
 class UiServiceProvider extends ServiceProvider
 {
@@ -280,11 +282,9 @@ class UiServiceProvider extends ServiceProvider
                 'type' => $this->type,
             ];
 
-            $attributes = $attributes + (array) $this->input;
+            $attributes = array_merge($attributes, (array) $this->input);
 
-            return $this->once(
-                $this->stream->id . $this->handle . 'input',
-                function () use ($attributes) {
+            return $this->once($this->stream->id . $this->handle . 'input', function () use ($attributes) {
 
                     Arr::pull($attributes, 'type');
 
