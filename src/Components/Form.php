@@ -336,6 +336,6 @@ class Form extends Component
         $type = Str::singular($this->component);
         $default = "ui/{$this->stream->handle}/{$type}/{$this->handle}";
 
-        return URL::cp(Arr::get($this->config, 'url', $default), $extra);
+        return URL::to(Arr::get($this->config, 'url', $default), $extra);
     }
 }

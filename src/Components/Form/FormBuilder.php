@@ -2,12 +2,12 @@
 
 namespace Streams\Ui\Components\Form;
 
+use Illuminate\Support\Arr;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Components\Button;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\App;
 use Streams\Core\Field\FieldCollection;
-use Streams\Core\Stream\Stream;
 use Streams\Ui\Components\Table\Action\Action;
 use Streams\Ui\Components\Form\Action\Handler\Save;
 
@@ -57,7 +57,7 @@ class FormBuilder extends Builder
         //     );
         // }
 
-        $fields = $component->fields->all();
+        $fields = Arr::make($component->fields);
 
         foreach ($fields as &$field) {
 
