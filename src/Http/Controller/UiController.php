@@ -60,6 +60,27 @@ class UiController extends EntryController
         return $data->get('response') ?: abort(404);
     }
 
+    protected function resolveStream(Collection $data): void
+    {
+        $parameters = Request::route()->parameters;
+
+        if (isset($parameters['stream']) && Streams::exists($parameters['stream'])) {
+
+            $data->put('stream', Streams::make($parameters['stream']));
+
+            return;
+        }
+
+        if (isset($parameters['stream']) && !Streams::exists($parameters['stream'])) {
+
+            $data->put('stream', Streams::build([]));
+
+            return;
+        }
+
+        parent::resolveStream($data);
+    }
+
     public function resolveSection(Collection $data)
     {
         $action = $data->get('action');

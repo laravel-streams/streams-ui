@@ -21,6 +21,9 @@ class Builder extends Workflow
     public function castStream(Component $component, Collection $attributes)
     {
         if (!$stream = $attributes->get('stream')) {
+
+            $attributes = $attributes->put('stream', Streams::build([]));
+
             return;
         }
 

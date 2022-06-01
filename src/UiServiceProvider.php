@@ -18,8 +18,10 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Config;
 use Streams\Ui\Http\Middleware\LoadUi;
 use Illuminate\Support\ServiceProvider;
+use Streams\Core\Field\Types\EmailFieldType;
 use Streams\Core\Support\Facades\Assets;
 use Streams\Core\Support\Facades\Streams;
+use Streams\Ui\Components\Input;
 
 class UiServiceProvider extends ServiceProvider
 {
@@ -121,6 +123,14 @@ class UiServiceProvider extends ServiceProvider
     {
         if (!$this->app->routesAreCached()) {
 
+            $component = 'ui/{stream}/{component}/{handle?}/{entry?}';
+
+            Route::streams($component, [
+                'ui.cp' => false,
+                'csrf' => false,
+                'uses'  => \Streams\Ui\Http\Controller\UiController::class,
+            ]);
+
             Route::prefix(Config::get('streams.ui.cp_prefix'))
                 ->middleware(Config::get('streams.ui.cp_middleware'))
                 ->group(function () {
@@ -133,8 +143,6 @@ class UiServiceProvider extends ServiceProvider
                     $index  = '{section}';
                     $create = '{section}/create';
                     $edit   = '{section}/{entry}/edit';
-
-                    $component = 'ui/{stream}/{component}/{handle?}/{entry?}';
 
                     Route::streams('/ui/{component}/{action?}', [
                         'verb' => 'get',
@@ -176,12 +184,6 @@ class UiServiceProvider extends ServiceProvider
                         'ui.component'  => 'form',
                         'as'            => 'streams.ui.cp.edit',
                         'uses'          => \Streams\Ui\Http\Controller\UiController::class,
-                    ]);
-
-                    Route::streams($component, [
-                        'ui.cp' => false,
-                        'csrf' => false,
-                        'uses'  => \Streams\Ui\Http\Controller\UiController::class,
                     ]);
                 });
         }
@@ -280,11 +282,9 @@ class UiServiceProvider extends ServiceProvider
                 'type' => $this->type,
             ];
 
-            $attributes = $attributes + (array) $this->input;
+            $attributes = array_merge($attributes, (array) $this->input);
 
-            return $this->once(
-                $this->stream->id . $this->handle . 'input',
-                function () use ($attributes) {
+            return $this->once($this->stream->id . $this->handle . 'input', function () use ($attributes) {
 
                     Arr::pull($attributes, 'type');
 

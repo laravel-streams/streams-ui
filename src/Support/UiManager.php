@@ -28,6 +28,7 @@ class UiManager
             'dropdown' => \Streams\Ui\Components\Dropdown::class,
 
             'array' => \Streams\Ui\Components\Input::class,
+            'email' => \Streams\Ui\Components\Input::class,
             'string' => \Streams\Ui\Components\Input::class,
             'object' => \Streams\Ui\Components\Input::class,
 

@@ -15,7 +15,7 @@ class Input extends Component
         'a-input',
     ];
 
-    public $field = null;
+    //public object $field;
     
     public string $type = 'text';
     public ?string $placeholder = null;
