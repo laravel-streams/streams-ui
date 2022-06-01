@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Request;
 use Streams\Ui\Components\Table\Row\Row;
-use Streams\Core\Support\Facades\Hydrator;
 use Streams\Ui\Components\Table\View\View;
 use Streams\Ui\Components\Table\Action\Action;
 use Streams\Ui\Components\Table\Column\Column;
@@ -21,30 +20,25 @@ use Streams\Ui\Components\Table\View\ViewHandler;
 
 class TableBuilder extends Builder
 {
-    public function process(array $payload = []): void
-    {
-        $this->addStep('make_views', self::class . '@makeViews');
-        $this->addStep('detect_view', self::class . '@detectView');
-        $this->addStep('apply_view', self::class . '@applyView');
-
-        $this->addStep('make_filters', self::class . '@makeFilters');
-        $this->addStep('load_filters', self::class . '@loadFilters');
-
-        $this->addStep('load_entries', self::class . '@loadEntries');
-
-        //$thiscomponent->addStep('authorize', self::class . '@authorize');
-
-        $this->addStep('make_actions', self::class . '@makeActions');
-        $this->addStep('make_buttons', self::class . '@makeButtons');
-        $this->addStep('make_columns', self::class . '@makeColumns');
-        $this->addStep('make_rows', self::class . '@makeRows');
-
-        parent::process($payload);
-    }
+    public array $steps = [
+        'cast_stream' => self::class . '@castStream',
+        'load_attributes' => self::class . '@loadAttributes',
+        
+        'make_views' => self::class . '@makeViews',
+        'detect_view' => self::class . '@detectView',
+        'apply_view' => self::class . '@applyView',
+        'make_filters' => self::class . '@makeFilters',
+        'load_filters' => self::class . '@loadFilters',
+        'load_entries' => self::class . '@loadEntries',
+        'make_actions' => self::class . '@makeActions',
+        'make_buttons' => self::class . '@normalize_buttons',
+        'make_columns' => self::class . '@normalize_columns',
+        'make_rows' => self::class . '@makeRows',
+    ];
 
     public function makeViews(Component $component, Collection $attributes)
     {
-        $component->views = $component->views()->collect()->map(function ($view) use ($component) {
+        $component->views = collect($attributes->pull('views', []))->map(function ($view) use ($component) {
 
             $view['table'] = $component->table;
 
@@ -52,9 +46,9 @@ class TableBuilder extends Builder
         });
     }
 
-    public function makeFilters(Component $component)
+    public function makeFilters(Component $component, Collection $attributes)
     {
-        $component->filters = $component->filters()->collect()->map(function ($view) use ($component) {
+        $component->filters = collect($attributes->pull('filters', []))->map(function ($view) use ($component) {
 
             $view['table'] = $component->table;
 
@@ -62,21 +56,21 @@ class TableBuilder extends Builder
         });
     }
 
-    public function loadEntries(Component $component)
+    public function loadEntries(Component $component, Collection $attributes)
     {
         if ($component->entries && !$component->entries) {
             return;
         }
-        
-        if (!$component->stream) {
+
+        if (!$attributes->has('stream')) {
             return;
         }
         
         /**
          * Start Query
          */
-        $component->criteria = $component->stream->repository()->newCriteria();
-
+        $component->criteria = $attributes->get('stream')->repository()->newCriteria();
+        
         // @todo move this somewhere nice
         if ($view = $component->views()->active()) {
             foreach ((array) $view->query as $step) {
@@ -88,7 +82,7 @@ class TableBuilder extends Builder
                     //     'view' => $view,
                     // ], 'handle');
                 }
-                
+
                 if (is_array($step)) {
                     foreach ($step as $method => $arguments) {
                         $component->criteria->{$method}(...$arguments);
@@ -147,9 +141,9 @@ class TableBuilder extends Builder
         $component->entries = $component->pagination->getCollection();
     }
 
-    public function makeActions(Component $component)
+    public function makeActions(Component $component, Collection $attributes)
     {
-        $component->actions = $component->actions()->collect()->map(function ($action) use ($component) {
+        $component->actions = collect($attributes->pull('actions', []))->map(function ($action) use ($component) {
 
             $action['table'] = $component->table;
 
@@ -157,9 +151,9 @@ class TableBuilder extends Builder
         });
     }
 
-    public function makeButtons(Component $component)
+    public function normalize_buttons(Component $component, Collection $attributes)
     {
-        $component->buttons = $component->buttons()->collect()->map(function ($button) use ($component) {
+        $component->buttons = collect($attributes->pull('buttons', []))->map(function ($button) use ($component) {
 
             $button['table'] = $component->table;
 
@@ -167,13 +161,13 @@ class TableBuilder extends Builder
                 $button['attributes']['href'] = URL::current() . '/{entry.id}/' . $button['handle'];
             }
 
-            return new Button($button);
+            return $button;
         });
     }
 
-    public function makeColumns(Component $component)
+    public function normalize_columns(Component $component, Collection $attributes)
     {
-        $component->columns = $component->columns()->collect()->map(function ($column) use ($component) {
+        $component->columns = collect($attributes->pull('colums', []))->map(function ($column) use ($component) {
 
             $column['table'] = $component;
             $column['stream'] = $component->stream;
@@ -186,15 +180,15 @@ class TableBuilder extends Builder
                 $column['attributes']['href'] = URL::current() . '/{entry.id}/' . $column['handle'];
             }
 
-            return new Column($column);
+            return $column;
         });
 
         if ($component->columns->isEmpty()) {
-            $component->columns = $component->columns->put('id', new Column([
+            $component->columns = $component->columns->put('id', [
                 'value' => 'id',
                 'handle' => 'id',
                 'heading' => 'ID',
-            ]));
+            ]);
         }
     }
 
@@ -211,39 +205,33 @@ class TableBuilder extends Builder
                 'stream' => $component->stream,
                 'table' => $component,
 
-                'columns' => $component->columns->map(function ($column) {
-                    return clone ($column);
-                })->keyBy('handle'),
-                'buttons' => $component->buttons->map(function ($button) {
-                    return clone ($button);
-                })->keyBy('handle'),
+                'columns' => $component->columns->keyBy('handle'),
+                'buttons' => $component->buttons->keyBy('handle'),
             ]);
         });
 
         $rows->each(function ($row) use ($component) {
 
-            $row->columns = $row->columns->each(function ($column) use ($row) {
-                $column->value = Value::make($column->value, $row->entry);
+            $row->columns = $row->columns->map(function ($column) use ($row) {
+
+                $column['value'] = Value::make(Arr::get($column, 'value', ''), $row->entry);
+
+                return new Column($column);
             });
-            
+
             $row->buttons = $component->buttons->map(function ($button) use ($row, $component) {
 
-                $clone = clone ($button);
+                $clone = $button;
 
-                $clone->setPrototypeAttributes(Arr::parse(Hydrator::dehydrate($button), [
-                    'entry' => $row->entry,
-                    'stream' => $component->stream,
-                ]));
-
-                $clone->attributes = Arr::parse($clone->attributes ?: [], [
+                $clone = Arr::parse($clone, [
                     'entry' => $row->entry,
                     'stream' => $component->stream,
                 ]);
-                
-                return $clone;
+
+                return new Button($clone);
             });
         });
-        
+
         $component->rows = $rows;
     }
 

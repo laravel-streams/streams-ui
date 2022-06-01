@@ -15,6 +15,12 @@ composer require streams/ui
 
 Streams UI comes pre-configured with the [Streams starter application](/docs/installation).
 
+### Cloning with Git
+
+```bash
+git clone git@github.com:laravel-streams/streams-ui.git
+```
+
 ### Publishing Assets
 
 Use the following command to publish public assets for this package.
