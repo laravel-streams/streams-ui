@@ -8,7 +8,7 @@ class Row extends Component
 {
     public ?string $key = null;
     
-    public $entry = null;
+    //public ?object $entry = null;
 
     public $columns = [];
     public $buttons = [];

@@ -31,8 +31,8 @@ class TableBuilder extends Builder
         'load_filters' => self::class . '@loadFilters',
         'load_entries' => self::class . '@loadEntries',
         'make_actions' => self::class . '@makeActions',
-        'make_buttons' => self::class . '@normalize_buttons',
-        'make_columns' => self::class . '@normalize_columns',
+        'make_buttons' => self::class . '@normalizeButtons',
+        'make_columns' => self::class . '@normalizeColumns',
         'make_rows' => self::class . '@makeRows',
     ];
 
@@ -62,14 +62,14 @@ class TableBuilder extends Builder
             return;
         }
 
-        if (!$attributes->has('stream')) {
+        if (!$component->stream) {
             return;
         }
         
         /**
          * Start Query
          */
-        $component->criteria = $attributes->get('stream')->repository()->newCriteria();
+        $component->criteria = $component->stream->repository()->newCriteria();
         
         // @todo move this somewhere nice
         if ($view = $component->views()->active()) {
@@ -151,7 +151,7 @@ class TableBuilder extends Builder
         });
     }
 
-    public function normalize_buttons(Component $component, Collection $attributes)
+    public function normalizeButtons(Component $component, Collection $attributes)
     {
         $component->buttons = collect($attributes->pull('buttons', []))->map(function ($button) use ($component) {
 
@@ -165,9 +165,9 @@ class TableBuilder extends Builder
         });
     }
 
-    public function normalize_columns(Component $component, Collection $attributes)
+    public function normalizeColumns(Component $component, Collection $attributes)
     {
-        $component->columns = collect($attributes->pull('colums', []))->map(function ($column) use ($component) {
+        $component->columns = collect($attributes->pull('columns', []))->map(function ($column) use ($component) {
 
             $column['table'] = $component;
             $column['stream'] = $component->stream;
@@ -188,6 +188,7 @@ class TableBuilder extends Builder
                 'value' => 'id',
                 'handle' => 'id',
                 'heading' => 'ID',
+                'attributes' => [],
             ]);
         }
     }
@@ -195,9 +196,12 @@ class TableBuilder extends Builder
     public function makeRows(Component $component)
     {
         $rows = $component->entries()->collect()->map(function ($entry) use ($component) {
+
+            $keyName = $component->stream->config('key_name', 'id');
+            
             return new Row([
-                'handle' => $entry->id,
-                'key' => $entry->id,
+                'handle' => $entry->{$keyName},
+                'key' => $entry->{$keyName},
 
                 'entry' => $entry,
                 'table' => $component,
@@ -211,7 +215,7 @@ class TableBuilder extends Builder
         });
 
         $rows->each(function ($row) use ($component) {
-
+            
             $row->columns = $row->columns->map(function ($column) use ($row) {
 
                 $column['value'] = Value::make(Arr::get($column, 'value', ''), $row->entry);
@@ -233,6 +237,14 @@ class TableBuilder extends Builder
         });
 
         $component->rows = $rows;
+
+        $columns = $component->columns->all();
+
+        foreach ($columns as &$column) {
+            $column =  new Column($column);
+        }
+
+        $component->columns = collect($columns);
     }
 
     public function detectView(Component $component)

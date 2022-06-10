@@ -77,36 +77,6 @@ class Table extends Component
     ])]
     public $rows;
 
-    public function initializeComponentPrototype(array $attributes = [])
-    {
-        $this->loadPrototypeProperties([
-            'rows' => [
-                'type' => 'array',
-                'config' => [
-                    'wrapper' => 'collection',
-                ],
-            ],
-            'buttons' => [
-                'type' => 'array',
-                'config' => [
-                    'wrapper' => 'collection',
-                ],
-            ],
-            'headers' => [
-                'type' => 'array',
-                'config' => [
-                    'wrapper' => 'collection',
-                ],
-            ],
-            'entries' => [
-                'type' => 'array',
-                'config' => [
-                    'wrapper' => 'collection',
-                ],
-            ],
-        ]);
-    }
-
     public function post(): void
     {
         $this->fire('posting', [

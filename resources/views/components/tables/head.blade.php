@@ -12,7 +12,7 @@
         @endif
 
         @foreach ($table->columns as $column)
-        <th {!! $column->htmlAttributes() !!}>
+        <th >
 
             @if ($column->isSortable())
             <a href="{{ $column->href() }}">

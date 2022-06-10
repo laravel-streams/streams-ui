@@ -11,15 +11,10 @@ class Column extends Component
 
     public string $component = 'column';
     
-    // public string $view = null;
     // public string $value = null;
-    // public string $entry = null;
     // public string $heading = null;
     // public string $wrapper = null;
 
-    /**
-     * Return the column sorted URL.
-     */
     public function href()
     {
         $direction = null;

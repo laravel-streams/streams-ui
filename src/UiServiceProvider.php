@@ -247,7 +247,7 @@ class UiServiceProvider extends ServiceProvider
             $configured = Arr::undot($configured);
 
             $attributes = array_merge($attributes, $configured);
-
+            
             $attributes['stream'] = $this;
             $attributes['handle'] = $handle;
             
