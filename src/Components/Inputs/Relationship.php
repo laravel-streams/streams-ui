@@ -14,10 +14,14 @@ class Relationship extends Input
     {
         $options = [];
 
-        $entries = Streams::entries($this->field->config['related'])->get();
+        $stream = Streams::make($this->field->config['related']);
+
+        $keyName = $stream->config('key_name', 'id');
+
+        $entries = $stream->entries()->get();
 
         foreach ($entries as $entry) {
-            $options[$entry->id] = $entry->title ?: ($entry->name ?: $entry->id);
+            $options[$entry->{$keyName}] = $entry->title ?: ($entry->name ?: $entry->{$keyName});
         }
 
         return $options;
