@@ -2,12 +2,9 @@
 
 namespace Streams\Ui\Components\Form;
 
-use Illuminate\Support\Arr;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Components\Button;
 use Streams\Ui\Support\Component;
-use Illuminate\Support\Facades\App;
-use Streams\Core\Field\FieldCollection;
 use Streams\Ui\Components\Table\Action\Action;
 use Streams\Ui\Components\Form\Action\Handler\Save;
 
@@ -46,6 +43,10 @@ class FormBuilder extends Builder
     public function makeFields(Component $component)
     {
         $component->fields = $component->stream->fields;
+
+        $component->fields()->each(function ($field) use ($component) {
+            $component->rules[$field->handle] = $field->rules();
+        });
     }
 
     public function makeActions(Component $component)

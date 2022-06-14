@@ -152,7 +152,7 @@ class Form extends Component
     public function validate(Factory $factory)
     {
         $values = $this->values()->all();
-
+        
         $rules = $this->rules()->map(function ($rules, $field) {
 
             array_walk($rules, function (&$rule) use ($field) {
@@ -160,7 +160,7 @@ class Form extends Component
                 if (Str::startsWith($rule, 'unique')) {
 
                     // @todo get prefixes are dumb
-                    $parameters = $this->stream->ruleParameters($field, 'unique');
+                    $parameters = $this->stream->fields->get($field)->ruleParameters('unique');
 
                     if (!$parameters) {
                         $parameters[] = $this->stream->handle;
@@ -192,7 +192,6 @@ class Form extends Component
             }
         }
 
-        // @todo test this
         if (!$this->validator && !$this->stream) {
             $this->validator = $factory->make($values, $rules);
         }
@@ -206,9 +205,9 @@ class Form extends Component
         }
 
         if ($this->errors->isNotEmpty()) {
-
+dd($this->errors->all());
             foreach ($this->errors->all() as $errors) {
-                Messages::error(implode("\n\r", $errors));
+                Messages::error(implode("\n\r", (array) $errors));
             }
 
             $this->response = Redirect::back()->with('messages', Messages::get());
