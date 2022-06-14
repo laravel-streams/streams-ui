@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Components\Form;
 
+use Illuminate\Support\Arr;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Components\Button;
 use Streams\Ui\Support\Component;
@@ -64,9 +65,9 @@ class FormBuilder extends Builder
             ]);
         }
 
-        $component->actions = $component->actions->map(function($action) {
+        $component->actions = $component->actions->map(function($action) use ($component) {
 
-            $action['form'] = $this;
+            $action['form'] = $component;
 
             return new Action($action);
         })->keyBy('handle');
@@ -80,9 +81,13 @@ class FormBuilder extends Builder
         //     ]);
         // }
 
-        $component->buttons = $component->buttons()->collect()->map(function($button) {
+        $component->buttons = $component->buttons()->collect()->map(function($button) use ($component) {
 
-            $action['form'] = $this;
+            $button['form'] = $component;
+
+            $button = Arr::parse($button, [
+                'entry' => $component->entry,
+            ]);
 
             return new Button($button);
         })->keyBy('handle');
