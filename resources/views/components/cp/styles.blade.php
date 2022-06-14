@@ -7,7 +7,7 @@
 {!! Assets::collection('styles')->tags() !!}
 
 @if (isset($theme))
-<style>{dd('Test')}
+<style>
     :root {
         @php
 

@@ -205,7 +205,7 @@ class Form extends Component
         }
 
         if ($this->errors->isNotEmpty()) {
-dd($this->errors->all());
+
             foreach ($this->errors->all() as $errors) {
                 Messages::error(implode("\n\r", (array) $errors));
             }
@@ -332,8 +332,7 @@ dd($this->errors->all());
 
     public function url(array $extra = [])
     {
-        $type = Str::singular($this->component);
-        $default = "ui/{$this->stream->handle}/{$type}/{$this->handle}";
+        $default = "ui/{$this->handle}";
 
         return URL::to(Arr::get($this->config, 'url', $default), $extra);
     }

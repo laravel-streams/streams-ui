@@ -1,3 +1,3 @@
 <input {!! $input->htmlAttributes([
-    'type' => $input->config('type') ?:'text',
+    'type' => $input->field->config('type') ?:'text',
 ]) !!}>

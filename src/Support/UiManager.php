@@ -44,7 +44,7 @@ class UiManager
             'textarea' => \Streams\Ui\Components\Inputs\Textarea::class,
             'markdown' => \Streams\Ui\Components\Inputs\Markdown::class,
             'relationship' => \Streams\Ui\Components\Inputs\Relationship::class,
-            
+
             'boolean' => \Streams\Ui\Components\Inputs\Toggle::class,
         ];
     }
@@ -54,6 +54,8 @@ class UiManager
         if (!$component = Arr::get($this->components, $name)) {
             throw new \Exception("Component [$name] does not exist.");
         }
+
+        $attributes['handle'] = $name;
 
         // @todo Callbacks
         return App::make($component, [

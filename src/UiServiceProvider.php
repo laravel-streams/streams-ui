@@ -123,9 +123,17 @@ class UiServiceProvider extends ServiceProvider
     {
         if (!$this->app->routesAreCached()) {
 
-            $component = 'ui/{stream}/{component}/{handle?}/{entry?}';
+            Route::streams('ui/{component}', [
+                'csrf' => false,
+                'uses'  => \Streams\Ui\Http\Controller\ComponentResponse::class,
+            ]);
 
-            Route::streams($component, [
+            Route::streams('/ui/{component}/{action?}', [
+                'verb' => 'get',
+                'uses' => \Streams\Ui\Http\Controller\ComponentAction::class,
+            ]);
+
+            Route::streams('ui/{stream}/{component}/{handle?}/{entry?}', [
                 'ui.cp' => false,
                 'csrf' => false,
                 'uses'  => \Streams\Ui\Http\Controller\UiController::class,
@@ -143,12 +151,6 @@ class UiServiceProvider extends ServiceProvider
                     $index  = '{section}';
                     $create = '{section}/create';
                     $edit   = '{section}/{entry}/edit';
-
-                    Route::streams('/ui/{component}/{action?}', [
-                        'verb' => 'get',
-                        'as'   => 'streams.ui.component',
-                        'uses' => \Streams\Ui\Http\Controller\ComponentAction::class,
-                    ]);
 
                     Route::streams('/', [
                         'verb' => 'get',

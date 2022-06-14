@@ -27,7 +27,7 @@ abstract class Component implements Arrayable, Jsonable
     public $stream;
 
     #[Field([
-        'type' => 'slug',
+        'type' => 'string',
     ])]
     public string $handle = '';
 

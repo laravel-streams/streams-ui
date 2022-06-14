@@ -7,6 +7,8 @@
 
 @include('ui::components.cp.styles')
 
-@yield('content')
+{{-- @yield('content') --}}
+{!! $content !!}
 
+@include('ui::components.cp.messages')
 @include('ui::components.cp.assets')
