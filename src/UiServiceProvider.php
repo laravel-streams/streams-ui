@@ -378,9 +378,9 @@ class UiServiceProvider extends ServiceProvider
             __DIR__ . '/../resources/fonts'  => public_path('vendor/streams/ui/fonts'),
         ], 'public');
 
-        $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/streams/ui'),
-        ], 'views');
+        // $this->publishes([
+        //     __DIR__ . '/../resources/views' => resource_path('views/vendor/streams/ui'),
+        // ], 'views');
 
         Assets::addPath('ui', 'vendor/streams/ui');
 
