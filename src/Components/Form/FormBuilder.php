@@ -124,5 +124,11 @@ class FormBuilder extends Builder
                 $field->input()->setPrototypeAttribute('value', $component->entry->{$field->handle});
             });
         }
+
+        if (!$component->entry) {
+            $component->fields->each(function ($field) use ($component) {
+                $field->input()->setPrototypeAttribute('value', $field->default($field->config('default')));
+            });
+        }
     }
 }
