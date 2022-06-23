@@ -110,12 +110,6 @@ class FormBuilder extends Builder
 
     public function makeButtons(Component $component)
     {
-        // if ($component->buttons()->collect()->isEmpty()) {
-        //     $component->buttons = $component->buttons()->collect()->add([
-        //         'handle' => 'cancel',
-        //     ]);
-        // }
-
         $component->buttons = $component->buttons()->collect()->map(function ($button) use ($component) {
 
             $button['form'] = $component;

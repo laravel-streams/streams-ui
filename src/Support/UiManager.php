@@ -28,10 +28,14 @@ class UiManager
             'dropdown' => \Streams\Ui\Components\Dropdown::class,
 
             'uuid' => \Streams\Ui\Components\Input::class,
+            'hash' => \Streams\Ui\Components\Input::class,
             'array' => \Streams\Ui\Components\Input::class,
             'email' => \Streams\Ui\Components\Input::class,
             'string' => \Streams\Ui\Components\Input::class,
             'object' => \Streams\Ui\Components\Input::class,
+
+            'time' => \Streams\Ui\Components\Input::class,
+            'datetime' => \Streams\Ui\Components\Input::class,
 
             'date' => \Streams\Ui\Components\Inputs\Date::class,
             'slug' => \Streams\Ui\Components\Inputs\Slug::class,

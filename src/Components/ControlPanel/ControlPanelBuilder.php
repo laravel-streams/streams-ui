@@ -2,11 +2,13 @@
 
 namespace Streams\Ui\Components\ControlPanel;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Components\Button;
 use Streams\Ui\Components\ControlPanel;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\URL;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\Components\ControlPanel\Navigation\Section;
 
@@ -43,11 +45,11 @@ class ControlPanelBuilder extends Builder
             $component->navigation = $component->navigation()->put($section->handle, $section);
         });
 
-        $component->navigation = $component->navigation->sortBy(function($section) {
+        $component->navigation = $component->navigation->sortBy(function ($section) {
             return (int) $section->sort_order ?: 0;
         });
     }
-    
+
     public function detectNavigation(ControlPanel $component)
     {
         $match = null;
@@ -84,14 +86,30 @@ class ControlPanelBuilder extends Builder
 
         $match->active = true;
 
+        // @todo Expiremental
+        $data = app('streams.parser_data');
+
+        app()->singleton('streams.parser_data', function () use ($match, $data) {
+            
+            Arr::set($data, 'cp.section', $match->toArray());
+
+            return $data;
+        });
+        // @todo EOF Expiremental
+
         $component->stream = isset($component->stream) ? $component->stream : $match->stream;
-        $component->entry = isset($component->entry) ? $component->entry: $match->entry;
+        $component->entry = isset($component->entry) ? $component->entry : $match->entry;
 
         if ($match->buttons) {
             $component->buttons = $match->buttons;
         }
 
-        $component->buttons = $component->buttons()->map(function($button) {
+        $component->buttons = $component->buttons()->map(function ($button) {
+
+            if (!isset($button['attributes']['href'])) {
+                $button['attributes']['href'] = URL::current() . '/' . $button['handle'];
+            }
+
             return new Button($button);
         });
     }
