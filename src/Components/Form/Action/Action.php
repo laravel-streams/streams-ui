@@ -6,14 +6,13 @@ use Streams\Ui\Components\Button;
 
 class Action extends Button
 {
-    public string $component = 'action';
-    
     public string $tag = 'button';
     
     public ?string $url = null;
     public ?string $text = null;
-    public ?string $entry = null;
+    //public ?string $entry = null;
     public ?string $policy = null;
+    public ?string $handler = null;
     
     public bool $enabled = true;
     public bool $disabled = false;
@@ -26,10 +25,10 @@ class Action extends Button
 
     public function attributes(array $attributes = [])
     {
-        return array_merge(parent::attributes(), [
+        return parent::attributes(array_filter(array_merge([
             'value' => $this->handle,
             'type'  => $this->type,
             'name'  => 'action',
-        ], $attributes);
+        ], $attributes)));
     }
 }

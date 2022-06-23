@@ -42,14 +42,14 @@ class UiManager
             'color' => \Streams\Ui\Components\Inputs\Color::class,
             'number' => \Streams\Ui\Components\Inputs\Number::class,
             'select' => \Streams\Ui\Components\Inputs\Select::class,
-            'toggle' => \Streams\Ui\Components\Inputs\Toggle::class,
             'decimal' => \Streams\Ui\Components\Inputs\Decimal::class,
             'integer' => \Streams\Ui\Components\Inputs\Integer::class,
             'textarea' => \Streams\Ui\Components\Inputs\Textarea::class,
             'markdown' => \Streams\Ui\Components\Inputs\Markdown::class,
+            'checkboxes' => \Streams\Ui\Components\Inputs\Checkboxes::class,
             'relationship' => \Streams\Ui\Components\Inputs\Relationship::class,
 
-            'boolean' => \Streams\Ui\Components\Inputs\Toggle::class,
+            'boolean' => \Streams\Ui\Components\Inputs\Checkbox::class,
         ];
     }
 

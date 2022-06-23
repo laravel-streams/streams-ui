@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\App;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Components\Button;
 use Streams\Ui\Support\Component;
-use Streams\Ui\Components\Table\Action\Action;
+use Streams\Ui\Components\Form\Action\Action;
 use Streams\Ui\Components\Form\Action\Handler\Save;
 
 class FormBuilder extends Builder
@@ -87,25 +87,20 @@ class FormBuilder extends Builder
 
     public function makeActions(Component $component)
     {
-        if ($component->actions()->collect()->isEmpty() && $component->stream->config('source')) {
-            $component->actions = $component->actions()->collect()->add([
-                'handle' => 'save',
-                'handler' => Save::class
-            ]);
+        if ($component->actions()->collect()->isEmpty()) {
+            $component->actions[] = [
+                'handle' => 'submit',
+                //'handler' => $component->stream->config('source') ? Save::class : null,
+                'handler' => Save::class,
+            ];
         }
 
-        if ($component->actions()->collect()->isEmpty() && !$component->stream->config('source')) {
-            $component->actions = $component->actions()->collect()->add([
-                'handle' => 'submit'
-            ]);
-        }
-
-        $component->actions = $component->actions->map(function ($action) use ($component) {
+        $component->actions = collect(array_map(function ($action) use ($component) {
 
             $action['form'] = $component;
 
             return new Action($action);
-        })->keyBy('handle');
+        }, $component->actions))->keyBy('handle');
     }
 
     public function makeButtons(Component $component)

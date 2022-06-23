@@ -147,6 +147,13 @@ class Form extends Component
                 $field->input()->post()->value
             );
         }
+
+        foreach ($this->stream->fields as $field) {
+            $this->values = $this->values()->put(
+                $field->handle,
+                $field->input()->post()->value
+            );
+        }
     }
 
     public function validate(Factory $factory)
@@ -220,7 +227,7 @@ class Form extends Component
             return;
         }
 
-        if ($action = $this->actions()->get($this->request('action'))) {
+        if ($action = $this->actions()->collect()->keyBy('handle')->get($this->request('action'))) {
             $action->active = true;
         }
     }
@@ -236,7 +243,7 @@ class Form extends Component
         if (!$handler && $active = $this->actions()->active()) {
             $handler = $active->handler;
         }        
-        
+
         if (is_string($handler) && !Str::contains($handler, '@')) {
             $handler .= '@handle';
         }
@@ -333,6 +340,10 @@ class Form extends Component
     public function url(array $extra = [])
     {
         $default = "ui/{$this->handle}";
+
+        if ($this->stream) {
+            $default = "ui/{$this->stream->handle}/{$this->component}/{$this->handle}";
+        }
 
         return URL::to(Arr::get($this->config, 'url', $default), $extra);
     }

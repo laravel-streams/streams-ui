@@ -151,9 +151,10 @@ class UiController extends EntryController
 
         if ($stream && $component = Arr::get($action, 'ui.component', request('component'))) {
 
-            $component = $stream->ui($component, Arr::get($action, 'ui.handle', request('handle', 'default')), [
+            $component = $stream->ui($component, Arr::get($action, 'ui.handle', $handle = request('handle', 'default')), [
                 'stream' => $stream,
                 'entry' => $data->get('entry'),
+                'handle' => $handle,
             ]);
 
             $data->put('response', $component->response());

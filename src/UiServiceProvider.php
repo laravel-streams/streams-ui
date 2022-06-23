@@ -18,10 +18,8 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Config;
 use Streams\Ui\Http\Middleware\LoadUi;
 use Illuminate\Support\ServiceProvider;
-use Streams\Core\Field\Types\EmailFieldType;
 use Streams\Core\Support\Facades\Assets;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Components\Input;
 
 class UiServiceProvider extends ServiceProvider
 {
