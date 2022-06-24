@@ -23,7 +23,7 @@ class TableBuilder extends Builder
     public array $steps = [
         'cast_stream' => self::class . '@castStream',
         'load_attributes' => self::class . '@loadAttributes',
-        
+
         'make_views' => self::class . '@makeViews',
         'detect_view' => self::class . '@detectView',
         'apply_view' => self::class . '@applyView',
@@ -65,12 +65,12 @@ class TableBuilder extends Builder
         if (!$component->stream) {
             return;
         }
-        
+
         /**
          * Start Query
          */
         $component->criteria = $component->stream->repository()->newCriteria();
-        
+
         // @todo move this somewhere nice
         if ($view = $component->views()->active()) {
             foreach ((array) $view->query as $step) {
@@ -115,8 +115,8 @@ class TableBuilder extends Builder
             $component->criteria->orderBy($name, $component->request('sort', 'asc'));
         }
 
-        foreach ($component->config()->get('order_by', []) as $name => $sort) {
-            $component->criteria->orderBy($name, $sort);
+        foreach ($component->config()->get('order_by', []) as $order) {
+            $component->criteria->orderBy(...$order);
         }
 
         /**
@@ -198,7 +198,7 @@ class TableBuilder extends Builder
         $rows = $component->entries()->collect()->map(function ($entry) use ($component) {
 
             $keyName = $component->stream->config('key_name', 'id');
-            
+
             return new Row([
                 'handle' => $entry->{$keyName},
                 'key' => $entry->{$keyName},
@@ -215,7 +215,7 @@ class TableBuilder extends Builder
         });
 
         $rows->each(function ($row) use ($component) {
-            
+
             $row->columns = $row->columns->map(function ($column) use ($row) {
 
                 $column['value'] = Value::make(Arr::get($column, 'value', ''), $row->entry);
