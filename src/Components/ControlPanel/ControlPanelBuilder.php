@@ -6,9 +6,9 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Components\Button;
-use Streams\Ui\Components\ControlPanel;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Request;
+use Streams\Ui\Components\ControlPanel;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\Components\ControlPanel\Navigation\Section;
 
@@ -90,8 +90,8 @@ class ControlPanelBuilder extends Builder
         $data = app('streams.parser_data');
 
         app()->singleton('streams.parser_data', function () use ($match, $data) {
-            
-            Arr::set($data, 'cp.section', $match->toArray());
+
+            Arr::set($data, 'cp.section', $match->url());
 
             return $data;
         });
@@ -107,7 +107,7 @@ class ControlPanelBuilder extends Builder
         $component->buttons = $component->buttons()->map(function ($button) {
 
             if (!isset($button['attributes']['href'])) {
-                $button['attributes']['href'] = URL::current() . '/' . $button['handle'];
+                $button['attributes']['href'] = '{cp.section}/' . $button['handle'];
             }
 
             return new Button($button);
