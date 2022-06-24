@@ -53,6 +53,11 @@ class UiManager
         ];
     }
 
+    public function exists(string $name): bool
+    {
+        return App::has($name);
+    }
+
     public function make(string $name, array $attributes = []): Component
     {
         if (!$component = Arr::get($this->components, $name)) {

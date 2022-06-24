@@ -342,7 +342,7 @@ class Form extends Component
         $default = "ui/{$this->handle}";
 
         if ($this->stream) {
-            $default = "ui/{$this->stream->handle}/{$this->component}/{$this->handle}";
+            $default = "ui/{$this->stream->handle}.{$this->component}.{$this->handle}";
         }
 
         return URL::to(Arr::get($this->config, 'url', $default), $extra);

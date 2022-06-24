@@ -131,11 +131,11 @@ class UiServiceProvider extends ServiceProvider
                 'uses' => \Streams\Ui\Http\Controller\ComponentAction::class,
             ]);
 
-            Route::streams('ui/{stream}/{component}/{handle?}/{entry?}', [
-                'ui.cp' => false,
-                'csrf' => false,
-                'uses'  => \Streams\Ui\Http\Controller\UiController::class,
-            ]);
+            // Route::streams('ui/{stream}/{component}/{handle?}/{entry?}', [
+            //     'ui.cp' => false,
+            //     'csrf' => false,
+            //     'uses'  => \Streams\Ui\Http\Controller\UiController::class,
+            // ]);
 
             Route::prefix(Config::get('streams.ui.cp_prefix'))
                 ->middleware(Config::get('streams.ui.cp_middleware'))
