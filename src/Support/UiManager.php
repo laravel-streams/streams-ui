@@ -60,7 +60,7 @@ class UiManager
 
     public function make(string $name, array $attributes = []): Component
     {
-        if (class_exists($name)) {
+        if (!isset($this->components[$name]) && class_exists($name)) {
             return App::make($name, [
                 'attributes' => $attributes,
             ]);

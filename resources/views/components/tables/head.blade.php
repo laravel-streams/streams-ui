@@ -17,12 +17,12 @@
             @if ($column->isSortable())
             <a href="{{ $column->href() }}">
                 {!! __($column->heading()) !!}
-                @if ($column->direction() == 'asc')
-                @svg('heroicon-o-sort-ascending')
-                @elseif ($column->direction() == 'desc')
-                @svg('heroicon-o-sort-descending')
+                @if ($column->direction == 'asc')
+                &#8595;
+                @elseif ($column->direction == 'desc')
+                &#8593;
                 @else
-                @svg('heroicon-o-switch-vertical')
+                &#8597;
                 @endif
             </a>
             @else

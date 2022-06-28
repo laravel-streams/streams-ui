@@ -17,13 +17,9 @@ class Column extends Component
 
     public function href()
     {
-        $direction = null;
+        $direction = 'asc';
 
-        $current = $this->direction();
-
-        if (!$current) {
-            $direction = 'asc';
-        }
+        $current = $this->direction;
 
         if ($current == 'asc') {
             $direction = 'desc';
@@ -43,16 +39,6 @@ class Column extends Component
         }
 
         return URL::current() . '?' . http_build_query($query);
-    }
-
-    public function current()
-    {
-        return $this->direction ?: Request::get($this->prefix . 'sort');
-    }
-
-    public function direction()
-    {
-        return $this->direction ?: Request::get($this->prefix . 'sort');
     }
 
     public function isSortable()

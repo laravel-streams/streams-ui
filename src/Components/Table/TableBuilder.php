@@ -181,6 +181,10 @@ class TableBuilder extends Builder
 
             $column['attributes'] = Arr::get($column, 'attributes', []);
 
+            if (Request::get($component->prefix('order_by')) == $column['handle']) {
+                $column['direction'] = Request::get($component->prefix('sort'), 'asc');
+            }
+
             if (!isset($column['attributes']['href'])) {
                 $column['attributes']['href'] = URL::current() . '/{entry.id}/' . $column['handle'];
             }
