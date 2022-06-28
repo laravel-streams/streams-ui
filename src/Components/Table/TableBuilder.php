@@ -71,6 +71,11 @@ class TableBuilder extends Builder
          */
         $component->criteria = $component->stream->repository()->newCriteria();
 
+        // @todo needs work
+        $component->fire('querying', [
+            'component' => $component,
+        ]);
+
         // @todo move this somewhere nice
         if ($view = $component->views()->active()) {
             foreach ((array) $view->query as $step) {

@@ -250,6 +250,11 @@ class UiServiceProvider extends ServiceProvider
             
             $attributes['stream'] = $this;
             $attributes['handle'] = $handle;
+
+            // @todo this needs work...
+            if ($override = Arr::get($attributes, $component)) {
+                $component = $override;
+            }
             
             return UI::make($component, $attributes);
         });

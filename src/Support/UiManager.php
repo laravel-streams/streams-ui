@@ -60,6 +60,12 @@ class UiManager
 
     public function make(string $name, array $attributes = []): Component
     {
+        if (class_exists($name)) {
+            return App::make($name, [
+                'attributes' => $attributes,
+            ]);
+        }
+        
         if (!$component = Arr::get($this->components, $name)) {
             throw new \Exception("Component [$name] does not exist.");
         }
