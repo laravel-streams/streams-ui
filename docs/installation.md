@@ -10,7 +10,7 @@ enabled: true
 This package is added to existing Laravel projects as a dependency by requiring it with Composer.
 
 ```bash
-composer require streams/ui
+composer require streams/ui:1.0.x-dev
 ```
 
 Streams UI comes pre-configured with the [Streams starter application](/docs/installation).
