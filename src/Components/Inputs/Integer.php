@@ -7,7 +7,7 @@ use Illuminate\Support\Arr;
 class Integer extends Number
 {
     public string $template = 'ui::components.inputs.integer';
-    
+
     public $config = [
         'step' => 1,
     ];
@@ -15,9 +15,9 @@ class Integer extends Number
     public function attributes(array $attributes = [])
     {
         return parent::attributes(array_merge([
-            'step' => (int) (Arr::get($this->field->config, 'step', 1) ?: 1),
-            'min' => Arr::get($this->field->ruleParameters('min'), 0),
-            'max' => Arr::get($this->field->ruleParameters('max'), 0),
+            'step' => $this->field?->config('step', 1),
+            'min' => $this->field?->ruleParameter('min'),
+            'max' => $this->field?->ruleParameter('max'),
         ], $attributes));
     }
 }

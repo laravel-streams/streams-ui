@@ -14,7 +14,7 @@ class Value
         mixed $entry = null,
         string $term = 'entry'
     ): string {
-
+        
         /*
          * If a flat value was sent in
          * then convert it to an array.
@@ -34,7 +34,7 @@ class Value
 
         /*
          * If the value uses a template then parse it.
-         */
+         */ 
         if ($template = Arr::get($parameters, 'template')) {
             return View::parse($template, ['value' => $value, $term => $entry])->render();
         }

@@ -58,6 +58,8 @@ class Input extends Component
             'placeholder' => $this->placeholder,
             'readonly' => $this->field?->readonly,
             'disabled' => $this->field?->disabled,
+            'min' => $this->field?->ruleParameter('min'),
+            'max' => $this->field?->ruleParameter('max'),
             'required' => $this->field?->hasRule('required'),
             'pattern' => trim($this->field?->pattern ?: Arr::get($this->field?->ruleParameters('regex'), 0), "//"),
             'value' => $this->value,

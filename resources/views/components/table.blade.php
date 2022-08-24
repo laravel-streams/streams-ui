@@ -10,7 +10,7 @@
     ]) !!}
 
         <div class="c-table__content">
-            <table {!! $table->htmlAttributes() !!}>
+            <table {!! $table->htmlAttributes() !!} x-data="{}">
 
                 @include('ui::components.tables.head')
                 @include('ui::components.tables.body')

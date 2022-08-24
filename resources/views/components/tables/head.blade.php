@@ -5,7 +5,7 @@
         <!-- ID Spacer -->
         <th class="hidden"></th>
         
-        @if ($table->selectable)
+        @if ($table->actions->isNotEmpty())
         <th class="c-table__selector">
         <input type="checkbox" x-on:click="alert('Toggle all');">
         </th>

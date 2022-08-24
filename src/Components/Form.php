@@ -186,7 +186,7 @@ class Form extends Component
                 }
             });
 
-            return implode('|', array_unique($rules));
+            return array_unique($rules);
         })->all();
 
         if (!$this->validator && $this->stream) {
