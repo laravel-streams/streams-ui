@@ -8,7 +8,7 @@
             <div class="flex items-center justify-between">
 
                 @if ($table->actions->isNotEmpty())
-                <div class="c-table__actions ml-4 flex-grow">
+                <div class="c-table__actions flex-grow">
                     {!! $table->actions->map->render()->implode('') !!}
                 </div>
                 @endif
