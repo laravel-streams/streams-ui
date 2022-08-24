@@ -70,7 +70,7 @@ class TableBuilder extends Builder
          * Start Query
          */
         $component->criteria = $component->stream->repository()->newCriteria();
-
+        //dd($component->stream->id);
         // @todo needs work
         $component->fire('querying', [
             'component' => $component,

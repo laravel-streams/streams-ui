@@ -30,7 +30,7 @@ UI Components are the foundation of the Streams UI system. They encapsulate the 
 
 Below is a complete list of all first-party UI components:
 
-@foreach (Streams::entries('docs-ui')->where('category', 'components')->orderBy('sort', 'ASC')->orderBy('name', 'ASC')->get() as $entry)
+@foreach (Streams::entries('docs_ui')->where('category', 'components')->orderBy('sort', 'ASC')->orderBy('name', 'ASC')->get() as $entry)
  - <a href="{{ $entry->id }}">{{ $entry->title }} ({{ $entry->decorate('stage') }})</a>
 @endforeach
 
