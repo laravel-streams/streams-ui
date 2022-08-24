@@ -3,11 +3,11 @@
 namespace Streams\Ui\Components\Table;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
 use Streams\Ui\Support\Value;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Components\Button;
 use Streams\Ui\Support\Component;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Request;
@@ -78,6 +78,7 @@ class TableBuilder extends Builder
 
         // @todo move this somewhere nice
         if ($view = $component->views()->active()) {
+
             foreach ((array) $view->query as $step) {
 
                 if (is_string($step)) {
