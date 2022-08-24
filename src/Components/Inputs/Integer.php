@@ -2,8 +2,6 @@
 
 namespace Streams\Ui\Components\Inputs;
 
-use Illuminate\Support\Arr;
-
 class Integer extends Number
 {
     public string $template = 'ui::components.inputs.integer';
@@ -16,8 +14,6 @@ class Integer extends Number
     {
         return parent::attributes(array_merge([
             'step' => $this->field?->config('step', 1),
-            'min' => $this->field?->ruleParameter('min'),
-            'max' => $this->field?->ruleParameter('max'),
         ], $attributes));
     }
 }

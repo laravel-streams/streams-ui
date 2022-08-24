@@ -56,7 +56,7 @@ class UiController extends EntryController
         $this->resolveView($data);
         $this->resolveRedirect($data);
         $this->resolveResponse($data);
-
+        
         return $data->get('response') ?: abort(404);
     }
 
@@ -89,7 +89,7 @@ class UiController extends EntryController
         if (!$section = $route->parameter('section')) {
             return;
         }
-
+        
         if (!isset($action['stream']) && Streams::exists($section)) {
 
             $action['stream'] = $section;
@@ -100,8 +100,12 @@ class UiController extends EntryController
         if (!$section = Streams::repository('cp.navigation')->find($section)) {
             return;
         }
+        
+        $action = array_merge((array) $section->route, $action);
 
-        $action = Arr::undot((array) $section->route + $action);
+        if (!isset($action['stream']) && $section->stream) {
+            $action['stream'] = $section->stream;
+        }
 
         $data->put('action', $action);
     }
