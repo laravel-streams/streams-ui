@@ -39,7 +39,7 @@ class Input extends Component
 
     public function name()
     {
-        return $this->name ?: ($this->prefix . $this->field->handle);
+        return $this->name ?: ($this->prefix . $this->field?->handle);
     }
 
     public function setValueAttribute($value)
