@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Streams\Ui\Components\ControlPanel;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
+use NunoMaduro\Collision\Adapters\Phpunit\ConfigureIO;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Core\Http\Controller\EntryController;
 
@@ -52,11 +53,11 @@ class UiController extends EntryController
 
         $this->resolveStream($data);
         $this->resolveEntry($data);
-        
+
         $this->resolveView($data);
         $this->resolveRedirect($data);
         $this->resolveResponse($data);
-        
+
         return $data->get('response') ?: abort(404);
     }
 
@@ -68,7 +69,7 @@ class UiController extends EntryController
         if (!$section = $route->parameter('section')) {
             return;
         }
-        
+
         if (!isset($action['stream']) && Streams::exists($section)) {
 
             $action['stream'] = $section;
@@ -79,6 +80,8 @@ class UiController extends EntryController
         if (!$section = Streams::repository('cp.navigation')->find($section)) {
             return;
         }
+
+        $data->put('section', $section);
 
         $action = array_merge((array) $section->route, $action);
 
@@ -130,8 +133,13 @@ class UiController extends EntryController
 
         $component = Arr::get($action, 'ui.component', request('component'));
 
-        if ($component && $configuration = Arr::get($action, 'ui.' . $component)) {
-            $data->put('response', UI::make($component, $configuration)->response());
+        if ($configured = $data->get('section')->ui()->get($component)) {
+            
+            $data->put('response', UI::make($component, array_filter(array_merge([
+                'stream' => $data->get('stream')?->handle,
+            ], $configured,)))->response());
+
+            return;
         }
 
         if (!$stream = $data->get('stream')) {
