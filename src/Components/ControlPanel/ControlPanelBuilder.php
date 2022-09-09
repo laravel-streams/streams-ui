@@ -6,7 +6,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Streams\Ui\Support\Builder;
 use Streams\Ui\Components\Button;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Request;
 use Streams\Ui\Components\ControlPanel;
 use Streams\Core\Support\Facades\Streams;

@@ -60,27 +60,6 @@ class UiController extends EntryController
         return $data->get('response') ?: abort(404);
     }
 
-    protected function resolveStream(Collection $data): void
-    {
-        $parameters = Request::route()->parameters;
-
-        if (isset($parameters['stream']) && Streams::exists($parameters['stream'])) {
-
-            $data->put('stream', Streams::make($parameters['stream']));
-
-            return;
-        }
-
-        if (isset($parameters['stream']) && !Streams::exists($parameters['stream'])) {
-
-            $data->put('stream', Streams::build([]));
-
-            return;
-        }
-
-        parent::resolveStream($data);
-    }
-
     public function resolveSection(Collection $data)
     {
         $action = $data->get('action');
@@ -100,7 +79,7 @@ class UiController extends EntryController
         if (!$section = Streams::repository('cp.navigation')->find($section)) {
             return;
         }
-        
+
         $action = array_merge((array) $section->route, $action);
 
         if (!isset($action['stream']) && $section->stream) {
@@ -149,11 +128,17 @@ class UiController extends EntryController
             parent::resolveResponse($data);
         }
 
+        $component = Arr::get($action, 'ui.component', request('component'));
+
+        if ($component && $configuration = Arr::get($action, 'ui.' . $component)) {
+            $data->put('response', UI::make($component, $configuration)->response());
+        }
+
         if (!$stream = $data->get('stream')) {
             parent::resolveResponse($data);
         }
 
-        if ($stream && $component = Arr::get($action, 'ui.component', request('component'))) {
+        if ($stream && $component) {
 
             $component = $stream->ui($component, Arr::get($action, 'ui.handle', $handle = request('handle', 'default')), [
                 'stream' => $stream,
