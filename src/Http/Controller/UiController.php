@@ -10,7 +10,6 @@ use Illuminate\Http\RedirectResponse;
 use Streams\Ui\Components\ControlPanel;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
-use NunoMaduro\Collision\Adapters\Phpunit\ConfigureIO;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Core\Http\Controller\EntryController;
 
@@ -133,20 +132,18 @@ class UiController extends EntryController
 
         $component = Arr::get($action, 'ui.component', request('component'));
 
-        if ($configured = $data->get('section')->ui()?->get($component)) {
+        if ($configured = $data->get('section')?->ui()->get($component)) {
             
             $data->put('response', UI::make($component, array_filter(array_merge([
                 'stream' => $data->get('stream')?->handle,
             ], $configured,)))->response());
-
-            return;
         }
 
         if (!$stream = $data->get('stream')) {
             parent::resolveResponse($data);
         }
 
-        if ($stream && $component) {
+        if ($stream && $component && !$configured) {
 
             $component = $stream->ui($component, Arr::get($action, 'ui.handle', $handle = request('handle', 'default')), [
                 'stream' => $stream,
@@ -163,7 +160,7 @@ class UiController extends EntryController
 
             $data->put('response', $generic->response());
         }
-
+        
         parent::resolveResponse($data);
     }
 }

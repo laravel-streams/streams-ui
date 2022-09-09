@@ -4,6 +4,7 @@ namespace Streams\Ui\Components\ControlPanel\Navigation;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Streams\Core\Field\Field;
 use Collective\Html\HtmlFacade;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\URL;
@@ -16,6 +17,11 @@ class Section extends Component
     public ?string $policy = null;
 
     public bool $active = false;
+    
+    #[Field([
+        'type' => 'array',
+    ])]
+    public $ui = [];
 
     public $buttons = [];
 
