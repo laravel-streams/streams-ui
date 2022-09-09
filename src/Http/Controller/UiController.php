@@ -133,7 +133,7 @@ class UiController extends EntryController
 
         $component = Arr::get($action, 'ui.component', request('component'));
 
-        if ($configured = $data->get('section')->ui()->get($component)) {
+        if ($configured = $data->get('section')->ui()?->get($component)) {
             
             $data->put('response', UI::make($component, array_filter(array_merge([
                 'stream' => $data->get('stream')?->handle,
