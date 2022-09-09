@@ -4,7 +4,7 @@
 <title>{{ config('app.name') }}</title>
 <meta name="robots" content="noindex, follow" />
 <meta name="description" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <meta name="cf-2fa-verify" content="5491995f81e49ae">
 
