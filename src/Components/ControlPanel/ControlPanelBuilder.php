@@ -90,10 +90,9 @@ class ControlPanelBuilder extends Builder
 
         app()->singleton('streams.parser_data', function () use ($match, $data) {
 
-            Arr::set($data, 'cp.section', array_merge(
-                $match->toArray(),
-                ['url' => $match->url()]
-            ));
+            Arr::set($data, 'cp.section.url', $match->url());
+            Arr::set($data, 'cp.section.title', $match->title());
+            Arr::set($data, 'cp.section.handle', $match->handle);
 
             return $data;
         });
