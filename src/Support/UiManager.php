@@ -27,6 +27,7 @@ class UiManager
             'cp' => \Streams\Ui\Components\ControlPanel::class,
             'dropdown' => \Streams\Ui\Components\Dropdown::class,
 
+            'url' => \Streams\Ui\Components\Input::class,
             'uuid' => \Streams\Ui\Components\Input::class,
             'hash' => \Streams\Ui\Components\Input::class,
             'array' => \Streams\Ui\Components\Input::class,

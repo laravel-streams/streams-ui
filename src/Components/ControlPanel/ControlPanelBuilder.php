@@ -90,7 +90,10 @@ class ControlPanelBuilder extends Builder
 
         app()->singleton('streams.parser_data', function () use ($match, $data) {
 
-            Arr::set($data, 'cp.section', $match->url());
+            Arr::set($data, 'cp.section', array_merge(
+                $match->toArray(),
+                ['url' => $match->url()]
+            ));
 
             return $data;
         });
@@ -106,7 +109,7 @@ class ControlPanelBuilder extends Builder
         $component->buttons = $component->buttons()->map(function ($button) {
 
             if (!isset($button['attributes']['href'])) {
-                $button['attributes']['href'] = '{cp.section}/' . $button['handle'];
+                $button['attributes']['href'] = '{cp.section.url}/' . $button['handle'];
             }
 
             return new Button($button);
