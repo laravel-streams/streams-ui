@@ -28,8 +28,9 @@ class UiManager
             'dropdown' => \Streams\Ui\Components\Dropdown::class,
 
             'url' => \Streams\Ui\Components\Input::class,
-            'uuid' => \Streams\Ui\Components\Input::class,
+            'file' => \Streams\Ui\Components\Input::class,
             'hash' => \Streams\Ui\Components\Input::class,
+            'uuid' => \Streams\Ui\Components\Input::class,
             'array' => \Streams\Ui\Components\Input::class,
             'email' => \Streams\Ui\Components\Input::class,
             'string' => \Streams\Ui\Components\Input::class,
