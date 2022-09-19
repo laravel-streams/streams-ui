@@ -30,6 +30,15 @@
         "primary": "#30ad51",
         "secondary": "#1f1f1f"
     },
+    "blue": {
+        "id": "blue",
+        "spacing": 1,
+        "radius": 1,
+        "dark": "#000000",
+        "light": "#f5f5f5",
+        "primary": "#2C4E82",
+        "secondary": "#1f1f1f"
+    },
     "orange": {
         "id": "orange",
         "spacing": 1,
