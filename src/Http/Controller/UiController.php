@@ -140,7 +140,10 @@ class UiController extends EntryController
         }
 
         if (!$stream = $data->get('stream')) {
+            
             parent::resolveResponse($data);
+
+            return;
         }
 
         if ($stream && $component && !$configured) {
