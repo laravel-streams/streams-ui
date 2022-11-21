@@ -145,7 +145,7 @@ class UiController extends EntryController
 
             return;
         }
-
+        
         if ($stream && $component && !$configured) {
 
             $component = $stream->ui($component, Arr::get($action, 'ui.handle', $handle = request('handle', 'default')), [
@@ -163,7 +163,7 @@ class UiController extends EntryController
 
             $data->put('response', $generic->response());
         }
-        
+      
         parent::resolveResponse($data);
     }
 }

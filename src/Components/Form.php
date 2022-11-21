@@ -217,7 +217,7 @@ class Form extends Component
                 Messages::error(implode("\n\r", (array) $errors));
             }
 
-            $this->response = Redirect::back()->with('messages', Messages::get());
+            $this->response = Redirect::back();
         }
     }
 
