@@ -2,7 +2,6 @@
 
 namespace Streams\Ui\Components;
 
-use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Streams\Ui\Support\Component;
@@ -25,6 +24,8 @@ class Button extends Component
     public bool $disabled = false;
     
     public string $type = 'default';
+
+    public array $dropdown = [];
 
     public $classes = [
         'a-button',
