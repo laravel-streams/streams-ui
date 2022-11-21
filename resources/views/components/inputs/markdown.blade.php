@@ -1,15 +1,17 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+<script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
  
 <div x-data="{
     init() {
-        let editor = new SimpleMDE({ element: this.$refs.editor })
+        let target = this.$refs.editor;
+
+        let editor = new EasyMDE({ element: target })
  
-        editor.value(this.value)
+        editor.value(target.value);
  
         editor.codemirror.on('change', () => {
-            this.value = editor.value()
-        })
+            target.value = editor.value();
+        });
     },
 }" class="prose">
 
