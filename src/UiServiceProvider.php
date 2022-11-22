@@ -123,11 +123,13 @@ class UiServiceProvider extends ServiceProvider
 
             Route::streams('ui/{component}', [
                 'csrf' => false,
+                'middleware' => 'web',
                 'uses'  => \Streams\Ui\Http\Controller\ComponentResponse::class,
             ]);
 
             Route::streams('/ui/{component}/{action}', [
                 'verb' => 'get',
+                'middleware' => 'web',
                 'uses' => \Streams\Ui\Http\Controller\ComponentAction::class,
             ]);
 
