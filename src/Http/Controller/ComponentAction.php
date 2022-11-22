@@ -11,7 +11,6 @@ class ComponentAction extends Controller
 {
     public function __invoke($component, $action = null)
     {
-        dd($component);
         $component = UI::make($component, json_decode(Request::get('data'), true) ?: []);
 
         if ($action) {

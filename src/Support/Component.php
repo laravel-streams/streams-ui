@@ -86,7 +86,10 @@ abstract class Component implements Arrayable, Jsonable
         }
 
         if (Request::method() == 'POST') {
-            return $this->post();
+            
+            $this->post();
+
+            return $this->response;
         }
 
         if (View::shared('cp')) {

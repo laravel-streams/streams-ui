@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Redirect;
 use Streams\Ui\Components\Table\TableBuilder;
 use Streams\Ui\Components\Table\View\ViewCollection;
 use Streams\Ui\Components\Table\Action\ActionCollection;
@@ -97,7 +98,7 @@ class Table extends Component
             return;
         }
 
-        if ($action = $this->actions()->get($this->request('action'))) {
+        if ($action = $this->actions->keyBy('handle')->get($this->request('action'))) {
             $action->active = true;
         }
     }
@@ -110,17 +111,15 @@ class Table extends Component
 
         $selected = (array) $this->request('selected');
 
-        $handler = $this->post;
-
-        if (!$handler && !$active->handler) {
-            return;
-        }
-
-        App::call($handler ?: $active->handler, [
+        App::call($active->handler, [
             'table' => $this,
             'action' => $active,
             'selected' => $selected,
         ]);
+
+        if (!$this->response) {
+            $this->response = Redirect::back();
+        }
     }
 
     public function clearUrl()

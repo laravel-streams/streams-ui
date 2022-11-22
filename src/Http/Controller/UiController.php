@@ -147,7 +147,7 @@ class UiController extends EntryController
         }
         
         if ($stream && $component && !$configured) {
-
+            
             $component = $stream->ui($component, Arr::get($action, 'ui.handle', $handle = request('handle', 'default')), [
                 'stream' => $stream,
                 'entry' => $data->get('entry'),
