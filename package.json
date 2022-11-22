@@ -37,6 +37,7 @@
     "devDependencies": {
         "@laravel-streams/mix-extension": "^1.0.0",
         "laravel-mix": "^6.0.9",
+        "tailwindcss": "^3.1.8",
         "postcss": "^8.1",
         "sass": "^1.27.0",
         "sass-loader": "^8.0.0"

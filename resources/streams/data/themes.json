@@ -1,6 +1,7 @@
 {
     "default": {
         "id": "default",
+        "font_size": 2,
         "spacing": 1,
         "radius": 1,
         "dark": "#000000",

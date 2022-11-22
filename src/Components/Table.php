@@ -93,18 +93,20 @@ class Table extends Component
 
     protected function detect(): void
     {
-        if ($this->actions->active()) {
+        if ($this->actions()->active()) {
             return;
         }
 
-        if ($action = $this->actions->get($this->request('action'))) {
+        if ($action = $this->actions()->get($this->request('action'))) {
             $action->active = true;
         }
     }
 
     protected function handle(): void
     {
-        $active = $this->actions->active();
+        if (!$active = $this->actions()->active()) {
+            return;
+        }
 
         $selected = (array) $this->request('selected');
 
@@ -156,8 +158,9 @@ class Table extends Component
     public function url(array $extra = [])
     {
         $type = Str::singular($this->component);
-        $default = "ui/{$this->stream->handle}/{$type}/{$this->handle}";
+        //$default = "ui/{$this->stream->handle}/{$type}/{$this->handle}";
+        $default = "ui/{$this->stream->handle}.{$this->component}.{$this->handle}";
 
-        return URL::cp(Arr::get($this->config, 'url', $default), $extra);
+        return URL::to(Arr::get($this->config, 'url', $default), $extra);
     }
 }

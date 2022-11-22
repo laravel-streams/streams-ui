@@ -72,7 +72,7 @@ class UiManager
             throw new \Exception("Component [$name] does not exist.");
         }
 
-        $attributes['handle'] = $name;
+        $attributes['handle'] = Arr::get($attributes, 'handle', $name);
 
         // @todo Callbacks
         return App::make($component, [

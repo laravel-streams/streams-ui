@@ -12,12 +12,13 @@
         @php
 
             $styles = array_filter([
+                '--ui-font-size' => $theme->font_size,
                 '--ui-spacing' => $theme->spacing,
                 '--ui-radius' => $theme->radius,
                 
                 '--ui-color-light' => $theme->light,
                 '--ui-color-dark' => $theme->dark,
-                
+                 
                 '--ui-color-black' => $theme->black,
                 '--ui-color-white' => $theme->white,
                 
