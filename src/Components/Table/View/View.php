@@ -24,6 +24,8 @@ class View extends Component
     public array $columns = [];
     public array $entries = [];
     public array $filters = [];
+    
+    public array $criteria = [];
 
     public bool $active = false;
 

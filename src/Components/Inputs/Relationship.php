@@ -17,8 +17,9 @@ class Relationship extends Input
 
         $stream = Streams::make($this->field->config['related']);
 
-        $titleColumn = $stream->config('title_column', 'id');
-        $keyName = $stream->config('key_name', 'id');
+        $titleColumn = $this->field->config('title_name', $stream->config('title_column', 'id'));
+
+        $keyName = $this->field->config('key_name', $stream->config('key_name', 'id'));
 
         $display = $this->config('display', '{' . ($titleColumn ?: $keyName) . '}');
 

@@ -79,7 +79,7 @@ class TableBuilder extends Builder
         // @todo move this somewhere nice
         if ($view = $component->views()->active()) {
 
-            foreach ((array) $view->query as $step) {
+            foreach ((array) $view->criteria as $step) {
 
                 if (is_string($step)) {
                     // App::call($step, [

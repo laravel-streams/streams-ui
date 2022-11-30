@@ -13,7 +13,7 @@
             @elseif ($shortcut->icon)
             {{ svg($shortcut->icon) }}
             @elseif ($shortcut->image)
-            <img src="{{ $shortcut->image }}" alt="">
+            <img src="{{ Str::parse($shortcut->image) }}" alt="">
             @elseif ($shortcut->text)
             {{ $shortcut->text }}
             @else

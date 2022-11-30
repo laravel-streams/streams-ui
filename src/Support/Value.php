@@ -55,7 +55,7 @@ class Value
          * then try parsing it.
          */
         if (is_string($value) && Str::contains($value, ['{', '.'])) {
-
+            
             $value = Str::parse($value, [
                 'value' => $value,
                 $term => $entry,
