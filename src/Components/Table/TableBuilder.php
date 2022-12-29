@@ -163,8 +163,10 @@ class TableBuilder extends Builder
 
             $button['table'] = $component->table;
 
+            $keyName = $component->stream->config('key_name', 'id');
+
             if (!isset($button['attributes']['href'])) {
-                $button['attributes']['href'] = URL::current() . '/{entry.id}/' . $button['handle'];
+                $button['attributes']['href'] = URL::current() . "/{entry.$keyName}/" . $button['handle'];
             }
 
             return $button;
@@ -228,7 +230,7 @@ class TableBuilder extends Builder
 
             $row->columns = $row->columns->map(function ($column) use ($row) {
 
-                $column['value'] = Value::make(Arr::get($column, 'value', ''), $row->entry);
+                $column['value'] = Value::make($column, $row->entry);
 
                 return new Column($column);
             });

@@ -49,7 +49,7 @@ class Textarea extends Input
     public function attributes(array $attributes = [])
     {
         return parent::attributes(array_merge([
-            'rows' => Arr::get($this->field->config, 'rows', 10)
+            'rows' => Arr::get($this->config, 'rows', 10)
         ], $attributes));
     }
 }
