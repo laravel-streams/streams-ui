@@ -13,7 +13,7 @@ class Value
         string|array $parameters,
         mixed $entry = null,
         string $term = 'entry'
-    ): string {
+    ): string|null {
         
         /*
          * If a flat value was sent in
@@ -25,7 +25,7 @@ class Value
             ];
         }
 
-        $value = Arr::get($parameters, 'value');
+        $value = $original = Arr::get($parameters, 'value');
 
         // Return views.
         if ($view = Arr::get($parameters, 'view')) {
@@ -90,6 +90,10 @@ class Value
             $value = Str::purify($value);
         }
 
-        return (string) $value;
+        if ($original === $value) {
+            return null;
+        }
+
+        return $value;
     }
 }
