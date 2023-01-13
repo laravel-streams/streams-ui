@@ -61,6 +61,7 @@ return [
         'decimal' => \Streams\Ui\Input\Decimal::class,
         'float' => \Streams\Ui\Input\Decimal::class,
 
+        'editor' => \Streams\Ui\Input\Editor::class,
         'textarea' => \Streams\Ui\Input\Textarea::class,
         'markdown' => \Streams\Ui\Input\Markdown::class,
 

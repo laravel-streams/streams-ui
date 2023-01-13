@@ -44,6 +44,7 @@ class UiManager
             'color' => \Streams\Ui\Components\Inputs\Color::class,
             'number' => \Streams\Ui\Components\Inputs\Number::class,
             'select' => \Streams\Ui\Components\Inputs\Select::class,
+            'editor' => \Streams\Ui\Components\Inputs\Editor::class,
             'decimal' => \Streams\Ui\Components\Inputs\Decimal::class,
             'integer' => \Streams\Ui\Components\Inputs\Integer::class,
             'textarea' => \Streams\Ui\Components\Inputs\Textarea::class,

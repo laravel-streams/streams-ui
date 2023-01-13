@@ -70,7 +70,7 @@ class TableBuilder extends Builder
          * Start Query
          */
         $component->criteria = $component->stream->repository()->newCriteria();
-        
+
         // @todo needs work
         $component->fire('querying', [
             'component' => $component,
@@ -242,8 +242,8 @@ class TableBuilder extends Builder
                 $clone = Arr::parse($clone, [
                     'entry' => $row->entry,
                     'stream' => $component->stream,
-                ]);
-
+                ], ['entry' => Arr::make($row->entry)]);
+                
                 return new Button($clone);
             });
         });

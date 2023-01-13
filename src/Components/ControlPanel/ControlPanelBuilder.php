@@ -45,7 +45,7 @@ class ControlPanelBuilder extends Builder
         });
 
         $component->navigation = $component->navigation->sortBy(function ($section) {
-            return (int) $section->sort_order ?: 0;
+            return (int) $section->sort_order ?: 9999;
         });
     }
 
