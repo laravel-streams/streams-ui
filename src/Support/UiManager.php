@@ -31,7 +31,6 @@ class UiManager
             'file' => \Streams\Ui\Components\Input::class,
             'hash' => \Streams\Ui\Components\Input::class,
             'uuid' => \Streams\Ui\Components\Input::class,
-            'array' => \Streams\Ui\Components\Input::class,
             'email' => \Streams\Ui\Components\Input::class,
             'string' => \Streams\Ui\Components\Input::class,
             'object' => \Streams\Ui\Components\Input::class,
@@ -41,6 +40,8 @@ class UiManager
 
             'date' => \Streams\Ui\Components\Inputs\Date::class,
             'slug' => \Streams\Ui\Components\Inputs\Slug::class,
+            'tags' => \Streams\Ui\Components\Inputs\Tags::class,
+            'array' => \Streams\Ui\Components\Inputs\Tags::class,
             'color' => \Streams\Ui\Components\Inputs\Color::class,
             'number' => \Streams\Ui\Components\Inputs\Number::class,
             'select' => \Streams\Ui\Components\Inputs\Select::class,

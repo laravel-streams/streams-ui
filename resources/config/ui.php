@@ -41,6 +41,8 @@ return [
         'hash' => \Streams\Ui\Input\Input::class, // Default
         'input' => \Streams\Ui\Input\Input::class,
         'string' => \Streams\Ui\Input\Input::class, // Default
+        
+        'tags' => \Streams\Ui\Components\Tags::class,
 
         'date' => \Streams\Ui\Input\Date::class,
         'time' => \Streams\Ui\Input\Time::class,
