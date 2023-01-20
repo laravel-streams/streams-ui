@@ -42,6 +42,7 @@ class UiManager
             'slug' => \Streams\Ui\Components\Inputs\Slug::class,
             'tags' => \Streams\Ui\Components\Inputs\Tags::class,
             'array' => \Streams\Ui\Components\Inputs\Tags::class,
+            'enum' => \Streams\Ui\Components\Inputs\Select::class,
             'color' => \Streams\Ui\Components\Inputs\Color::class,
             'number' => \Streams\Ui\Components\Inputs\Number::class,
             'select' => \Streams\Ui\Components\Inputs\Select::class,
