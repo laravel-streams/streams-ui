@@ -4,7 +4,7 @@
   return {
     open: false,
     textInput: '',
-    tags: JSON.parse('{!! $input->value !!}'),
+    tags: '{!! json_encode((array) $input->value) !!}',
     init() {
       this.tags = JSON.parse(this.$el.parentNode.getAttribute('data-tags'));
     },
@@ -57,7 +57,7 @@
     <div x-data="tagSelect()" x-init="init('parentEl')" @click.away="clearSearch()" @keydown.escape="clearSearch()">
         <div class="relative" @keydown.enter.prevent="addTag(textInput)">
             <input x-model="textInput" x-ref="textInput" @input="search($event.target.value)"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight xcus:outline-none focus:shadow-outline"
                 placeholder="Enter some tags">
             <div :class="[open ? 'block' : 'hidden']">
                 <div class="absolute z-40 left-0 mt-2 w-full">
@@ -68,6 +68,10 @@
                     </div>
                 </div>
             </div>
+
+            {{-- Input --}}
+            <input x-model="tags" {!! $input->htmlAttributes() !!}>
+
             <!-- selections -->
             <template x-for="(tag, index) in tags">
                 <div class="bg-primary text-white inline-flex items-center text-sm rounded mt-2 mr-1">

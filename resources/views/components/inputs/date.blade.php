@@ -1,4 +1,4 @@
 
 <input {!! $input->htmlAttributes([
-    //'value' => $input->value ? $input->value->format('Y-m-d') : null
-]) !!}>Broken
+    'value' => $input->value ? date('Y-m-d', strtotime($input->value)) : null
+]) !!}>
