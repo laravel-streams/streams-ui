@@ -31,4 +31,4 @@
 
 <div id="editorjs" style="height: 200px;"></div>
 
-<textarea {!! $input->htmlAttributes() !!}>{!! $input->value !!}</textarea>
+<textarea hidden {!! $input->htmlAttributes() !!}>{!! $input->value !!}</textarea>

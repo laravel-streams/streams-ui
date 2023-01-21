@@ -70,7 +70,7 @@
             </div>
 
             {{-- Input --}}
-            <input x-model="tags" {!! $input->htmlAttributes([
+            <input hidden x-model="tags" {!! $input->htmlAttributes([
               'value' => json_encode($input->value)
             ]) !!}>
 
