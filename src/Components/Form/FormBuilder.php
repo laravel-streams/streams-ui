@@ -126,7 +126,7 @@ class FormBuilder extends Builder
         }
 
         if (!$component->entry) {
-            $component->fields->each(function ($field) use ($component) {
+            $component->fields->each(function ($field) {
                 $field->input()->setPrototypeAttribute('value', $field->default($field->config('default')));
             });
         }

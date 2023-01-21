@@ -52,7 +52,7 @@
 }
 </script>
 
-<div x-data data-tags='{!! $input->value !!}'>
+<div x-data data-tags='{!! json_encode($input->value) !!}'>
   
     <div x-data="tagSelect()" x-init="init('parentEl')" @click.away="clearSearch()" @keydown.escape="clearSearch()">
         <div class="relative" @keydown.enter.prevent="addTag(textInput)">
@@ -70,7 +70,9 @@
             </div>
 
             {{-- Input --}}
-            <input x-model="tags" {!! $input->htmlAttributes() !!}>
+            <input x-model="tags" {!! $input->htmlAttributes([
+              'value' => json_encode($input->value)
+            ]) !!}>
 
             <!-- selections -->
             <template x-for="(tag, index) in tags">
