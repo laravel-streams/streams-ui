@@ -12,7 +12,7 @@ class Textarea extends Input
     public string $template = 'ui::components.inputs.textarea';
 
     public $config = [
-        'rows' => 10,
+        'rows' => 5,
     ];
 
     public function load($value)

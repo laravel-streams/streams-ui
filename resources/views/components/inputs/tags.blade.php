@@ -74,7 +74,7 @@
               'value' => json_encode($input->value)
             ]) !!}>
 
-            <!-- selections -->
+            <!-- Selections -->
             <template x-for="(tag, index) in tags">
                 <div class="bg-primary text-white inline-flex items-center text-sm rounded mt-2 mr-1">
                     <span class="ml-2 mr-1 leading-relaxed truncate max-w-xs" x-text="tag"></span>
