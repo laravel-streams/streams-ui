@@ -2,6 +2,7 @@
 
 namespace Streams\Ui;
 
+use Livewire\Livewire;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\View\Factory;
@@ -11,7 +12,6 @@ use Streams\Ui\Support\Facades\UI;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
-use Streams\Ui\Blade\BladeComponent;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\AliasLoader;
@@ -52,20 +52,10 @@ class UiServiceProvider extends ServiceProvider
         $this->extendAssets();
 
         $this->registerRoutes();
-        $this->registerBladeComponents();
         $this->registerBladeDirectives();
-    }
 
-    protected function registerBladeComponents()
-    {
-        $this->app->booted(function () {
-
-            $components = array_keys(UI::getComponents());
-
-            foreach ($components as $name) {
-                Blade::component($name, BladeComponent::class);
-            }
-        });
+        Livewire::component('text', \Streams\Ui\Components\Inputs\TextInput::class);
+        Livewire::component('input', \Streams\Ui\Components\Inputs\TextInput::class);
     }
 
     public function registerBladeDirectives()

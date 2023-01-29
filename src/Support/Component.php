@@ -2,213 +2,50 @@
 
 namespace Streams\Ui\Support;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Streams\Core\Field\Field;
-use Streams\Ui\Support\Builder;
+use Streams\Core\Stream\Stream;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Traits\Macroable;
-use Illuminate\Contracts\Support\Jsonable;
-use Streams\Core\Support\Traits\Prototype;
-use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Facades\Config;
+use Streams\Core\Support\Facades\Streams;
+use Streams\Core\Support\Traits\HasMemory;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
-abstract class Component implements Arrayable, Jsonable
+abstract class Component extends \Livewire\Component
 {
-    use Prototype;
+    use HasMemory;
     use FiresCallbacks;
 
-    use Macroable {
-        Macroable::__call as private callMacroable;
-    }
+    protected string $alias;
 
-    public $stream;
+    public ?string $stream = null;
 
-    #[Field([
-        'type' => 'string',
-    ])]
-    public string $handle = '';
+    //public string $handle;
 
-    #[Field([
-        'type' => 'string',
-    ])]
-    protected string $builder = Builder::class;
+    public string $template;
 
-    #[Field([
-        'type' => 'string',
-    ])]
-    protected string $template = '';
+    public array $attributes = [];
 
-    #[Field([
-        'type' => 'string',
-    ])]
-    public string $component;
-
-    #[Field([
-        'config' => [
-            'wrapper' => 'collection',
-        ],
-    ])]
-    public $classes = [];
-
-    #[Field([
-        'config' => [
-            'wrapper' => 'collection',
-        ],
-    ])]
-    public $attributes = [];
-
-    #[Field([
-        'config' => [
-            'wrapper' => 'collection',
-        ],
-    ])]
-    protected $config = [];
-
-    public function __construct(array $attributes = [])
+    public function __construct($id = null)
     {
-        $this->syncPrototypePropertyAttributes();
+        $config = Config::get('ui::components.' . $this->alias, []);
 
-        (new $this->builder)
-            ->passThrough($this)
-            ->process([
-                'component' => $this,
-                'attributes' => collect($attributes),
-            ]);
-    }
-
-    public function response()
-    {
-        if ($this->response) {
-            return $this->response;
+        foreach ($config as $attribute => $value) {
+            $this->{$attribute} = $value;
         }
 
-        if (Request::method() == 'POST') {
-            
-            $this->post();
+        return parent::__construct($id);
+    }
 
-            return $this->response;
+    public function stream(): Stream
+    {
+        if (!$this->stream) {
+            throw new \Exception("Stream not configured for [{$this->alias}].");
         }
 
-        if (View::shared('cp')) {
-            return $this->cp();
-        }
-
-        return Response::view('ui::ui', ['content' => $this->render()]);
-    }
-
-    public function post()
-    {
-        return $this->response;
-    }
-
-    public function cp()
-    {
-        return Response::view('ui::cp', ['content' => $this->render()]);
-    }
-
-    public function class($extra = [])
-    {
-        if (!is_array($extra)) {
-            $extra = explode(' ', $extra);
-        }
-
-        $classes = array_unique(
-            array_merge(explode(' ', $this->class), (array) $this->classes, $extra)
-        );
-
-        return array_values(array_filter(array_unique($classes)));
-    }
-
-    public function attributes(array $attributes = [])
-    {
-        $class = Arr::pull($attributes, 'class');
-
-        return collect(array_filter(array_replace_recursive([
-            'class' => $this->class($class),
-        ], $this->attributes, $attributes), function ($value) {
-            return !is_null($value) && $value !== '';
-        }));
-    }
-
-    public function htmlAttributes(array $attributes = [])
-    {
-        $attributes['ui:data'] = json_encode($this->toArray());
-
-        return Arr::htmlAttributes($this->attributes($attributes)->all());
+        return $this->once(__METHOD__ . '.' . $this->stream, fn ()  => Streams::make($this->stream));
     }
 
     public function render(array $payload = [])
     {
-        $payload = array_merge($payload, [
-            Str::camel($this->component) => $this,
-        ]);
-
-        return View::make($this->template, $payload)->render();
-    }
-
-    // @todo route
-    // public function url(array $extra = [])
-    // {
-    //     $type = Str::singular($this->component);
-    //     $default = "ui/{$this->stream->handle}/{$type}/{$this->handle}";
-
-    //     return URL::cp(Arr::get($this->config, 'url', $default), $extra);
-    // }
-
-    public function request($key, $default = null)
-    {
-        return Request::get($this->prefix($key), $default);
-    }
-
-    public function prefix($target = null): string
-    {
-        return Arr::get($this->config, 'prefix') . $target;
-    }
-
-    public function toArray()
-    {
-        $allowed = $this->getPrototypeProperties();
-        $attributes = $this->getPrototypeAttributes();
-
-        return array_intersect_key($attributes, $allowed);
-    }
-
-    public function toJson($options = 0)
-    {
-        return json_encode($this->toArray(), $options);
-    }
-
-    public function __toString()
-    {
-        return $this->template ? (string) $this->render() : '';
-    }
-
-    /**
-     * Mapp methods to expanded values.
-     *
-     * @param $method
-     * @param $arguments
-     * @return mixed
-     */
-    public function __call($method, $arguments)
-    {
-        if (static::hasMacro($method)) {
-            return $this->callMacroable($method, $arguments);
-        }
-
-        $key = Str::snake($method);
-
-        if ($this->hasPrototypeAttribute($key)) {
-            return $this->decoratePrototypeAttribute($key);
-        }
-
-        throw new \BadMethodCallException(sprintf(
-            'Method %s::%s does not exist.',
-            static::class,
-            $method
-        ));
+        return View::make($this->template, $payload);
     }
 }
