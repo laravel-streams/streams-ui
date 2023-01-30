@@ -1,14 +1,17 @@
-<input {!! Html::attributes(
-    array_filter([
-        'name'=> $input->name,
-        'type' => $input->type,
-        'value' => $input->value,
-        'minlength' => $input->min,
-        'maxlength' => $input->max,
-        'required' => $input->required,
-        'readonly' => $input->readonly,
-        'disabled' => $input->disabled,
-        'placeholder' => $input->placeholder,
-        'pattern' => trim($input->pattern, "//"),
-    ])
-) !!}>
+<div>
+    <input {!! Html::attributes(
+        array_filter([
+            'id'=> $component->id,
+            'name'=> $component->name,
+            'type' => $component->type,
+            'value' => $component->value,
+            'minlength' => $component->min,
+            'maxlength' => $component->max,
+            'required' => $component->required,
+            'readonly' => $component->readonly,
+            'disabled' => $component->disabled,
+            'placeholder' => $component->placeholder,
+            'pattern' => trim($component->pattern, "//"),
+        ])
+    ) !!}>    
+</div>

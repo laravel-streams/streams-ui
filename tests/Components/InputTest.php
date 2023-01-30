@@ -21,4 +21,19 @@ class InputTest extends UiTestCase
             'name' => 'test',
         ])->html());
     }
+    
+    public function test_it_returns_request_input()
+    {
+        $instance = Livewire::getInstance('input', 1);
+
+        $instance->name = 'testing';
+
+        // $response = $this->json('POST', URL::route('streams.api.entries.create', [
+        //     'testing' => 'foo',
+        // ]), $this->filmData());
+        
+        // $response->assertStatus(201);
+
+        $this->assertNull($instance->getRequestValue());
+    }
 }

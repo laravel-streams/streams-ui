@@ -17,15 +17,8 @@ abstract class Input extends Component
     public bool $disabled = false;
     public bool $required = false;
 
-    public function render(array $payload = [])
+    public function getRequestValue()
     {
-        $payload['input'] = $this;
-
-        return parent::render($payload);
-    }
-
-    public function post()
-    {
-        return Request::file($this->name) ?: $this->request($this->name);
+        return Request::file($this->name) ?: Request::input($this->name);
     }
 }

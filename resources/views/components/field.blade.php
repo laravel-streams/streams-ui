@@ -1,22 +1,28 @@
-<div class="field --{{ $field->name }}">
+<div class="field">
 
-    <label>
-        {{ __($field->label) }}
+    <label for="{{ $component->id }}">
+        {{ __($component->label) }}
 
-        @if ($field->required)
+        @if ($component->required)
             <span class="field__required">*</span>
         @endif
     </label>
 
-    @if ($field->instructions)
+    @if ($component->instructions)
     <div>
-        <small><em>{!! __($field->instructions) !!}</em></small>
+        <small><em>{!! __($component->instructions) !!}</em></small>
     </div>
     @endif
+
+    @if ($component->description)
+        <span role="tooltip" title="{{ __($component->description) }}">ℹ️</span>
+    @endif
+
+    </button>
     
     <div class="field__input">
-        <div class="input --{{ $field->input['type'] }}">
-            @livewire($field->input['type'], ...[Arr::except($field->input, ['type'])])
+        <div class="input --{{ $component->input['type'] }}">
+            @livewire($component->input['type'], ...[Arr::except($component->input, ['type'])])
         </div>
     </div>
 

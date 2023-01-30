@@ -63,11 +63,15 @@ class UiServiceProvider extends ServiceProvider
 
         $this->registerRoutes();
         $this->registerBladeDirectives();
-
-        Livewire::component('text', \Streams\Ui\Components\Inputs\TextInput::class);
-        Livewire::component('input', \Streams\Ui\Components\Inputs\TextInput::class);
+        
+        Livewire::component('form', \Streams\Ui\Components\Form::class);
         
         Livewire::component('field', \Streams\Ui\Components\Field::class);
+        Livewire::component('fields', \Streams\Ui\Components\Fields::class);
+        
+        Livewire::component('text', \Streams\Ui\Components\Inputs\TextInput::class);
+        Livewire::component('input', \Streams\Ui\Components\Inputs\TextInput::class);
+        Livewire::component('textarea', \Streams\Ui\Components\Inputs\TextareaInput::class);
     }
 
     public function registerBladeDirectives()
