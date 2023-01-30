@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Tests\Components;
 
+use Livewire\Livewire;
 use Streams\Ui\Components\Input;
 use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Support\Facades\UI;
@@ -11,15 +12,13 @@ class InputTest extends UiTestCase
 {
     public function test_it_builds()
     {
-        $this->assertInstanceOf(Input::class, UI::make('input'));
+        $this->assertInstanceOf(Input::class, Livewire::getInstance('input', 1));
     }
 
     public function test_it_renders()
     {
-        $field = Streams::make('films')->fields->get('title');
-
-        $this->assertIsString(UI::make('input', [
-            'field' => $field,
-        ])->render());
+        $this->assertIsString(Livewire::mount('input', [
+            'name' => 'test',
+        ])->html());
     }
 }

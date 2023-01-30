@@ -26,6 +26,16 @@ class UiServiceProvider extends ServiceProvider
 
     public function register(): void
     {
+        if (env('APP_ENV') == 'testing') {
+            $this->app->register(\Collective\Html\HtmlServiceProvider::class);
+            $this->app->register(\Livewire\LivewireServiceProvider::class);
+
+            AliasLoader::getInstance([
+                'Html' => \Collective\Html\HtmlFacade::class,
+                'Form' => \Collective\Html\FormFacade::class,
+            ])->register();
+        }
+
         $this->app->singleton(\Streams\Ui\Support\Breadcrumb::class);
 
         $this->app->singleton(\Streams\Ui\Support\UiManager::class);
@@ -56,6 +66,8 @@ class UiServiceProvider extends ServiceProvider
 
         Livewire::component('text', \Streams\Ui\Components\Inputs\TextInput::class);
         Livewire::component('input', \Streams\Ui\Components\Inputs\TextInput::class);
+        
+        Livewire::component('field', \Streams\Ui\Components\Field::class);
     }
 
     public function registerBladeDirectives()

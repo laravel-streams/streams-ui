@@ -18,22 +18,7 @@ abstract class Component extends \Livewire\Component
 
     public ?string $stream = null;
 
-    //public string $handle;
-
     public string $template;
-
-    public array $attributes = [];
-
-    public function __construct($id = null)
-    {
-        $config = Config::get('ui::components.' . $this->alias, []);
-
-        foreach ($config as $attribute => $value) {
-            $this->{$attribute} = $value;
-        }
-
-        return parent::__construct($id);
-    }
 
     public function stream(): Stream
     {

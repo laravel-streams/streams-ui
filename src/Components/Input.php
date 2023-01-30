@@ -7,22 +7,25 @@ use Illuminate\Support\Facades\Request;
 
 abstract class Input extends Component
 {
-    public ?string $placeholder = null;
+    public string $template = 'ui::components.input';
+
+    public string $name;
+
+    public $value = null;
+
+    public bool $readonly = false;
+    public bool $disabled = false;
+    public bool $required = false;
 
     public function render(array $payload = [])
     {
-        $payload['input'] = $payload;
+        $payload['input'] = $this;
 
         return parent::render($payload);
     }
 
     public function post()
     {
-        return Request::file($this->alias) ?: $this->request($this->alias);
-    }
-
-    public function attributes(array $attributes = [])
-    {
-        return parent::attributes($attributes);
+        return Request::file($this->name) ?: $this->request($this->name);
     }
 }
