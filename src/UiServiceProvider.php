@@ -62,7 +62,6 @@ class UiServiceProvider extends ServiceProvider
         $this->extendAssets();
 
         $this->registerRoutes();
-        $this->registerBladeDirectives();
         
         Livewire::component('form', \Streams\Ui\Components\Form::class);
         
@@ -93,17 +92,6 @@ class UiServiceProvider extends ServiceProvider
         // Field Type Aliases
         Livewire::component('enum', \Streams\Ui\Components\Inputs\SelectInput::class);
         Livewire::component('boolean', \Streams\Ui\Components\Inputs\CheckboxInput::class);
-    }
-
-    public function registerBladeDirectives()
-    {
-        Factory::macro('ui', function(string $name, array $attributes = []) {
-            return UI::make($name, $attributes);
-        });
-
-        Blade::directive('ui', function ($parameters) {
-            return "<?php echo \$__env->ui({$parameters}); ?>";
-        });
     }
 
     /**
