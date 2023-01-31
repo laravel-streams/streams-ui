@@ -1,4 +1,4 @@
-<form>
+<form wire:submit.prevent="submit">
     @if (isset($slot))
         {!! $slot !!}
     @else
