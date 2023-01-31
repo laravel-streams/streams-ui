@@ -72,9 +72,18 @@ class UiServiceProvider extends ServiceProvider
         Livewire::component('field', \Streams\Ui\Components\Field::class);
         Livewire::component('fields', \Streams\Ui\Components\Fields::class);
         
+        Livewire::component('tags', \Streams\Ui\Components\Inputs\TagsInput::class);
         Livewire::component('text', \Streams\Ui\Components\Inputs\TextInput::class);
+        Livewire::component('file', \Streams\Ui\Components\Inputs\FIleInput::class);
         Livewire::component('input', \Streams\Ui\Components\Inputs\TextInput::class);
+        Livewire::component('select', \Streams\Ui\Components\Inputs\SelectInput::class);
+        Livewire::component('integer', \Streams\Ui\Components\Inputs\IntegerInput::class);
+        Livewire::component('checkbox', \Streams\Ui\Components\Inputs\CheckboxInput::class);
         Livewire::component('textarea', \Streams\Ui\Components\Inputs\TextareaInput::class);
+
+        // Field Type Aliases
+        Livewire::component('enum', \Streams\Ui\Components\Inputs\SelectInput::class);
+        Livewire::component('boolean', \Streams\Ui\Components\Inputs\CheckboxInput::class);
     }
 
     public function registerBladeDirectives()

@@ -15,9 +15,7 @@ class Field extends Component
     public ?string $name = null;
     public ?string $description = null;
 
-    public array $input = [
-        'type' => 'input',
-    ];
+    public array $input = [];
 
     public $label = null;
 
@@ -31,6 +29,7 @@ class Field extends Component
 
             $field = $this->stream()->fields->{$this->field};
             
+            $this->label = $field->name;
             $this->name = $field->handle;
             $this->description = $field->description;
             $this->instructions = $field->instructions;
@@ -42,6 +41,12 @@ class Field extends Component
 
             $this->input['stream'] = $this->stream;
             $this->input['field'] = $this->field;
+            
+            $this->input['value'] = $field->default($field->config('default'));
+
+            if (!isset($this->input['type'])) {
+                $this->input['type'] = $field->type;
+            }
         }
 
         if (!$this->label && $this->label !== false) {
