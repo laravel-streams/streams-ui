@@ -10,8 +10,8 @@ class SelectInput extends Input
 
     public array $options = [];
 
-    public function options()
+    public function options(): array
     {
-        return $this->options ?: $this->field()?->options();
+        return (array) ($this->options ?: $this->field()?->options());
     }
 }

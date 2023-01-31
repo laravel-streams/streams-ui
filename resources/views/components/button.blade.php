@@ -1,7 +1,7 @@
 <div>
     <{{ $component->tag }} {!! Html::attributes(
         array_filter([
-            'id'=> $component->id,
+            'id' => $component->id,
             'name' => $component->name,
             'type' => $component->type,
             'disabled' => $component->disabled,

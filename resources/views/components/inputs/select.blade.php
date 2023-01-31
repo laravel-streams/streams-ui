@@ -1,8 +1,8 @@
 <div>
     <select {!! Html::attributes(
         array_filter([
-            'id'=> $component->id,
-            'name'=> $component->name,
+            'id' => $component->id,
+            'name' => $component->name,
             'required' => $component->required,
             'readonly' => $component->readonly,
             'disabled' => $component->disabled,

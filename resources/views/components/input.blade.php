@@ -1,8 +1,8 @@
 <div>
     <input {!! Html::attributes(
         array_filter([
-            'id'=> $component->id,
-            'name'=> $component->name,
+            'id' => $component->id,
+            'name' => $component->name,
             'type' => $component->type,
             'value' => $component->value,
             'minlength' => $component->min,

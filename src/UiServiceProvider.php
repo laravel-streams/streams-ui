@@ -74,12 +74,18 @@ class UiServiceProvider extends ServiceProvider
         
         Livewire::component('tags', \Streams\Ui\Components\Inputs\TagsInput::class);
         Livewire::component('text', \Streams\Ui\Components\Inputs\TextInput::class);
-        Livewire::component('file', \Streams\Ui\Components\Inputs\FIleInput::class);
+        Livewire::component('file', \Streams\Ui\Components\Inputs\FileInput::class);
+        Livewire::component('date', \Streams\Ui\Components\Inputs\DateInput::class);
+        Livewire::component('time', \Streams\Ui\Components\Inputs\TimeInput::class);
         Livewire::component('input', \Streams\Ui\Components\Inputs\TextInput::class);
+        Livewire::component('color', \Streams\Ui\Components\Inputs\ColorInput::class);
+        Livewire::component('range', \Streams\Ui\Components\Inputs\RangeInput::class);
         Livewire::component('select', \Streams\Ui\Components\Inputs\SelectInput::class);
         Livewire::component('integer', \Streams\Ui\Components\Inputs\IntegerInput::class);
         Livewire::component('checkbox', \Streams\Ui\Components\Inputs\CheckboxInput::class);
         Livewire::component('textarea', \Streams\Ui\Components\Inputs\TextareaInput::class);
+        Livewire::component('date_time', \Streams\Ui\Components\Inputs\DatetimeInput::class);
+        Livewire::component('datetime', \Streams\Ui\Components\Inputs\DatetimeInput::class);
 
         // Field Type Aliases
         Livewire::component('enum', \Streams\Ui\Components\Inputs\SelectInput::class);

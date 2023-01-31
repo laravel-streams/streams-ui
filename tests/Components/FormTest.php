@@ -22,6 +22,17 @@ class FormTest extends UiTestCase
         $this->assertIsString(Livewire::mount('form', [])->html());
     }
 
+    public function test_it_defaults_stream_fields()
+    {
+        $instance = Livewire::getInstance('form', 1);
+
+        $instance->stream = 'films';
+        
+        $instance->booted();
+
+        $this->assertTrue(count($instance->fields) > 1);
+    }
+
     public function test_it_passes_stream()
     {
         $instance = Livewire::getInstance('form', 1);

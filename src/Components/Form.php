@@ -4,6 +4,8 @@ namespace Streams\Ui\Components;
 
 use Illuminate\Support\Arr;
 use Streams\Ui\Support\Component;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 
 class Form extends Component
@@ -14,6 +16,8 @@ class Form extends Component
 
     public function submit()
     {
+        Log::info('Form submitted', Request::input());
+
         return Redirect::to('/ui?success=true');
     }
 

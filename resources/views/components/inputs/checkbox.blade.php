@@ -4,8 +4,8 @@
             array_filter([
                 'value' => true,
                 'type' => 'checkbox',
-                'id'=> $component->id,
-                'name'=> $component->name,
+                'id' => $component->id,
+                'name' => $component->name,
                 'required' => $component->required,
                 'readonly' => $component->readonly,
                 'disabled' => $component->disabled,

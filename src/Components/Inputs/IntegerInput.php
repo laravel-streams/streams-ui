@@ -13,7 +13,7 @@ class IntegerInput extends Input
     
     public ?string $pattern = null;
 
-    public string $type = 'integer';
+    public string $type = 'number';
     
     public ?string $placeholder = null;
 }

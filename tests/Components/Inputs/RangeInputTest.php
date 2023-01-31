@@ -6,22 +6,21 @@ use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Support\Facades\UI;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Components\Inputs\FileInput;
+use Streams\Ui\Components\Inputs\RangeInput;
 
-class FileInputTest extends UiTestCase
+class RangeInputTest extends UiTestCase
 {
     public function test_it_builds()
     {
-        $this->assertInstanceOf(FileInput::class, Livewire::getInstance('file', 1));
+        $this->assertInstanceOf(RangeInput::class, Livewire::getInstance('range', 1));
     }
 
     public function test_it_renders()
     {
-        $output = Livewire::mount('file', [
+        $output = Livewire::mount('range', [
             'name' => 'test',
-            'placeholder' => 'Example',
         ])->html();
 
-        $this->assertStringContainsString('type="file"', $output);
+        $this->assertStringContainsString('type="range"', $output);
     }
 }

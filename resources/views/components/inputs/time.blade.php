@@ -1,15 +1,16 @@
 <div>
-    <textarea {!! Html::attributes(
+    <input {!! Html::attributes(
         array_filter([
+            'type' => 'time',
             'id' => $component->id,
+            'max' => $component->max,
+            'min' => $component->min,
+            'step' => $component->step,
             'name' => $component->name,
-            'minlength' => $component->min,
-            'maxlength' => $component->max,
             'required' => $component->required,
             'readonly' => $component->readonly,
             'disabled' => $component->disabled,
-            'placeholder' => $component->placeholder,
-            'rows' => $component->rows,
+            'value' => $component->value?->format('G:i:s'),
         ])
-    ) !!}>{{ $component->value }}</textarea>
+    ) !!}>
 </div>

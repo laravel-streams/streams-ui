@@ -27,6 +27,6 @@ abstract class Input extends Component
 
     public function field(): Field|null
     {
-        return $this->once(__METHOD__ . '.' . $this->field, fn ()  => $this->stream()->fields->{$this->field});
+        return $this->stream ? $this->once(__METHOD__ . '.' . $this->field, fn ()  => $this->stream()->fields->{$this->field}) : null;
     }
 }
