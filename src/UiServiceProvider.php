@@ -5,14 +5,12 @@ namespace Streams\Ui;
 use Livewire\Livewire;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Illuminate\View\Factory;
 use Streams\Core\Field\Field;
 use Streams\Core\Stream\Stream;
 use Streams\Ui\Support\Facades\UI;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Config;
@@ -27,6 +25,7 @@ class UiServiceProvider extends ServiceProvider
     public function register(): void
     {
         if (env('APP_ENV') == 'testing') {
+
             $this->app->register(\Collective\Html\HtmlServiceProvider::class);
             $this->app->register(\Livewire\LivewireServiceProvider::class);
 
