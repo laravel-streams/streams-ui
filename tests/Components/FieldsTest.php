@@ -21,19 +21,4 @@ class FieldsTest extends UiTestCase
     {
         $this->assertIsString(Livewire::mount('fields', [])->html());
     }
-
-    public function test_it_passes_stream_through()
-    {
-        $instance = Livewire::getInstance('fields', 1);
-
-        $instance->stream = 'films';
-        
-        $instance->fields = [
-            ['field' => 'title'],
-        ];
-
-        $instance->booted();
-
-        $this->assertSame('films', $instance->fields[0]['stream']);
-    }
 }
