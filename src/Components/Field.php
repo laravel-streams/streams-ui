@@ -26,6 +26,8 @@ class Field extends Component
     public function booted()
     {
         if ($this->stream && $this->field) {
+            
+            // 1.) Need to check for configured defaults if field/stream found.
 
             $field = $this->stream()->fields->{$this->field};
             

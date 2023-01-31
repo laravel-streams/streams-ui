@@ -79,8 +79,11 @@ class UiServiceProvider extends ServiceProvider
         Livewire::component('time', \Streams\Ui\Components\Inputs\TimeInput::class);
         Livewire::component('input', \Streams\Ui\Components\Inputs\TextInput::class);
         Livewire::component('color', \Streams\Ui\Components\Inputs\ColorInput::class);
+        Livewire::component('email', \Streams\Ui\Components\Inputs\EmailInput::class);
         Livewire::component('range', \Streams\Ui\Components\Inputs\RangeInput::class);
+        Livewire::component('number', \Streams\Ui\Components\Inputs\NumberInput::class);
         Livewire::component('select', \Streams\Ui\Components\Inputs\SelectInput::class);
+        Livewire::component('decimal', \Streams\Ui\Components\Inputs\DecimalInput::class);
         Livewire::component('integer', \Streams\Ui\Components\Inputs\IntegerInput::class);
         Livewire::component('checkbox', \Streams\Ui\Components\Inputs\CheckboxInput::class);
         Livewire::component('textarea', \Streams\Ui\Components\Inputs\TextareaInput::class);

@@ -4,14 +4,14 @@ namespace Streams\Ui\Components\Inputs;
 
 use Streams\Ui\Components\Input;
 
-class IntegerInput extends Input
+class NumberInput extends Input
 {
     public string $template = 'ui::components.inputs.number';
     
-    public ?int $step = null;
+    public float $step = 1;
     
-    public ?int $min = null;
-    public ?int $max = null;
+    public ?float $min = null;
+    public ?float $max = null;
     
     public ?string $pattern = null;
 

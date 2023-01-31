@@ -4,18 +4,14 @@ namespace Streams\Ui\Components\Inputs;
 
 use Streams\Ui\Components\Input;
 
-class IntegerInput extends Input
+class EmailInput extends Input
 {
-    public string $template = 'ui::components.inputs.number';
-    
-    public ?int $step = null;
-    
     public ?int $min = null;
     public ?int $max = null;
     
     public ?string $pattern = null;
 
-    public string $type = 'number';
+    public string $type = 'email';
     
     public ?string $placeholder = null;
 }
