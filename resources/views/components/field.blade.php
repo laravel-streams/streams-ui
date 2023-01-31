@@ -8,17 +8,15 @@
         @endif
     </label>
 
+    @if ($component->description)
+        <span role="tooltip" class="cursor-help" title="{{ __($component->description) }}">ℹ️</span>
+    @endif
+
     @if ($component->instructions)
     <div>
         <small><em>{!! __($component->instructions) !!}</em></small>
     </div>
     @endif
-
-    @if ($component->description)
-        <span role="tooltip" title="{{ __($component->description) }}">ℹ️</span>
-    @endif
-
-    </button>
     
     <div class="field__input">
         <div class="input --{{ $component->input['type'] }}">

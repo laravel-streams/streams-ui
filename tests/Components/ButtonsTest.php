@@ -10,7 +10,7 @@ use Streams\Ui\Components\Fields;
 use Streams\Ui\Support\Facades\UI;
 use Streams\Core\Support\Facades\Streams;
 
-class FieldsTest extends UiTestCase
+class ButtonsTest extends UiTestCase
 {
     public function test_it_builds()
     {
@@ -22,7 +22,7 @@ class FieldsTest extends UiTestCase
         $this->assertIsString(Livewire::mount('fields', [])->html());
     }
 
-    public function test_it_passes_stream_through()
+    public function test_it_passes_stream()
     {
         $instance = Livewire::getInstance('fields', 1);
 

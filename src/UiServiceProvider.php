@@ -66,6 +66,9 @@ class UiServiceProvider extends ServiceProvider
         
         Livewire::component('form', \Streams\Ui\Components\Form::class);
         
+        Livewire::component('button', \Streams\Ui\Components\Button::class);
+        Livewire::component('buttons', \Streams\Ui\Components\Buttons::class);
+
         Livewire::component('field', \Streams\Ui\Components\Field::class);
         Livewire::component('fields', \Streams\Ui\Components\Fields::class);
         

@@ -13,8 +13,14 @@ class Form extends Component
     public function booted()
     {
         if ($this->stream) {
+            
             foreach ($this->fields as &$field) {
+            
                 $field['stream'] = $this->stream;
+
+                if (!isset($field['handle'])) {
+                    $field['handle'] = $field['field'];
+                }
             }
         }
     }

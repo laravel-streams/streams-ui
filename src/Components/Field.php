@@ -30,9 +30,10 @@ class Field extends Component
         if ($this->stream && $this->field) {
 
             $field = $this->stream()->fields->{$this->field};
-
+            
             $this->name = $field->handle;
             $this->description = $field->description;
+            $this->instructions = $field->instructions;
             $this->required = $field->isRequired();
 
             if ($field->input) {
