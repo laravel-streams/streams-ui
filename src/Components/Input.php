@@ -6,11 +6,11 @@ use Streams\Core\Field\Field;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\Request;
 
-abstract class Input extends Component
+class Input extends Component
 {
     public string $template = 'ui::components.input';
 
-    public string $name;
+    public string $name = 'input';
 
     public $value = null;
 

@@ -8,10 +8,8 @@ use Streams\Ui\Support\Facades\UI;
 
 class BladeComponent extends Component
 {
-
     public function render()
     {
-
         return function (array $data) {
 
             // $data['componentName'];
@@ -33,6 +31,9 @@ class BladeComponent extends Component
 
                     continue;
                 }
+
+                dump($name);
+                dd($content);
             }
 
             $attributes = Arr::undot($attributes);

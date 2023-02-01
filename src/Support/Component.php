@@ -11,7 +11,10 @@ use Streams\Core\Support\Traits\FiresCallbacks;
 
 abstract class Component
 {
-    use Prototype;
+    use Prototype {
+        Prototype::__construct as protected __constructPrototype;
+    }
+
     use HasMemory;
     use FiresCallbacks;
     
@@ -29,5 +32,10 @@ abstract class Component
         $payload['component'] = $this;
 
         return View::make($this->template, $payload);
+    }
+
+    public function __toString()
+    {
+        return (string) $this->render();
     }
 }

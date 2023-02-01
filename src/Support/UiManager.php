@@ -18,8 +18,8 @@ class UiManager
     {
         $this->components = [
             'form' => \Streams\Ui\Components\Form::class,
+            'field' => \Streams\Ui\Components\Field::class,
             'alert' => \Streams\Ui\Components\Alert::class,
-            'input' => \Streams\Ui\Components\Input::class,
             'table' => \Streams\Ui\Components\Table::class,
             'modal' => \Streams\Ui\Components\Modal::class,
             'avatar' => \Streams\Ui\Components\Avatar::class,
@@ -27,13 +27,7 @@ class UiManager
             'cp' => \Streams\Ui\Components\ControlPanel::class,
             'dropdown' => \Streams\Ui\Components\Dropdown::class,
 
-            'url' => \Streams\Ui\Components\Input::class,
-            'file' => \Streams\Ui\Components\Input::class,
-            'hash' => \Streams\Ui\Components\Input::class,
-            'uuid' => \Streams\Ui\Components\Input::class,
-            'email' => \Streams\Ui\Components\Input::class,
-            'string' => \Streams\Ui\Components\Input::class,
-            'object' => \Streams\Ui\Components\Input::class,
+            
 
             'time' => \Streams\Ui\Components\Input::class,
             'datetime' => \Streams\Ui\Components\Input::class,
@@ -49,12 +43,23 @@ class UiManager
             'editor' => \Streams\Ui\Components\Inputs\Editor::class,
             'decimal' => \Streams\Ui\Components\Inputs\Decimal::class,
             'integer' => \Streams\Ui\Components\Inputs\Integer::class,
-            'textarea' => \Streams\Ui\Components\Inputs\Textarea::class,
             'markdown' => \Streams\Ui\Components\Inputs\Markdown::class,
             'checkboxes' => \Streams\Ui\Components\Inputs\Checkboxes::class,
             'relationship' => \Streams\Ui\Components\Inputs\Relationship::class,
-
+            
             'boolean' => \Streams\Ui\Components\Inputs\Checkbox::class,
+
+            'input' => \Streams\Ui\Components\Input::class,
+            
+            'url' => \Streams\Ui\Components\Input::class,
+            'file' => \Streams\Ui\Components\Input::class,
+            'hash' => \Streams\Ui\Components\Input::class,
+            'uuid' => \Streams\Ui\Components\Input::class,
+            'email' => \Streams\Ui\Components\Input::class,
+            'string' => \Streams\Ui\Components\Input::class,
+            'object' => \Streams\Ui\Components\Input::class,
+
+            'textarea' => \Streams\Ui\Components\Inputs\TextareaInput::class,
         ];
     }
 
@@ -66,9 +71,12 @@ class UiManager
     public function make(string $name, array $attributes = []): Component
     {
         if (!isset($this->components[$name]) && class_exists($name)) {
-            return App::make($name, [
+            
+            $instance = App::make($name, [
                 'attributes' => $attributes,
             ]);
+
+            return $instance;
         }
         
         if (!$component = Arr::get($this->components, $name)) {
@@ -78,9 +86,11 @@ class UiManager
         $attributes['handle'] = Arr::get($attributes, 'handle', $name);
 
         // @todo Callbacks
-        return App::make($component, [
+        $instance = App::make($component, [
             'attributes' => $attributes,
         ]);
+
+        return $instance;
     }
 
     public function register($name, $component): static
