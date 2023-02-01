@@ -2,9 +2,9 @@
 
 namespace Streams\Ui;
 
-use Livewire\Livewire;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\View\Factory;
 use Streams\Core\Field\Field;
 use Streams\Core\Stream\Stream;
 use Streams\Ui\Support\Facades\UI;
@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Config;
 use Streams\Ui\Http\Middleware\LoadUi;
 use Illuminate\Support\ServiceProvider;
@@ -24,17 +25,6 @@ class UiServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        if (env('APP_ENV') == 'testing') {
-
-            $this->app->register(\Collective\Html\HtmlServiceProvider::class);
-            $this->app->register(\Livewire\LivewireServiceProvider::class);
-
-            AliasLoader::getInstance([
-                'Html' => \Collective\Html\HtmlFacade::class,
-                'Form' => \Collective\Html\FormFacade::class,
-            ])->register();
-        }
-
         $this->app->singleton(\Streams\Ui\Support\Breadcrumb::class);
 
         $this->app->singleton(\Streams\Ui\Support\UiManager::class);
@@ -61,36 +51,32 @@ class UiServiceProvider extends ServiceProvider
         $this->extendAssets();
 
         $this->registerRoutes();
-        
-        Livewire::component('form', \Streams\Ui\Components\Form::class);
-        
-        Livewire::component('button', \Streams\Ui\Components\Button::class);
-        Livewire::component('buttons', \Streams\Ui\Components\Buttons::class);
 
-        Livewire::component('field', \Streams\Ui\Components\Field::class);
-        Livewire::component('fields', \Streams\Ui\Components\Fields::class);
-        
-        Livewire::component('tags', \Streams\Ui\Components\Inputs\TagsInput::class);
-        Livewire::component('text', \Streams\Ui\Components\Inputs\TextInput::class);
-        Livewire::component('file', \Streams\Ui\Components\Inputs\FileInput::class);
-        Livewire::component('date', \Streams\Ui\Components\Inputs\DateInput::class);
-        Livewire::component('time', \Streams\Ui\Components\Inputs\TimeInput::class);
-        Livewire::component('input', \Streams\Ui\Components\Inputs\TextInput::class);
-        Livewire::component('color', \Streams\Ui\Components\Inputs\ColorInput::class);
-        Livewire::component('email', \Streams\Ui\Components\Inputs\EmailInput::class);
-        Livewire::component('range', \Streams\Ui\Components\Inputs\RangeInput::class);
-        Livewire::component('number', \Streams\Ui\Components\Inputs\NumberInput::class);
-        Livewire::component('select', \Streams\Ui\Components\Inputs\SelectInput::class);
-        Livewire::component('decimal', \Streams\Ui\Components\Inputs\DecimalInput::class);
-        Livewire::component('integer', \Streams\Ui\Components\Inputs\IntegerInput::class);
-        Livewire::component('checkbox', \Streams\Ui\Components\Inputs\CheckboxInput::class);
-        Livewire::component('textarea', \Streams\Ui\Components\Inputs\TextareaInput::class);
-        Livewire::component('date_time', \Streams\Ui\Components\Inputs\DatetimeInput::class);
-        Livewire::component('datetime', \Streams\Ui\Components\Inputs\DatetimeInput::class);
+        $this->registerBladeComponents();
+        $this->registerBladeDirectives();
+    }
 
-        // Field Type Aliases
-        Livewire::component('enum', \Streams\Ui\Components\Inputs\SelectInput::class);
-        Livewire::component('boolean', \Streams\Ui\Components\Inputs\CheckboxInput::class);
+    protected function registerBladeComponents()
+    {
+        $this->app->booted(function () {
+
+            $components = array_keys(UI::getComponents());
+
+            foreach ($components as $name) {
+                Blade::component($name, BladeComponent::class);
+            }
+        });
+    }
+
+    public function registerBladeDirectives()
+    {
+        Factory::macro('ui', function(string $name, array $attributes = []) {
+            return UI::make($name, $attributes);
+        });
+
+        Blade::directive('ui', function ($parameters) {
+            return "<?php echo \$__env->ui({$parameters}); ?>";
+        });
     }
 
     /**

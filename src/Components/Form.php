@@ -16,7 +16,12 @@ class Form extends Component
 
     public function submit()
     {
-        Log::info('Form submitted', Request::input());
+        $data = array_map(function ($field) {
+            return $this->{$field['name']};
+        }, $this->fields);
+
+        dd($data);
+        //$this->stream()->create($this->);
 
         return Redirect::to('/ui?success=true');
     }
@@ -29,7 +34,7 @@ class Form extends Component
              * Default to all stream fields.
              */
             if (!$this->fields) {
-                $this->fields = $this->stream()->fields->keys()->map(function($value) {
+                $this->fields = $this->stream()->fields->keys()->map(function ($value) {
                     return ['field' => $value];
                 })->toArray();
             }
@@ -42,6 +47,11 @@ class Form extends Component
                 // Default handle to field.
                 if (!isset($field['handle'])) {
                     $field['handle'] = $field['field'];
+                }
+
+                // Default name to handle.
+                if (!isset($field['name'])) {
+                    $field['name'] = $field['handle'];
                 }
             }
         }

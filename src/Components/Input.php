@@ -13,7 +13,7 @@ abstract class Input extends Component
     public string $name;
 
     public $value = null;
-    
+
     public ?string $field = null;
 
     public bool $readonly = false;
@@ -27,6 +27,12 @@ abstract class Input extends Component
 
     public function field(): Field|null
     {
-        return $this->stream ? $this->once(__METHOD__ . '.' . $this->field, fn ()  => $this->stream()->fields->{$this->field}) : null;
+        if (!$this->field) {
+            return null;
+        }
+
+        $key = __METHOD__ . '.' . $this->field;
+
+        return $this->once($key, fn ()  => $this->stream()->fields->{$this->field});
     }
 }

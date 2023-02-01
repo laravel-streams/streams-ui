@@ -6,10 +6,12 @@ use Streams\Core\Stream\Stream;
 use Illuminate\Support\Facades\View;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Core\Support\Traits\HasMemory;
+use Streams\Core\Support\Traits\Prototype;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
-abstract class Component extends \Livewire\Component
+abstract class Component
 {
+    use Prototype;
     use HasMemory;
     use FiresCallbacks;
     
