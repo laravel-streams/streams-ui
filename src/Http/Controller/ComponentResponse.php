@@ -3,10 +3,10 @@
 namespace Streams\Ui\Http\Controller;
 
 use Illuminate\Support\Str;
+use Streams\Ui\Support\Facades\UI;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Request;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Support\Facades\UI;
 
 class ComponentResponse extends Controller
 {
