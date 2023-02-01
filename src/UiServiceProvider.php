@@ -70,7 +70,7 @@ class UiServiceProvider extends ServiceProvider
 
     public function registerBladeDirectives()
     {
-        Factory::macro('ui', function(string $name, array $attributes = []) {
+        Factory::macro('ui', function (string $name, array $attributes = []) {
             return UI::make($name, $attributes);
         });
 
@@ -121,24 +121,6 @@ class UiServiceProvider extends ServiceProvider
     {
         if (!$this->app->routesAreCached()) {
 
-            Route::streams('ui/{component}', [
-                'csrf' => false,
-                'middleware' => 'web',
-                'uses'  => \Streams\Ui\Http\Controller\ComponentResponse::class,
-            ]);
-
-            Route::streams('/ui/{component}/{action}', [
-                'verb' => 'get',
-                'middleware' => 'web',
-                'uses' => \Streams\Ui\Http\Controller\ComponentAction::class,
-            ]);
-
-            // Route::streams('ui/{stream}/{component}/{handle?}/{entry?}', [
-            //     'ui.cp' => false,
-            //     'csrf' => false,
-            //     'uses'  => \Streams\Ui\Http\Controller\UiController::class,
-            // ]);
-
             Route::prefix(Config::get('streams.ui.cp_prefix'))
                 ->middleware(Config::get('streams.ui.cp_middleware'))
                 ->group(function () {
@@ -147,45 +129,9 @@ class UiServiceProvider extends ServiceProvider
                         include $routes;
                     }
 
-                    // @todo Configure this later
-                    $index  = '{section}';
-                    $create = '{section}/create';
-                    $edit   = '{section}/{entry}/edit';
-
-                    Route::streams('/', [
-                        'verb' => 'get',
-                        'as'   => 'streams.ui.cp.home',
-                        'uses' => \Streams\Ui\Http\Controller\UiController::class . '@index',
-                    ]);
-
-                    Route::streams($index, [
-                        'verb'          => 'get',
-                        'ui.cp'         => true,
-                        'ui.cp_enabled' => true,
-                        'ui.cp_enabled' => true,
-                        'ui.component'  => 'table',
-                        'as'            => 'streams.ui.cp.index',
-                        'uses'          => \Streams\Ui\Http\Controller\UiController::class,
-                    ]);
-
-                    Route::streams($create, [
-                        'verb'          => 'get',
-                        'ui.cp'         => true,
-                        'ui.cp_enabled' => true,
-                        'entry'         => false,
-                        'as'            => 'streams.ui.cp.create',
-                        'ui.component'  => 'form',
-                        'uses'          => \Streams\Ui\Http\Controller\UiController::class,
-                    ]);
-
-                    Route::streams($edit, [
-                        'verb'          => 'get',
-                        'ui.cp'         => true,
-                        'ui.cp_enabled' => true,
-                        'ui.cp_enabled' => true,
-                        'ui.component'  => 'form',
-                        'as'            => 'streams.ui.cp.edit',
-                        'uses'          => \Streams\Ui\Http\Controller\UiController::class,
+                    Route::get('streams/{component}/{entry?}', [
+                        'uses'  => \Streams\Ui\Http\Controller\ComponentResponse::class,
+                        //'as'    => 'streams.api.entries.list',
                     ]);
                 });
         }
@@ -249,7 +195,7 @@ class UiServiceProvider extends ServiceProvider
             $configured = Arr::undot($configured);
 
             $attributes = array_merge($attributes, $configured);
-            
+
             $attributes['stream'] = $this;
             $attributes['handle'] = $handle;
 
@@ -257,7 +203,7 @@ class UiServiceProvider extends ServiceProvider
             if ($override = Arr::get($attributes, $component)) {
                 $component = $override;
             }
-            
+
             return UI::make($component, $attributes);
         });
 
@@ -291,7 +237,9 @@ class UiServiceProvider extends ServiceProvider
 
             $attributes = array_merge($attributes, (array) $this->input);
 
-            return $this->once($this->stream->id . $this->handle . 'input', function () use ($attributes) {
+            return $this->once(
+                $this->stream->id . $this->handle . 'input',
+                function () use ($attributes) {
 
                     Arr::pull($attributes, 'type');
 

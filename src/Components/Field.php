@@ -61,6 +61,8 @@ class Field extends Component
         if (!isset($this->input['type'])) {
             $this->input['type'] = 'input';
         }
+
+        parent::booted();
     }
 
     public function field(): StreamsField|null

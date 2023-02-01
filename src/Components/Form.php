@@ -55,5 +55,7 @@ class Form extends Component
                 }
             }
         }
+
+        parent::booted();
     }
 }

@@ -22,6 +22,20 @@ abstract class Component
 
     public string $template;
 
+    public function __construct(array $attributes = [])
+    {
+        $this->__constructPrototype($attributes);
+
+        // Replace this with a UI manager controlled method
+        // UI::make should boot, and do all the callbacks and stuff.
+        $this->booted();
+    }
+
+    public function booted()
+    {
+        $this->id = $this->id ?? md5($this->template);
+    }
+
     public function stream(): Stream
     {
         return $this->once(__METHOD__ . '.' . $this->stream, fn ()  => Streams::make($this->stream));
