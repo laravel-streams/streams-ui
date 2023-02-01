@@ -2,9 +2,12 @@
 
 namespace Streams\Ui\Support;
 
+use Illuminate\Support\Str;
+use Collective\Html\HtmlFacade;
 use Streams\Core\Stream\Stream;
 use Illuminate\Support\Facades\View;
 use Streams\Core\Support\Facades\Streams;
+use Streams\Core\Support\Facades\Hydrator;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Core\Support\Traits\Prototype;
 use Streams\Core\Support\Traits\FiresCallbacks;
@@ -17,7 +20,7 @@ abstract class Component
 
     use HasMemory;
     use FiresCallbacks;
-    
+
     public ?string $stream = null;
 
     public string $template;
@@ -46,6 +49,22 @@ abstract class Component
         $payload['component'] = $this;
 
         return View::make($this->template, $payload);
+    }
+
+    public function attributes(array $attributes = [])
+    {
+        $attributes['ui:id'] = $this->id;
+
+        $this->component = str_replace('_input', '', strtolower(Str::snake(last(explode('\\', static::class)))));
+
+        $attributes['ui:data'] = json_encode($this->toArray());
+
+        return HtmlFacade::attributes($attributes);
+    }
+
+    public function toArray()
+    {
+        return Hydrator::dehydrate($this);
     }
 
     public function __toString()

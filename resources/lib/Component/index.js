@@ -1,5 +1,6 @@
 import { walk } from "../util/walk";
 import Directive from "../Directive";
+
 export default class Component {
 
     constructor(element) {

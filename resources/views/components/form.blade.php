@@ -1,23 +1,7 @@
-<form wire:submit.prevent="submit">
+<form ui:submit="submit" {!! $component->attributes() !!}>
     @if (isset($slot))
         {!! $slot !!}
     @else
-        @livewire('fields', ['fields' => $component->fields])
+        @ui('fields', ['fields' => $component->fields])
     @endif
-
-    @livewire('buttons', [
-        'buttons' => [
-            [
-                'type' => 'submit',
-                'text' => 'Submit',
-                'disabled' => false,
-            ],
-            [
-                'tag' => 'a',
-                'text' => 'Cancel',
-                'url' => '/ui',
-            ]
-        ]
-    ])
-
 </form>

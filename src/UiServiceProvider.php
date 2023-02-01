@@ -59,11 +59,8 @@ class UiServiceProvider extends ServiceProvider
     protected function registerBladeComponents()
     {
         $this->app->booted(function () {
-
-            $components = array_keys(UI::getComponents());
-
-            foreach ($components as $name) {
-                Blade::component($name, BladeComponent::class);
+            foreach (array_keys(UI::getComponents()) as $name) {
+                Blade::component($name, \Streams\Ui\Blade\BladeComponent::class);
             }
         });
     }
@@ -129,8 +126,13 @@ class UiServiceProvider extends ServiceProvider
                         include $routes;
                     }
 
-                    Route::get('streams/{component}/{entry?}', [
+                    Route::get('ui/{component}', [
                         'uses'  => \Streams\Ui\Http\Controller\ComponentResponse::class,
+                        //'as'    => 'streams.api.entries.list',
+                    ]);
+
+                    Route::get('ui/{component}/{action}', [
+                        'uses'  => \Streams\Ui\Http\Controller\ComponentAction::class,
                         //'as'    => 'streams.api.entries.list',
                     ]);
                 });
@@ -328,7 +330,6 @@ class UiServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ . '/../resources/public' => public_path('vendor/streams/ui'),
-            __DIR__ . '/../resources/fonts'  => public_path('vendor/streams/ui/fonts'),
         ], 'public');
 
         // $this->publishes([

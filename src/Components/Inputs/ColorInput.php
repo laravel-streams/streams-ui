@@ -7,8 +7,6 @@ use Streams\Ui\Components\Input;
 class ColorInput extends Input
 {
     public string $template = 'ui::components.inputs.color';
-
-    public string $type = 'color';
     
     public ?string $pattern = null;
 }

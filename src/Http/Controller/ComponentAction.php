@@ -16,7 +16,7 @@ class ComponentAction extends Controller
         if ($action) {
             $component->{$action}();
         }
-        
+
         return Response::json([
             'dom' => (string) $component->render(),
             'data' => $component->toArray(),

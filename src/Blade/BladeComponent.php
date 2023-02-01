@@ -16,13 +16,12 @@ class BladeComponent extends Component
             // $data['attributes'];
             // $data['slot'];
 
-            $attributes = $data['attributes']->getAttributes();
+            // @todo this idea should maybe be moved to the component?
+            $attributes = Arr::undot($data['attributes']->getAttributes());
 
             foreach ($data['__laravel_slots'] as $name => $content) {
 
                 if ($name == '__default') {
-
-                    $attributes['text'] = (string) $content;
 
                     $data['__laravel_slots']['slot'] = Arr::pull(
                         $data['__laravel_slots'],
@@ -31,18 +30,13 @@ class BladeComponent extends Component
 
                     continue;
                 }
-
-                dump($name);
-                dd($content);
             }
 
             $attributes = Arr::undot($attributes);
 
-            $instance = UI::make(str_replace('ui-', '', $this->componentName), $attributes);
+            $instance = UI::make($this->componentName, $attributes);
 
-            return $instance->render([
-                $instance->component => $instance
-            ] + $attributes + $data['__laravel_slots']);
+            return (string) $instance->render($data['__laravel_slots']);
         };
     }
 }

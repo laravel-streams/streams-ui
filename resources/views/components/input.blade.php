@@ -1,5 +1,5 @@
 <div>
-    <input {!! Html::attributes(
+    <input {!! $component->attributes(
         array_filter([
             'id' => $component->id,
             'name' => $component->name,
