@@ -16,11 +16,6 @@ class Button extends Component
     
     public ?string $type = null; // button, submit, reset
 
-    public function test()
-    {
-        $this->text = 'Foo Bar';
-    }
-
     //public ?string $icon = null;
     //public ?string $policy = null;
     //public ?string $formaction = null;

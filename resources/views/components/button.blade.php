@@ -1,5 +1,5 @@
 <div>
-    <{{ $component->tag }} ui:click.prevent="test" {!! $component->attributes(
+    <{{ $component->tag }} {!! $component->attributes(
         array_filter([
             'id' => $component->id,
             'name' => $component->name,
