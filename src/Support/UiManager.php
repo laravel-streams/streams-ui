@@ -12,22 +12,26 @@ class UiManager
     use Macroable;
     use FiresCallbacks;
 
+    protected array $booted = [];
+
     protected array $components;
 
     public function __construct()
     {
         $this->components = [
             'form' => \Streams\Ui\Components\Form::class,
-            'field' => \Streams\Ui\Components\Field::class,
             'alert' => \Streams\Ui\Components\Alert::class,
             'table' => \Streams\Ui\Components\Table::class,
             'modal' => \Streams\Ui\Components\Modal::class,
+            'field' => \Streams\Ui\Components\Field::class,
+            'fields' => \Streams\Ui\Components\Fields::class,
             'avatar' => \Streams\Ui\Components\Avatar::class,
             'button' => \Streams\Ui\Components\Button::class,
+            'buttons' => \Streams\Ui\Components\Buttons::class,
             'cp' => \Streams\Ui\Components\ControlPanel::class,
             'dropdown' => \Streams\Ui\Components\Dropdown::class,
 
-            
+
 
             'time' => \Streams\Ui\Components\Input::class,
             'datetime' => \Streams\Ui\Components\Input::class,
@@ -43,7 +47,7 @@ class UiManager
             'markdown' => \Streams\Ui\Components\Inputs\Markdown::class,
             'checkboxes' => \Streams\Ui\Components\Inputs\Checkboxes::class,
             'relationship' => \Streams\Ui\Components\Inputs\Relationship::class,
-            
+
             'url' => \Streams\Ui\Components\Input::class,
             'file' => \Streams\Ui\Components\Input::class,
             'hash' => \Streams\Ui\Components\Input::class,
@@ -51,15 +55,16 @@ class UiManager
             'email' => \Streams\Ui\Components\Input::class,
             'object' => \Streams\Ui\Components\Input::class,
 
+
             'enum' => \Streams\Ui\Components\Inputs\SelectInput::class,
             'select' => \Streams\Ui\Components\Inputs\SelectInput::class,
-            
+
             'color' => \Streams\Ui\Components\Inputs\ColorInput::class,
-            
+
             'text' => \Streams\Ui\Components\Inputs\TextInput::class,
             'input' => \Streams\Ui\Components\Inputs\TextInput::class,
             'string' => \Streams\Ui\Components\Inputs\TextInput::class,
-            
+
             'boolean' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
             'checkbox' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
 
@@ -67,45 +72,59 @@ class UiManager
         ];
     }
 
-    public function exists(string $name): bool
-    {
-        return App::has($name);
-    }
-
-    public function make(string $name, array $attributes = []): Component
-    {
-        if (!isset($this->components[$name]) && class_exists($name)) {
-            
-            $instance = App::make($name, [
-                'attributes' => $attributes,
-            ]);
-
-            return $instance;
-        }
-        
-        if (!$component = Arr::get($this->components, $name)) {
-            throw new \Exception("Component [$name] does not exist.");
-        }
-
-        $attributes['handle'] = Arr::get($attributes, 'handle', $name);
-
-        // @todo Callbacks
-        $instance = App::make($component, [
-            'attributes' => $attributes,
-        ]);
-
-        return $instance;
-    }
-
-    public function register($name, $component): static
+    public function register(string $name, $component): static
     {
         $this->components[$name] = $component;
 
         return $this;
     }
 
+    public function exists(string $name): bool
+    {
+        return isset($this->components[$name]);
+    }
+
+    public function make(string $name, array $attributes = []): Component
+    {
+        $attributes['handle'] = Arr::get($attributes, 'handle', $name);
+
+        $instance = $this->newInstance($name, $attributes);
+
+        $this->bootIfNotBooted($name, $instance);
+
+        return $instance;
+    }
+
     public function getComponents()
     {
         return $this->components;
+    }
+
+    public function newInstance(string $name, array $attributes = []): Component
+    {
+        if (!$component = Arr::get($this->components, $name)) {
+            throw new \Exception("Component [$name] is not registered.");
+        }
+
+        if (is_callable($component)) {
+            return $component($attributes);
+        }
+
+        return App::make($component, [
+            'attributes' => $attributes,
+        ]);
+    }
+
+    public function bootIfNotBooted(string $name, Component $component): void
+    {
+        if (array_key_exists($name, $this->booted)) {
+            return;
+        }
+
+        if (method_exists($component, 'boot')) {
+            $component->boot();
+        }
+
+        $this->booted[$name] = true;
     }
 }

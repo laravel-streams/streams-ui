@@ -20,9 +20,16 @@ class UiManagerTest extends UiTestCase
 
         $this->assertInstanceOf(UiManagerTestComponent::class, UI::make('test'));
     }
+
+    public function test_it_detects_registered_components()
+    {
+        UI::register('test', UiManagerTestComponent::class);
+
+        $this->assertTrue(UI::exists('test'));
+    }
 }
 
 class UiManagerTestComponent extends Component
 {
-
+    public string $template = 'ui::test';
 }

@@ -3,5 +3,6 @@
         {!! $slot !!}
     @else
         @ui('fields', ['fields' => $component->fields])
+        @ui('buttons', ['buttons' => $component->buttons])
     @endif
 </form>
