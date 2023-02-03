@@ -5,34 +5,30 @@ namespace Streams\Ui\Components;
 use Streams\Core\Field\Field;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\Request;
+use Streams\Ui\Components\Traits\HasAttributes;
 
 class Input extends Component
 {
+    use HasAttributes;
+
     public string $template = 'ui::components.input';
 
-    public string $name = 'input';
-
+    public ?string $field = null;    
+    
     public $value = null;
-
-    public ?string $field = null;
+    
+    public ?string $name = null;
 
     public bool $readonly = false;
     public bool $disabled = false;
     public bool $required = false;
 
-    public function getRequestValue()
-    {
-        return Request::file($this->name) ?: Request::input($this->name);
-    }
+    public array $attributes = [];
 
     public function field(): Field|null
     {
-        if (!$this->field) {
-            return null;
-        }
-
         $key = __METHOD__ . '.' . $this->field;
 
-        return $this->once($key, fn ()  => $this->stream()->fields->{$this->field});
+        return $this->field ? $this->once($key, fn ()  => $this->stream()->fields->{$this->field}) : null;
     }
 }

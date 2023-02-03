@@ -2,8 +2,9 @@
 
 namespace Streams\Ui\Support;
 
-use Illuminate\Support\Str;
 use Collective\Html\HtmlFacade;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Streams\Core\Stream\Stream;
 use Illuminate\Support\Facades\View;
 use Streams\Core\Support\Facades\Streams;
@@ -12,6 +13,7 @@ use Streams\Core\Support\Traits\HasMemory;
 use Streams\Core\Support\Traits\Prototype;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
+//abstract class Component extends \Illuminate\View\Component
 abstract class Component
 {
     use Prototype {
@@ -29,13 +31,6 @@ abstract class Component
     {
         $this->__constructPrototype($attributes);
 
-        // Replace this with a UI manager controlled method
-        // UI::make should boot, and do all the callbacks and stuff.
-        $this->booted();
-    }
-
-    public function booted()
-    {
         $this->id = $this->id ?? md5($this->template);
     }
 
@@ -44,22 +39,22 @@ abstract class Component
         return $this->once(__METHOD__ . '.' . $this->stream, fn ()  => Streams::make($this->stream));
     }
 
-    public function render(array $payload = [])
+    public function render(array $payload = []): string
     {
         $payload['component'] = $this;
 
-        return View::make($this->template, $payload);
+        if (strpos($this->template, '<') !== false) {
+            $rendered = View::parse($this->template, $payload)->render();
+        } else {
+            $rendered = View::make($this->template, $payload)->render();
+        }
+
+        return $this->finishRender($rendered);
     }
 
-    public function attributes(array $attributes = [])
+    public function name()
     {
-        $attributes['ui:id'] = $this->id;
-
-        $this->component = str_replace('_input', '', strtolower(Str::snake(last(explode('\\', static::class)))));
-
-        $attributes['ui:data'] = json_encode($this->toArray());
-
-        return HtmlFacade::attributes($attributes);
+        return $this->once(__METHOD__, fn () => Str::kebab(class_basename($this)));
     }
 
     public function toArray()
@@ -69,6 +64,18 @@ abstract class Component
 
     public function __toString()
     {
-        return (string) $this->render();
+        return $this->render();
+    }
+
+    protected function finishRender(string $rendered): string
+    {
+        $attributes = HtmlFacade::attributes([
+            'ui:id' => $this->id,
+            'ui:name' => $this->name(),
+        ]);
+
+        $rendered = preg_replace('/(<div\b[^><]*)>/i', '$1 ' . $attributes . '>', $rendered);
+
+        return $rendered;
     }
 }

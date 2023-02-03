@@ -31,7 +31,7 @@ export default class Poll /*extends Event*/ {
                 return;
             }
 
-            const response = await fetch('/cp/ui/' + this.directive.component.data.component + '/' + method + '?data=' + JSON.stringify(this.directive.component.data));
+            const response = await fetch('/cp/ui/' + this.directive.component.name + '/' + method + '?data=' + JSON.stringify(this.directive.component.data));
 
             const json = await response.json();
 

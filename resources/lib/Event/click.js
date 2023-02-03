@@ -19,7 +19,7 @@ export default class Click /*extends Event*/ {
 
             //const params = new URLSearchParams(this.directive.component.data);
 
-            const method = this.directive.component.element.getAttribute(this.directive.name) || 'render';
+            const method = this.directive.component.element.getAttribute(this.directive.name);
 
             if (method.startsWith('javascript:')) {
 
@@ -32,7 +32,7 @@ export default class Click /*extends Event*/ {
                 return;
             }
 
-            const response = await fetch('/cp/ui/' + this.directive.component.data.component + '/' + method + '?data=' + JSON.stringify(this.directive.component.data));
+            const response = await fetch('/cp/ui/' + this.directive.component.name + '/' + method + '?data=' + JSON.stringify(this.directive.component.data));
 
             const json = await response.json();
 

@@ -1,11 +1,15 @@
 <div>
-    <{{ $component->tag }} {!! $component->attributes(
-        array_filter([
-            'id' => $component->id,
-            'name' => $component->name,
-            'type' => $component->type,
-            'disabled' => $component->disabled,
-            ($component->tag == 'button' ? 'url' : 'href') => $component->url,
-        ])
-    ) !!}>{{ __($component->text) }}{{-- Icon --}}</{{ $component->tag }}>
+    <{{ $component->tag }} {!! $component->htmlAttributes([
+        'href' => $component->href,
+        'name' => $component->name,
+        'type' => $component->type,
+        'disabled' => $component->disabled,
+        'class' => ['px-4 py-2 border border-black rounded' => true],
+    ]) !!}>
+        @if (isset($slot))
+            {!! $slot !!}
+        @else
+            {{ __($component->text) }}
+        @endif
+    </{{ $component->tag }}>
 </div>

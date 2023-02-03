@@ -17,7 +17,7 @@ export default class Submit /*extends Event*/ {
 
             const method = this.directive.component.element.getAttribute(this.directive.name) || 'render';
 
-            const response = await fetch('/cp/ui/' + this.directive.component.data.component + '/' + method + '?' + params);
+            const response = await fetch('/cp/ui/' + this.directive.component.name + '/' + method + '?' + params);
 
             const json = await response.json();
 

@@ -9,6 +9,8 @@ export default class Component {
 
         this.id = element.getAttribute('ui:' + 'id');
 
+        this.name = element.getAttribute('ui:' + 'name');
+
         const data = JSON.parse(this.extractAttribute('data'));
 
         this.data = data || {};
@@ -30,12 +32,14 @@ export default class Component {
     }
 
     extractDirectives() {
-        return Array.from(this.element.getAttributeNames()
-            .filter(name => name.match(new RegExp('ui:')))
-            .map(name => {
-                return new Directive(name, this);
-                //return new ElementDirective(type, modifiers, name, this.el)
-            }));
+
+        return Array.from(this.element.children).map(child => {
+            Array.from(child.getAttributeNames()
+                .filter(name => name.match(new RegExp('ui:')))
+                .map(name => {
+                    return new Directive(name, this);
+                }))
+        });
     }
 
     get(name) {

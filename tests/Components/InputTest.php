@@ -2,7 +2,6 @@
 
 namespace Streams\Ui\Tests\Components;
 
-use Livewire\Livewire;
 use Streams\Ui\Components\Input;
 use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Support\Facades\UI;
@@ -12,28 +11,23 @@ class InputTest extends UiTestCase
 {
     public function test_it_builds()
     {
-        $this->assertInstanceOf(Input::class, Livewire::getInstance('input', 1));
+        $this->assertInstanceOf(Input::class, UI::make('input'));
     }
 
     public function test_it_renders()
     {
-        $this->assertIsString(Livewire::mount('input', [
+        $this->assertIsString(UI::make('input', [
             'name' => 'test',
-        ])->html());
+        ])->render());
     }
     
-    public function test_it_returns_request_input()
+    public function test_it_supports_stream_fields()
     {
-        $instance = Livewire::getInstance('input', 1);
+        $input = UI::make('input', [
+            'stream' => 'films',
+            'field' => 'title',
+        ]);
 
-        $instance->name = 'testing';
-
-        // $response = $this->json('POST', URL::route('streams.api.entries.create', [
-        //     'testing' => 'foo',
-        // ]), $this->filmData());
-        
-        // $response->assertStatus(201);
-
-        $this->assertNull($instance->getRequestValue());
+        $this->assertEquals('title', $input->field()->handle);
     }
 }
