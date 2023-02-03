@@ -2,24 +2,23 @@
 
 namespace Streams\Ui\Tests\Components;
 
-use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Support\Facades\UI;
+use Streams\Ui\Components\Inputs\Date;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Components\Inputs\DateInput;
 
-class DateInputTest extends UiTestCase
+class DateTest extends UiTestCase
 {
     public function test_it_builds()
     {
-        $this->assertInstanceOf(DateInput::class, Livewire::getInstance('date', 1));
+        $this->assertInstanceOf(Date::class, UI::make('date'));
     }
 
     public function test_it_renders()
     {
-        $output = Livewire::mount('date', [
+        $output = UI::make('date', [
             'name' => 'test',
-        ])->html();
+        ])->render();
 
         $this->assertStringContainsString('type="date"', $output);
     }

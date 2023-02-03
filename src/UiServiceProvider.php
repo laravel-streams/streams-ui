@@ -61,9 +61,9 @@ class UiServiceProvider extends ServiceProvider
         $this->registerRoutes();
 
         foreach (Config::get('streams.ui.inputs.field_types') as $fieldType => $input) {
-            UI::register($fieldType, function () use ($input) {
-                return UI::make(Arr::pull($input, 'input', 'input'), $input);
-            });
+            // UI::register($fieldType, function () use ($input) {
+            //     return UI::make(Arr::pull($input, 'input', 'input'), $input);
+            // });
         }
 
         //$this->registerBladeComponents();

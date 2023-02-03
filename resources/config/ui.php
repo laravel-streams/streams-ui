@@ -6,21 +6,16 @@ return [
 
     'components' => [
         'form' => \Streams\Ui\Components\Form::class,
-        // 'alert' => \Streams\Ui\Components\Alert::class,
-        // 'table' => \Streams\Ui\Components\Table::class,
-        // 'modal' => \Streams\Ui\Components\Modal::class,
-        // 'avatar' => \Streams\Ui\Components\Avatar::class,
-        // 'cp' => \Streams\Ui\Components\ControlPanel::class,
-        // 'dropdown' => \Streams\Ui\Components\Dropdown::class,
-
+        
         'button' => \Streams\Ui\Components\Button::class,
 
         'field' => \Streams\Ui\Components\Field::class,
 
-        // 'time' => \Streams\Ui\Components\Input::class,
-        // 'datetime' => \Streams\Ui\Components\Input::class,
+        // Inputs
+        'date' => \Streams\Ui\Components\Inputs\Date::class,
+        'time' => \Streams\Ui\Components\Inputs\Time::class,
+        'datetime' => \Streams\Ui\Components\Inputs\Datetime::class,
 
-        // 'date' => \Streams\Ui\Components\Inputs\Date::class,
         // 'slug' => \Streams\Ui\Components\Inputs\Slug::class,
         // 'tags' => \Streams\Ui\Components\Inputs\Tags::class,
         // 'array' => \Streams\Ui\Components\Inputs\Tags::class,
@@ -41,17 +36,17 @@ return [
         'decimal' => \Streams\Ui\Components\Inputs\Decimal::class,
         'integer' => \Streams\Ui\Components\Inputs\Integer::class,
 
+        'select' => \Streams\Ui\Components\Inputs\Select::class,
         // 'enum' => \Streams\Ui\Components\Inputs\SelectInput::class,
-        // 'select' => \Streams\Ui\Components\Inputs\SelectInput::class,
 
-        // 'color' => \Streams\Ui\Components\Inputs\ColorInput::class,
+        'color' => \Streams\Ui\Components\Inputs\Color::class,
 
         'text' => \Streams\Ui\Components\Inputs\Text::class,
         'input' => \Streams\Ui\Components\Inputs\Text::class,
         //'string' => \Streams\Ui\Components\Inputs\TextInput::class,
 
+        'checkbox' => \Streams\Ui\Components\Inputs\Checkbox::class,
         // 'boolean' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
-        // 'checkbox' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
 
         'textarea' => \Streams\Ui\Components\Inputs\Textarea::class,
     ],

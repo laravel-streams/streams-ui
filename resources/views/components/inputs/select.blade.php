@@ -1,20 +1,18 @@
 <div>
-    <select {!! Html::attributes(
-        array_filter([
-            'id' => $component->id,
-            'name' => $component->name,
-            'required' => $component->required,
-            'readonly' => $component->readonly,
-            'disabled' => $component->disabled,
-        ])
-    ) !!}>
+    <select {!! $component->htmlAttributes([
+        'name' => $component->name,
+        'required' => $component->required,
+        'readonly' => $component->readonly,
+        'disabled' => $component->disabled,
+    ]) !!}>
 
-    @if (!$component->required)
+        @if (!$component->required)
         <option value="">---</option>
-    @endif
+        @endif
 
-    @foreach ($component->options() as $key => $value)
+        @foreach ($component->options() as $key => $value)
         <option {{ $key == $component->value ? 'selected' : null }} value="{{ $key }}">{{ $value }}</option>
-    @endforeach
+        @endforeach
+        
     </select>
 </div>

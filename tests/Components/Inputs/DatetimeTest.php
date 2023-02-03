@@ -2,24 +2,23 @@
 
 namespace Streams\Ui\Tests\Components;
 
-use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Support\Facades\UI;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Components\Inputs\DatetimeInput;
+use Streams\Ui\Components\Inputs\Datetime;
 
-class DatetimeInputTest extends UiTestCase
+class DatetimeTest extends UiTestCase
 {
     public function test_it_builds()
     {
-        $this->assertInstanceOf(DatetimeInput::class, Livewire::getInstance('date_time', 1));
+        $this->assertInstanceOf(Datetime::class, UI::make('datetime'));
     }
 
     public function test_it_renders()
     {
-        $output = Livewire::mount('date_time', [
+        $output = UI::make('datetime', [
             'name' => 'test',
-        ])->html();
+        ])->render();
 
         $this->assertStringContainsString('type="datetime-local"', $output);
     }

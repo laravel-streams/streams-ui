@@ -4,9 +4,9 @@ namespace Streams\Ui\Components\Inputs;
 
 use Streams\Ui\Components\Input;
 
-class DatetimeInput extends Input
+class Time extends Input
 {
-    public string $template = 'ui::components.inputs.datetime';
+    public string $template = 'ui::components.inputs.time';
 
     public ?string $min = null;
     public ?string $max = null;

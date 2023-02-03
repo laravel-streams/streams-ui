@@ -2,24 +2,23 @@
 
 namespace Streams\Ui\Tests\Components;
 
-use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Support\Facades\UI;
+use Streams\Ui\Components\Inputs\Select;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Components\Inputs\SelectInput;
 
-class SelectInputTest extends UiTestCase
+class SelectTest extends UiTestCase
 {
     public function test_it_builds()
     {
-        $this->assertInstanceOf(SelectInput::class, Livewire::getInstance('select', 1));
+        $this->assertInstanceOf(Select::class, UI::make('select'));
     }
 
     public function test_it_renders()
     {
-        $output = Livewire::mount('select', [
+        $output = UI::make('select', [
             'name' => 'test',
-        ])->html();
+        ])->render();
 
         $this->assertStringContainsString('<select', $output);
     }
