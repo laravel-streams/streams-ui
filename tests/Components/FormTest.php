@@ -2,7 +2,6 @@
 
 namespace Streams\Ui\Tests\Components;
 
-use Livewire\Livewire;
 use Streams\Core\Field\Field;
 use Streams\Ui\Components\Form;
 use Streams\Core\Stream\Stream;
@@ -14,36 +13,31 @@ class FormTest extends UiTestCase
 {
     public function test_it_builds()
     {
-        $this->assertInstanceOf(Form::class, Livewire::getInstance('form', 1));
+        $this->assertInstanceOf(Form::class, UI::make('form'));
     }
 
     public function test_it_renders()
     {
-        $this->assertIsString(Livewire::mount('form', [])->html());
+        $this->assertIsString(UI::make('form', [])->render());
     }
 
     public function test_it_defaults_stream_fields()
     {
-        $instance = Livewire::getInstance('form', 1);
-
-        $instance->stream = 'films';
-        
-        $instance->booted();
+        $instance = UI::make('form', [
+            'stream' => 'films',
+        ]);
 
         $this->assertTrue(count($instance->fields) > 1);
     }
 
     public function test_it_passes_stream()
     {
-        $instance = Livewire::getInstance('form', 1);
-
-        $instance->stream = 'films';
-        
-        $instance->fields = [
-            ['field' => 'title'],
-        ];
-
-        $instance->booted();
+        $instance = UI::make('form', [
+            'stream' => 'films',
+            'fields' => [
+                ['field' => 'title'],
+            ],
+        ]);
 
         $this->assertSame('films', $instance->fields[0]['stream']);
     }

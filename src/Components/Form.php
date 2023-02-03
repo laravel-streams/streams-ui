@@ -5,27 +5,20 @@ namespace Streams\Ui\Components;
 use Illuminate\Support\Arr;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\Redirect;
+use Streams\Ui\Components\Traits\HasAttributes;
 
 class Form extends Component
 {
+    use HasAttributes;
+
     public string $template = 'ui::components.form';
 
     public array $fields = [];
     public array $buttons = [];
 
-    public function submit()
-    {
-        $data = array_map(function ($field) {
-            return $this->{$field['name']};
-        }, $this->fields);
+    public array $attributes = [];
 
-        dd($data);
-        //$this->stream()->create($this->);
-
-        return Redirect::to('/ui?success=true');
-    }
-
-    public function booted()
+    public function boot()
     {
         if ($this->stream) {
 
@@ -54,7 +47,5 @@ class Form extends Component
                 }
             }
         }
-
-        parent::booted();
     }
 }

@@ -4,14 +4,16 @@ namespace Streams\Ui\Components\Inputs;
 
 use Streams\Ui\Components\Input;
 
-class TextareaInput extends Input
+class Text extends Input
 {
-    public string $template = 'ui::components.inputs.textarea';
-
-    public int $rows = 3;
-
+    public string $template = 'ui::components.inputs.text';
+    
     public ?int $min = null;
     public ?int $max = null;
+    
+    public ?string $pattern = null;
+
+    public string $type = 'text';
     
     public ?string $placeholder = null;
 }

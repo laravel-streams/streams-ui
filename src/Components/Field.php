@@ -23,14 +23,12 @@ class Field extends Component
 
     public bool $required = false;
 
-    public function booted()
+    public function boot()
     {
         if ($this->stream && $this->field) {
-            
-            // 1.) Need to check for configured defaults if field/stream found.
 
             $field = $this->stream()->fields->{$this->field};
-            
+
             $this->label = $field->name;
             $this->name = $field->handle;
             $this->description = $field->description;
@@ -43,12 +41,8 @@ class Field extends Component
 
             $this->input['stream'] = $this->stream;
             $this->input['field'] = $this->field;
-            
-            $this->input['value'] = $field->default($field->config('default'));
 
-            if (!isset($this->input['type'])) {
-                $this->input['type'] = $field->type;
-            }
+            $this->input['value'] = $field->default($field->config('default'));
         }
 
         if (!$this->label && $this->label !== false) {
@@ -61,8 +55,6 @@ class Field extends Component
         if (!isset($this->input['type'])) {
             $this->input['type'] = 'input';
         }
-
-        parent::booted();
     }
 
     public function field(): StreamsField|null

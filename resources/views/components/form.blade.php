@@ -1,8 +1,10 @@
-<form ui:submit="submit" {!! $component->attributes() !!}>
+<form ui:submit="submit" {!! $component->htmlAttributes() !!}>
     @if (isset($slot))
         {!! $slot !!}
     @else
-        @ui('fields', ['fields' => $component->fields])
-        @ui('buttons', ['buttons' => $component->buttons])
+        @foreach ($component->fields as $field)
+            @ui('field', $field)
+        @endforeach
+        {{-- @ui('buttons', ['buttons' => $component->buttons]) --}}
     @endif
 </form>

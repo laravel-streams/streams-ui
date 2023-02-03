@@ -8,5 +8,6 @@
         'required' => $component->required,
         'readonly' => $component->readonly,
         'disabled' => $component->disabled,
+        'placeholder' => $component->placeholder,
     ]) !!}>    
 </div>

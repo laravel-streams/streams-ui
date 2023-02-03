@@ -1,18 +1,14 @@
 <div>
-    <input {!! Html::attributes(
-        array_filter([
-            'type' => 'number',
-            'id' => $component->id,
-            'min' => $component->min,
-            'max' => $component->max,
-            'name' => $component->name,
-            'step' => $component->step,
-            'value' => $component->value,
-            'required' => $component->required,
-            'readonly' => $component->readonly,
-            'disabled' => $component->disabled,
-            'placeholder' => $component->placeholder,
-            'pattern' => trim($component->pattern, "//"),
-        ])
-    ) !!}>    
+    <input {!! $component->htmlAttributes([
+        'name' => $component->name,
+        'value' => $component->value,
+        'type' => $component->type,
+        'step' => $component->step,
+        'min' => $component->min,
+        'max' => $component->max,
+        'required' => $component->required,
+        'readonly' => $component->readonly,
+        'disabled' => $component->disabled,
+        'placeholder' => $component->placeholder,
+    ]) !!}>    
 </div>

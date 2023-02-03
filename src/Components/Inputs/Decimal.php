@@ -4,7 +4,7 @@ namespace Streams\Ui\Components\Inputs;
 
 use Streams\Ui\Components\Input;
 
-class DecimalInput extends Input
+class Decimal extends Input
 {
     public string $template = 'ui::components.inputs.number';
 

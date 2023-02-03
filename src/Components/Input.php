@@ -4,10 +4,9 @@ namespace Streams\Ui\Components;
 
 use Streams\Core\Field\Field;
 use Streams\Ui\Support\Component;
-use Illuminate\Support\Facades\Request;
 use Streams\Ui\Components\Traits\HasAttributes;
 
-class Input extends Component
+abstract class Input extends Component
 {
     use HasAttributes;
 

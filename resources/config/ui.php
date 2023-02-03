@@ -4,6 +4,116 @@
 
 return [
 
+    'components' => [
+        'form' => \Streams\Ui\Components\Form::class,
+        // 'alert' => \Streams\Ui\Components\Alert::class,
+        // 'table' => \Streams\Ui\Components\Table::class,
+        // 'modal' => \Streams\Ui\Components\Modal::class,
+        // 'avatar' => \Streams\Ui\Components\Avatar::class,
+        // 'cp' => \Streams\Ui\Components\ControlPanel::class,
+        // 'dropdown' => \Streams\Ui\Components\Dropdown::class,
+
+        'button' => \Streams\Ui\Components\Button::class,
+
+        'field' => \Streams\Ui\Components\Field::class,
+
+        // 'time' => \Streams\Ui\Components\Input::class,
+        // 'datetime' => \Streams\Ui\Components\Input::class,
+
+        // 'date' => \Streams\Ui\Components\Inputs\Date::class,
+        // 'slug' => \Streams\Ui\Components\Inputs\Slug::class,
+        // 'tags' => \Streams\Ui\Components\Inputs\Tags::class,
+        // 'array' => \Streams\Ui\Components\Inputs\Tags::class,
+        
+        // 'editor' => \Streams\Ui\Components\Inputs\Editor::class,
+        // 'markdown' => \Streams\Ui\Components\Inputs\Markdown::class,
+        // 'checkboxes' => \Streams\Ui\Components\Inputs\Checkboxes::class,
+        // 'relationship' => \Streams\Ui\Components\Inputs\Relationship::class,
+        
+        // 'url' => \Streams\Ui\Components\Input::class,
+        // 'file' => \Streams\Ui\Components\Input::class,
+        // 'hash' => \Streams\Ui\Components\Input::class,
+        // 'uuid' => \Streams\Ui\Components\Input::class,
+        // 'email' => \Streams\Ui\Components\Input::class,
+        // 'object' => \Streams\Ui\Components\Input::class,
+        
+        'number' => \Streams\Ui\Components\Inputs\Number::class,
+        'decimal' => \Streams\Ui\Components\Inputs\Decimal::class,
+        'integer' => \Streams\Ui\Components\Inputs\Integer::class,
+
+        // 'enum' => \Streams\Ui\Components\Inputs\SelectInput::class,
+        // 'select' => \Streams\Ui\Components\Inputs\SelectInput::class,
+
+        // 'color' => \Streams\Ui\Components\Inputs\ColorInput::class,
+
+        'text' => \Streams\Ui\Components\Inputs\Text::class,
+        'input' => \Streams\Ui\Components\Inputs\Text::class,
+        //'string' => \Streams\Ui\Components\Inputs\TextInput::class,
+
+        // 'boolean' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
+        // 'checkbox' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
+
+        'textarea' => \Streams\Ui\Components\Inputs\Textarea::class,
+    ],
+
+    'inputs' => [
+        'types' => [],
+        'field_types' => [
+
+            // Numbers
+            // 'integer' => [
+            //     'input' => 'number',
+            //     'step' => 1,
+            // ],
+            // 'decimal' => [
+            //     'input' => 'text',
+            // ],
+
+            // Strings
+            // 'string' => [
+            //     'input' => 'text',
+            // ],
+            // 'url' => [
+            //     'input' => 'text',
+            //     'type'  => 'url',
+            // ],
+            // 'uuid' => [
+            //     'input' => 'text',
+            // ],
+            // 'hash' => [
+            //     'input' => 'text',
+            // ],
+            // 'email' => [
+            //     'input' => 'text',
+            //     'type' => 'email',
+            // ],
+            // 'encrypted' => [
+            //     'input' => 'text',
+            //     'type' => 'password',
+            // ],
+
+            // // Boolean
+            // 'boolean' => [
+            //     // radio + options|checkbox
+            // ],
+
+            // // Arrays
+            // 'array' => [
+            //     // tags|items
+            // ],
+
+            // // Selections
+            // 'enum' => [
+            //     'type' => 'select',
+            // ],
+
+            // 'image' => [
+            //     // file + accepts
+            // ],
+        ],
+    ],
+
+    // GET RID OF THIS
     /**
      * Specify whether the CP is enabled or not.
      */
@@ -32,58 +142,4 @@ return [
      * Specify the CP group middleware.
      */
     'cp_middleware' => ['web', 'cp'],
-
-    /**
-     * Specify input types.
-     */
-    'input_types' => [
-        'text' => \Streams\Ui\Components\Input::class,
-        'hash' => \Streams\Ui\Input\Input::class, // Default
-        'input' => \Streams\Ui\Input\Input::class,
-        'string' => \Streams\Ui\Input\Input::class, // Default
-        
-        'tags' => \Streams\Ui\Components\Tags::class,
-
-        'date' => \Streams\Ui\Input\Date::class,
-        'time' => \Streams\Ui\Input\Time::class,
-        'datetime' => \Streams\Ui\Input\Datetime::class,
-
-        'slug' => \Streams\Ui\Input\Slug::class,
-        'email' => \Streams\Ui\Input\Input::class,
-
-        'color' => \Streams\Ui\Input\Color::class,
-        'radio' => \Streams\Ui\Input\Radio::class,
-        'range' => \Streams\Ui\Input\Range::class,
-
-        'select' => \Streams\Ui\Input\Select::class,
-        'checkboxes' => \Streams\Ui\Input\Checkboxes::class,
-        'multiselect' => \Streams\Ui\Input\Multiselect::class,
-
-        'integer' => \Streams\Ui\Input\Integer::class,
-        'decimal' => \Streams\Ui\Input\Decimal::class,
-        'float' => \Streams\Ui\Input\Decimal::class,
-
-        'editor' => \Streams\Ui\Input\Editor::class,
-        'textarea' => \Streams\Ui\Input\Textarea::class,
-        'markdown' => \Streams\Ui\Input\Markdown::class,
-
-        'file' => \Streams\Ui\Input\File::class,
-        'image' => \Streams\Ui\Input\Image::class,
-
-        'relationship' => \Streams\Ui\Input\Relationship::class,
-
-        'toggle' => \Streams\Ui\Input\Toggle::class,
-        'boolean' => \Streams\Ui\Input\Checkbox::class, // Default
-        'checkbox' => \Streams\Ui\Input\Checkbox::class,
-    ],
-    'components' => [
-        // 'table' => \Streams\Ui\Table\Table::class,
-        'button' => \Streams\Ui\Blade\Components\ButtonComponent::class,
-        // 'streams-ui-alert' => \Streams\Ui\Button\ButtonBlade::class,
-        // 'ui-alert' => \Streams\Ui\Component\Components\Alert::class,
-        // 'ui-toolbar' => \Streams\Ui\Component\Components\Toolbar::class,
-        // 'ui-cp' => \Streams\Ui\Component\ControlPanel\ControlPanel::class,
-        // 'ui-cp-topbar' => \Streams\Ui\Component\ControlPanel\ControlPanelHeader::class,
-        // 'ui-cp-sidebar' => \Streams\Ui\Component\ControlPanel\ControlPanelSidebar::class
-    ],
 ];

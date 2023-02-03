@@ -2,24 +2,23 @@
 
 namespace Streams\Ui\Tests\Components;
 
-use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Support\Facades\UI;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Components\Inputs\TextareaInput;
+use Streams\Ui\Components\Inputs\Textarea;
 
-class TextareaInputTest extends UiTestCase
+class TextareaTest extends UiTestCase
 {
     public function test_it_builds()
     {
-        $this->assertInstanceOf(TextareaInput::class, Livewire::getInstance('textarea', 1));
+        $this->assertInstanceOf(Textarea::class, UI::make('textarea'));
     }
 
     public function test_it_renders()
     {
-        $output = Livewire::mount('textarea', [
+        $output = UI::make('textarea', [
             'name' => 'test',
-        ])->html();
+        ])->render();
 
         $this->assertStringContainsString('<textarea', $output);
     }

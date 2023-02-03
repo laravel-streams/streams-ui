@@ -2,25 +2,24 @@
 
 namespace Streams\Ui\Tests\Components;
 
-use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Support\Facades\UI;
+use Streams\Ui\Components\Inputs\Text;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Components\Inputs\TextInput;
 
-class TextInputTest extends UiTestCase
+class TextTest extends UiTestCase
 {
     public function test_it_builds()
     {
-        $this->assertInstanceOf(TextInput::class, Livewire::getInstance('text', 1));
+        $this->assertInstanceOf(Text::class, UI::make('text'));
     }
 
     public function test_it_renders()
     {
-        $output = Livewire::mount('text', [
+        $output = UI::make('text', [
             'name' => 'test',
             'placeholder' => 'Example',
-        ])->html();
+        ])->render();
 
         $this->assertStringContainsString('type="text"', $output);
         $this->assertStringContainsString('placeholder="Example"', $output);

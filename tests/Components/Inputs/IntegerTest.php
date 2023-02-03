@@ -2,25 +2,24 @@
 
 namespace Streams\Ui\Tests\Components;
 
-use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Support\Facades\UI;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Components\Inputs\DecimalInput;
+use Streams\Ui\Components\Inputs\Integer;
 
-class DecimalInputTest extends UiTestCase
+class IntegerTest extends UiTestCase
 {
     public function test_it_builds()
     {
-        $this->assertInstanceOf(DecimalInput::class, Livewire::getInstance('decimal', 1));
+        $this->assertInstanceOf(Integer::class, UI::make('integer'));
     }
 
     public function test_it_renders()
     {
-        $output = Livewire::mount('decimal', [
+        $output = UI::make('integer', [
             'name' => 'test',
             'placeholder' => 'Example',
-        ])->html();
+        ])->render();
 
         $this->assertStringContainsString('type="number"', $output);
         $this->assertStringContainsString('placeholder="Example"', $output);
