@@ -253,6 +253,9 @@ class UiServiceProvider extends ServiceProvider
 
             $attributes = array_merge($attributes, (array) $this->input);
 
+            $attributes['stream'] = $this->stream->id;
+            $attributes['field'] = $this->handle;
+
             return $this->once(
                 $this->stream->id . $this->handle . 'input',
                 function () use ($attributes) {
