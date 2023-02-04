@@ -2,27 +2,26 @@
 
 namespace Streams\Ui\Tests\Components;
 
-use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Support\Facades\UI;
+use Streams\Ui\Components\Inputs\Email;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Components\Inputs\UrlInput;
 
-class UrlInputTest extends UiTestCase
+class EmailTest extends UiTestCase
 {
     public function test_it_builds()
     {
-        $this->assertInstanceOf(UrlInput::class, Livewire::getInstance('url', 1));
+        $this->assertInstanceOf(Email::class, UI::make('email'));
     }
 
     public function test_it_renders()
     {
-        $output = Livewire::mount('url', [
+        $output = UI::make('email', [
             'name' => 'test',
             'placeholder' => 'Example',
-        ])->html();
+        ])->render();
 
-        $this->assertStringContainsString('type="url"', $output);
+        $this->assertStringContainsString('type="email"', $output);
         $this->assertStringContainsString('placeholder="Example"', $output);
     }
 }

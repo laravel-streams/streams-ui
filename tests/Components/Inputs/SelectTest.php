@@ -22,4 +22,18 @@ class SelectTest extends UiTestCase
 
         $this->assertStringContainsString('<select', $output);
     }
+
+    public function test_it_returns_options()
+    {
+        $output = UI::make('select', [
+            'name' => 'test',
+            'options' => [
+                'one' => 'One',
+                'two' => 'Two',
+            ],
+        ])->render();
+
+        $this->assertStringContainsString('value="one">One</option>', $output);
+        $this->assertStringContainsString('value="two">Two</option>', $output);
+    }
 }

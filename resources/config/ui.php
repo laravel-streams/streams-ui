@@ -25,11 +25,6 @@ return [
         // 'checkboxes' => \Streams\Ui\Components\Inputs\Checkboxes::class,
         // 'relationship' => \Streams\Ui\Components\Inputs\Relationship::class,
         
-        // 'url' => \Streams\Ui\Components\Input::class,
-        // 'file' => \Streams\Ui\Components\Input::class,
-        // 'hash' => \Streams\Ui\Components\Input::class,
-        // 'uuid' => \Streams\Ui\Components\Input::class,
-        // 'email' => \Streams\Ui\Components\Input::class,
         // 'object' => \Streams\Ui\Components\Input::class,
         
         'number' => \Streams\Ui\Components\Inputs\Number::class,
@@ -37,13 +32,18 @@ return [
         'integer' => \Streams\Ui\Components\Inputs\Integer::class,
 
         'select' => \Streams\Ui\Components\Inputs\Select::class,
-        // 'enum' => \Streams\Ui\Components\Inputs\SelectInput::class,
+        'enum' => \Streams\Ui\Components\Inputs\Select::class, // @todo - remove
 
         'color' => \Streams\Ui\Components\Inputs\Color::class,
 
+        'url' => \Streams\Ui\Components\Inputs\Url::class,
         'text' => \Streams\Ui\Components\Inputs\Text::class,
         'input' => \Streams\Ui\Components\Inputs\Text::class,
-        //'string' => \Streams\Ui\Components\Inputs\TextInput::class,
+        'email' => \Streams\Ui\Components\Inputs\Email::class,
+        // 'string' => \Streams\Ui\Components\Inputs\TextInput::class,
+        // 'file' => \Streams\Ui\Components\Input::class,
+        // 'hash' => \Streams\Ui\Components\Input::class,
+        // 'uuid' => \Streams\Ui\Components\Input::class,
 
         'checkbox' => \Streams\Ui\Components\Inputs\Checkbox::class,
         // 'boolean' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
