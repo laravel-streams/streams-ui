@@ -17,7 +17,7 @@ return [
         'datetime' => \Streams\Ui\Components\Inputs\Datetime::class,
 
         // 'slug' => \Streams\Ui\Components\Inputs\Slug::class,
-        // 'tags' => \Streams\Ui\Components\Inputs\Tags::class,
+        'tags' => \Streams\Ui\Components\Inputs\Tags::class,
         // 'array' => \Streams\Ui\Components\Inputs\Tags::class,
         
         // 'editor' => \Streams\Ui\Components\Inputs\Editor::class,
@@ -27,6 +27,8 @@ return [
         
         // 'object' => \Streams\Ui\Components\Input::class,
         
+        'range' => \Streams\Ui\Components\Inputs\Range::class,
+
         'number' => \Streams\Ui\Components\Inputs\Number::class,
         'decimal' => \Streams\Ui\Components\Inputs\Decimal::class,
         'integer' => \Streams\Ui\Components\Inputs\Integer::class,
@@ -40,10 +42,11 @@ return [
         'text' => \Streams\Ui\Components\Inputs\Text::class,
         'input' => \Streams\Ui\Components\Inputs\Text::class,
         'email' => \Streams\Ui\Components\Inputs\Email::class,
-        // 'string' => \Streams\Ui\Components\Inputs\TextInput::class,
-        // 'file' => \Streams\Ui\Components\Input::class,
         // 'hash' => \Streams\Ui\Components\Input::class,
         // 'uuid' => \Streams\Ui\Components\Input::class,
+        // 'string' => \Streams\Ui\Components\Inputs\TextInput::class,
+
+        'file' => \Streams\Ui\Components\Inputs\File::class,
 
         'checkbox' => \Streams\Ui\Components\Inputs\Checkbox::class,
         // 'boolean' => \Streams\Ui\Components\Inputs\CheckboxInput::class,

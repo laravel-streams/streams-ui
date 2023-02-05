@@ -5,22 +5,22 @@ namespace Streams\Ui\Tests\Components;
 use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Support\Facades\UI;
+use Streams\Ui\Components\Inputs\File;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Components\Inputs\FileInput;
 
-class FileInputTest extends UiTestCase
+class FileTest extends UiTestCase
 {
     public function test_it_builds()
     {
-        $this->assertInstanceOf(FileInput::class, Livewire::getInstance('file', 1));
+        $this->assertInstanceOf(File::class, UI::make('file'));
     }
 
     public function test_it_renders()
     {
-        $output = Livewire::mount('file', [
+        $output = UI::make('file', [
             'name' => 'test',
             'placeholder' => 'Example',
-        ])->html();
+        ])->render();
 
         $this->assertStringContainsString('type="file"', $output);
     }

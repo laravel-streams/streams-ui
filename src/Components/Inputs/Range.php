@@ -4,7 +4,7 @@ namespace Streams\Ui\Components\Inputs;
 
 use Streams\Ui\Components\Input;
 
-class RangeInput extends Input
+class Range extends Input
 {
     public string $template = 'ui::components.inputs.range';
 
