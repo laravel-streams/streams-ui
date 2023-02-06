@@ -52,8 +52,10 @@ class UiManager
 
     public function newInstance(string $name, array $attributes = []): Component
     {
-        if (!$component = Arr::get($this->components, $name)) {
-            throw new \Exception("Component [$name] is not registered.");
+        $component = Arr::get($this->components, $name, $name);
+
+        if (is_string($component) && class_exists($component)) {
+            return new $component($attributes);
         }
 
         if (is_callable($component)) {

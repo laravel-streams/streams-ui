@@ -2,10 +2,10 @@
 
 namespace Streams\Ui\Support;
 
-use Collective\Html\HtmlFacade;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Streams\Core\Stream\Stream;
+use Collective\Html\HtmlFacade;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Core\Support\Facades\Hydrator;
@@ -31,7 +31,16 @@ abstract class Component
     {
         $this->__constructPrototype($attributes);
 
-        $this->id = $this->id ?? md5($this->template);
+        $this->id = $this->id ?? md5(implode('_', [
+            $this->name(),
+            $this->template,
+            json_encode($attributes)
+        ]));
+
+        Cache::put($this->id, json_encode([
+            'component' => static::class,
+            'attributes' => $attributes,
+        ]));
     }
 
     public function stream(): Stream

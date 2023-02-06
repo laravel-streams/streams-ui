@@ -1,4 +1,13 @@
-<form {!! $component->htmlAttributes() !!}>
+<form {!! $component->htmlAttributes([
+    'action' => $component->action,
+    'method' => $component->method,
+    'enctype' => $component->enctype,
+]) !!}>
+
+    <input type="hidden" name="_id" value="{{ $component->id }}"/>
+    
+    {{ csrf_field() }}
+
     @if (isset($slot))
         {!! $slot !!}
     @else
