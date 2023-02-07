@@ -30,12 +30,8 @@ abstract class Component
     {
         $this->__constructPrototype($attributes);
 
-        $this->id = $this->id ?? md5(implode('_', [
-            $this->name(),
-            $this->template,
-            json_encode($attributes)
-        ]));
- 
+        $this->id = $this->id ?? Str::random(20);
+
         Cache::put($this->id, json_encode([
             'component' => static::class,
             'attributes' => $attributes,
@@ -62,7 +58,7 @@ abstract class Component
 
     public function name()
     {
-        return $this->once(__METHOD__, fn () => Str::kebab(class_basename($this)));
+        return $this->once(__METHOD__ . static::class, fn () => Str::kebab(class_basename($this)));
     }
 
     public function toArray()
@@ -80,6 +76,7 @@ abstract class Component
         $attributes = HtmlFacade::attributes([
             'ui:id' => $this->id,
             'ui:name' => $this->name(),
+            'ui:data' => json_encode(Hydrator::dehydrate($this)),
         ]);
 
         $rendered = preg_replace('/(<div\b[^><]*)>/i', '$1 ' . $attributes . '>', $rendered);

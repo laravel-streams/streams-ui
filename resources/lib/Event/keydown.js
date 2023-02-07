@@ -13,6 +13,10 @@ export default class Keydown /*extends Event*/ {
     initialize() {
         this.directive.component.element.addEventListener('keydown', async (event) => {
 
+            if (this.directive.modifiers.includes('prevent')) {
+                event.preventDefault();
+            }
+            
             if (
                 this.directive.modifiers[0]
                 && event.key.toLowerCase() !== this.directive.modifiers[0]

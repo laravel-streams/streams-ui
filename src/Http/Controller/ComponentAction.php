@@ -11,9 +11,10 @@ class ComponentAction extends Controller
 {
     public function __invoke($component, $action = null)
     {
-        $component = UI::make($component, json_decode(Request::get('data'), true) ?: []);
+        $component = UI::make($component, Request::json()->all() ?: []);
 
         if ($action) {
+            // Include Request::get() for params below
             $component->{$action}();
         }
 

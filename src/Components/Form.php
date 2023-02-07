@@ -6,10 +6,10 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Support\Facades\Request;
 use Streams\Ui\Components\Traits\HasAttributes;
 use Streams\Core\Validation\StreamsPresenceVerifier;
 
@@ -139,10 +139,5 @@ class Form extends Component
         });
 
         return $factory->make($data, $this->rules);
-    }
-
-    public function onSubmit()
-    {
-        dd(Request::all());
     }
 }

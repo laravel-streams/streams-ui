@@ -11,7 +11,6 @@ export default class Click /*extends Event*/ {
     }
 
     initialize() {
-        alert();
         this.directive.component.element.addEventListener('click', async (event) => {
 
             if (this.directive.modifiers.includes('prevent')) {

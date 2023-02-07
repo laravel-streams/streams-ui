@@ -13,12 +13,28 @@ export default class Submit /*extends Event*/ {
     initialize() {
         this.directive.component.element.addEventListener('submit', async (event) => {
 
-            const params = new URLSearchParams(this.directive.component.data);
+            if (this.directive.modifiers.includes('prevent')) {
+                event.preventDefault();
+            }
 
-            const method = this.directive.component.element.getAttribute(this.directive.name) || 'render';
+            //const params = new URLSearchParams(this.directive.component.data);
 
-            const response = await fetch('/cp/ui/' + this.directive.component.name + '/' + method + '?' + params);
+            const method = this.directive.element.getAttribute(this.directive.name);
+            const action = this.directive.element.getAttribute('action');
 
+            // @todo Support javascript: methods.
+            const url = action ? action : '/cp/ui/' + this.directive.component.name + '/' + method;
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers:{
+                    //'Content-Type': 'application/json',
+                    'X-CSRF-Token': CSRF_TOKEN
+                },
+                body: JSON.stringify(this.directive.component.data),
+            });
+
+            // @todo Handle errors. Different response types, etc.
             const json = await response.json();
 
             morphdom(this.directive.component.element, json.dom);

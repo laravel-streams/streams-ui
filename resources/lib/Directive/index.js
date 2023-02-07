@@ -7,9 +7,10 @@ import Poll from "../Event/poll.js";
 
 export default class Directive {
 
-    constructor(name, component) {
+    constructor(name, component, element) {
 
         this.name = name;
+        this.element = element;
         this.component = component;
 
         const [type, ...modifiers] = name.replace(new RegExp('ui:'), '').split('.');

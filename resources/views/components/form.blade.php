@@ -4,7 +4,7 @@
         'method' => $component->method,
         'enctype' => $component->enctype,
     ]) !!}>
-    
+
         <input type="hidden" name="_id" value="{{ $component->id }}"/>
         
         {{ csrf_field() }}

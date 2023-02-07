@@ -145,7 +145,7 @@ class UiServiceProvider extends ServiceProvider
                         //'as'    => 'streams.api.entries.list',
                     ]);
 
-                    Route::get('ui/{component}/{action}', [
+                    Route::post('ui/{component}/{action}', [
                         'uses'  => \Streams\Ui\Http\Controller\ComponentAction::class,
                         //'as'    => 'streams.api.entries.list',
                     ]);

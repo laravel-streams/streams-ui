@@ -13,6 +13,9 @@ export default class Component {
 
         const data = JSON.parse(this.extractAttribute('data'));
 
+        console.log(name);
+        console.log(data);
+
         this.data = data || {};
 
         this.initialize();
@@ -43,7 +46,7 @@ export default class Component {
                     'ui:poll',
                 ].join('|'))))
                 .map(name => {
-                    return new Directive(name, this);
+                    return new Directive(name, this, child);
                 }))
         });
     }
