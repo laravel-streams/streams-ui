@@ -13,7 +13,6 @@ use Streams\Core\Support\Traits\HasMemory;
 use Streams\Core\Support\Traits\Prototype;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
-//abstract class Component extends \Illuminate\View\Component
 abstract class Component
 {
     use Prototype {
@@ -36,7 +35,7 @@ abstract class Component
             $this->template,
             json_encode($attributes)
         ]));
-
+ 
         Cache::put($this->id, json_encode([
             'component' => static::class,
             'attributes' => $attributes,

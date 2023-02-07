@@ -35,7 +35,13 @@ export default class Component {
 
         return Array.from(this.element.children).map(child => {
             Array.from(child.getAttributeNames()
-                .filter(name => name.match(new RegExp('ui:')))
+                .filter(name => name.match(new RegExp([
+                    'ui:click',
+                    'ui:keydown',
+                    'ui:submit',
+                    'ui:listen',
+                    'ui:poll',
+                ].join('|'))))
                 .map(name => {
                     return new Directive(name, this);
                 }))

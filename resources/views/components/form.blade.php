@@ -1,25 +1,28 @@
-<form {!! $component->htmlAttributes([
-    'action' => $component->action,
-    'method' => $component->method,
-    'enctype' => $component->enctype,
-]) !!}>
-
-    <input type="hidden" name="_id" value="{{ $component->id }}"/>
+<div>
+    <form {!! $component->htmlAttributes([
+        'action' => $component->action,
+        'method' => $component->method,
+        'enctype' => $component->enctype,
+    ]) !!}>
     
-    {{ csrf_field() }}
-
-    @if (isset($slot))
-        {!! $slot !!}
-    @else
-        @foreach ($component->fields as $field)
-            @ui('field', $field)
-        @endforeach
-        @if ($component->buttons)
-        <div class="mt-4">
-            @foreach ($component->buttons as $button)
-            @ui('button', $button)
+        <input type="hidden" name="_id" value="{{ $component->id }}"/>
+        
+        {{ csrf_field() }}
+    
+        @if (isset($slot))
+            {!! $slot !!}
+        @else
+            @foreach ($component->fields as $field)
+                @ui('field', $field)
             @endforeach
+            
+            @if ($component->buttons)
+            <div class="mt-4">
+                @foreach ($component->buttons as $button)
+                    @ui('button', $button)
+                @endforeach
+            </div>
             @endif
-        </div>
-    @endif
-</form>
+        @endif
+    </form>    
+</div>

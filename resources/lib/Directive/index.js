@@ -23,7 +23,7 @@ export default class Directive {
     }
 
     initialize() {
-
+        
         switch (this.type) {
             case 'click':
                 this.event = new Click(this);

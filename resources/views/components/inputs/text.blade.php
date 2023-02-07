@@ -8,6 +8,6 @@
         'placeholder' => $component->placeholder,
         'required' => $component->required ?? $component->field()?->isRequired(),
         'minlength' => $component->min ?? $component->field()?->ruleParameter('min'),
-        'maxlength' => $component->max ?? $component->field()?->ruleParameter('min'),
+        'maxlength' => $component->max ?? $component->field()?->ruleParameter('max'),
     ]) !!}>    
 </div>

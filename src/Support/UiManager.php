@@ -42,6 +42,10 @@ class UiManager
 
         $this->bootIfNotBooted($name, $instance);
 
+        if (method_exists($instance, 'booted')) {
+            $instance->booted();
+        }
+
         return $instance;
     }
 

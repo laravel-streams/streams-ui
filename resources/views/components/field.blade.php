@@ -1,4 +1,6 @@
-<div class="field">
+<div {!! $component->htmlAttributes([
+    'class' => ['field'],
+]) !!}>
 
     <label for="{{ $component->id }}">
         {{ __($component->label) }}
@@ -23,5 +25,5 @@
             @ui($component->input['type'], ...[Arr::except($component->input, ['type'])])
         </div>
     </div>
-
+    
 </div>
