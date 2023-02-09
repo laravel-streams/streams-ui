@@ -47,6 +47,10 @@ class Field extends Component
             $this->input['stream'] = $this->stream;
             $this->input['field'] = $this->field;
 
+            if (!isset($this->input['type'])) {
+                $this->input['type'] = 'text'; // @todo map this
+            }
+
             $this->input['value'] = $field->default($field->config('default'));
         }
 

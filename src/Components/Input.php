@@ -6,7 +6,7 @@ use Streams\Core\Field\Field;
 use Streams\Ui\Support\Component;
 use Streams\Ui\Components\Traits\HasAttributes;
 
-abstract class Input extends Component
+class Input extends Component
 {
     use HasAttributes;
 
@@ -28,6 +28,8 @@ abstract class Input extends Component
     {
         $key = __METHOD__ . '.' . $this->field;
 
-        return $this->field ? $this->once($key, fn ()  => $this->stream()->fields->{$this->field}) : null;
+        return $this->field
+            ? $this->once($key, fn ()  => $this->stream()->fields->{$this->field})
+            : null;
     }
 }

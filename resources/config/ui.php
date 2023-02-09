@@ -1,7 +1,5 @@
 <?php
 
-/** @noinspection PhpFullyQualifiedNameUsageInspection */
-
 return [
 
     'components' => [
@@ -12,12 +10,12 @@ return [
         'field' => \Streams\Ui\Components\Field::class,
 
         // Inputs
-        'date' => \Streams\Ui\Components\Inputs\Date::class,
-        'time' => \Streams\Ui\Components\Inputs\Time::class,
-        'datetime' => \Streams\Ui\Components\Inputs\Datetime::class,
+        'date' => \Streams\Ui\Components\Inputs\DateInput::class,
+        'time' => \Streams\Ui\Components\Inputs\TimeInput::class,
+        'datetime-input' => \Streams\Ui\Components\Inputs\DatetimeInput::class,
 
         // 'slug' => \Streams\Ui\Components\Inputs\Slug::class,
-        'tags' => \Streams\Ui\Components\Inputs\Tags::class,
+        'tags' => \Streams\Ui\Components\Inputs\TagsInput::class,
         // 'array' => \Streams\Ui\Components\Inputs\Tags::class,
         
         // 'editor' => \Streams\Ui\Components\Inputs\Editor::class,
@@ -27,31 +25,31 @@ return [
         
         // 'object' => \Streams\Ui\Components\Input::class,
         
-        'range' => \Streams\Ui\Components\Inputs\Range::class,
+        'range' => \Streams\Ui\Components\Inputs\RangeInput::class,
 
-        'number' => \Streams\Ui\Components\Inputs\Number::class,
-        'decimal' => \Streams\Ui\Components\Inputs\Decimal::class,
-        'integer' => \Streams\Ui\Components\Inputs\Integer::class,
+        'number' => \Streams\Ui\Components\Inputs\NumberInput::class,
+        'decimal' => \Streams\Ui\Components\Inputs\DecimalInput::class,
+        'integer' => \Streams\Ui\Components\Inputs\IntegerInput::class,
 
-        'select' => \Streams\Ui\Components\Inputs\Select::class,
-        'enum' => \Streams\Ui\Components\Inputs\Select::class, // @todo - remove
+        'select' => \Streams\Ui\Components\Inputs\SelectInput::class,
+        'enum' => \Streams\Ui\Components\Inputs\SelectInput::class, // @todo - remove
 
-        'color' => \Streams\Ui\Components\Inputs\Color::class,
+        'color' => \Streams\Ui\Components\Inputs\ColorInput::class,
 
-        'url' => \Streams\Ui\Components\Inputs\Url::class,
-        'text' => \Streams\Ui\Components\Inputs\Text::class,
-        'input' => \Streams\Ui\Components\Inputs\Text::class,
-        'email' => \Streams\Ui\Components\Inputs\Email::class,
+        'url' => \Streams\Ui\Components\Inputs\UrlInput::class,
+        'text' => \Streams\Ui\Components\Inputs\TextInput::class,
+        'input' => \Streams\Ui\Components\Inputs\TextInput::class,
+        'email' => \Streams\Ui\Components\Inputs\EmailInput::class,
         // 'hash' => \Streams\Ui\Components\Input::class,
         // 'uuid' => \Streams\Ui\Components\Input::class,
         // 'string' => \Streams\Ui\Components\Inputs\TextInput::class,
 
-        'file' => \Streams\Ui\Components\Inputs\File::class,
+        'file' => \Streams\Ui\Components\Inputs\FileInput::class,
 
-        'checkbox' => \Streams\Ui\Components\Inputs\Checkbox::class,
+        'checkbox' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
         // 'boolean' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
 
-        'textarea' => \Streams\Ui\Components\Inputs\Textarea::class,
+        'textarea' => \Streams\Ui\Components\Inputs\TextareaInput::class,
     ],
 
     'inputs' => [

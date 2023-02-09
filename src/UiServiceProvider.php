@@ -2,6 +2,7 @@
 
 namespace Streams\Ui;
 
+use Livewire\Livewire;
 use Illuminate\View\Factory;
 use Streams\Core\Field\Field;
 use Streams\Ui\Support\Facades\UI;
@@ -22,6 +23,7 @@ class UiServiceProvider extends ServiceProvider
         // This is a hack to get the tests to pass.
         // @todo Remove this.
         if (App::environment('testing')) {
+            $this->app->register(\Livewire\LivewireServiceProvider::class);
             $this->app->register(\Collective\Html\HtmlServiceProvider::class);
         }
 
@@ -35,6 +37,10 @@ class UiServiceProvider extends ServiceProvider
         $this->registerConfig();
 
         Field::macro('input', $this->app[\Streams\Ui\Support\Macros\FieldInput::class]());
+
+        foreach (config('streams.ui.components') as $component => $class) {
+            Livewire::component($component, $class);
+        }
     }
 
     public function boot()
