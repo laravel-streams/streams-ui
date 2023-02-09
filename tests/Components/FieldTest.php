@@ -3,6 +3,7 @@
 namespace Streams\Ui\Tests\Components;
 
 use Livewire\Livewire;
+use Streams\Core\Field\Field;
 use Streams\Ui\Tests\UiTestCase;
 
 class FieldTest extends UiTestCase
@@ -20,8 +21,20 @@ class FieldTest extends UiTestCase
             'stream' => 'films',
             'field' => 'title',
         ])
-        ->assertSeeHtml('Title')
-        ->assertSeeHtml('name="title"')
-        ->assertSeeHtml('type="text"');
+            ->assertSeeHtml('Title')
+            ->assertSeeHtml('name="title"')
+            ->assertSeeHtml('type="text"');
+    }
+
+    public function test_it_supports_fields()
+    {
+        $field = Livewire::test('field', [
+            'stream' => 'films',
+            'field' => 'title',
+        ])
+            ->instance()
+            ->field();
+
+        $this->assertInstanceOf(Field::class, $field);
     }
 }

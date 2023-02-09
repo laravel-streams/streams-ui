@@ -28,32 +28,6 @@ class Form extends Component
 
     public function boot()
     {
-        if ($this->stream) {
-
-            /**
-             * Default to all stream fields.
-             */
-            if (!$this->fields) {
-                $this->fields = $this->stream()->fields->keys()->map(function ($value) {
-                    return ['field' => $value];
-                })->toArray();
-            }
-
-            foreach ($this->fields as &$field) {
-
-                // Ensure stream is set if available.
-                $field['stream'] = Arr::get($field, 'stream', $this->stream);
-
-                // Default handle to field.
-                if (!isset($field['handle'])) {
-                    $field['handle'] = $field['field'];
-                }
-
-                // Default name to handle.
-                if (!isset($field['name'])) {
-                    $field['name'] = $field['handle'];
-                }
-            }
-        }
+        // Builder?
     }
 }

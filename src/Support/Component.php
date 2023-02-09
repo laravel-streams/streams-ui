@@ -41,9 +41,4 @@ abstract class Component extends \Livewire\Component
         
         return View::make($this->template, $payload)->render();
     }
-
-    public function name()
-    {
-        return $this->once(__METHOD__ . static::class, fn () => Str::kebab(class_basename($this)));
-    }
 }

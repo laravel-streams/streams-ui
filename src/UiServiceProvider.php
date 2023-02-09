@@ -16,20 +16,9 @@ class UiServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        // This is a hack to get the tests to pass.
-        // @todo Remove this.
-        if (App::environment('testing')) {
-            $this->app->register(\Livewire\LivewireServiceProvider::class);
-            $this->app->register(\Collective\Html\HtmlServiceProvider::class);
-        }
-
         $this->registerConfig();
 
         Field::macro('input', $this->app[\Streams\Ui\Support\Macros\FieldInput::class]());
-
-        foreach (config('streams.ui.components') as $component => $class) {
-            Livewire::component($component, $class);
-        }
     }
 
     public function boot()
@@ -51,15 +40,18 @@ class UiServiceProvider extends ServiceProvider
         Assets::register('streams.ui.css/variables.css');
 
         Assets::register('streams.ui.js/index.js');
+
+        foreach (config('streams.ui.components') as $component => $class) {
+            Livewire::component($component, $class);
+        }
     }
 
     protected function registerConfig()
     {
         $this->mergeConfigFrom(__DIR__ . '/../resources/config/ui.php', 'streams.ui');
 
-        if (file_exists($config = base_path('config/streams/ui.php'))) {
-            $this->mergeConfigFrom($config, 'streams.ui');
-        }
+        file_exists($config = base_path('config/streams/ui.php')) ?
+            $this->mergeConfigFrom($config, 'streams.ui') : null;
 
         $this->publishes([
             __DIR__ . '/../resources/config/ui.php' => config_path('streams/ui.php'),
@@ -71,8 +63,8 @@ class UiServiceProvider extends ServiceProvider
      */
     protected function registerRoutes()
     {
-        Route::post('streams/ui/{component}/{action}', [
-            'uses'  => \Streams\Ui\Http\Controller\ComponentAction::class,
-        ]);
+        // Route::post('streams/ui/{component}/{action}', [
+        //     'uses'  => \Streams\Ui\Http\Controller\ComponentAction::class,
+        // ]);
     }
 }

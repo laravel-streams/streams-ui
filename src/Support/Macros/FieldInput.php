@@ -2,14 +2,15 @@
 
 namespace Streams\Ui\Support\Macros;
 
+use Livewire\Livewire;
+use Livewire\Response;
 use Illuminate\Support\Arr;
-use Streams\Ui\Support\Facades\UI;
 
 class FieldInput
 {
     public function __invoke()
     {
-        return function (array $attributes = []): string {
+        return function (array $attributes = []): Response {
 
             $attributes = Arr::add($attributes, 'field', $this);
 
@@ -22,15 +23,9 @@ class FieldInput
                 $attributes['type'] = 'text';
             }
 
-            return $this->once(
-                $this->stream->id . $this->handle . 'input',
-                function () use ($attributes) {
+            $type = Arr::pull($attributes, 'type');
 
-                    $type = Arr::pull($attributes, 'type');
-
-                    return UI::make($type, $attributes);
-                }
-            );
+            return Livewire::mount($type, $attributes);
         };
     }
 }

@@ -40,9 +40,7 @@ class Field extends Component
             $this->instructions = $field->instructions;
             $this->required = $field->isRequired();
 
-            if ($field->input) {
-                $this->input = array_merge($this->input, $field->input);
-            }
+            $this->input = array_merge($this->input, (array) $field->input);
 
             $this->input['stream'] = $this->stream;
             $this->input['field'] = $this->field;
