@@ -3,15 +3,11 @@
 namespace Streams\Ui;
 
 use Livewire\Livewire;
-use Illuminate\View\Factory;
 use Streams\Core\Field\Field;
-use Streams\Ui\Support\Facades\UI;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
 
@@ -26,13 +22,6 @@ class UiServiceProvider extends ServiceProvider
             $this->app->register(\Livewire\LivewireServiceProvider::class);
             $this->app->register(\Collective\Html\HtmlServiceProvider::class);
         }
-
-        $this->app->singleton(\Streams\Ui\Support\UiManager::class);
-        $this->app->alias(\Streams\Ui\Support\UiManager::class, 'ui');
-
-        AliasLoader::getInstance([
-            'UI' => \Streams\Ui\Support\Facades\UI::class,
-        ])->register();
 
         $this->registerConfig();
 
@@ -62,14 +51,6 @@ class UiServiceProvider extends ServiceProvider
         Assets::register('streams.ui.css/variables.css');
 
         Assets::register('streams.ui.js/index.js');
-
-        Factory::macro('ui', function(string $name, array $attributes = []) {
-            return UI::make($name, $attributes);
-        });
-
-        Blade::directive('ui', function ($parameters) {
-            return "<?php echo \$__env->ui({$parameters}); ?>";
-        });
     }
 
     protected function registerConfig()

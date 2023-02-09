@@ -2,45 +2,50 @@
 
 namespace Streams\Ui\Tests\Components\Traits;
 
+use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
-use Streams\Ui\Support\Facades\UI;
 use Streams\Ui\Components\Traits\HasAttributes;
 
 class HasAttributesTest extends UiTestCase
 {
-    public function test_it_returns_attributes_array()
-    {
-        UI::register('test', HasAttributesTestComponent::class);
-
-        $this->assertContains('test', UI::make('test')->attributes());
-    }
-
     public function test_it_returns_html_attributes()
     {
-        UI::register('test', HasAttributesTestComponent::class);
+        Livewire::component('test', HasAttributesTestComponent::class);
 
-        $this->assertStringContainsString('class="test"', UI::make('test')->htmlAttributes());
+        Livewire::test('test')
+            ->assertSee('test');
     }
 
     public function test_it_supports_conditional_classes()
     {
-        UI::register('test', HasAttributesTestComponent::class);
+        Livewire::component('test', HasAttributesTestComponent::class);
 
-        $this->assertStringContainsString('class="test bar"', UI::make('test')->htmlAttributes([
-            'class' => [
-                'test',
-                'foo' => false,
-                'bar' => true,
+        Livewire::test('test', [
+            'attributes' => [
+                'class' => [
+                    'test',
+                    'foo' => false,
+                    'bar' => true,
+                ],
             ],
-        ]));
+        ])
+            ->assertSee('test')
+            ->assertSee('bar')
+            ->assertDontSee('foo');
     }
 }
 
 class HasAttributesTestComponent extends \Streams\Ui\Support\Component
 {
     use HasAttributes;
-    
-    public string $template = '';
+
+    public string $template = <<<'blade'
+    <div>
+        <button {{ $component->htmlAttributes() }}>{{ $component->text }}</button>
+    </div>
+    blade;
+
+    public ?string $text = null;
 
     public array $attributes = [
         'class' => ['test'],
