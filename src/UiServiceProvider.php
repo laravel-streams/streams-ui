@@ -2,25 +2,17 @@
 
 namespace Streams\Ui;
 
-use Collective\Html\HtmlServiceProvider;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Illuminate\View\Factory;
 use Streams\Core\Field\Field;
-use Streams\Core\Stream\Stream;
 use Streams\Ui\Support\Facades\UI;
-use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Config;
-use Streams\Ui\Http\Middleware\LoadUi;
 use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
-use Streams\Core\Support\Facades\Streams;
 
 class UiServiceProvider extends ServiceProvider
 {
@@ -33,8 +25,6 @@ class UiServiceProvider extends ServiceProvider
             $this->app->register(\Collective\Html\HtmlServiceProvider::class);
         }
 
-        $this->app->singleton(\Streams\Ui\Support\Breadcrumb::class);
-
         $this->app->singleton(\Streams\Ui\Support\UiManager::class);
         $this->app->alias(\Streams\Ui\Support\UiManager::class, 'ui');
 
@@ -43,45 +33,31 @@ class UiServiceProvider extends ServiceProvider
         ])->register();
 
         $this->registerConfig();
-        $this->registerStreams();
 
-        $this->extendStream();
-        $this->extendRouter();
-        $this->extendStream();
-        $this->extendField();
+        Field::macro('input', $this->app[\Streams\Ui\Support\Macros\FieldInput::class]());
     }
 
     public function boot()
     {
-        $this->extendUrl();
-        $this->extendView();
-        $this->extendLang();
-        $this->extendAssets();
-
         $this->registerRoutes();
 
-        foreach (Config::get('streams.ui.inputs.field_types') as $fieldType => $input) {
-            // UI::register($fieldType, function () use ($input) {
-            //     return UI::make(Arr::pull($input, 'input', 'input'), $input);
-            // });
-        }
+        View::addNamespace('ui', __DIR__ . '/../resources/views');
 
-        //$this->registerBladeComponents();
-        $this->registerBladeDirectives();
-    }
+        Lang::addNamespace('ui', realpath(base_path('vendor/streams/ui/resources/lang')));
+        
+        $this->publishes([
+            __DIR__ . '/../resources/public' => public_path('vendor/streams/ui'),
+        ], 'public');
 
-    protected function registerBladeComponents()
-    {
-        $this->app->booted(function () {
-            foreach (UI::getComponents() as $name => $component) {
-                Blade::component($name, $component);
-            }
-        });
-    }
+        Assets::addPath('ui', 'vendor/streams/ui');
 
-    public function registerBladeDirectives()
-    {
-        Factory::macro('ui', function (string $name, array $attributes = []) {
+        Assets::register('streams.ui.css/theme.css');
+        Assets::register('streams.ui.css/tailwind.css');
+        Assets::register('streams.ui.css/variables.css');
+
+        Assets::register('streams.ui.js/index.js');
+
+        Factory::macro('ui', function(string $name, array $attributes = []) {
             return UI::make($name, $attributes);
         });
 
@@ -90,14 +66,11 @@ class UiServiceProvider extends ServiceProvider
         });
     }
 
-    /**
-     * Register UI config.
-     */
     protected function registerConfig()
     {
         $this->mergeConfigFrom(__DIR__ . '/../resources/config/ui.php', 'streams.ui');
 
-        if (file_exists($config = __DIR__ . '/../../../../config/streams/ui.php')) {
+        if (file_exists($config = base_path('config/streams/ui.php'))) {
             $this->mergeConfigFrom($config, 'streams.ui');
         }
 
@@ -107,258 +80,12 @@ class UiServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register UI streams.
-     */
-    protected function registerStreams()
-    {
-        $prefix  = __DIR__ . '/../resources/streams/';
-        $streams = ['cp.navigation', 'cp.shortcuts', 'cp.themes'];
-
-        foreach ($streams as $stream) {
-            if (!Streams::exists($stream)) {
-                Streams::load($prefix . $stream . '.json');
-            }
-        }
-
-        $this->publishes([
-            __DIR__ . '/../resources/streams/' => base_path('streams/'),
-        ], 'streams');
-    }
-
-    /**
      * Register UI routes.
      */
     protected function registerRoutes()
     {
-        if (!$this->app->routesAreCached()) {
-
-            Route::prefix(Config::get('streams.ui.cp_prefix'))
-                ->middleware(Config::get('streams.ui.cp_middleware'))
-                ->group(function () {
-
-                    if (file_exists($routes = base_path('routes/cp.php'))) {
-                        include $routes;
-                    }
-
-                    Route::get('ui/{component}', [
-                        'uses'  => \Streams\Ui\Http\Controller\ComponentResponse::class,
-                        //'as'    => 'streams.api.entries.list',
-                    ]);
-
-                    Route::post('ui/{component}/{action}', [
-                        'uses'  => \Streams\Ui\Http\Controller\ComponentAction::class,
-                        //'as'    => 'streams.api.entries.list',
-                    ]);
-                });
-        }
-    }
-
-    protected function extendRouter()
-    {
-        Route::macro('ui', function ($uri, $route) {
-
-            Route::middleware([
-                LoadUi::class,
-            ])
-                ->group(function () use ($uri, $route) {
-
-                    $route['uses'] = Arr::get($route, 'uses') ?: \Streams\Ui\Http\Controller\UiController::class;
-
-                    Route::streams($uri, $route);
-                });
-        });
-
-        Route::macro('cp', function ($uri, $route) {
-
-            Route::prefix(Config::get('streams.ui.cp_prefix'))
-                ->middleware(Config::get('streams.ui.cp_middleware'))
-                ->middleware([
-                    LoadUi::class,
-                ])
-                ->group(function () use ($uri, $route) {
-
-                    $route['uses'] = Arr::get($route, 'uses') ?: \Streams\Ui\Http\Controller\UiController::class;
-
-                    $route['ui.cp']         = true;
-                    $route['ui.cp_enabled'] = true;
-
-                    Route::streams($uri, $route);
-                });
-        });
-    }
-
-    /**
-     * Extend stream objects.
-     */
-    protected function extendStream()
-    {
-        Stream::macro('ui', function ($component, $handle = 'default', $attributes = []) {
-
-            if (is_array($handle)) {
-                $attributes = $handle;
-                $handle     = 'default';
-            }
-
-            $configured = Arr::first(
-                Arr::get($this->ui, Str::plural($component), []),
-                fn ($config, $key) => Arr::get($config, 'handle') == $handle || $key == $handle
-            );
-
-            if (!$configured) {
-                $configured = Arr::get($this->ui, $component, []);
-            }
-
-            $configured = Arr::undot($configured);
-
-            $attributes = array_merge($attributes, $configured);
-
-            $attributes['stream'] = $this;
-            $attributes['handle'] = $handle;
-
-            // @todo this needs work...
-            if ($override = Arr::get($attributes, $component)) {
-                $component = $override;
-            }
-
-            return UI::make($component, $attributes);
-        });
-
-        Stream::macro('form', function ($form = 'default', $attributes = []) {
-            return $this->ui('form', $form, $attributes);
-        });
-
-        Stream::macro('table', function ($table = 'default', $attributes = []) {
-            return $this->ui('table', $table, $attributes);
-        });
-    }
-
-    /**
-     * Extend stream fields.
-     */
-    protected function extendField()
-    {
-        $inputs = Config::get('streams.ui.input_types', []);
-
-        foreach ($inputs as $abstract => $concrete) {
-            $this->app->bind("streams.ui.input_types.{$abstract}", $concrete);
-        }
-
-        Field::macro('input', function (array $attributes = []) {
-
-            $attributes = Arr::add($attributes, 'field', $this);
-
-            $this->input = $this->input ?: [
-                'type' => $this->type,
-            ];
-
-            $attributes = array_merge($attributes, (array) $this->input);
-
-            $attributes['stream'] = $this->stream->id;
-            $attributes['field'] = $this->handle;
-
-            return $this->once(
-                $this->stream->id . $this->handle . 'input',
-                function () use ($attributes) {
-
-                    Arr::pull($attributes, 'type');
-
-                    if (!isset($this->input['type'])) {
-                        throw new \Exception("Missing input type for field [{$this->handle}] in stream [{$this->stream->id}]");
-                    }
-
-                    return UI::make($this->input['type'], $attributes);
-                }
-            );
-        });
-
-        Field::addCallbackListener('initializing', function ($callbackData) {
-
-            $attributes = $callbackData->get('attributes');
-
-            if (!isset($attributes['input'])) {
-                $attributes['input'] = [];
-            }
-
-            if (is_string($attributes['input'])) {
-                $attributes['input'] = [
-                    'type' => $attributes['input'],
-                ];
-            }
-
-            if (is_string($attributes['type']) && strpos($attributes['type'], '|')) {
-                [$attributes['type'], $attributes['input']['type']] = explode('|', $attributes['type']);
-            }
-
-            if (!isset($attributes['input']['type'])) {
-                $attributes['input']['type'] = $attributes['type'];
-            }
-
-            $callbackData->put('attributes', $attributes);
-        });
-    }
-
-    /**
-     * Extend lang support.
-     */
-    protected function extendLang()
-    {
-        Lang::addNamespace('ui', realpath(base_path('vendor/streams/ui/resources/lang')));
-    }
-
-    /**
-     * Extend URL support.
-     */
-    protected function extendUrl()
-    {
-        URL::macro('cp', function ($path, $extra = [], $secure = null) {
-            return URL::to(
-                Config::get('streams.ui.cp_prefix', 'cp') . rtrim('/' . $path, '/'),
-                $extra,
-                $secure
-            );
-        });
-    }
-
-    /**
-     * Extend view support.
-     */
-    protected function extendView()
-    {
-        $this->callAfterResolving('view', function ($view) {
-            if (
-                isset($this->app->config['view']['paths']) &&
-                is_array($this->app->config['view']['paths'])
-            ) {
-                foreach ($this->app->config['view']['paths'] as $viewPath) {
-                    if (is_dir($appPath = $viewPath . '/vendor/streams/ui')) {
-                        $view->addNamespace('ui', $appPath);
-                    }
-                }
-            }
-        });
-
-        View::addNamespace('ui', __DIR__ . '/../resources/views');
-    }
-
-    /**
-     * Extend asset support.
-     */
-    protected function extendAssets()
-    {
-        $this->publishes([
-            __DIR__ . '/../resources/public' => public_path('vendor/streams/ui'),
-        ], 'public');
-
-        // $this->publishes([
-        //     __DIR__ . '/../resources/views' => resource_path('views/vendor/streams/ui'),
-        // ], 'views');
-
-        Assets::addPath('ui', 'vendor/streams/ui');
-
-        Assets::register('streams.ui.css/theme.css');
-        Assets::register('streams.ui.css/tailwind.css');
-        Assets::register('streams.ui.css/variables.css');
-
-        Assets::register('streams.ui.js/index.js');
+        Route::post('streams/ui/{component}/{action}', [
+            'uses'  => \Streams\Ui\Http\Controller\ComponentAction::class,
+        ]);
     }
 }
