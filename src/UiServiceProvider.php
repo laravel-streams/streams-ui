@@ -17,14 +17,13 @@ class UiServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->registerConfig();
+        $this->registerAdmin();
 
         Field::macro('input', $this->app[\Streams\Ui\Support\Macros\FieldInput::class]());
     }
 
     public function boot()
     {
-        $this->registerRoutes();
-
         View::addNamespace('ui', __DIR__ . '/../resources/views');
 
         Lang::addNamespace('ui', realpath(base_path('vendor/streams/ui/resources/lang')));
@@ -58,13 +57,8 @@ class UiServiceProvider extends ServiceProvider
         ], 'config');
     }
 
-    /**
-     * Register UI routes.
-     */
-    protected function registerRoutes()
+    protected function registerAdmin()
     {
-        // Route::post('streams/ui/{component}/{action}', [
-        //     'uses'  => \Streams\Ui\Http\Controller\ComponentAction::class,
-        // ]);
+        Route::get('admin', \Streams\Ui\Components\Admin::class);
     }
 }

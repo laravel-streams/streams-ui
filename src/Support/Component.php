@@ -31,14 +31,20 @@ abstract class Component extends \Livewire\Component
         return $this->once(__METHOD__ . '.' . $this->stream, fn ()  => Streams::make($this->stream));
     }
 
-    public function render(array $payload = []): string
+    public function render(array $payload = [])
     {
         $payload['component'] = $this;
 
         if (strpos($this->template, '<') !== false) {
-            return View::parse($this->template, $payload)->render();
+            $rendered = View::parse($this->template, $payload);
+        } else {
+            $rendered = View::make($this->template, $payload);
         }
         
-        return View::make($this->template, $payload)->render();
+        if (isset($this->layout)) {
+            $rendered = $rendered->layout($this->layout);
+        }
+
+        return $rendered;
     }
 }

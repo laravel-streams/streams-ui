@@ -50,6 +50,10 @@ return [
         // 'boolean' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
 
         'textarea' => \Streams\Ui\Components\Inputs\TextareaInput::class,
+
+
+        // Admin Components
+        'admin' => \Streams\Ui\Components\Admin::class,
     ],
 
     'inputs' => [
