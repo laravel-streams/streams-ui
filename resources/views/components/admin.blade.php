@@ -1,6 +1,6 @@
 <div class="flex w-full h-screen overflow-hidden">
 
-    <aside class="bg-gray w-72 px-4">
+    <aside class="bg-gray-200 w-72 px-4">
         
         <div class="my-4">
             <a href="{{ URL::to('admin') }}">
@@ -33,13 +33,13 @@
 
     <main class="w-full">
         
-        <div class="bg-gray w-full p-4 flex justify-between">
-            <div class="flex">
-                
+        <div class="bg-gray-200 w-full p-4 flex justify-between items-center">
+            
+            <div>    
                 <a class="bg-black text-white px-3 py-2" href="./create">New Thing</a>
-                
             </div>
-            <div class="flex justify-end">
+
+            <div>
                 
                 <div x-data="{open: false}" class="relative" @click.outside="open=false">
                     <button @click="open=!open">

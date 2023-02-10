@@ -2,24 +2,6 @@ body * {
     font-size: calc(1rem * var(--ui-font-size));
 }
 
-@import "utilities/index";
-
-@import "inputs/input";
-@import "inputs/toggle";
-
-@import "layout/cp";
-@import "layout/topbar";
-@import "layout/sidebar";
-
-@import "components/cards";
-@import "components/forms";
-@import "components/alerts";
-@import "components/fields";
-@import "components/tables";
-@import "components/avatars";
-@import "components/filters";
-@import "components/buttons";
-@import "components/shortcuts";
-@import "components/dropdowns";
-
-// @import "inputs/markdown";
+[x-cloak] {
+    display: none !important;
+}
