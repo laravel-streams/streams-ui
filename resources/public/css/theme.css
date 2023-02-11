@@ -1,7 +1,3 @@
-body * {
-  font-size: calc(1rem * var(--ui-font-size));
-}
+body *{font-size:calc(1rem*var(--ui-font-size))}[x-cloak]{display:none!important}
 
-[x-cloak] {
-  display: none !important;
-}
+/*# sourceMappingURL=theme.css.map*/

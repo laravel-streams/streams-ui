@@ -11,7 +11,7 @@ trait HasAttributes
         $attributes = array_merge($this->attributes, $attributes);
 
         if (array_key_exists('class', $attributes)) {
-            $attributes['class'] = $this->classAttribute($attributes['class']);
+            $attributes['class'] = $this->classAttribute((array) $attributes['class']);
         }
 
         return $attributes;

@@ -4,10 +4,13 @@ return [
 
     'components' => [
         'form' => \Streams\Ui\Components\Form::class,
-        
+        'field' => \Streams\Ui\Components\Field::class,
+
+        'navigation' => \Streams\Ui\Components\Navigation::class,
+
+        'anchor' => \Streams\Ui\Components\Anchor::class,
         'button' => \Streams\Ui\Components\Button::class,
 
-        'field' => \Streams\Ui\Components\Field::class,
 
         // Inputs
         'date' => \Streams\Ui\Components\Inputs\DateInput::class,
@@ -17,14 +20,14 @@ return [
         // 'slug' => \Streams\Ui\Components\Inputs\Slug::class,
         'tags' => \Streams\Ui\Components\Inputs\TagsInput::class,
         // 'array' => \Streams\Ui\Components\Inputs\Tags::class,
-        
+
         // 'editor' => \Streams\Ui\Components\Inputs\Editor::class,
         // 'markdown' => \Streams\Ui\Components\Inputs\Markdown::class,
         // 'checkboxes' => \Streams\Ui\Components\Inputs\Checkboxes::class,
         // 'relationship' => \Streams\Ui\Components\Inputs\Relationship::class,
-        
+
         // 'object' => \Streams\Ui\Components\Input::class,
-        
+
         'range' => \Streams\Ui\Components\Inputs\RangeInput::class,
 
         'number' => \Streams\Ui\Components\Inputs\NumberInput::class,
@@ -54,63 +57,53 @@ return [
 
         // Admin Components
         'admin' => \Streams\Ui\Components\Admin::class,
+        'admin.menu' => \Streams\Ui\Components\Admin\AdminMenu::class,
+        'admin.navigation' => \Streams\Ui\Components\Admin\AdminNavigation::class,
     ],
 
-    'inputs' => [
-        'types' => [],
-        'field_types' => [
+    'field_types' => [
+        
+        // Strings
+        // 'string' => [
+        //     'input' => 'text',
+        // ],
+        // 'url' => [
+        //     'input' => 'text',
+        //     'type'  => 'url',
+        // ],
+        // 'uuid' => [
+        //     'input' => 'text',
+        // ],
+        // 'hash' => [
+        //     'input' => 'text',
+        // ],
+        // 'email' => [
+        //     'input' => 'text',
+        //     'type' => 'email',
+        // ],
+        // 'encrypted' => [
+        //     'input' => 'text',
+        //     'type' => 'password',
+        // ],
 
-            // Numbers
-            // 'integer' => [
-            //     'input' => 'number',
-            //     'step' => 1,
-            // ],
-            // 'decimal' => [
-            //     'input' => 'text',
-            // ],
+        // // Boolean
+        // 'boolean' => [
+        //     // radio + options|checkbox
+        // ],
 
-            // Strings
-            // 'string' => [
-            //     'input' => 'text',
-            // ],
-            // 'url' => [
-            //     'input' => 'text',
-            //     'type'  => 'url',
-            // ],
-            // 'uuid' => [
-            //     'input' => 'text',
-            // ],
-            // 'hash' => [
-            //     'input' => 'text',
-            // ],
-            // 'email' => [
-            //     'input' => 'text',
-            //     'type' => 'email',
-            // ],
-            // 'encrypted' => [
-            //     'input' => 'text',
-            //     'type' => 'password',
-            // ],
+        // // Arrays
+        // 'array' => [
+        //     // tags|items
+        // ],
 
-            // // Boolean
-            // 'boolean' => [
-            //     // radio + options|checkbox
-            // ],
+        // // Selections
+        // 'enum' => [
+        //     'type' => 'select',
+        // ],
 
-            // // Arrays
-            // 'array' => [
-            //     // tags|items
-            // ],
-
-            // // Selections
-            // 'enum' => [
-            //     'type' => 'select',
-            // ],
-
-            // 'image' => [
-            //     // file + accepts
-            // ],
-        ],
+        // 'image' => [
+        //     // file + accepts
+        // ],
     ],
 
     // GET RID OF THIS
