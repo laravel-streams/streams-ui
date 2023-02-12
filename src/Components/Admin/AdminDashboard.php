@@ -6,5 +6,5 @@ use Streams\Ui\Components\Admin;
 
 class AdminDashboard extends Admin
 {
-    protected string $template = 'ui::components.admin.dashboard';
+    public string $template = 'ui::components.admin.dashboard';
 }

@@ -61,9 +61,9 @@ class UiServiceProvider extends ServiceProvider
     {
         Route::any('admin/logout', \Streams\Ui\Http\Controllers\Logout::class);
 
-        Route::get('admin', \Streams\Ui\Components\Admin::class);
-        Route::get('admin/{section}', \Streams\Ui\Components\Admin::class);
-        Route::get('admin/{section}/{action}', \Streams\Ui\Components\Admin::class);
+        Route::get('admin', \Streams\Ui\Components\Admin\AdminDashboard::class);
+        Route::get('admin/{section}', \Streams\Ui\Components\Admin\AdminDashboard::class);
+        Route::get('admin/{section}/{action}', \Streams\Ui\Components\Admin\AdminDashboard::class);
 
     }
 }
