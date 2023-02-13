@@ -6,6 +6,8 @@ return [
         'form' => \Streams\Ui\Components\Form::class,
         'field' => \Streams\Ui\Components\Field::class,
 
+        'table' => \Streams\Ui\Components\Table::class,
+
         'navigation' => \Streams\Ui\Components\Navigation::class,
 
         'anchor' => \Streams\Ui\Components\Anchor::class,
@@ -25,7 +27,6 @@ return [
         // 'markdown' => \Streams\Ui\Components\Inputs\Markdown::class,
         // 'checkboxes' => \Streams\Ui\Components\Inputs\Checkboxes::class,
         // 'relationship' => \Streams\Ui\Components\Inputs\Relationship::class,
-
         // 'object' => \Streams\Ui\Components\Input::class,
 
         'range' => \Streams\Ui\Components\Inputs\RangeInput::class,
@@ -43,14 +44,10 @@ return [
         'text' => \Streams\Ui\Components\Inputs\TextInput::class,
         'input' => \Streams\Ui\Components\Inputs\TextInput::class,
         'email' => \Streams\Ui\Components\Inputs\EmailInput::class,
-        // 'hash' => \Streams\Ui\Components\Input::class,
-        // 'uuid' => \Streams\Ui\Components\Input::class,
-        // 'string' => \Streams\Ui\Components\Inputs\TextInput::class,
 
         'file' => \Streams\Ui\Components\Inputs\FileInput::class,
 
         'checkbox' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
-        // 'boolean' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
 
         'textarea' => \Streams\Ui\Components\Inputs\TextareaInput::class,
 
@@ -58,7 +55,18 @@ return [
         // Admin Components
         'admin' => \Streams\Ui\Components\Admin\AdminDashboard::class,
         'admin.menu' => \Streams\Ui\Components\Admin\AdminMenu::class,
+        'admin.form' => \Streams\Ui\Components\Admin\AdminForm::class,
+        'admin.table' => \Streams\Ui\Components\Admin\AdminTable::class,
         'admin.navigation' => \Streams\Ui\Components\Admin\AdminNavigation::class,
+
+
+        /**
+         * These field type defaults need to be mapped.
+         */
+        'hash' => \Streams\Ui\Components\Inputs\TextInput::class,
+        'uuid' => \Streams\Ui\Components\Inputs\TextInput::class,
+        'string' => \Streams\Ui\Components\Inputs\TextInput::class,
+        'boolean' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
     ],
 
     'field_types' => [

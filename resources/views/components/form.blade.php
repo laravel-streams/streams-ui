@@ -13,13 +13,13 @@
             {!! $slot !!}
         @else
             @foreach ($component->fields as $field)
-                @ui('field', $field)
+                @livewire('field', $field)
             @endforeach
             
             @if ($component->buttons)
             <div class="mt-4">
                 @foreach ($component->buttons as $button)
-                    @ui('button', $button)
+                    @livewire('button', $button)
                 @endforeach
             </div>
             @endif

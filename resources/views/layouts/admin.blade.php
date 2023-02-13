@@ -36,7 +36,7 @@
 
             {{-- Buttons/Actions --}}
             <div>
-                <a class="bg-black text-white px-3 py-2" href="create">New Thing</a>
+                <a class="bg-black text-white px-3 py-2" href="/{{ Request::segment(1) }}/{{ Request::segment(2) }}/create">New Thing</a>
             </div>
 
             @livewire('admin.menu', [
@@ -92,7 +92,7 @@
         </div>
 
         {{-- Content --}}
-        {{ $slot }}
+        {!! $slot !!}
     </main>
 
     @include('ui::layouts.partials.assets')

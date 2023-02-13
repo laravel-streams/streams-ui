@@ -3,14 +3,16 @@
 namespace Streams\Ui\Components;
 
 use Illuminate\Support\Str;
+use Livewire\Livewire;
 use Streams\Ui\Support\Component;
 use Streams\Core\Field\Field as StreamsField;
 use Streams\Ui\Components\Traits\HasAttributes;
+use Streams\Ui\Support\Facades\UI;
 
 class Field extends Component
 {
     use HasAttributes;
-    
+
     public string $template = 'ui::components.field';
 
     public ?string $field = null;
@@ -46,7 +48,12 @@ class Field extends Component
             $this->input['field'] = $this->field;
 
             if (!isset($this->input['type'])) {
-                $this->input['type'] = 'text'; // @todo map this
+                // @todo map this
+                $this->input['type'] = $field->type;
+            }
+
+            if ($this->input['type'] == 'datetime') {
+                $this->input['type'] = 'datetime-input';
             }
 
             $this->input['value'] = $field->default($field->config('default'));

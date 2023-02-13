@@ -3,6 +3,8 @@
 namespace Streams\Ui\Components;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Request;
+use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\Support\Component;
 use Streams\Ui\Components\Traits\HasAttributes;
 
@@ -26,8 +28,15 @@ class Form extends Component
 
     public array $attributes = [];
 
-    public function boot()
+    public function booted()
     {
-        // Builder?
+        $this->stream = Request::segment(2);
+
+        $this->fields = $this->stream()->fields->toArray();
+
+        foreach ($this->fields as $id => &$field) {
+            $field['stream'] = $this->stream;
+            $field['field'] = $id;
+        }
     }
 }
