@@ -38,7 +38,11 @@ class Form extends Component
         $this->stream = Request::segment(2);
         $this->entry = Request::segment(3);
 
-        $this->fields = $this->stream()->fields->toArray();
+        if (!$this->stream || !$stream = $this->stream()) {
+            return;
+        }
+
+        $this->fields = $stream->fields->toArray() ?: [];
 
         foreach ($this->fields as $id => &$field) {
             $field['entry'] = $this->entry;
@@ -59,9 +63,7 @@ class Form extends Component
                 'url' => '/' . Request::segment(1) . '/' . Request::segment(2),
             ],
         ];
-        
-
-        $stream = $this->stream();
+    
     
         $entry = $stream?->repository()->find($this->entry);
 
