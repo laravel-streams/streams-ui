@@ -62,8 +62,8 @@ class UiServiceProvider extends ServiceProvider
         Route::any('admin/logout', \Streams\Ui\Http\Controllers\Logout::class);
 
         Route::get('admin', \Streams\Ui\Components\Admin\AdminDashboard::class);
-        Route::get('admin/{section}', \Streams\Ui\Components\Admin\AdminTable::class);
-        Route::get('admin/{section}/{action}', \Streams\Ui\Components\Admin\AdminForm::class);
-        Route::get('admin/{section}/{action}/{entry}', \Streams\Ui\Components\Admin\AdminForm::class);
+        Route::get('admin/{section}', \Streams\Ui\Components\Admin\AdminTable::class); // StreamIndex
+        Route::get('admin/{section}/{action}', \Streams\Ui\Components\Admin\AdminForm::class); // StreamComponent
+        Route::get('admin/{section}/{entry}/{action}', \Streams\Ui\Components\Admin\AdminForm::class);
     }
 }

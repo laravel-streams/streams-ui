@@ -47,11 +47,19 @@ class Form extends Component
     
         $entry = $stream?->repository()->find($this->entry);
 
+        // Load form values from the entry.
         if ($stream && $entry) {
             
             foreach ($this->fields as $i => &$field) {
                 $this->fields[$i]['input']['value'] = $entry->{$field['field']};
             }
         }
+
+        $this->buttons = $this->buttons ?: [
+            [
+                'type' => 'submit',
+                'text' => 'Submit',
+            ],
+        ];
     }
 }

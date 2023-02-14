@@ -13,8 +13,8 @@
     x-model="value"
     x-on:keyup="value = String(value)
         .toLowerCase()
-        .replace(/ /g,'-')
-        .replace(/[^\w-_]+/g,'')
+        .replace(/ /g,'{{ $component->separator }}')
+        .replace(/[^\w-_]+/g,'{{ $component->separator }}')
         // Collapse dashes
-        .replace(/-+/g, '-');">    
+        .replace(/-+/g, '{{ $component->separator }}');">
 </div>

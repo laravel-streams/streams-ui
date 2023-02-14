@@ -1,8 +1,8 @@
 <div {!! $component->htmlAttributes([
-    'class' => ['field'],
+    'class' => ['field my-4'],
 ]) !!}>
 
-    <label for="{{ $component->id }}">
+    <label class="font-bold" for="{{ $component->id }}">
         {{ __($component->label) }}
 
         @if ($component->required)

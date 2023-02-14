@@ -6,5 +6,5 @@ class SlugInput extends TextInput
 {
     public string $template = 'ui::components.inputs.slug';
     
-    public string $seperator = '-';
+    public string $separator = '-';
 }

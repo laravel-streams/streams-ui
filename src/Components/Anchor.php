@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Components;
 
+use Illuminate\Support\Str;
 use Streams\Ui\Support\Component;
 use Streams\Ui\Components\Traits\HasAttributes;
 
@@ -15,4 +16,9 @@ class Anchor extends Component
     public ?string $text = null;
 
     public array $attributes = [];
+
+    public function booted()
+    {
+        $this->url = $this->url ? Str::parse($this->url) : null;
+    }
 }

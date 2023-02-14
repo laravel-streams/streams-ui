@@ -34,10 +34,13 @@
         {{-- Topbar --}}
         <div class="bg-gray-200 w-full p-4 flex justify-between items-center">
 
-            {{-- Buttons/Actions --}}
-            <div>
-                <a class="bg-black text-white px-3 py-2" href="/{{ Request::segment(1) }}/{{ Request::segment(2) }}/create">New Thing</a>
-            </div>
+            @livewire('anchor', [
+                'text' => 'Create',
+                'url' => '/{request.segments.0}/{request.segments.1}/create',
+                'attributes' => [
+                    'class' => ['rounded bg-black text-white px-3 py-2'],
+                ],
+            ])
 
             @livewire('admin.menu', [
                 'attributes' => [
@@ -47,33 +50,19 @@
                     'class' => 'flex-grow',
                 ],
                 'items' => [
-                    [
-                        // 'dropdown' => [
-                        //     'button' => [
-                        //         'image' => [
-                        //             'src' => 'https://gravatar.com/avatar/cd7e95aa74ded76c1d92374b20e5c34c?s=128',
-                        //             'alt' => 'Ryan Thompson',
-                        //         ],
-                        //     ],
-                        //     'items' => [
-                        //         [
-                        //             'anchor' => [
-                        //                 'url' => 'admin/logout'
-                        //             ]
-                        //         ]
-                        //     ],
-                        // ],
-                            'image' => [
-                                'src' => 'https://gravatar.com/avatar/cd7e95aa74ded76c1d92374b20e5c34c?s=128',
-                                'alt' => 'Ryan Thompson',
+                        [
+                            'component' => 'image',
+                            'src' => 'https://gravatar.com/avatar/cd7e95aa74ded76c1d92374b20e5c34c?s=128',
+                            'alt' => 'Ryan Thompson',
+                            'attributes' => [
+                                'class' => ['rounded-full h-10 w-10'],
                             ],
-                    ],
-                    [
-                        'anchor' => [
-                                'text' => 'Logout',
-                                'url' => '/admin/logout'
-                            ],
-                    ],
+                        ],
+                        [
+                            'component' => 'anchor',
+                            'text' => 'Logout',
+                            'url' => '/admin/logout'
+                        ],
                 ],
             ])
 

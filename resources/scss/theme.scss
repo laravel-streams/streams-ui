@@ -5,3 +5,9 @@ body * {
 [x-cloak] {
     display: none !important;
 }
+
+input, textarea, select {
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+    @apply border border-gray-300 rounded;
+}

@@ -15,7 +15,8 @@ return [
 
         'anchor' => \Streams\Ui\Components\Anchor::class,
         'button' => \Streams\Ui\Components\Button::class,
-
+        
+        'image' => \Streams\Ui\Components\Image::class,
 
         // Inputs
         'date' => \Streams\Ui\Components\Inputs\DateInput::class,

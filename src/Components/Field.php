@@ -42,7 +42,7 @@ class Field extends Component
             $this->instructions = $field->instructions;
             $this->required = $field->isRequired();
 
-            $this->input = array_merge($this->input, (array) $field->input);
+            //$this->input = array_merge($this->input, (array) $field->input);
 
             $this->input['stream'] = $this->stream;
             $this->input['field'] = $this->field;
@@ -56,7 +56,7 @@ class Field extends Component
                 $this->input['type'] = 'datetime-input';
             }
 
-            $this->input['value'] = $field->default($field->config('default'));
+            //$this->input['value'] = $field->default($field->config('default'));
         }
 
         if (!$this->label && $this->label !== false) {

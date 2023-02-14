@@ -10,7 +10,7 @@
             [
                 'tag' => 'a',
                 'text' => 'Edit',
-                'url' => '/{request.segments.0}/{request.segments.1}/edit/{entry.id}',
+                'url' => '/{request.segments.0}/{request.segments.1}/{entry.id}/edit',
             ],
         ],
     ])

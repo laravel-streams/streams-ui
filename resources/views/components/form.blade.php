@@ -3,6 +3,7 @@
         'action' => $component->action,
         'method' => $component->method,
         'enctype' => $component->enctype,
+        'class' => 'm-4',
     ]) !!}>
 
         <input type="hidden" name="_id" value="{{ $component->id }}"/>
