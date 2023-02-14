@@ -1,11 +1,14 @@
 <div>
-    <table {!! $component->htmlAttributes() !!}>
+    <table {!! $component->htmlAttributes([
+        'class' => 'm-4',
+    ]) !!}>
 
         @if (isset($slot))
             {!! $slot !!}
         @else
             <thead>
-                <tr>
+                <tr style="text-align: left;">
+                    <th></th>
                     @foreach ($component->columns as $column)
                     @livewire('table.header', array_merge($column, [
                         'text' => Arr::get($column, 'heading'),
