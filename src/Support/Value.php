@@ -12,7 +12,7 @@ class Value
         string|array $parameters,
         mixed $entry = null,
         string $term = 'entry'
-    ): mixed {
+    ): string|null {
 
         /**
          * If the parameters are not an array
@@ -23,7 +23,7 @@ class Value
                 'value' => $parameters,
             ];
         }
-
+        
         $value = $original = Arr::get($parameters, 'value');
 
         /**
@@ -90,6 +90,10 @@ class Value
             $value = Str::purify($value);
         }
 
-        return $value;
+        if ($value === $original) {
+            return null;
+        }
+
+        return (string) $value;
     }
 }

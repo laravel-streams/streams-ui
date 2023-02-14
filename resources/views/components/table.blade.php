@@ -10,18 +10,19 @@
         @else
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Stream</th>
-                    <th>JSON</th>
+                    @foreach ($component->columns as $column)
+                    @livewire('table.header', array_merge($column, [
+                        'text' => Arr::get($column, 'heading'),
+                    ]))
+                    @endforeach
                 </tr>
             </thead>
             <tbody>
                 @foreach ($component->entries as $entry)
-                <tr>
-                    <td>{{ $entry->id }}</td>
-                    <td>{{ $entry->stream->id }}</td>
-                    <td>{{ $entry->toJson() }}</td>
-                </tr>    
+                @livewire('table.row', [
+                    'columns' => $component->columns,
+                    'entry' => Arr::make($entry),
+                ])
                 @endforeach
             </thead>
         @endif

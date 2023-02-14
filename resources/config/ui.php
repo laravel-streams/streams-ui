@@ -7,6 +7,9 @@ return [
         'field' => \Streams\Ui\Components\Field::class,
 
         'table' => \Streams\Ui\Components\Table::class,
+        'table.row' => \Streams\Ui\Components\Table\TableRow::class,
+        'table.header' => \Streams\Ui\Components\Table\TableHeader::class,
+        'table.column' => \Streams\Ui\Components\Table\TableColumn::class,
 
         'navigation' => \Streams\Ui\Components\Navigation::class,
 
@@ -19,12 +22,10 @@ return [
         'time' => \Streams\Ui\Components\Inputs\TimeInput::class,
         'datetime-input' => \Streams\Ui\Components\Inputs\DatetimeInput::class,
 
-        // 'slug' => \Streams\Ui\Components\Inputs\Slug::class,
-        'tags' => \Streams\Ui\Components\Inputs\TagsInput::class,
-        // 'array' => \Streams\Ui\Components\Inputs\Tags::class,
-
+        'slug' => \Streams\Ui\Components\Inputs\SlugInput::class,
+        
         // 'editor' => \Streams\Ui\Components\Inputs\Editor::class,
-        // 'markdown' => \Streams\Ui\Components\Inputs\Markdown::class,
+        'markdown' => \Streams\Ui\Components\Inputs\MarkdownInput::class,
         // 'checkboxes' => \Streams\Ui\Components\Inputs\Checkboxes::class,
         // 'relationship' => \Streams\Ui\Components\Inputs\Relationship::class,
         // 'object' => \Streams\Ui\Components\Input::class,
@@ -66,6 +67,9 @@ return [
         'hash' => \Streams\Ui\Components\Inputs\TextInput::class,
         'uuid' => \Streams\Ui\Components\Inputs\TextInput::class,
         'string' => \Streams\Ui\Components\Inputs\TextInput::class,
+        
+        'array' => \Streams\Ui\Components\Inputs\TagsInput::class,
+        
         'boolean' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
     ],
 
