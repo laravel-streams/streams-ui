@@ -8,8 +8,9 @@
         ],
         'buttons' => [
             [
+                'tag' => 'a',
                 'text' => 'Edit',
-                'url' => '/{request.segments.1}/{request.segments.2}/edit',
+                'url' => '/{request.segments.0}/{request.segments.1}/edit/{entry.id}',
             ],
         ],
     ])

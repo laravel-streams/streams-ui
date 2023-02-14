@@ -24,11 +24,11 @@ return [
 
         'slug' => \Streams\Ui\Components\Inputs\SlugInput::class,
         
-        // 'editor' => \Streams\Ui\Components\Inputs\Editor::class,
+        'editor' => \Streams\Ui\Components\Inputs\EditorInput::class,
+        'object' => \Streams\Ui\Components\Inputs\EditorInput::class,
         'markdown' => \Streams\Ui\Components\Inputs\MarkdownInput::class,
         // 'checkboxes' => \Streams\Ui\Components\Inputs\Checkboxes::class,
         // 'relationship' => \Streams\Ui\Components\Inputs\Relationship::class,
-        // 'object' => \Streams\Ui\Components\Input::class,
 
         'range' => \Streams\Ui\Components\Inputs\RangeInput::class,
 

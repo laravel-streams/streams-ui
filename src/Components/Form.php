@@ -26,17 +26,32 @@ class Form extends Component
     public array $fields = [];
     public array $buttons = [];
 
+    public $entry = null;
+
     public array $attributes = [];
 
     public function booted()
     {
         $this->stream = Request::segment(2);
+        $this->entry = Request::segment(3);
 
         $this->fields = $this->stream()->fields->toArray();
 
         foreach ($this->fields as $id => &$field) {
+            $field['entry'] = $this->entry;
             $field['stream'] = $this->stream;
             $field['field'] = $id;
+        }
+
+        $stream = $this->stream();
+    
+        $entry = $stream?->repository()->find($this->entry);
+
+        if ($stream && $entry) {
+            
+            foreach ($this->fields as $i => &$field) {
+                $this->fields[$i]['input']['value'] = $entry->{$field['field']};
+            }
         }
     }
 }

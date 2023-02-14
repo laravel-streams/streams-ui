@@ -5,7 +5,7 @@
     ]))
     @endforeach
     <td>
-        @foreach ($component->buttons as $buttons)
+        @foreach ($component->buttons as $button)
         @livewire('button', $button)
         @endforeach
     </td>

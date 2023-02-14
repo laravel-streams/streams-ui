@@ -1,6 +1,6 @@
 <div>
     <{{ $component->tag }} {!! $component->htmlAttributes([
-        'href' => $component->href,
+        'href' => $component->url,
         'name' => $component->name,
         'type' => $component->type,
         'disabled' => $component->disabled,

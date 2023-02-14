@@ -1,9 +1,5 @@
 <div>
-    <table {!! $component->htmlAttributes([
-        //'action' => $component->action,
-        //'method' => $component->method,
-        //'enctype' => $component->enctype,
-    ]) !!}>
+    <table {!! $component->htmlAttributes() !!}>
 
         @if (isset($slot))
             {!! $slot !!}
@@ -15,12 +11,14 @@
                         'text' => Arr::get($column, 'heading'),
                     ]))
                     @endforeach
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($component->entries as $entry)
                 @livewire('table.row', [
                     'columns' => $component->columns,
+                    'buttons' => $component->buttons,
                     'entry' => Arr::make($entry),
                 ])
                 @endforeach
