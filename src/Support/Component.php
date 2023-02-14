@@ -8,16 +8,15 @@ use Collective\Html\HtmlFacade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Cache;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Core\Support\Facades\Hydrator;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Core\Support\Traits\Prototype;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
 abstract class Component extends \Livewire\Component
 {
-    // use Prototype {
-    //     Prototype::__construct as protected __constructPrototype;
-    // }
+    use Prototype {
+        Prototype::__construct as protected __constructPrototype;
+    }
 
     use HasMemory;
     use FiresCallbacks;

@@ -5,8 +5,10 @@
     ]))
     @endforeach
     <td>
-        @foreach ($component->buttons as $button)
-        @livewire('button', $button)
-        @endforeach
+        <div class="flex">
+            @foreach ($component->buttons as $button)
+            @livewire('button', $button)
+            @endforeach
+        </div>
     </td>
 </tr>
