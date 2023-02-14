@@ -16,6 +16,7 @@ abstract class Component extends \Livewire\Component
 {
     use Prototype {
         Prototype::__construct as protected __constructPrototype;
+        Prototype::__call as protected __callPrototype;
     }
 
     use HasMemory;
@@ -24,6 +25,11 @@ abstract class Component extends \Livewire\Component
     public ?string $stream = null;
 
     public string $template;
+
+    public function __construct($id = null)
+    {
+        parent::__construct($id);
+    }
 
     public function stream(): Stream
     {
@@ -45,5 +51,10 @@ abstract class Component extends \Livewire\Component
         }
 
         return $rendered;
+    }
+
+    public function __call($method, $parameters)
+    {
+        return parent::__call($method, $parameters);
     }
 }
