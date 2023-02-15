@@ -3,8 +3,6 @@
 namespace Streams\Ui;
 
 use Livewire\Livewire;
-use Streams\Core\Field\Field;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
@@ -18,8 +16,6 @@ class UiServiceProvider extends ServiceProvider
     {
         $this->registerConfig();
         $this->registerAdmin();
-
-        Field::macro('input', $this->app[\Streams\Ui\Support\Macros\FieldInput::class]());
     }
 
     public function boot()
