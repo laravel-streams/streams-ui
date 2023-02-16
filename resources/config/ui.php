@@ -2,6 +2,28 @@
 
 return [
 
+    'admin' => [
+        'prefix' => 'admin',
+        'enabled' => env('ADMIN_ENABLED', true),
+        'default' => \Streams\Ui\Components\Admin\AdminDashboard::class,
+        'navigation' => [
+            [
+                'text' => 'Dashboard',
+                'url' => '/admin',
+                'sort_order' => 0,
+                'component' => 'anchor',
+            ],
+        ],
+        'buttons' => [],
+        'menu' => [],
+        //'actions' => [],
+    ],
+
+    /**
+     * Registered components.
+     * 
+     * @livewire($name, $class)
+     */
     'components' => [
         'form' => \Streams\Ui\Components\Form::class,
         'field' => \Streams\Ui\Components\Field::class,
@@ -15,7 +37,7 @@ return [
 
         'anchor' => \Streams\Ui\Components\Anchor::class,
         'button' => \Streams\Ui\Components\Button::class,
-        
+
         'image' => \Streams\Ui\Components\Image::class,
 
         // Inputs
@@ -24,7 +46,7 @@ return [
         'datetime-input' => \Streams\Ui\Components\Inputs\DatetimeInput::class,
 
         'slug' => \Streams\Ui\Components\Inputs\SlugInput::class,
-        
+
         'editor' => \Streams\Ui\Components\Inputs\EditorInput::class,
         'object' => \Streams\Ui\Components\Inputs\EditorInput::class,
         'markdown' => \Streams\Ui\Components\Inputs\MarkdownInput::class,
@@ -47,6 +69,8 @@ return [
         'input' => \Streams\Ui\Components\Inputs\TextInput::class,
         'email' => \Streams\Ui\Components\Inputs\EmailInput::class,
 
+        'tags' => \Streams\Ui\Components\Inputs\TagsInput::class,
+
         'file' => \Streams\Ui\Components\Inputs\FileInput::class,
 
         'checkbox' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
@@ -57,8 +81,6 @@ return [
         // Admin Components
         'admin' => \Streams\Ui\Components\Admin\AdminDashboard::class,
         'admin.menu' => \Streams\Ui\Components\Admin\AdminMenu::class,
-        'admin.form' => \Streams\Ui\Components\Admin\AdminForm::class,
-        'admin.table' => \Streams\Ui\Components\Admin\AdminTable::class,
         'admin.navigation' => \Streams\Ui\Components\Admin\AdminNavigation::class,
 
 
@@ -68,84 +90,40 @@ return [
         'hash' => \Streams\Ui\Components\Inputs\TextInput::class,
         'uuid' => \Streams\Ui\Components\Inputs\TextInput::class,
         'string' => \Streams\Ui\Components\Inputs\TextInput::class,
-        
+
         'array' => \Streams\Ui\Components\Inputs\TagsInput::class,
-        
+
         'boolean' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
     ],
 
-    'field_types' => [
-        
-        // Strings
-        // 'string' => [
-        //     'input' => 'text',
-        // ],
-        // 'url' => [
-        //     'input' => 'text',
-        //     'type'  => 'url',
-        // ],
-        // 'uuid' => [
-        //     'input' => 'text',
-        // ],
-        // 'hash' => [
-        //     'input' => 'text',
-        // ],
-        // 'email' => [
-        //     'input' => 'text',
-        //     'type' => 'email',
-        // ],
-        // 'encrypted' => [
-        //     'input' => 'text',
-        //     'type' => 'password',
-        // ],
+    'buttons' => [
 
-        // // Boolean
-        // 'boolean' => [
-        //     // radio + options|checkbox
-        // ],
-
-        // // Arrays
-        // 'array' => [
-        //     // tags|items
-        // ],
-
-        // // Selections
-        // 'enum' => [
-        //     'type' => 'select',
-        // ],
-
-        // 'image' => [
-        //     // file + accepts
-        // ],
+        'create' => [
+            'text' => 'ui::buttons.create',
+            'attributes' => [
+                'data-keymap' => 'n',
+            ],
+        ],
+        'edit' => [
+            'text' => 'ui::buttons.edit',
+            'attributes' => [
+                'data-keymap' => 'n',
+            ],
+        ],
+        'save' => [
+            'text' => 'ui::buttons.save',
+            'attributes' => [
+                'data-keymap' => 'command+s',
+            ]
+        ],
+        'cancel' => [
+            'text' => 'ui::buttons.cancel',
+            'attributes' => [
+                'data-keymap' => 'cmd+esc',
+            ],
+        ],
+        'delete' => [
+            'text' => 'ui::buttons.delete',
+        ],
     ],
-
-    // GET RID OF THIS
-    /**
-     * Specify whether the CP is enabled or not.
-     */
-    'cp_enabled' => env('STREAMS_CP_ENABLED', false),
-
-    /**
-     * This is the URI  prefix
-     * for the control panel.
-     */
-    'cp_prefix' => env('STREAMS_CP_PREFIX', 'cp'),
-
-    /**
-     * The active theme.
-     */
-    'cp_theme' => env('STREAMS_CP_THEME', 'default'),
-
-    /*
-     * Specify the CP fallback policy.
-     *
-     * This policy will be ran if no stream, route,
-     * or component policy is otherwise specified.
-     */
-    'cp_policy' => env('STREAMS_CP_POLICY'),
-
-    /*
-     * Specify the CP group middleware.
-     */
-    'cp_middleware' => ['web', 'cp'],
 ];

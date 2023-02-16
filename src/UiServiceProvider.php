@@ -3,9 +3,11 @@
 namespace Streams\Ui;
 
 use Livewire\Livewire;
+use Streams\Core\Support\Integrator;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
 
@@ -14,27 +16,28 @@ class UiServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        $this->registerConfig();
-        $this->registerAdmin();
-    }
-
-    public function boot()
-    {
-        View::addNamespace('ui', __DIR__ . '/../resources/views');
-
-        Lang::addNamespace('ui', realpath(base_path('vendor/streams/ui/resources/lang')));
-        
         $this->publishes([
             __DIR__ . '/../resources/public' => public_path('vendor/streams/ui'),
         ], 'public');
 
+        $this->registerConfig();
+        $this->registerAdmin();
+
+        $this->app->singleton(\Streams\Ui\Support\UiManager::class);
+        $this->app->alias(\Streams\Ui\Support\UiManager::class, 'ui');
+
+        Integrator::aliases([
+            'UI' => \Streams\Ui\Support\Facades\UI::class,
+        ]);
+    }
+
+    public function boot()
+    {
         Assets::addPath('ui', 'vendor/streams/ui');
 
-        Assets::register('streams.ui.css/theme.css');
-        Assets::register('streams.ui.css/tailwind.css');
-        Assets::register('streams.ui.css/variables.css');
+        View::addNamespace('ui', __DIR__ . '/../resources/views');
 
-        Assets::register('streams.ui.js/index.js');
+        Lang::addNamespace('ui', realpath(base_path('vendor/streams/ui/resources/lang')));
 
         foreach (config('streams.ui.components') as $component => $class) {
             Livewire::component($component, $class);
@@ -45,21 +48,27 @@ class UiServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../resources/config/ui.php', 'streams.ui');
 
-        file_exists($config = base_path('config/streams/ui.php')) ?
-            $this->mergeConfigFrom($config, 'streams.ui') : null;
-
         $this->publishes([
             __DIR__ . '/../resources/config/ui.php' => config_path('streams/ui.php'),
         ], 'config');
+
+        file_exists($config = base_path('config/streams/ui.php'))
+            ? $this->mergeConfigFrom($config, 'streams.ui')
+            : null;
     }
 
     protected function registerAdmin()
     {
-        Route::any('admin/logout', \Streams\Ui\Http\Controllers\Logout::class);
+        if (!Config::get('streams.ui.admin.enabled')) {
+            return;
+        }
 
-        Route::get('admin', \Streams\Ui\Components\Admin\AdminDashboard::class);
-        Route::get('admin/{section}', \Streams\Ui\Components\Admin\AdminTable::class); // StreamIndex
-        Route::get('admin/{section}/{action}', \Streams\Ui\Components\Admin\AdminForm::class); // StreamComponent
-        Route::get('admin/{section}/{entry}/{action}', \Streams\Ui\Components\Admin\AdminForm::class);
+        $prefix = Config::get('streams.ui.admin.prefix');
+
+        Route::get($prefix, Config::get('streams.ui.admin.default'));
+
+        Route::any($prefix . '/logout', \Streams\Ui\Http\Controllers\Logout::class);
+
+        Route::get($prefix . '/{stream}/{action?}/{entry?}', \Streams\Ui\Components\Admin\AdminAction::class);
     }
 }

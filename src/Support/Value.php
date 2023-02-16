@@ -94,6 +94,10 @@ class Value
             return null;
         }
 
+        if (is_array($value) || is_object($value)) {
+            return json_encode($value);
+        }
+
         return (string) $value;
     }
 }

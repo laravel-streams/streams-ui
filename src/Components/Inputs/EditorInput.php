@@ -8,11 +8,10 @@ class EditorInput extends Input
 {
     public string $template = 'ui::components.inputs.editor';
 
-    public string $language = 'html'; // html, css, javascript, json, php, xml, yaml, blade, twig, markdown, plaintext (manaco-editor)
+    public string $language = 'html'; // https://microsoft.github.io/monaco-editor/api/enums/monaco.languages.html
 
     public function booted()
     {
-        // Ensure the value is JSON a string.
         if (is_object($this->value) || is_array($this->value)) {
             
             $this->value = json_encode($this->value);

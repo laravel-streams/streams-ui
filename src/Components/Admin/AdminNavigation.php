@@ -4,12 +4,15 @@ namespace Streams\Ui\Components\Admin;
 
 use Illuminate\Support\Arr;
 use Streams\Ui\Components\Navigation;
+use Illuminate\Support\Facades\Config;
 use Streams\Core\Support\Facades\Streams;
 
 class AdminNavigation extends Navigation
 {
     public function booted()
     {
+        $this->items = Config::get('streams.ui.admin.navigation', []);
+
         $streams = Streams::collection()->where('ui.admin.navigation', '!=', null);
 
         foreach ($streams as $stream) {

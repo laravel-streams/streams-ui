@@ -26,16 +26,29 @@ class Table extends Component
 
     public function booted()
     {
-        $this->stream = Request::segment(2);
+        if (!$stream = $this->stream()) {
+            return;
+        }
 
-        $this->entries = $this->stream()->entries()->get()->all();
+        $this->entries = $stream->entries()->get()->all();
 
-        $tables = new Collection(Arr::get($this->stream()?->ui, 'tables', []));
+        $tables = new Collection(Arr::get($stream?->ui, 'components', []));
 
-        $table = $tables->where('handle', $this->handle)->first();
+        $table = $tables
+            ->where('component', 'table')
+            ->where('handle', $this->handle)
+            ->first();
 
         if (!$this->columns && $table && isset($table['columns'])) {
             $this->columns = $table['columns'];
+        } elseif (!$this->columns) {
+            $this->columns = [
+                [
+                    'handle' => 'id',
+                    'heading' => 'ID',
+                    'field' => 'id',
+                ],
+            ];
         }
 
         if (!$this->buttons && $table && isset($table['buttons'])) {

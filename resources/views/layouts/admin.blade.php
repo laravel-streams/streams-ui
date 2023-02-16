@@ -29,7 +29,7 @@
 
     </aside>
 
-    <main class="w-full">
+    <main class="w-full overflow-y-auto">
 
         {{-- Topbar --}}
         <div class="bg-gray-200 w-full p-4 flex justify-between items-center">

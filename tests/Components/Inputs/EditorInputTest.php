@@ -13,4 +13,18 @@ class EditorInputTest extends UiTestCase
             'name' => 'example',
         ])->assertSeeHtml('MonacoEnvironment');
     }
+
+    public function test_it_supports_objects()
+    {
+        Livewire::test('editor', [
+            'name' => 'example',
+            'value' => (object) [
+                'foo' => 'bar',
+            ],
+        ])
+            ->assertSeeHtml('MonacoEnvironment')
+            ->assertSeeHtml(json_encode([
+                'foo' => 'bar',
+            ]));
+    }
 }

@@ -2,11 +2,8 @@
 
 namespace Streams\Ui\Tests\Support;
 
-use Streams\Ui\Button\Button;
 use Streams\Ui\Support\Value;
 use Streams\Ui\Tests\UiTestCase;
-use Streams\Ui\Support\Component;
-use Streams\Ui\Support\Facades\UI;
 use Streams\Core\View\ViewTemplate;
 
 class ValueTest extends UiTestCase
@@ -17,7 +14,7 @@ class ValueTest extends UiTestCase
             'name' => 'Bar',
         ]));
 
-        $this->assertSame(['Foo Bar'], Value::make(['value' => ['Foo {entry.name}']], [
+        $this->assertSame(json_encode(['Foo Bar']), Value::make(['value' => ['Foo {entry.name}']], [
             'name' => 'Bar',
         ]));
     }

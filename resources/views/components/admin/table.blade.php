@@ -1,3 +1,0 @@
-<div>
-    @livewire('table')
-</div>

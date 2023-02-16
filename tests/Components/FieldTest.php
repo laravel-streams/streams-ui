@@ -37,4 +37,16 @@ class FieldTest extends UiTestCase
 
         $this->assertInstanceOf(Field::class, $field);
     }
+
+    public function test_it_can_disable_lables()
+    {
+        Livewire::test('field', [
+            'stream' => 'films',
+            'field' => 'title',
+            'label' => false,
+        ])
+            ->assertDontSeeHtml('Title')
+            ->assertSeeHtml('name="title"')
+            ->assertSeeHtml('type="text"');
+    }
 }

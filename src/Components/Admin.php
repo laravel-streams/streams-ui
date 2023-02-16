@@ -6,5 +6,5 @@ use Streams\Ui\Support\Component;
 
 class Admin extends Component
 {
-    protected string $layout = 'ui::layouts.admin';
+    public ?string $layout = 'ui::layouts.admin';
 }
