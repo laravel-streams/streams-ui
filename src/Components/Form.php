@@ -2,19 +2,18 @@
 
 namespace Streams\Ui\Components;
 
-use Illuminate\Support\Arr;
 use Streams\Ui\Support\Component;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Request;
-use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\Components\Traits\HasAttributes;
+use Streams\Ui\Components\Workflows\FormBuilder;
 
 class Form extends Component
 {
     use HasAttributes;
 
+    public $workflow = FormBuilder::class;
+
     public string $template = 'ui::components.form';
-    
+
     public string $handle = 'default';
 
     public string $enctype = 'multipart/form-data';
@@ -32,60 +31,4 @@ class Form extends Component
     public $entry = null;
 
     public array $attributes = [];
-
-    public function booted()
-    {
-        $this->stream = Request::segment(2);
-        $this->entry = Request::segment(3);
-
-        if (!$this->stream || !$stream = $this->stream()) {
-            return;
-        }
-
-        $this->fields = $stream->fields->toArray() ?: [];
-
-        foreach ($this->fields as $id => &$field) {
-            $field['entry'] = $this->entry;
-            $field['stream'] = $this->stream;
-            $field['field'] = $id;
-        }
-
-        $this->buttons = $this->buttons ?: [
-            [
-                'type' => 'submit',
-                'text' => 'Submit',
-            ],
-            [
-                'tag' => 'a',
-                'type' => null,
-                'text' => 'Cancel',
-                'url' => '/' . Request::segment(1) . '/' . Request::segment(2),
-            ],
-        ];
-    
-    
-        $entry = $stream?->repository()->find($this->entry);
-
-        $forms = new Collection(Arr::get($this->stream()?->ui, 'components', []));
-
-        $form = $forms
-            ->where('component', 'form')
-            ->where('handle', $this->handle)
-            ->first();
-
-        unset($form['component']);
-
-        if ($form) {
-            foreach ($form as $key => $value) {
-                $this->{$key} = $value;
-            }
-        }
-
-        if ($stream && $entry) {
-            
-            foreach ($this->fields as $i => &$field) {
-                $this->fields[$i]['input']['value'] = $entry->{$field['field']};
-            }
-        }
-    }
 }

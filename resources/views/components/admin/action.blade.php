@@ -2,7 +2,7 @@
     @if (Request::segment(4))
         @livewire('form', [
             'stream' => Request::segment(2),
-            'entry' => Request::segment(4),
+            'entry' => Request::segment(3),
         ])
     @elseif (Request::segment(3))
         @livewire('form', [
