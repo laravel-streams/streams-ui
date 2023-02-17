@@ -12,6 +12,8 @@ class TableColumn extends Component
 
     public string $template = 'ui::components.table.column';
     
+    public array $header = [];
+    
     public array $entry = [];
 
     public $value = 'id';

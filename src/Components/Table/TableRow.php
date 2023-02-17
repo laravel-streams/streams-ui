@@ -12,6 +12,8 @@ class TableRow extends Component
 
     public string $template = 'ui::components.table.row';
 
+    public bool $selectable = false;
+
     public array $entry = [];
     
     public array $columns = [];

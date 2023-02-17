@@ -1,5 +1,7 @@
 <tr>
+    @if ($component->selectable)
     <td><input type="checkbox"></td>
+    @endif
     @foreach ($component->columns as $column)
     @livewire('table.column', array_merge($column, [
         'entry' => $component->entry,

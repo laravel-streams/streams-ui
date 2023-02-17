@@ -50,7 +50,6 @@ class Form extends Component
             $field['field'] = $id;
         }
 
-
         $this->buttons = $this->buttons ?: [
             [
                 'type' => 'submit',
@@ -67,15 +66,21 @@ class Form extends Component
     
         $entry = $stream?->repository()->find($this->entry);
 
-        $forms = new Collection(Arr::get($this->stream()?->ui, 'forms', []));
+        $forms = new Collection(Arr::get($this->stream()?->ui, 'components', []));
 
-        $form = $forms->where('handle', $this->handle)->first();
+        $form = $forms
+            ->where('component', 'form')
+            ->where('handle', $this->handle)
+            ->first();
 
-        if ($form && isset($form['buttons'])) {
-            $this->buttons = array_merge($this->buttons, $form['buttons']);
+        unset($form['component']);
+
+        if ($form) {
+            foreach ($form as $key => $value) {
+                $this->{$key} = $value;
+            }
         }
 
-        // Load form values from the entry.
         if ($stream && $entry) {
             
             foreach ($this->fields as $i => &$field) {

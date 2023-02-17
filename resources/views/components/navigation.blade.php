@@ -4,7 +4,9 @@
     <nav>
         <ul {!! $component->htmlAttributes() !!}>
             @foreach($component->items as $item)
-            <li>
+            <li @class([
+                'font-bold' => $item['active'] ?? false,
+            ])>
                 @livewire(Arr::pull($item, 'component'), $item)
             </li>
             @endforeach

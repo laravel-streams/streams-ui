@@ -2,20 +2,23 @@
 
 namespace Streams\Ui\Components;
 
-use Illuminate\Support\Arr;
 use Streams\Ui\Support\Component;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Request;
-use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\Components\Traits\HasAttributes;
+use Streams\Ui\Components\Workflows\TableBuilder;
 
 class Table extends Component
 {
     use HasAttributes;
 
+    public $workflow = TableBuilder::class;
+
     public string $template = 'ui::components.table';
 
     public string $handle = 'default';
+    
+    public bool $selectable = false;
+    
+    public ?string $caption = null;
 
     public array $entries = [];
 
@@ -23,36 +26,4 @@ class Table extends Component
     public array $buttons = [];
 
     public array $attributes = [];
-
-    public function booted()
-    {
-        if (!$stream = $this->stream()) {
-            return;
-        }
-
-        $this->entries = $stream->entries()->get()->all();
-
-        $tables = new Collection(Arr::get($stream?->ui, 'components', []));
-
-        $table = $tables
-            ->where('component', 'table')
-            ->where('handle', $this->handle)
-            ->first();
-
-        if (!$this->columns && $table && isset($table['columns'])) {
-            $this->columns = $table['columns'];
-        } elseif (!$this->columns) {
-            $this->columns = [
-                [
-                    'handle' => 'id',
-                    'heading' => 'ID',
-                    'field' => 'id',
-                ],
-            ];
-        }
-
-        if (!$this->buttons && $table && isset($table['buttons'])) {
-            $this->buttons = $table['buttons'];
-        }
-    }
 }
