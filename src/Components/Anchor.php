@@ -17,8 +17,8 @@ class Anchor extends Component
 
     public array $attributes = [];
 
-    public function booted()
+    public function url()
     {
-        $this->url = $this->url ? Str::parse($this->url) : null;
+        return $this->url ? Str::parse($this->url) : null;
     }
 }
