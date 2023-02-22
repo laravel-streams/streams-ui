@@ -4,7 +4,7 @@ return [
 
     'admin' => [
         'prefix' => 'admin',
-        'enabled' => env('ADMIN_ENABLED', true),
+        'enabled' => env('STREAMS_ADMIN_ENABLED', true),
         'default' => \Streams\Ui\Components\Admin\AdminDashboard::class,
         'navigation' => [
             [

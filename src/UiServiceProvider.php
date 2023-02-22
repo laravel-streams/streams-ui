@@ -51,10 +51,6 @@ class UiServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../resources/config/ui.php' => config_path('streams/ui.php'),
         ], 'config');
-
-        file_exists($config = base_path('config/streams/ui.php'))
-            ? $this->mergeConfigFrom($config, 'streams.ui')
-            : null;
     }
 
     protected function registerAdmin()
