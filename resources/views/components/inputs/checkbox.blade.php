@@ -7,6 +7,7 @@
             'required' => $component->required,
             'readonly' => $component->readonly,
             'disabled' => $component->disabled,
+            'checked' => $component->value == true,
         ]) !!}> {{ __($component->label) }}
     </label>
 </div>
