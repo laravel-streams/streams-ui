@@ -51,7 +51,7 @@
                 ],
                 'items' => [
                         [
-                            'component' => 'image',
+                            'component' => 'avatar',
                             'src' => 'https://gravatar.com/avatar/cd7e95aa74ded76c1d92374b20e5c34c?s=128',
                             'alt' => 'Ryan Thompson',
                             'attributes' => [
@@ -81,6 +81,8 @@
         </div>
 
         {{-- Content --}}
+        @livewire('breadcrumbs')
+
         {!! $slot !!}
     </main>
 

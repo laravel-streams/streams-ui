@@ -3,9 +3,11 @@
 namespace Streams\Ui;
 
 use Livewire\Livewire;
-use Streams\Core\Support\Integrator;
+use Illuminate\Support\Collection;
+use Streams\Ui\Support\Breadcrumbs;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
+use Streams\Core\Support\Integrator;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
@@ -16,6 +18,8 @@ class UiServiceProvider extends ServiceProvider
 
     public function register(): void
     {
+        $this->app->singleton('breadcrumbs', Collection::class);
+        
         $this->publishes([
             __DIR__ . '/../resources/public' => public_path('vendor/streams/ui'),
         ], 'public');

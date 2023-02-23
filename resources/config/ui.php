@@ -30,17 +30,32 @@ return [
 
         'table' => \Streams\Ui\Components\Table::class,
         'table.row' => \Streams\Ui\Components\Table\TableRow::class,
+        //'table.views' => \Streams\Ui\Components\Table\TableViews::class,
         'table.header' => \Streams\Ui\Components\Table\TableHeader::class,
         'table.column' => \Streams\Ui\Components\Table\TableColumn::class,
+        //'table.filters' => \Streams\Ui\Components\Table\TableFilters::class,
 
         'navigation' => \Streams\Ui\Components\Navigation::class,
 
+        'avatar' => \Streams\Ui\Components\Avatar::class,
         'anchor' => \Streams\Ui\Components\Anchor::class,
         'button' => \Streams\Ui\Components\Button::class,
+        'indicator' => \Streams\Ui\Components\Indicator::class,
+        'breadcrumbs' => \Streams\Ui\Components\Breadcrumbs::class,
+        
+        'dropdown' => \Streams\Ui\Components\Dropdown::class,
+        //'dropdown.item' => \Streams\Ui\Components\Dropdown\DropdownItem::class,
+        
+        'modal' => \Streams\Ui\Components\Modal::class,
+        //'modal.header' => \Streams\Ui\Components\Modal\ModalHeader::class,
+        //'modal.content' => \Streams\Ui\Components\Modal\ModalContent::class,
+        //'modal.footer' => \Streams\Ui\Components\Modal\ModalFooter::class,
 
-        'image' => \Streams\Ui\Components\Image::class,
 
-        // Inputs
+        /**
+         * Inputs are matched to
+         * one or more field types.
+         */
         'date' => \Streams\Ui\Components\Inputs\DateInput::class,
         'time' => \Streams\Ui\Components\Inputs\TimeInput::class,
         'datetime-input' => \Streams\Ui\Components\Inputs\DatetimeInput::class,
@@ -60,7 +75,7 @@ return [
         'integer' => \Streams\Ui\Components\Inputs\IntegerInput::class,
 
         'select' => \Streams\Ui\Components\Inputs\SelectInput::class,
-        'enum' => \Streams\Ui\Components\Inputs\SelectInput::class, // @todo - remove
+        'enum' => \Streams\Ui\Components\Inputs\SelectInput::class, // @todo - register with below
 
         'color' => \Streams\Ui\Components\Inputs\ColorInput::class,
 
@@ -78,14 +93,19 @@ return [
         'textarea' => \Streams\Ui\Components\Inputs\TextareaInput::class,
 
 
-        // Admin Components
+        /**
+         * Admin Components
+         */
         'admin' => \Streams\Ui\Components\Admin\AdminDashboard::class,
         'admin.menu' => \Streams\Ui\Components\Admin\AdminMenu::class,
         'admin.navigation' => \Streams\Ui\Components\Admin\AdminNavigation::class,
 
 
         /**
-         * These field type defaults need to be mapped.
+         * @todo Use the registry system for these. Configurable. Maybe even all FTs. 
+         * 
+         * input = hash|uuid|string|array|boolean
+         * type = registered from above
          */
         'hash' => \Streams\Ui\Components\Inputs\TextInput::class,
         'uuid' => \Streams\Ui\Components\Inputs\TextInput::class,

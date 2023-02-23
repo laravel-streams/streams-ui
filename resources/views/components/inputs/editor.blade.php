@@ -21,19 +21,21 @@
         var id = '{{ $component->id }}-editor';
 
         require(["vs/editor/editor.main"], function () {
+            
             let editor = monaco.editor.create(document.getElementById(id), {
-                value: `{!! $component->value !!}`,
+                value: document.getElementById('{{ $component->id }}-textarea').value,
                 language: '{{ $component->language ?: "html" }}',
                 theme: 'vs-dark', // Use configured/system
             });
+            
             document.getElementById(id).addEventListener('keyup', function() {
-                document.querySelector('#{{ $component->id }} textarea').value = editor.getValue();
+                document.getElementById('{{ $component->id }}-textarea').value = editor.getValue();
             });
         });
     </script>
 
     <div id="{{ $component->id }}-editor" style="min-height: 200px;"></div>
 
-    <textarea hidden {!! $component->htmlAttributes() !!}></textarea>
+    <textarea id="{{ $component->id }}-textarea" hidden {!! $component->htmlAttributes() !!}>{!! $component->value !!}</textarea>
 
 </div>

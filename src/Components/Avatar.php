@@ -5,11 +5,11 @@ namespace Streams\Ui\Components;
 use Streams\Ui\Support\Component;
 use Streams\Ui\Components\Traits\HasAttributes;
 
-class Image extends Component
+class Avatar extends Component
 {
     use HasAttributes;
 
-    public string $template = 'ui::components.image';
+    public string $template = 'ui::components.avatar';
 
     public string $src;
 
