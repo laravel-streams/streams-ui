@@ -20,8 +20,7 @@ class Admin extends Component
         }
 
         if ($entry = Request::segment(3)) {
-            // IF there is a "view" component
-            //Breadcrumbs::put("admin/$stream/$entry", ucwords(Str::humanize($entry)));
+            Breadcrumbs::put("admin/$stream/$entry", ucwords(Str::humanize($entry)));
         }
 
         if ($action = Request::segment(4)) {
