@@ -1,4 +1,9 @@
 <div>
+
+    <div>
+        @livewire('breadcrumbs')
+    </div>
+
     @if (Request::segment(4))
         @livewire('form', [
             'stream' => Request::segment(2),

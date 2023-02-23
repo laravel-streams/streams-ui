@@ -81,8 +81,6 @@
         </div>
 
         {{-- Content --}}
-        @livewire('breadcrumbs')
-
         {!! $slot !!}
     </main>
 

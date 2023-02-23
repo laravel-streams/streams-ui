@@ -35,7 +35,15 @@ return [
         'table.column' => \Streams\Ui\Components\Table\TableColumn::class,
         //'table.filters' => \Streams\Ui\Components\Table\TableFilters::class,
 
+        'tabs' => \Streams\Ui\Components\Tabs::class,
+
+        'menu' => \Streams\Ui\Components\Menu::class,
+        // 'menu.item' => \Streams\Ui\Components\Menu\MenuItem::class,
+
         'navigation' => \Streams\Ui\Components\Navigation::class,
+        // 'navigation.item' => \Streams\Ui\Components\Navigation\NavigationItem::class,
+        
+        'collapsable' => \Streams\Ui\Components\Collapsable::class,
 
         'avatar' => \Streams\Ui\Components\Avatar::class,
         'anchor' => \Streams\Ui\Components\Anchor::class,

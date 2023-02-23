@@ -2,12 +2,9 @@
 
 namespace Streams\Ui\Components\Admin;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\URL;
-use Streams\Ui\Components\Navigation;
-use Streams\Core\Support\Facades\Streams;
+use Streams\Ui\Components\Menu;
 
-class AdminMenu extends Navigation
+class AdminMenu extends Menu
 {
     public function booted()
     {
