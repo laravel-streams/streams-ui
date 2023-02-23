@@ -34,6 +34,6 @@
 
     <div id="{{ $component->id }}-editor" style="min-height: 200px;"></div>
 
-    <textarea hidden {!! $component->htmlAttributes() !!}>{!! $component->value !!}</textarea>
+    <textarea hidden {!! $component->htmlAttributes() !!}></textarea>
 
 </div>

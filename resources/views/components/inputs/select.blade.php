@@ -7,7 +7,9 @@
     ]) !!}>
 
         @if (!$component->required)
-        <option value="">---</option>
+        <option value="">
+            {{ $component->placeholder ? __($component->placeholder) : '---' }}
+        </option>
         @endif
 
         @foreach ($component->options() as $key => $value)
