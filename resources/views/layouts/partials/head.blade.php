@@ -10,13 +10,9 @@
 {!! Assets::collection('scripts.head')->tags() !!}
 
 
-
-
 <!-- styles.blade.php -->
 {{ Assets::load('styles', 'ui::css/variables.css') }}
 {{ Assets::load('styles', 'ui::css/theme.css') }}
-
-{{ Assets::load('styles', 'ui::css/tailwind.css') }}
 
 {!! Assets::collection('styles')->tags() !!}
 

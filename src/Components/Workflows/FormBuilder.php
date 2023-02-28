@@ -44,10 +44,9 @@ class FormBuilder extends Workflow
             $component->fields = $stream->fields->toArray() ?: [];
         }
 
-        foreach ($component->fields as $id => &$field) {
+        foreach ($component->fields as &$field) {
             $field['entry'] = $component->entry;
             $field['stream'] = $component->stream;
-            $field['field'] = $id;
         }
     }
 

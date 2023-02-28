@@ -19,7 +19,7 @@ class FieldBuilder extends Workflow
         if (!$field = $component->field()) {
             return;
         }
-
+        
         $attributes = [
             'description' => $field->description,
             'instructions' => $field->instructions,
