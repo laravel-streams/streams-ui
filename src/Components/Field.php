@@ -17,6 +17,9 @@ class Field extends Component
 
     public ?string $field = null;
     
+    // @todo Enum FT
+    public string $width = '1/2';
+    
     public string|bool|null $label = null;
     public string|bool|null $instructions = null;
     public string|bool|null $description = null;

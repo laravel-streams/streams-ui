@@ -3,9 +3,12 @@
 namespace Streams\Ui\Components\Workflows;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
 use Streams\Ui\Components\Table;
+use Illuminate\Support\Collection;
 use Streams\Core\Support\Workflow;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class TableBuilder extends Workflow
 {
@@ -57,6 +60,21 @@ class TableBuilder extends Workflow
 
     public function queryEntries(Table $component): void
     {
-        $component->entries = $component->stream()->entries()->get()->all();
+        $query = $component->stream()->entries();
+
+        $component->fire('querying', compact('query', 'component'));
+
+        (new TableQuery())
+            ->passThrough($this)
+            ->process([
+                'component' => $component,
+                'query' => $query,
+            ]);
+
+        $this->fire('built', [
+            'component' => $component,
+        ]);
+
+        $component->fire('queried', compact('component'));
     }
 }

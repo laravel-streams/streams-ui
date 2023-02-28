@@ -1,0 +1,62 @@
+.table__wrapper {
+    @apply m-4 overflow-hidden;
+}
+
+.table__pagination {
+
+    ul {
+        @apply flex rounded overflow-hidden;
+
+        li a,
+        li span {
+            @apply px-4 py-2 bg-gray-200 inline-block;
+        }
+
+        li.active {
+            @apply text-white;
+
+            span {
+                @apply bg-black;
+            }
+        }
+
+        li.disabled {
+            @apply text-gray-400 cursor-not-allowed;
+
+            span {
+                @apply bg-gray-200;
+            }
+        }
+    }
+}
+
+table.table {
+    @apply table-auto w-full;
+
+    tr {
+        @apply border-b;
+    }
+
+    th {
+        @apply bg-gray-200 text-left px-4 py-3;
+    }
+
+    td {
+        @apply px-4 py-4;
+    }
+
+    .table__buttons {
+        @apply flex space-x-2 justify-end;
+    }
+
+    tbody > tr {
+        
+        &:hover {
+            @apply bg-gray-50 border-gray-50;
+        }
+    }
+
+    tfoot td > div {
+        @apply flex justify-between w-full items-center;
+    }
+}

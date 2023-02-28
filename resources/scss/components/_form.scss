@@ -1,0 +1,15 @@
+.form__wrapper {
+    @apply m-4;
+}
+
+.form__fields {
+    @apply flex flex-wrap;
+
+    > div {
+        @apply w-full;
+    }
+}
+
+form.form {
+    
+}

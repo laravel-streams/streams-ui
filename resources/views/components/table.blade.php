@@ -1,6 +1,8 @@
-<div>
+<div class="table__wrapper">
     <table {!! $component->htmlAttributes([
-        'class' => 'm-4',
+        'class' => [
+            'table',
+        ],
     ]) !!}>
 
         @if (isset($slot))
@@ -12,16 +14,18 @@
             @endif
 
             <thead>
-                <tr style="text-align: left;">
+                <tr>
                     @if ($component->selectable)
-                    <th></th>
+                    <th><span class="sr-only">Select Rows</span></th>
                     @endif
                     @foreach ($component->columns as $column)
                     @if (isset($column['header']))
                         @livewire('table.header', $column['header'])
                     @endif
                     @endforeach
-                    <th></th>
+                    @if ($component->buttons)
+                    <th><span class="sr-only">Actions</span></th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -33,7 +37,25 @@
                     'entry' => Arr::make($entry),
                 ])
                 @endforeach
-            </thead>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="100%">
+                        <div>
+
+                            <div class="table__pagination">
+                                {!! $component->pagination['links']() !!}
+                            </div>
+                            
+                            <small class="table__meta">
+                                {{ $component->pagination['total'] }}
+                                {{ trans_choice('ui::labels.results', $component->pagination['total']) }}
+                            </small>
+
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
         @endif
     </table>    
 </div>

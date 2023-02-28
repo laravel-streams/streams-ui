@@ -1,4 +1,6 @@
-
+// Admin Theme
+@import "components/_table";
+@import "components/_form";
 
 body * {
     font-size: calc(1rem * var(--ui-font-size));

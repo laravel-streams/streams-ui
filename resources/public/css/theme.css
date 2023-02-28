@@ -1,3 +1,110 @@
-body *{font-size:calc(1rem*var(--ui-font-size))}[x-cloak]{display:none!important}input,select,textarea{--tw-border-opacity:1;border-color:rgb(209 213 219/var(--tw-border-opacity));border-radius:.25rem;border-width:1px;padding-left:.25rem!important;padding-right:.25rem!important}
+.table__wrapper {
+  margin: 1rem;
+  overflow: hidden;
+}
 
-/*# sourceMappingURL=theme.css.map*/
+.table__pagination ul {
+  display: flex;
+  overflow: hidden;
+  border-radius: 0.25rem;
+}
+.table__pagination ul li a,
+.table__pagination ul li span {
+  display: inline-block;
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.table__pagination ul li.active {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.table__pagination ul li.active span {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+.table__pagination ul li.disabled {
+  cursor: not-allowed;
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity));
+}
+.table__pagination ul li.disabled span {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+}
+
+table.table {
+  width: 100%;
+  table-layout: auto;
+}
+table.table tr {
+  border-bottom-width: 1px;
+}
+table.table th {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  text-align: left;
+}
+table.table td {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+table.table .table__buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+table.table .table__buttons > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
+table.table tbody > tr:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(249 250 251 / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+}
+table.table tfoot td > div {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form__wrapper {
+  margin: 1rem;
+}
+
+.form__fields {
+  display: flex;
+  flex-wrap: wrap;
+}
+.form__fields > div {
+  width: 100%;
+}
+
+body * {
+  font-size: calc(1rem * var(--ui-font-size));
+}
+
+[x-cloak] {
+  display: none !important;
+}
+
+input, textarea, select {
+  padding-left: 0.25rem !important;
+  padding-right: 0.25rem !important;
+  border-radius: 0.25rem;
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(209 213 219 / var(--tw-border-opacity));
+}

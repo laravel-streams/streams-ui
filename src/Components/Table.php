@@ -26,4 +26,8 @@ class Table extends Component
     public array $buttons = [];
 
     public array $attributes = [];
+
+    public array $query = [];
+    
+    public array $pagination = [];
 }

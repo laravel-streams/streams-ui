@@ -1,6 +1,4 @@
-<div {!! $component->htmlAttributes([
-    'class' => ['field my-4'],
-]) !!}>
+<div {!! $component->htmlAttributes() !!}>
 
     <label class="font-bold" for="{{ $component->id }}">
         {{ __($component->label) }}
