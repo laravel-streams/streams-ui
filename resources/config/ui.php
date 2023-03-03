@@ -83,30 +83,8 @@ return [
         'integer' => \Streams\Ui\Components\Inputs\IntegerInput::class,
 
         'select' => \Streams\Ui\Components\Inputs\SelectInput::class,
-        'enum' => \Streams\Ui\Components\Inputs\SelectInput::class, // @todo - register with below
 
-        'input' => \Streams\Ui\Components\Inputs\Input::class,
-
-        'input.url' => [
-            'component' => 'input',
-            'attributes' => [
-                'type' => 'url',
-            ],
-        ],
-
-        'input.color' => [
-            'component' => \Streams\Ui\Components\Inputs\Input::class,
-            'attributes' => [
-                'type' => 'url',
-            ],
-        ],
-
-        'input.email' => [
-            'component' => \Streams\Ui\Components\Inputs\Input::class,
-            'attributes' => [
-                'type' => 'email',
-            ],
-        ],
+        'input' => \Streams\Ui\Components\Inputs\BasicInput::class,
 
         'tags' => \Streams\Ui\Components\Inputs\TagsInput::class,
 

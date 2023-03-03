@@ -2,12 +2,13 @@
     <input {!! $component->htmlAttributes([
         'name' => $component->name,
         'type' => $component->type,
+        'step' => $component->step,
         'value' => $component->value,
         'readonly' => $component->readonly,
         'disabled' => $component->disabled,
+        'required' => $component->required,
         'placeholder' => $component->placeholder,
-        'required' => $component->required ?? $component->field()?->isRequired(),
-        'minlength' => $component->min ?? $component->field()?->ruleParameter('min'),
-        'maxlength' => $component->max ?? $component->field()?->ruleParameter('max'),
+        $component->attributeName('min') => $component->min,
+        $component->attributeName('max') => $component->max,
     ]) !!}>    
 </div>

@@ -10,7 +10,7 @@ class EditorInput extends Input
 
     public string $language = 'html'; // https://microsoft.github.io/monaco-editor/api/enums/monaco.languages.html
 
-    public function booted()
+    public function boot()
     {
         if (is_object($this->value) || is_array($this->value)) {
             

@@ -2,15 +2,15 @@
 
 namespace Streams\Ui\Tests\Components;
 
-use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
+use Streams\Ui\Support\Facades\UI;
 
 class FileInputTest extends UiTestCase
 {
     public function test_it_renders()
     {
-        Livewire::test('file', [
+        UI::test('file', [
             'name' => 'example',
-        ])->assertSeeHtml('type="file"');
+        ])->assertSee('type="file"');
     }
 }

@@ -8,7 +8,7 @@ use Streams\Ui\Support\Component;
 
 class TestableComponent
 {
-    protected string $rendered;
+    protected ?string $rendered = null;
 
     public function __construct(protected Component $component)
     {
@@ -52,6 +52,8 @@ class TestableComponent
 
     public function assertSee($values)
     {
+        $this->renderIfNotRendered();
+
         foreach (Arr::wrap($values) as $value) {
             Assert::assertStringContainsString($value, $this->rendered);
         }
@@ -61,11 +63,20 @@ class TestableComponent
 
     public function assertNotSee($values)
     {
+        $this->renderIfNotRendered();
+
         foreach (Arr::wrap($values) as $value) {
             Assert::assertStringNotContainsString($value, $this->rendered);
         }
 
         return $this;
+    }
+
+    protected function renderIfNotRendered()
+    {
+        if (!$this->rendered) {
+            $this->render();
+        }
     }
 
     public function __call($method, $parameters)

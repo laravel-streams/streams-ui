@@ -2,15 +2,15 @@
 
 namespace Streams\Ui\Tests\Components;
 
-use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
+use Streams\Ui\Support\Facades\UI;
 
 class SlugInputTest extends UiTestCase
 {
     public function test_it_renders()
     {
-        Livewire::test('slug', [
+        UI::test('slug', [
             'name' => 'example',
-        ])->assertSeeHtml('x-model="value"');
+        ])->assertSee('x-model="value"');
     }
 }

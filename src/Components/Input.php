@@ -13,8 +13,6 @@ abstract class Input extends Component
     use HasStream;
     use HasAttributes;
 
-    public string $template = 'ui::components.input';
-
     public ?string $stream = null;
     public ?string $field = null;
 

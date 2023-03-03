@@ -27,6 +27,11 @@ abstract class Component
         $this->__constructPrototype($attributes);
 
         $this->build();
+
+        // @todo meh, could be better
+        if (method_exists($this, 'boot')) {
+            $this->boot();
+        }
     }
 
     public function render(array $payload = []): string

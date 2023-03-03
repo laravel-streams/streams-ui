@@ -2,15 +2,15 @@
 
 namespace Streams\Ui\Tests\Components;
 
-use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
+use Streams\Ui\Support\Facades\UI;
 
 class MarkdownInputTest extends UiTestCase
 {
     public function test_it_renders()
     {
-        Livewire::test('markdown', [
+        UI::test('markdown', [
             'name' => 'example',
-        ])->assertSeeHtml('x-ref="editor"');
+        ])->assertSee('x-ref="editor"');
     }
 }

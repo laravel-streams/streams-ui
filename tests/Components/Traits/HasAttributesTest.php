@@ -12,9 +12,7 @@ class HasAttributesTest extends UiTestCase
     {
         UI::component('test', HasAttributesTestComponent::class);
 
-        UI::test('test')
-            ->render()
-            ->assertSee('class="test"');
+        UI::test('test')->assertSee('class="test"');
     }
 
     public function test_it_supports_conditional_classes()
@@ -30,7 +28,6 @@ class HasAttributesTest extends UiTestCase
                 ],
             ],
         ])
-        ->render()
         ->assertSee(['test', 'bar'])
         ->assertNotSee('foo');
     }

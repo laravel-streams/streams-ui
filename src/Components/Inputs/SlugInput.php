@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Components\Inputs;
 
-class SlugInput extends TextInput
+class SlugInput extends BasicInput
 {
     public string $template = 'ui::components.inputs.slug';
     
