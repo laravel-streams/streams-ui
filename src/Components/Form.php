@@ -36,6 +36,26 @@ class Form extends Component
             $rules = $stream->rules();
         }
 
-        dd($rules);
+        $keys = array_keys($rules);
+
+        $rules = array_combine(array_map(function($key) {
+            return 'entry.' . $key;
+        }, $keys), $rules);
+
+        $result = $stream->validator($rules);
+
+        if ($result->fails()) {
+            foreach ($result->messages()->messages() as $field => $messages) {
+                foreach ($messages as $message) {
+                    $this->addError($field, $message);
+                }
+            }
+
+            return;
+        }
+
+        if ($this->entry) {
+            
+        }
     }
 }
