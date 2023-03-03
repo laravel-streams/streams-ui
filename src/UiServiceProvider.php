@@ -2,11 +2,13 @@
 
 namespace Streams\Ui;
 
+use Illuminate\View\Factory;
 use Illuminate\Support\Collection;
 use Streams\Ui\Support\Facades\UI;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
 use Streams\Core\Support\Integrator;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
@@ -32,6 +34,14 @@ class UiServiceProvider extends ServiceProvider
         Integrator::aliases([
             'UI' => \Streams\Ui\Support\Facades\UI::class,
         ]);
+
+        Factory::macro('ui', function(string $name, array $attributes = []) {
+            return UI::make($name, $attributes);
+        });
+
+        Blade::directive('ui', function ($parameters) {
+            return "<?php echo \$__env->ui({$parameters}); ?>";
+        });
     }
 
     public function boot()

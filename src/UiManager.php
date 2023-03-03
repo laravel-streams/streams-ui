@@ -7,6 +7,7 @@ use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Traits\Macroable;
+use Streams\Ui\Testing\TestableComponent;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
 class UiManager
@@ -40,15 +41,20 @@ class UiManager
 
         if (is_array($component)) {
 
-            $attributes = array_merge($attributes, Arr::except($component, 'component'));
-            
+            $attributes = array_merge_recursive(Arr::except($component, 'component'), $attributes);
+
             $component = Arr::pull($component, 'component');
         }
 
-        // @todo Callbacks
-        return App::make($component, [
+        // @todo Callbacks and such
+        return App::make($this->components[$component] ?? $component, [
             'attributes' => $attributes,
         ]);
+    }
+
+    public function test(string $alias, array $attributes = []): TestableComponent
+    {
+        return new TestableComponent($this->make($alias, $attributes));
     }
 
     public function component($alias, $component): static

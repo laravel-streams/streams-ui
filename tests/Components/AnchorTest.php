@@ -2,15 +2,16 @@
 
 namespace Streams\Ui\Tests\Components;
 
-use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
 
 class AnchorTest extends UiTestCase
 {
     public function test_it_renders()
     {
-        Livewire::test('anchor', [
+        $output = UI::make('anchor', [
             'text' => 'Hello World',
-        ])->assertSee('Hello World');
+        ])->render();
+
+        $this->assertStringContainsString('Hello World', $output);
     }
 }

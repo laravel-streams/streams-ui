@@ -85,12 +85,28 @@ return [
         'select' => \Streams\Ui\Components\Inputs\SelectInput::class,
         'enum' => \Streams\Ui\Components\Inputs\SelectInput::class, // @todo - register with below
 
-        'color' => \Streams\Ui\Components\Inputs\ColorInput::class,
+        'input' => \Streams\Ui\Components\Inputs\Input::class,
 
-        'url-input' => \Streams\Ui\Components\Inputs\UrlInput::class,
-        'text' => \Streams\Ui\Components\Inputs\TextInput::class,
-        'input' => \Streams\Ui\Components\Inputs\TextInput::class,
-        'email' => \Streams\Ui\Components\Inputs\EmailInput::class,
+        'input.url' => [
+            'component' => 'input',
+            'attributes' => [
+                'type' => 'url',
+            ],
+        ],
+
+        'input.color' => [
+            'component' => \Streams\Ui\Components\Inputs\Input::class,
+            'attributes' => [
+                'type' => 'url',
+            ],
+        ],
+
+        'input.email' => [
+            'component' => \Streams\Ui\Components\Inputs\Input::class,
+            'attributes' => [
+                'type' => 'email',
+            ],
+        ],
 
         'tags' => \Streams\Ui\Components\Inputs\TagsInput::class,
 
@@ -122,6 +138,10 @@ return [
         'array' => \Streams\Ui\Components\Inputs\TagsInput::class,
 
         'boolean' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
+    ],
+
+    'defaults' => [
+        // Field type default inputs
     ],
 
     'livewire' => [

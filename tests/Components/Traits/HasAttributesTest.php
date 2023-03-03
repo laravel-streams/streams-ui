@@ -2,25 +2,26 @@
 
 namespace Streams\Ui\Tests\Components\Traits;
 
-use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
+use Streams\Ui\Support\Facades\UI;
 use Streams\Ui\Components\Traits\HasAttributes;
 
 class HasAttributesTest extends UiTestCase
 {
     public function test_it_returns_html_attributes()
     {
-        Livewire::component('test', HasAttributesTestComponent::class);
+        UI::component('test', HasAttributesTestComponent::class);
 
-        Livewire::test('test')
-            ->assertSee('test');
+        UI::test('test')
+            ->render()
+            ->assertSee('class="test"');
     }
 
     public function test_it_supports_conditional_classes()
     {
-        Livewire::component('test', HasAttributesTestComponent::class);
+        UI::component('test', HasAttributesTestComponent::class);
 
-        Livewire::test('test', [
+        UI::test('test', [
             'attributes' => [
                 'class' => [
                     'test',
@@ -29,9 +30,9 @@ class HasAttributesTest extends UiTestCase
                 ],
             ],
         ])
-            ->assertSee('test')
-            ->assertSee('bar')
-            ->assertDontSee('foo');
+        ->render()
+        ->assertSee(['test', 'bar'])
+        ->assertNotSee('foo');
     }
 }
 

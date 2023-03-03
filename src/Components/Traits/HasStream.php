@@ -7,8 +7,6 @@ use Streams\Core\Support\Facades\Streams;
 
 trait HasStream
 {
-    public ?string $stream;
-
     public function stream(): Stream|null
     {
         if (!$this->stream) {

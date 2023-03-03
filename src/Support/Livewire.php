@@ -33,54 +33,20 @@ abstract class Livewire extends \Livewire\Component
         ]);
     }
 
-    public function render(array $payload = [])
+    public function render(array $payload = []): string
     {
         $payload['component'] = $this;
 
         if (strpos($this->template, '<') !== false) {
-            $rendered = View::parse($this->template, $payload);
+            $output = View::parse($this->template, $payload);
         } else {
-            $rendered = View::make($this->template, $payload);
+            $output = View::make($this->template, $payload);
         }
 
         if (isset($this->layout)) {
-            $rendered = $rendered->layout($this->layout);
+            $output = $output->layout($this->layout);
         }
 
-        return $rendered;
-    }
-
-    protected function build()
-    {
-        if (!$this->workflow) {
-            return;
-        }
-        
-        $this->fire('building', [
-            'component' => $this,
-        ]);
-
-        if (is_string($this->workflow)) {
-            $workflow = new $this->workflow;
-        } elseif (is_array($this->workflow)) {
-            $workflow = new Workflow($this->workflow);
-        } else {
-            throw new \Exception('Invalid or missing workflow encountered.');
-        }
-
-        $workflow
-            ->passThrough($this)
-            ->process([
-                'component' => $this,
-            ]);
-
-        $this->fire('built', [
-            'component' => $this,
-        ]);
-    }
-
-    public function __call($method, $parameters)
-    {
-        return parent::__call($method, $parameters);
+        return $output->render();
     }
 }

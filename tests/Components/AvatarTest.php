@@ -14,4 +14,3 @@ class AvatarTest extends UiTestCase
         ])->assertSeeHtml('src="/test/image.png"');
     }
 }
-|
