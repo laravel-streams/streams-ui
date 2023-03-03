@@ -41,7 +41,9 @@ class FormBuilder extends Workflow
         }
 
         if (!$component->fields) {
-            $component->fields = $stream->fields->toArray() ?: [];
+            $component->fields = $stream->fields->map(fn ($field) => [
+                'field' => $field->handle,
+            ])->all();
         }
 
         foreach ($component->fields as &$field) {

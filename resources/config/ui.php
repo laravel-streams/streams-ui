@@ -87,7 +87,7 @@ return [
 
         'color' => \Streams\Ui\Components\Inputs\ColorInput::class,
 
-        'url' => \Streams\Ui\Components\Inputs\UrlInput::class,
+        'url-input' => \Streams\Ui\Components\Inputs\UrlInput::class,
         'text' => \Streams\Ui\Components\Inputs\TextInput::class,
         'input' => \Streams\Ui\Components\Inputs\TextInput::class,
         'email' => \Streams\Ui\Components\Inputs\EmailInput::class,

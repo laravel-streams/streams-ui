@@ -49,13 +49,6 @@ table.table {
         @apply flex space-x-2 justify-end;
     }
 
-    tbody > tr {
-        
-        &:hover {
-            @apply bg-gray-50 border-gray-50;
-        }
-    }
-
     tfoot td > div {
         @apply flex justify-between w-full items-center;
     }

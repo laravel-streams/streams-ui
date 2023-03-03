@@ -45,7 +45,7 @@ class FieldBuilder extends Workflow
         }
 
         $input = $component->input;
-
+        
         // Pass through the stream and field.
         $input['stream'] = $component->stream;
         $input['field'] = $component->field;
@@ -74,6 +74,10 @@ class FieldBuilder extends Workflow
 
         if ($input['type'] == 'datetime') {
             $input['type'] = 'datetime-input';
+        }
+
+        if ($input['type'] == 'url') {
+            $input['type'] = 'url-input';
         }
 
         $component->input = $input;
