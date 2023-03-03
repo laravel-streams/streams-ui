@@ -124,6 +124,10 @@ return [
         'boolean' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
     ],
 
+    'livewire' => [
+        // Livewire components
+    ],
+
     'buttons' => [
 
         'create' => [

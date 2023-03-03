@@ -6,20 +6,19 @@ use Streams\Core\Support\Workflow;
 use Illuminate\Support\Facades\View;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Core\Support\Traits\Prototype;
-use Illuminate\Contracts\Support\Renderable;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
-abstract class Component implements Renderable
+abstract class Livewire extends \Livewire\Component
 {
-    use Prototype {
-        Prototype::__construct as protected __constructPrototype;
-        Prototype::__call as protected __callPrototype;
-    }
+    // use Prototype {
+    //     Prototype::__construct as protected __constructPrototype;
+    //     Prototype::__call as protected __callPrototype;
+    // }
 
     use HasMemory;
     use FiresCallbacks;
 
-    public $workflow = null;
+    public $builder = null;
 
     public ?string $layout = null;
 
@@ -78,5 +77,10 @@ abstract class Component implements Renderable
         $this->fire('built', [
             'component' => $this,
         ]);
+    }
+
+    public function __call($method, $parameters)
+    {
+        return parent::__call($method, $parameters);
     }
 }

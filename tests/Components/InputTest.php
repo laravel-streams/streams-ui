@@ -9,11 +9,11 @@ class InputTest extends UiTestCase
 {
     public function test_it_supports_stream_fields()
     {
-        $input = Livewire::getInstance('input', 1);
+        $input = UI::make('input', [
+            'stream' => 'films',
+            'field' => 'title',
+        ]);
 
-        $input->stream = 'films';
-        $input->field = 'title';
-        
         $this->assertEquals('title', $input->field()->handle);
     }
 }

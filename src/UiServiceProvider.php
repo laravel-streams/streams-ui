@@ -2,9 +2,8 @@
 
 namespace Streams\Ui;
 
-use Livewire\Livewire;
 use Illuminate\Support\Collection;
-use Streams\Ui\Support\Breadcrumbs;
+use Streams\Ui\Support\Facades\UI;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
 use Streams\Core\Support\Integrator;
@@ -27,8 +26,8 @@ class UiServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerAdmin();
 
-        $this->app->singleton(\Streams\Ui\Support\UiManager::class);
-        $this->app->alias(\Streams\Ui\Support\UiManager::class, 'ui');
+        $this->app->singleton(\Streams\Ui\UiManager::class);
+        $this->app->alias(\Streams\Ui\UiManager::class, 'ui');
 
         Integrator::aliases([
             'UI' => \Streams\Ui\Support\Facades\UI::class,
@@ -44,7 +43,7 @@ class UiServiceProvider extends ServiceProvider
         Lang::addNamespace('ui', realpath(base_path('vendor/streams/ui/resources/lang')));
 
         foreach (config('streams.ui.components') as $component => $class) {
-            Livewire::component($component, $class);
+            UI::component($component, $class);
         }
     }
 
@@ -67,11 +66,11 @@ class UiServiceProvider extends ServiceProvider
             ->middleware(Config::get('streams.ui.admin.middleware', 'web'))
             ->group(function () {
 
-                Route::get('/', Config::get('streams.ui.admin.default'));
+                // Route::get('/', Config::get('streams.ui.admin.default'));
 
-                Route::any('/logout', \Streams\Ui\Http\Controllers\Logout::class);
+                // Route::any('/logout', \Streams\Ui\Http\Controllers\Logout::class);
     
-                Route::get('/{stream}/{action?}/{entry?}', \Streams\Ui\Components\Admin\AdminAction::class);           
+                // Route::get('/{stream}/{action?}/{entry?}', \Streams\Ui\Components\Admin\AdminAction::class);
             });
     }
 }

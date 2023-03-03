@@ -3,6 +3,7 @@
 namespace Streams\Ui;
 
 use Illuminate\Support\Arr;
+use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Traits\Macroable;
@@ -17,27 +18,32 @@ class UiManager
 
     public function __construct()
     {
-        $this->components = Config::get('streams.ui.components.buttons', []);
+        $this->components = Config::get('streams.ui.components', []);
     }
 
-    public function exists(string $name): bool
+    public function exists(string $alias): bool
     {
-        return App::has($name);
+        return App::has($alias);
     }
 
-    public function make(string $name, array $attributes = []): Component
+    public function make(string $alias, array $attributes = []): Component
     {
-        if (!isset($this->components[$name]) && class_exists($name)) {
-            return App::make($name, [
+        if (!isset($this->components[$alias]) && class_exists($alias)) {
+            return App::make($alias, [
                 'attributes' => $attributes,
             ]);
         }
         
-        if (!$component = Arr::get($this->components, $name)) {
-            throw new \Exception("Component [$name] does not exist.");
+        if (!$component = Arr::get($this->components, $alias)) {
+            throw new \Exception("Component [$alias] does not exist.");
         }
 
-        $attributes['handle'] = Arr::get($attributes, 'handle', $name);
+        if (is_array($component)) {
+
+            $attributes = array_merge($attributes, Arr::except($component, 'component'));
+            
+            $component = Arr::pull($component, 'component');
+        }
 
         // @todo Callbacks
         return App::make($component, [
@@ -45,9 +51,9 @@ class UiManager
         ]);
     }
 
-    public function register($name, $component): static
+    public function component($alias, $component): static
     {
-        $this->components[$name] = $component;
+        $this->components[$alias] = $component;
 
         return $this;
     }
