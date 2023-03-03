@@ -20,15 +20,22 @@ class Form extends Component
 
     public ?string $action = null;
 
-    public string $method = 'GET';
+    public string $method = 'POST';
 
     public array $rules = [];
-    public array $validators = [];
-
     public array $fields = [];
     public array $buttons = [];
 
     public $entry = null;
 
     public array $attributes = [];
+
+    public function save()
+    {
+        if ($stream = $this->stream()) {
+            $rules = $stream->rules();
+        }
+
+        dd($rules);
+    }
 }

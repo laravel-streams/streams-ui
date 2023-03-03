@@ -19,7 +19,7 @@ class UiServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton('breadcrumbs', Collection::class);
-        
+
         $this->publishes([
             __DIR__ . '/../resources/public' => public_path('vendor/streams/ui'),
         ], 'laravel-assets');
@@ -63,12 +63,15 @@ class UiServiceProvider extends ServiceProvider
             return;
         }
 
-        $prefix = Config::get('streams.ui.admin.prefix');
+        Route::prefix(Config::get('streams.ui.admin.prefix'))
+            ->middleware(Config::get('streams.ui.admin.middleware', 'web'))
+            ->group(function () {
 
-        Route::get($prefix, Config::get('streams.ui.admin.default'));
+                Route::get('/', Config::get('streams.ui.admin.default'));
 
-        Route::any($prefix . '/logout', \Streams\Ui\Http\Controllers\Logout::class);
-
-        Route::get($prefix . '/{stream}/{action?}/{entry?}', \Streams\Ui\Components\Admin\AdminAction::class);
+                Route::any('/logout', \Streams\Ui\Http\Controllers\Logout::class);
+    
+                Route::get('/{stream}/{action?}/{entry?}', \Streams\Ui\Components\Admin\AdminAction::class);           
+            });
     }
 }

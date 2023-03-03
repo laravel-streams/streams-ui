@@ -1,12 +1,10 @@
 <div class="form__wrapper">
     <form {!! $component->htmlAttributes([
-        'action' => $component->action,
-        'method' => $component->method,
-        'enctype' => $component->enctype,
+        //'action' => $component->action,
+        //'method' => $component->method,
+        //'enctype' => $component->enctype,
         'class' => 'form',
-        ]) !!}>
-
-        <input type="hidden" name="_id" value="{{ $component->id }}" />
+        ]) !!} wire:submit.prevent="save">
 
         {{ csrf_field() }}
 

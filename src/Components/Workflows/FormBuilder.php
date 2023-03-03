@@ -5,8 +5,8 @@ namespace Streams\Ui\Components\Workflows;
 use Illuminate\Support\Arr;
 use Streams\Ui\Components\Form;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Request;
 use Streams\Core\Support\Workflow;
+use Illuminate\Support\Facades\Request;
 
 class FormBuilder extends Workflow
 {
@@ -57,7 +57,7 @@ class FormBuilder extends Workflow
         $component->buttons = $component->buttons ?: [
             [
                 'type' => 'submit',
-                'text' => 'Submit',
+                'text' => 'Save',
             ],
             [
                 'tag' => 'a',
@@ -66,6 +66,21 @@ class FormBuilder extends Workflow
                 'url' => '/' . Request::segment(1) . '/' . Request::segment(2),
             ],
         ];
+
+        if (!$stream = $component->stream()) {
+            return;
+        }
+
+        foreach ($component->fields as &$field) {
+
+            if (!isset($field['field'])) {
+                continue;
+            }
+
+            $field['input']['value'] = $stream->fields->{$field['field']}->default(
+                $stream->fields->{$field['field']}->config('default')
+            );
+        }
     }
 
     public function loadEntry(Form $component): void
