@@ -1,6 +1,6 @@
 <div>
 
-    @livewire('collapsable', [
+    @ui('collapsable', [
         'text' => 'Toggle Content',
         'content' => [
             [

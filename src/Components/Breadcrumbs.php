@@ -11,7 +11,7 @@ class Breadcrumbs extends Component
 
     public array $items = [];
 
-    public function onBooted()
+    public function boot()
     {
         if (!$this->items) {
             $this->items = Collection::all();

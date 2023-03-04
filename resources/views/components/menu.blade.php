@@ -4,7 +4,7 @@
     <menu {!! $component->htmlAttributes() !!}>
         @foreach($component->items as $item)
         <li>
-            @livewire(Arr::pull($item, 'component'), $item)
+            @ui(Arr::pull($item, 'component'), $item)
         </li>
         @endforeach
     </menu>

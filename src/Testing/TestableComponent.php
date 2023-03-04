@@ -79,6 +79,11 @@ class TestableComponent
         }
     }
 
+    public function __get($name)
+    {
+        return $this->component->{$name};
+    }
+
     public function __call($method, $parameters)
     {
         return $this->component->{$method}(...$parameters);

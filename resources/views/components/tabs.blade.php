@@ -27,7 +27,7 @@
         @if (isset($tab['content']))
             <div id="{{ $component->id }}-{{ $loop->index }}" class="hidden">
             @foreach ($tab['content'] as $content)
-            @livewire(Arr::pull($content, 'component'), $content)
+            @ui(Arr::pull($content, 'component'), $content)
             @endforeach
             </div>
         @endif

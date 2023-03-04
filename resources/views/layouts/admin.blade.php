@@ -15,7 +15,7 @@
             </a>
         </div>
 
-        @livewire('admin.navigation', [
+        @ui('admin.navigation', [
             'attributes' => [
                 'class' => 'my-6',
             ],
@@ -34,7 +34,7 @@
         {{-- Topbar --}}
         <div class="bg-gray-200 w-full p-4 flex justify-between items-center">
 
-            @livewire('anchor', [
+            @ui('anchor', [
                 'text' => 'Create',
                 'url' => '/{request.segments.0}/{request.segments.1}/create',
                 'attributes' => [
@@ -42,7 +42,7 @@
                 ],
             ])
 
-            @livewire('admin.menu', [
+            @ui('admin.menu', [
                 'attributes' => [
                     'class' => 'flex items-center justify-end',
                 ],

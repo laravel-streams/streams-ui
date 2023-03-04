@@ -12,8 +12,9 @@ class Dropdown extends Component
     
     public array $content = [];
 
-    public function onBooted()
+    public function boot()
     {
+        // @todo this needs to do to the blade template
         $this->button['attributes']['@click'] = 'open = !open';
     }
 }

@@ -3,15 +3,14 @@
 namespace Streams\Ui\Tests\Components;
 
 use Streams\Ui\Tests\UiTestCase;
+use Streams\Ui\Support\Facades\UI;
 
 class AnchorTest extends UiTestCase
 {
     public function test_it_renders()
     {
-        $output = UI::make('anchor', [
+        UI::test('anchor', [
             'text' => 'Hello World',
-        ])->render();
-
-        $this->assertStringContainsString('Hello World', $output);
+        ])->assertSee('Hello World');
     }
 }

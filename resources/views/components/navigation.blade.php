@@ -7,7 +7,7 @@
             <li @class([
                 'font-bold' => $item['active'] ?? false,
             ])>
-                @livewire(Arr::pull($item, 'component'), $item)
+                @ui(Arr::pull($item, 'component'), $item)
             </li>
             @endforeach
         </ul>

@@ -5,7 +5,7 @@
     @endif
 
     @foreach ($component->columns as $column)
-    @livewire('table.column', array_merge($column, [
+    @ui('table.column', array_merge($column, [
         'entry' => $component->entry,
     ]))
     @endforeach
@@ -14,7 +14,7 @@
     <td>
         <div class="table__buttons">
             @foreach ($component->buttons as $button)
-            @livewire('button', $button)
+            @ui('button', $button)
             @endforeach
         </div>
     </td>

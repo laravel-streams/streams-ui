@@ -1,5 +1,5 @@
-@livewireStyles
-@livewireScripts
+@uiStyles
+@uiScripts
 
 {{-- {!! Assets::tag('/vendor/streams/core/js/index.js') !!}
 {!! Assets::tag('/vendor/streams/api/js/index.js') !!} --}}

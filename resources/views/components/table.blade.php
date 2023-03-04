@@ -20,7 +20,7 @@
                     @endif
                     @foreach ($component->columns as $column)
                     @if (isset($column['header']))
-                        @livewire('table.header', $column['header'])
+                        @ui('table.header', $column['header'])
                     @endif
                     @endforeach
                     @if ($component->buttons)
@@ -30,7 +30,7 @@
             </thead>
             <tbody>
                 @foreach ($component->entries as $entry)
-                @livewire('table.row', [
+                @ui('table.row', [
                     'selectable' => $component->selectable,
                     'columns' => $component->columns,
                     'buttons' => $component->buttons,

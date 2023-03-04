@@ -8,15 +8,5 @@ class EditorInput extends Input
 {
     public string $template = 'ui::components.inputs.editor';
 
-    public string $language = 'html'; // https://microsoft.github.io/monaco-editor/api/enums/monaco.languages.html
-
-    public function boot()
-    {
-        if (is_object($this->value) || is_array($this->value)) {
-            
-            $this->value = json_encode($this->value);
-            
-            $this->language = 'json';
-        }
-    }
+    public string $language = 'html'; // https://microsoft.github.io/monaco-editor/typedoc/modules/languages.html
 }

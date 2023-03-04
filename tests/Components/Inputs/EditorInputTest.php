@@ -14,17 +14,17 @@ class EditorInputTest extends UiTestCase
         ])->assertSee('MonacoEnvironment');
     }
 
-    // public function test_it_supports_objects()
-    // {
-    //     UI::test('editor', [
-    //         'name' => 'example',
-    //         'value' => (object) [
-    //             'foo' => 'bar',
-    //         ],
-    //     ])
-    //     ->assertSee('MonacoEnvironment')
-    //     ->assertSee(json_encode([
-    //         'foo' => 'bar',
-    //     ]));
-    // }
+    public function test_it_supports_objects()
+    {
+        UI::test('editor', [
+            'name' => 'example',
+            'value' => (object) [
+                'foo' => 'bar',
+            ],
+        ])
+        ->assertSee('MonacoEnvironment')
+        ->assertSee(json_encode([
+            'foo' => 'bar',
+        ]));
+    }
 }

@@ -28,7 +28,7 @@
     
     <div class="field__input">
         <div class="input --{{ $component->input['type'] }}">
-            @livewire($component->input['type'], ...[Arr::except($component->input, ['type'])])
+            @ui($component->input['type'], ...[Arr::except($component->input, ['type'])])
         </div>
     </div>
     
