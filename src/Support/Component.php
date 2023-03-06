@@ -24,7 +24,10 @@ abstract class Component
 
     public function __construct(array $attributes = [])
     {
-        $this->__constructPrototype($attributes);
+        //$this->syncPrototypePropertyAttributes();
+        $this->syncOriginalPrototypeAttributes($attributes);
+
+        $this->setPrototypeAttributes($attributes);
 
         $this->build();
 

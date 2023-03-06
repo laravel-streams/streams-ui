@@ -2,27 +2,27 @@
 
 namespace Streams\Ui\Tests\Components;
 
-use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Support\Component;
+use Streams\Ui\Support\Facades\UI;
 use Streams\Core\Support\Facades\Streams;
 
 class TableTest extends UiTestCase
 {
     public function test_it_renders()
     {
-        Livewire::test('table', [
+        UI::test('table', [
             'stream' => 'films',
         ])
-            ->assertSeeHtml('<table')
+            ->assertSee('<table')
             ->assertSee('4');
     }
 
     public function test_it_configures_from_streams()
     {
-        Livewire::test('table', [
+        UI::test('table', [
             'stream' => 'films',
-        ])->assertDontSee('A New Hope');
+        ])->assertNotSee('A New Hope');
 
         Streams::extend('films', [
             'ui' => [
@@ -42,7 +42,7 @@ class TableTest extends UiTestCase
 
         Component::resetMemory();
 
-        Livewire::test('table', [
+        UI::test('table', [
             'stream' => 'films',
         ])->assertSee('A New Hope');
     }

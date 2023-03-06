@@ -2,13 +2,13 @@
 
 namespace Streams\Ui\Tests\Components;
 
-use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
+use Streams\Ui\Support\Facades\UI;
 
 class ModalTest extends UiTestCase
 {
     public function test_it_renders()
     {
-        Livewire::test('modal')->assertSeeHtml('x-show="open"');
+        UI::test('modal')->assertSee('x-show="open"');
     }
 }

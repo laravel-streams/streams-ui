@@ -1,6 +1,4 @@
-<div @class([
-    'flex-grow' => $this->getName() == 'streams.ui.components.admin.admin-menu',
-])>
+<div>
     <menu {!! $component->htmlAttributes() !!}>
         @foreach($component->items as $item)
         <li>
