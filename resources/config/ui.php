@@ -102,17 +102,6 @@ return [
         'admin.menu' => \Streams\Ui\Components\Admin\AdminMenu::class,
         'admin.navigation' => \Streams\Ui\Components\Admin\AdminNavigation::class,
 
-
-        /**
-         * @todo Use the registry system for these. Configurable. Maybe even all FTs. 
-         * 
-         * input = hash|uuid|string|array|boolean
-         * type = registered from above
-         */
-        'hash' => \Streams\Ui\Components\Inputs\TextInput::class,
-        'uuid' => \Streams\Ui\Components\Inputs\TextInput::class,
-        'string' => \Streams\Ui\Components\Inputs\TextInput::class,
-
         'array' => \Streams\Ui\Components\Inputs\TagsInput::class,
 
         'boolean' => \Streams\Ui\Components\Inputs\CheckboxInput::class,

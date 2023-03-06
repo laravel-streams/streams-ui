@@ -17,11 +17,11 @@ class FieldTest extends UiTestCase
 
     public function test_it_supports_streams()
     {
-        Livewire::test('field', [
+        UI::test('field', [
             'stream' => 'films',
             'field' => 'title',
-        ])
-        ->assertSee([
+            'label' => true,
+        ])->assertSee([
             'Title',
             'name="title"',
             'type="text"'
@@ -43,7 +43,6 @@ class FieldTest extends UiTestCase
         UI::test('field', [
             'stream' => 'films',
             'field' => 'title',
-            'label' => false,
         ])
         ->assertNotSee('Title')
         ->assertSee(['name="title"', 'type="text"']);

@@ -9,7 +9,9 @@
 ]) !!}>
 
     <label class="font-bold" for="{{ $component->id }}">
+        @if ($component->label)
         {{ __($component->label) }}
+        @endif
 
         @if ($component->required)
             <span class="field__required">*</span>

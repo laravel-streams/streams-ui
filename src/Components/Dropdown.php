@@ -8,13 +8,7 @@ class Dropdown extends Component
 {
     public string $template = 'ui::components.dropdown';
 
-    public array $button = [];
+    public array $toggle = [];
     
     public array $content = [];
-
-    public function boot()
-    {
-        // @todo this needs to do to the blade template
-        $this->button['attributes']['@click'] = 'open = !open';
-    }
 }

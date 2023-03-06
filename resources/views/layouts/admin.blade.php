@@ -52,7 +52,7 @@
                 'items' => [
                         [
                             'component' => 'avatar',
-                            'src' => 'https://gravatar.com/avatar/cd7e95aa74ded76c1d92374b20e5c34c?s=128',
+                            'src' => 'ryan@pyrocms.com',
                             'alt' => 'Ryan Thompson',
                             'attributes' => [
                                 'class' => ['rounded-full h-10 w-10'],

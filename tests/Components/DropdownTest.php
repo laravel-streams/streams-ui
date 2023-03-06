@@ -10,7 +10,8 @@ class DropdownTest extends UiTestCase
     public function test_it_renders()
     {
         UI::test('dropdown', [
-            'button' => [
+            'toggle' => [
+                'component' => 'button',
                 'text' => 'Dropdown Toggle',
             ],
             'content' => [

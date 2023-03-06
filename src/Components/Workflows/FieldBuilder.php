@@ -27,12 +27,7 @@ class FieldBuilder extends Workflow
         ];
 
         foreach ($attributes as $name => $value) {
-
-            if ($component->{$name} === false) {
-                continue;
-            }
-
-            $component->{$name} = $component->{$name} ?: $value;
+            $component->{$name} = $value;
         }
 
         $component->required = $field->isRequired();
@@ -50,9 +45,14 @@ class FieldBuilder extends Workflow
         $input['stream'] = $component->stream;
         $input['field'] = $component->field;
 
+        if (!array_key_exists('label', $input)) {
+            $input['label'] = __($field->name());
+        }
+
         if (!isset($input['type'])) {
             // @todo map this
-            $input['type'] = $field->type;
+            //$input['type'] = $field->type;
+            $input['type'] = 'input';
         }
 
         if (!isset($input['name'])) {
