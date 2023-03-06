@@ -27,6 +27,11 @@ class FieldBuilder extends Workflow
         ];
 
         foreach ($attributes as $name => $value) {
+
+            if ($component->{$name} === false) {
+                continue;
+            }
+
             $component->{$name} = $value;
         }
 

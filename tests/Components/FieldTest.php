@@ -20,7 +20,6 @@ class FieldTest extends UiTestCase
         UI::test('field', [
             'stream' => 'films',
             'field' => 'title',
-            'label' => true,
         ])->assertSee([
             'Title',
             'name="title"',
@@ -43,6 +42,7 @@ class FieldTest extends UiTestCase
         UI::test('field', [
             'stream' => 'films',
             'field' => 'title',
+            'label' => false,
         ])
         ->assertNotSee('Title')
         ->assertSee(['name="title"', 'type="text"']);
