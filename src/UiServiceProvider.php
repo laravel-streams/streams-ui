@@ -41,7 +41,7 @@ class UiServiceProvider extends ServiceProvider
 
         Blade::directive('ui', function ($parameters) {
             return "<?php echo \$__env->ui({$parameters}); ?>";
-        });
+        });    
     }
 
     public function boot()
@@ -76,11 +76,11 @@ class UiServiceProvider extends ServiceProvider
             ->middleware(Config::get('streams.ui.admin.middleware', 'web'))
             ->group(function () {
 
-                // Route::get('/', Config::get('streams.ui.admin.default'));
+                Route::get('/', Config::get('streams.ui.admin.default'));
 
-                // Route::any('/logout', \Streams\Ui\Http\Controllers\Logout::class);
+                Route::any('/logout', \Streams\Ui\Http\Controllers\Logout::class);
     
-                // Route::get('/{stream}/{action?}/{entry?}', \Streams\Ui\Components\Admin\AdminAction::class);
+                Route::get('/{stream}/{action?}/{entry?}', \Streams\Ui\Components\Admin\AdminAction::class);
             });
     }
 }

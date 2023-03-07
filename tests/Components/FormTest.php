@@ -14,8 +14,8 @@ class FormTest extends UiTestCase
         UI::test('form', [
             'stream' => 'films',
         ])
-            ->assertSee('<form')
-            ->assertSee('name="title"');
+        ->assertSee('<form')
+        ->assertSee('name="title"');
     }
 
     public function test_it_supports_entries()

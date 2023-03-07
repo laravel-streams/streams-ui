@@ -10,7 +10,7 @@ class TestableComponent
 {
     protected ?string $rendered = null;
 
-    public function __construct(protected Component $component)
+    public function __construct(public Component $component)
     {
     }
 

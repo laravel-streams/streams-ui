@@ -37,6 +37,11 @@ abstract class Component
         }
     }
 
+    public function __invoke()
+    {
+        return $this->render();
+    }
+
     public function render(array $payload = []): string
     {
         $payload['component'] = $this;

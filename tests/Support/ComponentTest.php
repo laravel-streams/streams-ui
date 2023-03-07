@@ -16,13 +16,12 @@ class ComponentTest extends UiTestCase
     {
         UI::component('test-component', ComponentTestComponent::class);
 
-        $component = UI::make('test-component', [
+        $testable = UI::test('test-component', [
             'text' => 'Test',
             'stream' => 'films',
-        ]);
+        ])->assertSee('Test');
 
-        $this->assertStringContainsString('Test', (string) $component);
-        $this->assertStringContainsString('Test', $component->render());
+        $this->assertStringContainsString('Test', (string) $testable->component);
     }
 
     public function test_it_renders_view_templates()
@@ -31,25 +30,21 @@ class ComponentTest extends UiTestCase
     
         UI::component('test-component', ComponentTestComponent::class);
 
-        $output = UI::make('test-component', [
+        UI::test('test-component', [
             'text' => 'Test',
             'stream' => 'films',
             'template' => $view,
-        ])->render();
-
-        $this->assertStringContainsString('View: Test', $output);
+        ])->assertSee('View: Test');
     }
 
     public function test_it_renders_inline_templates()
     {
         UI::component('test-component', ComponentTestComponent::class);
 
-        $output = UI::make('test-component', [
+        UI::test('test-component', [
             'text' => 'Test',
             'stream' => 'films',
-        ])->render();
-
-        $this->assertStringContainsString('Inline: Test', $output);
+        ])->assertSee('Inline: Test');
     }
 
     public function test_it_supports_layouts()
@@ -58,14 +53,11 @@ class ComponentTest extends UiTestCase
 
         UI::component('test-component', ComponentTestComponent::class);
 
-        $output = UI::make('test-component', [
+        UI::test('test-component', [
             'text' => 'Test',
             'stream' => 'films',
             'layout' => $layout,
-        ])->render();
-
-        $this->assertStringContainsString('ADMIN:', $output);
-        $this->assertStringContainsString('Inline: Test', $output);
+        ])->assertSee(['ADMIN:', 'Inline: Test']);
     }
 
     public function test_it_supports_builders()

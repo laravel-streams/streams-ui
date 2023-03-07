@@ -82,6 +82,7 @@
 
         {{-- Content --}}
         {!! $slot !!}
+        
     </main>
 
     @include('ui::layouts.partials.assets')

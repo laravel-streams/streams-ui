@@ -7,5 +7,5 @@ use Streams\Ui\Components\Admin\Workflows\NavigationBuilder;
 
 class AdminNavigation extends Navigation
 {
-    public $workflow = NavigationBuilder::class;
+    public ?string $builder = NavigationBuilder::class;
 }
