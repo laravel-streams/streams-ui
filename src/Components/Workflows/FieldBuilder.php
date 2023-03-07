@@ -77,14 +77,6 @@ class FieldBuilder extends Workflow
             $input['type'] = 'input';
         }
 
-        if ($input['type'] == 'datetime') {
-            $input['type'] = 'datetime-input';
-        }
-
-        if ($input['type'] == 'url') {
-            $input['type'] = 'url-input';
-        }
-
         $component->input = $input;
     }
 }

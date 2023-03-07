@@ -66,7 +66,7 @@ return [
          */
         'date' => \Streams\Ui\Components\Inputs\DateInput::class,
         'time' => \Streams\Ui\Components\Inputs\TimeInput::class,
-        'datetime-input' => \Streams\Ui\Components\Inputs\DatetimeInput::class,
+        'datetime' => \Streams\Ui\Components\Inputs\DatetimeInput::class,
 
         'slug' => \Streams\Ui\Components\Inputs\SlugInput::class,
 
@@ -102,47 +102,17 @@ return [
         'admin.menu' => \Streams\Ui\Components\Admin\AdminMenu::class,
         'admin.navigation' => \Streams\Ui\Components\Admin\AdminNavigation::class,
 
-        'array' => \Streams\Ui\Components\Inputs\TagsInput::class,
-
-        'boolean' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
-    ],
-
-    'defaults' => [
-        // Field type default inputs
-    ],
-
-    'livewire' => [
-        // Livewire components
-    ],
-
-    'buttons' => [
-
-        'create' => [
-            'text' => 'ui::buttons.create',
-            'attributes' => [
-                'data-keymap' => 'n',
-            ],
+        /**
+         * Aliases for Field Types
+         */
+        'array' => [
+            'component' => 'tags',
         ],
-        'edit' => [
-            'text' => 'ui::buttons.edit',
-            'attributes' => [
-                'data-keymap' => 'n',
-            ],
+        'boolean' => [
+            'component' => 'checkbox',
         ],
-        'save' => [
-            'text' => 'ui::buttons.save',
-            'attributes' => [
-                'data-keymap' => 'command+s',
-            ]
-        ],
-        'cancel' => [
-            'text' => 'ui::buttons.cancel',
-            'attributes' => [
-                'data-keymap' => 'cmd+esc',
-            ],
-        ],
-        'delete' => [
-            'text' => 'ui::buttons.delete',
+        'enum' => [
+            'component' => 'select',
         ],
     ],
 ];
