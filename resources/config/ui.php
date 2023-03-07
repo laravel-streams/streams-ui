@@ -64,10 +64,6 @@ return [
          * Inputs are matched to
          * one or more field types.
          */
-        'date' => \Streams\Ui\Components\Inputs\DateInput::class,
-        'time' => \Streams\Ui\Components\Inputs\TimeInput::class,
-        'datetime' => \Streams\Ui\Components\Inputs\DatetimeInput::class,
-
         'slug' => \Streams\Ui\Components\Inputs\SlugInput::class,
 
         'editor' => \Streams\Ui\Components\Inputs\EditorInput::class,
@@ -104,6 +100,9 @@ return [
 
         /**
          * Aliases for Field Types
+         * 
+         * Field types default to setting
+         * the input.type = field.type
          */
         'array' => [
             'component' => 'tags',
@@ -113,6 +112,44 @@ return [
         ],
         'enum' => [
             'component' => 'select',
+        ],
+        'string' => [
+            'component' => 'input',
+        ],
+        'uuid' => [
+            'component' => 'input',
+        ],
+        'hash' => [
+            'component' => 'input',
+            'type' => 'password',
+        ],
+        'url' => [
+            'component' => 'input',
+            'type' => 'url',
+        ],
+        'date' => [
+            'component' => 'input',
+            'type' => 'date',
+        ],
+        'time' => [
+            'component' => 'input',
+            'type' => 'time',
+        ],
+        'datetime' => [
+            'component' => 'input',
+            'type' => 'datetime-local',
+        ],
+        'email' => [
+            'component' => 'input',
+            'type' => 'email',
+        ],
+        'color' => [
+            'component' => 'input',
+            'type' => 'color',
+        ],
+        'hidden' => [
+            'component' => 'input',
+            'type' => 'hidden',
         ],
 
         /**
@@ -124,6 +161,11 @@ return [
             'handle' => 'edit',
             'text' => 'Edit',
             'url' => '/{request.segments.0}/{request.segments.1}/{entry.id}/edit'
+        ],
+        'button.save' => [
+            'component' => 'button',
+            'type' => 'submit',
+            'text' => 'Save',
         ],
         'button.cancel' => [
             'component' => 'button',

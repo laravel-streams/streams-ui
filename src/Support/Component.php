@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Support;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\View;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Core\Support\Traits\Prototype;
@@ -17,6 +18,8 @@ abstract class Component
     use HasMemory;
     use FiresCallbacks;
 
+    public string $id;
+
     public ?string $builder = null;
     public ?string $layout = null;
 
@@ -24,6 +27,8 @@ abstract class Component
 
     public function __construct(array $attributes = [])
     {
+        $attributes['id'] = $attributes['id'] ?? Str::random(20);
+
         //$this->syncPrototypePropertyAttributes();
         $this->syncOriginalPrototypeAttributes($attributes);
 
@@ -81,6 +86,19 @@ abstract class Component
             'component' => $this,
         ]);
     }
+
+    // protected function finishRender(string $rendered): string
+    // {
+    //     $attributes = HtmlFacade::attributes([
+    //         'ui:id' => $this->id,
+    //         'ui:name' => $this->name(),
+    //         'ui:data' => json_encode(Hydrator::dehydrate($this)),
+    //     ]);
+
+    //     $rendered = preg_replace('/(<div\b[^><]*)>/i', '$1 ' . $attributes . '>', $rendered);
+
+    //     return $rendered;
+    // }
 
     public function __toString()
     {

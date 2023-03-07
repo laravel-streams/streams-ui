@@ -55,9 +55,7 @@ class FieldBuilder extends Workflow
         }
 
         if (!isset($input['type'])) {
-            // @todo map this
-            //$input['type'] = $field->type;
-            $input['type'] = 'input';
+            $input['type'] = $field->type;
         }
 
         if (!isset($input['name'])) {

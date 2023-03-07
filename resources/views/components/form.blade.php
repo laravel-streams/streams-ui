@@ -6,6 +6,11 @@
         'class' => 'form',
         ]) !!} wire:submit.prevent="save">
 
+        @ui('hidden', [
+            'name' => '__id',
+            'value' => $component->id,
+        ])
+
         {{ csrf_field() }}
 
         @if (isset($slot))
@@ -20,7 +25,9 @@
         @if ($component->buttons)
         <div class="mt-4">
             @foreach ($component->buttons as $button)
-            @ui('button', $button)
+            @ui(Arr::pull($button, 'button', 'button'), Arr::parse($button, [
+                'entry' => $component->entry,
+            ]))
             @endforeach
         </div>
         @endif

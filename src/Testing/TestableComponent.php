@@ -72,6 +72,13 @@ class TestableComponent
         return $this;
     }
 
+    public function setRendered(string $content)
+    {
+        $this->rendered = $content;
+
+        return $this;
+    }
+
     protected function renderIfNotRendered()
     {
         if (!$this->rendered) {

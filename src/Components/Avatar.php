@@ -12,6 +12,8 @@ class Avatar extends Component
     public string $template = 'ui::components.avatar';
 
     public ?string $src = null;
+    
+    public array $query = [];
 
     public array $attributes = [];
 
@@ -26,7 +28,11 @@ class Avatar extends Component
         }
 
         if ($extra) {
-            $src = '?' . http_build_query($extra);
+            $extra = array_replace_recursive($this->query, $extra);
+        }
+
+        if ($extra || $this->query) {
+            $src = $src . '?' . http_build_query($extra ?: $this->query);
         }
 
         return $src;

@@ -14,7 +14,9 @@
     <td>
         <div class="table__buttons">
             @foreach ($component->buttons as $button)
-            @ui(Arr::pull($button, 'button', 'button'), $button)
+            @ui(Arr::pull($button, 'button', 'button'), Arr::parse($button, [
+                'entry' => $component->entry,
+            ]))
             @endforeach
         </div>
     </td>

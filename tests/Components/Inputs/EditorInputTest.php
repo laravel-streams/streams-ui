@@ -23,8 +23,6 @@ class EditorInputTest extends UiTestCase
             ],
         ])
         ->assertSee('MonacoEnvironment')
-        ->assertSee(json_encode([
-            'foo' => 'bar',
-        ]));
+        ->assertSee('"foo": "bar"');
     }
 }
