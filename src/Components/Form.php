@@ -48,18 +48,8 @@ class Form extends Component
 
         $result = $stream->validator($rules);
 
-        if ($result->fails()) {
-            foreach ($result->messages()->messages() as $field => $messages) {
-                foreach ($messages as $message) {
-                    $this->addError($field, $message);
-                }
-            }
 
-            return;
-        }
-
-        if ($this->entry) {
-            
-        }
+        dump($result->passes());
+        dump($result->messages()->messages());
     }
 }

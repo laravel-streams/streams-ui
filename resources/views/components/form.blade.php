@@ -4,7 +4,10 @@
         //'method' => $component->method,
         //'enctype' => $component->enctype,
         'class' => 'form',
-        ]) !!} wire:submit.prevent="save">
+        'method' => 'POST',
+        //'wire:submit.prevent' => 'save',
+        'action' => '/streams/ui/' . $component->id . '/save',
+        ]) !!}>
 
         @ui('hidden', [
             'name' => '__id',

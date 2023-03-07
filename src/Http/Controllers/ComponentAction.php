@@ -13,11 +13,19 @@ class ComponentAction extends Controller
 {
     public function __invoke($component, $method = 'render')
     {
-        if (!$parameters = json_decode(Cache::get('ui::component.' . $component), true)) {
-            return Redirect::back(419);
+        $parameters = json_decode(Cache::get('ui::component.' . $component), true);
+
+        if (!$parameters && UI::exists($component)) {
+            $parameters = [
+                'component' => $component,
+            ];
         }
-        
-        $component = UI::make($parameters['component'], $parameters['attributes']);
+
+        if (!$parameters) {
+            return abort(400, "Component [{$component}] not found.");
+        }
+
+        $component = UI::make($parameters['component'], array_merge($parameters['attributes'] ?? [], Request::query()));
 
         $response = $component->{$method}();
 
