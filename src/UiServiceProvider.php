@@ -82,5 +82,7 @@ class UiServiceProvider extends ServiceProvider
     
                 Route::get('/{stream}/{action?}/{entry?}', \Streams\Ui\Components\Admin\AdminAction::class);
             });
+
+        Route::any('streams/ui/{component}/{method?}', \Streams\Ui\Http\Controllers\ComponentAction::class);
     }
 }

@@ -3,7 +3,11 @@
 namespace Streams\Ui\Support;
 
 use Illuminate\Support\Str;
+use Collective\Html\HtmlFacade;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
+use Streams\Core\Support\Facades\Hydrator;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Core\Support\Traits\Prototype;
 use Streams\Core\Support\Traits\FiresCallbacks;
@@ -63,7 +67,19 @@ abstract class Component
             ]);
         }
 
-        return $output->render();
+        $this->persist();
+
+        $rendered = $output->render();
+
+        return $this->finishRender($rendered);
+    }
+
+    public function persist(int $ttl = null)
+    {
+        Cache::put('ui::component.' . $this->id, json_encode([
+            'component' => static::class,
+            'attributes' => Hydrator::dehydrate($this),
+        ]), $ttl ?: Config::get('session.lifetime', 120));
     }
 
     protected function build()
@@ -87,18 +103,18 @@ abstract class Component
         ]);
     }
 
-    // protected function finishRender(string $rendered): string
-    // {
-    //     $attributes = HtmlFacade::attributes([
-    //         'ui:id' => $this->id,
-    //         'ui:name' => $this->name(),
-    //         'ui:data' => json_encode(Hydrator::dehydrate($this)),
-    //     ]);
+    protected function finishRender(string $rendered): string
+    {
+        $attributes = HtmlFacade::attributes([
+            'ui:id' => $this->id,
+            //'ui:name' => $this->name(),
+            //'ui:data' => json_encode(Hydrator::dehydrate($this)),
+        ]);
 
-    //     $rendered = preg_replace('/(<div\b[^><]*)>/i', '$1 ' . $attributes . '>', $rendered);
+        $rendered = preg_replace('/(<div\b[^><]*)>/i', '$1 ' . $attributes . '>', $rendered);
 
-    //     return $rendered;
-    // }
+        return $rendered;
+    }
 
     public function __toString()
     {
