@@ -6,9 +6,6 @@ use Illuminate\Support\Arr;
 use Streams\Ui\Components\Table;
 use Illuminate\Support\Collection;
 use Streams\Core\Support\Workflow;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Contracts\Pagination\Paginator;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class TableBuilder extends Workflow
 {

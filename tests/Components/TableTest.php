@@ -14,8 +14,8 @@ class TableTest extends UiTestCase
         UI::test('table', [
             'stream' => 'films',
         ])
-            ->assertSee('<table')
-            ->assertSee('4');
+        ->assertSee('<table')
+        ->assertSee('4');
     }
 
     public function test_it_configures_from_streams()

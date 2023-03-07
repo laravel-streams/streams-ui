@@ -43,14 +43,18 @@
                     <td colspan="100%">
                         <div>
 
+                            @if (isset($component->pagination['links']))
                             <div class="table__pagination">
                                 {!! $component->pagination['links']() !!}
                             </div>
+                            @endif
                             
+                            @if (isset($component->pagination['total']))
                             <small class="table__meta">
                                 {{ $component->pagination['total'] }}
                                 {{ trans_choice('ui::labels.results', $component->pagination['total']) }}
                             </small>
+                            @endif
 
                         </div>
                     </td>

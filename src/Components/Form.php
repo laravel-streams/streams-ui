@@ -3,14 +3,16 @@
 namespace Streams\Ui\Components;
 
 use Streams\Ui\Support\Component;
+use Streams\Ui\Components\Traits\HasStream;
 use Streams\Ui\Components\Traits\HasAttributes;
 use Streams\Ui\Components\Workflows\FormBuilder;
 
 class Form extends Component
 {
+    use HasStream;
     use HasAttributes;
 
-    public $workflow = FormBuilder::class;
+    public ?string $builder = FormBuilder::class;
 
     public string $template = 'ui::components.form';
 
@@ -25,6 +27,8 @@ class Form extends Component
     public array $rules = [];
     public array $fields = [];
     public array $buttons = [];
+
+    public ?string $stream = null;
 
     public $entry = null;
 

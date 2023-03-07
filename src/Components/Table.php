@@ -3,14 +3,16 @@
 namespace Streams\Ui\Components;
 
 use Streams\Ui\Support\Component;
+use Streams\Ui\Components\Traits\HasStream;
 use Streams\Ui\Components\Traits\HasAttributes;
 use Streams\Ui\Components\Workflows\TableBuilder;
 
 class Table extends Component
 {
+    use HasStream;
     use HasAttributes;
 
-    public $workflow = TableBuilder::class;
+    public ?string $builder = TableBuilder::class;
 
     public string $template = 'ui::components.table';
 
@@ -19,6 +21,8 @@ class Table extends Component
     public bool $selectable = false;
     
     public ?string $caption = null;
+
+    public ?string $stream = null;
 
     public array $entries = [];
 
