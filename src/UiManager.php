@@ -40,8 +40,8 @@ class UiManager
         }
 
         if (is_array($component)) {
-
-            $attributes = array_merge_recursive(Arr::except($component, 'component'), $attributes);
+            
+            $attributes = array_replace_recursive(Arr::except($component, 'component'), $attributes);
 
             $component = Arr::pull($component, 'component');
         }

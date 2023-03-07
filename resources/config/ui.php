@@ -42,7 +42,7 @@ return [
 
         'navigation' => \Streams\Ui\Components\Navigation::class,
         // 'navigation.item' => \Streams\Ui\Components\Navigation\NavigationItem::class,
-        
+
         'collapsable' => \Streams\Ui\Components\Collapsable::class,
 
         'avatar' => \Streams\Ui\Components\Avatar::class,
@@ -50,10 +50,10 @@ return [
         'button' => \Streams\Ui\Components\Button::class,
         'indicator' => \Streams\Ui\Components\Indicator::class,
         'breadcrumbs' => \Streams\Ui\Components\Breadcrumbs::class,
-        
+
         'dropdown' => \Streams\Ui\Components\Dropdown::class,
         //'dropdown.item' => \Streams\Ui\Components\Dropdown\DropdownItem::class,
-        
+
         'modal' => \Streams\Ui\Components\Modal::class,
         //'modal.header' => \Streams\Ui\Components\Modal\ModalHeader::class,
         //'modal.content' => \Streams\Ui\Components\Modal\ModalContent::class,
@@ -113,6 +113,24 @@ return [
         ],
         'enum' => [
             'component' => 'select',
+        ],
+
+        /**
+         * Button Variations
+         */
+        'button.edit' => [
+            'component' => 'button',
+            'tag' => 'a',
+            'handle' => 'edit',
+            'text' => 'Edit',
+            'url' => '/{request.segments.0}/{request.segments.1}/{entry.id}/edit'
+        ],
+        'button.cancel' => [
+            'component' => 'button',
+            'tag' => 'a',
+            'handle' => 'cancel',
+            'text' => 'Cancel',
+            'url' => '/{request.segments.0}/{request.segments.1}'
         ],
     ],
 ];
