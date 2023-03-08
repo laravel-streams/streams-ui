@@ -79,7 +79,7 @@ abstract class Component
         Cache::put('ui::component.' . $this->id, json_encode([
             'component' => static::class,
             'attributes' => Hydrator::dehydrate($this),
-        ]), $ttl ?: Config::get('session.lifetime', 120));
+        ]), $ttl ?: 1800); // 30 minutes
     }
 
     protected function build()

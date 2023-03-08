@@ -89,7 +89,7 @@ class FormBuilder extends Workflow
             return;
         }
 
-        $entry = $component->stream()->repository()->find($component->entry);
+        $entry = $component->entry();
 
         foreach ($component->fields as &$field) {
             $field['input']['value'] = $entry->{Arr::get($field, 'field')} ?? null;

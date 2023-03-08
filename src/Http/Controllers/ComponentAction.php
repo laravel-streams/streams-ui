@@ -3,11 +3,10 @@
 namespace Streams\Ui\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Redirect;
 use Streams\Ui\Support\Facades\UI;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 class ComponentAction extends Controller
 {
@@ -29,7 +28,7 @@ class ComponentAction extends Controller
 
         $response = $component->{$method}();
 
-        if ($response instanceof \Illuminate\Http\Response) {
+        if ($response instanceof Response) {
             return $response;
         }
 

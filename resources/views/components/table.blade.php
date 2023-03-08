@@ -1,14 +1,31 @@
 <div class="table__wrapper">
-    <table {!! $component->htmlAttributes([
-        'class' => [
+
+    @if (isset($slot))
+    {!! $slot !!}
+    @else
+
+    <form {!! $component->htmlAttributes([
+        //'action' => $component->action,
+        //'method' => $component->method,
+        //'enctype' => $component->enctype,
+        'class' => 'form',
+        'method' => 'POST',
+        //'wire:submit.prevent' => 'save',
+        'action' => '/streams/ui/' . $component->id . '/delete',
+        ]) !!}>
+
+        @ui('hidden', [
+        'name' => '_id',
+        'value' => $component->id,
+        ])
+
+        {{ csrf_field() }}
+
+        <table {!! $component->htmlAttributes([
+            'class' => [
             'table',
-        ],
-    ]) !!}>
-
-        @if (isset($slot))
-            {!! $slot !!}
-        @else
-
+            ],
+            ]) !!}>
             @if ($component->caption)
             <caption>{{ $component->caption }}</caption>
             @endif
@@ -20,7 +37,7 @@
                     @endif
                     @foreach ($component->columns as $column)
                     @if (isset($column['header']))
-                        @ui('table.header', $column['header'])
+                    @ui('table.header', $column['header'])
                     @endif
                     @endforeach
                     @if ($component->buttons)
@@ -31,14 +48,27 @@
             <tbody>
                 @foreach ($component->entries as $entry)
                 @ui('table.row', [
-                    'selectable' => $component->selectable,
-                    'columns' => $component->columns,
-                    'buttons' => $component->buttons,
-                    'entry' => Arr::make($entry),
+                'selectable' => $component->selectable,
+                'columns' => $component->columns,
+                'buttons' => $component->buttons,
+                'entry' => Arr::make($entry),
                 ])
                 @endforeach
             </tbody>
             <tfoot>
+                @if ($component->actions)
+                <tr>
+                    <td colspan="100%">
+                        <div class="table__actions">
+                            @foreach ($component->actions as $action)
+                            @ui(Arr::pull($action, 'action', 'button'), Arr::parse($action, [
+                            'entry' => $component->entry,
+                            ]))
+                            @endforeach
+                        </div>
+                    </td>
+                </tr>
+                @endif
                 <tr>
                     <td colspan="100%">
                         <div>
@@ -48,7 +78,7 @@
                                 {!! $component->pagination['links']() !!}
                             </div>
                             @endif
-                            
+
                             @if (isset($component->pagination['total']))
                             <small class="table__meta">
                                 {{ $component->pagination['total'] }}
@@ -60,6 +90,8 @@
                     </td>
                 </tr>
             </tfoot>
-        @endif
-    </table>    
+        </table>
+        
+    </form>
+    @endif
 </div>

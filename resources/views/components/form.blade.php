@@ -10,7 +10,7 @@
         ]) !!}>
 
         @ui('hidden', [
-            'name' => '__id',
+            'name' => '_id',
             'value' => $component->id,
         ])
 

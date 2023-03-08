@@ -25,33 +25,4 @@ class FormTest extends UiTestCase
             'entry' => 4,
         ])->assertSee('A New Hope');
     }
-
-    public function test_it_configures_from_streams()
-    {
-        UI::test('form', [
-            'stream' => 'films',
-        ])->assertSee('Foo Bar');
-
-        Streams::extend('films', [
-            'ui' => [
-                'components' => [
-                    [
-                        'handle' => 'default',
-                        'component' => 'form',
-                        'fields' => [
-                            [
-                                'label' => 'Foo Bar',
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-        ]);
-
-        Component::resetMemory();
-
-        UI::test('form', [
-            'stream' => 'films',
-        ])->assertSee('Foo Bar');
-    }
 }

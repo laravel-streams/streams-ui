@@ -1,7 +1,7 @@
 <tr>
     
     @if ($component->selectable)
-    <td><input type="checkbox"></td>
+    <td><input name="id[{{ $component->entry['id'] ?? null }}]" type="checkbox"></td>
     @endif
 
     @foreach ($component->columns as $column)
