@@ -9,10 +9,10 @@
  
         editor.value(target.value);
  
-        editor.codemirror.on('change', () => {
+        editor.codemirror.on('change', function() {
             target.value = editor.value();
         });
-    },
+    }
 }" class="prose">
     <textarea {!! $component->htmlAttributes([
         'x-ref' => 'editor',

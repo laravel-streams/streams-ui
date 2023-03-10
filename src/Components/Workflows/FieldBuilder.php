@@ -44,7 +44,7 @@ class FieldBuilder extends Workflow
             return;
         }
 
-        $input = $component->input;
+        $input = array_merge((array) $field->input, (array) $component->input);
         
         // Pass through the stream and field.
         $input['stream'] = $component->stream;
