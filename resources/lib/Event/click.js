@@ -11,7 +11,7 @@ export default class Click /*extends Event*/ {
     }
 
     initialize() {
-        this.directive.component.element.addEventListener('click', async (event) => {
+        this.directive.element.addEventListener('click', async (event) => {
 
             if (this.directive.modifiers.includes('prevent')) {
                 event.preventDefault();
@@ -19,7 +19,7 @@ export default class Click /*extends Event*/ {
 
             //const params = new URLSearchParams(this.directive.component.data);
 
-            const method = this.directive.component.element.getAttribute(this.directive.name);
+            const method = this.directive.element.getAttribute(this.directive.name);
 
             if (method.startsWith('javascript:')) {
 

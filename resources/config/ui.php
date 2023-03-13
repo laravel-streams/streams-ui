@@ -86,6 +86,7 @@ return [
 
         'file' => \Streams\Ui\Components\Inputs\FileInput::class,
 
+        'toggle' => \Streams\Ui\Components\Inputs\ToggleInput::class,
         'checkbox' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
 
         'textarea' => \Streams\Ui\Components\Inputs\TextareaInput::class,

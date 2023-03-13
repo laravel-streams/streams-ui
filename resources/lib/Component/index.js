@@ -13,9 +13,6 @@ export default class Component {
 
         const data = JSON.parse(this.extractAttribute('data'));
 
-        console.log(name);
-        console.log(data);
-
         this.data = data || {};
 
         this.initialize();

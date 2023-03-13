@@ -34,12 +34,9 @@
         {{-- Topbar --}}
         <div class="bg-gray-200 w-full p-4 flex justify-between items-center">
 
-            @ui('anchor', [
+            @ui('button', [
                 'text' => 'Create',
                 'url' => '/{request.segments.0}/{request.segments.1}/create',
-                'attributes' => [
-                    'class' => ['rounded bg-black text-white px-3 py-2'],
-                ],
             ])
 
             @ui('admin.menu', [

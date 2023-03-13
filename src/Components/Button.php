@@ -15,4 +15,6 @@ class Button extends Anchor
     public bool $disabled = false;
     
     public $value = null;
+
+    public string $size = 'md'; // xs, sm, md, lg
 }

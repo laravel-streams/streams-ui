@@ -4,7 +4,12 @@
         'name' => $component->name,
         'type' => $component->type,
         'disabled' => $component->disabled,
-        'class' => ['px-4 py-2 border border-black rounded bg-white' => true],
+        'class' => [
+            'btn',
+            'btn-' . $component->size,
+            'btn-' . $component->color,
+            'btn-outline' => $component->outline,
+        ],
     ]) !!}>
         @if (isset($slot))
             {!! $slot !!}
