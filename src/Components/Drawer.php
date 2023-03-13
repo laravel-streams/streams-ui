@@ -4,17 +4,17 @@ namespace Streams\Ui\Components;
 
 use Streams\Ui\Support\Component;
 
-class Modal extends Component
+class Drawer extends Component
 {
-    public string $template = 'ui::components.modal';
+    public string $template = 'ui::components.drawer';
 
     public array $components = [];
     
     public bool $open = false;
  
     protected $listeners = [
-        'showModal' => 'show',
-        'hideModal' => 'hide',
+        'showDrawer' => 'show',
+        'hideDrawer' => 'hide',
     ];
  
     public function show()

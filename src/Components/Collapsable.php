@@ -11,10 +11,9 @@ class Collapsable extends Component
 
     public string $template = 'ui::components.collapsable';
 
-    // @todo change to "toggle" component property
-    public ?string $text = null;
+    public ?string $toggle = null;
 
-    public array $content = [];
+    public array $components = [];
 
     public array $attributes = [];
 }

@@ -35,30 +35,38 @@
         <div class="bg-gray-200 w-full p-4 flex justify-between items-center">
 
             @ui('button', [
+                'tag' => 'a',
                 'text' => 'Create',
                 'url' => '/{request.segments.0}/{request.segments.1}/create',
             ])
 
             @ui('admin.menu', [
                 'attributes' => [
-                    'class' => 'flex items-center justify-end',
+                    'class' => 'flex items-center justify-end flex-grow',
                 ],
                 'wrapper_attributes' => [
                     'class' => 'flex-grow',
                 ],
                 'items' => [
                         [
-                            'component' => 'avatar',
-                            'src' => 'ryan@pyrocms.com',
-                            'alt' => 'Ryan Thompson',
-                            'attributes' => [
-                                'class' => ['rounded-full h-10 w-10'],
+                            'component' => 'dropdown',
+                            'toggle' => [
+                                [
+                                    'component' => 'avatar',
+                                    'src' => 'ryan@pyrocms.com',
+                                    'alt' => 'Ryan Thompson',
+                                    'attributes' => [
+                                        'class' => ['rounded-full h-10 w-10'],
+                                    ],
+                                ],
                             ],
-                        ],
-                        [
-                            'component' => 'anchor',
-                            'text' => 'Logout',
-                            'url' => '/admin/logout'
+                            'components' => [
+                                [
+                                    'component' => 'anchor',
+                                    'text' => 'Logout',
+                                    'url' => '/admin/logout'
+                                ],
+                            ]
                         ],
                 ],
             ])

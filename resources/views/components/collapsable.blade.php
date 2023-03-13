@@ -5,7 +5,7 @@
     </div>
 
     <div x-show="open">
-        {!! $slot ?? view('ui::support.content', [
+        {!! $slot ?? view('ui::support.components', [
             'component' => $component,
         ]) !!}
     </div>

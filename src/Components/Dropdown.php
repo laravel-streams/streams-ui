@@ -10,5 +10,5 @@ class Dropdown extends Component
 
     public array $toggle = [];
     
-    public array $content = [];
+    public array $components = [];
 }

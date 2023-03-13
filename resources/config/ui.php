@@ -54,6 +54,7 @@ return [
         'dropdown' => \Streams\Ui\Components\Dropdown::class,
         //'dropdown.item' => \Streams\Ui\Components\Dropdown\DropdownItem::class,
 
+        'drawer' => \Streams\Ui\Components\Drawer::class,
         'modal' => \Streams\Ui\Components\Modal::class,
         //'modal.header' => \Streams\Ui\Components\Modal\ModalHeader::class,
         //'modal.content' => \Streams\Ui\Components\Modal\ModalContent::class,

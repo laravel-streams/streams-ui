@@ -1,9 +1,9 @@
-<div>
-    <menu {!! $component->htmlAttributes() !!}>
+<div {!! $component->htmlAttributes() !!}>
+    <ul>
         @foreach($component->items as $item)
         <li>
             @ui(Arr::pull($item, 'component'), $item)
         </li>
         @endforeach
-    </menu>
+    </ul>
 </div>
