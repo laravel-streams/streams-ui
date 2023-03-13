@@ -10,18 +10,9 @@ class Content extends Component
 {
     use HasAttributes;
 
-    public string $template = <<<'blade'
-        <div>
-            {!! $component->decoratePrototypeAttribute('content')->render() !!}
-        </div>
-    blade;
+    public string $template = 'ui::components.content';
 
     public ?string $content = null;
 
     public array $attributes = [];
-
-    public function url()
-    {
-        return $this->url ? Str::parse($this->url) : null;
-    }
 }

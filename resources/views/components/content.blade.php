@@ -1,3 +1,3 @@
 <div>
-    {!! $component->content()->render() !!}
+    {!! $slot ?? $component->decoratePrototypeAttribute('content')->render() !!}
 </div>

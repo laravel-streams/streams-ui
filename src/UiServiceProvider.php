@@ -11,6 +11,7 @@ use Streams\Core\Support\Integrator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
+use Streams\Ui\Support\BladeComponent;
 use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
 
@@ -52,8 +53,9 @@ class UiServiceProvider extends ServiceProvider
 
         Lang::addNamespace('ui', realpath(base_path('vendor/streams/ui/resources/lang')));
 
-        foreach (config('streams.ui.components') as $component => $class) {
-            UI::component($component, $class);
+        foreach (config('streams.ui.components') as $name => $class) {
+            UI::component($name, $class);
+            Blade::component($name, BladeComponent::class);
         }
     }
 
