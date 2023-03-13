@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Support;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Collective\Html\HtmlFacade;
 use Illuminate\Support\Facades\View;
@@ -32,6 +33,10 @@ abstract class Component
     {
         $attributes['id'] = $attributes['id'] ?? Str::random(20);
 
+        if ($data = Arr::pull($attributes, 'parse_data')) {
+            $attributes = Arr::parse($attributes, $data);
+        }
+        
         //$this->syncPrototypePropertyAttributes();
         $this->syncOriginalPrototypeAttributes($attributes);
 
