@@ -43,6 +43,8 @@ return [
         'navigation' => \Streams\Ui\Components\Navigation::class,
         // 'navigation.item' => \Streams\Ui\Components\Navigation\NavigationItem::class,
 
+        'content' => \Streams\Ui\Components\Content::class,
+        
         'collapsable' => \Streams\Ui\Components\Collapsable::class,
 
         'avatar' => \Streams\Ui\Components\Avatar::class,

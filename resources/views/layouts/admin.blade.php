@@ -66,6 +66,11 @@
                                     'text' => 'Logout',
                                     'url' => '/admin/logout'
                                 ],
+                                [
+                                    'component' => 'anchor',
+                                    'text' => 'View Frontend',
+                                    'url' => '/',
+                                ],
                             ]
                         ],
                 ],
