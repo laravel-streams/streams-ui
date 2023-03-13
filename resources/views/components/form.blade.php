@@ -26,7 +26,7 @@
         </div>
 
         @if ($component->buttons)
-        <div class="mt-4">
+        <div class="mt-4 flex space-x-2">
             @foreach ($component->buttons as $button)
             @ui(Arr::pull($button, 'button', 'button'), Arr::parse($button, [
                 'entry' => $component->entry,
