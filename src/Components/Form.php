@@ -72,8 +72,7 @@ class Form extends Component
 
         $parts = explode('/', trim(parse_url(URL::previous(), PHP_URL_PATH), '/'));
 
-        return Redirect::to($parts[0] . '/' . $parts[1]);
-        //return Redirect::to($parts[0] . '/' . $parts[1] . '/' . $parts[2] . '/' . $entry->id);
+        return Redirect::to($parts[0] . '/' . $parts[1] . '/' . $entry->id . '/' . $parts[3] ?? 'edit');
     }
 
     public function entry(): object|null
