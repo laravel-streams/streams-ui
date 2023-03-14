@@ -90,8 +90,11 @@
             </div>
         </div>
 
-        {{-- Content --}}
         {!! $slot !!}
+
+        @ui('alerts', [
+            'alerts' => Messages::get(),
+        ])
         
     </main>
 

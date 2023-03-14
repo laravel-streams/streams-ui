@@ -25,6 +25,8 @@ return [
      * @livewire($name, $class)
      */
     'components' => [
+        'alerts' => \Streams\Ui\Components\Alerts::class,
+
         'form' => \Streams\Ui\Components\Form::class,
         'field' => \Streams\Ui\Components\Field::class,
 
