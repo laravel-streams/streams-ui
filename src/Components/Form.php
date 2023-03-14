@@ -11,6 +11,7 @@ use Streams\Ui\Support\Component;
 use Streams\Ui\Components\Traits\HasStream;
 use Streams\Ui\Components\Traits\HasAttributes;
 use Streams\Ui\Components\Workflows\FormBuilder;
+use Streams\Ui\Components\Workflows\SaveForm;
 
 class Form extends Component
 {
@@ -33,6 +34,8 @@ class Form extends Component
     public array $fields = [];
     public array $buttons = [];
 
+    public array $errors = [];
+
     public ?string $stream = null;
 
     public $entry = null;
@@ -41,38 +44,27 @@ class Form extends Component
 
     public function save()
     {
-        if (!$stream = $this->stream()) {
-            throw new \Exception('No stream defined.');
-        }
-        
-        $result = $stream->validator(
-            $data = Arr::except(
-                Request::post(),
-                array_filter(array_keys($_POST), fn ($key) => substr($key, 0, 1) == '_')
-            ),
-            $this->entry
-        );
+        $this->fire('saving', [
+            'component' => $this,
+        ]);
 
-        if (!$result->passes()) {
+        (new SaveForm)
+            ->passThrough($this)
+            ->process([
+                'component' => $this,
+            ]);
 
-            dd($result->messages()->messages());
-
-            return Redirect::back();
-        }
-
-        if ($this->entry) {
-            $entry = $this->entry()->fill($data);
-        } else {
-            $entry = $stream->repository()->newInstance($data);
-        }
-
-        $entry->save();
-
-        Messages::success('Saved!');
+        $this->fire('saved', [
+            'component' => $this,
+        ]);
 
         $parts = explode('/', trim(parse_url(URL::previous(), PHP_URL_PATH), '/'));
 
-        return Redirect::to($parts[0] . '/' . $parts[1] . '/' . $entry->id . '/' . ($parts[3] ?? 'edit'));
+        if ($this->errors) {           
+            return Redirect::back();
+        } else {
+            return Redirect::to($parts[0] . '/' . $parts[1] . '/' . $this->entry . '/' . ($parts[3] ?? 'edit'));
+        }
     }
 
     public function entry(): object|null
