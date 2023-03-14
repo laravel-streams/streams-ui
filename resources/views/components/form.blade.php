@@ -6,7 +6,7 @@
         'class' => 'form',
         'method' => 'POST',
         //'wire:submit.prevent' => 'save',
-        'action' => '/streams/ui/' . $component->id . '/save',
+        'action' => $component->action ?: '/streams/ui/' . $component->id . '/save',
         ]) !!}>
 
         @ui('hidden', [

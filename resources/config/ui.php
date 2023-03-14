@@ -157,6 +157,10 @@ return [
             'component' => 'input',
             'type' => 'hidden',
         ],
+        'password' => [
+            'component' => 'input',
+            'type' => 'password',
+        ],
 
         /**
          * Button Variations
