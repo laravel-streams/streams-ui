@@ -180,5 +180,11 @@ return [
             'text' => 'Cancel',
             'url' => '/{request.segments.0}/{request.segments.1}'
         ],
+        'button.delete' => [
+            'tag' => 'button',
+            'component' => 'button',
+            'handle' => 'delete',
+            'text' => 'Delete',
+        ],
     ],
 ];
