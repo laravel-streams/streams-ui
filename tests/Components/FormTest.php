@@ -3,9 +3,7 @@
 namespace Streams\Ui\Tests\Components;
 
 use Streams\Ui\Tests\UiTestCase;
-use Streams\Ui\Support\Component;
 use Streams\Ui\Support\Facades\UI;
-use Streams\Core\Support\Facades\Streams;
 
 class FormTest extends UiTestCase
 {
@@ -24,5 +22,16 @@ class FormTest extends UiTestCase
             'stream' => 'films',
             'entry' => 4,
         ])->assertSee('A New Hope');
+    }
+
+    public function test_it_can_save_entries()
+    {
+        $response = $this->post('/streams/ui/form/save', [
+            'stream' => 'films',
+            'entry' => 4,
+            'title' => 'A New Hope (Test)',
+        ]);
+
+        $response->assertStatus(200);
     }
 }
