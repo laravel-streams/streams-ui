@@ -11,15 +11,17 @@ class DropdownTest extends UiTestCase
     {
         UI::test('dropdown', [
             'toggle' => [
-                'component' => 'button',
-                'text' => 'Dropdown Toggle',
+                [
+                    'component' => 'button',
+                    'text' => 'Dropdown Toggle',
+                ],
             ],
-            'content' => [
+            'components' => [
                 [
                     'url' => '#',
                     'text' => 'Anchor 1',
                     'component' => 'anchor',
-                ]
+                ],
             ],
         ])
         ->assertSee('Dropdown Toggle')
