@@ -64,8 +64,8 @@ abstract class Component
         } else {
             $output = View::make($this->template, $payload);
         }
-
-        if (isset($this->layout)) {
+        
+        if ($this->layout) {
             $output = View::make($this->layout, [
                 'slot' => $output,
             ]);
