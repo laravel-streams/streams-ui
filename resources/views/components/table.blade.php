@@ -15,18 +15,33 @@
         ]) !!}>
 
         @ui('hidden', [
-        'name' => '_id',
-        'value' => $component->id,
+            'name' => '_id',
+            'value' => $component->id,
         ])
 
         {{ csrf_field() }}
 
 
-        <div class="table__filters py-4">
+        @if ($component->filters)
+        <div class="table__filters flex space-x-2 my-4">
             @foreach ($component->filters as $filter)
             @ui(Arr::pull($filter, 'filter', 'table.filter'), $filter)
             @endforeach
         </div>
+        @endif
+
+        @if ($component->views)
+        <div class="table__views flex space-x-2 my-4">
+            @foreach ($component->views as $view)
+            @ui(Arr::pull($view, 'view', 'anchor'), array_merge(
+                $view,
+                [
+                    'url' => URL::to(Request::path()) . '?view=' . $view['handle'],
+                ]
+            ))
+            @endforeach
+        </div>
+        @endif
 
 
         <table {!! $component->htmlAttributes([

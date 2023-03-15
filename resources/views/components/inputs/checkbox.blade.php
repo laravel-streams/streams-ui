@@ -1,5 +1,10 @@
 <div>
     <label>
+        <input
+            value="0"
+            type="hidden"
+            name="{{ $component->name }}">
+            
         <input {!! $component->htmlAttributes([
             'value' => true,
             'type' => 'checkbox',

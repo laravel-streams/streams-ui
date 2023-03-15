@@ -32,12 +32,13 @@ class Table extends Component
     public array $columns = [];
     public array $buttons = [];
     public array $actions = [];
-
-    public array $attributes = [];
-
+    
+    public array $views = [];
     public array $query = [];
     
     public array $pagination = [];
+
+    public array $attributes = [];
 
     public function delete()
     {

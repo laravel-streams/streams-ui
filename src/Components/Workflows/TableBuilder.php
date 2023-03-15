@@ -5,12 +5,14 @@ namespace Streams\Ui\Components\Workflows;
 use Illuminate\Support\Arr;
 use Streams\Ui\Components\Table;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Request;
 use Streams\Core\Support\Workflow;
 
 class TableBuilder extends Workflow
 {
     public array $steps = [
         'load_stream_config' => self::class . '@loadStreamConfig',
+        'load_view_config' => self::class . '@loadViewConfig',
         'query_entries' => self::class . '@queryEntries',
         'set_defaults' => self::class . '@setDefaults',
     ];
@@ -36,6 +38,31 @@ class TableBuilder extends Workflow
         if ($table) {
             foreach ($table as $key => $value) {
                 $component->{$key} = $value;
+            }
+        }
+    }
+
+    public function loadViewConfig(Table $component): void
+    {
+        if (!$active = Request::get('view')) {
+            return;
+        }
+
+        $view = $component->decoratePrototypeAttribute('views')
+            ->where(function ($view) use ($active) {
+                return $view['handle'] == $active;
+            })[0] ?? null;
+
+        $merges = [
+            'columns',
+            'filters',
+            'buttons',
+            'actions',
+        ];
+
+        foreach ($merges as $merge) {
+            if (isset($view[$merge])) {
+                $component->{$merge} = array_merge($component->{$merge}, $view[$merge]);
             }
         }
     }

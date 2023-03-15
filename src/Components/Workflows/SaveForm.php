@@ -6,7 +6,6 @@ use Illuminate\Support\Arr;
 use Streams\Ui\Components\Form;
 use Streams\Core\Support\Workflow;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 use Streams\Core\Validation\StreamsPresenceVerifier;
@@ -25,12 +24,12 @@ class SaveForm extends Workflow
             throw new \Exception('No stream defined.');
         }
 
-        $rules = $stream->rules([], $component->entry);
-
         $data = Arr::except(
             Request::post(),
             array_filter(array_keys($_POST), fn ($key) => substr($key, 0, 1) == '_')
         );
+
+        $rules = $stream->rules([], $component->entry);
 
         $rules = Arr::only(
             $rules,
@@ -54,6 +53,7 @@ class SaveForm extends Workflow
         if (!$result->passes()) {
 
             $component->errors = $result->messages()->messages();
+
             return;
         }
 
