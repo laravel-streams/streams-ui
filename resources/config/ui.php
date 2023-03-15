@@ -16,7 +16,10 @@ return [
         ],
         'buttons' => [],
         'menu' => [],
-        //'actions' => [],
+        'middleware' => [
+            'web',
+            'auth',
+        ],
     ],
 
     /**
