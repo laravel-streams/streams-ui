@@ -53,16 +53,16 @@ class TableBuilder extends Workflow
                 return $view['handle'] == $active;
             })[0] ?? null;
 
-        $merges = [
+        $attributes = [
             'columns',
             'filters',
             'buttons',
             'actions',
         ];
 
-        foreach ($merges as $merge) {
-            if (isset($view[$merge])) {
-                $component->{$merge} = array_merge($component->{$merge}, $view[$merge]);
+        foreach ($attributes as $attribute) {
+            if (isset($view[$attribute])) {
+                $component->{$attribute} = $view[$attribute];
             }
         }
     }
