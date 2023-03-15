@@ -9,9 +9,9 @@
         //'method' => $component->method,
         //'enctype' => $component->enctype,
         'class' => 'form',
-        'method' => 'POST',
+        //'method' => 'POST',
         //'wire:submit.prevent' => 'save',
-        'action' => '/streams/ui/' . $component->id . '/delete',
+        //'action' => '/streams/ui/' . $component->id . '/delete',
         ]) !!}>
 
         @ui('hidden', [
@@ -20,6 +20,14 @@
         ])
 
         {{ csrf_field() }}
+
+
+        <div class="table__filters py-4">
+            @foreach ($component->filters as $filter)
+            @ui(Arr::pull($filter, 'filter', 'table.filter'), $filter)
+            @endforeach
+        </div>
+
 
         <table {!! $component->htmlAttributes([
             'class' => [

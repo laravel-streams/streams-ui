@@ -1,4 +1,5 @@
 <div>
+    @if ($component->items)    
     <div class="px-4 py-4 text-sm breadcrumbs">
         <ul class="flex space-x-2">
             @foreach ($component->items as $url => $item)
@@ -11,4 +12,5 @@
             @endforeach
         </ul>
     </div>
+    @endif
 </div>

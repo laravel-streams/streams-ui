@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Config;
 use Streams\Ui\Support\BladeComponent;
 use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
+use Streams\Ui\Support\Facades\Breadcrumbs;
 
 class UiServiceProvider extends ServiceProvider
 {

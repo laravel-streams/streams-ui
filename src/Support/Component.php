@@ -26,6 +26,7 @@ abstract class Component
 
     public ?string $builder = null;
     public ?string $layout = null;
+    public ?string $handle = null;
 
     public string $template;
 

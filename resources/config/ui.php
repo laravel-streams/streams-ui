@@ -38,7 +38,7 @@ return [
         //'table.views' => \Streams\Ui\Components\Table\TableViews::class,
         'table.header' => \Streams\Ui\Components\Table\TableHeader::class,
         'table.column' => \Streams\Ui\Components\Table\TableColumn::class,
-        //'table.filters' => \Streams\Ui\Components\Table\TableFilters::class,
+        'table.filter' => \Streams\Ui\Components\Table\TableFilter::class,
 
         'tabs' => \Streams\Ui\Components\Tabs::class,
 
