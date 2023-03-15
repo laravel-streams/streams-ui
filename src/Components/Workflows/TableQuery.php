@@ -7,11 +7,13 @@ use Streams\Core\Support\Workflow;
 use Streams\Core\Criteria\Criteria;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Request;
 
 class TableQuery extends Workflow
 {
     public array $steps = [
         'load_query' => self::class . '@loadQuery',
+        'apply_filters' => self::class . '@applyFilters',
         'finish_query' => self::class . '@finishQuery',
     ];
 
@@ -28,6 +30,31 @@ class TableQuery extends Workflow
 
             foreach ($query as $method => $parameters) {
                 $query->{$method}(...$parameters);
+            }
+        }
+    }
+
+    public function applyFilters(Table $component, Criteria $query): void
+    {
+        foreach ($component->filters as $filter) {
+
+            $value = Request::get('filter_' . $filter['handle']);
+
+            if (is_null($value)) {
+                continue;
+            }
+
+            if (isset($filter['query'])) {
+                
+                (new $filter['query'])($value);
+                
+                continue;
+            }
+
+            if (isset($filter['field'])) {
+                $query->where($filter['field'], $value);
+            } else {
+                $query->where($filter['handle'], 'LIKE', "%$value%");
             }
         }
     }

@@ -19,8 +19,6 @@ class Form extends Component
 
     public string $template = 'ui::components.form';
 
-    public string $handle = 'default';
-
     public string $enctype = 'multipart/form-data';
 
     public ?string $action = null;
