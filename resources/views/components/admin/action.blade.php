@@ -1,8 +1,6 @@
 <div>
 
-    <div>
-        @ui('breadcrumbs')
-    </div>
+    @ui('breadcrumbs')
 
     @if (Request::segment(4))
         @ui('form', [

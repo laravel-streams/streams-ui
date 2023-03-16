@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Config;
 use Streams\Ui\Support\BladeComponent;
 use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
+use Streams\Ui\Support\Facades\Breadcrumbs;
 
 class UiServiceProvider extends ServiceProvider
 {
@@ -42,7 +43,11 @@ class UiServiceProvider extends ServiceProvider
 
         Blade::directive('ui', function ($parameters) {
             return "<?php echo \$__env->ui({$parameters}); ?>";
-        });    
+        });
+
+        foreach (config('streams.ui.components') as $name => $class) {
+            UI::component($name, $class);
+        }
     }
 
     public function boot()
@@ -53,10 +58,11 @@ class UiServiceProvider extends ServiceProvider
 
         Lang::addNamespace('ui', realpath(base_path('vendor/streams/ui/resources/lang')));
 
-        foreach (config('streams.ui.components') as $name => $class) {
-            UI::component($name, $class);
-            Blade::component($name, BladeComponent::class);
-        }
+        $this->app->booted(function() {
+            foreach (UI::getComponents() as $name => $class) {
+                Blade::component($name, BladeComponent::class);
+            }
+        });
     }
 
     protected function registerConfig()
@@ -75,7 +81,7 @@ class UiServiceProvider extends ServiceProvider
         }
 
         Route::prefix(Config::get('streams.ui.admin.prefix'))
-            ->middleware(Config::get('streams.ui.admin.middleware', 'web'))
+            ->middleware(Config::get('streams.ui.admin.middleware', 'admin'))
             ->group(function () {
 
                 Route::get('/', Config::get('streams.ui.admin.default'));

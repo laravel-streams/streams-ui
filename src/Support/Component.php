@@ -26,6 +26,7 @@ abstract class Component
 
     public ?string $builder = null;
     public ?string $layout = null;
+    public ?string $handle = null;
 
     public string $template;
 
@@ -64,8 +65,8 @@ abstract class Component
         } else {
             $output = View::make($this->template, $payload);
         }
-
-        if (isset($this->layout)) {
+        
+        if ($this->layout) {
             $output = View::make($this->layout, [
                 'slot' => $output,
             ]);

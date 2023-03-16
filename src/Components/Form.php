@@ -3,16 +3,15 @@
 namespace Streams\Ui\Components;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Validator;
-use Streams\Core\Support\Facades\Messages;
 use Streams\Ui\Support\Component;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Streams\Ui\Components\Traits\HasStream;
+use Streams\Ui\Components\Workflows\SaveForm;
 use Streams\Ui\Components\Traits\HasAttributes;
 use Streams\Ui\Components\Workflows\FormBuilder;
-use Streams\Ui\Components\Workflows\SaveForm;
 
 class Form extends Component
 {
@@ -22,8 +21,6 @@ class Form extends Component
     public ?string $builder = FormBuilder::class;
 
     public string $template = 'ui::components.form';
-
-    public string $handle = 'default';
 
     public string $enctype = 'multipart/form-data';
 
@@ -86,12 +83,14 @@ class Form extends Component
             'component' => $this,
         ]);
 
-        $parts = explode('/', trim(parse_url(URL::previous(), PHP_URL_PATH), '/'));
+        $parts = array_filter(explode('/', trim(parse_url(URL::previous(), PHP_URL_PATH), '/')));
 
         if ($this->errors) {           
             return Redirect::back();
-        } else {
+        } elseif ($parts) {
             return Redirect::to($parts[0] . '/' . $parts[1] . '/' . $this->entry . '/' . ($parts[3] ?? 'edit'));
+        } else {
+            return Redirect::to('admin/' . $this->stream . '/' . $this->entry . '/edit');
         }
     }
 

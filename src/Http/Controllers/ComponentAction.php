@@ -20,6 +20,8 @@ class ComponentAction extends Controller
             ];
         }
 
+        $parameters = array_merge($parameters, Request::query());
+
         if (!$parameters) {
             return abort(400, "Component [{$component}] not found.");
         }

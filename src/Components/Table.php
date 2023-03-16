@@ -18,7 +18,7 @@ class Table extends Component
 
     public string $template = 'ui::components.table';
 
-    public string $handle = 'default';
+    public ?string $handle = 'default';
     
     public bool $selectable = false;
     
@@ -28,15 +28,17 @@ class Table extends Component
 
     public array $entries = [];
 
+    public array $filters = [];
     public array $columns = [];
     public array $buttons = [];
     public array $actions = [];
-
-    public array $attributes = [];
-
+    
+    public array $views = [];
     public array $query = [];
     
     public array $pagination = [];
+
+    public array $attributes = [];
 
     public function delete()
     {
