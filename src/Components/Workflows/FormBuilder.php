@@ -49,6 +49,10 @@ class FormBuilder extends Workflow
         foreach ($component->fields as &$field) {
             $field['entry'] = $component->entry;
             $field['stream'] = $component->stream;
+
+            $field['input']['value'] = $field['input']['value'] ?? $stream->fields->{$field['field']}->default(
+                $stream->fields->{$field['field']}->config('default')
+            );
         }
     }
 
@@ -67,19 +71,10 @@ class FormBuilder extends Workflow
             ],
         ];
 
-        if (!$stream = $component->stream()) {
-            return;
-        }
-
         foreach ($component->fields as &$field) {
-
-            if (!isset($field['field'])) {
-                continue;
+            if (!isset($field['input']['name'])) {
+                $field['input']['name'] = $field['handle'];
             }
-
-            $field['input']['value'] = $stream->fields->{$field['field']}->default(
-                $stream->fields->{$field['field']}->config('default')
-            );
         }
     }
 

@@ -6,6 +6,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Validator;
 use Streams\Core\Support\Facades\Messages;
 use Streams\Ui\Support\Component;
 use Streams\Ui\Components\Traits\HasStream;
@@ -42,8 +43,35 @@ class Form extends Component
 
     public array $attributes = [];
 
+    public function validate(): bool
+    {
+        $rules = $this->rules;
+
+        $data = Arr::except(
+            Request::post(),
+            array_filter(array_keys($_POST), fn ($key) => substr($key, 0, 1) == '_')
+        );
+
+        $result = Validator::make($data, $rules);
+
+        if (!$result->passes()) {
+            
+            $this->errors = $result->messages()->messages();
+
+            return false;
+        }
+
+        return true;
+    }
+
     public function save()
     {
+        $this->validate();
+
+        if ($this->errors) {
+            return Redirect::back();
+        }
+
         $this->fire('saving', [
             'component' => $this,
         ]);
