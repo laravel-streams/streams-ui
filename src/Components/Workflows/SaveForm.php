@@ -64,5 +64,7 @@ class SaveForm extends Workflow
         }
 
         $entry->save();
+
+        $component->entry = $entry->id;
     }
 }
