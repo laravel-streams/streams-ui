@@ -16,10 +16,7 @@ return [
         ],
         'buttons' => [],
         'menu' => [],
-        'middleware' => [
-            'web',
-            'auth',
-        ],
+        'middleware' => explode('|', env('STREAMS_ADMIN_MIDDLEWARE', 'web|auth')),
     ],
 
     /**
