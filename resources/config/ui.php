@@ -119,6 +119,9 @@ return [
         'enum' => [
             'component' => 'select',
         ],
+        'text' => [
+            'component' => 'input',
+        ],
         'string' => [
             'component' => 'input',
         ],

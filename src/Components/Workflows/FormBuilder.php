@@ -75,6 +75,10 @@ class FormBuilder extends Workflow
             ],
         ];
 
+        if (!$component->action && $component->stream) {
+            $component->action = 'save';
+        }
+
         foreach ($component->fields as &$field) {
             
             if (!isset($field['input']['name'])) {

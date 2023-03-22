@@ -85,7 +85,7 @@ class Form extends Component
 
         $parts = array_filter(explode('/', trim(parse_url(URL::previous(), PHP_URL_PATH), '/')));
 
-        if ($this->errors) {           
+        if ($this->errors) {
             return Redirect::back();
         } elseif ($parts) {
             return Redirect::to($parts[0] . '/' . $parts[1] . '/' . $this->entry . '/' . ($parts[3] ?? 'edit'));
