@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 use Streams\Core\Validation\StreamsPresenceVerifier;
+use Streams\Ui\Support\Facades\UI;
 
 class SaveForm extends Workflow
 {
@@ -24,8 +25,20 @@ class SaveForm extends Workflow
             throw new \Exception('No stream defined.');
         }
 
+        $data = Request::post();
+
+        foreach ($data as $key => $value) {
+            if ($field = Arr::get($component->fields, $key)) {
+
+                $field = UI::make('field', $field);
+                $input = UI::make($field->input['type'], ...[Arr::except($field->input, ['type'])]);
+
+                $data[$key] = $input->post();
+            }
+        }
+
         $data = Arr::except(
-            Request::post(),
+            $data,
             array_filter(array_keys($_POST), fn ($key) => substr($key, 0, 1) == '_')
         );
 
@@ -53,6 +66,8 @@ class SaveForm extends Workflow
         if (!$result->passes()) {
 
             $component->errors = $result->messages()->messages();
+
+            dd($component->errors);
 
             return;
         }
