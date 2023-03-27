@@ -1,7 +1,7 @@
 <div>
     <input {!! $component->htmlAttributes([
         'type' => 'color',
-        'id' => $component->id,
+        'id' => $component->name . '-input',
         'name' => $component->name,
         'value' => $component->value,
         'required' => $component->required,

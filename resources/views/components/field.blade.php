@@ -8,7 +8,7 @@
     ], (array) $component->attributes ?? []),
 ]) !!}>
 
-    <label class="font-bold" for="{{ $component->id }}">
+    <label class="font-bold" for="{{ $component->handle }}-input">
         @if ($component->label)
         {{ __($component->label) }}
         @endif

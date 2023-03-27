@@ -1,7 +1,7 @@
 <div>
     <input {!! $component->htmlAttributes([
         'type' => 'range',
-        'id' => $component->id,
+        'id' => $component->name . '-input',
         'max' => $component->max,
         'min' => $component->min,
         'name' => $component->name,
