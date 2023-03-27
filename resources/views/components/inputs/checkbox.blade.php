@@ -8,6 +8,7 @@
         <input {!! $component->htmlAttributes([
             'value' => true,
             'type' => 'checkbox',
+            'id' => $component->id,
             'name' => $component->name,
             'required' => $component->required,
             'readonly' => $component->readonly,

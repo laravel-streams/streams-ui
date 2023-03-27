@@ -3,6 +3,7 @@
         'type' => 'file',
         'accept' => implode(',', []), // 'image/*', 'video/*', 'audio/*', 'application/pdf'
         'capture' => null, // 'user' or 'environment'
+        'id' => $component->id,
         'name' => $component->name,
         'value' => $component->value,
         'required' => $component->required,

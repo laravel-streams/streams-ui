@@ -10,19 +10,19 @@
         }
     </style>
   
-    <label for="{{ $component->id }}-input" class="flex items-center cursor-pointer">
+    <label for="{{ $component->id }}" class="flex items-center cursor-pointer">
       
         <div class="relative">
         
             <input {!! $component->htmlAttributes([
                 'value' => true,
                 'type' => 'checkbox',
+                'id' => $component->id,
                 'name' => $component->name,
                 'required' => $component->required,
                 'readonly' => $component->readonly,
                 'disabled' => $component->disabled,
                 'checked' => $component->value == true,
-                'id' => $component->id . '-input',
                 'class' => 'sr-only',
             ]) !!}>
         
