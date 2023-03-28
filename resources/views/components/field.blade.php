@@ -1,14 +1,14 @@
 <div {!! $component->htmlAttributes([
-    'class' => [
+    'class' => array_merge([
         'w-auto' => $component->width === 'auto',
         'w-full' => $component->width === 'full',
         'w-1/2' => $component->width === '1/2',
         'w-1/3' => $component->width === '1/3',
         'w-1/4' => $component->width === '1/4',
-    ],
+    ], (array) $component->attributes ?? []),
 ]) !!}>
 
-    <label class="font-bold" for="{{ $component->id }}">
+    <label class="font-bold" for="{{ $component->handle }}-input">
         @if ($component->label)
         {{ __($component->label) }}
         @endif

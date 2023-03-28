@@ -1,6 +1,7 @@
 <div>
     <input {!! $component->htmlAttributes([
         'type' => 'date',
+        'id' => $component->name . '-input',
         'max' => $component->max,
         'min' => $component->min,
         'step' => $component->step,

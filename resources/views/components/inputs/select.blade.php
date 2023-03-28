@@ -1,5 +1,6 @@
 <div>
     <select {!! $component->htmlAttributes([
+        'id' => $component->name . '-input',
         'name' => $component->name,
         'required' => $component->required,
         'readonly' => $component->readonly,

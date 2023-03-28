@@ -48,16 +48,20 @@ class TableBuilder extends Workflow
             return;
         }
 
-        $view = $component->decoratePrototypeAttribute('views')
-            ->where(function ($view) use ($active) {
-                return $view['handle'] == $active;
-            })[0] ?? null;
+        $view = Arr::first($component->views, function ($view) use ($active) {
+            return $view['handle'] == $active;
+        });
+
+        if (!$view) {
+            return;
+        }
 
         $attributes = [
             'columns',
             'filters',
             'buttons',
             'actions',
+            'query',
         ];
 
         foreach ($attributes as $attribute) {
