@@ -81,7 +81,7 @@ class UiServiceProvider extends ServiceProvider
         }
 
         Route::prefix(Config::get('streams.ui.admin.prefix'))
-            ->middleware(Config::get('streams.ui.admin.middleware', 'admin'))
+            ->middleware(Config::get('streams.ui.admin.middleware'))
             ->group(function () {
 
                 Route::get('/', Config::get('streams.ui.admin.default'));

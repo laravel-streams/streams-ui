@@ -6,7 +6,7 @@
         'class' => 'form',
         'method' => $component->method,
         //'wire:submit.prevent' => 'save',
-        'action' => $component->action,
+        'action' => $component->action(),
     ]) !!}>
 
         @ui('hidden', [

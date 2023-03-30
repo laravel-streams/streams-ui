@@ -104,4 +104,13 @@ class Form extends Component
 
         return $this->once($key, fn ()  => $this->stream()->repository()->find($this->entry));
     }
+
+    public function action()
+    {
+        if ($this->action && strpos($this->action, '/') === false) {
+            return 'streams/ui/' . $this->id . '/' . $this->action;
+        }
+
+        return $this->action;
+    }
 }
