@@ -8,7 +8,7 @@ trait HasAttributes
 {
     public function attributes(array $attributes = []): array
     {
-        $attributes = array_merge($this->attributes, $attributes);
+        $attributes = array_merge_recursive($this->attributes, $attributes);
 
         if (array_key_exists('class', $attributes)) {
             $attributes['class'] = $this->classAttribute((array) $attributes['class']);
