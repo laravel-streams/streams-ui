@@ -108,7 +108,7 @@ class Form extends Component
     public function action()
     {
         if ($this->action && strpos($this->action, '/') === false) {
-            return 'streams/ui/' . $this->id . '/' . $this->action;
+            return url('streams/ui/' . $this->id . '/' . $this->action);
         }
 
         return $this->action;
