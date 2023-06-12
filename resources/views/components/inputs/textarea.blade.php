@@ -1,6 +1,6 @@
 <div>
     <textarea {!! $component->htmlAttributes([
-        'id' => $component->name . '-input',
+        'id' => $component->id,
         'name' => $component->name,
         'minlength' => $component->min,
         'maxlength' => $component->max,
