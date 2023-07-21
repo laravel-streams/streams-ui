@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Config;
 use Streams\Ui\Support\BladeComponent;
 use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
+use Streams\Core\Support\Facades\Images;
 use Streams\Ui\Support\Facades\Breadcrumbs;
 
 class UiServiceProvider extends ServiceProvider
@@ -52,7 +53,8 @@ class UiServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        Assets::addPath('ui', 'vendor/streams/ui');
+        Assets::addPath('ui', 'vendor/streams/ui/resources');
+        Images::addPath('ui', 'vendor/streams/ui/resources');
 
         View::addNamespace('ui', __DIR__ . '/../resources/views');
 
