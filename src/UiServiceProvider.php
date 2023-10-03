@@ -27,7 +27,7 @@ class UiServiceProvider extends ServiceProvider
         ], 'laravel-assets');
 
         $this->publishes([
-            __DIR__ . '/../resources/streams' => public_path('streams'),
+            __DIR__ . '/../resources/streams' => base_path('streams'),
         ], 'laravel-assets');
 
         $this->registerConfig();
