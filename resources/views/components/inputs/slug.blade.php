@@ -18,3 +18,20 @@
         // Collapse dashes
         .replace(/-+/g, '{{ $component->separator }}');">
 </div>
+
+{{-- @todo 
+@if ($component->field()?->config('slugify'))
+<script>
+    document.getElementById('{{ $component->field()?->config('slugify') }}-input')
+        .addEventListener('keydown', function() {
+            document.getElementById('{{ $component->id }}-input'). = String(this.value)
+                .toLowerCase()
+                .replace(/ /g,'{{ $component->separator }}')
+                .replace(/[^\w-_]+/g,'{{ $component->separator }}')
+                // Collapse dashes
+                .replace(/-+/g, '{{ $component->separator }}');
+                
+    });
+</script>
+@endif
+--}}

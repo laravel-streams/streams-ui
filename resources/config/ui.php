@@ -75,7 +75,7 @@ return [
         'object' => \Streams\Ui\Components\Inputs\EditorInput::class,
         'markdown' => \Streams\Ui\Components\Inputs\MarkdownInput::class,
         // 'checkboxes' => \Streams\Ui\Components\Inputs\Checkboxes::class,
-        // 'relationship' => \Streams\Ui\Components\Inputs\Relationship::class,
+        'relationship' => \Streams\Ui\Components\Inputs\BasicInput::class,
 
         'range' => \Streams\Ui\Components\Inputs\RangeInput::class,
 
@@ -164,7 +164,7 @@ return [
             'component' => 'input',
             'type' => 'password',
         ],
-
+        
         /**
          * Button Variations
          */

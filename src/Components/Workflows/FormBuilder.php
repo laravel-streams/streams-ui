@@ -96,7 +96,11 @@ class FormBuilder extends Workflow
         $entry = $component->entry();
 
         foreach ($component->fields as &$field) {
-            $field['input']['value'] = $entry->{Arr::get($field, 'field')} ?? null;
+
+            $handle = Arr::get($field, 'field');
+            $instance = $component->stream()->fields->{$handle};
+
+            $field['input']['value'] = $entry->{$handle} ?? $instance->default($instance->config('default'));
         }
     }
 }

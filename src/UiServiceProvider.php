@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Config;
 use Streams\Ui\Support\BladeComponent;
 use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
-use Streams\Ui\Support\Facades\Breadcrumbs;
 
 class UiServiceProvider extends ServiceProvider
 {
@@ -25,6 +24,10 @@ class UiServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__ . '/../resources/public' => public_path('vendor/streams/ui'),
+        ], 'laravel-assets');
+
+        $this->publishes([
+            __DIR__ . '/../resources/streams' => public_path('streams'),
         ], 'laravel-assets');
 
         $this->registerConfig();
