@@ -1,6 +1,6 @@
 <div>
     <input {!! $component->htmlAttributes([
-        'id' => $component->name . '-input',
+        'id' => $component->id,
         'name' => $component->name,
         'type' => $component->type,
         'value' => $component->value,

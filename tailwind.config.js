@@ -4,10 +4,10 @@ module.exports = {
     ],
     safelist: [
         //'text-3xl',
-        {
-            pattern: /w-([0-9\/]+)/,
-            variants: ['lg'],
-        },
+        // {
+        //     pattern: /w-([0-9\/]+)/,
+        //     variants: ['lg'],
+        // },
     ],
     theme: {
         extend: {

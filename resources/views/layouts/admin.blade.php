@@ -90,7 +90,7 @@
             </div>
         </div>
 
-        {!! $slot !!}
+        @yield('content', $content ?? null)
 
         @ui('alerts', [
             'alerts' => Messages::get(),

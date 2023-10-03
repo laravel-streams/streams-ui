@@ -28,7 +28,7 @@ class UiServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__ . '/../resources/streams' => base_path('streams'),
-        ], 'laravel-assets');
+        ], 'laravel-streams');
 
         $this->registerConfig();
         $this->registerAdmin();
@@ -55,7 +55,8 @@ class UiServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        Assets::addPath('ui', 'vendor/streams/ui');
+        Assets::addPath('ui', 'vendor/streams/ui/resources');
+        Images::addPath('ui', 'vendor/streams/ui/resources');
 
         View::addNamespace('ui', __DIR__ . '/../resources/views');
 

@@ -102,6 +102,7 @@ return [
          */
         'admin' => \Streams\Ui\Components\Admin\AdminDashboard::class,
         'admin.menu' => \Streams\Ui\Components\Admin\AdminMenu::class,
+        'admin.login' => \Streams\Ui\Components\Admin\AdminLogin::class,
         'admin.navigation' => \Streams\Ui\Components\Admin\AdminNavigation::class,
 
         /**
