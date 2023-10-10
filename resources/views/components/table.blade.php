@@ -7,6 +7,18 @@
     {!! $slot !!}
     @else
 
+    @if ($component->filters)
+    <form method="GET">
+        <div class="table__filters flex space-x-2 my-4">
+            @foreach ($component->filters as $filter)
+            @ui(Arr::pull($filter, 'filter', 'table.filter'), $filter)
+            @endforeach
+            <button type="submit" class="button">Filter</button>
+            <a class="button" href="{{ Request::url() }}">Clear</a>
+        </div>
+    </form>
+    @endif
+
     <form {!! $component->htmlAttributes([
         //'action' => $component->action,
         //'method' => $component->method,
@@ -23,15 +35,6 @@
         ])
 
         {{ csrf_field() }}
-
-
-        @if ($component->filters)
-        <div class="table__filters flex space-x-2 my-4">
-            @foreach ($component->filters as $filter)
-            @ui(Arr::pull($filter, 'filter', 'table.filter'), $filter)
-            @endforeach
-        </div>
-        @endif
 
         @if ($component->views)
         <div class="table__views flex space-x-2 my-4">
