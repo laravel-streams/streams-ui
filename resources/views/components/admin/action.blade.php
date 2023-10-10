@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 <div>
 
     @ui('breadcrumbs')
@@ -22,3 +25,4 @@
         Unknown
     @endif
 </div>
+@endsection

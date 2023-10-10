@@ -23,6 +23,12 @@ class NavigationBuilder extends Workflow
     public function loadUiConfig(Navigation $component): void
     {
         $component->items = Config::get('streams.ui.admin.navigation', []);
+
+        foreach ($component->items as &$item) {
+            if (isset($item['route'])) {
+                URL::streams(Arr::pull($item, 'uri'), $item['route']);
+            }
+        }
     }
 
     public function loadStreamsConfig(Navigation $component): void

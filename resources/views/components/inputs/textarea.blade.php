@@ -9,5 +9,5 @@
         'disabled' => $component->disabled,
         'placeholder' => $component->placeholder,
         'rows' => $component->rows,
-    ]) !!}>{{ $component->value }}</textarea>
+    ]) !!}>{{ (is_null($component->value) || is_scalar($component->value)) ? $component->value : json_encode($component->value, JSON_PRETTY_PRINT) }}</textarea>
 </div>

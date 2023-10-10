@@ -5,7 +5,7 @@
             <li @class([
                 'font-bold' => $item['active'] ?? false,
             ])>
-                @ui(Arr::pull($item, 'component'), $item)
+                @ui(Arr::get($item, 'component'), $item)
             </li>
             @endforeach
         </ul>

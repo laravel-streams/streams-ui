@@ -32,7 +32,6 @@ class UiServiceProvider extends ServiceProvider
         ], 'laravel-streams');
 
         $this->registerConfig();
-        $this->registerAdmin();
 
         $this->app->singleton(\Streams\Ui\UiManager::class);
         $this->app->alias(\Streams\Ui\UiManager::class, 'ui');
@@ -56,6 +55,8 @@ class UiServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        $this->registerAdmin();
+        
         Assets::addPath('ui', 'vendor/streams/ui/resources');
         Images::addPath('ui', 'vendor/streams/ui/resources');
 
