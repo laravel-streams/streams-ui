@@ -4,8 +4,9 @@
         bootstrap="vendor/autoload.php"
         colors="true"
         testdox="true"
+        cacheResult="true"
         processIsolation="true" 
-        stopOnFailure="false">
+        stopOnFailure="true">
 
     <coverage>
         <include>

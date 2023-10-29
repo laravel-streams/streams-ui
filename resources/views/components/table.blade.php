@@ -1,6 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
 <div class="table__wrapper">
 
     @if (isset($slot))
@@ -124,4 +121,3 @@
     </form>
     @endif
 </div>
-@endsection

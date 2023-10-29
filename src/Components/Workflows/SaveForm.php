@@ -21,9 +21,7 @@ class SaveForm extends Workflow
 
     public function saveForm(Form $component)
     {
-        if (!$stream = $component->stream()) {
-            throw new \Exception('No stream defined.');
-        }
+        $stream = $component->stream();
 
         $data = Request::post();
 

@@ -49,7 +49,7 @@ class ComponentTest extends UiTestCase
 
     public function test_it_supports_layouts()
     {
-        $layout = ViewTemplate::path('<div>ADMIN: {!! $slot !!}</div>');
+        $layout = ViewTemplate::path('<div>ADMIN: {!! $content !!}</div>');
 
         UI::component('test-component', ComponentTestComponent::class);
 
