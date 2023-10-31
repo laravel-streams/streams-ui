@@ -12,7 +12,8 @@
         }
     ],
     "require": {
-        "streams/core": "^2.0"
+        "streams/core": "^2.0",
+        "livewire/livewire": "^3.0"
     },
     "require-dev": {
         "streams/testing": "^1.0"
