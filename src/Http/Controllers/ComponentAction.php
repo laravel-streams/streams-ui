@@ -4,15 +4,15 @@ namespace Streams\Ui\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Streams\Ui\Support\Facades\UI;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Response;
+use Symfony\Component\HttpFoundation\Response as ResponseObject;
 
 class ComponentAction extends Controller
 {
     public function __invoke($component, $method = 'render')
     {
-        $parameters = json_decode(Cache::get('ui::component.' . $component), true);
+        $parameters = json_decode(Request::get('data'), true);
 
         if (!$parameters && UI::exists($component)) {
             $parameters = [
@@ -30,17 +30,17 @@ class ComponentAction extends Controller
 
         $response = $component->{$method}();
 
-        if ($response instanceof Response) {
+        if ($response instanceof ResponseObject) {
             return $response;
         }
 
-        if (Request::expectsJson()) {
+        //if (Request::expectsJson()) {
             return Response::json([
                 'dom' => (string) $component->render(),
                 'data' => $component->toArray(),
             ]);
-        } else {
-            return $component->render();
-        }
+        // } else {
+        //     return $component->render();
+        // }
     }
 }

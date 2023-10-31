@@ -23,7 +23,7 @@ export default class Submit /*extends Event*/ {
             const action = this.directive.element.getAttribute('action');
 
             // @todo Support javascript: methods.
-            const url = action ? action : '/cp/ui/' + this.directive.component.name + '/' + method;
+            const url = action ? action : '/streams/ui/' + this.directive.component.name + '/' + method;
 
             const response = await fetch(url, {
                 method: 'POST',

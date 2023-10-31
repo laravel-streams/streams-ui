@@ -19,7 +19,7 @@ export default class Listener /*extends Event*/ {
 
             const params = new URLSearchParams(this.directive.component.data);
 
-            const response = await fetch('/cp/ui/' + this.directive.component.name + '/' + method + '?' + params);
+            const response = await fetch('/streams/ui/' + this.directive.component.name + '/' + method + '?' + params);
 
             const json = await response.json();
 

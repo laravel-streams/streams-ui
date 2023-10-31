@@ -6,7 +6,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Collective\Html\HtmlFacade;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Cache;
 use Streams\Core\Support\Facades\Hydrator;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Core\Support\Traits\Prototype;
@@ -37,7 +36,7 @@ abstract class Component
         if ($data = Arr::pull($attributes, 'parse_data')) {
             $attributes = Arr::parse($attributes, $data);
         }
-        
+
         //$this->syncPrototypePropertyAttributes();
         $this->syncOriginalPrototypeAttributes($attributes);
 
@@ -65,26 +64,16 @@ abstract class Component
         } else {
             $output = View::make($this->template, $payload);
         }
-        
+
         if ($this->layout) {
             $output = View::make($this->layout, [
                 'content' => $output,
             ]);
         }
 
-        $this->persist();
-
         $rendered = $output->render();
 
         return $this->finishRender($rendered);
-    }
-
-    public function persist(int $ttl = null)
-    {
-        Cache::put('ui::component.' . $this->id, json_encode([
-            'component' => static::class,
-            'attributes' => Hydrator::dehydrate($this),
-        ]), $ttl ?: 1800); // 30 minutes
     }
 
     protected function build()
@@ -112,9 +101,32 @@ abstract class Component
     {
         $attributes = HtmlFacade::attributes([
             'ui:id' => $this->id,
-            //'ui:name' => $this->name(),
-            //'ui:data' => json_encode(Hydrator::dehydrate($this)),
+            'ui:name' => $this->id,
         ]);
+
+        $data = Hydrator::dehydrate($this, [
+            'template',
+            'builder',
+            'layout',
+            'handle',
+            'id',
+        ]);
+
+        $data['component'] = addslashes(static::class);
+        
+        $attributes .= ' ui:data="' . e(json_encode($data)) . '"';
+
+        // $attributes = HtmlFacade::attributes([
+        //     'ui:id' => $this->id,
+        //     'ui:name' => $this->id,
+        //     'ui:data' => json_encode(Hydrator::dehydrate($this, [
+        //         'template',
+        //         'builder',
+        //         'layout',
+        //         'handle',
+        //         'id',
+        //     ])),
+        // ]);
 
         $rendered = preg_replace('/(<div\b[^><]*)>/i', '$1 ' . $attributes . '>', $rendered, 1);
 
@@ -124,5 +136,13 @@ abstract class Component
     public function __toString()
     {
         return $this->render();
+    }
+
+    public function toArray(): array
+    {
+        return Hydrator::dehydrate($this, [
+            'builder',
+            'layout',
+        ]);
     }
 }
