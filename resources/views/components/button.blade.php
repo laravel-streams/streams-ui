@@ -1,20 +1,11 @@
 <div>
-    <{{ $component->tag }} {!! $component->htmlAttributes([
-        'href' => $component->url(),
-        'name' => $component->name,
-        'type' => $component->type,
-        'disabled' => $component->disabled,
-        'class' => [
-            'btn',
-            'btn-' . $component->size,
-            'btn-' . $component->color,
-            'btn-outline' => $component->outline,
-        ],
+    <button {!! $this->htmlAttributes([
+        'href' => $this->url,
+        'name' => $this->name,
+        'type' => $this->type,
+        'value' => $this->value,
+        'disabled' => $this->disabled,
     ]) !!}>
-        @if (isset($slot))
-            {!! $slot !!}
-        @else
-            {{ __($component->text) }}
-        @endif
-    </{{ $component->tag }}>
+        {{ __($this->text) }}
+    </button>
 </div>

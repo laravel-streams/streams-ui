@@ -1,23 +1,27 @@
 <div>
 
-    {{-- This needs tucked away. --}}
-    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+    @php
+        $base = 'https://cdn.jsdelivr.net/npm/@yaireo/tagify';
+    @endphp
 
-    <input {!! $component->htmlAttributes([
-            'type' => 'text',
-            'name' => $component->name,
-            'required' => $component->required,
-            'readonly' => $component->readonly,
-            'disabled' => $component->disabled,
-            'placeholder' => $component->placeholder,
-            'value' => implode(',', (array) $component->value),
+    {{-- This needs tucked away. --}}
+    <script src="{{ $base }}"></script>
+    <script src="{{ $base }}/dist/tagify.polyfills.min.js"></script>
+    <link href="{{ $base }}/dist/tagify.css" rel="stylesheet" type="text/css" />
+    
+    <input {!! $this->htmlAttributes([
+        'type' => 'text',
+        'name' => $this->name,
+        'required' => $this->required,
+        'readonly' => $this->readonly,
+        'disabled' => $this->disabled,
+        'placeholder' => $this->placeholder,
+        'value' => implode(',', (array) $this->value),
     ]) !!}>
 
     <script>
         
-        var input = document.querySelector('[name="{{ $component->name }}"]');
+        var input = document.querySelector('[name="{{ $this->name }}"]');
 
         new Tagify(input);
         

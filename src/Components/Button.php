@@ -2,19 +2,44 @@
 
 namespace Streams\Ui\Components;
 
+use Streams\Core\Field\Field;
+use Streams\Ui\Components\Anchor;
+
 class Button extends Anchor
 {
-    public string $template = 'ui::components.button';
-
-    public string $tag = 'button';
-
     public ?string $name = null;
-    
-    public ?string $type = null; // button, submit, reset
-    
+
+    #[Field([
+        'type' => 'select',
+        'config' => [
+            'options' => [
+                'submit' => 'Submit',
+                'reset' => 'Reset',
+                'button' => 'Button',
+            ],
+        ],
+    ])]
+    public string $type = 'button';
+
     public bool $disabled = false;
-    
+
     public $value = null;
 
-    public string $size = 'md'; // xs, sm, md, lg
+    // #[Field([
+    //     'type' => 'select',
+    //     'config' => [
+    //         'options' => [
+    //             'xs' => 'XS',
+    //             'sm' => 'SM',
+    //             'md' => 'MD',
+    //             'lg' => 'LG',
+    //         ],
+    //     ],
+    // ])]
+    // public string $size = 'md';
+
+    public function render()
+    {
+        return view('ui::components.button');
+    }
 }

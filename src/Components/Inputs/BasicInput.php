@@ -6,8 +6,6 @@ use Streams\Ui\Components\Input;
 
 class BasicInput extends Input
 {
-    public string $template = 'ui::components.inputs.basic';
-    
     public int|string|null $min = null;
     public int|string|null $max = null;
     
@@ -25,17 +23,9 @@ class BasicInput extends Input
         'datetime-local' => 'Y-m-d\TH:i:s',
     ];
 
-    public function value()
+    public function render()
     {
-        if (!$this->value) {
-            return $this->value;
-        }
-
-        if (in_array($this->type, array_keys($this->dates)) && $this->value instanceof \DateTime) {
-            return $this->value->format($this->dates[$this->type]);
-        }
-
-        return $this->value;
+        return view('ui::components.inputs.basic');        
     }
 
     public function attributeName($base)

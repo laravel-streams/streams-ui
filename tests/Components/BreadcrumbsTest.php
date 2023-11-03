@@ -2,18 +2,19 @@
 
 namespace Streams\Ui\Tests\Components;
 
+use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
-use Streams\Ui\Support\Facades\UI;
-use Streams\Ui\Support\Facades\Breadcrumbs;
+use Streams\Ui\Components\Breadcrumbs;
+use Streams\Ui\Support\Facades\Breadcrumbs as BreadcrumbsFacade;
 
 class BreadcrumbsTest extends UiTestCase
 {
     public function test_it_renders_breadcrumbs()
     {
-        Breadcrumbs::put('/', 'Home');
-        Breadcrumbs::put('/about', 'About');
+        BreadcrumbsFacade::put('/', 'Home');
+        BreadcrumbsFacade::put('/about', 'About');
 
-        UI::test('breadcrumbs')
+        Livewire::test(Breadcrumbs::class)
             ->assertSee(['Home', 'About']);
     }
 }

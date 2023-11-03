@@ -7,17 +7,20 @@ use Illuminate\Support\Collection;
 
 class TagsInput extends Input
 {
-    public string $template = 'ui::components.inputs.tags';
-
     public ?int $min = null;
     public ?int $max = null;
     
     public ?string $placeholder = null;
 
-    public function post()
+    public function render()
     {
-        $value = parent::post();
-
-        return (new Collection(json_decode($value, true)))->pluck('value')->all();
+        return view('ui::components.inputs.tags');
     }
+
+    // public function post()
+    // {
+    //     $value = parent::post();
+
+    //     return (new Collection(json_decode($value, true)))->pluck('value')->all();
+    // }
 }

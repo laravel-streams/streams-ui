@@ -1,20 +1,20 @@
 <div>
-    <select {!! $component->htmlAttributes([
-        'id' => $component->id,
-        'name' => $component->name,
-        'required' => $component->required,
-        'readonly' => $component->readonly,
-        'disabled' => $component->disabled,
+    <select {!! $this->htmlAttributes([
+        'id' => $this->id,
+        'name' => $this->name,
+        'required' => $this->required,
+        'readonly' => $this->readonly,
+        'disabled' => $this->disabled,
     ]) !!}>
 
-        @if (!$component->required)
+        @if (!$this->required)
         <option value="">
-            {{ $component->placeholder ? __($component->placeholder) : '---' }}
+            {{ $this->placeholder ? __($this->placeholder) : '---' }}
         </option>
         @endif
 
-        @foreach ($component->options() as $key => $value)
-        <option {{ $key == $component->value ? 'selected' : null }} value="{{ $key }}">{{ $value }}</option>
+        @foreach ($this->options() as $key => $value)
+        <option {{ $key == $this->value ? 'selected' : null }} value="{{ $key }}">{{ $value }}</option>
         @endforeach
         
     </select>

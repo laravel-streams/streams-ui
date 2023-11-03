@@ -2,16 +2,16 @@
 
 namespace Streams\Ui\Tests\Components;
 
+use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
-use Streams\Ui\Support\Facades\UI;
 
 class BasicInputTest extends UiTestCase
 {
     public function test_it_renders_an_input()
     {
-        UI::test('input', [
+        Livewire::test('input', [
             'name' => 'example',
-        ])->assertSee([
+        ])->assertSeeHtml([
             'type="text"',
             'name="example"',
         ]);
@@ -19,10 +19,10 @@ class BasicInputTest extends UiTestCase
 
     public function test_it_suports_input_types()
     {
-        UI::test('input', [
+        Livewire::test('input', [
             'name' => 'favorite',
             'type' => 'color',
-        ])->assertSee([
+        ])->assertSeeHtml([
             'type="color"',
             'name="favorite"',
         ]);
@@ -30,22 +30,22 @@ class BasicInputTest extends UiTestCase
 
     public function test_it_suports_min_max()
     {
-        UI::test('input', [
+        Livewire::test('input', [
             'name' => 'example',
             'min' => 5,
             'max' => 25,
-        ])->assertSee([
+        ])->assertSeeHtml([
             'minlength="5"',
             'maxlength="25"',
             'name="example"',
         ]);
 
-        UI::test('input', [
+        Livewire::test('input', [
             'name' => 'example',
             'type' => 'number',
             'min' => 5,
             'max' => 25,
-        ])->assertSee([
+        ])->assertSeeHtml([
             'min="5"',
             'max="25"',
             'type="number"',

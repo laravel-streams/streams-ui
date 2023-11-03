@@ -2,18 +2,21 @@
 
 namespace Streams\Ui\Components\Traits;
 
-use Streams\Core\Field\Field;
-
 trait HasField
 {
-    public function field(): Field|null
+    public function bootHasField(): void
     {
         if (!$this->stream) {
-            return null;
+            return;
         }
         
         $key = __METHOD__ . '.' . $this->stream . '.' . $this->field;
 
-        return $this->once($key, fn ()  => $this->stream()->fields->{$this->field});
+        $this->field = $this->once($key, fn ()  => $this->stream->fields->{$this->field});
+    }
+
+    public function field()
+    {
+        return $this->field;
     }
 }

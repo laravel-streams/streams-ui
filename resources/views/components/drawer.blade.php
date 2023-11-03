@@ -8,8 +8,8 @@
     </div>
 
     <div x-show="open" class="bg-white inset-0 w-1/3 transform">
-        {!! $slot ?? view('ui::support.components', [
+        {{-- {!! $slot ?? view('ui::support.components', [
         'component' => $component,
-        ]) !!}
+        ]) !!} --}}
     </div>
 </div>

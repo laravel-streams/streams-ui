@@ -10,6 +10,7 @@ abstract class UiTestCase extends TestCase
     {
         return [
             \Collective\Html\HtmlServiceProvider::class,
+            \Livewire\LivewireServiceProvider::class,
             \Streams\Ui\UiServiceProvider::class,
         ];
     }

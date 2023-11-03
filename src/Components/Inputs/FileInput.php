@@ -6,5 +6,8 @@ use Streams\Ui\Components\Input;
 
 class FileInput extends Input
 {
-    public string $template = 'ui::components.inputs.file';
+    public function render()
+    {
+        return view('ui::components.inputs.file');
+    }
 }

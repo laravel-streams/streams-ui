@@ -1,35 +1,35 @@
-<div x-data="{value: '{{ $component->value }}'}">
-    <input {!! $component->htmlAttributes([
-        'name' => $component->name,
-        'type' => $component->type,
-        'value' => $component->value,
-        'readonly' => $component->readonly,
-        'disabled' => $component->disabled,
-        'placeholder' => $component->placeholder,
-        'required' => $component->required ?? $component->field()?->isRequired(),
-        'minlength' => $component->min ?? $component->field()?->ruleParameter('min'),
-        'maxlength' => $component->max ?? $component->field()?->ruleParameter('max'),
+<div x-data="{value: '{{ $this->value }}'}">
+    <input {!! $this->htmlAttributes([
+        'name' => $this->name,
+        'type' => $this->type,
+        'value' => $this->value,
+        'readonly' => $this->readonly,
+        'disabled' => $this->disabled,
+        'placeholder' => $this->placeholder,
+        'required' => $this->required ?? $this->field()?->isRequired(),
+        'minlength' => $this->min ?? $this->field()?->ruleParameter('min'),
+        'maxlength' => $this->max ?? $this->field()?->ruleParameter('max'),
     ]) !!}
     x-model="value"
     x-on:keyup="value = String(value)
         .toLowerCase()
-        .replace(/ /g,'{{ $component->separator }}')
-        .replace(/[^\w-_]+/g,'{{ $component->separator }}')
+        .replace(/ /g,'{{ $this->separator }}')
+        .replace(/[^\w-_]+/g,'{{ $this->separator }}')
         // Collapse dashes
-        .replace(/-+/g, '{{ $component->separator }}');">
+        .replace(/-+/g, '{{ $this->separator }}');">
 </div>
 
 {{-- @todo 
-@if ($component->field()?->config('slugify'))
+@if ($this->field()?->config('slugify'))
 <script>
-    document.getElementById('{{ $component->field()?->config('slugify') }}-input')
+    document.getElementById('{{ $this->field()?->config('slugify') }}-input')
         .addEventListener('keydown', function() {
-            document.getElementById('{{ $component->id }}-input'). = String(this.value)
+            document.getElementById('{{ $this->id }}-input'). = String(this.value)
                 .toLowerCase()
-                .replace(/ /g,'{{ $component->separator }}')
-                .replace(/[^\w-_]+/g,'{{ $component->separator }}')
+                .replace(/ /g,'{{ $this->separator }}')
+                .replace(/[^\w-_]+/g,'{{ $this->separator }}')
                 // Collapse dashes
-                .replace(/-+/g, '{{ $component->separator }}');
+                .replace(/-+/g, '{{ $this->separator }}');
                 
     });
 </script>

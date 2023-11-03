@@ -1,5 +1,6 @@
 <div>
-    <a {!! $component->htmlAttributes([
-        'href' => $component->url(),
-    ]) !!}>{{ $component->text }}</a>
+    <a {!! $this->htmlAttributes([
+        'href' => $this->url,
+    ]) !!}>{{ $text }}</a>
+    {{ $text }}
 </div>

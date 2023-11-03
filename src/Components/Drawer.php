@@ -2,12 +2,10 @@
 
 namespace Streams\Ui\Components;
 
-use Streams\Ui\Support\Component;
+use Livewire\Component;
 
 class Drawer extends Component
 {
-    public string $template = 'ui::components.drawer';
-
     public array $components = [];
     
     public bool $open = false;
@@ -16,6 +14,11 @@ class Drawer extends Component
         'showDrawer' => 'show',
         'hideDrawer' => 'hide',
     ];
+
+    public function render()
+    {
+        return view('ui::components.drawer');
+    }
  
     public function show()
     {

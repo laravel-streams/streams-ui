@@ -2,22 +2,25 @@
 
 namespace Streams\Ui\Components;
 
-use Streams\Ui\Support\Component;
+use Livewire\Component;
 use Streams\Ui\Components\Traits\HasAttributes;
 
 class Avatar extends Component
 {
     use HasAttributes;
 
-    public string $template = 'ui::components.avatar';
-
     public ?string $src = null;
     
     public array $query = [];
 
-    public array $attributes = [];
+    public array $htmlAttributes = [];
 
-    public function src(array $extra = [])
+    public function render()
+    {
+        return view('ui::components.avatar');
+    }
+
+    public function src()
     {
         if (!$src = $this->src) { 
             return null;
@@ -27,12 +30,8 @@ class Avatar extends Component
             $src = 'https://gravatar.com/avatar/' . md5($src);
         }
 
-        if ($extra) {
-            $extra = array_replace_recursive($this->query, $extra);
-        }
-
-        if ($extra || $this->query) {
-            $src = $src . '?' . http_build_query($extra ?: $this->query);
+        if ($this->query) {
+            $src = $src . '?' . http_build_query($this->query);
         }
 
         return $src;

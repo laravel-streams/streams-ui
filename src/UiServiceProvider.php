@@ -2,6 +2,7 @@
 
 namespace Streams\Ui;
 
+use Livewire\Livewire;
 use Illuminate\View\Factory;
 use Illuminate\Support\Collection;
 use Streams\Ui\Support\Facades\UI;
@@ -50,6 +51,10 @@ class UiServiceProvider extends ServiceProvider
 
         foreach (config('streams.ui.components') as $name => $class) {
             UI::component($name, $class);
+        }
+
+        foreach (config('streams.ui.livewire') as $name => $class) {
+            Livewire::component($name, $class);
         }
     }
 

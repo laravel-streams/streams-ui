@@ -2,6 +2,26 @@
 
 return [
 
+    'livewire' => [
+        'anchor' => \Streams\Ui\Components\Anchor::class,
+        'avatar' => \Streams\Ui\Components\Avatar::class,
+        'button' => \Streams\Ui\Components\Button::class,
+        'drawer' => \Streams\Ui\Components\Drawer::class,
+        'breadcrumbs' => \Streams\Ui\Components\Breadcrumbs::class,
+        'collapsable' => \Streams\Ui\Components\Collapsable::class,
+
+        // Inputs
+        'file' => \Streams\Ui\Components\Inputs\FileInput::class,
+        'slug' => \Streams\Ui\Components\Inputs\SlugInput::class,
+        'tags' => \Streams\Ui\Components\Inputs\TagsInput::class,
+        'input' => \Streams\Ui\Components\Inputs\BasicInput::class,
+        'editor' => \Streams\Ui\Components\Inputs\EditorInput::class,
+        'select' => \Streams\Ui\Components\Inputs\SelectInput::class,
+        'checkbox' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
+        'markdown' => \Streams\Ui\Components\Inputs\MarkdownInput::class,
+        'textarea' => \Streams\Ui\Components\Inputs\TextareaInput::class,
+    ],
+
     'admin' => [
         'prefix' => 'admin',
         'enabled' => env('STREAMS_ADMIN_ENABLED', true),
@@ -50,8 +70,7 @@ return [
         'collapsable' => \Streams\Ui\Components\Collapsable::class,
 
         'avatar' => \Streams\Ui\Components\Avatar::class,
-        'anchor' => \Streams\Ui\Components\Anchor::class,
-        'button' => \Streams\Ui\Components\Button::class,
+        
         'indicator' => \Streams\Ui\Components\Indicator::class,
         'breadcrumbs' => \Streams\Ui\Components\Breadcrumbs::class,
 
@@ -82,10 +101,6 @@ return [
         'number' => \Streams\Ui\Components\Inputs\NumberInput::class,
         'decimal' => \Streams\Ui\Components\Inputs\DecimalInput::class,
         'integer' => \Streams\Ui\Components\Inputs\IntegerInput::class,
-
-        'select' => \Streams\Ui\Components\Inputs\SelectInput::class,
-
-        'input' => \Streams\Ui\Components\Inputs\BasicInput::class,
 
         'tags' => \Streams\Ui\Components\Inputs\TagsInput::class,
 

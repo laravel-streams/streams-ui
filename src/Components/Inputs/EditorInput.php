@@ -6,9 +6,13 @@ use Streams\Ui\Components\Input;
 
 class EditorInput extends Input
 {
-    public string $template = 'ui::components.inputs.editor';
+    // https://microsoft.github.io/monaco-editor/typedoc/modules/languages.html
+    public string $language = 'html';
 
-    public string $language = 'html'; // https://microsoft.github.io/monaco-editor/typedoc/modules/languages.html
+    public function render()
+    {
+        return view('ui::components.inputs.editor');
+    }
 
     public function boot()
     {

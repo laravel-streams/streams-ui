@@ -18,24 +18,24 @@
             }
         };
 
-        var id = '{{ $component->id }}-editor';
+        var id = '{{ $this->id }}-editor';
 
         require(["vs/editor/editor.main"], function () {
             
             let editor = monaco.editor.create(document.getElementById(id), {
-                value: document.getElementById('{{ $component->id }}-textarea').value,
-                language: '{{ $component->language ?: "html" }}',
+                value: document.getElementById('{{ $this->id }}-textarea').value,
+                language: '{{ $this->language ?: "html" }}',
                 theme: 'vs-dark', // Use configured/system
             });
             
             document.getElementById(id).addEventListener('keyup', function() {
-                document.getElementById('{{ $component->id }}-textarea').value = editor.getValue();
+                document.getElementById('{{ $this->id }}-textarea').value = editor.getValue();
             });
         });
     </script>
 
-    <div id="{{ $component->id }}-editor" style="min-height: 200px;"></div>
+    <div id="{{ $this->id }}-editor" style="min-height: 200px;"></div>
 
-    <textarea id="{{ $component->id }}-textarea" hidden {!! $component->htmlAttributes() !!}>{!! $component->value !!}</textarea>
+    <textarea id="{{ $this->id }}-textarea" hidden {!! $this->htmlAttributes() !!}>{!! $this->value !!}</textarea>
 
 </div>

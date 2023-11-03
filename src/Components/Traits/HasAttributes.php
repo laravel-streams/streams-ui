@@ -6,9 +6,9 @@ use Collective\Html\HtmlFacade;
 
 trait HasAttributes
 {
-    public function attributes(array $attributes = []): array
+    public function attributesArray(array $attributes = []): array
     {
-        $attributes = array_merge_recursive($this->attributes, $attributes);
+        $attributes = array_merge_recursive($this->htmlAttributes, $attributes);
 
         if (array_key_exists('class', $attributes)) {
             $attributes['class'] = $this->classAttribute((array) $attributes['class']);
@@ -19,7 +19,7 @@ trait HasAttributes
 
     public function htmlAttributes(array $attributes = []): string
     {
-        return HtmlFacade::attributes($this->attributes($attributes));
+        return HtmlFacade::attributes($this->attributesArray($attributes));
     }
 
     protected function classAttribute(array $class = []): string

@@ -3,17 +3,17 @@
         <input
             value="0"
             type="hidden"
-            name="{{ $component->name }}">
+            name="{{ $this->name }}">
             
-        <input {!! $component->htmlAttributes([
+        <input {!! $this->htmlAttributes([
             'value' => true,
             'type' => 'checkbox',
-            'id' => $component->id,
-            'name' => $component->name,
-            'required' => $component->required,
-            'readonly' => $component->readonly,
-            'disabled' => $component->disabled,
-            'checked' => $component->value == true,
-        ]) !!}> {{ __($component->label) }}
+            'id' => $this->id,
+            'name' => $this->name,
+            'required' => $this->required,
+            'readonly' => $this->readonly,
+            'disabled' => $this->disabled,
+            'checked' => $this->value == true,
+        ]) !!}> {{ __($this->label) }}
     </label>
 </div>

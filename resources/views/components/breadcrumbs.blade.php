@@ -1,11 +1,11 @@
 <div>
-    @if ($component->items)    
-    <div class="px-4 py-4 text-sm breadcrumbs">
+    @if ($items)    
+    <div class="breadcrumbs">
         <ul class="flex space-x-2">
-            @foreach ($component->items as $url => $item)
+            @foreach ($items as $url => $item)
             @if (!$loop->last)
-            <li><a class="underline" href="{{ URL::to($url) }}">{{ __($item) }}</a></li>
-            <li class="opacity-25">/</li>
+            <li><a href="{{ URL::to($url) }}">{{ __($item) }}</a></li>
+            <li>/</li>
             @else
             <li class="active">{{ __($item) }}</li>
             @endif

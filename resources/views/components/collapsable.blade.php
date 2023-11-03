@@ -1,13 +1,13 @@
 <div x-data="{open: false}">
 
     <div @click="open=!open">
-        {{ $component->text }}
+        {{ $this->text }}
     </div>
 
     <div x-show="open">
-        {!! $slot ?? view('ui::support.components', [
-            'component' => $component,
-        ]) !!}
+        {{-- {!! $slot ?? view('ui::support.components', [
+            'component' => $this,
+        ]) !!} --}}
     </div>
 
 </div>

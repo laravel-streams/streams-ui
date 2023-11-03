@@ -2,15 +2,15 @@
 
 namespace Streams\Ui\Tests\Components;
 
+use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
-use Streams\Ui\Support\Facades\UI;
 
 class TagsInputTest extends UiTestCase
 {
     public function test_it_renders()
     {
-        UI::test('tags', [
+        Livewire::test('tags', [
             'name' => 'example',
-        ])->assertSee('type="text"');
+        ])->assertSeeHtml('type="text"');
     }
 }

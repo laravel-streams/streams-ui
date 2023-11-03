@@ -1,5 +1,5 @@
 <div>
-    <img {!! $component->htmlAttributes([
-        'src' => $component->src(),
+    <img {!! $this->htmlAttributes([
+        'src' => $this->src(),
     ]) !!}/>
 </div>

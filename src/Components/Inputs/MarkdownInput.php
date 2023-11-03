@@ -4,5 +4,8 @@ namespace Streams\Ui\Components\Inputs;
 
 class MarkdownInput extends TextareaInput
 {
-    public string $template = 'ui::components.inputs.markdown';
+    public function render()
+    {
+        return view('ui::components.inputs.markdown');
+    }
 }

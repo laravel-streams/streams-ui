@@ -14,7 +14,7 @@
         });
     }
 }" class="prose">
-    <textarea {!! $component->htmlAttributes([
+    <textarea {!! $this->htmlAttributes([
         'x-ref' => 'editor',
-        ]) !!}>{{ $component->value }}</textarea>
+        ]) !!}>{{ $this->value }}</textarea>
 </div>

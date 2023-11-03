@@ -1,15 +1,15 @@
 <div>
-    <input {!! $component->htmlAttributes([
-        'id' => $component->id,
-        'name' => $component->name,
-        'type' => $component->type,
-        'step' => $component->step,
-        'value' => $component->value(),
-        'readonly' => $component->readonly,
-        'disabled' => $component->disabled,
-        'required' => $component->required,
-        'placeholder' => $component->placeholder,
-        $component->attributeName('min') => $component->min,
-        $component->attributeName('max') => $component->max,
+    <input {!! $this->htmlAttributes([
+        'id' => $this->id,
+        'name' => $this->name,
+        'type' => $this->type,
+        'step' => $this->step,
+        'value' => $this->value,
+        'readonly' => $this->readonly,
+        'disabled' => $this->disabled,
+        'required' => $this->required,
+        'placeholder' => $this->placeholder,
+        $this->attributeName('min') => $this->min,
+        $this->attributeName('max') => $this->max,
     ]) !!}>    
 </div>

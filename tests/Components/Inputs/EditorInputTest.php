@@ -2,27 +2,27 @@
 
 namespace Streams\Ui\Tests\Components;
 
+use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
-use Streams\Ui\Support\Facades\UI;
 
 class EditorInputTest extends UiTestCase
 {
     public function test_it_renders()
     {
-        UI::test('editor', [
+        Livewire::test('editor', [
             'name' => 'example',
         ])->assertSee('MonacoEnvironment');
     }
 
     public function test_it_supports_objects()
     {
-        UI::test('editor', [
+        Livewire::test('editor', [
             'name' => 'example',
             'value' => (object) [
                 'foo' => 'bar',
             ],
         ])
         ->assertSee('MonacoEnvironment')
-        ->assertSee('"foo": "bar"');
+        ->assertSeeHtml('"foo": "bar"');
     }
 }
