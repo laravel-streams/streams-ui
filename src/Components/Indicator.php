@@ -2,11 +2,14 @@
 
 namespace Streams\Ui\Components;
 
-use Streams\Ui\Support\Component;
+use Livewire\Component;
 
 class Indicator extends Component
 {
-    public string $template = 'ui::components.indicator';
-
     public ?string $text = null;
+
+    public function render()
+    {
+        return view('ui::components.indicator');
+    }
 }

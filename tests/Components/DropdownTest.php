@@ -2,14 +2,15 @@
 
 namespace Streams\Ui\Tests\Components;
 
+use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
-use Streams\Ui\Support\Facades\UI;
+use Streams\Ui\Components\Dropdown;
 
 class DropdownTest extends UiTestCase
 {
     public function test_it_renders()
     {
-        UI::test('dropdown', [
+        Livewire::test(Dropdown::class, [
             'toggle' => [
                 [
                     'component' => 'button',
@@ -24,7 +25,7 @@ class DropdownTest extends UiTestCase
                 ],
             ],
         ])
-        ->assertSee('Dropdown Toggle')
-        ->assertSee('Anchor 1');
+            ->assertSee('Dropdown Toggle')
+            ->assertSee('Anchor 1');
     }
 }

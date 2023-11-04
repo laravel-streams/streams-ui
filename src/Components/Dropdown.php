@@ -2,13 +2,16 @@
 
 namespace Streams\Ui\Components;
 
-use Streams\Ui\Support\Component;
+use Livewire\Component;
 
 class Dropdown extends Component
 {
-    public string $template = 'ui::components.dropdown';
-
     public array $toggle = [];
     
     public array $components = [];
+
+    public function render()
+    {
+        return view('ui::components.dropdown');
+    }
 }

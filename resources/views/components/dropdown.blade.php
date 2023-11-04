@@ -2,14 +2,14 @@
 
     <div x-on:click="open=!open">
         {!! view('ui::support.components', [
-        'component' => $component,
+        'component' => $this,
         'name' => 'toggle',
         ]) !!}
     </div>
 
     <div x-show="open" class="absolute">
         {!! $slot ?? view('ui::support.components', [
-        'component' => $component,
+        'component' => $this,
         ]) !!}
     </div>
 

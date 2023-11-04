@@ -2,13 +2,15 @@
 
 namespace Streams\Ui\Tests\Components;
 
+use Livewire\Livewire;
+use Streams\Ui\Components\Tabs;
 use Streams\Ui\Tests\UiTestCase;
-use Streams\Ui\Support\Facades\UI;
 
 class TabsTest extends UiTestCase
 {
     public function test_it_renders()
     {
-        UI::test('tabs')->assertSee('<nav');
+        Livewire::test(Tabs::class)
+            ->assertSeeHtml('<nav');
     }
 }

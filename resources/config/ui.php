@@ -3,10 +3,19 @@
 return [
 
     'livewire' => [
+        'tabs' => \Streams\Ui\Components\Tabs::class,
+        'menu' => \Streams\Ui\Components\Menu::class,
+        'modal' => \Streams\Ui\Components\Modal::class,
+        'alerts' => \Streams\Ui\Components\Alerts::class,
         'anchor' => \Streams\Ui\Components\Anchor::class,
         'avatar' => \Streams\Ui\Components\Avatar::class,
         'button' => \Streams\Ui\Components\Button::class,
         'drawer' => \Streams\Ui\Components\Drawer::class,
+        'drawer' => \Streams\Ui\Components\Drawer::class,
+        'content' => \Streams\Ui\Components\Content::class,
+        'dropdown' => \Streams\Ui\Components\Dropdown::class,
+        'indicator' => \Streams\Ui\Components\Indicator::class,
+        'navigation' => \Streams\Ui\Components\Navigation::class,
         'breadcrumbs' => \Streams\Ui\Components\Breadcrumbs::class,
         'collapsable' => \Streams\Ui\Components\Collapsable::class,
 
@@ -15,11 +24,24 @@ return [
         'slug' => \Streams\Ui\Components\Inputs\SlugInput::class,
         'tags' => \Streams\Ui\Components\Inputs\TagsInput::class,
         'input' => \Streams\Ui\Components\Inputs\BasicInput::class,
+        'range' => \Streams\Ui\Components\Inputs\RangeInput::class,
         'editor' => \Streams\Ui\Components\Inputs\EditorInput::class,
         'select' => \Streams\Ui\Components\Inputs\SelectInput::class,
+        'toggle' => \Streams\Ui\Components\Inputs\ToggleInput::class,
         'checkbox' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
         'markdown' => \Streams\Ui\Components\Inputs\MarkdownInput::class,
         'textarea' => \Streams\Ui\Components\Inputs\TextareaInput::class,
+        
+        
+        // 'number' => \Streams\Ui\Components\Inputs\NumberInput::class,
+        // 'decimal' => \Streams\Ui\Components\Inputs\DecimalInput::class,
+        // 'integer' => \Streams\Ui\Components\Inputs\IntegerInput::class,
+        
+        // 'object' => \Streams\Ui\Components\Inputs\EditorInput::class,
+        // 'checkboxes' => \Streams\Ui\Components\Inputs\Checkboxes::class,
+
+        // WIP Inputs
+        'relationship' => \Streams\Ui\Components\Inputs\BasicInput::class,
     ],
 
     'admin' => [
@@ -45,8 +67,7 @@ return [
      * @livewire($name, $class)
      */
     'components' => [
-        'alerts' => \Streams\Ui\Components\Alerts::class,
-
+        
         'form' => \Streams\Ui\Components\Form::class,
         'field' => \Streams\Ui\Components\Field::class,
 
@@ -57,59 +78,9 @@ return [
         'table.column' => \Streams\Ui\Components\Table\TableColumn::class,
         'table.filter' => \Streams\Ui\Components\Table\TableFilter::class,
 
-        'tabs' => \Streams\Ui\Components\Tabs::class,
-
-        'menu' => \Streams\Ui\Components\Menu::class,
-        // 'menu.item' => \Streams\Ui\Components\Menu\MenuItem::class,
-
-        'navigation' => \Streams\Ui\Components\Navigation::class,
-        // 'navigation.item' => \Streams\Ui\Components\Navigation\NavigationItem::class,
-
-        'content' => \Streams\Ui\Components\Content::class,
-        
-        'collapsable' => \Streams\Ui\Components\Collapsable::class,
-
-        'avatar' => \Streams\Ui\Components\Avatar::class,
-        
-        'indicator' => \Streams\Ui\Components\Indicator::class,
-        'breadcrumbs' => \Streams\Ui\Components\Breadcrumbs::class,
-
-        'dropdown' => \Streams\Ui\Components\Dropdown::class,
-        //'dropdown.item' => \Streams\Ui\Components\Dropdown\DropdownItem::class,
-
-        'drawer' => \Streams\Ui\Components\Drawer::class,
-        'modal' => \Streams\Ui\Components\Modal::class,
         //'modal.header' => \Streams\Ui\Components\Modal\ModalHeader::class,
         //'modal.content' => \Streams\Ui\Components\Modal\ModalContent::class,
         //'modal.footer' => \Streams\Ui\Components\Modal\ModalFooter::class,
-
-
-        /**
-         * Inputs are matched to
-         * one or more field types.
-         */
-        'slug' => \Streams\Ui\Components\Inputs\SlugInput::class,
-
-        'editor' => \Streams\Ui\Components\Inputs\EditorInput::class,
-        'object' => \Streams\Ui\Components\Inputs\EditorInput::class,
-        'markdown' => \Streams\Ui\Components\Inputs\MarkdownInput::class,
-        // 'checkboxes' => \Streams\Ui\Components\Inputs\Checkboxes::class,
-        'relationship' => \Streams\Ui\Components\Inputs\BasicInput::class,
-
-        'range' => \Streams\Ui\Components\Inputs\RangeInput::class,
-
-        'number' => \Streams\Ui\Components\Inputs\NumberInput::class,
-        'decimal' => \Streams\Ui\Components\Inputs\DecimalInput::class,
-        'integer' => \Streams\Ui\Components\Inputs\IntegerInput::class,
-
-        'tags' => \Streams\Ui\Components\Inputs\TagsInput::class,
-
-        'file' => \Streams\Ui\Components\Inputs\FileInput::class,
-
-        'toggle' => \Streams\Ui\Components\Inputs\ToggleInput::class,
-        'checkbox' => \Streams\Ui\Components\Inputs\CheckboxInput::class,
-
-        'textarea' => \Streams\Ui\Components\Inputs\TextareaInput::class,
 
 
         /**

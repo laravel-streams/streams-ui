@@ -2,13 +2,15 @@
 
 namespace Streams\Ui\Tests\Components;
 
+use Livewire\Livewire;
+use Streams\Ui\Components\Menu;
 use Streams\Ui\Tests\UiTestCase;
-use Streams\Ui\Support\Facades\UI;
 
 class MenuTest extends UiTestCase
 {
     public function test_it_renders()
     {
-        UI::test('menu')->assertSee('<menu');
+        Livewire::test(Menu::class)
+            ->assertSeeHtml('<menu');
     }
 }

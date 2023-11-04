@@ -1,14 +1,14 @@
 <div>
-    <input {!! $component->htmlAttributes([
+    <input {!! $this->htmlAttributes([
         'type' => 'range',
-        'id' => $component->id,
-        'max' => $component->max,
-        'min' => $component->min,
-        'name' => $component->name,
-        'step' => $component->step,
-        'value' => $component->value,
-        'required' => $component->required,
-        'readonly' => $component->readonly,
-        'disabled' => $component->disabled,
+        'id' => $this->id,
+        'max' => $this->max,
+        'min' => $this->min,
+        'name' => $this->name,
+        'step' => $this->step,
+        'value' => $this->value,
+        'required' => $this->required,
+        'readonly' => $this->readonly,
+        'disabled' => $this->disabled,
     ]) !!}>
 </div>

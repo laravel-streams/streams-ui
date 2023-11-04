@@ -23,6 +23,8 @@ abstract class Input extends Component
     public $value = null;
 
     public ?string $name = null;
+    
+    public ?string $placeholder = null;
 
     public bool $readonly = false;
     public bool $disabled = false;

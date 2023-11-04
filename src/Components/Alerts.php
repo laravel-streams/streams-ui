@@ -2,11 +2,14 @@
 
 namespace Streams\Ui\Components;
 
-use Streams\Ui\Support\Component;
+use Livewire\Component;
 
 class Alerts extends Component
 {
-    public string $template = 'ui::components.alerts';
-
-    public array $alerts = [];
+    public function render()
+    {
+        return view('ui::components.alerts', [
+            'alerts' => [],
+        ]);
+    }
 }

@@ -10,19 +10,19 @@
         }
     </style>
   
-    <label for="{{ $component->id }}" class="flex items-center cursor-pointer">
+    <label for="{{ $this->id }}" class="flex items-center cursor-pointer">
       
         <div class="relative">
         
-            <input {!! $component->htmlAttributes([
+            <input {!! $this->htmlAttributes([
                 'value' => true,
                 'type' => 'checkbox',
-                'id' => $component->id,
-                'name' => $component->name,
-                'required' => $component->required,
-                'readonly' => $component->readonly,
-                'disabled' => $component->disabled,
-                'checked' => $component->value == true,
+                'id' => $this->id,
+                'name' => $this->name,
+                'required' => $this->required,
+                'readonly' => $this->readonly,
+                'disabled' => $this->disabled,
+                'checked' => $this->value == true,
                 'class' => 'sr-only',
             ]) !!}>
         
@@ -32,7 +32,7 @@
         </div>
       
         <div class="ml-3 text-gray-700 font-medium">
-            {{ __($component->label) }}
+            {{ __($this->label) }}
         </div>
     </label>
   

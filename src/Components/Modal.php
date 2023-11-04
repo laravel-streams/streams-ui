@@ -2,12 +2,10 @@
 
 namespace Streams\Ui\Components;
 
-use Streams\Ui\Support\Component;
+use Livewire\Component;
 
 class Modal extends Component
 {
-    public string $template = 'ui::components.modal';
-
     public array $components = [];
     
     public bool $open = false;
@@ -16,6 +14,10 @@ class Modal extends Component
         'showModal' => 'show',
         'hideModal' => 'hide',
     ];
+    public function render()
+    {
+        return view('ui::components.modal');
+    }
  
     public function show()
     {
