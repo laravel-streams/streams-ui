@@ -3,6 +3,8 @@
 return [
 
     'livewire' => [
+
+        // Generic Components
         'tabs' => \Streams\Ui\Components\Tabs::class,
         'menu' => \Streams\Ui\Components\Menu::class,
         'modal' => \Streams\Ui\Components\Modal::class,
@@ -18,6 +20,12 @@ return [
         'navigation' => \Streams\Ui\Components\Navigation::class,
         'breadcrumbs' => \Streams\Ui\Components\Breadcrumbs::class,
         'collapsable' => \Streams\Ui\Components\Collapsable::class,
+
+        // Admin Components
+        'admin' => \Streams\Ui\Components\Admin\AdminDashboard::class,
+        'admin.menu' => \Streams\Ui\Components\Admin\AdminMenu::class,
+        'admin.login' => \Streams\Ui\Components\Admin\AdminLogin::class,
+        'admin.navigation' => \Streams\Ui\Components\Admin\AdminNavigation::class,
 
         // Inputs
         'file' => \Streams\Ui\Components\Inputs\FileInput::class,
@@ -77,19 +85,6 @@ return [
         'table.header' => \Streams\Ui\Components\Table\TableHeader::class,
         'table.column' => \Streams\Ui\Components\Table\TableColumn::class,
         'table.filter' => \Streams\Ui\Components\Table\TableFilter::class,
-
-        //'modal.header' => \Streams\Ui\Components\Modal\ModalHeader::class,
-        //'modal.content' => \Streams\Ui\Components\Modal\ModalContent::class,
-        //'modal.footer' => \Streams\Ui\Components\Modal\ModalFooter::class,
-
-
-        /**
-         * Admin Components
-         */
-        'admin' => \Streams\Ui\Components\Admin\AdminDashboard::class,
-        'admin.menu' => \Streams\Ui\Components\Admin\AdminMenu::class,
-        'admin.login' => \Streams\Ui\Components\Admin\AdminLogin::class,
-        'admin.navigation' => \Streams\Ui\Components\Admin\AdminNavigation::class,
 
         /**
          * Aliases for Field Types

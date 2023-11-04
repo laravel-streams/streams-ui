@@ -2,8 +2,8 @@
 
 namespace Streams\Ui\Components;
 
+use Livewire\Component;
 use Illuminate\Support\Str;
-use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\Request;
 use Streams\Ui\Support\Facades\Breadcrumbs;
 

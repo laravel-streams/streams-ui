@@ -6,5 +6,8 @@ use Streams\Ui\Components\Admin;
 
 class AdminDashboard extends Admin
 {
-    public string $template = 'ui::components.admin.dashboard';
+    public function render()
+    {
+        return view('ui::components.admin.dashboard');
+    }
 }
