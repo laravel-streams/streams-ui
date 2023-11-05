@@ -2,6 +2,8 @@
 
 namespace Streams\Ui\Support;
 
+use Streams\Core\View\ViewTemplate;
+use Illuminate\Support\Facades\View;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Core\Support\Traits\FiresCallbacks;
 

@@ -18,7 +18,10 @@ class Panel extends Component
     protected array $components = [];
     protected array $middleware = [];
 
-    public function render(): \Illuminate\View\View
+    protected array $navigationGroups = [];
+    protected array $navigationItems = [];
+
+    public function render(array $payload = []): \Illuminate\View\View
     {
         return view($this->template);
     }
@@ -80,5 +83,35 @@ class Panel extends Component
     public function getLayout(): string
     {
         return $this->layout;
+    }
+
+    public function navigationGroups(array $navigationGroups): static
+    {
+        $this->navigationGroups = [
+            ...$this->navigationGroups,
+            ...$navigationGroups,
+        ];
+
+        return $this;
+    }
+
+    public function getNavigationGroups(): array
+    {
+        return $this->navigationGroups;
+    }
+
+    public function navigationItems(array $navigationItems): static
+    {
+        $this->navigationItems = [
+            ...$this->navigationItems,
+            ...$navigationItems,
+        ];
+
+        return $this;
+    }
+
+    public function getNavigationItems(): array
+    {
+        return $this->navigationItems;
     }
 }

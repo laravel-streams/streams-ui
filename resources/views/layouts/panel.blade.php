@@ -15,11 +15,17 @@
             </a>
         </div>
 
-        {{-- @ui('admin.navigation', [
-            'attributes' => [
-                'class' => 'my-6',
-            ],
-        ]) --}}
+        {{-- Navigation --}}
+        <nav>
+            <ul>
+                @foreach(app('ui')->getCurrentPanel()->getNavigationGroups() as $group)
+                <li>
+                    {!! $group->render() !!}
+                </li>
+                @endforeach
+            </ul>
+        </nav>
+        {{-- EOF Navigation --}}
 
         <div class="my-2">
             <div class="opacity-50 text-xs">

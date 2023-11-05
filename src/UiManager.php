@@ -40,4 +40,9 @@ class UiManager
             'livewire.layout' => $instance->getLayout(),
         ]);
     }
+
+    public function getCurrentPanel(): Panel
+    {
+        return $this->panels[$this->current];
+    }
 }

@@ -3,7 +3,6 @@
 namespace Streams\Ui\Components;
 
 use Livewire\Component;
-use Illuminate\Support\Str;
 use Streams\Ui\Components\Traits\HasAttributes;
 
 class Anchor extends Component
