@@ -41,27 +41,13 @@ class UiServiceProvider extends ServiceProvider
             'UI' => \Streams\Ui\Support\Facades\UI::class,
         ]);
 
-        Factory::macro('ui', function(string $name, array $attributes = []) {
-            return UI::make($name, $attributes);
-        });
-
-        Blade::directive('ui', function ($parameters) {
-            return "<?php echo \$__env->ui({$parameters}); ?>";
-        });
-
         foreach (config('streams.ui.components') as $name => $class) {
-            UI::component($name, $class);
-        }
-
-        foreach (config('streams.ui.livewire') as $name => $class) {
             Livewire::component($name, $class);
         }
     }
 
     public function boot()
     {
-        $this->registerAdmin();
-        
         Assets::addPath('ui', 'vendor/streams/ui/resources');
         Images::addPath('ui', 'vendor/streams/ui/resources');
 
@@ -69,11 +55,7 @@ class UiServiceProvider extends ServiceProvider
 
         Lang::addNamespace('ui', realpath(base_path('vendor/streams/ui/resources/lang')));
 
-        $this->app->booted(function() {
-            foreach (UI::getComponents() as $name => $class) {
-                Blade::component($name, BladeComponent::class);
-            }
-        });
+        $this->loadRoutesFrom(__DIR__ . '/../resources/routes/web.php');
     }
 
     protected function registerConfig()
@@ -83,26 +65,5 @@ class UiServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../resources/config/ui.php' => config_path('streams/ui.php'),
         ], 'config');
-    }
-
-    protected function registerAdmin()
-    {
-        if (!Config::get('streams.ui.admin.enabled')) {
-            return;
-        }
-
-        Route::prefix(Config::get('streams.ui.admin.prefix'))
-            //->middleware(Config::get('streams.ui.admin.middleware'))
-            ->middleware('admin')
-            ->group(function () {
-
-                Route::get('/', Config::get('streams.ui.admin.default'));
-
-                Route::any('/logout', \Streams\Ui\Http\Controllers\Logout::class);
-    
-                Route::get('/{stream}/{action?}/{entry?}', \Streams\Ui\Components\Admin\AdminAction::class);
-            });
-
-        Route::any('streams/ui/{component}/{method?}', \Streams\Ui\Http\Controllers\ComponentAction::class);
     }
 }

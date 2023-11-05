@@ -13,14 +13,14 @@ class AnchorTest extends UiTestCase
         Livewire::test(Anchor::class, [
             'text' => 'Hello World',
         ])
-        ->assertSee('Hello World')
-        ->assertDontSee('href');
+            ->assertSee('Hello World')
+            ->assertDontSee('href');
 
         Livewire::test(Anchor::class, [
             'text' => 'Hello World',
             'url' => '/admin',
         ])
-        ->assertSee('Hello World')
-        ->assertSeeHtml('href="/admin"');
+            ->assertSee('Hello World')
+            ->assertSeeHtml('href="/admin"');
     }
 }

@@ -1,5 +1,0 @@
-<div>
-
-    {{-- Dashboard Placeholder --}}
-
-</div>

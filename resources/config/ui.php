@@ -2,7 +2,7 @@
 
 return [
 
-    'livewire' => [
+    'components' => [
 
         // Generic Components
         'tabs' => \Streams\Ui\Components\Tabs::class,
@@ -21,8 +21,8 @@ return [
         'breadcrumbs' => \Streams\Ui\Components\Breadcrumbs::class,
         'collapsable' => \Streams\Ui\Components\Collapsable::class,
 
-        // Admin Components
-        'admin' => \Streams\Ui\Components\Admin\AdminDashboard::class,
+        // Control Panel
+        'panel' => \Streams\Ui\Components\Panel::class,
         'admin.menu' => \Streams\Ui\Components\Admin\AdminMenu::class,
         'admin.login' => \Streams\Ui\Components\Admin\AdminLogin::class,
         'admin.navigation' => \Streams\Ui\Components\Admin\AdminNavigation::class,
@@ -50,23 +50,16 @@ return [
 
         // WIP Inputs
         'relationship' => \Streams\Ui\Components\Inputs\BasicInput::class,
-    ],
 
-    'admin' => [
-        'prefix' => 'admin',
-        'enabled' => env('STREAMS_ADMIN_ENABLED', true),
-        'default' => \Streams\Ui\Components\Admin\AdminDashboard::class,
-        'navigation' => [
-            [
-                'text' => 'Dashboard',
-                'url' => '/admin',
-                'sort_order' => 0,
-                'component' => 'anchor',
-            ],
-        ],
-        'buttons' => [],
-        'menu' => [],
-        'middleware' => explode('|', env('STREAMS_ADMIN_MIDDLEWARE', 'web|auth')),
+        // 'form' => \Streams\Ui\Components\Form::class,
+        // 'field' => \Streams\Ui\Components\Field::class,
+
+        // 'table' => \Streams\Ui\Components\Table::class,
+        // 'table.row' => \Streams\Ui\Components\Table\TableRow::class,
+        // //'table.views' => \Streams\Ui\Components\Table\TableViews::class,
+        // 'table.header' => \Streams\Ui\Components\Table\TableHeader::class,
+        // 'table.column' => \Streams\Ui\Components\Table\TableColumn::class,
+        // 'table.filter' => \Streams\Ui\Components\Table\TableFilter::class,
     ],
 
     /**
@@ -74,23 +67,10 @@ return [
      * 
      * @livewire($name, $class)
      */
-    'components' => [
-        
-        'form' => \Streams\Ui\Components\Form::class,
-        'field' => \Streams\Ui\Components\Field::class,
-
-        'table' => \Streams\Ui\Components\Table::class,
-        'table.row' => \Streams\Ui\Components\Table\TableRow::class,
-        //'table.views' => \Streams\Ui\Components\Table\TableViews::class,
-        'table.header' => \Streams\Ui\Components\Table\TableHeader::class,
-        'table.column' => \Streams\Ui\Components\Table\TableColumn::class,
-        'table.filter' => \Streams\Ui\Components\Table\TableFilter::class,
+    'aliases' => [
 
         /**
-         * Aliases for Field Types
-         * 
-         * Field types default to setting
-         * the input.type = field.type
+         * Input Variations
          */
         'array' => [
             'component' => 'tags',

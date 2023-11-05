@@ -1,13 +1,32 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Streams\Ui\Support\Facades\UI;
 
-Route::get(
-    'entry/handle/restore/{addon}/{stream}/{id}',
-    'Streams\Core\Http\Controller\EntryController@restore'
-);
+Route::name('streams.ui.')
+    ->group(function () {
 
-Route::get(
-    'entry/handle/export/{addon}/{stream}',
-    'Streams\Core\Http\Controller\EntryController@export'
-);
+        foreach (UI::getPanels() as $panel) {
+
+            $name = $panel->name;
+            $path = $panel->path;
+
+            foreach ([null] as $domain) {
+
+                if ($routes = $panel->getRoutes()) {
+                    $routes($panel);
+                }
+
+                Route::domain($domain)
+                    ->middleware($panel->getMiddleware())
+                    ->name($name . '.')
+                    ->prefix($path)
+                    ->group(function () use ($panel) {
+                            
+                            foreach ($panel->getComponents() as $component) {
+                                $component->routes($panel);
+                            }
+                    });
+            }
+        }
+    });

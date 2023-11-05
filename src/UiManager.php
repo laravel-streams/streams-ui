@@ -2,12 +2,9 @@
 
 namespace Streams\Ui;
 
-use Illuminate\Support\Arr;
-use Streams\Ui\Support\Component;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
+use Streams\Ui\Components\Panel;
 use Illuminate\Support\Traits\Macroable;
-use Streams\Ui\Testing\TestableComponent;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
 class UiManager
@@ -15,57 +12,32 @@ class UiManager
     use Macroable;
     use FiresCallbacks;
 
-    protected array $components;
+    protected array $panels = [];
 
-    public function __construct()
+    protected ?string $current = null;
+
+    public function panel(Panel $panel): void
     {
-        $this->components = Config::get('streams.ui.components', []);
+        $this->panels[$panel->name] = $panel;
+
+        if ($panel->isDefault()) {
+            $this->setCurrentPanel($panel->name);
+        }
     }
 
-    public function exists(string $alias): bool
+    public function getPanels(): array
     {
-        return isset($this->components[$alias]);
+        return $this->panels;
     }
 
-    public function make(string $alias, array $attributes = []): Component
+    public function setCurrentPanel(?string $panel): void
     {
-        if (!isset($this->components[$alias]) && class_exists($alias)) {
-            return App::make($alias, [
-                'attributes' => $attributes,
-            ]);
-        }
-        
-        if (!$component = Arr::get($this->components, $alias)) {
-            throw new \Exception("Component [$alias] does not exist.");
-        }
+        $this->current = $panel;
 
-        if (is_array($component)) {
-            
-            $attributes = array_replace_recursive(Arr::except($component, 'component'), $attributes);
+        $instance = $this->panels[$panel] ?? null;
 
-            $component = Arr::pull($component, 'component');
-        }
-
-        // @todo Callbacks and such
-        return App::make($this->components[$component] ?? $component, [
-            'attributes' => $attributes,
+        Config::set([
+            'livewire.layout' => $instance->getLayout(),
         ]);
-    }
-
-    public function test(string $alias, array $attributes = []): TestableComponent
-    {
-        return new TestableComponent($this->make($alias, $attributes));
-    }
-
-    public function component($alias, $component): static
-    {
-        $this->components[$alias] = $component;
-
-        return $this;
-    }
-
-    public function getComponents()
-    {
-        return $this->components;
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Streams\Ui\Components\Admin;
 
-use Streams\Ui\Components\Admin;
+use Streams\Ui\Support\Component;
 
-class AdminAction extends Admin
+class Action extends Component
 {
-    public string $template = 'ui::components.admin.action';
+    public string $template = 'ui::components.action';
 }

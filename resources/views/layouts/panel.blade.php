@@ -15,11 +15,11 @@
             </a>
         </div>
 
-        @ui('admin.navigation', [
+        {{-- @ui('admin.navigation', [
             'attributes' => [
                 'class' => 'my-6',
             ],
-        ])
+        ]) --}}
 
         <div class="my-2">
             <div class="opacity-50 text-xs">
@@ -34,13 +34,13 @@
         {{-- Topbar --}}
         <div class="bg-gray-200 w-full p-4 flex justify-between items-center">
 
-            @ui('button', [
+            {{-- @ui('button', [
                 'tag' => 'a',
                 'text' => 'Create',
                 'url' => '/{request.segments.0}/{request.segments.1}/create',
-            ])
+            ]) --}}
 
-            @ui('admin.menu', [
+            {{-- @ui('admin.menu', [
                 'attributes' => [
                     'class' => 'flex items-center justify-end flex-grow',
                 ],
@@ -74,7 +74,7 @@
                             ]
                         ],
                 ],
-            ])
+            ]) --}}
 
             <div>
 
@@ -90,11 +90,11 @@
             </div>
         </div>
 
-        @yield('content', $content ?? null)
+        {!! $slot !!}
 
-        @ui('alerts', [
+        {{-- @ui('alerts', [
             'alerts' => Messages::get(),
-        ])
+        ]) --}}
         
     </main>
 
