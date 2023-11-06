@@ -8,8 +8,8 @@ use Streams\Ui\Support\Facades\UI;
 
 class Page extends Component
 {
-    public ?string $name = null;
-    public ?string $path = null;
+    protected ?string $name = null;
+    protected ?string $path = null;
 
     protected string $template = 'ui::components.panel';
 
@@ -34,10 +34,12 @@ class Page extends Component
         return $this;
     }
 
-    public function routes(Panel $panel)
+    static public function routes(Panel $panel)
     {
-        Route::get($this->path ?: $this->name, static::class)
-            ->name($this->name);
+        $self = new static;
+
+        Route::get($self->path ?: $self->name, static::class)
+            ->name($self->name);
     }
 
     public function getNavigationItem(): NavigationItem

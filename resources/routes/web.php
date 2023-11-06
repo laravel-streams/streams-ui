@@ -24,7 +24,7 @@ Route::name('streams.ui.')
                     ->group(function () use ($panel) {
                             
                             foreach ($panel->getComponents() as $component) {
-                                $component->routes($panel);
+                                $component::routes($panel);
                             }
                     });
             }

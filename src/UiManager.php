@@ -41,7 +41,7 @@ class UiManager
         ]);
     }
 
-    public function getCurrentPanel(): Panel
+    public function currentPanel(): Panel
     {
         return $this->panels[$this->current];
     }

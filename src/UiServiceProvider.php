@@ -37,10 +37,6 @@ class UiServiceProvider extends ServiceProvider
         $this->app->singleton(\Streams\Ui\UiManager::class);
         $this->app->alias(\Streams\Ui\UiManager::class, 'ui');
 
-        Integrator::aliases([
-            'UI' => \Streams\Ui\Support\Facades\UI::class,
-        ]);
-
         foreach (config('streams.ui.components') as $name => $class) {
             Livewire::component($name, $class);
         }
@@ -48,6 +44,10 @@ class UiServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        Integrator::aliases([
+            'UI' => \Streams\Ui\Support\Facades\UI::class,
+        ]);
+        
         Assets::addPath('ui', 'vendor/streams/ui/resources');
         Images::addPath('ui', 'vendor/streams/ui/resources');
 

@@ -8,6 +8,6 @@ class UI extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \Streams\Ui\UiManager::class;
+        return 'ui';
     }
 }

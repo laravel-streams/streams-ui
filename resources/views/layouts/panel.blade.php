@@ -18,7 +18,7 @@
         {{-- Navigation --}}
         <nav>
             <ul>
-                @foreach(app('ui')->getCurrentPanel()->getNavigationGroups() as $group)
+                @foreach(\Streams\Ui\Support\Facades\UI::currentPanel()->getNavigationGroups() as $group)
                 <li>
                     {!! $group->render() !!}
                 </li>
