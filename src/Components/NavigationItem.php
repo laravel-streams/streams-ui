@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Components;
 
-use Livewire\Component;
+use Streams\Ui\Support\Component;
 
 class NavigationItem extends Component
 {

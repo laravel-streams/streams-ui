@@ -2,8 +2,6 @@
 
 namespace Streams\Ui\Support;
 
-use Streams\Core\View\ViewTemplate;
-use Illuminate\Support\Facades\View;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
@@ -12,7 +10,7 @@ class Component extends \Livewire\Component
     use HasMemory;
     use FiresCallbacks;
 
-    static public function make(array $attributes = []): self
+    static public function make(array $attributes = []): static
     {
         $instance = new static;
 

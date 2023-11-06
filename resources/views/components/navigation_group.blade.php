@@ -1,9 +1,9 @@
 <div>
-    <h3>{{ $this->label }}</h3>
+    <h3>Label</h3>
     <br>
     <ul>
-    {{-- @foreach ($this->items as $item)
+        {{-- @foreach ($this->items as $item)
         <li>{{ $item->render() }}</li>
-    @endforeach --}}
+        @endforeach --}}
     </ul>
 </div>
