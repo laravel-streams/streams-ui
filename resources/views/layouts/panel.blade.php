@@ -5,22 +5,22 @@
     @include('ui::layouts.partials.head')
 </head>
 
-<body class="flex w-full h-screen overflow-hidden">
+<body class="flex w-full h-screen overflow-hidden bg-gray-50">
 
-    <aside class="bg-gray-200 w-72 px-4 py-2">
+    <aside class="w-72">
 
-        <div class="my-4">
+        <header class="fi-sidebar-header flex h-16 items-center bg-white px-6 ring-1 ring-gray-950/5 lg:shadow-sm">
             <a href="{{ URL::to('admin') }}">
                 {{ __(config('app.name')) }}
             </a>
-        </div>
+        </header>
 
         {{-- Navigation --}}
-        <nav>
-            <ul>
+        <nav class="px-4 py-4">
+            <ul class="flex flex-col gap-y-1">
                 @foreach(\Streams\Ui\Support\Facades\UI::currentPanel()->getNavigationItems() as $item)
                 <li>
-                    <a href="{{ url($item->url) }}" class="block" style="padding: .25rem 0; {{ url($item->url) == Request::url() ? 'font-weight: bold;' : null }}">
+                    <a href="{{ url($item->url) }}" class="relative flex items-center justify-start gap-x-3 rounded-lg px-2 py-2  outline-none transition duration-75 hover:bg-gray-100 focus-visible:bg-gray-100 {{ url($item->url) == Request::url() ? 'bg-gray-100 text-indigo-600' : null }}">
                         {{ __($item->text) }}
                     </a>
                 </li>
@@ -29,7 +29,7 @@
         </nav>
         {{-- EOF Navigation --}}
 
-        <div class="my-2">
+        <div class="px-6 mt-2">
             <div class="opacity-50 text-xs">
                 {{ response_time() . ' s' }}&nbsp;|&nbsp;{{ memory_usage() }}
             </div>
@@ -40,7 +40,7 @@
     <main class="w-full overflow-y-auto">
 
         {{-- Topbar --}}
-        <div class="bg-gray-200 w-full p-4 flex justify-between items-center">
+        <div class="flex h-16 items-center gap-x-4 bg-white px-4 shadow-sm ring-1 ring-gray-950/5 md:px-6 lg:px-8">
             &nbsp;
         </div>
         {{-- EOF Topbar --}}
