@@ -18,9 +18,11 @@
         {{-- Navigation --}}
         <nav>
             <ul>
-                @foreach(\Streams\Ui\Support\Facades\UI::currentPanel()->getNavigationGroups() as $group)
+                @foreach(\Streams\Ui\Support\Facades\UI::currentPanel()->getNavigationItems() as $item)
                 <li>
-                    {!! $group->render() !!}
+                    <a href="{{ url($item->url) }}" class="block" style="padding: .25rem 0; {{ url($item->url) == Request::url() ? 'font-weight: bold;' : null }}">
+                        {{ __($item->text) }}
+                    </a>
                 </li>
                 @endforeach
             </ul>
@@ -39,69 +41,12 @@
 
         {{-- Topbar --}}
         <div class="bg-gray-200 w-full p-4 flex justify-between items-center">
-
-            {{-- @ui('button', [
-                'tag' => 'a',
-                'text' => 'Create',
-                'url' => '/{request.segments.0}/{request.segments.1}/create',
-            ]) --}}
-
-            {{-- @ui('admin.menu', [
-                'attributes' => [
-                    'class' => 'flex items-center justify-end flex-grow',
-                ],
-                'wrapper_attributes' => [
-                    'class' => 'flex-grow',
-                ],
-                'items' => [
-                        [
-                            'component' => 'dropdown',
-                            'toggle' => [
-                                [
-                                    'component' => 'avatar',
-                                    'src' => 'ryan@pyrocms.com',
-                                    'alt' => 'Ryan Thompson',
-                                    'attributes' => [
-                                        'class' => ['rounded-full h-10 w-10'],
-                                    ],
-                                ],
-                            ],
-                            'components' => [
-                                [
-                                    'component' => 'anchor',
-                                    'text' => 'Logout',
-                                    'url' => '/admin/logout'
-                                ],
-                                [
-                                    'component' => 'anchor',
-                                    'text' => 'View Frontend',
-                                    'url' => '/',
-                                ],
-                            ]
-                        ],
-                ],
-            ]) --}}
-
-            <div>
-
-                <div x-data="{open: false}" class="relative" @click.outside="open=false">
-                    <button @click="open=!open">
-                        
-                    </button>
-                    <div x-show="open" class="absolute">
-                        <a href="{{ URL::to('admin/logout') }}">Logout</a>
-                    </div>
-                </div>
-
-            </div>
+            &nbsp;
         </div>
+        {{-- EOF Topbar --}}
 
         {!! $slot !!}
 
-        {{-- @ui('alerts', [
-            'alerts' => Messages::get(),
-        ]) --}}
-        
     </main>
 
     @include('ui::layouts.partials.assets')

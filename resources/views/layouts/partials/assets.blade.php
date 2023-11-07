@@ -1,8 +1,10 @@
 {{-- {!! Assets::tag('/vendor/streams/core/js/index.js') !!}
 {!! Assets::tag('/vendor/streams/api/js/index.js') !!} --}}
-{!! Assets::tag('/vendor/streams/ui/js/index.js') !!}
+{{-- {!! Assets::tag('/vendor/streams/ui/js/index.js') !!} --}}
 
 {!! Assets::collection('scripts')->tags() !!}
+
+@vite(['resources/js/app.js'])
 
 <script>
 

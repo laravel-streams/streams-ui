@@ -7,6 +7,8 @@ use Streams\Ui\Components\Anchor;
 
 class Button extends Anchor
 {
+    public string $tag = 'button';
+
     public ?string $name = null;
 
     #[Field([

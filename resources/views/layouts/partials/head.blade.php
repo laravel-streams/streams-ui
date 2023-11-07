@@ -12,12 +12,12 @@
 
 
 <!-- styles.blade.php -->
-{{ Assets::load('styles', 'vendor/streams/ui/css/variables.css') }}
-{{ Assets::load('styles', 'vendor/streams/ui/css/theme.css') }}
+{{-- {{ Assets::load('styles', 'vendor/streams/ui/css/variables.css') }}
+{{ Assets::load('styles', 'vendor/streams/ui/css/theme.css') }} --}}
 
 {!! Assets::collection('styles')->tags() !!}
 
-@if (isset($theme))
+{{-- @if (isset($theme))
 <style>
     :root {
         @php
@@ -47,4 +47,4 @@
         @endforeach
     }
 </style>
-@endif
+@endif --}}

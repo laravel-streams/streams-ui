@@ -3,20 +3,10 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@import "components/_button";
-@import "components/_table";
-@import "components/_form";
-
 body * {
     font-size: calc(1rem * var(--ui-font-size));
 }
 
 [x-cloak] {
     display: none !important;
-}
-
-input, textarea, select {
-    padding-left: 0.25rem !important;
-    padding-right: 0.25rem !important;
-    @apply border border-gray-300 rounded;
 }
