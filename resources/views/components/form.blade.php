@@ -1,39 +1,26 @@
 <div class="form__wrapper">
-    <form {!! $component->htmlAttributes([
-        //'action' => $component->action,
-        //'method' => $component->method,
-        //'enctype' => $component->enctype,
+    <form {!! $this->htmlAttributes([
+        //'action' => $this->action,
+        //'method' => $this->method,
         'class' => 'form',
-        'method' => $component->method,
+        'method' => 'post',
+        'enctype' => 'multipart/form-data',
         //'wire:submit.prevent' => 'save',
-        'action' => $component->action(),
     ]) !!}>
 
-        @ui('hidden', [
-            'name' => '_id',
-            'value' => $component->id,
-        ])
-
-        {{ csrf_field() }}
-
-        @if (isset($slot))
-        {!! $slot !!}
-        @else
         <div class="form__fields">
-            @foreach ($component->fields as $field)
+            {{-- @foreach ($this->fields as $field)
             @ui('field', $field)
-            @endforeach
+            @endforeach --}}
         </div>
 
-        @if ($component->buttons)
+        @if ($this->getButtons())
         <div class="mt-4 flex space-x-2">
-            @foreach ($component->buttons as $button)
-            @ui(Arr::pull($button, 'button', 'button'), Arr::parse($button, [
-                'entry' => $component->entry,
-            ]))
+            @foreach ($this->getButtons() as $button)
+            @livewire($button)
             @endforeach
         </div>
         @endif
-        @endif
+
     </form>
 </div>

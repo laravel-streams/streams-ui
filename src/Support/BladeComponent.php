@@ -3,6 +3,7 @@
 namespace Streams\Ui\Support;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
 use Illuminate\View\Component;
 use Streams\Ui\Support\Facades\UI;
 
@@ -38,11 +39,12 @@ class BladeComponent extends Component
 
             $attributes = Arr::undot($attributes);
 
-            $instance = UI::make(str_replace('ui-', '', $this->componentName), $attributes);
+            $instance = App::make(config("streams.ui.components.{$this->componentName}"), $attributes);
 
             return $instance->render([
-                $instance->component => $instance
-            ] + $attributes + $data['__laravel_slots']);
+            ] + $attributes + $data['__laravel_slots'])->with([
+                'component' => $instance,
+            ]);
         };
     }
 }

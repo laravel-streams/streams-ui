@@ -2,52 +2,61 @@
 
 namespace Streams\Ui\Components;
 
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Collection;
 use Streams\Ui\Support\Component;
-use Illuminate\Support\Facades\Request;
+use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\Components\Traits\HasStream;
 use Streams\Ui\Components\Traits\HasAttributes;
-use Streams\Ui\Components\Workflows\TableBuilder;
 
 class Table extends Component
 {
     use HasStream;
     use HasAttributes;
 
-    public ?string $builder = TableBuilder::class;
-
-    public string $template = 'ui::components.table';
-
-    public ?string $handle = 'default';
-    
-    public bool $selectable = false;
-    
-    public ?string $caption = null;
+    protected string $template = 'ui::components.table';
 
     public ?string $stream = null;
 
-    public array $entries = [];
+    protected array $columns = [];
+    protected array $buttons = [];
 
-    public array $filters = [];
-    public array $columns = [];
-    public array $buttons = [];
-    public array $actions = [];
-    
-    public array $views = [];
-    public array $query = [];
-    
-    public array $pagination = [];
-
-    public array $attributes = [];
-
-    public function delete()
+    public function render()
     {
-        $ids = array_keys(Request::post('id'));
+        return view($this->template);
+    }
 
-        $keyName = $this->stream()->config('key_name', 'id');
-        
-        $this->stream()->entries()->where($keyName, 'IN', $ids)->delete();
+    public function getEntries(): Collection
+    {
+        return Streams::entries($this->stream)->get();
+    }
 
-        return Redirect::back(301);
+    public function columns(array $columns): static
+    {
+        $this->columns = [
+            ...$this->columns,
+            ...$columns,
+        ];
+
+        return $this;
+    }
+
+    public function getColumns(): array
+    {
+        return $this->columns;
+    }
+
+    public function buttons(array $buttons): static
+    {
+        $this->buttons = [
+            ...$this->buttons,
+            ...$buttons,
+        ];
+
+        return $this;
+    }
+
+    public function getButtons(): array
+    {
+        return $this->buttons;
     }
 }

@@ -4,12 +4,12 @@ namespace Streams\Ui\Components;
 
 use Livewire\Component;
 
-class Indicator extends Component
+class Badge extends Component
 {
     public ?string $text = null;
 
     public function render()
     {
-        return view('ui::components.indicator');
+        return view('ui::components.badge');
     }
 }

@@ -44,4 +44,15 @@ class Button extends Anchor
     {
         return view('ui::components.button');
     }
+
+    static public function make(array $attributes)
+    {
+        $static = new static();
+
+        foreach ($attributes as $key => $value) {
+            $static->{$key} = $value;
+        }
+
+        return $static;
+    }
 }

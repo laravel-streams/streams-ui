@@ -11,8 +11,6 @@ class Tabs extends Component
 
     public array $tabs = [];
 
-    public array $htmlAttributes = [];
-
     public function render()
     {
         return view('ui::components.tabs');

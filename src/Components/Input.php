@@ -30,8 +30,6 @@ abstract class Input extends Component
     public bool $disabled = false;
     public bool $required = false;
 
-    public array $htmlAttributes = [];
-
     // public function post()
     // {
     //     if ($value = Request::post($this->name)) {

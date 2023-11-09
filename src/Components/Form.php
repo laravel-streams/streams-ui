@@ -18,99 +18,32 @@ class Form extends Component
     use HasStream;
     use HasAttributes;
 
-    public ?string $builder = FormBuilder::class;
-
     public string $template = 'ui::components.form';
 
-    public string $enctype = 'multipart/form-data';
-
-    public ?string $action = null;
-
-    public string $method = 'POST';
-
-    public array $rules = [];
-    public array $fields = [];
-    public array $buttons = [];
-
-    public array $errors = [];
+    protected array $fields = [];
+    protected array $buttons = [];
 
     public ?string $stream = null;
 
     public $entry = null;
 
-    public array $attributes = [];
-
-    public function validate(): bool
+    public function render()
     {
-        $rules = $this->rules;
-
-        $data = Arr::except(
-            Request::post(),
-            array_filter(array_keys($_POST), fn ($key) => substr($key, 0, 1) == '_')
-        );
-
-        $result = Validator::make($data, $rules);
-
-        if (!$result->passes()) {
-            
-            $this->errors = $result->messages()->messages();
-
-            return false;
-        }
-
-        return true;
+        return view($this->template);
     }
 
-    public function save()
+    public function buttons(array $buttons): static
     {
-        $this->validate();
+        $this->buttons = [
+            ...$this->buttons,
+            ...$buttons,
+        ];
 
-        if ($this->errors) {
-            return Redirect::back();
-        }
-
-        $this->fire('saving', [
-            'component' => $this,
-        ]);
-
-        (new SaveForm)
-            ->passThrough($this)
-            ->process([
-                'component' => $this,
-            ]);
-
-        $this->fire('saved', [
-            'component' => $this,
-        ]);
-
-        $parts = array_filter(explode('/', trim(parse_url(URL::previous(), PHP_URL_PATH), '/')));
-
-        if ($this->errors) {
-            return Redirect::back();
-        } elseif ($parts) {
-            return Redirect::to($parts[0] . '/' . $parts[1] . '/' . $this->entry . '/' . ($parts[3] ?? 'edit'));
-        } else {
-            return Redirect::to('admin/' . $this->stream . '/' . $this->entry . '/edit');
-        }
+        return $this;
     }
 
-    public function entry(): object|null
+    public function getButtons(): array
     {
-        if (!$this->stream) {
-            return null;
-        }
-
-        $key = __METHOD__ . '.' . $this->stream . '.' . $this->entry;
-
-        return $this->once($key, fn ()  => $this->stream()->repository()->find($this->entry));
-    }
-
-    public function action()
-    {
-        if ($this->action && strpos($this->action, '/') === false) {
-            return url('streams/ui/' . $this->id . '/' . $this->action);
-        }
-
-        return $this->action;
+        return $this->buttons;
     }
 }

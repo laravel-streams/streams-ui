@@ -2,7 +2,9 @@
 
 namespace Streams\Ui\Components;
 
-use Streams\Ui\Support\Component;
+use Livewire\Component;
+
+//use Streams\Ui\Support\Component;
 
 class Panel extends Component
 {
@@ -11,15 +13,26 @@ class Panel extends Component
 
     protected bool $default = false;
 
-    protected string $layout = 'ui::layouts.panel';
+    protected string $layout = 'ui::layouts.app';
 
     protected \Closure | null $routes = null;
 
-    protected array $components = [];
+    protected array $pages = [];
     protected array $middleware = [];
 
     protected array $navigationGroups = [];
     protected array $navigationItems = [];
+
+    static public function make(array $attributes = []): static
+    {
+        $instance = new static;
+
+        array_map(function ($value, $key) use ($instance) {
+            $instance->{$key} = $value;
+        }, $attributes, array_keys($attributes));
+
+        return $instance;
+    }
 
     public function render(array $payload = []): \Illuminate\View\View
     {
@@ -50,19 +63,19 @@ class Panel extends Component
         return $this->routes;
     }
 
-    public function components(array $components): static
+    public function pages(array $pages): static
     {
-        $this->components = [
-            ...$this->components,
-            ...$components,
+        $this->pages = [
+            ...$this->pages,
+            ...$pages,
         ];
 
         return $this;
     }
 
-    public function getComponents(): array
+    public function getPages(): array
     {
-        return $this->components;
+        return $this->pages;
     }
 
     public function middleware(array $middleware): static

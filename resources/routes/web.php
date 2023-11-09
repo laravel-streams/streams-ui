@@ -23,8 +23,8 @@ Route::name('streams.ui.')
                     ->prefix($path)
                     ->group(function () use ($panel) {
                             
-                            foreach ($panel->getComponents() as $component) {
-                                $component::routes($panel);
+                            foreach ($panel->getPages() as $page) {
+                                $page::routes($panel);
                             }
                     });
             }

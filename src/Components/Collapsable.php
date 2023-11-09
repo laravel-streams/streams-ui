@@ -13,8 +13,6 @@ class Collapsable extends Component
 
     public array $components = [];
 
-    public array $htmlAttributes = [];
-
     public function render()
     {
         return view('ui::components.collapsable');

@@ -8,7 +8,7 @@ class Dropdown extends Component
 {
     public array $toggle = [];
     
-    public array $components = [];
+    public array $content = [];
 
     public function render()
     {

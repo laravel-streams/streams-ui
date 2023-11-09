@@ -1,10 +1,10 @@
 <div>
-    <{{ $this->tag }} {!! $this->htmlAttributes([
-        'href' => $this->url,
-        'name' => $this->name,
-        'type' => $this->type,
-        'value' => $this->value,
-        'disabled' => $this->disabled,
+    <{{ $component->tag }} {!! $component->htmlAttributes([
+        'href' => $component->url,
+        'name' => $component->name,
+        'type' => $component->type,
+        'value' => $component->value,
+        'disabled' => $component->disabled,
         'class' => [
             'btn',
             'rounded-md',
@@ -22,6 +22,6 @@
             'focus-visible:outline-indigo-600'
         ]
     ]) !!}>
-        {{ __($this->text) }}
-    </{{ $this->tag }}>
+        {{ __($component->text) }}
+    </{{ $component->tag }}>
 </div>

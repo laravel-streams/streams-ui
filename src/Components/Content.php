@@ -11,8 +11,6 @@ class Content extends Component
 
     public ?string $content = null;
 
-    public array $htmlAttributes = [];
-
     public function render()
     {
         return view('ui::components.content');

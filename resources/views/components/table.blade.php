@@ -1,123 +1,93 @@
-<div class="table__wrapper">
+<div class="w-full">
 
-    @if (isset($slot))
-    {!! $slot !!}
-    @else
-
-    @if ($component->filters)
+    {{-- @if ($this->filters)
     <form method="GET">
         <div class="table__filters flex space-x-2 my-4">
-            @foreach ($component->filters as $filter)
+            @foreach ($this->filters as $filter)
             @ui(Arr::pull($filter, 'filter', 'table.filter'), $filter)
             @endforeach
             <button type="submit" class="button">Filter</button>
             <a class="button" href="{{ Request::url() }}">Clear</a>
         </div>
     </form>
-    @endif
+    @endif --}}
 
-    <form {!! $component->htmlAttributes([
-        //'action' => $component->action,
-        //'method' => $component->method,
-        //'enctype' => $component->enctype,
-        'class' => 'form',
-        //'method' => 'POST',
-        //'wire:submit.prevent' => 'save',
-        //'action' => '/streams/ui/' . $component->id . '/delete',
-        ]) !!}>
+    <form>
 
-        @ui('hidden', [
-            'name' => '_id',
-            'value' => $component->id,
-        ])
-
-        {{ csrf_field() }}
-
-        @if ($component->views)
+        {{-- @if ($this->views)
         <div class="table__views flex space-x-2 my-4">
-            @foreach ($component->views as $view)
+            @foreach ($this->views as $view)
             @ui(Arr::pull($view, 'view', 'anchor'), array_merge(
-                $view,
-                [
-                    'url' => URL::to(Request::path()) . '?view=' . $view['handle'],
-                ]
+            $view,
+            [
+            'url' => URL::to(Request::path()) . '?view=' . $view['handle'],
+            ]
             ))
             @endforeach
         </div>
-        @endif
+        @endif --}}
 
-
-        <table {!! $component->htmlAttributes([
-            'class' => [
-            'table',
-            ],
-            ]) !!}>
-            @if ($component->caption)
-            <caption>{{ $component->caption }}</caption>
-            @endif
-
-            <thead>
-                <tr>
-                    @if ($component->selectable)
-                    <th><span class="sr-only">Select Rows</span></th>
-                    @endif
-                    @foreach ($component->columns as $column)
-                    @if (isset($column['header']))
-                    @ui('table.header', $column['header'])
-                    @endif
+        <div
+            class="w-full divide-y divide-gray-200 overflow-hidden rounded bg-white shadow-sm ring-1 ring-gray-950/5">
+            <table>
+                <thead>
+                    <tr>
+                        <th><span class="sr-only">Select Rows</span></th>
+                        @foreach ($this->getColumns() as $column)
+                        <th>{{ $column->getName() }}</th>
+                        @endforeach
+                        @if ($this->getButtons())
+                        <th><span class="sr-only">Actions</span></th>
+                        @endif
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($this->getEntries() as $entry)
+                    <td class="p-2"><input type="checkbox" class="text-indigo-500 border-2 border-indigo-500 rounded"/></td>
+                    @foreach ($this->getColumns() as $column)
+                    <td>{!! $column->value($entry) !!}</td>
                     @endforeach
-                    @if ($component->buttons)
-                    <th><span class="sr-only">Actions</span></th>
-                    @endif
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($component->entries as $entry)
-                @ui('table.row', [
-                'selectable' => $component->selectable,
-                'columns' => $component->columns,
-                'buttons' => $component->buttons,
-                'entry' => Arr::make($entry),
-                ])
-                @endforeach
-            </tbody>
-            <tfoot>
-                @if ($component->actions)
-                <tr>
-                    <td colspan="100%">
-                        <div class="table__actions">
-                            @foreach ($component->actions as $action)
-                            @ui(Arr::pull($action, 'action', 'button'), Arr::parse($action, [
-                            'entry' => $component->entry,
-                            ]))
-                            @endforeach
-                        </div>
-                    </td>
-                </tr>
-                @endif
-                <tr>
-                    <td colspan="100%">
-                        <div>
-
-                            @if (isset($component->pagination['links']))
-                            <div class="table__pagination">
-                                {!! $component->pagination['links']() !!}
+                    <td></td>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    {{-- @if ($this->actions)
+                    <tr>
+                        <td colspan="100%">
+                            <div class="table__actions">
+                                @foreach ($this->actions as $action)
+                                @ui(Arr::pull($action, 'action', 'button'), Arr::parse($action, [
+                                'entry' => $this->entry,
+                                ]))
+                                @endforeach
                             </div>
-                            @endif
+                        </td>
+                    </tr>
+                    @endif --}}
+                    <tr>
+                        <td colspan="100%">
+                            <div>
 
-                            @if (isset($component->pagination['total']))
-                            <small class="table__meta">
-                                {{ $component->pagination['total'] }}
-                                {{ trans_choice('ui::labels.results', $component->pagination['total']) }}
-                            </small>
-                            @endif
+                                @if (isset($this->pagination['links']))
+                                <div class="table__pagination">
+                                    {!! $this->pagination['links']() !!}
+                                </div>
+                                @endif
 
-                        </div>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
-        
+                                @if (isset($this->pagination['total']))
+                                <small class="table__meta">
+                                    {{ $this->pagination['total'] }}
+                                    {{ trans_choice('ui::labels.results', $this->pagination['total']) }}
+                                </small>
+                                @endif
+
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
     </form>
-    @endif
+
 </div>

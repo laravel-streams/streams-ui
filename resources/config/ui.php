@@ -3,23 +3,29 @@
 return [
 
     'components' => [
+        'anchor' => \Streams\Ui\Components\Anchor::class,
+        'button' => \Streams\Ui\Components\Button::class,
+    ],
+
+    'livewire' => [
 
         // Generic Components
+        'card' => \Streams\Ui\Components\Card::class,
         'tabs' => \Streams\Ui\Components\Tabs::class,
         'menu' => \Streams\Ui\Components\Menu::class,
+        'badge' => \Streams\Ui\Components\Badge::class,
         'modal' => \Streams\Ui\Components\Modal::class,
-        'alerts' => \Streams\Ui\Components\Alerts::class,
-        'anchor' => \Streams\Ui\Components\Anchor::class,
+        // 'anchor' => \Streams\Ui\Components\Anchor::class,
         'avatar' => \Streams\Ui\Components\Avatar::class,
-        'button' => \Streams\Ui\Components\Button::class,
+        // 'button' => \Streams\Ui\Components\Button::class,
         'drawer' => \Streams\Ui\Components\Drawer::class,
         'drawer' => \Streams\Ui\Components\Drawer::class,
         'content' => \Streams\Ui\Components\Content::class,
         'dropdown' => \Streams\Ui\Components\Dropdown::class,
-        'indicator' => \Streams\Ui\Components\Indicator::class,
         'navigation' => \Streams\Ui\Components\Navigation::class,
         'breadcrumbs' => \Streams\Ui\Components\Breadcrumbs::class,
         'collapsable' => \Streams\Ui\Components\Collapsable::class,
+        'notifications' => \Streams\Ui\Components\Notifications::class,
 
         // Control Panel
         'panel' => \Streams\Ui\Components\Panel::class,
@@ -51,10 +57,10 @@ return [
         // WIP Inputs
         'relationship' => \Streams\Ui\Components\Inputs\BasicInput::class,
 
-        // 'form' => \Streams\Ui\Components\Form::class,
+        'form' => \Streams\Ui\Components\Form::class,
         // 'field' => \Streams\Ui\Components\Field::class,
 
-        // 'table' => \Streams\Ui\Components\Table::class,
+        'table' => \Streams\Ui\Components\Table::class,
         // 'table.row' => \Streams\Ui\Components\Table\TableRow::class,
         // //'table.views' => \Streams\Ui\Components\Table\TableViews::class,
         // 'table.header' => \Streams\Ui\Components\Table\TableHeader::class,

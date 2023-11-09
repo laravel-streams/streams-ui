@@ -13,8 +13,6 @@ class Avatar extends Component
     
     public array $query = [];
 
-    public array $htmlAttributes = [];
-
     public function render()
     {
         return view('ui::components.avatar');

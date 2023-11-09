@@ -6,6 +6,8 @@ use Collective\Html\HtmlFacade;
 
 trait HasAttributes
 {
+    public array $htmlAttributes = [];
+    
     public function attributesArray(array $attributes = []): array
     {
         $attributes = array_merge_recursive($this->htmlAttributes, $attributes);

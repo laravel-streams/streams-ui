@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Components;
 
-use Livewire\Component;
+use Streams\Ui\Support\Component;
 use Streams\Ui\Components\Traits\HasAttributes;
 
 class Anchor extends Component
@@ -12,10 +12,10 @@ class Anchor extends Component
     public ?string $url = null;
     public ?string $text = null;
 
-    public array $htmlAttributes = [];
+    protected string $template = 'ui::components.anchor';
 
     public function render()
     {
-        return view('ui::components.anchor');
+        return view($this->template);
     }
 }

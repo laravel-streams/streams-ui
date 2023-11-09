@@ -4,13 +4,13 @@ namespace Streams\Ui\Tests\Components;
 
 use Livewire\Livewire;
 use Streams\Ui\Tests\UiTestCase;
-use Streams\Ui\Components\Indicator;
+use Streams\Ui\Components\Badge;
 
-class IndicatorTest extends UiTestCase
+class BadgeTest extends UiTestCase
 {
     public function test_it_renders()
     {
-        Livewire::test(Indicator::class, [
+        Livewire::test(Badge::class, [
             'text' => 'Testing',
         ])
         ->assertSee('Testing');

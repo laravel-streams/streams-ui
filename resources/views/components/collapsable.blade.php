@@ -1,13 +1,11 @@
-<div x-data="{open: false}">
+<div x-data="{open: false}" class="overflow-hidden rounded-lg bg-white shadow px-6 py-4 min-w-[15rem]">
 
-    <div @click="open=!open">
-        {{ $this->text }}
+    <div @click="open=!open" class="text-xl font-medium cursor-pointer">
+        {{ $text }}
     </div>
 
-    <div x-show="open">
-        {{-- {!! $slot ?? view('ui::support.components', [
-            'component' => $this,
-        ]) !!} --}}
+    <div x-show="open" class="mt-4">
+        This is the collapsable content.
     </div>
 
 </div>

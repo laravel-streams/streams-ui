@@ -2,8 +2,8 @@
 
 namespace Streams\Ui\Components;
 
-use Streams\Ui\Support\Component;
 use Illuminate\Support\Facades\Route;
+use Livewire\Component;
 use Streams\Ui\Support\Facades\UI;
 
 class Page extends Component

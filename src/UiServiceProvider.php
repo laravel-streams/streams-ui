@@ -37,7 +37,11 @@ class UiServiceProvider extends ServiceProvider
         $this->app->singleton(\Streams\Ui\UiManager::class);
         $this->app->alias(\Streams\Ui\UiManager::class, 'ui');
 
-        foreach (config('streams.ui.components') as $name => $class) {
+        // foreach (config('streams.ui.components') as $name => $class) {
+        //     UI::component($name, $class);
+        // }
+
+        foreach (config('streams.ui.livewire') as $name => $class) {
             Livewire::component($name, $class);
         }
     }
@@ -54,6 +58,12 @@ class UiServiceProvider extends ServiceProvider
         View::addNamespace('ui', __DIR__ . '/../resources/views');
 
         Lang::addNamespace('ui', realpath(base_path('vendor/streams/ui/resources/lang')));
+
+        $this->app->booted(function() {
+            foreach (config('streams.ui.components') as $name => $class) {
+                Blade::component($name, BladeComponent::class);
+            }
+        });
 
         $this->loadRoutesFrom(__DIR__ . '/../resources/routes/web.php');
     }

@@ -13,8 +13,6 @@ class Navigation extends Component
 
     public array $items = [];
 
-    public array $htmlAttributes = [];
-
     public function render()
     {
         return view('ui::components.navigation');
