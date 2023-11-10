@@ -18,7 +18,7 @@ trait HasActive
         $callback = $this->active;
 
         if ($callback === null) {
-            return false;
+            return url($this->getUrl()) === request()->url();
         }
 
         return (bool) $this->evaluate($callback);

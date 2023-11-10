@@ -8,7 +8,7 @@
 <body class="h-full">
 
     @php
-        use Streams\Ui\Support\Facades\UI;
+    use Streams\Ui\Support\Facades\UI;
     @endphp
 
     <!-- Off-canvas -->
@@ -94,29 +94,31 @@
                         <ul role="list" class="-mx-2 space-y-1">
 
                             @foreach(UI::currentPanel()->getNavigation() as $group)
-                            @if ($label = $group->getLabel())
-                            <div class="flex items-center gap-x-3 px-2 py-2 cursor-pointer">
-                                <span class="flex-1 text-sm font-bold text-black">{{ $label
-                                    }}</span>
-                                <button>
-                                    @svg('heroicon-o-chevron-up', 'h-4 w-4 text-gray-400')
-                                </button>
-                            </div>
-                            @endif
-                            <ul role="list">
-                                @foreach ($group->getItems() as $item)
-                                <li>
-                                    <a href="{{ $item->getUrl() }}"
-                                        target="{{ $item->shouldOpenInNewTab() ? '_blank' : '_self' }}"
-                                        class="{{ $item->isActive() ? 'bg-gray-50 text-indigo-600' : 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50' }} group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                                        @if ($icon = $item->getIcon())
-                                        @svg($icon, 'h-6 w-6 shrink-0')
-                                        @endif
-                                        {{ __($item->getLabel()) }}
-                                    </a>
-                                </li>
-                                @endforeach
-                            </ul>
+                            <li x-data="{collapsed: false}">
+                                @if ($label = $group->getLabel())
+                                <div @click="collapsed=!collapsed" class="flex items-center gap-x-3 px-2 py-2 cursor-pointer">
+                                    <span class="flex-1 text-sm font-bold text-black">{{ $label
+                                        }}</span>
+                                    <button @click="collapsed=!collapsed" title="{{ $label }}" x-bind:aria-expanded="!collapsed" x-bind:class="{ '-rotate-180': collapsed }">
+                                        @svg('heroicon-o-chevron-up', 'h-4 w-4 text-gray-400')
+                                    </button>
+                                </div>
+                                @endif
+                                <ul x-show="!collapsed" role="list">
+                                    @foreach ($group->getItems() as $item)
+                                    <li>
+                                        <a href="{{ $item->getUrl() }}"
+                                            target="{{ $item->shouldOpenInNewTab() ? '_blank' : '_self' }}"
+                                            class="{{ $item->isActive() ? 'bg-gray-50 text-indigo-600' : 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50' }} group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                            @if ($icon = $item->getIcon())
+                                            @svg($icon, 'h-6 w-6 shrink-0')
+                                            @endif
+                                            {{ __($item->getLabel()) }}
+                                        </a>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </li>
                             @endforeach
                         </ul>
                     </li>
