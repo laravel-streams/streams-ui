@@ -2,8 +2,9 @@
 
 namespace Streams\Ui;
 
+use Illuminate\Support\Arr;
+use Streams\Ui\Panels\Panel;
 use Illuminate\Support\Facades\Config;
-use Streams\Ui\Components\Panel;
 use Illuminate\Support\Traits\Macroable;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
@@ -18,10 +19,12 @@ class UiManager
 
     public function panel(Panel $panel): void
     {
-        $this->panels[$panel->name] = $panel;
+        $this->panels[$panel->getId()] = $panel;
+
+        //$panel->register();
 
         if ($panel->isDefault()) {
-            $this->setCurrentPanel($panel->name);
+            $this->setCurrentPanel($panel);
         }
     }
 
@@ -30,15 +33,27 @@ class UiManager
         return $this->panels;
     }
 
-    public function setCurrentPanel(?string $panel): void
+    public function getPanel(?string $id = null): Panel
     {
-        $this->current = $panel;
+        return $this->panels[$id] ?? $this->getDefaultPanel();
+    }
 
-        $instance = $this->panels[$panel] ?? null;
+    public function getDefaultPanel(): Panel
+    {
+        return Arr::first(
+            $this->panels,
+            fn (Panel $panel): bool => $panel->isDefault(),
+            fn () => throw new \Exception('No default panel defined.'),
+        );
+    }
 
-        Config::set([
-            'livewire.layout' => $instance->getLayout(),
-        ]);
+    public function setCurrentPanel(Panel $panel): void
+    {
+        $this->current = $panel->getId();
+
+        // Config::set([
+        //     'livewire.layout' => $instance->getLayout(),
+        // ]);
     }
 
     public function currentPanel(): Panel

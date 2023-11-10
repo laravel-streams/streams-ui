@@ -8,8 +8,8 @@ Route::name('streams.ui.')
 
         foreach (UI::getPanels() as $panel) {
 
-            $name = $panel->name;
-            $path = $panel->path;
+            $id = $panel->getId();
+            $path = $panel->getPath();
 
             foreach ([null] as $domain) {
 
@@ -19,13 +19,12 @@ Route::name('streams.ui.')
 
                 Route::domain($domain)
                     ->middleware($panel->getMiddleware())
-                    ->name($name . '.')
+                    ->name($id . '.')
                     ->prefix($path)
                     ->group(function () use ($panel) {
-                            
-                            foreach ($panel->getPages() as $page) {
-                                $page::routes($panel);
-                            }
+                        foreach ($panel->getPages() as $page) {
+                            $page::routes($panel);
+                        }
                     });
             }
         }

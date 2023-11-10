@@ -2,20 +2,18 @@
 
 namespace Streams\Ui;
 
+use Illuminate\Routing\Router;
 use Livewire\Livewire;
-use Illuminate\View\Factory;
 use Illuminate\Support\Collection;
-use Streams\Ui\Support\Facades\UI;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
 use Streams\Core\Support\Integrator;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Config;
 use Streams\Ui\Support\BladeComponent;
 use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
 use Streams\Core\Support\Facades\Images;
+use Streams\Ui\Http\Middleware\SetUpPanel;
 
 class UiServiceProvider extends ServiceProvider
 {
@@ -36,6 +34,8 @@ class UiServiceProvider extends ServiceProvider
 
         $this->app->singleton(\Streams\Ui\UiManager::class);
         $this->app->alias(\Streams\Ui\UiManager::class, 'ui');
+
+        app(Router::class)->aliasMiddleware('panel', SetUpPanel::class);
 
         // foreach (config('streams.ui.components') as $name => $class) {
         //     UI::component($name, $class);
@@ -58,6 +58,10 @@ class UiServiceProvider extends ServiceProvider
         View::addNamespace('ui', __DIR__ . '/../resources/views');
 
         Lang::addNamespace('ui', realpath(base_path('vendor/streams/ui/resources/lang')));
+
+        Livewire::setPersistentMiddleware([
+            \Streams\Ui\Http\Middleware\SetUpPanel::class,
+        ]);
 
         $this->app->booted(function() {
             foreach (config('streams.ui.components') as $name => $class) {

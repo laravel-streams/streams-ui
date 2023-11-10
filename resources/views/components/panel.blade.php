@@ -1,3 +1,0 @@
-<div>
-    Components > Panel
-</div>
