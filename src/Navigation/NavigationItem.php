@@ -4,18 +4,26 @@ namespace Streams\Ui\Navigation;
 
 use Streams\Ui\Support\Component;
 use Streams\Ui\Navigation\Concerns;
+use Streams\Ui\Support\Concerns\HasUrl;
+use Streams\Ui\Support\Concerns\HasIcon;
+use Streams\Ui\Support\Concerns\HasSort;
+use Streams\Ui\Support\Concerns\HasBadge;
+use Streams\Ui\Support\Concerns\HasLabel;
+use Streams\Ui\Support\Concerns\HasVisibility;
 
 class NavigationItem extends Component
 {
-    use Concerns\HasUrl;
-    use Concerns\HasSort;
-    use Concerns\HasIcon;
-    use Concerns\HasBadge;
+    use HasUrl;
+    use HasIcon;
+    use HasSort;
+    use HasBadge;
+    use HasLabel;
+    use HasVisibility;
+
     use Concerns\HasGroup;
-    use Concerns\HasLabel;
-    use Concerns\HasActive;
     use Concerns\HasActiveIcon;
-    use Concerns\HasVisibility;
+    
+    use Concerns\CanBeActive;
 
     final public function __construct(string | \Closure | null $label = null)
     {

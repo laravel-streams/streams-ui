@@ -4,42 +4,35 @@ namespace Streams\Ui\Pages;
 
 use Livewire\Component;
 use Streams\Ui\Pages\Concerns;
-use Illuminate\Support\Facades\View;
+use Streams\Ui\Support\Concerns\HasTitle;
 
 abstract class Page extends Component
 {
+    use HasTitle;
+    
     use Concerns\HasRoutes;
-
-    protected static ?string $title = null;
-
-    protected static string $layout = 'ui::layouts.app';
+    use Concerns\HasLayout;
+    use Concerns\HasNavigation;
 
     protected static string $view;
 
     public function render()
     {
-        return View::make(static::$view, $this->getViewData())
+        return view(static::$view, $this->getViewData())
             ->layout(static::$layout, [
                 'livewire' => $this,
                 ...$this->getLayoutData(),
             ]);
     }
 
-    public function getTitle(): string
-    {
-        return static::$title ?? (string) str(class_basename(static::class))
-            ->kebab()
-            ->replace('-', ' ')
-            ->title();
-    }
+    public static function getUrl(
+        array $parameters = [],
+        bool $isAbsolute = true,
+        ?string $panel = null
+        //?Model $tenant = null
+    ): string {
+        //$parameters['tenant'] ??= ($tenant ?? Filament::getTenant());
 
-    protected function getLayoutData(): array
-    {
-        return [];
-    }
-
-    protected function getViewData(): array
-    {
-        return [];
+        return route(static::getRouteName($panel), $parameters, $isAbsolute);
     }
 }

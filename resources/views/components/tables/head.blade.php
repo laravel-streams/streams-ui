@@ -1,0 +1,26 @@
+<thead class="bg-gray-50">
+    <tr>
+        
+        @foreach ($columns as $index => $column)
+        <th scope="col"
+            class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold capitalize text-gray-900 sm:pl-6">
+            @if ($column->isSortable())
+            <a href="#todo-sort[{{ $column->getName() }}]">
+                {{ __($column->getLabel()) }}
+
+                @svg('heroicon-o-chevron-down', 'inline-block w-4 h-4 ml-1 text-gray-400')
+            </a>
+            @else
+            {{ __($column->getLabel()) }}
+            @endif
+        </th>
+        @endforeach
+        
+        @if ($actions)
+        <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+            <span class="sr-only">Row Actions</span>
+        </th>
+        @endif
+
+    </tr>
+</thead>

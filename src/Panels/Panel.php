@@ -4,18 +4,19 @@ namespace Streams\Ui\Panels;
 
 use Streams\Ui\Panels\Concerns;
 use Streams\Ui\Support\Component;
+use Streams\Ui\Support\Concerns\CanBeDefault;
 
 class Panel extends Component
 {
+    use CanBeDefault;
+    
     use Concerns\HasId;
     use Concerns\HasPages;
+    use Concerns\HasLayout;
     use Concerns\HasRoutes;
+    use Concerns\HasUserMenu;
     use Concerns\HasMiddleware;
     use Concerns\HasNavigation;
-
-    protected bool $default = false;
-
-    protected string $layout = 'ui::layouts.app';
 
     static public function make(): static
     {
@@ -26,27 +27,10 @@ class Panel extends Component
         return $instance;
     }
 
-    public function default(bool $condition = true): static
+    public function boot(): void
     {
-        $this->default = $condition;
-
-        return $this;
-    }
-
-    public function isDefault(): bool
-    {
-        return $this->default;
-    }
-
-    public function layout(string $layout): static
-    {
-        $this->layout = $layout;
-
-        return $this;
-    }
-
-    public function getLayout(): string
-    {
-        return $this->layout;
+        // Register Colors
+        // Register Icons??
+        // Set SPA Mode
     }
 }

@@ -12,13 +12,13 @@
     @endphp
 
     <!-- Off-canvas -->
-    <div x-data="{open: false}" x-cloak @open-navigation.window="open=true" class="relative z-50 lg:hidden"
-        role="dialog" aria-modal="true">
+    <div x-data="{open: false}" x-cloak @open-navigation.window="open=true" x-on:keydown.escape.window="open=false"
+        class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
 
         <div x-show="open" x-transition:enter="transition-opacity ease-linear duration-300"
             x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
             x-transition:leave="transition-opacity ease-linear duration-300" x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0" class="fixed inset-0 bg-gray-900/80"></div>
+            x-transition:leave-end="opacity-0" class="fixed inset-0 bg-black/80"></div>
 
         <div x-show="open" x-transition:enter="transition ease-in-out duration-300 transform"
             x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
@@ -49,19 +49,36 @@
                             <li>
                                 <ul role="list" class="-mx-2 space-y-1">
 
-                                    {{-- @foreach(UI::currentPanel()->getNavigation() as
-                                    $item)
-                                    <li>
-                                        <a href="{{ $item->getUrl() }}"
-                                            target="{{ $item->shouldOpenInNewTab() ? '_blank' : '_self' }}"
-                                            class="{{ $item->isActive() ? 'bg-gray-50 text-indigo-600' : 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50' }} group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                                            @if ($icon = $item->getIcon())
-                                            @svg($icon, 'h-6 w-6 shrink-0')
-                                            @endif
-                                            {{ __($item->getLabel()) }}
-                                        </a>
+                                    @foreach(UI::currentPanel()->getNavigation() as $group)
+                                    <li x-data="{collapsed: false}">
+                                        @if ($label = $group->getLabel())
+                                        <div @click="collapsed=!collapsed"
+                                            class="flex items-center gap-x-3 px-2 py-2 cursor-pointer">
+                                            <span class="flex-1 text-sm font-bold text-black">{{ $label
+                                                }}</span>
+                                            <button @click="collapsed=!collapsed" title="{{ $label }}"
+                                                x-bind:aria-expanded="!collapsed"
+                                                x-bind:class="{ '-rotate-180': collapsed }">
+                                                @svg('heroicon-o-chevron-up', 'h-4 w-4 text-gray-400')
+                                            </button>
+                                        </div>
+                                        @endif
+                                        <ul x-show="!collapsed" role="list">
+                                            @foreach ($group->getItems() as $item)
+                                            <li>
+                                                <a href="{{ $item->getUrl() }}"
+                                                    target="{{ $item->shouldOpenInNewTab() ? '_blank' : '_self' }}"
+                                                    class="{{ $item->isActive() ? 'bg-gray-50 text-indigo-600' : 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50' }} group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                    @if ($icon = $item->getIcon())
+                                                    @svg($icon, 'h-6 w-6 shrink-0')
+                                                    @endif
+                                                    {{ __($item->getLabel()) }}
+                                                </a>
+                                            </li>
+                                            @endforeach
+                                        </ul>
                                     </li>
-                                    @endforeach --}}
+                                    @endforeach
 
                                 </ul>
                             </li>
@@ -90,16 +107,18 @@
 
             <nav class="flex flex-1 flex-col">
                 <ul role="list" class="flex flex-1 flex-col gap-y-7">
+
                     <li>
                         <ul role="list" class="-mx-2 space-y-1">
-
                             @foreach(UI::currentPanel()->getNavigation() as $group)
                             <li x-data="{collapsed: false}">
                                 @if ($label = $group->getLabel())
-                                <div @click="collapsed=!collapsed" class="flex items-center gap-x-3 px-2 py-2 cursor-pointer">
+                                <div @click="collapsed=!collapsed"
+                                    class="flex items-center gap-x-3 px-2 py-2 cursor-pointer">
                                     <span class="flex-1 text-sm font-bold text-black">{{ $label
                                         }}</span>
-                                    <button @click="collapsed=!collapsed" title="{{ $label }}" x-bind:aria-expanded="!collapsed" x-bind:class="{ '-rotate-180': collapsed }">
+                                    <button @click="collapsed=!collapsed" title="{{ $label }}"
+                                        x-bind:aria-expanded="!collapsed" x-bind:class="{ '-rotate-180': collapsed }">
                                         @svg('heroicon-o-chevron-up', 'h-4 w-4 text-gray-400')
                                     </button>
                                 </div>
@@ -122,6 +141,7 @@
                             @endforeach
                         </ul>
                     </li>
+
                 </ul>
             </nav>
 
@@ -135,13 +155,13 @@
         <div
             class="sticky top-0 z-40 flex w-full h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
 
-            {{-- Burget Menu --}}
+            {{-- Burger Menu --}}
             <button x-data @click.="$dispatch('open-navigation')" type="button"
                 class="-m-2.5 p-2.5 text-gray-700 lg:hidden">
                 <span class="sr-only">Open sidebar</span>
                 @svg('heroicon-o-bars-3', 'h-6 w-6')
             </button>
-            {{-- EOF Burget Menu --}}
+            {{-- EOF Burger Menu --}}
 
             <!-- Separator -->
             <div class="h-6 w-px bg-gray-900/10 lg:hidden" aria-hidden="true"></div>
@@ -197,11 +217,19 @@
                             x-transition:leave="transition ease-in duration-75"
                             x-transition:leave-start="transform opacity-100 scale-100"
                             x-transition:leave-end="transform opacity-0 scale-95"
-                            class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
+                            class="absolute min-w-[12rem] right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white p-1 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
                             role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                            <a href="/admin/logout"
-                                class="block px-3 py-1 text-sm leading-6 text-gray-900 hover:bg-gray-50" role="menuitem"
-                                tabindex="-1" id="user-menu-item-1">Sign out</a>
+                            @foreach (UI::currentPanel()->getUserMenu() as $item)
+                            <a href="{{ url($item->getUrl()) }}"
+                                target="{{ $item->shouldOpenInNewTab() ? '_blank' : '_self' }}"
+                                class="flex w-full items-center gap-2 whitespace-nowrap rounded-md p-2 text-sm transition-colors duration-75 outline-none disabled:pointer-events-none disabled:opacity-70 fi-color-gray hover:bg-gray-50 focus-visible:bg-gray-50"
+                                role="menuitem" tabindex="-1" id="user-menu-item-1">
+                                @if ($icon = $item->getIcon())
+                                @svg($icon, 'h-5 w-5 text-gray-500')
+                                @endif
+                                {{ __($item->getLabel()) }}
+                            </a>
+                            @endforeach
                         </div>
 
                     </div>
