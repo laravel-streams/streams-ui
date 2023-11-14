@@ -18,9 +18,13 @@ class Panel extends Component
     use Concerns\HasMiddleware;
     use Concerns\HasNavigation;
 
-    static public function make(): static
+    static public function make(?string $id = null): static
     {
         $instance = new static;
+
+        if ($id) {
+            $instance->id($id);
+        }
 
         //$instance->configure();
 
