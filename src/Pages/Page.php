@@ -5,16 +5,20 @@ namespace Streams\Ui\Pages;
 use Livewire\Component;
 use Streams\Ui\Pages\Concerns;
 use Streams\Ui\Support\Concerns\HasTitle;
+use Streams\Ui\Support\Concerns\HasNavigation;
 
 abstract class Page extends Component
 {
     use HasTitle;
-    
+    use HasNavigation;
+
     use Concerns\HasRoutes;
     use Concerns\HasLayout;
-    use Concerns\HasNavigation;
+    use Concerns\HasResource;
 
     protected static string $view;
+
+    protected static string $resource;
 
     public function render()
     {

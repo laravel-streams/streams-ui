@@ -26,7 +26,7 @@ class MenuItem extends Component
     {
         $static = new static;
 
-        //$static->configure();
+        $static->configure();
 
         return $static;
     }

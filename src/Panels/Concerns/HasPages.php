@@ -13,9 +13,9 @@ trait HasPages
             ...$pages,
         ];
 
-        // foreach ($pages as $page) {
-        //     $this->queueLivewireComponentForRegistration($page);
-        // }
+        foreach ($pages as $page) {
+            $this->queueLivewireComponent($page);
+        }
 
         return $this;
     }

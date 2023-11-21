@@ -48,3 +48,5 @@
     }
 </style>
 @endif --}}
+
+@include('ui::support.constants')

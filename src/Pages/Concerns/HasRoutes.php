@@ -5,7 +5,9 @@ namespace Streams\Ui\Pages\Concerns;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Streams\Ui\Panels\Panel;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Route;
+use Streams\Ui\Pages\PageRouter;
+use Illuminate\Support\Facades\Route as RouteFacade;
 
 trait HasRoutes
 {
@@ -19,10 +21,20 @@ trait HasRoutes
     {
         $slug = static::getSlug();
 
-        Route::get("/{$slug}", static::class)
+        RouteFacade::get("/{$slug}", static::class)
             ->middleware(static::getRouteMiddleware($panel))
-            ->withoutMiddleware(static::getRouteWithoutMiddleware($panel))
+            ->withoutMiddleware(static::getWithoutRouteMiddleware($panel))
             ->name(Str::replace('/', '.', $slug));
+    }
+
+    public static function route(string $path): PageRouter
+    {
+        return new PageRouter(
+            static::class,
+            fn (Panel $panel): Route => RouteFacade::get($path, static::class)
+                ->middleware(static::getRouteMiddleware($panel))
+                ->withoutMiddleware(static::getWithoutRouteMiddleware($panel)),
+        );
     }
 
     public static function getSlug(): string
@@ -41,7 +53,7 @@ trait HasRoutes
         ];
     }
 
-    public static function getRouteWithoutMiddleware(Panel $panel): string | array
+    public static function getWithoutRouteMiddleware(Panel $panel): string | array
     {
         return static::$withoutMiddleware;
     }

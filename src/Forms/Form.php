@@ -1,27 +1,24 @@
 <?php
 
-namespace Streams\Ui\Tables;
+namespace Streams\Ui\Forms;
 
-use Streams\Ui\Tables\Concerns;
 use Streams\Ui\Support\Component;
+use Streams\Ui\Support\Concerns\HasRecord;
 use Streams\Ui\Support\Concerns\HasHeading;
 use Streams\Ui\Support\Concerns\HasLivewire;
 use Streams\Ui\Support\Concerns\HasDescription;
 
-class Table extends Component
+class Form extends Component
 {
     use HasLivewire;
 
+    use HasRecord;
     use HasHeading;
     use HasDescription;
-    
-    use Concerns\HasQuery;
-    use Concerns\HasActions;
-    use Concerns\HasColumns;
 
-    protected string $view = 'ui::components.table.index';
+    protected string $view = 'ui::components.form.index';
 
-    protected string $viewIdentifier = 'table';
+    protected string $viewIdentifier = 'form';
 
     public function __construct($livewire)
     {

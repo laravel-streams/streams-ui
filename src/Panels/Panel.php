@@ -15,6 +15,8 @@ class Panel extends Component
     use Concerns\HasLayout;
     use Concerns\HasRoutes;
     use Concerns\HasUserMenu;
+    use Concerns\HasResources;
+    use Concerns\HasComponents;
     use Concerns\HasMiddleware;
     use Concerns\HasNavigation;
 
@@ -26,9 +28,15 @@ class Panel extends Component
             $instance->id($id);
         }
 
-        //$instance->configure();
+        $instance->configure();
 
         return $instance;
+    }
+
+    public function register(): void
+    {
+        $this->registerLivewireComponents();
+        //$this->registerLivewirePersistentMiddleware();
     }
 
     public function boot(): void

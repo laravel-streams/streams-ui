@@ -4,7 +4,6 @@ namespace Streams\Ui;
 
 use Illuminate\Support\Arr;
 use Streams\Ui\Panels\Panel;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Traits\Macroable;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
@@ -21,7 +20,7 @@ class UiManager
     {
         $this->panels[$panel->getId()] = $panel;
 
-        //$panel->register();
+        $panel->register();
 
         if ($panel->isDefault()) {
             $this->setCurrentPanel($panel);

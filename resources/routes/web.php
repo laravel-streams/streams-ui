@@ -22,8 +22,13 @@ Route::name('streams.ui.')
                     ->name($id . '.')
                     ->prefix($path)
                     ->group(function () use ($panel) {
+                        
                         foreach ($panel->getPages() as $page) {
                             $page::routes($panel);
+                        }
+
+                        foreach ($panel->getResources() as $resource) {
+                            $resource::routes($panel);
                         }
                     });
             }

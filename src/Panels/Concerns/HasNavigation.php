@@ -42,9 +42,9 @@ trait HasNavigation
             $page::registerNavigationItems($this);
         }
 
-        // foreach ($this->getResources() as $resource) {
-        //     $resource::registerNavigationItems($this);
-        // }
+        foreach ($this->getResources() as $resource) {
+            $resource::registerNavigationItems($this);
+        }
 
         $this->navigationMounted = true;
     }

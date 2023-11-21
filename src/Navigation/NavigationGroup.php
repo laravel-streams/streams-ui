@@ -27,7 +27,7 @@ class NavigationGroup extends Component
     {
         $static = new static($label);
 
-        //$static->configure();
+        $static->configure();
 
         return $static;
     }

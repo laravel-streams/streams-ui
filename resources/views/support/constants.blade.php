@@ -1,3 +1,5 @@
+<meta name="csrf_token" value="{{ csrf_token() }}"/>
+
 <script type="text/javascript">
     const APPLICATION_URL = "{{ request()->root() }}";
     const APPLICATION_REFERENCE = "{{ env('APPLICATION_REFERENCE') }}";
