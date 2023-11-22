@@ -7,14 +7,14 @@ use Streams\Ui\Tables\Columns\Concerns;
 use Streams\Ui\Support\Concerns\HasIcon;
 use Streams\Ui\Support\Concerns\HasName;
 use Streams\Ui\Support\Concerns\HasLabel;
-use Streams\Ui\Support\Concerns\HasRecord;
+use Streams\Ui\Support\Concerns\HasEntry;
 
 abstract class Column extends Component
 {
     use HasIcon;
     use HasName;
     use HasLabel;
-    use HasRecord;
+    use HasEntry;
 
     use Concerns\HasTable;
     use Concerns\IsSortable;
@@ -34,9 +34,9 @@ abstract class Column extends Component
 
     public function value(): string
     {
-        $record = $this->getRecord();
+        $entry = $this->getEntry();
 
-        return $record->{$this->getName()};
+        return $entry->{$this->getName()};
     }
 
     public function getLabel(): string
@@ -55,7 +55,7 @@ abstract class Column extends Component
     {
         return match ($parameter) {
             //'stream' => [$this->getStream()],
-            'record' => [$this->getRecord()],
+            'entry' => [$this->getEntry()],
             default => parent::resolveDefaultClosureDependency($parameter),
         };
     }

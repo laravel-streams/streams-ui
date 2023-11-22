@@ -8,6 +8,8 @@ trait HasTable
 {
     protected Table $table;
 
+    public $currentPageOption = 2;
+
     protected function makeTable(): Table
     {
         return Table::make($this);
@@ -129,5 +131,24 @@ trait HasTable
         // if ($this->getTable()->isPaginated()) {
         //     $this->tableRecordsPerPage = $this->getDefaultTableRecordsPerPageSelectOption();
         // }
+    }
+
+    public function getTable(): Table
+    {
+        return $this->table;
+    }
+
+    public function getTableEntriesPerPage(): int | string
+    {
+        return $this->getTable()->getPerPage();
+    }
+
+    public function getQueryStringPropertyName(string $property): string
+    {
+        if (filled($identifier = $this->getTable()->getQueryStringIdentifier())) {
+            return $identifier . ucfirst($property);
+        }
+
+        return $property;
     }
 }

@@ -78,9 +78,9 @@ trait EvaluatesClosures
             return $this;
         }
 
-        if (filled($typedParameterClassName)) {
-            return app()->make($typedParameterClassName);
-        }
+        // if (filled($typedParameterClassName)) {
+        //     return app()->make($typedParameterClassName);
+        // }
 
         if ($parameter->isDefaultValueAvailable()) {
             return $parameter->getDefaultValue();

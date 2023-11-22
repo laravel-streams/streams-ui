@@ -3,7 +3,7 @@
         
         @foreach ($columns as $index => $column)
         <th scope="col"
-            class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold capitalize text-gray-900 sm:pl-6">
+            class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold uppercase text-gray-900 sm:pl-6">
             @if ($column->isSortable())
             <a href="#todo-sort[{{ $column->getName() }}]">
                 {{ __($column->getLabel()) }}

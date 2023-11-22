@@ -1,6 +1,9 @@
 @php
-$columns = $table->getColumns();
 $actions = $table->getActions();
+$columns = $table->getColumns();
+$entries = $getEntries();
+
+$paginationOptions = $table->getPaginationOptions();
 
 $heading = $table->getHeading();
 $description = $table->getDescription();
@@ -18,13 +21,13 @@ $description = $table->getDescription();
 
         <tbody class="divide-y divide-gray-200 bg-white">
 
-            @foreach ($table->getQuery()->get() as $record)
-            <x-ui::table.row :table="$table" :record="$record" :columns="$columns" :actions="$actions" />
+            @foreach ($entries as $entry)
+            <x-ui::table.row :table="$table" :entry="$entry" :columns="$columns" :actions="$actions" />
             @endforeach
 
         </tbody>
 
-        <x-ui::table.foot :table="$table" />
+        <x-ui::table.foot :table="$table" :paginator="$entries" :paginationOptions="$paginationOptions" />
 
     </table>
 

@@ -3,21 +3,24 @@
 namespace Streams\Ui\Tables;
 
 use Streams\Ui\Tables\Concerns;
-use Streams\Ui\Support\Component;
+use Illuminate\Support\Collection;
+use Streams\Ui\Support\ViewComponent;
 use Streams\Ui\Support\Concerns\HasHeading;
 use Streams\Ui\Support\Concerns\HasLivewire;
+use Illuminate\Contracts\Pagination\Paginator;
 use Streams\Ui\Support\Concerns\HasDescription;
 
-class Table extends Component
+class Table extends ViewComponent
 {
-    use HasLivewire;
-
     use HasHeading;
+    use HasLivewire;
     use HasDescription;
     
     use Concerns\HasQuery;
     use Concerns\HasActions;
     use Concerns\HasColumns;
+    use Concerns\HasEntries;
+    use Concerns\CanPaginate;
 
     protected string $view = 'ui::components.table.index';
 
@@ -35,5 +38,10 @@ class Table extends Component
         $instance->configure();
 
         return $instance;
+    }
+
+    public function getEntries(): Collection | Paginator
+    {
+        return $this->getTableEntries();
     }
 }

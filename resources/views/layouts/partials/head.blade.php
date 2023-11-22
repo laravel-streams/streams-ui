@@ -10,7 +10,6 @@
 
 {!! Assets::collection('scripts.head')->tags() !!}
 
-
 <!-- styles.blade.php -->
 {{-- {{ Assets::load('styles', 'vendor/streams/ui/css/variables.css') }}
 {{ Assets::load('styles', 'vendor/streams/ui/css/theme.css') }} --}}

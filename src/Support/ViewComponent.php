@@ -1,11 +1,12 @@
 <?php
 
-namespace Streams\Ui\Support\Concerns;
+namespace Streams\Ui\Support;
 
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\View\ComponentAttributeBag;
-use Illuminate\View\View;
 
-trait HasView
+class ViewComponent extends Component implements Htmlable
 {
     protected string $view;
 
@@ -87,5 +88,19 @@ trait HasView
                 ...$this->viewData,
             ],
         );
+    }
+
+    protected string | \Closure | null $queryStringIdentifier = null;
+
+    public function queryStringIdentifier(string | \Closure | null $identifier): static
+    {
+        $this->queryStringIdentifier = $identifier;
+
+        return $this;
+    }
+
+    public function getQueryStringIdentifier(): ?string
+    {
+        return $this->evaluate($this->queryStringIdentifier);
     }
 }
