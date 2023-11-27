@@ -3,11 +3,11 @@
 namespace Streams\Ui\Pages;
 
 use Streams\Ui\Forms\Form;
-use Streams\Ui\Forms\Concerns\HasForm;
+use Streams\Ui\Forms\Concerns\InteractsWithForms;
 
 class EditEntry extends Page
 {
-    use HasForm;
+    use InteractsWithForms;
 
     protected static string $view = 'ui::pages.edit-entry';
 

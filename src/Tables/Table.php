@@ -12,8 +12,9 @@ use Streams\Ui\Support\Concerns\HasDescription;
 
 class Table extends ViewComponent
 {
-    use HasHeading;
     use HasLivewire;
+    
+    use HasHeading;
     use HasDescription;
     
     use Concerns\HasQuery;

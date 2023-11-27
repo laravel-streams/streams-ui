@@ -2,19 +2,22 @@
 
 namespace Streams\Ui\Forms;
 
-use Streams\Ui\Support\Component;
-use Streams\Ui\Support\Concerns\HasRecord;
+use Streams\Ui\Forms\Concerns;
+use Streams\Ui\Support\ViewComponent;
+use Streams\Ui\Support\Concerns\HasEntry;
 use Streams\Ui\Support\Concerns\HasHeading;
 use Streams\Ui\Support\Concerns\HasLivewire;
 use Streams\Ui\Support\Concerns\HasDescription;
 
-class Form extends Component
+class Form extends ViewComponent
 {
     use HasLivewire;
 
-    use HasRecord;
+    use HasEntry;
     use HasHeading;
     use HasDescription;
+    
+    use Concerns\HasComponents;
 
     protected string $view = 'ui::components.form.index';
 

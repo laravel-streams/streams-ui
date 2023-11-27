@@ -50,7 +50,7 @@ class ViewComponent extends Component implements Htmlable
 
     protected function extractPublicMethods(): array
     {
-        $methods = $this->once(__METHOD__, function () {
+        $methods = $this->once(static::class . __FUNCTION__, function () {
 
             $reflection = new \ReflectionClass($this);
 

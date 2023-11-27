@@ -1,45 +1,53 @@
 <?php
 
-namespace Streams\Ui\Components;
+namespace Streams\Ui\Inputs;
 
-use Livewire\Component;
+use Streams\Ui\Inputs\Concerns;
+use Streams\Ui\Support\ViewComponent;
+use Streams\Ui\Support\Concerns\HasId;
+use Streams\Ui\Support\Concerns\HasName;
+use Streams\Ui\Support\Concerns\HasLabel;
 use Streams\Core\Support\Traits\HasMemory;
-use Streams\Ui\Components\Traits\HasField;
-use Streams\Ui\Components\Traits\HasStream;
-use Streams\Ui\Components\Traits\HasAttributes;
 
-abstract class Input extends Component
+abstract class Input extends ViewComponent
 {
-    use HasAttributes;
+    use HasId;
+    use HasName;
+    use HasLabel;
     use HasMemory;
-    use HasStream;
-    use HasField;
 
-    public $id = null;
+    use Concerns\HasKey;
+    use Concerns\HasState;
 
-    protected $stream = null;
-    protected $field = null;
+    use Concerns\CanBeHidden;
+    use Concerns\CanBeDisabled;
+    use Concerns\CanBeReadonly;
+    use Concerns\CanBeValidated;
 
-    public $value = null;
+    protected string $viewIdentifier = 'field';
 
-    public ?string $name = null;
-    
-    public ?string $placeholder = null;
+    final public function __construct(string $name)
+    {
+        $this->name($name);
+        $this->statePath($name);
+    }
 
-    public bool $readonly = false;
-    public bool $disabled = false;
-    public bool $required = false;
+    public static function make(string $name): static
+    {
+        $static = app(static::class, ['name' => $name]);
 
-    // public function post()
-    // {
-    //     if ($value = Request::post($this->name)) {
-    //         return $value;
-    //     }
+        $static->configure();
 
-    //     if ($file = Request::file($this->name)) {
-    //         return $this->upload($file);
-    //     }
+        return $static;
+    }
 
-    //     return null;
-    // }
+    public function getId(): string
+    {
+        return $this->id ?: $this->getStatePath();
+    }
+
+    public function getKey(): string
+    {
+        return $this->key ?: $this->getStatePath();
+    }
 }

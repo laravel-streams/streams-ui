@@ -1,10 +1,10 @@
 <?php
 
-namespace Streams\Ui\Panels\Concerns;
+namespace Streams\Ui\Support\Concerns;
 
 trait HasId
 {
-    protected string $id;
+    protected ?string $id = null;
 
     public function id(string $id): static
     {

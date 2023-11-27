@@ -41,9 +41,9 @@ class UiServiceProvider extends ServiceProvider
         //     UI::component($name, $class);
         // }
 
-        foreach (config('streams.ui.livewire') as $name => $class) {
-            Livewire::component($name, $class);
-        }
+        // foreach (config('streams.ui.livewire') as $name => $class) {
+        //     Livewire::component($name, $class);
+        // }
     }
 
     public function boot()
@@ -64,9 +64,9 @@ class UiServiceProvider extends ServiceProvider
         ]);
 
         $this->app->booted(function() {
-            foreach (config('streams.ui.components') as $name => $class) {
-                Blade::component($name, BladeComponent::class);
-            }
+            // foreach (config('streams.ui.components') as $name => $class) {
+            //     Blade::component($name, BladeComponent::class);
+            // }
         });
 
         $this->loadRoutesFrom(__DIR__ . '/../resources/routes/web.php');

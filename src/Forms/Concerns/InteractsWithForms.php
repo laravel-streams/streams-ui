@@ -2,10 +2,13 @@
 
 namespace Streams\Ui\Forms\Concerns;
 
+use Livewire\WithFileUploads;
 use Streams\Ui\Forms\Form;
 
-trait HasForm
+trait InteractsWithForms
 {
+    use WithFileUploads;
+
     protected Form $form;
 
     protected function makeForm(): Form
@@ -13,7 +16,7 @@ trait HasForm
         return Form::make($this);
     }
 
-    public function bootedHasForm(): void
+    public function bootedInteractsWithForms(): void
     {
         $this->form = $this->form($this->makeForm($this));
 

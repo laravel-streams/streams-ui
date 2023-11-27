@@ -4,13 +4,15 @@ namespace Streams\Ui\Panels;
 
 use Streams\Ui\Panels\Concerns;
 use Streams\Ui\Support\Component;
+use Streams\Ui\Support\Concerns\HasId;
 use Streams\Ui\Support\Concerns\CanBeDefault;
 
 class Panel extends Component
 {
+    use HasId;
+    
     use CanBeDefault;
     
-    use Concerns\HasId;
     use Concerns\HasPages;
     use Concerns\HasLayout;
     use Concerns\HasRoutes;
