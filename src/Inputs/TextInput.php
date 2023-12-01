@@ -13,6 +13,7 @@ class TextInput extends Input
     use Concerns\HasInputMode;
     use Concerns\HasPlaceholder;
 
+    use Concerns\CanBeAutocompleted;
     use Concerns\CanBeValueConstrained;
     use Concerns\CanBeLengthConstrained;
 

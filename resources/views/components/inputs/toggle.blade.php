@@ -1,39 +1,122 @@
-<div class="flex">
+{{-- <x-dynamic-component :component="$getFieldWrapperView()" :field="$field"> --}}
 
-    <style>
-        input:checked ~ .block {
-            background-color: #48bb78;
-        }
-        
-        input:checked ~ .dot {
-            transform: translateX(100%);
-        }
-    </style>
-  
-    <label for="{{ $this->id }}" class="flex items-center cursor-pointer">
-      
-        <div class="relative">
-        
-            <input {!! $this->htmlAttributes([
-                'value' => true,
-                'type' => 'checkbox',
-                'id' => $this->id,
-                'name' => $this->name,
-                'required' => $this->required,
-                'readonly' => $this->readonly,
-                'disabled' => $this->disabled,
-                'checked' => $this->value == true,
-                'class' => 'sr-only',
-            ]) !!}>
-        
-            <div class="block bg-gray-600 w-14 h-8 rounded-full"></div>
-        
-            <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
-        </div>
-      
-        <div class="ml-3 text-gray-700 font-medium">
-            {{ __($this->label) }}
-        </div>
-    </label>
-  
-  </div>
+    @php
+        // $offColor = $getOffColor() ?? 'gray';
+        // $onColor = $getOnColor() ?? 'primary';
+        $offColor = 'red';
+        $onColor = 'primary';
+        $statePath = $getStatePath();
+    @endphp
+
+<button
+    x-data="{
+        {{-- state: $wire.{{ $applyStateBindingModifiers("\$entangle('{$statePath}')") }}, --}}
+    }"
+    x-bind:aria-checked="state?.toString()"
+    x-on:click="state = ! state"
+    x-bind:class="
+        state
+            ? '{{
+                match ($onColor) {
+                    'gray' => 'bg-gray-200 dark:bg-gray-700',
+                    default => 'bg-custom-600',
+                }
+            }}'
+            : '{{
+                match ($offColor) {
+                    'gray' => 'bg-gray-200 dark:bg-gray-700',
+                    default => 'bg-custom-600',
+                }
+            }}'
+    "
+    x-bind:style="
+        state
+            ? '{{
+                // \Filament\Support\get_color_css_variables(
+                //     $onColor,
+                //     shades: [600],
+                // )
+                $onColor
+            }}'
+            : '{{
+                // \Filament\Support\get_color_css_variables(
+                //     $offColor,
+                //     shades: [600],
+                // )
+                $offColor
+            }}'
+    "
+    {{
+        $attributes
+            ->merge([
+                'aria-checked' => 'false',
+                // 'autofocus' => $isAutofocused(),
+                'disabled' => $isDisabled(),
+                'id' => $getId(),
+                'role' => 'switch',
+                'type' => 'button',
+                'wire:loading.attr' => 'disabled',
+                'wire:target' => $statePath,
+            ], escape: false)
+            // ->merge($getExtraAttributes(), escape: false)
+            // ->merge($getExtraAlpineAttributes(), escape: false)
+            ->class(['relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent outline-none transition-colors duration-200 ease-in-out disabled:pointer-events-none disabled:opacity-70'])
+    }}
+    >
+    <span
+        class="pointer-events-none relative inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+        x-bind:class="{
+            'translate-x-5 rtl:-translate-x-5': state,
+            'translate-x-0': ! state,
+        }"
+    >
+        <span
+            class="absolute inset-0 flex h-full w-full items-center justify-center transition-opacity"
+            aria-hidden="true"
+            x-bind:class="{
+                'opacity-0 ease-out duration-100': state,
+                'opacity-100 ease-in duration-200': ! state,
+            }"
+        >
+            {{-- @if ($hasOffIcon())
+                <x-filament::icon
+                    :icon="$getOffIcon()"
+                    @class([
+                        'h-3 w-3',
+                        match ($offColor) {
+                            'gray' => 'text-gray-400 dark:text-gray-700',
+                            default => 'text-custom-600',
+                        },
+                    ])
+                />
+            @endif --}}
+        </span>
+
+        <span
+            class="absolute inset-0 flex h-full w-full items-center justify-center transition-opacity"
+            aria-hidden="true"
+            x-bind:class="{
+                'opacity-100 ease-in duration-200': state,
+                'opacity-0 ease-out duration-100': ! state,
+            }"
+        >
+            {{-- @if ($hasOnIcon())
+                <x-filament::icon
+                    :icon="$getOnIcon()"
+                    x-cloak="x-cloak"
+                    @class([
+                        'h-3 w-3',
+                        match ($onColor) {
+                            'gray' => 'text-gray-400 dark:text-gray-700',
+                            default => 'text-custom-600',
+                        },
+                    ])
+                />
+            @endif --}}
+        </span>
+    </span>
+</button>
+
+<label for="{{ $getId() }}">{{ $getLabel() }}</label>
+
+{{-- </x-dynamic-component> --}}

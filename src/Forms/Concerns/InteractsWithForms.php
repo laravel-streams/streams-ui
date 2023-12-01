@@ -16,7 +16,7 @@ trait InteractsWithForms
         return Form::make($this);
     }
 
-    public function bootedInteractsWithForms(): void
+    public function bootInteractsWithForms(): void
     {
         $this->form = $this->form($this->makeForm($this));
 

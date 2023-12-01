@@ -222,7 +222,7 @@
                             @foreach (UI::currentPanel()->getUserMenu() as $item)
                             <a href="{{ url($item->getUrl()) }}"
                                 target="{{ $item->shouldOpenInNewTab() ? '_blank' : '_self' }}"
-                                class="flex w-full items-center gap-2 whitespace-nowrap rounded-md p-2 text-sm transition-colors duration-75 outline-none disabled:pointer-events-none disabled:opacity-70 fi-color-gray hover:bg-gray-50 focus-visible:bg-gray-50"
+                                class="flex w-full items-center gap-2 whitespace-nowrap rounded-md p-2 text-sm transition-colors duration-75 outline-none disabled:pointer-events-none disabled:opacity-70 hover:bg-gray-50 focus-visible:bg-gray-50"
                                 role="menuitem" tabindex="-1" id="user-menu-item-1">
                                 @if ($icon = $item->getIcon())
                                 @svg($icon, 'h-5 w-5 text-gray-500')

@@ -36,14 +36,14 @@
             'flex-1' => $grouped,
             'rounded-lg' => ! $grouped,
             match ($color) {
-                'gray' => 'fi-color-gray',
-                default => 'fi-color-custom',
+                'gray' => '',
+                default => '',
             },
-            // @deprecated `fi-btn-color-*` has been replaced by `fi-color-gray` and `fi-color-custom`.
-            is_string($color) ? "fi-btn-color-{$color}" : null,
-            "fi-size-{$size}",
-            // @deprecated `fi-btn-size-*` has been replaced by `fi-size-*`.
-            "fi-btn-size-{$size}",
+            // @deprecated `*` has been replaced by `` and ``.
+            is_string($color) ? "{$color}" : null,
+            "{$size}",
+            // @deprecated `*` has been replaced by `*`.
+            "{$size}",
             match ($size) {
                 'xs' => 'gap-1 px-2 py-1.5 text-xs',
                 'sm' => 'gap-1 px-2.5 py-1.5 text-sm',
@@ -65,7 +65,7 @@
         ...(
             $outlined ?
                 [
-                    'fi-btn-outlined ring-1',
+                    'ring-1',
                     match ($color) {
                         'gray' => 'text-gray-950 ring-gray-300 hover:bg-gray-400/10 focus-visible:ring-gray-400/40 dark:text-white dark:ring-gray-700',
                         default => 'text-custom-600 ring-custom-600 hover:bg-custom-400/10 dark:text-custom-400 dark:ring-custom-500',
@@ -96,7 +96,7 @@
     ]);
 
     $iconClasses = \Illuminate\Support\Arr::toCssClasses([
-        'fi-btn-icon',
+        '',
         match ($iconSize) {
             'sm' => 'h-4 w-4',
             'md' => 'h-5 w-5',
@@ -109,10 +109,10 @@
         },
     ]);
 
-    $badgeContainerClasses = 'fi-btn-badge-ctn absolute -top-1 start-full z-[1] -ms-1 w-max -translate-x-1/2 rounded-md bg-white rtl:translate-x-1/2 dark:bg-gray-900';
+    $badgeContainerClasses = 'absolute -top-1 start-full z-[1] -ms-1 w-max -translate-x-1/2 rounded-md bg-white rtl:translate-x-1/2 dark:bg-gray-900';
 
     $labelClasses = \Illuminate\Support\Arr::toCssClasses([
-        'fi-btn-label',
+        '',
         'sr-only' => $labelSrOnly,
     ]);
 

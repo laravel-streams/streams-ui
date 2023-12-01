@@ -2,6 +2,8 @@
 
 namespace Streams\Ui\Inputs\Concerns;
 
+use Illuminate\Support\Arr;
+
 use function Livewire\store;
 
 trait HasState
@@ -11,7 +13,7 @@ trait HasState
     protected ?\Closure $beforeStateDehydrated = null;
 
     protected mixed $defaultState = null;
-    
+
     protected bool $hasDefaultState = false;
 
     protected ?\Closure $dehydrateStateUsing = null;
@@ -58,7 +60,7 @@ trait HasState
     {
         $callback = $this->afterStateUpdated;
 
-        if (! $callback) {
+        if (!$callback) {
             return $this;
         }
 
@@ -125,7 +127,7 @@ trait HasState
      */
     public function dehydrateState(array &$state): void
     {
-        if (! $this->isDehydrated()) {
+        if (!$this->isDehydrated()) {
             if ($this->hasStatePath()) {
                 Arr::forget($state, $this->getStatePath());
             }
@@ -139,7 +141,8 @@ trait HasState
             }
         }
 
-        foreach ($this->getChildComponentContainers() as $container) {
+        foreach ($this->getComponentContainers() as $container) {
+
             if ($container->isHidden()) {
                 continue;
             }
@@ -162,9 +165,9 @@ trait HasState
     {
         $this->hydrateDefaultState($hydratedDefaultState);
 
-        foreach ($this->getChildComponentContainers(withHidden: true) as $container) {
-            $container->hydrateState($hydratedDefaultState);
-        }
+        // foreach ($this->getComponentContainers(true) as $container) {
+        //     $container->hydrateState($hydratedDefaultState);
+        // }
 
         $this->callAfterStateHydrated();
     }
@@ -182,13 +185,14 @@ trait HasState
     public function hydrateDefaultState(?array &$hydratedDefaultState): void
     {
         if ($hydratedDefaultState === null) {
-            $this->loadStateFromRelationships();
+
+            //$this->loadStateFromRelationships();
 
             $state = $this->getState();
 
             // Hydrate all arrayable state objects as arrays by converting
             // them to collections, then using `toArray()`.
-            if (is_array($state) || $state instanceof Arrayable) {
+            if (is_array($state)) {
                 $this->state(collect($state)->toArray());
             }
 
@@ -201,7 +205,7 @@ trait HasState
             return;
         }
 
-        if (! $this->hasDefaultState()) {
+        if (!$this->hasDefaultState()) {
             $this->state(null);
 
             return;
@@ -216,13 +220,13 @@ trait HasState
 
     public function fillStateWithNull(): void
     {
-        if (! Arr::has((array) $this->getLivewire(), $this->getStatePath())) {
-            $this->state(null);
-        }
+        // if (!Arr::has((array) $this->getLivewire(), $this->getStatePath())) {
+        //     $this->state(null);
+        // }
 
-        foreach ($this->getChildComponentContainers(withHidden: true) as $container) {
-            $container->fillStateWithNull();
-        }
+        // foreach ($this->getComponentContainers(true) as $container) {
+        //     $container->fillStateWithNull();
+        // }
     }
 
     public function mutateDehydratedState(mixed $state): mixed
@@ -268,7 +272,8 @@ trait HasState
 
     public function getState(): mixed
     {
-        $state = data_get($this->getLivewire(), $this->getStatePath());
+        // $state = data_get($this->getLivewire(), $this->getStatePath());
+        $state = __METHOD__;
 
         if (is_array($state)) {
             return $state;
@@ -283,7 +288,7 @@ trait HasState
 
     public function getOldState(): mixed
     {
-        if (! Livewire::isLivewireRequest()) {
+        if (!Livewire::isLivewireRequest()) {
             return null;
         }
 
@@ -298,7 +303,7 @@ trait HasState
 
     public function getStatePath(bool $isAbsolute = true): string
     {
-        if (! $isAbsolute) {
+        if (!$isAbsolute) {
             return $this->statePath ?? '';
         }
 

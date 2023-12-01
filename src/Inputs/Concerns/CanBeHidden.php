@@ -6,7 +6,7 @@ trait CanBeHidden
 {
     protected bool | \Closure | null $hidden = null;
 
-    public function hidden(bool | \Closure | null $hidden): static
+    public function hidden(bool | \Closure | null $hidden = true): static
     {
         $this->hidden = $hidden;
 

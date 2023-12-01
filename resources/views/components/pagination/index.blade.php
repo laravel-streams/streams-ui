@@ -34,7 +34,7 @@
 
     {{-- @if (! $isSimple)
         <span
-            class="fi-pagination-overview text-sm font-medium text-gray-700 dark:text-gray-200"
+            class="text-sm font-medium text-gray-700 dark:text-gray-200"
         >
             {{
                 trans_choice(
@@ -56,7 +56,7 @@
             rel="next"
             :wire:click="'nextPage(\'' . $paginator->getPageName() . '\')'"
             :wire:key="$this->getId() . '.pagination.next'"
-            class="fi-pagination-next-btn col-start-3 justify-self-end"
+            class="col-start-3 justify-self-end"
         >
             {{ __('Next Page') }}
         </x-ui::button>
@@ -64,7 +64,7 @@
 
     @if ((! $isSimple) && $paginator->hasPages())
         <ol
-            class="fi-pagination-items justify-self-end rounded-lg bg-white shadow-sm ring-1 ring-gray-950/10 dark:bg-white/5 dark:ring-white/20"
+            class="justify-self-end rounded-lg bg-white shadow-sm ring-1 ring-gray-950/10 dark:bg-white/5 dark:ring-white/20"
         >
             @if (! $paginator->onFirstPage())
                 <x-ui::pagination.item

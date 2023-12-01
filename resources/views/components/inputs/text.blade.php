@@ -16,7 +16,7 @@
     $statePath = $getStatePath();
 @endphp
 
-{{-- <x-dynamic-component :component="$getFieldWrapperView()" :field="$field"> --}}
+<x-dynamic-component :component="$getFieldWrapperView()" :field="$field">
     {{-- <x-ui::inputs.wrapper
         :disabled="$isDisabled"
         :inline-prefix="$isPrefixInline"
@@ -30,7 +30,7 @@
         :suffix-icon="$suffixIcon"
         :suffix-icon-color="$getSuffixIconColor()"
         :valid="! $errors->has($statePath)"
-        class="fi-fo-text-input"
+        class=""
         :attributes="
             \Filament\Support\prepare_inherited_attributes($getExtraAttributeBag())
                 ->class(['overflow-hidden'])
@@ -44,8 +44,8 @@
         <x-ui::inputs.input
             :attributes="new \Illuminate\View\ComponentAttributeBag([
                 //'autocapitalize' => $getAutocapitalize(),
-                //'autocomplete' => $getAutocomplete(),
-                //'autofocus' => $isAutofocused(),
+                'autocomplete' => $getAutocomplete(),
+                'autofocus' => $isAutofocused(),
                 'disabled' => $isDisabled,
                 'id' => $id,
                 // 'inlinePrefix' => $isPrefixInline && (count($prefixActions) || $prefixIcon || filled($prefixLabel)),
@@ -81,4 +81,4 @@
             @endforeach
         </datalist>
     @endif
-{{-- </x-dynamic-component> --}}
+</x-dynamic-component>

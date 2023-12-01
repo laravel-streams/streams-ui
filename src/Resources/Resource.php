@@ -2,8 +2,10 @@
 
 namespace Streams\Ui\Resources;
 
-use Streams\Ui\Navigation\NavigationItem;
+use Streams\Core\Entry\Entry;
+use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\Resources\Concerns;
+use Streams\Ui\Navigation\NavigationItem;
 use Streams\Ui\Support\Concerns\HasTitle;
 use Streams\Ui\Support\Concerns\HasNavigation;
 
@@ -13,6 +15,8 @@ abstract class Resource
     use HasNavigation;
 
     use Concerns\HasRoutes;
+
+    protected static ?string $stream = null;
 
     public static function getUrl(
         string $name = 'index',
@@ -51,5 +55,19 @@ abstract class Resource
     public static function getPages(): array
     {
         return [];
+    }
+
+    public static function resolveEntryRouteBinding(int | string $key): ?Entry
+    {
+        $stream = Streams::make(static::getStream());
+
+        return $stream
+            ->repository()
+            ->findBy($stream->config('key_name', 'id'), $key);
+    }
+
+    public static function getStream(): string
+    {
+        return static::$stream ?? static::getSlug();
     }
 }

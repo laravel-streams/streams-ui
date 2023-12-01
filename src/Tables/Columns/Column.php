@@ -34,7 +34,7 @@ abstract class Column extends Component
 
     public function value(): string
     {
-        $entry = $this->getEntry();
+        $entry = $this->getEntryInstance();
 
         return $entry->{$this->getName()};
     }
@@ -55,7 +55,7 @@ abstract class Column extends Component
     {
         return match ($parameter) {
             //'stream' => [$this->getStream()],
-            'entry' => [$this->getEntry()],
+            'entry' => [$this->getEntryInstance()],
             default => parent::resolveDefaultClosureDependency($parameter),
         };
     }

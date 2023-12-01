@@ -10,3 +10,14 @@ body * {
 [x-cloak] {
     display: none !important;
 }
+
+// LastPass Autofill Fix
+[autocomplete="off"] + div[data-lastpass-icon-root="true"] {
+    opacity: 0 !important;
+    display: none !important;
+}
+
+[autocomplete="off"] + div[data-lastpass-infield="true"] {
+    opacity: 0 !important;
+    display: none !important;
+}

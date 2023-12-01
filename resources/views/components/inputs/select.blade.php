@@ -26,7 +26,7 @@
         :suffix-icon="$suffixIcon"
         :suffix-icon-color="$getSuffixIconColor()"
         :valid="! $errors->has($statePath)"
-        class="fi-fo-select"
+        class=""
         :attributes="\Filament\Support\prepare_inherited_attributes($getExtraAttributeBag())"
     > --}}
         {{-- @if ((! ($isSearchable() || $isMultiple()) && $isNative())) --}}
@@ -42,6 +42,7 @@
                     (new \Illuminate\View\ComponentAttributeBag())
                         ->merge([
                             //$applyStateBindingModifiers('wire:model') => $statePath,
+                            'multiple' => $isMultiple(),
                         ], escape: false)
                 "
             >

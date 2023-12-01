@@ -1,20 +1,42 @@
 <?php
 
-namespace Streams\Ui\Components\Inputs;
+namespace Streams\Ui\Inputs;
 
-use Streams\Ui\Components\Input;
+use Streams\Ui\Inputs\Concerns;
 
 class TextareaInput extends Input
 {
-    public int $rows = 3;
+    use Concerns\HasPlaceholder;
+    use Concerns\CanBeAutocompleted;
+    use Concerns\CanBeLengthConstrained;
 
-    public ?int $min = null;
-    public ?int $max = null;
-    
-    public ?string $placeholder = null;
+    protected string $view = 'ui::components.inputs.textarea';
 
-    public function render()
+    protected int | \Closure | null $columns = null;
+
+    protected int | \Closure | null $rows = null;
+
+    public function columns(int | \Closure | null $columns): static
     {
-        return view('ui::components.inputs.textarea');
+        $this->columns = $columns;
+
+        return $this;
+    }
+
+    public function rows(int | \Closure | null $rows): static
+    {
+        $this->rows = $rows;
+
+        return $this;
+    }
+
+    public function getColumns(): ?int
+    {
+        return $this->evaluate($this->columns);
+    }
+
+    public function getRows(): ?int
+    {
+        return $this->evaluate($this->rows);
     }
 }

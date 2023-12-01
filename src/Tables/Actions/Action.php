@@ -13,8 +13,7 @@ class Action extends \Streams\Ui\Actions\Action
     protected function resolveDefaultClosureDependency(string $parameter): array
     {
         return match ($parameter) {
-            //'stream' => [$this->getStream()],
-            'entry' => [$this->getEntry()],
+            'entry' => [$this->getEntryInstance()],
             default => parent::resolveDefaultClosureDependency($parameter),
         };
     }

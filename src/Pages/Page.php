@@ -6,11 +6,14 @@ use Livewire\Component;
 use Streams\Ui\Pages\Concerns;
 use Streams\Ui\Support\Concerns\HasTitle;
 use Streams\Ui\Support\Concerns\HasNavigation;
+use Streams\Core\Support\Traits\FiresCallbacks;
 
 abstract class Page extends Component
 {
     use HasTitle;
     use HasNavigation;
+    
+    use FiresCallbacks;
 
     use Concerns\HasRoutes;
     use Concerns\HasLayout;

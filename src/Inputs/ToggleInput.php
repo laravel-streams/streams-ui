@@ -1,15 +1,10 @@
 <?php
 
-namespace Streams\Ui\Components\Inputs;
+namespace Streams\Ui\Inputs;
 
-use Streams\Ui\Components\Input;
+use Streams\Ui\Inputs\Input;
 
 class ToggleInput extends Input
 {
-    public ?string $label = null;
-
-    public function render()
-    {
-        return view('ui::components.inputs.toggle');
-    }
+    protected string $view = 'ui::components.inputs.toggle';
 }

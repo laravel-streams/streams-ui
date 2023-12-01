@@ -5,12 +5,13 @@
     :lg="$getColumns('lg')"
     :xl="$getColumns('xl')"
     :two-xl="$getColumns('2xl')"
-    class="fi-fo-component-ctn gap-6"
+    class="gap-6"
 > --}}
 <div>
     @foreach ($getComponents(true) as $component)
         @php
-            $isHidden = $component->isHidden();
+            // $isHidden = $component->isHidden();
+            $isHidden = false;
         @endphp
 
         {{-- <x-ui::grid.column

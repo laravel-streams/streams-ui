@@ -20,7 +20,7 @@
             \Filament\Support\prepare_inherited_attributes($attributes)
                 ->merge($getExtraAttributes(), escape: false)
                 ->class([
-                    'fi-fo-radio gap-4',
+                    'gap-4',
                     '-mt-4' => (! $isInline) && $gridDirection === 'column',
                     'flex flex-wrap' => $isInline,
                 ])

@@ -4,7 +4,7 @@ namespace Streams\Ui\Tables;
 
 use Streams\Ui\Tables\Concerns;
 use Illuminate\Support\Collection;
-use Streams\Ui\Support\ViewComponent;
+use Streams\Ui\Views\ViewComponent;
 use Streams\Ui\Support\Concerns\HasHeading;
 use Streams\Ui\Support\Concerns\HasLivewire;
 use Illuminate\Contracts\Pagination\Paginator;

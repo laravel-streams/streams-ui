@@ -6,7 +6,7 @@
 <select
     {{
         $attributes->class([
-            //'block w-full',
+            'block w-full',
             'rounded-md',
             // 'ps-0' => $inlinePrefix,
             // 'ps-3' => ! $inlinePrefix,

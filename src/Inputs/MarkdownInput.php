@@ -1,11 +1,17 @@
 <?php
 
-namespace Streams\Ui\Components\Inputs;
+namespace Streams\Ui\Inputs;
 
-class MarkdownInput extends TextareaInput
+use Streams\Ui\Inputs\Input;
+use Streams\Ui\Inputs\Concerns;
+
+class MarkdownInput extends Input
 {
-    public function render()
-    {
-        return view('ui::components.inputs.markdown');
-    }
+    use Concerns\HasOptions;
+    use Concerns\HasPlaceholder;
+    use Concerns\CanBeLengthConstrained;
+
+    protected string $view = 'ui::components.inputs.markdown';
+
+
 }

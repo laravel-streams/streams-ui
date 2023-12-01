@@ -1,7 +1,8 @@
 <?php
 
-namespace Streams\Ui\Support;
+namespace Streams\Ui\Views;
 
+use Streams\Ui\Support\Component;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\View\ComponentAttributeBag;
@@ -48,6 +49,22 @@ class ViewComponent extends Component implements Htmlable
         return $this;
     }
 
+    public function render(): View
+    {
+        return view(
+            $this->getView(),
+            [
+                'attributes' => new ComponentAttributeBag(),
+                ...$this->extractPublicMethods(),
+                ...(isset($this->viewIdentifier)
+                    ? [$this->viewIdentifier => $this]
+                    : []
+                ),
+                ...$this->viewData,
+            ],
+        );
+    }
+
     protected function extractPublicMethods(): array
     {
         $methods = $this->once(static::class . __FUNCTION__, function () {
@@ -72,22 +89,6 @@ class ViewComponent extends Component implements Htmlable
     public function toHtml(): string
     {
         return $this->render()->render();
-    }
-
-    public function render(): View
-    {
-        return view(
-            $this->getView(),
-            [
-                'attributes' => new ComponentAttributeBag(),
-                ...$this->extractPublicMethods(),
-                ...(isset($this->viewIdentifier)
-                    ? [$this->viewIdentifier => $this]
-                    : []
-                ),
-                ...$this->viewData,
-            ],
-        );
     }
 
     protected string | \Closure | null $queryStringIdentifier = null;

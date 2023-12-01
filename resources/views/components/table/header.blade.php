@@ -17,7 +17,7 @@
         <div class="grid gap-y-1">
             @if ($heading)
                 <h2
-                    class="fi-ta-header-heading text-base font-semibold leading-6 text-gray-950"
+                    class="text-base font-semibold leading-6 text-gray-950"
                 >
                     {{ $heading }}
                 </h2>
@@ -25,7 +25,7 @@
 
             @if ($description)
                 <p
-                    class="fi-ta-header-description text-sm text-gray-600"
+                    class="text-sm text-gray-600"
                 >
                     {{ $description }}
                 </p>

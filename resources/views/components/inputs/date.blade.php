@@ -40,6 +40,7 @@
                         ->merge([
                             // 'autofocus' => $isAutofocused(),
                             'disabled' => $isDisabled,
+                            'autocomplete' => $getAutocomplete(),
                             'id' => $id,
                             // 'inlinePrefix' => $isPrefixInline && (count($prefixActions) || $prefixIcon || filled($prefixLabel)),
                             // 'inlineSuffix' => $isSuffixInline && (count($suffixActions) || $suffixIcon || filled($suffixLabel)),
@@ -66,7 +67,7 @@
     @if ($datalistOptions)
         <datalist id="{{ $id }}-list">
             @foreach ($datalistOptions as $option)
-                <option value="{{ $option }}" />
+                <option value="{{ $option }}"/>
             @endforeach
         </datalist>
     @endif

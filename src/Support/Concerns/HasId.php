@@ -4,17 +4,17 @@ namespace Streams\Ui\Support\Concerns;
 
 trait HasId
 {
-    protected ?string $id = null;
+    protected string | \Closure | null $id = null;
 
-    public function id(string $id): static
+    public function id(string | \Closure | null $id): static
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function getId(): string
+    public function getId(): ?string
     {
-        return $this->id;
+        return $this->evaluate($this->id);
     }
 }
