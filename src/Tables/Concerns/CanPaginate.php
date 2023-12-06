@@ -71,7 +71,6 @@ trait CanPaginate
     public function getPaginationOptions(): array
     {
         return $this->evaluate($this->paginationOptions) ?? [
-            2,
             5,
             10,
             25,

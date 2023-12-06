@@ -8,7 +8,7 @@ trait HasTable
 {
     protected Table $table;
 
-    public $currentPageOption = 2;
+    public $currentPageOption = 25;
 
     protected function makeTable(): Table
     {

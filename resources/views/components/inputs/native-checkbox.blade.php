@@ -29,6 +29,6 @@
     !!}
 />
 
-<label for="{{ $attributes->get('id') }}" class="cursor-pointer">
+<label for="{{ $attributes->get('id') }}" class="cursor-pointer ml-3">
     {!! $label !!}
 </label>

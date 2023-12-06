@@ -8,6 +8,7 @@ use Streams\Ui\Support\Concerns\HasIcon;
 use Streams\Ui\Support\Concerns\HasName;
 use Streams\Ui\Support\Concerns\HasLabel;
 use Streams\Ui\Support\Concerns\HasEntry;
+use Streams\Ui\Support\Concerns\HasHtmlAttributes;
 
 abstract class Column extends Component
 {
@@ -15,11 +16,13 @@ abstract class Column extends Component
     use HasName;
     use HasLabel;
     use HasEntry;
+    
+    use HasHtmlAttributes;
 
     use Concerns\HasTable;
     use Concerns\IsSortable;
     use Concerns\IsSearchable;
-    
+
     public function __construct(string $name)
     {
         $this->name($name);
@@ -36,7 +39,7 @@ abstract class Column extends Component
     {
         $entry = $this->getEntryInstance();
 
-        return $entry->{$this->getName()};
+        return $entry->{$this->getName()} ?: '';
     }
 
     public function getLabel(): string

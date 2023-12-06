@@ -45,4 +45,12 @@ class Table extends ViewComponent
     {
         return $this->getTableEntries();
     }
+
+    protected function resolveDefaultClosureDependency(string $parameter): array
+    {
+        return match ($parameter) {
+            'table' => [$this],
+            default => parent::resolveDefaultClosureDependency($parameter),
+        };
+    }
 }

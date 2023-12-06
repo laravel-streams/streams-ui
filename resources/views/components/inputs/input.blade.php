@@ -6,8 +6,9 @@
 <input
     {{
         $attributes->class([
-            'block w-full',
+            'block',
             'rounded-md',
+            'px-3 py-2',
             'ps-0' => $inlinePrefix,
             'ps-3' => ! $inlinePrefix,
             'pe-0' => $inlineSuffix,

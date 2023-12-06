@@ -25,7 +25,7 @@
 @endphp
 
 <div
-    {{
+    {!!
         $attributes
             ->class([
                 // 'hidden' => $hidden || $default === 'hidden',
@@ -69,7 +69,8 @@
                 "--col-start-xl: {$xlStart}" => $xlStart,
                 "--col-start-2xl: {$twoXlStart}" => $twoXlStart,
             ])
-    }}
+            ->merge($getHtmlAttributes())
+    !!}
 >
     {{ $slot }}
 </div>

@@ -47,7 +47,7 @@ trait IsSearchable
 
     public function isSearchable(): bool
     {
-        return $this->isSearchable;
+        return $this->searchable;
     }
 
     // public function isGloballySearchable(): bool
