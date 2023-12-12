@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Support\Concerns;
+namespace Streams\Ui\Builders\Concerns;
 
 use Streams\Core\Stream\Stream;
 use Streams\Core\Support\Facades\Streams;

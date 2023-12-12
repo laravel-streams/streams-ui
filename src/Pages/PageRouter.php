@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Pages;
 
-use Streams\Ui\Panels\Panel;
+use Streams\Ui\Builders\Panels\Panel;
 use Illuminate\Routing\Route;
 
 class PageRouter

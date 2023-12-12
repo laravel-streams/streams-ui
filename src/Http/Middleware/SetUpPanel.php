@@ -3,7 +3,7 @@
 namespace Streams\Ui\Http\Middleware;
 
 use Illuminate\Http\Request;
-use Streams\Ui\Support\Facades\UI;
+use Streams\Ui\support\Facades\UI;
 
 class SetUpPanel
 {

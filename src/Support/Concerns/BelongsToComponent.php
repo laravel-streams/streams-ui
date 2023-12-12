@@ -1,8 +1,8 @@
 <?php
 
-namespace Streams\Ui\Support\Concerns;
+namespace Streams\Ui\Builders\Concerns;
 
-use Streams\Ui\Support\Component;
+use Streams\Ui\Builders\Component;
 
 trait BelongsToComponent
 {

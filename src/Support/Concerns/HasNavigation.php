@@ -1,10 +1,10 @@
 <?php
 
-namespace Streams\Ui\Support\Concerns;
+namespace Streams\Ui\Builders\Concerns;
 
 use Streams\Ui\Panels\Panel;
-use Streams\Ui\Support\Facades\UI;
-use Streams\Ui\Navigation\NavigationItem;
+use Streams\Ui\support\Facades\UI;
+use Streams\Ui\Builders\Navigation\NavigationItem;
 
 trait HasNavigation
 {

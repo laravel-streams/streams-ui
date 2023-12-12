@@ -3,8 +3,8 @@
 namespace Streams\Ui\Pages;
 
 use Livewire\WithPagination;
-use Streams\Ui\Tables\Table;
-use Streams\Ui\Tables\Concerns\HasTable;
+use Streams\Ui\Builders\Tables\Table;
+use Streams\Ui\Builders\Tables\Concerns\HasTable;
 
 class ListEntries extends Page
 {

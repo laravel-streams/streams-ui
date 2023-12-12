@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Views;
+namespace Streams\Ui\Builders;
 
 use Streams\Ui\Builders\Builder;
 use Illuminate\Contracts\View\View;

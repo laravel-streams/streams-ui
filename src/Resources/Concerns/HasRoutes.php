@@ -2,9 +2,9 @@
 
 namespace Streams\Ui\Resources\Concerns;
 
-use Streams\Ui\Panels\Panel;
+use Streams\Ui\support\Facades\UI;
 use Illuminate\Support\Facades\Route;
-use Streams\Ui\Support\Facades\UI;
+use Streams\Ui\Builders\Panels\Panel;
 
 trait HasRoutes
 {

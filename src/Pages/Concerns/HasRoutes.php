@@ -4,7 +4,7 @@ namespace Streams\Ui\Pages\Concerns;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Streams\Ui\Panels\Panel;
+use Streams\Ui\Builders\Panels\Panel;
 use Illuminate\Routing\Route;
 use Streams\Ui\Pages\PageRouter;
 use Illuminate\Support\Facades\Route as RouteFacade;

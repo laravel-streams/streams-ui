@@ -1,11 +1,11 @@
 <?php
 
-namespace Streams\Ui\Support;
+namespace Streams\Ui\Builders;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Illuminate\View\Component;
-use Streams\Ui\Support\Facades\UI;
+use Streams\Ui\support\Facades\UI;
 
 class BladeComponent extends Component
 {

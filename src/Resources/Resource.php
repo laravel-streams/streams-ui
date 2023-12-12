@@ -5,9 +5,9 @@ namespace Streams\Ui\Resources;
 use Streams\Core\Entry\Entry;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\Resources\Concerns;
-use Streams\Ui\Navigation\NavigationItem;
-use Streams\Ui\Support\Concerns\HasTitle;
-use Streams\Ui\Support\Concerns\HasNavigation;
+use Streams\Ui\Builders\Navigation\NavigationItem;
+use Streams\Ui\Builders\Concerns\HasTitle;
+use Streams\Ui\Builders\Concerns\HasNavigation;
 
 abstract class Resource
 {

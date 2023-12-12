@@ -46,7 +46,7 @@ trait CanPaginate
         return $this->evaluate($this->paginated); // && (! $this->isGroupsOnly())
     }
 
-    protected function paginateTableQuery(Criteria $query): Paginator
+    protected function paginateQuery(Criteria $query): Paginator
     {
         //$perPage = $this->getPerPage();
         $perPage = $this->getLiveWire()->currentPageOption;

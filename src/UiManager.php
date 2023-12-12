@@ -3,7 +3,7 @@
 namespace Streams\Ui;
 
 use Illuminate\Support\Arr;
-use Streams\Ui\Panels\Panel;
+use Streams\Ui\Builders\Panels\Panel;
 use Illuminate\Support\Traits\Macroable;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
@@ -49,10 +49,6 @@ class UiManager
     public function setCurrentPanel(Panel $panel): void
     {
         $this->current = $panel->getId();
-
-        // Config::set([
-        //     'livewire.layout' => $instance->getLayout(),
-        // ]);
     }
 
     public function currentPanel(): Panel

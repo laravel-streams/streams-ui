@@ -3,7 +3,7 @@
 namespace Streams\Ui\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use Streams\Ui\Support\Facades\UI;
+use Streams\Ui\support\Facades\UI;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseObject;

@@ -3,11 +3,10 @@
 namespace Streams\Ui\Builders\Tables;
 
 use Streams\Ui\Builders;
-use Streams\Ui\Views\ViewBuilder;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Pagination\Paginator;
 
-class Table extends ViewBuilder
+class Table extends Builders\ViewBuilder
 {
     use Concerns\HasActions;
     use Concerns\HasColumns;
@@ -20,11 +19,11 @@ class Table extends ViewBuilder
     
     use Builders\Concerns\BelongsToLivewire;
 
-    protected string $view = 'ui::builders.table.index';
+    protected string $view = 'ui::builders.table';
 
     protected string $viewIdentifier = 'table';
     
-    protected string $queryStringIdentifier = 'table';
+    protected string | \Closure | null $queryStringIdentifier = 'table';
 
     public function __construct($livewire)
     {

@@ -2,10 +2,10 @@
 
 namespace Streams\Ui\Builders\Tables\Actions;
 
-use Streams\Ui\Builders\Tables\Concerns\HasTable;
 use Streams\Ui\Builders\Concerns\HasEntry;
+use Streams\Ui\Builders\Tables\Concerns\HasTable;
 
-class Action extends \Streams\Ui\Actions\Action
+class Action extends \Streams\Ui\Builders\Actions\Action
 {
     use HasTable;
     use HasEntry;
