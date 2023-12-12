@@ -1,11 +1,11 @@
 <?php
 
-namespace Streams\Ui\Actions;
+namespace Streams\Ui\Builders\Actions;
 
-use Streams\Ui\Support\Concerns;
-use Streams\Ui\Support\Component;
+use Streams\Ui\Builders\Builder;
+use Streams\Ui\Builders\Concerns;
 
-class Action extends Component
+class Action extends Builder
 {
     use Concerns\HasUrl;
     use Concerns\HasIcon;

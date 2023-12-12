@@ -4,15 +4,15 @@ namespace Streams\Ui\Inputs;
 
 use Streams\Ui\Inputs\Concerns;
 use Streams\Ui\Views\ViewContainer;
-use Streams\Ui\Support\Concerns\HasId;
-use Streams\Ui\Support\Concerns\HasName;
-use Streams\Ui\Support\Concerns\HasLabel;
+use Streams\Ui\Builders\Concerns\HasId;
+use Streams\Ui\Builders\Concerns\HasName;
+use Streams\Ui\Builders\Concerns\HasLabel;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Ui\Forms\Concerns\HasFieldWrapper;
-use Streams\Ui\Support\Concerns\BelongsToLivewire;
-use Streams\Ui\Support\Concerns\CanSpanColumns;
+use Streams\Ui\Builders\Concerns\BelongsToLivewire;
+use Streams\Ui\Builders\Concerns\CanSpanColumns;
 use Streams\Ui\Views\Concerns\BelongsToContainer;
-use Streams\Ui\Support\Concerns\HasHtmlAttributes;
+use Streams\Ui\Builders\Concerns\HasHtmlAttributes;
 use Streams\Ui\Views\Concerns\HasContainers;
 
 abstract class Input extends ViewContainer

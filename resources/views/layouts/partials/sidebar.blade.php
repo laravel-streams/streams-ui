@@ -19,8 +19,8 @@
 
                 <li>
                     <ul role="list" class="-mx-2 space-y-1">
-                        @foreach(UI::currentPanel()->getNavigation() as $group)
-                        <li x-data="{collapsed: false}">
+                        @foreach(UI::currentPanel()->getNavigation() as $key => $group)
+                        <li x-data="{collapsed: $persist(true).as('Sidebar{{ $key }}navGroup_collapsed')}">
                             @if ($label = $group->getLabel())
                             <div @click="collapsed=!collapsed"
                                 class="flex items-center gap-x-3 px-2 py-2 cursor-pointer">

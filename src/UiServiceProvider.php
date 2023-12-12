@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
 use Streams\Core\Support\Integrator;
 use Illuminate\Support\Facades\Blade;
-use Streams\Ui\Support\BladeComponent;
+use Streams\Ui\Builders\BladeComponent;
 use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
 use Streams\Core\Support\Facades\Images;
@@ -49,7 +49,7 @@ class UiServiceProvider extends ServiceProvider
     public function boot()
     {
         Integrator::aliases([
-            'UI' => \Streams\Ui\Support\Facades\UI::class,
+            'UI' => \Streams\Ui\Builders\Facades\UI::class,
         ]);
         
         Assets::addPath('ui', 'vendor/streams/ui/resources');
