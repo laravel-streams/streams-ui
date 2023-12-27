@@ -58,16 +58,20 @@ trait HasEntry
     {
         $entry = $this->entry;
 
-        if ($entry === null) {
-            return $this->getParentComponent()?->getEntryInstance();
-        }
-
         if ($entry instanceof Entry) {
             return $entry;
         }
 
-        $instance = $this->getStreamInstance()?->repository()->find($entry);
+        if ($entry === null && method_exists(static::class, 'getParentComponent')) {
+            return $this->entry = $this->getParentComponent()?->getEntryInstance();
+        }
 
-        return $this->entry = $instance;
+        if ($entry === null && method_exists(static::class, 'getStreamInstance')) {
+            return $this->entry = $this->getStreamInstance()
+                ?->repository()
+                ->find($entry);
+        }
+
+        return $this->entry;
     }
 }

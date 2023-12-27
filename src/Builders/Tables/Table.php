@@ -10,6 +10,9 @@ class Table extends Builders\ViewBuilder
 {
     use Concerns\HasActions;
     use Concerns\HasColumns;
+    use Concerns\HasFilters;
+    use Concerns\HasBulkActions;
+    use Concerns\HasHeaderActions;
     
     use Builders\Concerns\HasQuery;
     use Builders\Concerns\HasEntries;

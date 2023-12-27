@@ -7,6 +7,7 @@
         'disabled' => $component->disabled,
         'class' => [
             'btn',
+            'whitespace-nowrap',
             'rounded-md',
             'bg-indigo-600',
             'px-2.5',

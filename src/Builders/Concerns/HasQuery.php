@@ -18,7 +18,6 @@ trait HasQuery
     public function getQuery(): Criteria
     {
         if ($query = $this->evaluate($this->query)) {
-            // return $this->applyQueryScopes($query->clone());
             return $query;
         }
 
@@ -28,6 +27,6 @@ trait HasQuery
 
         $livewire = $this->getLivewire()::class;
 
-        throw new \Exception("Table [{$livewire}] must have a [query()].");
+        throw new \Exception("Component [{$livewire}] must have a [query()].");
     }
 }

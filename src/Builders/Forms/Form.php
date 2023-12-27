@@ -12,6 +12,7 @@ class Form extends Containers\Container
     use Concerns\HasEntry;
     use Concerns\HasStream;
     
+    use Concerns\HasActions;
     use Concerns\HasHeading;
     use Concerns\HasDescription;
 

@@ -67,20 +67,20 @@
                 [
                     'ring-1',
                     match ($color) {
-                        'gray' => 'text-gray-950 ring-gray-300 hover:bg-gray-400/10 focus-visible:ring-gray-400/40 dark:text-white dark:ring-gray-700',
-                        default => 'text-custom-600 ring-custom-600 hover:bg-custom-400/10 dark:text-custom-400 dark:ring-custom-500',
+                        'gray' => 'text-gray-950 ring-gray-300 hover:bg-gray-400/10 focus-visible:ring-gray-400/40',
+                        default => 'text-gray-600 ring-gray-600 hover:bg-gray-400/10',
                     },
                 ] :
                 [
                     'shadow-sm' => ! $grouped,
                     ...match ($color) {
                         'gray' => [
-                            'bg-white text-gray-950 hover:bg-gray-50 dark:bg-white/5 dark:text-white dark:hover:bg-white/10',
-                            'ring-1 ring-gray-950/10 dark:ring-white/20' => ! $grouped,
+                            'bg-white text-gray-950 hover:bg-gray-50',
+                            'ring-1 ring-gray-950/10' => ! $grouped,
                         ],
                         default => [
-                            'bg-custom-600 text-white hover:bg-custom-500 dark:bg-custom-500 dark:hover:bg-custom-400',
-                            'focus-visible:ring-custom-500/50 dark:focus-visible:ring-custom-400/50' => ! $grouped,
+                            'bg-gray-600 text-white hover:bg-gray-500',
+                            'focus-visible:ring-gray-500/50' => ! $grouped,
                         ],
                     },
                 ]
@@ -104,12 +104,12 @@
             default => $iconSize,
         },
         match ($color) {
-            'gray' => 'text-gray-400 dark:text-gray-500',
+            'gray' => 'text-gray-400',
             default => null,
         },
     ]);
 
-    $badgeContainerClasses = 'absolute -top-1 start-full z-[1] -ms-1 w-max -translate-x-1/2 rounded-md bg-white rtl:translate-x-1/2 dark:bg-gray-900';
+    $badgeContainerClasses = 'absolute -top-1 start-full z-[1] -ms-1 w-max -translate-x-1/2 rounded-md bg-white rtl:translate-x-1/2';
 
     $labelClasses = \Illuminate\Support\Arr::toCssClasses([
         '',

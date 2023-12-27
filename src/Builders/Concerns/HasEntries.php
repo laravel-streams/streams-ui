@@ -39,10 +39,7 @@ trait HasEntries
 
     public function filterQuery(Criteria $query): Criteria
     {
-        /**
-         * @todo move this into a streams > workflow for tables/forms/etc using callbacks.
-         */
-        //$this->applyFiltersToTableQuery($query);
+        $this->applyFiltersToTableQuery($query);
         //$this->applySearchToTableQuery($query);
 
         foreach ($this->getColumns() as $column) {
@@ -58,6 +55,25 @@ trait HasEntries
             // }
 
             // $column->applyEagerLoading($query);
+        }
+
+        return $query;
+    }
+
+    protected function applyFiltersToTableQuery(Criteria $query): Criteria
+    {
+        // @todo fix me
+        $data = [];// $this->getTableFiltersForm()->getRawState();
+
+        foreach ($this->getFilters() as $filter) {
+
+            $state = $data[$filter->getName()] ?? [
+                'value' => request($filter->getName() . '-filter'),
+            ];
+
+            if ($state['value'] ?? false) {
+                $query = $filter->table($this)->apply($query, $state);
+            }
         }
 
         return $query;

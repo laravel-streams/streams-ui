@@ -17,6 +17,8 @@ abstract class Page extends Component
 
     use Builders\Concerns\HasTitle;
     use Builders\Concerns\HasNavigation;
+    use Builders\Concerns\HasDescription;
+    use Builders\Concerns\EvaluatesClosures;
 
     protected static string $view;
 
@@ -40,5 +42,10 @@ abstract class Page extends Component
         //$parameters['tenant'] ??= ($tenant ?? Filament::getTenant());
 
         return route(static::getRouteName($panel), $parameters, $isAbsolute);
+    }
+
+    public function getHeaderActions(): array
+    {
+        return [];
     }
 }

@@ -8,7 +8,7 @@
     <tr>
         <td colspan="100%" class="text-left px-6 py-4 flex justify-between items-center">
             <div>
-                Showing 1 to 10 of 1,485 results
+                Showing {{ $paginator->firstItem() }} to {{ $paginator->lastItem() }} of {{ number_format($paginator->total()) }} results.
             </div>
             <div>
 

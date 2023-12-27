@@ -2,15 +2,21 @@
 
 namespace Streams\Ui\Builders\Actions;
 
-use Streams\Ui\Builders\Builder;
-use Streams\Ui\Builders\Concerns;
+use Streams\Ui\Builders;
 
-class Action extends Builder
+class Action extends Builders\ViewBuilder
 {
-    use Concerns\HasUrl;
-    use Concerns\HasIcon;
-    use Concerns\HasName;
-    use Concerns\HasLabel;
+    use Concerns\HasAction;
+    
+    use Builders\Concerns\HasUrl;
+    use Builders\Concerns\HasIcon;
+    use Builders\Concerns\HasName;
+    use Builders\Concerns\HasColor;
+    use Builders\Concerns\HasLabel;
+
+    protected string $view = 'ui::builders.action';
+
+    protected string $viewIdentifier = 'action';
 
     public function __construct(string $name)
     {
