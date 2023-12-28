@@ -22,7 +22,7 @@ trait HasRoutes
         $slug = static::getSlug();
 
         RouteFacade::get("/{$slug}", static::class)
-            ->middleware(static::getRouteMiddleware($panel))
+            ->middleware(static::getRouteMiddleware($panel) ?: ['web'])
             ->withoutMiddleware(static::getWithoutRouteMiddleware($panel))
             ->name(Str::replace('/', '.', $slug));
     }

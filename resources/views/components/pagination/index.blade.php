@@ -16,11 +16,11 @@
     role="navigation"
     {{
         $attributes->class([
-            'grid grid-cols-[1fr_auto_1fr] items-center gap-x-3',
+            'items-center gap-x-3',
         ])
     }}
 >
-    @if (! $paginator->onFirstPage())
+    @if ($isSimple && !$paginator->onFirstPage())
         <x-ui::button
             color="gray"
             rel="prev"
@@ -34,7 +34,7 @@
 
     {{-- @if (! $isSimple)
         <span
-            class="text-sm font-medium text-gray-700 dark:text-gray-200"
+            class="text-sm font-medium text-gray-700"
         >
             {{
                 trans_choice(
@@ -50,7 +50,7 @@
         </span>
     @endif --}}
 
-    @if ($paginator->hasMorePages())
+    @if ($isSimple && $paginator->hasMorePages())
         <x-ui::button
             color="gray"
             rel="next"
@@ -62,10 +62,9 @@
         </x-ui::button>
     @endif
 
-    @if ((! $isSimple) && $paginator->hasPages())
+    @if ((!$isSimple) && $paginator->hasPages())
         <ol
-            class="justify-self-end rounded-lg bg-white shadow-sm ring-1 ring-gray-950/10 dark:bg-white/5 dark:ring-white/20"
-        >
+            class="flex justify-self-end rounded-lg bg-white shadow-sm ring-1 ring-gray-950/10">
             @if (! $paginator->onFirstPage())
                 <x-ui::pagination.item
                     :aria-label="__('Previous Page')"
