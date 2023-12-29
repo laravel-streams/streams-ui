@@ -23,8 +23,10 @@ class SearchFilter extends Filter
                 if (!$column->isSearchable()) {
                     continue;
                 }
-
-                $query->orWhere($column->getName(), 'LIKE', $search);
+                
+                foreach ($column->getSearchColumns() as $searchColumn) {
+                    $query->orWhere($searchColumn, 'LIKE', $search);
+                }
             }
 
             return $query;
