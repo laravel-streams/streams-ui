@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Builders\Tables\BulkActions;
 
-use Streams\Ui\Builders\Actions\ActionGroup;
+use Streams\Ui\Actions\ActionGroup;
 
 class BulkActionGroup extends ActionGroup
 {

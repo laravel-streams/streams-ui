@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Builders\Tables\Concerns;
 
-use Streams\Ui\Builders\Actions\Action;
+use Streams\Ui\Actions\Action;
 use Streams\Ui\Builders\Tables\Filters\Filter;
 use Streams\Ui\Forms\Form;
 

@@ -3,35 +3,36 @@
 namespace Streams\Ui\Pages;
 
 use Livewire\Component;
-use Streams\Ui\Builders;
-use Streams\Ui\Pages\Concerns;
+use Streams\Ui\Traits as Common;
+use Illuminate\Support\Facades\View;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Core\Support\Traits\FiresCallbacks;
-use Streams\Ui\Components\Forms\InteractsWithForms;
 
 abstract class Page extends Component
 {
     use HasMemory;
     use FiresCallbacks;
 
-    use InteractsWithForms;
+    use Traits\HasRoutes;
+    use Traits\HasLayout;
+    use Traits\HasResource;
+    use Traits\HasNavigation;
+
+    use Common\HasTitle;
+    use Common\HasDescription;
+    use Common\InteractsWithForms;
+
+    use Common\EvaluatesClosures;
+
+    public ?array $data = [];
     
-    use Concerns\HasRoutes;
-    use Concerns\HasLayout;
-    use Concerns\HasResource;
-
-    use Builders\Concerns\HasTitle;
-    use Builders\Concerns\HasNavigation;
-    use Builders\Concerns\HasDescription;
-    use Builders\Concerns\EvaluatesClosures;
-
     protected static string $view;
 
     protected static string $resource;
 
     public function render()
     {
-        return view(static::$view, $this->getViewData())
+        return View::make(static::$view, $this->getViewData())
             ->layout(static::$layout, [
                 'livewire' => $this,
                 ...$this->getLayoutData(),
@@ -64,15 +65,11 @@ abstract class Page extends Component
         array $parameters = [],
         bool $isAbsolute = true,
         ?string $panel = null
-        //?Model $tenant = null
+        // ?Entry $tenant = null
     ): string {
-        //$parameters['tenant'] ??= ($tenant ?? Filament::getTenant());
+        
+        //$parameters['tenant'] ??= ($tenant ?? UI::getTenant());
 
         return route(static::getRouteName($panel), $parameters, $isAbsolute);
-    }
-
-    public function getHeaderActions(): array
-    {
-        return [];
     }
 }

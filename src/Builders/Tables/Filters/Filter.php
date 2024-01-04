@@ -6,7 +6,7 @@ use Streams\Ui\Builders;
 use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Builders\Tables\Concerns\BelongsToTable;
-use Streams\Ui\Builders\Inputs\Concerns\CanBeAutofocused;
+use Streams\Ui\Inputs\Traits\CanBeAutofocused;
 
 class Filter extends ViewBuilder
 {

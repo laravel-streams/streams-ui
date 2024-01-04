@@ -3,7 +3,7 @@
 namespace Streams\Ui\Builders\Concerns;
 
 use Streams\Ui\Support\Facades\UI;
-use Streams\Ui\Builders\Panels\Panel;
+use Streams\Ui\Panels\Panel;
 use Streams\Ui\Builders\Navigation\NavigationItem;
 
 trait HasNavigation

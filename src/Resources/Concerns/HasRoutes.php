@@ -4,7 +4,7 @@ namespace Streams\Ui\Resources\Concerns;
 
 use Streams\Ui\support\Facades\UI;
 use Illuminate\Support\Facades\Route;
-use Streams\Ui\Builders\Panels\Panel;
+use Streams\Ui\Panels\Panel;
 
 trait HasRoutes
 {

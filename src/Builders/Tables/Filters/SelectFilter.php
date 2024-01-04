@@ -7,7 +7,7 @@ use Streams\Ui\Builders;
 class SelectFilter extends Filter
 {
     use Builders\Concerns\HasLabel;
-    use Builders\Inputs\Concerns\HasOptions;
+    use Builders\Inputs\Traits\HasOptions;
 
     protected string $view = 'ui::builders.filters.select';
 }

@@ -5,7 +5,7 @@ namespace Streams\Ui\Builders\Tables\Actions;
 use Streams\Ui\Builders\Concerns\HasEntry;
 use Streams\Ui\Components\Tables\InteractsWithTable;
 
-class Action extends \Streams\Ui\Builders\Actions\Action
+class Action extends \Streams\Ui\Actions\Action
 {
     use HasEntry;
     use InteractsWithTable;

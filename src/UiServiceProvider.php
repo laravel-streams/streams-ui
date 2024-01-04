@@ -20,7 +20,7 @@ class UiServiceProvider extends ServiceProvider //implements DeferrableProvider
     {
         return [
             \Streams\Ui\Builders\Builder::class,
-            \Streams\Ui\Builders\Panels\Panel::class,
+            \Streams\Ui\Panels\Panel::class,
             \Streams\Ui\Builders\Facades\UI::class,
         ];
     }

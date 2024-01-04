@@ -20,7 +20,7 @@ class Form extends Containers\Container
 
     use Containers\Concerns\HasContainers;
 
-    protected string $view = 'ui::builders.form';
+    protected string $view = 'ui::form';
 
     protected string $viewIdentifier = 'form';
 

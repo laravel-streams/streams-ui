@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Builders\Tables\Filters;
 
-use Streams\Ui\Builders\Inputs\Concerns\HasPlaceholder;
+use Streams\Ui\Inputs\Traits\HasPlaceholder;
 
 class TextFilter extends Filter
 {

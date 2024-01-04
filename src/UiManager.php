@@ -3,7 +3,7 @@
 namespace Streams\Ui;
 
 use Illuminate\Support\Arr;
-use Streams\Ui\Builders\Panels\Panel;
+use Streams\Ui\Panels\Panel;
 use Illuminate\Support\Traits\Macroable;
 use Streams\Core\Support\Traits\FiresCallbacks;
 

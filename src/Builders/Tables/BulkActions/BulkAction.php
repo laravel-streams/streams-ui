@@ -4,7 +4,7 @@ namespace Streams\Ui\Builders\Tables\BulkActions;
 
 use Streams\Ui\Builders\Tables\Concerns\BelongsToTable;
 
-class BulkAction extends \Streams\Ui\Builders\Actions\Action
+class BulkAction extends \Streams\Ui\Actions\Action
 {
     use BelongsToTable;
 

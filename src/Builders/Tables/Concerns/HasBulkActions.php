@@ -3,7 +3,7 @@
 namespace Streams\Ui\Builders\Tables\Concerns;
 
 use Illuminate\Support\Arr;
-use Streams\Ui\Builders\Actions\ActionGroup;
+use Streams\Ui\Actions\ActionGroup;
 use Streams\Ui\Builders\Tables\BulkActions\BulkAction;
 use Streams\Ui\Builders\Tables\BulkActions\BulkActionGroup;
 
