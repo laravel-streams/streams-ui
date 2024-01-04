@@ -15,6 +15,8 @@ class ViewBuilder extends Builder implements Htmlable
 
     protected string $viewIdentifier;
 
+    protected string | \Closure | null $defaultView = null;
+
     protected string | \Closure | null $queryStringIdentifier = null;
 
     public function view(string | \Closure | null $view, array $data = []): static
@@ -36,6 +38,10 @@ class ViewBuilder extends Builder implements Htmlable
     {
         if (isset($this->view)) {
             return $this->evaluate($this->view);
+        }
+
+        if (filled($defaultView = $this->getDefaultView())) {
+            return $defaultView;
         }
 
         throw new \Exception('Class [' . static::class . '] does not have a [protected string $view] property defined.');
@@ -86,6 +92,18 @@ class ViewBuilder extends Builder implements Htmlable
         }
 
         return $values;
+    }
+
+    public function defaultView(string | \Closure | null $view): static
+    {
+        $this->defaultView = $view;
+
+        return $this;
+    }
+
+    public function getDefaultView(): ?string
+    {
+        return $this->evaluate($this->defaultView);
     }
 
     public function queryStringIdentifier(string | \Closure | null $identifier): static

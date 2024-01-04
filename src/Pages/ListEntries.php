@@ -4,12 +4,12 @@ namespace Streams\Ui\Pages;
 
 use Livewire\WithPagination;
 use Streams\Ui\Builders\Tables\Table;
-use Streams\Ui\Builders\Tables\Concerns\HasTable;
+use Streams\Ui\Components\Tables\InteractsWithTable;
 
 class ListEntries extends Page
 {
-    use HasTable;
     use WithPagination;
+    use InteractsWithTable;
 
     protected static string $view = 'ui::pages.list-entries';
 

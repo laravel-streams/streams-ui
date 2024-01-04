@@ -3,12 +3,12 @@
 namespace Streams\Ui\Builders\Tables\Actions;
 
 use Streams\Ui\Builders\Concerns\HasEntry;
-use Streams\Ui\Builders\Tables\Concerns\HasTable;
+use Streams\Ui\Components\Tables\InteractsWithTable;
 
 class Action extends \Streams\Ui\Builders\Actions\Action
 {
-    use HasTable;
     use HasEntry;
+    use InteractsWithTable;
 
     protected function resolveDefaultClosureDependency(string $parameter): array
     {

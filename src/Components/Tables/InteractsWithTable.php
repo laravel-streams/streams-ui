@@ -1,21 +1,23 @@
 <?php
 
-namespace Streams\Ui\Builders\Tables\Concerns;
+namespace Streams\Ui\Components\Tables;
 
 use Streams\Ui\Builders\Tables\Table;
+use Streams\Core\Support\Traits\FiresCallbacks;
 
-trait HasTable
+trait InteractsWithTable
 {
+    use FiresCallbacks;
+
+    use Concerns\HasEntries;
+    use Concerns\HasBulkActions;
+    
+    use Concerns\CanSearchEntries;
+    use Concerns\CanPaginateEntries;
+    
     protected Table $table;
 
-    public $currentPageOption = 25;
-
-    protected function makeTable(): Table
-    {
-        return Table::make($this);
-    }
-
-    public function bootedHasTable(): void
+    public function bootedInteractsWithTable(): void
     {
         $this->table = $this->table($this->makeTable($this));
 
@@ -133,14 +135,14 @@ trait HasTable
         // }
     }
 
+    protected function makeTable(): Table
+    {
+        return Table::make($this);
+    }
+
     public function getTable(): Table
     {
         return $this->table;
-    }
-
-    public function getTableEntriesPerPage(): int | string
-    {
-        return $this->getTable()->getPerPage();
     }
 
     public function getQueryStringPropertyName(string $property): string

@@ -24,14 +24,14 @@ class TextFilter extends Filter
 
     protected function setUp(): void
     {
-        $this->query(function ($query, $state) {
+        $this->query(function ($query, $search) {
 
             if ($this->isAbsolute()) {
-                return $query->where($this->getName(), $state['value']);
+                return $query->where($this->getName(), $search);
             }
 
             return $query
-                ->where($this->getName(), 'LIKE', '%' . $state['value'] . '%');
+                ->where($this->getName(), 'LIKE', '%' . $search . '%');
         });
     }
 }

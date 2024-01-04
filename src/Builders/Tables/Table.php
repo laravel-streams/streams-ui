@@ -15,7 +15,6 @@ class Table extends Builders\ViewBuilder
     use Concerns\HasHeaderActions;
     
     use Builders\Concerns\HasQuery;
-    use Builders\Concerns\HasEntries;
     use Builders\Concerns\HasHeading;
     use Builders\Concerns\CanPaginate;
     use Builders\Concerns\HasDescription;

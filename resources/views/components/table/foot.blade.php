@@ -1,7 +1,7 @@
 @props([
     'paginator',
     'paginationOptions' => [],
-    'currentPageOption' => 'getTableEntriesPerPage',
+    'currentPageOption' => 'tableRecordsPerPage',
 ])
 
 <tfoot>
@@ -28,15 +28,16 @@
                                 @if (count($paginationOptions) > 1)
                                 <div class="col-start-2 justify-self-center">
                                     <label>
-                                        <select wire:model.live="currentPageOption">
+                                        <x-ui::inputs.native-select
+                                            :wire:model.live="$currentPageOption">
                                             @foreach ($paginationOptions as $option)
-                                            <option value="{{ $option }}">
+                                            <option value="{{ $option }}" {{ $this->{$currentPageOption} == $option ? 'selected' : null }}>
                                                 {{ $option === 'all' ?
                                                 __('All') :
                                                 $option }}
                                             </option>
                                             @endforeach
-                                        </select>
+                                        </x-ui::inputs.native-select>
 
                                         <span class="sr-only">
                                             {{ __('Per Page') }}

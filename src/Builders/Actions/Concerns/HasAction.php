@@ -6,7 +6,7 @@ trait HasAction
 {
     protected \Closure | string | null $action = null;
 
-    // protected bool | \Closure | null $isLivewireClickHandlerEnabled = null;
+    protected bool | \Closure | null $isLivewireClickHandlerEnabled = null;
 
     public function action(\Closure | string | null $action): static
     {
@@ -15,36 +15,36 @@ trait HasAction
         return $this;
     }
 
-    // public function livewireClickHandlerEnabled(bool | \Closure | null $condition = true): static
-    // {
-    //     $this->isLivewireClickHandlerEnabled = $condition;
-
-    //     return $this;
-    // }
-
-    public function getAction(): ?\Closure
+    public function livewireClickHandlerEnabled(bool | \Closure | null $condition = true): static
     {
-        if (!$this->action instanceof \Closure) {
+        $this->isLivewireClickHandlerEnabled = $condition;
+
+        return $this;
+    }
+
+    public function getActionFunction(): ?\Closure
+    {
+        if (! $this->action instanceof \Closure) {
             return null;
         }
 
         return $this->action;
     }
 
-    // public function isLivewireClickHandlerEnabled(): bool
-    // {
-    //     if (($isLivewireClickHandlerEnabled = $this->evaluate($this->isLivewireClickHandlerEnabled)) !== null) {
-    //         return (bool) $isLivewireClickHandlerEnabled;
-    //     }
+    public function isLivewireClickHandlerEnabled(): bool
+    {
+        if (($isLivewireClickHandlerEnabled = $this->evaluate($this->isLivewireClickHandlerEnabled)) !== null) {
+            return (bool) $isLivewireClickHandlerEnabled;
+        }
 
-    //     if (filled($this->getUrl())) {
-    //         return false;
-    //     }
+        if (filled($this->getUrl())) {
+            return false;
+        }
 
-    //     if ($this->canSubmitForm()) {
-    //         return false;
-    //     }
+        if ($this->canSubmitForm()) {
+            return false;
+        }
 
-    //     return true;
-    // }
+        return true;
+    }
 }

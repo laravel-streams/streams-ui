@@ -14,9 +14,9 @@ class SearchFilter extends Filter
 
     protected function setUp(): void
     {
-        $this->query(function (Criteria $query, Table $table, $state): Criteria {
+        $this->query(function (Criteria $query, Table $table, $search): Criteria {
 
-            $search = '%' . $state['value'] . '%';
+            $search = '%' . $search . '%';
 
             foreach ($table->getColumns() as $column) {
 

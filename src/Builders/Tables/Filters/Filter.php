@@ -59,7 +59,7 @@ class Filter extends ViewBuilder
         return null;
     }
 
-    public function apply(Criteria $query, array $data = []): Criteria
+    public function applySearch(Criteria $query, string $search): Criteria
     {
         if ($this->isHidden()) {
             return $query;
@@ -69,13 +69,9 @@ class Filter extends ViewBuilder
         //     return $query;
         // }
 
-        if (!($data['isActive'] ?? true)) {
-            return $query;
-        }
-
         $this->evaluate($this->query, [
             'query' => $query,
-            'state' => $data,
+            'search' => $search,
         ]);
 
         return $query;

@@ -2,173 +2,163 @@
 
 namespace Streams\Ui\Builders\Tables\Concerns;
 
+use Illuminate\Support\Arr;
+use Streams\Ui\Builders\Actions\ActionGroup;
+use Streams\Ui\Builders\Tables\BulkActions\BulkAction;
+use Streams\Ui\Builders\Tables\BulkActions\BulkActionGroup;
+
 trait HasBulkActions
 {
     protected array $bulkActions = [];
 
-    //protected array $flatActions = [];
+    protected array $flatBulkActions = [];
 
-    // protected string | \Closure | null $bulkActionsColumnLabel = null;
+    // protected ?\Closure $checkIfRecordIsSelectableUsing = null;
 
-    // protected string | \Closure | null $bulkActionsAlignment = null;
+    // protected bool | \Closure | null $selectsCurrentPageOnly = false;
 
-    //protected ActionsPosition | \Closure | null $bulkActionsPosition = null;
+    // protected RecordCheckboxPosition | \Closure | null $recordCheckboxPosition = null;
 
-    public function bulkActions(
-        array $bulkActions
-        //ActionsPosition | string | \Closure | null $position = null
-    ): static {
+    public function bulkActions(array | ActionGroup $actions): static
+    {
+        $this->bulkActions = [];
 
-        $this->bulkActions = [
-            ...$this->bulkActions,
-            ...$bulkActions,
-        ];
-
-        //$this->pushActions($bulkActions);
-
-        // if ($position) {
-        //     $this->bulkActionsPosition($position);
-        // }
+        $this->pushBulkActions($actions);
 
         return $this;
     }
 
-    // public function pushActions(array | ActionGroup $bulkActions): static
-    // {
-    //     foreach (Arr::wrap($bulkActions) as $action) {
-    //         $action->table($this);
+    public function pushBulkActions(array | ActionGroup $actions): static
+    {
+        foreach (Arr::wrap($actions) as $action) {
 
-    //         if ($action instanceof ActionGroup) {
-    //             /** @var array<string, Action> $flatActions */
-    //             $flatActions = $action->getFlatActions();
+            $action->table($this);
 
-    //             if (!$action->getDropdownPlacement()) {
-    //                 $action->dropdownPlacement('bottom-end');
-    //             }
+            if ($action instanceof ActionGroup) {
+                
+                $flatActions = $action->getFlatActions();
 
-    //             $this->mergeCachedFlatActions($flatActions);
-    //         } elseif ($action instanceof Action) {
-    //             $action->defaultSize(ActionSize::Small);
-    //             $action->defaultView($action::LINK_VIEW);
+                $this->mergeCachedFlatBulkActions($flatActions);
+            } elseif ($action instanceof BulkAction) {
+                $this->cacheBulkAction($action);
+            } else {
+                throw new \Exception('Table bulk actions must be an instance of ' . BulkAction::class . ' or ' . ActionGroup::class . '.');
+            }
 
-    //             $this->cacheAction($action);
-    //         } else {
-    //             throw new InvalidArgumentException('Table bulkActions must be an instance of ' . Action::class . ' or ' . ActionGroup::class . '.');
-    //         }
+            $this->bulkActions[] = $action;
+        }
 
-    //         $this->bulkActions[] = $action;
-    //     }
+        return $this;
+    }
 
-    //     return $this;
-    // }
+    public function groupedBulkActions(array $actions): static
+    {
+        $this->bulkActions([BulkActionGroup::make($actions)]);
 
-    // public function bulkActionsColumnLabel(string | \Closure | null $label): static
-    // {
-    //     $this->bulkActionsColumnLabel = $label;
+        return $this;
+    }
 
-    //     return $this;
-    // }
+    protected function cacheBulkAction(BulkAction $action): void
+    {
+        $this->flatBulkActions[$action->getName()] = $action;
+    }
 
-    // public function bulkActionsAlignment(string | \Closure | null $alignment = null): static
-    // {
-    //     $this->bulkActionsAlignment = $alignment;
+    /**
+     * @param  array<string, BulkAction>  $actions
+     */
+    protected function mergeCachedFlatBulkActions(array $actions): void
+    {
+        $this->flatBulkActions = [
+            ...$this->flatBulkActions,
+            ...$actions,
+        ];
+    }
 
-    //     return $this;
-    // }
+    public function checkIfRecordIsSelectableUsing(?\Closure $callback): static
+    {
+        $this->checkIfRecordIsSelectableUsing = $callback;
 
-    // public function bulkActionsPosition(ActionsPosition | \Closure | null $position = null): static
-    // {
-    //     $this->bulkActionsPosition = $position;
+        return $this;
+    }
 
-    //     return $this;
-    // }
+    public function selectCurrentPageOnly(bool | \Closure $condition = true): static
+    {
+        $this->selectsCurrentPageOnly = $condition;
 
+        return $this;
+    }
+
+    /**
+     * @return array<BulkAction | ActionGroup>
+     */
     public function getBulkActions(): array
     {
         return $this->bulkActions;
     }
 
-    // public function getAction(string | array $name): ?Action
-    // {
-    //     if (is_string($name) && str($name)->contains('.')) {
-    //         $name = explode('.', $name);
-    //     }
-
-    //     if (is_array($name)) {
-
-    //         $firstName = array_shift($name);
-
-    //         $modalActionNames = $name;
-
-    //         $name = $firstName;
-    //     }
-
-    //     $mountedRecord = $this->getLivewire()->getMountedTableActionRecord();
-
-    //     $action = $this->getFlatActions()[$name] ?? null;
-
-    //     if (!$action) {
-    //         return null;
-    //     }
-
-    //     return $this->getMountableModalActionFromAction(
-    //         $action->record($mountedRecord),
-    //         modalActionNames: $modalActionNames ?? [],
-    //         parentActionName: $name,
-    //         mountedRecord: $mountedRecord,
-    //     );
-    // }
-
-    public function hasBulkAction(string $name): bool
+    /**
+     * @return array<string, BulkAction>
+     */
+    public function getFlatBulkActions(): array
     {
-        return array_key_exists($name, $this->getFlatActions());
+        return $this->flatBulkActions;
     }
 
-    // protected function getMountableModalActionFromAction(Action $action, array $modalActionNames, string $parentActionName, ?Model $mountedRecord = null): ?Action
-    // {
-    //     foreach ($modalActionNames as $modalActionName) {
-    //         $action = $action->getMountableModalAction($modalActionName);
+    public function getBulkAction(string $name): ?BulkAction
+    {
+        $action = $this->getFlatBulkActions()[$name] ?? null;
 
-    //         if (!$action) {
-    //             return null;
-    //         }
+        $action?->records($this->getLivewire()->getSelectedTableRecords(...));
 
-    //         if ($action instanceof Action) {
-    //             $action->record($mountedRecord);
-    //         }
+        return $action;
+    }
 
-    //         $parentActionName = $modalActionName;
-    //     }
+    public function isRecordSelectable(Model $record): bool
+    {
+        return (bool) ($this->evaluate(
+            $this->checkIfRecordIsSelectableUsing,
+            namedInjections: [
+                'record' => $record,
+            ],
+            typedInjections: [
+                Model::class => $record,
+                $record::class => $record,
+            ],
+        ) ?? true);
+    }
 
-    //     if (!$action instanceof Action) {
-    //         return null;
-    //     }
+    public function getAllSelectableRecordsCount(): int
+    {
+        return $this->getLivewire()->getAllSelectableTableRecordsCount();
+    }
 
-    //     return $action;
-    // }
+    public function isSelectionEnabled(): bool
+    {
+        return (bool) count(array_filter(
+            $this->getFlatBulkActions(),
+            fn (BulkAction $action): bool => $action->isVisible(),
+        ));
+    }
 
-    // public function getActionsPosition(): ActionsPosition
-    // {
-    //     $position = $this->evaluate($this->bulkActionsPosition);
+    public function selectsCurrentPageOnly(): bool
+    {
+        return (bool) $this->evaluate($this->selectsCurrentPageOnly);
+    }
 
-    //     if ($position) {
-    //         return $position;
-    //     }
+    public function checksIfRecordIsSelectable(): bool
+    {
+        return $this->checkIfRecordIsSelectableUsing !== null;
+    }
 
-    //     if (!($this->getContentGrid() || $this->hasColumnsLayout())) {
-    //         return ActionsPosition::AfterColumns;
-    //     }
+    public function recordCheckboxPosition(RecordCheckboxPosition | \Closure | null $position = null): static
+    {
+        $this->recordCheckboxPosition = $position;
 
-    //     return ActionsPosition::AfterContent;
-    // }
+        return $this;
+    }
 
-    // public function getActionsAlignment(): ?string
-    // {
-    //     return $this->evaluate($this->bulkActionsAlignment);
-    // }
-
-    // public function getActionsColumnLabel(): ?string
-    // {
-    //     return $this->evaluate($this->bulkActionsColumnLabel);
-    // }
+    public function getRecordCheckboxPosition(): RecordCheckboxPosition
+    {
+        return $this->evaluate($this->recordCheckboxPosition) ?? RecordCheckboxPosition::BeforeCells;
+    }
 }

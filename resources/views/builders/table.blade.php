@@ -4,7 +4,7 @@ $columns = $table->getColumns();
 $filters = $table->getFilters();
 $bulkActions = $table->getBulkActions();
 
-$entries = $getTableEntries();
+$paginator = $this->getTableEntries();
 
 $heading = $table->getHeading();
 $description = $table->getDescription();
@@ -12,55 +12,103 @@ $headerActions = $table->getHeaderActions();
 
 $paginationOptions = $table->getPaginationOptions();
 
+$selectedRecords = [];
+
 @endphp
 
-<x-ui::table.container>
+<div
+    x-data="{
+        selectedRecords: {{ json_encode($selectedRecords) }},
+        toggleSelectAllRecords: function () {
+            let records = this.getRecords();
+            if (this.areRecordsSelected(records)) {
+                this.deselectRecords(records);
+                return;
+            }
+            this.selectRecords(records);
+        },
+        getRecords: function () {
+            
+            let records = [];
 
-    @if ($heading || $description || $headerActions)
-    <x-ui::table.header :heading="$heading" :description="$description" :actions="$headerActions" />
-    @endif
+            for (let checkbox of this.$root.getElementsByClassName('ui-table-row-checkbox')) {
+                records.push(checkbox.value);
+            }
+            return records;
+        },
+        selectRecords: function (records) {
+            for (let record of records) {
+                if (!this.isRecordSelected(record)) {
+                    this.selectedRecords.push(record);
+                }
+            }
+        },
+        deselectRecords: function (records) {
+            for (let record of records) {
+                let index = this.selectedRecords.indexOf(record);
+                if (index !== -1) {
+                    this.selectedRecords.splice(index, 1);
+                }
+            }
+        },
+        isRecordSelected: function (record) {
+            return this.selectedRecords.includes(record);
+        },
+        areRecordsSelected: function (records) {
+            return records.every(record => this.isRecordSelected(record));
+        },
+    }">
 
-    <div class="flex gap-x-3 p-3">
+    <x-ui::table.container>
 
-        @if ($bulkActions)
-        <div class="flex mr-12">
-            @foreach ($bulkActions as $action)
-            {!! $action->render() !!}
-            @endforeach
-        </div>
+        @if ($heading || $description || $headerActions)
+        <x-ui::table.header :heading="$heading" :description="$description" :actions="$headerActions" />
         @endif
 
-        @if ($filters)
-        <form method="get" class="flex gap-x-3">
-            @foreach ($filters as $filter)
-            <div class="flex items-center w-xl">
-                {!! $filter->render() !!}
+        <div class="flex gap-x-3 p-3">
+
+            @if ($bulkActions)
+            <div class="flex mr-12">
+                @foreach ($bulkActions as $action)
+                {!! $action->render() !!}
+                @endforeach
             </div>
-            @endforeach
+            @endif
 
-            <x-ui::button type="submit" :class="'hidden'">Submit</x-ui::button>
+            @if ($filters)
+            {{-- <form method="get" class="flex gap-x-3"> --}}
+                @foreach ($filters as $filter)
+                <div class="flex items-center w-xl">
+                    {!! $filter->render() !!}
+                </div>
+                @endforeach
 
-            <x-ui::button tag="a" href="{{ url()->current() }}" :class="'bg-red-500'">Clear</x-ui::button>
+                {{-- <x-ui::button type="submit" :class="'hidden'">Submit</x-ui::button>
 
-        </form>
-        @endif
+                <x-ui::button tag="a" href="{{ url()->current() }}" :class="'bg-red-500'">Clear</x-ui::button> --}}
 
-    </div>
+            {{-- </form> --}}
+            @endif
 
-    <table class="min-w-full divide-y divide-gray-200">
+        </div>
 
-        <x-ui::table.head :table="$table" :columns="$columns" :actions="$actions" :bulkActions="$bulkActions" />
+        <table class="min-w-full divide-y divide-gray-200">
 
-        <tbody class="divide-y divide-gray-200 bg-white">
+            <x-ui::table.head :table="$table" :columns="$columns" :actions="$actions" :bulkActions="$bulkActions" />
 
-            @foreach ($entries as $entry)
-            <x-ui::table.row :table="$table" :entry="$entry" :columns="$columns" :actions="$actions" :bulkActions="$bulkActions" />
-            @endforeach
+            <tbody class="divide-y divide-gray-200 bg-white">
 
-        </tbody>
+                @foreach ($paginator as $entry)
+                <x-ui::table.row :table="$table" :entry="$entry" :columns="$columns" :actions="$actions"
+                    :bulkActions="$bulkActions" />
+                @endforeach
 
-        <x-ui::table.foot :table="$table" :paginator="$entries" :paginationOptions="$paginationOptions" />
+            </tbody>
 
-    </table>
+            <x-ui::table.foot :table="$table" :paginator="$paginator" :paginationOptions="$paginationOptions"/>
 
-</x-ui::table.container>
+        </table>
+
+    </x-ui::table.container>
+
+</div>

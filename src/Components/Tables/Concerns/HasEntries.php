@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Builders\Concerns;
+namespace Streams\Ui\Components\Tables\Concerns;
 
 use Illuminate\Support\Collection;
 use Streams\Core\Criteria\Criteria;
@@ -14,11 +14,11 @@ trait HasEntries
     {
         $query = $this->getFilteredSortedQuery();
 
-        if (!$this->isPaginated()) {
-            return $this->records = $query->get();
+        if (!$this->getTable()->isPaginated()) {
+            return $query->get();
         }
 
-        return $this->records = $this->paginateQuery($query);
+        return $this->paginateQuery($query);
     }
 
     public function getFilteredSortedQuery(): Criteria
@@ -34,15 +34,15 @@ trait HasEntries
 
     public function getFilteredQuery(): Criteria
     {
-        return $this->filterQuery($this->getQuery());
+        return $this->filterQuery($this->getTable()->getQuery());
     }
 
     public function filterQuery(Criteria $query): Criteria
     {
         $this->applyFiltersToTableQuery($query);
-        //$this->applySearchToTableQuery($query);
+        $this->applySearchToTableQuery($query);
 
-        foreach ($this->getColumns() as $column) {
+        foreach ($this->getTable()->getColumns() as $column) {
           
             // if ($column->isHidden()) {
             //     continue;
@@ -65,7 +65,7 @@ trait HasEntries
         // @todo fix me
         $data = [];// $this->getTableFiltersForm()->getRawState();
 
-        foreach ($this->getFilters() as $filter) {
+        foreach ($this->getTable()->getFilters() as $filter) {
 
             $state = $data[$filter->getName()] ?? [
                 'value' => request($filter->getName() . '-filter'),

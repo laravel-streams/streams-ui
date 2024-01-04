@@ -49,7 +49,7 @@ trait CanPaginate
     protected function paginateQuery(Criteria $query): Paginator
     {
         //$perPage = $this->getPerPage();
-        $perPage = $this->getLiveWire()->currentPageOption;
+        $perPage = $this->getLiveWire()->getTableRecordsPerPage();
         $pageName = $this->getTablePageName();
 
         /** @var LengthAwarePaginator $records */

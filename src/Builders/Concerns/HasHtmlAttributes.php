@@ -22,6 +22,11 @@ trait HasHtmlAttributes
         return $this;
     }
 
+    public function mergeHtmlAttributes(array | \Closure $attributes): static
+    {
+        return $this->htmlAttributes($attributes, true);
+    }
+
     public function getHtmlAttributes(): array
     {
         $attributes = new ComponentAttributeBag();

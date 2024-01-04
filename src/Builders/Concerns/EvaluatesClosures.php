@@ -95,11 +95,6 @@ trait EvaluatesClosures
         throw new BindingResolutionException("Unable to resolve parameter [\${$parameterName}] for closure in [{$staticClass}].");
     }
 
-    protected function resolveDefaultClosureDependency(string $parameterName): array
-    {
-        return [];
-    }
-
     protected function getTypedReflectionParameterClassName(\ReflectionParameter $parameter): ?string
     {
         $type = $parameter->getType();
@@ -129,5 +124,20 @@ trait EvaluatesClosures
         }
 
         return $name;
+    }
+
+    protected function resolveDefaultClosureDependencyForEvaluationByName(string $parameterName): array
+    {
+        return [];
+    }
+
+    protected function resolveDefaultClosureDependencyForEvaluationByType(string $parameterName): array
+    {
+        return [];
+    }
+
+    protected function resolveDefaultClosureDependency(string $parameterName): array
+    {
+        return [];
     }
 }
