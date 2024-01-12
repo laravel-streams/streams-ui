@@ -8,7 +8,7 @@ $paginator = $this->getTableEntries();
 
 $heading = $table->getHeading();
 $description = $table->getDescription();
-$headerActions = $table->getHeaderActions();
+$headerActions = [];//$table->getHeaderActions();
 
 $paginationOptions = $table->getPaginationOptions();
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Builders\Navigation\Concerns;
+namespace Streams\Ui\Navigation\Traits;
 
 use Illuminate\Contracts\Support\Arrayable;
 

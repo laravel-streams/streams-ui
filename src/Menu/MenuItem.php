@@ -1,20 +1,20 @@
 <?php
 
-namespace Streams\Ui\Builders\Menu;
+namespace Streams\Ui\Menu;
 
+use Streams\Ui\Traits as Common;
 use Streams\Ui\Builders\Builder;
-use Streams\Ui\Builders\Concerns;
 use Illuminate\Support\Facades\App;
 
 class MenuItem extends Builder
 {
-    use Concerns\HasUrl;
-    use Concerns\HasIcon;
-    use Concerns\HasSort;
-    use Concerns\HasColor;
-    use Concerns\HasLabel;
-    use Concerns\HasBadge;
-    use Concerns\HasVisibility;
+    use Common\HasUrl;
+    use Common\HasIcon;
+    use Common\HasSort;
+    use Common\HasColor;
+    use Common\HasLabel;
+    use Common\HasBadge;
+    use Common\CanBeHidden;
 
     public static function make(): static
     {

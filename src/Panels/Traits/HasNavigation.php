@@ -4,8 +4,8 @@ namespace Streams\Ui\Panels\Traits;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Streams\Ui\Builders\Navigation\NavigationItem;
-use Streams\Ui\Builders\Navigation\NavigationGroup;
+use Streams\Ui\Navigation\NavigationItem;
+use Streams\Ui\Navigation\NavigationGroup;
 
 trait HasNavigation
 {

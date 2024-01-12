@@ -8,7 +8,7 @@ trait HasEntry
 {
     public Entry | string | null $entry = null;
 
-    public function entry(Entry | string | null $entry = null): static
+    public function entry(Entry | \Closure | string | null $entry = null): static
     {
         $this->entry = $entry;
 
@@ -39,7 +39,7 @@ trait HasEntry
     //     }
     // }
 
-    public function getEntry(): ?string
+    public function getEntry()
     {
         $entry = $this->entry;
 

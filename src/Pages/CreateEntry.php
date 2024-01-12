@@ -7,7 +7,7 @@ use Streams\Core\Entry\Entry;
 use Streams\Ui\Builders\Concerns\HasEntry;
 use Streams\Ui\Builders\Forms\Concerns\InteractsWithForms;
 
-class CreateEntry extends Page
+class CreateEntry extends PanelPage
 {
     use HasEntry;
 

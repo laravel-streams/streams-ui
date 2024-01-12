@@ -8,7 +8,7 @@
     {{ $attributes->class(['w-full table-auto divide-y divide-gray-200 text-start']) }}
 >
     {{-- @if ($header) --}}
-        <thead class="bg-gray-50 dark:bg-white/5">
+        <thead class="bg-gray-50">
             <tr>
                 {{-- {{ $header }} --}}
                 <x-ui::tables.components.head>

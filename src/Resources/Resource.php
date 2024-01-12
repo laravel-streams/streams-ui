@@ -7,7 +7,7 @@ use Streams\Ui\Resources\Concerns;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\Builders\Concerns\HasTitle;
 use Streams\Ui\Builders\Concerns\HasNavigation;
-use Streams\Ui\Builders\Navigation\NavigationItem;
+use Streams\Ui\Navigation\NavigationItem;
 
 abstract class Resource
 {

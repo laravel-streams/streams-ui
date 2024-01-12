@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Panels\Traits;
 
-use Streams\Ui\Builders\Menu\MenuItem;
+use Streams\Ui\Menu\MenuItem;
 
 trait HasUserMenu
 {

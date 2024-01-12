@@ -115,7 +115,7 @@ trait CanSearchEntries
             //     // foreach ...
             // });
 
-            foreach ($this->getTable()->getColumns() as $column) {
+            foreach ($this->getTable()->getColumns() as $k => $column) {
 
                 // if ($column->isHidden()) {
                 //     continue;
@@ -127,7 +127,8 @@ trait CanSearchEntries
 
                 $column->applySearch(
                     $query,
-                    $searchWord
+                    $searchWord,
+                    $k == 0 // $isFirst
                 );
             }
         }

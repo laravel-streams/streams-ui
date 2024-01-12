@@ -6,7 +6,7 @@ use Livewire\WithPagination;
 use Streams\Ui\Builders\Tables\Table;
 use Streams\Ui\Components\Tables\InteractsWithTable;
 
-class ListEntries extends Page
+class ListEntries extends PanelPage
 {
     use WithPagination;
     use InteractsWithTable;

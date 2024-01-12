@@ -17,6 +17,7 @@ abstract class Column extends Builders\Builder
     use Concerns\HasTable;
     use Concerns\IsSortable;
     use Concerns\IsSearchable;
+    use Concerns\InteractsWithQuery;
 
     public function __construct(string $name)
     {

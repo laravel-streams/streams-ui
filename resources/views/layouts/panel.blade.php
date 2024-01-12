@@ -5,15 +5,19 @@
     @include('ui::layouts.partials.head')
 </head>
 
+@php
+    View::share('topNavigation', $topNavigation = false);
+@endphp
+
 <body class="h-full">
 
     @include('ui::layouts.partials.sidebar')
-
-    <div class="lg:pl-72 h-full flex flex-col">
+    
+    <div class="{{ $topNavigation ? '' : 'lg:pl-72' }} h-full flex flex-col">
 
         @include('ui::layouts.partials.topbar')
 
-        <main class="flex flex-grow w-full">
+        <main class="flex-grow">
             {!! $slot !!}
         </main>
 

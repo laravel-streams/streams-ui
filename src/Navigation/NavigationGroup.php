@@ -1,19 +1,19 @@
 <?php
 
-namespace Streams\Ui\Builders\Navigation;
+namespace Streams\Ui\Navigation;
 
+use Streams\Ui\Navigation;
 use Streams\Ui\Builders\Builder;
-use Streams\Ui\Builders\Concerns;
-use Streams\Ui\Builders\Navigation;
+use Streams\Ui\Traits as Common;
 
 class NavigationGroup extends Builder
 {
-    use Concerns\HasIcon;
-    use Concerns\HasSort;
-    use Concerns\HasLabel;
+    use Common\HasIcon;
+    use Common\HasSort;
+    use Common\HasLabel;
 
-    use Navigation\Concerns\HasItems;
-    use Navigation\Concerns\CanBeCollapsed;
+    use Navigation\Traits\HasItems;
+    use Navigation\Traits\CanBeCollapsed;
 
     final public function __construct(string | \Closure | null $label = null)
     {

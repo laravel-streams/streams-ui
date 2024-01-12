@@ -3,7 +3,7 @@
         'list-entries-page',
         'list-entries-' . str_replace('/', '-', $this->getResource()::getSlug()),
     ])>
-    <div class="flex flex-col gap-y-6">
+    <div class="flex w-full flex-col gap-y-6 p-4">
         
         {{ $this->table }}
 

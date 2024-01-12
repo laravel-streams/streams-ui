@@ -20,27 +20,48 @@ class="sticky top-0 z-40 flex w-full h-16 shrink-0 items-center gap-x-4 border-b
 <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
 
     {{-- Search Form --}}
-    <form class="relative flex flex-1" action="#" method="GET">
+    <div class="relative flex flex-1">
+
+        @if ($topNavigation)
+        <div class="flex h-16 shrink-0 items-center font-bold mr-12">
+            <a href="{{ URL::to('admin') }}" class="text-xl" title="Go to panel homepage.">
+                {{ __(config('app.name')) }}
+            </a>
+        </div>
+        @endif
+
+        <!-- Separator -->
+        {{-- <div class="hidden lg:block lg:h-6 mx-6 my-5 lg:w-px lg:bg-gray-900/10" aria-hidden="true"></div> --}}
+
+        @if ($topNavigation)
+        @include('ui::layouts.partials.navigation-top')
+        @endif
+        {{-- @include('ui::layouts.partials.search') --}}
+    </div>
+    {{-- <form class="relative flex flex-1" action="#" method="GET">
         <label for="search-field" class="sr-only">Search</label>
         @svg('heroicon-o-magnifying-glass', 'pointer-events-none absolute inset-y-0 left-0 h-full w-5
         text-gray-400')
         <input id="search-field"
             class="block h-full w-full border-0 rounded-sm py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-2 sm:text-sm"
             placeholder="Search..." type="search" name="search">
-    </form>
+    </form> --}}
     {{-- EOF Search Form --}}
 
     <div class="flex items-center gap-x-4 lg:gap-x-6">
 
-        {{-- Notifications Button --}}
-        <button type="button" class="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
+        {{-- 
+            
+            USER ACTIONS
+
+        --}}
+        {{-- <button type="button" class="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
             <span class="sr-only">View notifications</span>
             @svg('heroicon-o-bell', 'h-6 w-6')
-        </button>
-        {{-- EOF Notifications Button --}}
+        </button> --}}
 
         <!-- Separator -->
-        <div class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-900/10" aria-hidden="true"></div>
+        {{-- <div class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-900/10" aria-hidden="true"></div> --}}
 
         <!-- Profile dropdown -->
         <div class="relative" x-data="{open: false}">

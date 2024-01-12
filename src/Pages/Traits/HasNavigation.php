@@ -4,7 +4,7 @@ namespace Streams\Ui\Pages\Traits;
 
 use Streams\Ui\Panels\Panel;
 use Streams\Ui\support\Facades\UI;
-use Streams\Ui\Builders\Navigation\NavigationItem;
+use Streams\Ui\Navigation\NavigationItem;
 
 trait HasNavigation
 {

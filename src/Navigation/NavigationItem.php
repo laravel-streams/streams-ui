@@ -1,24 +1,24 @@
 <?php
 
-namespace Streams\Ui\Builders\Navigation;
+namespace Streams\Ui\Navigation;
 
+use Streams\Ui\Navigation;
 use Streams\Ui\Builders\Builder;
-use Streams\Ui\Builders\Concerns;
-use Streams\Ui\Builders\Navigation;
+use Streams\Ui\Traits as Common;
 
 class NavigationItem extends Builder
 {
-    use Concerns\HasUrl;
-    use Concerns\HasIcon;
-    use Concerns\HasSort;
-    use Concerns\HasBadge;
-    use Concerns\HasLabel;
-    use Concerns\HasVisibility;
+    use Common\HasUrl;
+    use Common\HasIcon;
+    use Common\HasSort;
+    use Common\HasBadge;
+    use Common\HasLabel;
+    use Common\CanBeHidden;
 
-    use Navigation\Concerns\HasGroup;
-    use Navigation\Concerns\HasActiveIcon;
+    use Navigation\Traits\HasGroup;
+    use Navigation\Traits\HasActiveIcon;
     
-    use Navigation\Concerns\CanBeActive;
+    use Navigation\Traits\CanBeActive;
 
     final public function __construct(string | \Closure | null $label = null)
     {
