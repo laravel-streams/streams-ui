@@ -24,7 +24,7 @@ trait HasRoutes
                 ->append('.'),
         )
             ->prefix($slug)
-            ->middleware(static::getRouteMiddleware($panel))
+            ->middleware(static::getRouteMiddleware($panel) ?: ['web'])
             ->withoutMiddleware(static::getWithoutRouteMiddleware($panel))
             ->group(function () use ($panel) {
                 foreach (static::getPages() as $name => $page) {

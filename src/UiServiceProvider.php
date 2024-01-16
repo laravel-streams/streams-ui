@@ -70,6 +70,8 @@ class UiServiceProvider extends ServiceProvider //implements DeferrableProvider
             \Streams\Ui\Http\Middleware\SetUpPanel::class,
         ]);
 
+        Livewire::propertySynthesizer(\Streams\Ui\Support\EntrySynthesizer::class);
+
         // foreach (config('streams.ui.components') as $name => $class) {
         //     UI::component($name, $class);
         // }
