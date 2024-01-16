@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Actions\Traits;
 
-use Streams\Ui\Builders\Forms\Form;
+use Streams\Ui\Forms\Form;
 
 trait HasForm
 {

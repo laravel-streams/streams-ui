@@ -57,7 +57,16 @@ $selectedRecords = [];
         areRecordsSelected: function (records) {
             return records.every(record => this.isRecordSelected(record));
         },
-    }">
+    }"
+    {{-- @if (! $isLoaded)
+        wire:init="loadTable"
+    @endif --}}
+    {{-- @if (FilamentView::hasSpaMode())
+        ax-load="visible"
+    @else
+        ax-load
+    @endif --}}
+    {{-- ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('table', 'filament/tables') }}" --}}>
 
     <x-ui::table.container>
 

@@ -3,7 +3,7 @@
 namespace Streams\Ui\Components\Tables\Concerns;
 
 use Streams\Core\Entry\Entry;
-use Streams\Ui\Builders\Tables\Actions\Action;
+use Streams\Ui\Tables\Actions\Action;
 
 trait HasActions
 {

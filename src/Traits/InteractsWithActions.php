@@ -5,7 +5,7 @@ namespace Streams\Ui\Traits;
 use Illuminate\Support\Arr;
 use Streams\Ui\Exceptions\Halt;
 use Streams\Ui\Exceptions\Cancel;
-use Streams\Ui\Builders\Forms\Form;
+use Streams\Ui\Forms\Form;
 use Streams\Ui\Exceptions\ValidationException;
 
 trait InteractsWithActions

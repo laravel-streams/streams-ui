@@ -2,11 +2,11 @@
 
 namespace Streams\Ui\Panels;
 
-use Streams\Ui\Builders\Builder;
 use Streams\Ui\Traits as Common;
 use Illuminate\Support\Facades\App;
+use Streams\Ui\Builders\ViewBuilder;
 
-class Panel extends Builder
+class Panel extends ViewBuilder
 {
     use Common\HasId;
     use Common\CanBeDefault;

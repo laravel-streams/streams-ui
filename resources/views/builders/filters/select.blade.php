@@ -1,7 +1,8 @@
 <x-ui::inputs.native-select
     id="{{ $filter->getName() }}-filter"
     name="{{ $path = $filter->getName() . '-filter' }}"
-    onchange="this.form.submit()">
+    {{-- onchange="this.form.submit()" --}}
+    wire:model.live="tableFilters.{{ $filter->getName() }}.value">
     
     <option value="">Status</option>
 

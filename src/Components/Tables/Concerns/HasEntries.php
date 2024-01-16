@@ -59,23 +59,4 @@ trait HasEntries
 
         return $query;
     }
-
-    protected function applyFiltersToTableQuery(Criteria $query): Criteria
-    {
-        // @todo fix me
-        $data = [];// $this->getTableFiltersForm()->getRawState();
-
-        foreach ($this->getTable()->getFilters() as $filter) {
-
-            $state = $data[$filter->getName()] ?? [
-                'value' => request($filter->getName() . '-filter'),
-            ];
-
-            if ($state['value'] ?? false) {
-                $query = $filter->table($this)->apply($query, $state);
-            }
-        }
-
-        return $query;
-    }
 }

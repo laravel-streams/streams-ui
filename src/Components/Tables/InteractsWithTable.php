@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Components\Tables;
 
-use Streams\Ui\Builders\Tables\Table;
+use Streams\Ui\Tables\Table;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
 trait InteractsWithTable
@@ -10,11 +10,12 @@ trait InteractsWithTable
     use FiresCallbacks;
 
     use Concerns\HasEntries;
+    use Concerns\HasFilters;
     use Concerns\HasBulkActions;
-    
+
     use Concerns\CanSearchEntries;
     use Concerns\CanPaginateEntries;
-    
+
     protected Table $table;
 
     public function bootedInteractsWithTable(): void
@@ -29,9 +30,10 @@ trait InteractsWithTable
         //     ),
         // );
 
-        // $this->cacheForm('toggleTableColumnForm', $this->getTableColumnToggleForm());
+        
+        // $this->remember('toggleTableColumnForm', $this->getTableColumnToggleForm());
+        // $this->remember('tableFiltersForm', $this->getTableFiltersForm());
 
-        // $this->cacheForm('tableFiltersForm', $this->getTableFiltersForm());
 
         // if (! $this->shouldMountInteractsWithTable) {
         //     return;
@@ -47,9 +49,9 @@ trait InteractsWithTable
         // $shouldPersistFiltersInSession = $this->getTable()->persistsFiltersInSession();
         // $filtersSessionKey = $this->getTableFiltersSessionKey();
 
-        // if (! count($this->tableFilters ?? [])) {
-        //     $this->tableFilters = null;
-        // }
+        if (!count($this->tableFilters ?? [])) {
+            $this->tableFilters = null;
+        }
 
         // if (($this->tableFilters === null) && $shouldPersistFiltersInSession && session()->has($filtersSessionKey)) {
         //     $this->tableFilters = [
@@ -59,9 +61,9 @@ trait InteractsWithTable
         // }
 
         // // https://github.com/filamentphp/filament/pull/7999
-        // if ($this->tableFilters) {
-        //     $this->normalizeTableFilterValuesFromQueryString($this->tableFilters);
-        // }
+        if ($this->tableFilters) {
+            // $this->normalizeTableFilterValuesFromQueryString($this->tableFilters);
+        }
 
         // $this->getTableFiltersForm()->fill($this->tableFilters);
 
@@ -83,7 +85,7 @@ trait InteractsWithTable
         //     $this->tableSearch = session()->get($searchSessionKey);
         // }
 
-        // $this->tableSearch = strval($this->tableSearch);
+        $this->tableSearch = strval($this->tableSearch);
 
         // if ($shouldPersistSearchInSession) {
         //     session()->put(

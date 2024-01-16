@@ -5,9 +5,10 @@ namespace Streams\Ui\Components\Tables\Concerns;
 use Illuminate\Support\Arr;
 use Streams\Core\Entry\Entry;
 use Illuminate\Support\Collection;
-use Streams\Ui\Builders\Forms\Form;
+use Streams\Ui\Forms\Form;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Streams\Ui\Builders\Tables\BulkActions\BulkAction;
+use Streams\Ui\Exceptions\ValidationException;
+use Streams\Ui\Tables\BulkActions\BulkAction;
 
 trait HasBulkActions
 {
@@ -31,9 +32,11 @@ trait HasBulkActions
             return null;
         }
 
-        if ($action->isDisabled()) {
-            return null;
-        }
+        // @todo should this be here?
+        // Move to mountTableBulkAction()
+        // if ($action->isDisabled()) {
+        //     return null;
+        // }
 
         $action->arguments($arguments);
 
@@ -53,7 +56,7 @@ trait HasBulkActions
             $action->fire('before_call');
 
             $result = $action->call([
-                'form' => $form,
+                // 'form' => $form,
             ]);
 
             $result = $action->fire('after_call') ?? $result;
@@ -72,12 +75,12 @@ trait HasBulkActions
             throw $exception;
         }
 
-        if (store($this)->has('redirect')) {
-            return $result;
-        }
+        // if (store($this)->has('redirect')) {
+        //     return $result;
+        // }
 
         $action->resetArguments();
-        $action->resetFormData();
+        // $action->resetFormData();
 
         $this->unmountTableBulkAction();
 
@@ -97,6 +100,9 @@ trait HasBulkActions
 
         $action = $this->getMountedTableBulkAction();
 
+        // @todo Replace this
+        return $this->callMountedTableBulkAction();
+
         if (!$action) {
             return null;
         }
@@ -104,27 +110,27 @@ trait HasBulkActions
         if ($action->isDisabled()) {
             return null;
         }
-        
+
         $this->cacheMountedTableBulkActionForm();
-dd($hasForm = $this->mountedTableBulkActionHasForm());
+
         try {
-            $hasForm = $this->mountedTableBulkActionHasForm();
+            // $hasForm = $this->mountedTableBulkActionHasForm();
 
-            if ($hasForm) {
-                //$action->callBeforeFormFilled();
-            }
+            // if ($hasForm) {
+            //     $action->callBeforeFormFilled();
+            // }
 
-            $action->mount([
-                'form' => $this->getMountedTableBulkActionForm(),
-            ]);
+            // $action->mount([
+            //     'form' => $this->getMountedTableBulkActionForm(),
+            // ]);
 
-            if ($hasForm) {
-                $action->callAfterFormFilled();
-            }
-        // } catch (Halt $exception) {
+            // if ($hasForm) {
+            //     $action->callAfterFormFilled();
+            // }
+            // } catch (Halt $exception) {
         } catch (\Exception $exception) {
             return null;
-        // } catch (Cancel $exception) {
+            // } catch (Cancel $exception) {
         } catch (\Exception $exception) {
             $this->resetMountedTableBulkActionProperties();
 
@@ -159,7 +165,7 @@ dd($hasForm = $this->mountedTableBulkActionHasForm());
     public function mountedTableBulkActionShouldOpenModal(): bool
     {
         $action = $this->getMountedTableBulkAction();
-dd('Test');
+
         if ($action->isModalHidden()) {
             return false;
         }
@@ -294,6 +300,12 @@ dd('Test');
 
     public function getSelectedTableRecords(): Collection
     {
+        // @todo this is not done
+        return $this->getTable()
+            ->getQuery()
+            ->where('id', 'IN', $this->selectedTableRecords)
+            ->get();
+
         if (isset($this->cachedSelectedTableRecords)) {
             return $this->cachedSelectedTableRecords;
         }

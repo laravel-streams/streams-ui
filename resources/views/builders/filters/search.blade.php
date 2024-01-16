@@ -6,9 +6,9 @@
     id="{{ $filter->getName() }}-filter"
     name="{{ $path = $filter->getName() . '-filter' }}"
     placeholder="Search"
-    wire:model.live.debounce.500ms="tableSearch"
+    wire:key="$id('input')"
     :wire:target="$wireModel"
-    x-bind:id="$id('input')"
+    :wire:model.live.debounce.500ms="$wireModel"
     :attributes="(new \Illuminate\View\ComponentAttributeBag([
                 //'autocapitalize' => $getAutocapitalize(),
                 //'autocomplete' => $getAutocomplete(),

@@ -2,10 +2,11 @@
 
 namespace Streams\Ui\Pages;
 
-use Streams\Ui\Builders\Forms\Form;
+use Streams\Ui\Forms\Form;
 use Streams\Core\Entry\Entry;
+use Streams\Ui\Pages\PanelPage;
 use Streams\Ui\Builders\Concerns\HasEntry;
-use Streams\Ui\Builders\Forms\Concerns\InteractsWithForms;
+use Streams\Ui\Forms\Concerns\InteractsWithForms;
 
 class CreateEntry extends PanelPage
 {

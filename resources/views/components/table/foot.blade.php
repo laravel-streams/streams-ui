@@ -29,6 +29,7 @@
                                 <div class="col-start-2 justify-self-center">
                                     <label>
                                         <x-ui::inputs.native-select
+                                            wire:key="currentPagination"
                                             :wire:model.live="$currentPageOption">
                                             @foreach ($paginationOptions as $option)
                                             <option value="{{ $option }}" {{ $this->{$currentPageOption} == $option ? 'selected' : null }}>

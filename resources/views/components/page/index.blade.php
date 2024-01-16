@@ -2,7 +2,6 @@
     //
 ])
 
-{{-- <div {{ $attributes->class(['w-full', 'p-4']) }}> --}}
-<div>
+<div class="ui-page">
     {{ $slot }}
 </div>

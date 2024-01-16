@@ -3,9 +3,9 @@
 namespace Streams\Ui\Pages;
 
 use Streams\Core\Entry\Entry;
-use Streams\Ui\Builders\Forms\Form;
+use Streams\Ui\Forms\Form;
 use Streams\Ui\Builders\Concerns\HasEntry;
-use Streams\Ui\Builders\Forms\Concerns\InteractsWithForms;
+use Streams\Ui\Forms\Concerns\InteractsWithForms;
 
 class EditEntry extends PanelPage
 {

@@ -3,7 +3,7 @@
 namespace Streams\Ui\Traits;
 
 use Livewire\WithFileUploads;
-use Streams\Ui\Builders\Forms\Form;
+use Streams\Ui\Forms\Form;
 use Streams\Ui\Exceptions\ValidationException;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
