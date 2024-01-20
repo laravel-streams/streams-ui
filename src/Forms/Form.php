@@ -3,22 +3,19 @@
 namespace Streams\Ui\Forms;
 
 use Livewire\Component;
-use Streams\Ui\Builders\Concerns;
-use Streams\Ui\Builders\Containers;
+use Streams\Ui\Traits as Support;
+use Streams\Ui\Containers\Container;
 
-class Form extends Containers\Container
+class Form extends Container
 {
-    use Concerns\HasState;
-    use Concerns\HasEntry;
-    use Concerns\HasStream;
+    use Support\HasStream;
+    use Support\HasActions;
+    use Support\HasHeading;
+    use Support\HasDescription;
     
-    use Concerns\HasActions;
-    use Concerns\HasHeading;
-    use Concerns\HasDescription;
+    // use Containers\Concerns\HasContainers;
 
-    use Concerns\BelongsToLivewire;
-
-    use Containers\Concerns\HasContainers;
+    protected ?string $statePath = 'form';
 
     protected string $view = 'ui::form';
 
@@ -43,7 +40,7 @@ class Form extends Containers\Container
         // $components = array_map(function (Component $component): Component {
         $components = array_map(function ($component) {
         
-            $component->parentComponent($this);
+            $component->parent($this);
             $component->livewire($this->getLivewire());
 
             return $component;
@@ -56,7 +53,7 @@ class Form extends Containers\Container
         return array_filter(
             $components,
             // fn (Component $component) => $component->isVisible(),
-            fn ($component) => $component->isVisible(),
+            fn ($component) => !$component->isHidden(),
         );
     }
 }

@@ -4,14 +4,13 @@ namespace Streams\Ui\Pages;
 
 use Streams\Ui\Forms\Form;
 use Streams\Core\Entry\Entry;
+use Streams\Ui\Traits\HasEntry;
 use Streams\Ui\Pages\PanelPage;
-use Streams\Ui\Builders\Concerns\HasEntry;
-use Streams\Ui\Forms\Concerns\InteractsWithForms;
+use Streams\Ui\Components\Forms\InteractsWithForms;
 
 class CreateEntry extends PanelPage
 {
     use HasEntry;
-
     use InteractsWithForms;
 
     public ?array $data = [];

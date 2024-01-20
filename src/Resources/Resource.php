@@ -15,8 +15,7 @@ abstract class Resource
     use HasNavigation;
 
     use Concerns\HasRoutes;
-
-    protected static ?string $stream = null;
+    use Concerns\HasStream;
 
     public static function getUrl(
         string $name = 'index',
@@ -64,10 +63,5 @@ abstract class Resource
         return $stream
             ->repository()
             ->findBy($stream->config('key_name', 'id'), $key);
-    }
-
-    public static function getStream(): string
-    {
-        return static::$stream ?? static::getSlug();
     }
 }

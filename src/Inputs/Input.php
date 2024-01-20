@@ -3,30 +3,26 @@
 namespace Streams\Ui\Inputs;
 
 use Streams\Ui\Inputs;
-use Streams\Ui\Builders\Concerns;
-use Streams\Ui\Builders\Containers\Container;
-use Streams\Ui\Builders\Containers\Concerns\HasContainers;
+use Streams\Ui\Traits as Support;
+use Streams\Ui\Containers\Container;
 use Streams\Ui\Builders\Containers\Concerns\BelongsToContainer;
 
 abstract class Input extends Container
 {
-    use HasContainers;
-    use BelongsToContainer;
+    // use BelongsToContainer;
     
-    use Concerns\HasId;
-    use Concerns\HasName;
-    use Concerns\HasLabel;
+    use Support\HasId;
+    use Support\HasName;
+    use Support\HasLabel;
+    use Support\HasHtmlAttributes;
     
-    use Concerns\HasHtmlAttributes;
+    use Support\CanSpanColumns;
     
-    use Concerns\BelongsToLivewire;
-    
-    use Concerns\CanSpanColumns;
-    
+    use Support\BelongsToParent;
+    use Support\BelongsToLivewire;
     
     use Inputs\Traits\HasKey;
     use Inputs\Traits\HasHint;
-    use Inputs\Traits\HasState;
     use Inputs\Traits\HasFieldWrapper;
     
     use Inputs\Traits\CanBeHidden;

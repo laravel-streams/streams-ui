@@ -11,6 +11,8 @@
 
     @include('ui::layouts.partials.assets')
 
+    <x-ui::messages/>
+
 </body>
 
 </html>

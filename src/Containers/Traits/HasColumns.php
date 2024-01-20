@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Builders\Concerns;
+namespace Streams\Ui\Containers\Traits;
 
 trait HasColumns
 {
@@ -37,6 +37,7 @@ trait HasColumns
 
     public function getColumnsConfig(): array
     {
+        // @todo: This is a hack to get the parent component's columns config.
         // if ($this instanceof ComponentContainer && $this->getParentComponent()) {
         //     return $this->getParentComponent()->getColumnsConfig();
         // }

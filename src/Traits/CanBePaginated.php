@@ -1,11 +1,11 @@
 <?php
 
-namespace Streams\Ui\Builders\Concerns;
+namespace Streams\Ui\Traits;
 
 use Streams\Core\Criteria\Criteria;
 use Illuminate\Contracts\Pagination\Paginator;
 
-trait CanPaginate
+trait CanBePaginated
 {
     public int | string $perPage = 25;
 

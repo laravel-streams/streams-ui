@@ -2,11 +2,12 @@
 
 namespace Streams\Ui\Tables;
 
-use Streams\Ui\Builders;
+use Streams\Ui\Traits as Support;
 use Illuminate\Support\Collection;
+use Streams\Ui\Builders\ViewBuilder;
 use Illuminate\Contracts\Pagination\Paginator;
 
-class Table extends Builders\ViewBuilder
+class Table extends ViewBuilder
 {
     use Concerns\HasActions;
     use Concerns\HasColumns;
@@ -14,12 +15,12 @@ class Table extends Builders\ViewBuilder
     use Concerns\HasBulkActions;
     use Concerns\HasHeaderActions;
     
-    use Builders\Concerns\HasQuery;
-    use Builders\Concerns\HasHeading;
-    use Builders\Concerns\CanPaginate;
-    use Builders\Concerns\HasDescription;
+    use Support\HasQuery;
+    use Support\HasHeading;
+    use Support\CanBePaginated;
+    use Support\HasDescription;
     
-    use Builders\Concerns\BelongsToLivewire;
+    use Support\BelongsToLivewire;
 
     protected string $view = 'ui::builders.table';
 

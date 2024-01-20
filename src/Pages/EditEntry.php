@@ -2,20 +2,21 @@
 
 namespace Streams\Ui\Pages;
 
-use Streams\Core\Entry\Entry;
 use Streams\Ui\Forms\Form;
-use Streams\Ui\Builders\Concerns\HasEntry;
-use Streams\Ui\Forms\Concerns\InteractsWithForms;
+use Streams\Core\Entry\Entry;
+use Streams\Ui\Traits\HasEntry;
+use Streams\Ui\Components\Forms\InteractsWithForms;
 
 class EditEntry extends PanelPage
 {
     use HasEntry;
-
     use InteractsWithForms;
 
     public ?array $data = [];
 
     public ?string $previousUrl = null;
+
+    protected ?string $statePath = 'data';
 
     protected static string $view = 'ui::pages.edit-entry';
 
@@ -57,16 +58,18 @@ class EditEntry extends PanelPage
     {
         $data = $this->getEntryInstance()->toArray();
 
-        $this->fillFormWithDataAndCallHooks($data);
+        $this->fillFormData($data);
     }
 
-    protected function fillFormWithDataAndCallHooks(array $data): void
+    protected function fillFormData(array $data): void
     {
         $this->fire('beforeFill');
 
         $data = $this->mutateFormDataBeforeFill($data);
 
         $this->form->fill($data);
+
+        $this->data = $this->form->getLivewire()->data;
 
         $this->fire('afterFill');
     }

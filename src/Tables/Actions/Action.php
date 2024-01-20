@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Tables\Actions;
 
-use Streams\Ui\Builders\Concerns\HasEntry;
+use Streams\Ui\Traits\HasEntry;
 use Streams\Ui\Components\Tables\InteractsWithTable;
 
 class Action extends \Streams\Ui\Actions\Action

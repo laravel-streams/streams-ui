@@ -1,9 +1,9 @@
 <?php
 
-namespace Streams\Ui\Forms\Concerns;
+namespace Streams\Ui\Components\Forms;
 
-use Livewire\WithFileUploads;
 use Streams\Ui\Forms\Form;
+use Livewire\WithFileUploads;
 
 trait InteractsWithForms
 {
@@ -18,7 +18,8 @@ trait InteractsWithForms
 
     public function bootInteractsWithForms(): void
     {
-        $this->form = $this->form($this->makeForm($this));
+        $this->form = $this->form($this->makeForm($this))
+            ->statePath('data.form');
 
         // $this->form = Action::configureUsing(
         //     Closure::fromCallable([$this, 'configureFormAction']),

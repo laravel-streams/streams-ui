@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Builders\Concerns;
+namespace Streams\Ui\Traits;
 
 use Streams\Core\Criteria\Criteria;
 

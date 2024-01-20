@@ -2,46 +2,53 @@
 
 namespace Streams\Ui\Traits;
 
-use Livewire\Livewire;
 use Illuminate\Support\Arr;
 
 trait HasState
 {
     protected mixed $defaultState = null;
 
-    protected bool | \Closure $isDehydrated = true;
-
     protected ?string $statePath = null;
+    protected ?string $statePathCache = null;
 
     public function default(mixed $state): static
     {
         $this->defaultState = $state;
-        $this->hasDefaultState = true;
 
         return $this;
     }
 
-    public function dehydrated(bool | \Closure $condition = true): static
+    public function fill(array $data = []): void
     {
-        $this->isDehydrated = $condition;
+        $state = [];
 
-        return $this;
+        $statePath = $this->getStatePath(true);
+        Arr::set($state, $statePath, $data);
+
+        $this->hydrateState($data);
+
+        $livewire = $this->getLivewire();
+
+        if ($statePath) {
+            data_set($livewire, $statePath, $data);
+        } else {
+            foreach ($data as $key => $value) {
+                data_set($livewire, $key, $value);
+            }
+        }
     }
 
-    /**
-     * @param  array<string, mixed>  $state
-     */
     public function dehydrateState(array &$state): void
     {
         if (!$this->isDehydrated()) {
-            if ($this->hasStatePath()) {
+            if ($this->statePath) {
                 Arr::forget($state, $this->getStatePath());
             }
 
             return;
         }
 
-        if ($this->getStatePath(isAbsolute: false)) {
+        if ($this->getStatePath(absolute: false)) {
             foreach ($this->getStateToDehydrate() as $key => $value) {
                 Arr::set($state, $key, $value);
             }
@@ -64,55 +71,49 @@ trait HasState
         return $this;
     }
 
-    /**
-     * @param  array<string, mixed> | null  $hydratedDefaultState
-     */
-    public function hydrateState(?array &$hydratedDefaultState): void
+    public function hydrateState(?array &$state): void
     {
-        $this->hydrateDefaultState($hydratedDefaultState);
+        $this->hydrateDefaultState($state);
 
-        // foreach ($this->getComponentContainers(true) as $container) {
-        //     $container->hydrateState($hydratedDefaultState);
-        // }
-
-        $this->callAfterStateHydrated();
-    }
-
-    public function fill(): void
-    {
-        $defaults = [];
-
-        $this->hydrateDefaultState($defaults);
-    }
-
-    /**
-     * @param  array<string, mixed> | null  $hydratedDefaultState
-     */
-    public function hydrateDefaultState(?array &$hydratedDefaultState): void
-    {
-        if ($hydratedDefaultState === null) {
-
-            //$this->loadStateFromRelationships();
-
-            $state = $this->getState();
-
-            // Hydrate all arrayable state objects as arrays by converting
-            // them to collections, then using `toArray()`.
-            if (is_array($state)) {
-                $this->state(collect($state)->toArray());
-            }
-
-            return;
+        foreach ($this->getComponents() as $container) {
+            $container->parent($this);
+            $container->hydrateState($state);
         }
+
+        // $this->callAfterStateHydrated();
+    }
+
+    // public function fill(): void
+    // {
+    //     $defaults = [];
+
+    //     $this->hydrateDefaultState($defaults);
+    // }
+
+    public function hydrateDefaultState(?array &$state): void
+    {
+        // @todo this should never happen - remove
+        // if ($state === null) {
+
+        //     $state = $this->getState();
+
+        //     // Hydrate all arrayable state objects as arrays by converting
+        //     // them to collections, then using `toArray()`.
+        //     if (is_array($state)) {
+        //         $this->state(collect($state)->toArray());
+        //     }
+
+        //     return;
+        // }
 
         $statePath = $this->getStatePath();
 
-        if (Arr::has($hydratedDefaultState, $statePath)) {
+        if (Arr::has($state, $statePath)) {
             return;
         }
 
         if (!$this->hasDefaultState()) {
-            
+
             $this->state(null);
 
             return;
@@ -120,9 +121,9 @@ trait HasState
 
         $defaultState = $this->getDefaultState();
 
-        $this->state($this->getDefaultState());
+        $this->state($defaultState);
 
-        Arr::set($hydratedDefaultState, $statePath, $defaultState);
+        Arr::set($state, $statePath, $defaultState);
     }
 
     public function fillStateWithNull(): void
@@ -134,26 +135,6 @@ trait HasState
         // foreach ($this->getComponentContainers(true) as $container) {
         //     $container->fillStateWithNull();
         // }
-    }
-
-    public function mutateDehydratedState(mixed $state): mixed
-    {
-        return $this->evaluate(
-            $this->mutateDehydratedStateUsing,
-            ['state' => $state],
-        );
-    }
-
-    public function mutatesDehydratedState(): bool
-    {
-        return $this->mutateDehydratedStateUsing instanceof \Closure;
-    }
-
-    public function mutateDehydratedStateUsing(?\Closure $callback): static
-    {
-        $this->mutateDehydratedStateUsing = $callback;
-
-        return $this;
     }
 
     public function state(mixed $state): static
@@ -179,8 +160,7 @@ trait HasState
 
     public function getState(): mixed
     {
-        // $state = data_get($this->getLivewire(), $this->getStatePath());
-        $state = __METHOD__;
+        $state = data_get($this->getLivewire(), $this->getStatePath());
 
         if (is_array($state)) {
             return $state;
@@ -193,56 +173,51 @@ trait HasState
         return $state;
     }
 
-    public function getOldState(): mixed
+    // public function getOldState(): mixed
+    // {
+    //     if (!Livewire::isLivewireRequest()) {
+    //         return null;
+    //     }
+
+    //     $state = $this->getLivewire()->getOldFormState($this->getStatePath());
+
+    //     if (blank($state)) {
+    //         return null;
+    //     }
+
+    //     return $state;
+    // }
+
+    public function getStatePath(bool $absolute = true): string
     {
-        if (!Livewire::isLivewireRequest()) {
-            return null;
+        if ($this->statePathCache) {
+            return $this->statePathCache;
         }
 
-        $state = $this->getLivewire()->getOldFormState($this->getStatePath());
-
-        if (blank($state)) {
-            return null;
-        }
-
-        return $state;
-    }
-
-    public function getStatePath(bool $isAbsolute = true): string
-    {
-        if (!$isAbsolute) {
+        if (!$absolute) {
             return $this->statePath ?? '';
         }
 
-        if (isset($this->cachedAbsoluteStatePath)) {
-            return $this->cachedAbsoluteStatePath;
+        $parts = [];
+
+        if ($parentStatePath = $this->getParent()?->getStatePath()) {
+            $parts[] = $parentStatePath;
         }
 
-        $pathComponents = [];
-
-        if ($containerStatePath = $this->getContainer()->getStatePath()) {
-            $pathComponents[] = $containerStatePath;
+        if ($this->statePath) {
+            $parts[] = $this->statePath;
         }
 
-        if ($this->hasStatePath()) {
-            $pathComponents[] = $this->statePath;
-        }
-
-        return $this->cachedAbsoluteStatePath = implode('.', $pathComponents);
+        return $this->statePathCache = implode('.', $parts);
     }
 
     public function hasStatePath(): bool
     {
-        return filled($this->statePath);
+        return $this->statePath !== null;
     }
 
     protected function hasDefaultState(): bool
     {
-        return $this->hasDefaultState;
-    }
-
-    public function isDehydrated(): bool
-    {
-        return (bool) $this->evaluate($this->isDehydrated);
+        return $this->defaultState !== null;
     }
 }

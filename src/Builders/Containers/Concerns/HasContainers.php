@@ -4,7 +4,7 @@ namespace Streams\Ui\Builders\Containers\Concerns;
 
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Builders\Concerns\HasComponents;
-use Streams\Ui\Builders\Containers\Container;
+use Streams\Ui\Containers\Container;
 
 trait HasContainers
 {
@@ -26,7 +26,7 @@ trait HasContainers
         }
 
         return app($this->getComponentContainerName())
-            ->getParentContainer($this)
+            // ->getParentContainer($this)
             ->components($this->getComponents());
     }
 

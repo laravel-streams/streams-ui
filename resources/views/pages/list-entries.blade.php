@@ -9,5 +9,7 @@
         {{ $this->table }}
 
     </div>
+
+    <x-ui::messages/>
     
 </x-ui::page>

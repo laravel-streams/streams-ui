@@ -2,17 +2,18 @@
 
 namespace Streams\Ui\Tables\Columns;
 
-use Streams\Ui\Builders;
+use Streams\Ui\Builders\Builder;
+use Streams\Ui\Traits as Support;
 use Streams\Ui\Tables\Columns\Concerns;
 
-abstract class Column extends Builders\Builder
+abstract class Column extends Builder
 {
-    use Builders\Concerns\HasIcon;
-    use Builders\Concerns\HasName;
-    use Builders\Concerns\HasLabel;
-    use Builders\Concerns\HasEntry;
+    use Support\HasIcon;
+    use Support\HasName;
+    use Support\HasLabel;
+    use Support\HasEntry;
     
-    use Builders\Concerns\HasHtmlAttributes;
+    use Support\HasHtmlAttributes;
 
     use Concerns\HasTable;
     use Concerns\IsSortable;

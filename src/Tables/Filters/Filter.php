@@ -2,8 +2,8 @@
 
 namespace Streams\Ui\Tables\Filters;
 
-use Streams\Ui\Builders;
 use Streams\Ui\Tables\Table;
+use Streams\Ui\Traits as Support;
 use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Inputs\Traits\CanBeAutofocused;
@@ -15,15 +15,14 @@ class Filter extends ViewBuilder
 
     use CanBeAutofocused;
 
-    use Builders\Concerns\HasName;
-    use Builders\Concerns\HasQuery;
-    use Builders\Concerns\HasColumns;
-    use Builders\Concerns\HasVisibility;
-    use Builders\Concerns\CanBePersisted;
-    use Builders\Concerns\CanSpanColumns;
-    use Builders\Concerns\HasHtmlAttributes;
-
-    use Builders\Containers\Concerns\HasContainers;
+    use Support\HasName;
+    use Support\HasQuery;
+    // use Support\HasColumns;
+    use Support\CanBeHidden;
+    use Support\HasComponents;
+    use Support\CanPersistData;
+    use Support\CanSpanColumns;
+    use Support\HasHtmlAttributes;
 
     protected string $view = 'ui::builders.filters.filter';
 
