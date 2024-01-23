@@ -31,7 +31,7 @@
     :twoXlStart="$columnStart['2xl'] ?? null"
     :attributes="\Filament\Support\prepare_inherited_attributes($attributes)->class('fi-wi-widget')"
 > --}}
-<div wire:poll="timeCheck">
+<div {{ $attributes->merge([]) }}>
     {{ $slot }}
 {{-- </x-ui::grid.column> --}}
 </div>
