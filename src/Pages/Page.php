@@ -30,6 +30,8 @@ abstract class Page extends Component
 
     protected static string $resource;
 
+    protected ?string $statePath = 'data';
+
     public function render()
     {
         return View::make(static::$view, $this->getViewData())

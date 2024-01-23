@@ -2,8 +2,6 @@
     //
 ])
 
-<div {{ $attributes->class([
-    'ui-page',
-]) }}>
+<div>
     {{ $slot }}
 </div>

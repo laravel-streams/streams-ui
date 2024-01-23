@@ -47,10 +47,24 @@ trait HasLivewireComponents
         //     $this->queueLivewireComponent($registrationRouteAction);
         // }
 
+        foreach ($this->getPages() as $page) {
+
+            $this->queueLivewireComponent($page);
+
+            foreach ($page::getWidgets() as $widget) {
+                $this->queueLivewireComponent($widget);
+            }
+        }
+
         foreach ($this->getResources() as $resource) {
 
-            foreach ($resource::getPages() as $pageRegistration) {
-                $this->queueLivewireComponent($pageRegistration->getPage());
+            foreach ($resource::getPages() as $page) {
+                
+                $this->queueLivewireComponent($page->getPage());
+
+                foreach ($page->getWidgets() as $widget) {
+                    $this->queueLivewireComponent($widget);
+                }
             }
 
             // foreach ($resource::getRelations() as $relation) {
@@ -65,9 +79,9 @@ trait HasLivewireComponents
             //     $this->queueLivewireComponent($this->normalizeRelationManagerClass($relation));
             // }
 
-            // foreach ($resource::getWidgets() as $widget) {
-            //     $this->queueLivewireComponent($this->normalizeWidgetClass($widget));
-            // }
+            foreach ($resource::getWidgets() as $widget) {
+                $this->queueLivewireComponent($widget);
+            }
         }
 
         foreach ($this->livewireComponents as $componentName => $componentClass) {

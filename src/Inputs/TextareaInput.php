@@ -3,6 +3,7 @@
 namespace Streams\Ui\Inputs;
 
 use Streams\Ui\Inputs\Traits;
+use Streams\Ui\Traits as Support;
 
 class TextareaInput extends Input
 {
