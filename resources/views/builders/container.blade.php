@@ -5,5 +5,5 @@
         ])
     }}
 >
-    Test
+    @dump('Test Container')
 </div>

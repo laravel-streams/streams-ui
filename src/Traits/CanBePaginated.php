@@ -75,6 +75,7 @@ trait CanBePaginated
             10,
             25,
             50,
+            100,
             'all',
         ];
     }

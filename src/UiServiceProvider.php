@@ -19,9 +19,9 @@ class UiServiceProvider extends ServiceProvider //implements DeferrableProvider
     public function provides(): array
     {
         return [
-            \Streams\Ui\Builders\Builder::class,
             \Streams\Ui\Panels\Panel::class,
-            \Streams\Ui\Builders\Facades\UI::class,
+            \Streams\Ui\Builders\Builder::class,
+            \Streams\Ui\Support\Facades\UI::class,
         ];
     }
 
@@ -44,7 +44,7 @@ class UiServiceProvider extends ServiceProvider //implements DeferrableProvider
         app(Router::class)->aliasMiddleware('panel', SetUpPanel::class);
 
         Integrator::aliases([
-            'UI' => \Streams\Ui\Builders\Facades\UI::class,
+            'UI' => \Streams\Ui\Support\Facades\UI::class,
         ]);
 
         $this->publishes([

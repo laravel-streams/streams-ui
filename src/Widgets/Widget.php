@@ -8,6 +8,10 @@ use Illuminate\Contracts\View\View;
 
 class Widget extends Component
 {
+    use Common\CanSpanColumns;
+    
+    use Common\EvaluatesClosures;
+
     protected static string $view;
 
     public function render(): View

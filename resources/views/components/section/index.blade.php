@@ -157,8 +157,11 @@
                 },
             ])
         >
-            {{-- {{ $slot }} --}}
-            {{ $getComponentContainer() }}
+        @if (isset($slot))
+            {{ $slot }}
+        @else
+            {{ $this->getComponentContainer() }}
+        @endif
         </div>
     </div>
 </section>
