@@ -2,8 +2,8 @@
 
 namespace Streams\Ui\Tables\Filters;
 
-use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Tables\Table;
+use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Inputs\Traits\HasPlaceholder;
 
 class SearchFilter extends Filter
