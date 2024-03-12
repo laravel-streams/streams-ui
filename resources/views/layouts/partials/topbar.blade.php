@@ -64,6 +64,7 @@ class="sticky top-0 z-40 flex w-full h-16 shrink-0 items-center gap-x-4 border-b
         {{-- <div class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-900/10" aria-hidden="true"></div> --}}
 
         <!-- Profile dropdown -->
+        @if (UI::currentPanel()->getUserMenu())
         <div class="relative" x-data="{open: false}">
 
             <button x-on:click="open=!open" x-on:keydown.escape.window="open=false" type="button"
@@ -105,6 +106,7 @@ class="sticky top-0 z-40 flex w-full h-16 shrink-0 items-center gap-x-4 border-b
             </div>
 
         </div>
+        @endif
         <!-- EOF Profile dropdown -->
 
     </div>
