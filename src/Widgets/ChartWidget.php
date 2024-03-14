@@ -16,6 +16,15 @@ class ChartWidget extends Widget
 
     protected static string $view = 'ui::builders.chart';
 
+    protected \Closure | array | string | null $type = 'doughnut';
+
+    public function getType(): string
+    {
+        return $this->evaluate($this->type, [
+            'widget' => $this,
+        ]);
+    }
+
     public function getData(): array
     {
         return [];

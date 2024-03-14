@@ -29,15 +29,15 @@ $description = $this->getDescription();
             @endif
             >
             <div x-data="{
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-                values: [200, 150, 350, 225, 125],
+                type: @js($this->getType()),
+                data: @js($this->getType()),
                 init() {
                     let chart = new Chart(this.$refs.canvas.getContext('2d'), {
-                        type: 'line',
+                        type: @js($this->getType()),
                         data: {
-                            labels: this.labels,
+                            labels: this.data.labels,
                             datasets: [{
-                                data: this.values,
+                                data: this.data.values,
                                 backgroundColor: '#77C1D2',
                                 borderColor: '#77C1D2',
                             }],
