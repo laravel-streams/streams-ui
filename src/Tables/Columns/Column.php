@@ -10,9 +10,11 @@ abstract class Column extends Builder
 {
     use Support\HasIcon;
     use Support\HasName;
+    use Support\HasColor;
     use Support\HasLabel;
     use Support\HasEntry;
-    
+    use Support\HasValue;
+
     use Support\HasHtmlAttributes;
 
     use Concerns\HasTable;
@@ -23,6 +25,13 @@ abstract class Column extends Builder
     public function __construct(string $name)
     {
         $this->name($name);
+
+        $this->value(function ($entry) {
+
+            $entry = $this->getEntryInstance();
+            
+            return $entry->{$this->getName()} ?: '';
+        });
     }
 
     static public function make($name): static
@@ -30,13 +39,6 @@ abstract class Column extends Builder
         $static = new static($name);
 
         return $static;
-    }
-
-    public function value(): string
-    {
-        $entry = $this->getEntryInstance();
-
-        return $entry->{$this->getName()} ?: '';
     }
 
     public function getLabel(): string

@@ -19,7 +19,7 @@
     @foreach ($columns as $index => $column)
     <td
         class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 {{ $loop->first ? 'w-1' : '' }}">
-        {!! $column->entry($entry)->value() !!}
+        {!! $column->entry($entry)->getValue() !!}
     </td>
     @endforeach
     @if ($actions)
