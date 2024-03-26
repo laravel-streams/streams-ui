@@ -72,14 +72,13 @@ class="sticky top-0 z-40 flex w-full h-16 shrink-0 items-center gap-x-4 border-b
                 aria-haspopup="true">
                 <span class="sr-only">Open user menu</span>
                 {{-- @livewire('avatar', [
-                'src' => 'ryan@pyrocms.com',
+                'src' => auth()->user()?->email,
                 'htmlAttributes' => [
                 'class' => 'h-10 w-10 rounded-full bg-gray-50',
                 ],
                 ]) --}}
                 <span class="hidden lg:flex lg:items-center">
-                    <span class="ml-4 text-sm font-semibold leading-6 text-gray-900" aria-hidden="true">Ryan
-                        Thompson</span>
+                    <span class="ml-4 text-sm font-semibold leading-6 text-gray-900" aria-hidden="true">{{ auth()->user()?->name }}</span>
                     @svg('heroicon-o-chevron-down', 'ml-2 h-4 w-4 text-gray-400')
                 </span>
             </button>
