@@ -20,6 +20,7 @@ abstract class Page extends Component
 
     use Common\HasTitle;
     use Common\HasDescription;
+    use Common\HasHtmlAttributes;
     use Common\InteractsWithForms;
 
     use Common\EvaluatesClosures;

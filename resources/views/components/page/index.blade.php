@@ -2,7 +2,7 @@
     'fullHeight' => true,
 ])
 
-<div {{ $attributes->class([
+<div {{ $this->getHtmlAttributeBag()->class([
     'ui-page',
     'h-full' => $fullHeight,
 ]) }}>
