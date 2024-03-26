@@ -21,6 +21,10 @@ class Action extends ViewBuilder
     use Common\CanBeHidden;
     use Common\CanBeDisabled;
     use Common\HasHtmlAttributes;
+
+    // use Common\HasSize;
+    // use Common\HasTooltip;
+    // use Common\HasKeyBindings;
     
     // use Concerns\CanBeLabeledFrom;
     // use Concerns\CanBeOutlined;
@@ -29,9 +33,6 @@ class Action extends ViewBuilder
     // use Concerns\CanDispatchEvent;
     // use Concerns\CanSubmitForm;
     // use Concerns\HasGroupedIcon;
-    // use Concerns\HasKeyBindings;
-    // use Concerns\HasSize;
-    // use Concerns\HasTooltip;
 
     protected string $view = 'ui::action';
 
