@@ -25,13 +25,8 @@
     @if ($actions)
     <td class="whitespace-nowrap py-4 pr-4 pl-3 text-sm font-medium text-gray-900 sm:pl-6">
         @foreach ($actions as $action)
-        @php $action->entry($entry); @endphp
-        <x-ui::button
-            tag="{{ $action->getTag() }}"
-            href="{{ $action->getUrl() }}"
-            :attributes="$action->getHtmlAttributeBag()">
-            {{ $action->getLabel() }}
-        </x-ui::button>
+        <a href="{!! $action->entry($entry)->getUrl() !!}" class="bold hover:underline"
+            target="{{ $action->shouldOpenInNewTab() ? '_blank' : '_self' }}">{{ $action->getLabel() }}</a>
         @endforeach
     </td>
     @endif

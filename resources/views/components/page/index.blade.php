@@ -1,7 +1,10 @@
 @props([
-    //
+    'fullHeight' => true,
 ])
 
-<div>
+<div {{ $attributes->class([
+    'ui-page',
+    'h-full' => $fullHeight,
+]) }}>
     {{ $slot }}
 </div>
