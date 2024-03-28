@@ -29,7 +29,7 @@ class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
 
             {{-- Brand --}}
             <div class="flex h-16 shrink-0 items-center font-bold">
-                <a href="{{ URL::to('admin') }}" class="text-xl" title="Go to panel homepage.">
+                <a href="{{ UI::getHomeUrl() }}" class="text-xl" title="Go to panel homepage.">
                     @if ($logo = UI::currentPanel()->getBrandLogo())
                         <img src="{{ $logo }}" alt="{{ __(UI::getPanel()->getBrandName()) }} Logo">
                     @else

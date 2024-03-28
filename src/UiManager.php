@@ -67,4 +67,11 @@ class UiManager
     {
         return $this->panels[$this->current];
     }
+
+    public function getHomeUrl(): ?string
+    {
+        $panel = $this->currentPanel();
+
+        return $panel->getHomeUrl() ?? $panel->getUrl();
+    }
 }
