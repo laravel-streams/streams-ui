@@ -22,6 +22,7 @@ class UiServiceProvider extends ServiceProvider //implements DeferrableProvider
             \Streams\Ui\Panels\Panel::class,
             \Streams\Ui\Builders\Builder::class,
             \Streams\Ui\Support\Facades\UI::class,
+            \Streams\Ui\Support\Facades\Colors::class,
         ];
     }
 
@@ -33,6 +34,7 @@ class UiServiceProvider extends ServiceProvider //implements DeferrableProvider
         );
 
         $this->app->singleton(\Streams\Ui\UiManager::class);
+        $this->app->singleton(\Streams\Ui\Colors\ColorManager::class);
 
         $this->app->singleton('breadcrumbs', Collection::class);
     }
@@ -40,6 +42,7 @@ class UiServiceProvider extends ServiceProvider //implements DeferrableProvider
     public function boot()
     {
         $this->app->alias(\Streams\Ui\UiManager::class, 'ui');
+        $this->app->alias(\Streams\Ui\Colors\ColorManager::class, 'colors');
 
         app(Router::class)->aliasMiddleware('panel', SetUpPanel::class);
 

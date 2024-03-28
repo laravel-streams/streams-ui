@@ -4,17 +4,14 @@ namespace Streams\Ui\Traits;
 
 trait HasColors
 {
-    protected string | array | \Closure | null $colors = null;
+    protected array $colors = [];
 
-    public function colors(string | array | \Closure | null $colors): static
+    public function colors(array $colors): static
     {
-        $this->colors = $colors;
+        foreach ($colors as $name => $color) {
+            $this->colors[$name] = $color;
+        }
 
         return $this;
-    }
-
-    public function getColors(): string | array | null
-    {
-        return $this->evaluate($this->colors);
     }
 }

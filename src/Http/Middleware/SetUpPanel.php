@@ -7,13 +7,9 @@ use Streams\Ui\support\Facades\UI;
 
 class SetUpPanel
 {
-    public function handle(Request $request, \Closure $next, string $panel): mixed
+    public function handle(Request $request, \Closure $next): mixed
     {
-        $panel = UI::getPanel($panel);
-
-        UI::setCurrentPanel($panel);
-
-        //UI::bootCurrentPanel();
+        UI::bootCurrentPanel();
 
         return $next($request);
     }

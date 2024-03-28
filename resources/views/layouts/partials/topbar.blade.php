@@ -25,7 +25,11 @@ class="sticky top-0 z-40 flex w-full h-16 shrink-0 items-center gap-x-4 border-b
         @if ($topNavigation)
         <div class="flex h-16 shrink-0 items-center font-bold mr-12">
             <a href="{{ URL::to('admin') }}" class="text-xl" title="Go to panel homepage.">
-                {{ __(config('app.name')) }}
+                @if ($logo = UI::currentPanel()->getBrandLogo())
+                    <img src="{{ $logo }}" alt="{{ __(UI::getPanel()->getBrandName()) }} Logo">
+                @else
+                    {{ __(UI::getPanel()->getBrandName()) }}
+                @endif
             </a>
         </div>
         @endif

@@ -3,7 +3,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<title>{{ $metaTitle ?? 'Admin' }} | {{ config('app.name') }}</title>
+<title>{{ $metaTitle ?? config('app.name') }}</title>
 
 {{-- {!! favicons('public::img/favicon.png') !!} --}}
 <link rel="icon" type="image/png" href="/vendor/streams/ui/img/favicon.png"/>
@@ -16,36 +16,10 @@
 
 {!! Assets::collection('styles')->tags() !!}
 
-{{-- @if (isset($theme))
 <style>
     :root {
-        @php
-
-            $styles = array_filter([
-                '--ui-font-size' => $theme->font_size,
-                '--ui-spacing' => $theme->spacing,
-                '--ui-radius' => $theme->radius,
-                
-                '--ui-color-light' => $theme->light,
-                '--ui-color-dark' => $theme->dark,
-                 
-                '--ui-color-black' => $theme->black,
-                '--ui-color-white' => $theme->white,
-                
-                '--ui-color-primary' => $theme->primary,
-                '--ui-color-secondary' => $theme->secondary,
-                
-                '--ui-color-text' => $theme->text,
-                '--ui-color-buttons' => $theme->buttons,
-            ]);
-
-        @endphp
-
-        @foreach ($styles as $key => $value)
-        {{ $key }}: {{ $value }};
-        @endforeach
+        @foreach ($cssVariables ?? [] as $cssVariableName => $cssVariableValue) --{{ $cssVariableName }}:{{ $cssVariableValue }}; @endforeach
     }
 </style>
-@endif --}}
 
 @include('ui::support.constants')

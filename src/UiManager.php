@@ -13,8 +13,20 @@ class UiManager
     use FiresCallbacks;
 
     protected array $panels = [];
+    protected array $booted = [];
 
     protected ?string $current = null;
+
+    public function bootCurrentPanel(): void
+    {
+        if (isset($this->booted[$this->current])) {
+            return;
+        }
+
+        $this->currentPanel()->boot();
+
+        $this->booted[$this->current] = true;
+    }
 
     public function panel(Panel $panel): void
     {

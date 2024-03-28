@@ -5,16 +5,20 @@ namespace Streams\Ui\Panels;
 use Streams\Ui\Traits as Common;
 use Illuminate\Support\Facades\App;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Support\Facades\Colors;
 
 class Panel extends ViewBuilder
 {
     use Common\HasId;
+    use Common\HasColors;
     use Common\CanBeDefault;
 
     use Traits\HasPages;
     use Traits\HasLayout;
     use Traits\HasRoutes;
     use Traits\HasUserMenu;
+    use Traits\HasBrandLogo;
+    use Traits\HasBrandName;
     use Traits\HasResources;
     use Traits\HasMiddleware;
     use Traits\HasNavigation;
@@ -46,7 +50,16 @@ class Panel extends ViewBuilder
 
     public function boot(): void
     {
-        // Register Colors
+        Colors::register($this->colors);
+
+        $variables = [];
+dd(Colors::getColors());
+        foreach (Colors::getColors() as $name => $shades) {
+            foreach ($shades as $shade => $color) {
+                $variables["{$name}-{$shade}"] = $color;
+            }
+        }
+        
         // Register Icons??
         // Set SPA Mode
     }
