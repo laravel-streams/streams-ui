@@ -2,8 +2,8 @@
 
 namespace Streams\Ui\Support\Facades;
 
-use Illuminate\Support\Facades\Facade;
 use Streams\Ui\Colors\ColorManager;
+use Illuminate\Support\Facades\Facade;
 
 class Colors extends Facade
 {

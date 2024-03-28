@@ -4,6 +4,7 @@ namespace Streams\Ui\Panels;
 
 use Streams\Ui\Traits as Common;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\View;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Support\Facades\Colors;
 
@@ -53,12 +54,14 @@ class Panel extends ViewBuilder
         Colors::register($this->colors);
 
         $variables = [];
-dd(Colors::getColors());
+
         foreach (Colors::getColors() as $name => $shades) {
             foreach ($shades as $shade => $color) {
                 $variables["{$name}-{$shade}"] = $color;
             }
         }
+
+        View::share('cssVariables', $variables);
         
         // Register Icons??
         // Set SPA Mode
