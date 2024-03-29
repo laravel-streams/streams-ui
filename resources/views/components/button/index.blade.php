@@ -322,7 +322,8 @@
                 ->style([$buttonStyles])
         }}
     >
-        @if ($icon && $iconPosition === IconPosition::Before)
+        @if ($icon)
+        {{-- && $iconPosition === IconPosition::Before) --}}
             <x-ui::icon
                 :alias="$iconAlias"
                 :icon="$icon"
@@ -334,13 +335,13 @@
             {{ $slot }}
         </span>
 
-        @if ($icon && $iconPosition === IconPosition::After)
+        {{-- @if ($icon && $iconPosition === IconPosition::After)
             <x-ui::icon
                 :alias="$iconAlias"
                 :icon="$icon"
                 :class="$iconClasses"
             />
-        @endif
+        @endif --}}
 
         @if (filled($badge))
             <div class="{{ $badgeContainerClasses }}">

@@ -24,6 +24,7 @@ class Panel extends ViewBuilder
     use Traits\HasResources;
     use Traits\HasMiddleware;
     use Traits\HasNavigation;
+    use Traits\HasUserActions;
     use Traits\HasLivewireComponents;
 
     public function __construct(?string $id = null)

@@ -59,13 +59,24 @@ class="sticky top-0 z-40 flex w-full h-16 shrink-0 items-center gap-x-4 border-b
             USER ACTIONS
 
         --}}
+        @foreach (UI::currentPanel()->getUserActions() as $action)
         {{-- <button type="button" class="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
             <span class="sr-only">View notifications</span>
             @svg('heroicon-o-bell', 'h-6 w-6')
         </button> --}}
+        <x-ui::button
+            tag="{{ $action->getTag() }}"
+            href="{{ $action->getUrl() }}"
+            icon="{{ $action->getIcon() }}"
+            iconSize="md"
+            :attributes="$action->getHtmlAttributeBag()">
+            {{ $action->getLabel() }}
+        </x-ui::button>
+
+        @endforeach
 
         <!-- Separator -->
-        {{-- <div class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-900/10" aria-hidden="true"></div> --}}
+        <div class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-900/10" aria-hidden="true"></div>
 
         <!-- Profile dropdown -->
         @if (UI::currentPanel()->getUserMenu())
