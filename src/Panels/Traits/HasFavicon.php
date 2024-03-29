@@ -15,7 +15,7 @@ trait HasFavicon
         return $this;
     }
 
-    public function getBrandLogo(): string | Htmlable
+    public function getFavicon(): string | Htmlable
     {
         return $this->evaluate($this->favicon);
     }

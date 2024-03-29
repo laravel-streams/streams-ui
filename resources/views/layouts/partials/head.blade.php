@@ -5,8 +5,9 @@
 
 <title>{{ $metaTitle ?? config('app.name') }}</title>
 
-{{-- {!! favicons('public::img/favicon.png') !!} --}}
-<link rel="icon" type="image/png" href="/vendor/streams/ui/img/favicon.png"/>
+@if ($favicon = \Streams\Ui\Support\Facades\UI::currentPanel()->getFavicon())
+<link rel="icon" type="image/png" href="{{ $favicon }}"/>
+@endif
 
 {!! Assets::collection('scripts.head')->tags() !!}
 
