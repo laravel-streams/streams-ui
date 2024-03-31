@@ -68,6 +68,7 @@ class="sticky top-0 z-40 flex w-full h-16 shrink-0 items-center gap-x-4 border-b
             tag="{{ $action->getTag() }}"
             href="{{ $action->getUrl() }}"
             icon="{{ $action->getIcon() }}"
+            color="{{ $action->getColor() }}"
             iconSize="md"
             :attributes="$action->getHtmlAttributeBag()">
             {{ $action->getLabel() }}
