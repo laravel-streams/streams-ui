@@ -74,6 +74,7 @@ $selectedRecords = [];
         <x-ui::table.header :heading="$heading" :description="$description" :actions="$headerActions" />
         @endif
 
+        @if ($bulkActions->isNotEmpty() || $filters->isNotEmpty())
         <div class="flex gap-x-3 p-3">
 
             @if ($bulkActions)
@@ -98,8 +99,9 @@ $selectedRecords = [];
 
             {{-- </form> --}}
             @endif
-
+            
         </div>
+        @endif
 
         <table class="min-w-full divide-y divide-gray-200">
 
