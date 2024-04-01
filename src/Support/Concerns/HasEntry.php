@@ -3,10 +3,11 @@
 namespace Streams\Ui\Traits;
 
 use Streams\Core\Entry\Entry;
+use Illuminate\Database\Eloquent\Model;
 
 trait HasEntry
 {
-    public Entry | string | null $entry = null;
+    public Entry | Model | string | null $entry = null;
 
     public function entry(Entry | \Closure | string | null $entry = null): static
     {
