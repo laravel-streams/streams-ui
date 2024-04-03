@@ -15,6 +15,8 @@ class Table extends ViewBuilder
     use Concerns\HasBulkActions;
     use Concerns\HasHeaderActions;
     
+    use Concerns\CanBeReordered;
+    
     use Support\HasQuery;
     use Support\HasHeading;
     use Support\CanBePaginated;

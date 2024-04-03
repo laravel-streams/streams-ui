@@ -23,6 +23,7 @@ trait HasState
         $state = [];
 
         $statePath = $this->getStatePath(true);
+
         Arr::set($state, $statePath, $data);
 
         $this->hydrateState($data);
