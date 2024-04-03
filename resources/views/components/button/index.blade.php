@@ -34,7 +34,7 @@
             'relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus-visible:ring-2',
             'pointer-events-none opacity-70' => $disabled,
             'flex-1' => $grouped,
-            'rounded-lg' => ! $grouped,
+            // 'rounded-lg' => ! $grouped,
             match ($color) {
                 'gray' => '',
                 default => '',

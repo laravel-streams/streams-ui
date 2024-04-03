@@ -24,10 +24,14 @@
     @endforeach
     @if ($actions)
     <td class="whitespace-nowrap py-4 pr-4 pl-3 text-sm font-medium text-gray-900 sm:pl-6">
-        @foreach ($actions as $action)
-        <a href="{!! $action->entry($entry)->getUrl() !!}" class="bold hover:underline"
-            target="{{ $action->shouldOpenInNewTab() ? '_blank' : '_self' }}">{{ $action->getLabel() }}</a>
-        @endforeach
+        <x-ui::table.actions
+            :actions="$actions"
+            {{-- :alignment="(!$contentGrid) ? 'start md:end' : 'start'" --}}
+            :alignment="'left'"
+            :entry="$entry"
+            {{-- wrap="-sm" --}}
+            {{-- :class="$recordActionsClasses" --}}
+        />
     </td>
     @endif
 </tr>
