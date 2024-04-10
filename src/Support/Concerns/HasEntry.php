@@ -52,7 +52,8 @@ trait HasEntry
             return $entry;
         }
 
-        return $this->getParentComponent()?->getEntry();
+        return null;
+        // return $this->getParentComponent()?->getEntry();
     }
 
     public function getEntryInstance(): ?Entry
@@ -60,7 +61,7 @@ trait HasEntry
         $entry = $this->entry;
 
         if ($entry === null) {
-            return $this->getParentComponent()?->getEntryInstance();
+            // return $this->getParentComponent()?->getEntryInstance();
         }
 
         if ($entry instanceof Entry) {

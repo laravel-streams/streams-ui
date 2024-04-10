@@ -3,7 +3,10 @@
 namespace Streams\Ui\Components\Tables\Concerns;
 
 use Streams\Core\Entry\Entry;
-use Streams\Ui\Tables\Actions\Action;
+use Streams\Ui\Actions\Action;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Streams\Ui\Exceptions\Cancel;
+use Streams\Ui\Exceptions\Halt;
 
 trait HasActions
 {
@@ -109,42 +112,44 @@ trait HasActions
             return null;
         }
 
-        if (filled($record) && ($action->getRecord() === null)) {
-            $this->unmountTableAction();
+        // if (filled($record) && ($action->getEntry() === null)) {
+        //     $this->unmountTableAction();
 
-            return null;
-        }
+        //     return null;
+        // }
 
         if ($action->isDisabled()) {
+
             $this->unmountTableAction();
 
             return null;
         }
 
-        $this->cacheMountedTableActionForm();
+        // $this->cacheMountedTableActionForm();
 
-        try {
-            $hasForm = $this->mountedTableActionHasForm();
+        // try {
+        //     $hasForm = $this->mountedTableActionHasForm();
 
-            if ($hasForm) {
-                $action->callBeforeFormFilled();
-            }
+        //     if ($hasForm) {
+        //         $action->callBeforeFormFilled();
+        //     }
 
-            $action->mount([
-                'form' => $this->getMountedTableActionForm(),
-            ]);
+        //     $action->mount([
+        //         'form' => $this->getMountedTableActionForm(),
+        //     ]);
 
-            if ($hasForm) {
-                $action->callAfterFormFilled();
-            }
-        } catch (Halt $exception) {
-            return null;
-        } catch (Cancel $exception) {
-            $this->unmountTableAction(shouldCancelParentActions: false);
+        //     if ($hasForm) {
+        //         $action->callAfterFormFilled();
+        //     }
+        // } catch (Halt $exception) {
+        //     return null;
+        // } catch (Cancel $exception) {
+        //     $this->unmountTableAction(shouldCancelParentActions: false);
 
-            return null;
-        }
-
+        //     return null;
+        // }
+        
+if ($this->mountedTableActionShouldOpenModal());
         if (!$this->mountedTableActionShouldOpenModal()) {
             return $this->callMountedTableAction();
         }
@@ -163,12 +168,12 @@ trait HasActions
         if ($action->isModalHidden()) {
             return false;
         }
-
+        
         return $action->getModalDescription() ||
             $action->getModalContent() ||
-            $action->getModalContentFooter() ||
-            $action->getInfolist() ||
-            $this->mountedTableActionHasForm();
+            $action->getModalContentFooter();// ||
+            // $action->getInfolist() ||
+            // $this->mountedTableActionHasForm();
     }
 
     public function mountedTableActionHasForm(): bool
@@ -187,6 +192,9 @@ trait HasActions
 
     public function getMountedTableActionForm(): ?Form
     {
+        // @todo
+        return null;
+        
         $action = $this->getMountedTableAction();
 
         if (!$action) {
@@ -210,7 +218,7 @@ trait HasActions
         return $this->mountedTableActionRecord;
     }
 
-    public function getMountedTableActionRecord(): ?Model
+    public function getMountedTableActionRecord(): ?Entry
     {
         $recordKey = $this->getMountedTableActionRecordKey();
 
@@ -220,7 +228,13 @@ trait HasActions
 
         $this->cachedMountedTableActionRecordKey = $recordKey;
 
-        return $this->cachedMountedTableActionRecord = $this->getTableRecord($recordKey);
+        if (($entries = $this->getTableEntries()) instanceof LengthAwarePaginator) {
+            $entry = $entries->first(fn ($entry) => $entry->id == $recordKey);
+        } else {
+            $entry = $entries->find($recordKey);
+        }
+
+        return $this->cachedMountedTableActionRecord = $entry;
     }
 
     protected function popMountedTableAction(): ?string
@@ -265,7 +279,8 @@ trait HasActions
             $this->closeTableActionModal();
 
             $action?->record(null);
-            $this->mountedTableActionRecord(null);
+            // @todo 
+            // $this->mountedTableActionRecord(null);
 
             return;
         }
@@ -279,10 +294,11 @@ trait HasActions
 
     protected function cacheMountedTableActionForm(): void
     {
-        $this->cacheForm(
-            'mountedTableActionForm',
-            fn () => $this->getMountedTableActionForm(),
-        );
+        // @todo
+        // $this->cacheForm(
+        //     'mountedTableActionForm',
+        //     fn () => $this->getMountedTableActionForm(),
+        // );
     }
 
     protected function closeTableActionModal(): void
@@ -292,7 +308,8 @@ trait HasActions
 
     protected function openTableActionModal(): void
     {
-        $this->dispatch('open-modal', id: "{$this->getId()}-table-action");
+        // $this->dispatch('open-modal', id: "{$this->getId()}-table-action");
+        $this->dispatch('open-modal', id: "{$this->getId()}-action");
     }
 
     /**

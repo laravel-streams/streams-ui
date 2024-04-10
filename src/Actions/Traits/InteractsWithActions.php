@@ -1,14 +1,14 @@
 <?php
 
-namespace Streams\Ui\Traits;
+namespace Streams\Ui\Actions\Traits;
 
-use Illuminate\Database\Eloquent\Model;
+use Streams\Ui\Forms\Form;
 use Illuminate\Support\Arr;
 use Streams\Core\Entry\Entry;
 use Streams\Ui\Actions\Action;
 use Streams\Ui\Exceptions\Halt;
 use Streams\Ui\Exceptions\Cancel;
-use Streams\Ui\Forms\Form;
+use Illuminate\Database\Eloquent\Model;
 use Streams\Ui\Exceptions\ValidationException;
 
 trait InteractsWithActions
@@ -39,7 +39,7 @@ trait InteractsWithActions
             ...Arr::last($this->mountedActionsArguments),
             ...$arguments,
         ]);
-
+        
         $form = $this->getMountedActionForm();
 
         $result = null;
@@ -172,7 +172,7 @@ trait InteractsWithActions
 
     public function mountedActionShouldOpenModal(): bool
     {
-        $action = $this->getMountedAction();
+        $action = $this->getMountedAction() ?: $this->getMountedTableAction();
 
         if ($action->isModalHidden()) {
             return false;

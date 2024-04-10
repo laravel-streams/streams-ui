@@ -2,19 +2,21 @@
 
 namespace Streams\Ui\Actions;
 
-use Streams\Ui\Builders\Concerns\BelongsToLivewire;
-use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Exceptions;
+use Streams\Ui\Traits as Common;
+use Streams\Ui\Traits\BelongsToLivewire;
 
-class MountableAction extends ViewBuilder
+class MountableAction extends Action
 {
     use BelongsToLivewire;
 
-    use Concerns\CanBeMounted;
-    use Concerns\CanRedirect;
+    use Traits\HasForm;
+    use Traits\CanOpenModal;
+
+    // use Concerns\CanBeMounted;
+    // use Concerns\CanRedirect;
     //use Concerns\CanNotify;
-    //use Concerns\CanOpenModal;
     //use Concerns\CanRequireConfirmation;
-    //use Concerns\HasForm;
     //use Concerns\HasInfolist;
     //use Concerns\HasLifecycleHooks;
     //use Concerns\HasParentActions;
@@ -30,41 +32,33 @@ class MountableAction extends ViewBuilder
         //$this->successNotification(fn (Notification $notification): Notification => $notification);
     }
 
-    /**
-     * @param  array<string, mixed>  $parameters
-     */
     public function call(array $parameters = []): mixed
     {
-        return $this->evaluate($this->getActionFunction(), $parameters);
+        return $this->evaluate($this->action, $parameters);
     }
 
     public function cancel(): void
     {
-        // throw new Cancel();
-        throw new \Exception();
+        throw new Exceptions\Cancel();
     }
 
     public function halt(): void
     {
-        // throw new Halt();
-        throw new \Exception();
+        throw new Exceptions\Halt();
     }
 
     public function success(): void
     {
         // $this->sendSuccessNotification();
-        $this->dispatchSuccessRedirect();
+        // $this->dispatchSuccessRedirect();
     }
 
     public function failure(): void
     {
         // $this->sendFailureNotification();
-        $this->dispatchFailureRedirect();
+        // $this->dispatchFailureRedirect();
     }
 
-    /**
-     * @return array<mixed>
-     */
     protected function resolveDefaultClosureDependencyForEvaluationByName(string $parameterName): array
     {
         return match ($parameterName) {

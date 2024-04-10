@@ -2,6 +2,12 @@
 
 namespace Streams\Ui\Tables\Concerns;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
+use Streams\Core\Entry\Entry;
+use Streams\Ui\Actions\Action;
+use Streams\Ui\Actions\ActionGroup;
+
 trait HasActions
 {
     protected array $actions = [];
@@ -19,12 +25,7 @@ trait HasActions
         //ActionsPosition | string | \Closure | null $position = null
     ): static {
 
-        $this->actions = [
-            ...$this->actions,
-            ...$actions,
-        ];
-
-        //$this->pushActions($actions);
+        $this->pushActions($actions);
 
         // if ($position) {
         //     $this->actionsPosition($position);
@@ -33,34 +34,34 @@ trait HasActions
         return $this;
     }
 
-    // public function pushActions(array | ActionGroup $actions): static
-    // {
-    //     foreach (Arr::wrap($actions) as $action) {
-    //         $action->table($this);
+    public function pushActions(array | ActionGroup $actions): static
+    {
+        foreach (Arr::wrap($actions) as $action) {
 
-    //         if ($action instanceof ActionGroup) {
-    //             /** @var array<string, Action> $flatActions */
-    //             $flatActions = $action->getFlatActions();
+            // $action->table($this);
 
-    //             if (!$action->getDropdownPlacement()) {
-    //                 $action->dropdownPlacement('bottom-end');
-    //             }
+            if ($action instanceof ActionGroup) {
+                // $flatActions = $action->getFlatActions();
 
-    //             $this->mergeCachedFlatActions($flatActions);
-    //         } elseif ($action instanceof Action) {
-    //             $action->defaultSize(ActionSize::Small);
-    //             $action->defaultView($action::LINK_VIEW);
+                // if (!$action->getDropdownPlacement()) {
+                //     $action->dropdownPlacement('bottom-end');
+                // }
 
-    //             $this->cacheAction($action);
-    //         } else {
-    //             throw new InvalidArgumentException('Table actions must be an instance of ' . Action::class . ' or ' . ActionGroup::class . '.');
-    //         }
+                // $this->mergeCachedFlatActions($flatActions);
+            } elseif ($action instanceof Action) {
+                // $action->defaultSize(ActionSize::Small);
+                // $action->defaultView($action::LINK_VIEW);
 
-    //         $this->actions[] = $action;
-    //     }
+                // $this->cacheAction($action);
+            } // else {
+            //     throw new InvalidArgumentException('Table actions must be an instance of ' . Action::class . ' or ' . ActionGroup::class . '.');
+            // }
 
-    //     return $this;
-    // }
+            $this->actions[] = $action;
+        }
+
+        return $this;
+    }
 
     // public function actionsColumnLabel(string | \Closure | null $label): static
     // {
@@ -88,64 +89,71 @@ trait HasActions
         return $this->actions;
     }
 
-    // public function getAction(string | array $name): ?Action
-    // {
-    //     if (is_string($name) && str($name)->contains('.')) {
-    //         $name = explode('.', $name);
-    //     }
+    public function getAction(string | array $name): ?Action
+    {
+        if (is_string($name) && str($name)->contains('.')) {
+            $name = explode('.', $name);
+        }
 
-    //     if (is_array($name)) {
+        if (is_array($name)) {
 
-    //         $firstName = array_shift($name);
+            $firstName = array_shift($name);
 
-    //         $modalActionNames = $name;
+            $ActionNames = $name;
 
-    //         $name = $firstName;
-    //     }
+            $name = $firstName;
+        }
 
-    //     $mountedRecord = $this->getLivewire()->getMountedTableActionRecord();
+        $mountedRecord = $this->getLivewire()->getMountedTableActionRecord();
 
-    //     $action = $this->getFlatActions()[$name] ?? null;
+        // $action = $this->getFlatActions()[$name] ?? null;
+        $action = Arr::first($this->getActions(), fn ($action) => $action->getName() == $name);
 
-    //     if (!$action) {
-    //         return null;
-    //     }
+        if (!$action) {
+            return null;
+        }
 
-    //     return $this->getMountableModalActionFromAction(
-    //         $action->record($mountedRecord),
-    //         modalActionNames: $modalActionNames ?? [],
-    //         parentActionName: $name,
-    //         mountedRecord: $mountedRecord,
-    //     );
-    // }
+        return $this->getMountableModalActionFromAction(
+            $action->entry($mountedRecord),
+            modalActionNames: $ActionNames ?? [],
+            parentActionName: $name,
+            mountedRecord: $mountedRecord,
+        );
+    }
 
     public function hasAction(string $name): bool
     {
         return array_key_exists($name, $this->getFlatActions());
     }
 
-    // protected function getMountableModalActionFromAction(Action $action, array $modalActionNames, string $parentActionName, ?Model $mountedRecord = null): ?Action
-    // {
-    //     foreach ($modalActionNames as $modalActionName) {
-    //         $action = $action->getMountableModalAction($modalActionName);
+    protected function getMountableModalActionFromAction(
+        Action $action,
+        array $modalActionNames,
+        string $parentActionName,
+        ?Entry $mountedRecord = null
+    ): ?Action {
 
-    //         if (!$action) {
-    //             return null;
-    //         }
+        foreach ($modalActionNames as $modalActionName) {
 
-    //         if ($action instanceof Action) {
-    //             $action->record($mountedRecord);
-    //         }
+            $action = $action->getMountableModalAction($modalActionName);
 
-    //         $parentActionName = $modalActionName;
-    //     }
+            if (!$action) {
+                return null;
+            }
 
-    //     if (!$action instanceof Action) {
-    //         return null;
-    //     }
+            if ($action instanceof Action) {
+                $action->entry($mountedRecord);
+            }
 
-    //     return $action;
-    // }
+            $parentActionName = $modalActionName;
+        }
+
+        if (!$action instanceof Action) {
+            return null;
+        }
+
+        return $action;
+    }
 
     // public function getActionsPosition(): ActionsPosition
     // {

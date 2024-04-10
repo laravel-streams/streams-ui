@@ -11,6 +11,7 @@ trait InteractsWithTable
 
     use Concerns\HasEntries;
     use Concerns\HasFilters;
+    use Concerns\HasActions;
     use Concerns\HasBulkActions;
 
     use Concerns\CanSearchEntries;
@@ -30,7 +31,7 @@ trait InteractsWithTable
         //     ),
         // );
 
-        
+
         // $this->remember('toggleTableColumnForm', $this->getTableColumnToggleForm());
         // $this->remember('tableFiltersForm', $this->getTableFiltersForm());
 

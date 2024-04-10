@@ -7,6 +7,7 @@ use Streams\Ui\Traits as Common;
 use Illuminate\Support\Facades\View;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Core\Support\Traits\FiresCallbacks;
+use Streams\Ui\Actions\Traits\InteractsWithActions;
 
 abstract class Page extends Component
 {
@@ -24,6 +25,8 @@ abstract class Page extends Component
     use Common\InteractsWithForms;
 
     use Common\EvaluatesClosures;
+
+    use InteractsWithActions;
 
     public ?array $data = [];
     

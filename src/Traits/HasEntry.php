@@ -51,7 +51,8 @@ trait HasEntry
             return $entry;
         }
 
-        return $this->getParentComponent()?->getEntry();
+        return null;
+        // return $this->getParentComponent()?->getEntry();
     }
 
     public function getEntryInstance(): ?Entry

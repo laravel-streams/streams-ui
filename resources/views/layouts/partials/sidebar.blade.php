@@ -4,7 +4,7 @@
 
 <!-- Off-canvas -->
 <div x-data="{open: false}" x-cloak @open-navigation.window="open=true" x-on:keydown.escape.window="open=false"
-class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
+class="relative z-10 lg:hidden" role="dialog" aria-modal="true">
 
 <div x-show="open" x-transition:enter="transition-opacity ease-linear duration-300"
     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
@@ -85,7 +85,7 @@ class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
 <!-- EOF Off-canvas -->
 
 <!-- Sidebar -->
-<div class="hidden fixed inset-y-0 {{ $topNavigation ? '' : 'lg:flex' }} lg:fixed lg:inset-y-0 lg:z-50 lg:w-72 lg:flex-col">
+<div class="hidden fixed inset-y-0 {{ $topNavigation ? '' : 'lg:flex' }} lg:fixed lg:inset-y-0 lg:z-10 lg:w-72 lg:flex-col">
     <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
 
         {{-- Brand --}}
