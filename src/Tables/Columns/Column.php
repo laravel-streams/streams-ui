@@ -2,11 +2,11 @@
 
 namespace Streams\Ui\Tables\Columns;
 
-use Streams\Ui\Builders\Builder;
 use Streams\Ui\Traits as Support;
+use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Tables\Columns\Concerns;
 
-abstract class Column extends Builder
+abstract class Column extends ViewBuilder
 {
     use Support\HasIcon;
     use Support\HasName;
@@ -21,6 +21,8 @@ abstract class Column extends Builder
     use Concerns\IsSortable;
     use Concerns\IsSearchable;
     use Concerns\InteractsWithQuery;
+
+    protected string $viewIdentifier = 'column';
 
     public function __construct(string $name)
     {

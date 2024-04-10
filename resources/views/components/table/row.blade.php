@@ -1,4 +1,4 @@
-<tr class="hover:bg-gray-50 cursor-pointer">
+<tr class="hover:bg-gray-50">
 
     @if ($bulkActions)
     <td class="p-0 w-0">
@@ -19,7 +19,7 @@
     @foreach ($columns as $index => $column)
     <td
         class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 {{ $loop->first ? 'w-1' : '' }}">
-        {!! $column->entry($entry)->getValue() !!}
+        {!! $column->entry($entry)->render() !!}
     </td>
     @endforeach
     @if ($actions)
