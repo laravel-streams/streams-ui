@@ -15,7 +15,7 @@ trait HasBrandLogo
         return $this;
     }
 
-    public function getBrandLogo(): string | Htmlable
+    public function getBrandLogo(): string | Htmlable | null
     {
         return $this->evaluate($this->brandLogo);
     }
