@@ -85,7 +85,7 @@ class="relative z-10 lg:hidden" role="dialog" aria-modal="true">
 <!-- EOF Off-canvas -->
 
 <!-- Sidebar -->
-<div class="hidden fixed inset-y-0 {{ $topNavigation ? '' : 'lg:flex' }} lg:fixed lg:inset-y-0 lg:z-10 lg:w-72 lg:flex-col">
+<div x-data="{}" x-cloak class="hidden fixed inset-y-0 {{ $topNavigation ? '' : 'lg:flex' }} lg:fixed lg:inset-y-0 lg:z-10 lg:w-72 lg:flex-col">
     <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
 
         {{-- Brand --}}
