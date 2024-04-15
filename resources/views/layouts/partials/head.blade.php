@@ -24,5 +24,3 @@
 </style>
 
 @include('ui::support.constants')
-
-@dump($cssVariables)
