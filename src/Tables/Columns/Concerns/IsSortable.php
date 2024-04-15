@@ -16,10 +16,10 @@ trait IsSortable
     ): static {
 
         if (is_array($condition)) {
-            $this->isSortable = true;
+            $this->sortable = true;
             $this->sortColumns = $condition;
         } else {
-            $this->isSortable = $condition;
+            $this->sortable = $condition;
             $this->sortColumns = null;
         }
 

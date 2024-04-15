@@ -14,6 +14,7 @@ trait InteractsWithTable
     use Concerns\HasActions;
     use Concerns\HasBulkActions;
 
+    use Concerns\CanSortEntries;
     use Concerns\CanSearchEntries;
     use Concerns\CanPaginateEntries;
 
