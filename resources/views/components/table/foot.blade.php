@@ -13,6 +13,7 @@
                 </div>
                 <div>
 
+                    @if (count($paginationOptions) > 1)
                     <label>
                         <div
                             class="flex rounded-lg shadow-sm ring-1 transition duration-75 bg-white focus-within:ring-2 ring-gray-950/10 focus-within:ring-primary-600">
@@ -25,7 +26,6 @@
 
                             <div class="min-w-0 flex-1">
 
-                                @if (count($paginationOptions) > 1)
                                 <div class="col-start-2 justify-self-center">
                                     <label>
                                         <x-ui::inputs.native-select
@@ -45,12 +45,12 @@
                                         </span>
                                     </label>
                                 </div>
-                                @endif
 
                             </div>
 
                         </div>
                     </label>
+                    @endif
 
                 </div>
                 <div>
