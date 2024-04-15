@@ -23,7 +23,7 @@
 
     $activeLabelClasses = 'text-primary-600';
 
-    $iconClasses = 'fi-tabs-item-icon h-5 w-5 shrink-0 transition duration-75';
+    $iconClasses = 'h-5 w-5 shrink-0 transition duration-75';
 
     $inactiveIconClasses = 'text-gray-400';
 
@@ -76,7 +76,7 @@
             }"
         @endif
         @class([
-            'fi-tabs-item-label transition duration-75',
+            'transition duration-75',
             $inactiveLabelClasses => (! $hasAlpineActiveClasses) && (! $active),
             $activeLabelClasses => (! $hasAlpineActiveClasses) && $active,
         ])

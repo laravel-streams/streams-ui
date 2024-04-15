@@ -45,24 +45,29 @@
                         @endforeach
                     </ul>
                     @else
+                    <ul>
                     @foreach ($group->getItems() as $item)
-                    <a href="{{ $item->getUrl() }}"
-                        target="{{ $item->shouldOpenInNewTab() ? '_blank' : '_self' }}"
-                        class="{{ $item->isActive() ? 'bg-gray-50 text-primary-600' : 'text-gray-700 hover:text-primary-600 hover:bg-gray-50' }} group flex w-full items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                        @if ($label)
-                        <div class="relative ml-1.5 h-3 w-3 flex items-center justify-center">
-    
-                            {{-- <div class="absolute -bottom-1/2 top-1/2 w-px bg-gray-300"></div> --}}
-                                
-                            <div class="relative h-1.5 w-1.5 rounded-full {{ $item->isActive() ? 'bg-current' : 'bg-gray-400' }}"></div>
-                        </div>
-                        @endif
-                        @if ($icon = $item->getIcon())
-                        @svg($icon, 'h-6 w-6 shrink-0')
-                        @endif
-                        {{ __($item->getLabel()) }}
-                    </a>
+                    <li class="ui-sidebar-item {{ $item->isActive() ? 'ui-sidebar-item-active' : '' }}">
+                        <a href="{{ $item->getUrl() }}"
+                            target="{{ $item->shouldOpenInNewTab() ? '_blank' : '_self' }}"
+                            class="
+                            {{ $item->isActive() ? 'bg-gray-50 text-primary-600' : 'text-gray-700 hover:bg-gray-50' }} group flex w-full items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                            @if ($label)
+                            <div class="relative ml-1.5 h-3 w-3 flex items-center justify-center">
+        
+                                {{-- <div class="absolute -bottom-1/2 top-1/2 w-px bg-gray-300"></div> --}}
+                                    
+                                <div class="relative h-1.5 w-1.5 rounded-full {{ $item->isActive() ? 'bg-current' : 'bg-gray-400' }}"></div>
+                            </div>
+                            @endif
+                            @if ($icon = $item->getIcon())
+                            @svg($icon, 'h-6 w-6 shrink-0')
+                            @endif
+                            {{ __($item->getLabel()) }}
+                        </a>
+                    </li>
                     @endforeach
+                    </ul>
                     @endif
                 </li>
                 @endforeach
