@@ -27,7 +27,7 @@
                         <li>
                             <a href="{{ $item->getUrl() }}"
                                 target="{{ $item->shouldOpenInNewTab() ? '_blank' : '_self' }}"
-                                class="{{ $item->isActive() ? 'bg-gray-50 text-primary-600' : 'text-gray-700 hover:text-primary-600 hover:bg-gray-50' }} group flex w-full items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                class="{{ $item->isActive() ? 'bg-gray-50 text-primary-600' : 'text-gray-700 hover:bg-gray-50' }} group flex w-full items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
                                 @if ($label)
                                 <div class="relative ml-1.5 h-3 w-3 flex items-center justify-center">
             
