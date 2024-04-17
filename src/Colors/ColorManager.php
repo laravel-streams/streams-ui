@@ -48,6 +48,43 @@ class ColorManager
         return $color;
     }
 
+    function colorVariables(string | array | null $color, array $shades): ?string
+    {
+        if ($color === null) {
+            return null;
+        }
+
+        // if ($alias !== null) {
+        //     if (($overridingShades = FilamentColor::getOverridingShades($alias)) !== null) {
+        //         $shades = $overridingShades;
+        //     }
+
+        //     if ($addedShades = FilamentColor::getAddedShades($alias)) {
+        //         $shades = [...$shades, ...$addedShades];
+        //     }
+
+        //     if ($removedShades = FilamentColor::getRemovedShades($alias)) {
+        //         $shades = array_diff($shades, $removedShades);
+        //     }
+        // }
+
+        $variables = [];
+
+        if (is_string($color)) {
+            foreach ($shades as $shade) {
+                $variables[] = "--c-{$shade}:var(--{$color}-{$shade})";
+            }
+        }
+
+        if (is_array($color)) {
+            foreach ($shades as $shade) {
+                $variables[] = "--c-{$shade}:{$color[$shade]}";
+            }
+        }
+
+        return implode(';', $variables);
+    }
+
     public function getColors(): array
     {
         return [

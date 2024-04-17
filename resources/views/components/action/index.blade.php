@@ -2,7 +2,7 @@
     'badge' => null,
     'badgeColor' => 'primary',
     'borderRadius' => null,
-    'color' => 'primary',
+    'color' => 'gray',
     'size' => 'md',
     'disabled' => false,
     'form' => null,
@@ -45,7 +45,7 @@
                         'bg-gray-500 text-white hover:bg-gray-600',
                     ],
                     default => [
-                        'bg-' . $color . '-500 text-white hover:bg-' . $color . '-600',
+                        'bg-custom-500 text-white hover:bg-custom-600',
                     ],
                 },
             ],
@@ -53,7 +53,7 @@
                 ...match ($color) {
                     null => [],
                     default => [
-                        'text-' . $color . '-500 hover:text-' . $color . '-600',
+                        'text-custom-500',
                     ],
                 },
             ],
@@ -102,11 +102,11 @@
         ),
     ]);
 
-    $buttonStyles = Arr::toCssStyles([
-        // \Filament\Support\get_color_css_variables(
-        //     $color,
-        //     shades: [400, 500, 600],
-        // ) => $color !== 'gray',
+    $actionStyles = Arr::toCssStyles([
+        \Streams\Ui\Support\Facades\Colors::colorVariables(
+            $color,
+            shades: [400, 500, 600],
+        ) => $color !== 'gray',
     ]);
 
     $iconClasses = Arr::toCssClasses([
@@ -152,7 +152,7 @@
                 'type' => $tag == 'button' ? $type : false,
             ], escape: false)
             ->class([implode(' ', $actionClasses)])
-            ->style([$buttonStyles])
+            ->style([$actionStyles])
     }}
 >
     @if ($icon && $iconPosition === 'before')
