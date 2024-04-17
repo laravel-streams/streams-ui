@@ -4,13 +4,17 @@ namespace Streams\Ui\Traits;
 
 trait HasTitle
 {
-    protected static ?string $title = null;
+    protected string | \Closure | null $title = null;
 
-    static public function getTitle(): string
+    public function title(string | \Closure | null $title): static
     {
-        return static::$title ?? (string) str(class_basename(static::class))
-            ->kebab()
-            ->replace('-', ' ')
-            ->title();
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getTitle(): string | null
+    {
+        return $this->evaluate($this->title);
     }
 }

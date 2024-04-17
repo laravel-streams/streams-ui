@@ -74,16 +74,16 @@ $selectedRecords = [];
         <x-ui::table.header :heading="$heading" :description="$description" :actions="$headerActions" />
         @endif
 
-        @if ($bulkActions->isNotEmpty() || $filters->isNotEmpty())
+        @if ($bulkActions || $filters)
         <div class="flex gap-x-3 p-3">
 
-            @if ($bulkActions)
+            {{-- @if ($bulkActions)
             <div class="flex mr-12">
                 @foreach ($bulkActions as $action)
                 {!! $action->render() !!}
                 @endforeach
             </div>
-            @endif
+            @endif --}}
 
             @if ($filters)
             {{-- <form method="get" class="flex gap-x-3"> --}}

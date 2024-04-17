@@ -1,6 +1,6 @@
 @props([
     'alias' => null,
-    'class' => '',
+    'class' => 'h-6 w-6',
     'icon' => null,
 ])
 

@@ -4,10 +4,10 @@ namespace Streams\Ui\Resources;
 
 use Streams\Core\Entry\Entry;
 use Streams\Ui\Resources\Concerns;
+use Streams\Ui\Navigation\NavigationItem;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Ui\Builders\Concerns\HasTitle;
 use Streams\Ui\Builders\Concerns\HasNavigation;
-use Streams\Ui\Navigation\NavigationItem;
 
 abstract class Resource
 {

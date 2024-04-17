@@ -38,6 +38,6 @@
         },
     ]) }}>
     @foreach ($actions as $action)
-    {!! $action->render() !!}
+    {!! $action->toHtml() !!}
     @endforeach
 </div>

@@ -4,7 +4,6 @@ namespace Streams\Ui;
 
 use Livewire\Livewire;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
 use Streams\Core\Support\Integrator;
@@ -12,9 +11,8 @@ use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
 use Streams\Core\Support\Facades\Images;
 use Streams\Ui\Http\Middleware\SetUpPanel;
-use Illuminate\Contracts\Support\DeferrableProvider;
 
-class UiServiceProvider extends ServiceProvider //implements DeferrableProvider
+class UiServiceProvider extends ServiceProvider
 {
     public function provides(): array
     {
@@ -36,18 +34,21 @@ class UiServiceProvider extends ServiceProvider //implements DeferrableProvider
         $this->app->singleton(\Streams\Ui\UiManager::class);
         $this->app->singleton(\Streams\Ui\Colors\ColorManager::class);
 
-        $this->app->singleton('breadcrumbs', Collection::class);
+        $this->app->singleton('breadcrumbs', \Illuminate\Support\Collection::class);
+        $this->app->singleton('notifications', \Streams\Ui\Notifications\NotificationManager::class);
     }
 
     public function boot()
     {
         $this->app->alias(\Streams\Ui\UiManager::class, 'ui');
         $this->app->alias(\Streams\Ui\Colors\ColorManager::class, 'colors');
+        $this->app->alias(\Streams\Ui\Notifications\NotificationManager::class, 'notifications');
 
         app(Router::class)->aliasMiddleware('panel', SetUpPanel::class);
 
         Integrator::aliases([
             'UI' => \Streams\Ui\Support\Facades\UI::class,
+            'Notifications' => \Streams\Ui\Support\Facades\Notifications::class,
         ]);
 
         $this->publishes([
@@ -86,7 +87,7 @@ class UiServiceProvider extends ServiceProvider //implements DeferrableProvider
         $this->app->booted(function () {
 
             $this->loadRoutesFrom(__DIR__ . '/../resources/routes/web.php');
-            
+
             // foreach (config('streams.ui.components') as $name => $class) {
             //     Blade::component($name, BladeComponent::class);
             // }

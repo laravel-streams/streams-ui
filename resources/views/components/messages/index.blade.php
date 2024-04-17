@@ -1,14 +1,14 @@
-<div aria-live="assertive" class="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-end sm:p-6">
-    <div class="flex w-full flex-col items-center space-y-4 sm:items-end">
+<div aria-live="assertive" class="z-50 pointer-events-none fixed inset-0 flex items-start px-4 py-6 sm:items-start sm:p-6">
+    <div class="flex w-full flex-col items-center space-y-4 sm:items-center">
         
         {{-- Simple --}}
-        @foreach (Messages::pull() as $message)
+        @foreach (\Streams\Ui\Support\Facades\Notifications::all() as $notification)
         @php
         $id = 'message-' . now() . '-' . $loop->index;
         @endphp
         <div x-data="{
             show: true,
-            timeout: {{ $message['timeout'] ?? 0 }},
+            timeout: {{ $notification->getDuration() ?? 0 }},
             countdown: 0,
             width: 100,
             intervalHandle: null,
@@ -38,14 +38,14 @@
             <div class="p-4">
                 <div class="flex items-start">
 
-                    @if ($message['icon'] ?? true)
-                    <x-ui::messages.icon :type="$message['type']" />
+                    @if ($icon = $notification->getIcon())
+                    <x-ui::icon :icon="$icon" class="w-7 h-7" />
                     @endif
 
                     <div class="ml-3 w-0 flex-1 pt-0.5">
-                        <p class="text-sm font-medium text-gray-900">{!! $message['content'] !!}</p>
-                        @if ($message['hint'] ?? false)
-                        <p class="mt-1 text-sm text-gray-500">{{ $message['hint'] }}</p>
+                        <p class="font-medium text-gray-900">{!! $notification->getTitle() !!}</p>
+                        @if ($notification->getDescription())
+                        <p class="mt-1 text-sm text-gray-500">{{ $notification->getDescription() }}</p>
                         @endif
                     </div>
 
@@ -53,7 +53,7 @@
                         <button type="button" @click="show=false"
                             class="inline-flex rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                             <span class="sr-only">Close</span>
-                            <x-heroicon-o-x-mark class="h-5 w-5" />
+                            <x-heroicon-o-x-mark class="h-7 w-7" />
                         </button>
                     </div>
 

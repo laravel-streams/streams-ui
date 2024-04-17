@@ -17,8 +17,18 @@ abstract class BasePage extends Component
     use Traits\HasLayout;
     use Traits\HasResource;
 
-    use Common\HasTitle;
     // use Common\HasNavigation;
+    // use Common\HasTitle;
+    protected static ?string $title = null;
+
+    static public function getTitle(): string
+    {
+        return static::$title ?? (string) str(class_basename(static::class))
+            ->kebab()
+            ->replace('-', ' ')
+            ->title();
+    }
+
     use Common\HasDescription;
     use Common\InteractsWithForms;
 

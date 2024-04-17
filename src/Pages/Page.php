@@ -19,7 +19,17 @@ abstract class Page extends Component
     use Traits\HasResource;
     use Traits\HasNavigation;
 
-    use Common\HasTitle;
+    // use Common\HasTitle;
+    protected static ?string $title = null;
+
+    static public function getTitle(): string
+    {
+        return static::$title ?? (string) str(class_basename(static::class))
+            ->kebab()
+            ->replace('-', ' ')
+            ->title();
+    }
+    
     use Common\HasDescription;
     use Common\HasHtmlAttributes;
     use Common\InteractsWithForms;

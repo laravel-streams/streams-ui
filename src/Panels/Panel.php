@@ -3,7 +3,6 @@
 namespace Streams\Ui\Panels;
 
 use Streams\Ui\Traits as Common;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Support\Facades\Colors;
@@ -12,6 +11,7 @@ class Panel extends ViewBuilder
 {
     use Common\HasId;
     use Common\HasColors;
+    use Common\HasActions;
     use Common\CanBeDefault;
 
     use Traits\HasPages;
@@ -24,7 +24,6 @@ class Panel extends ViewBuilder
     use Traits\HasResources;
     use Traits\HasMiddleware;
     use Traits\HasNavigation;
-    use Traits\HasUserActions;
     use Traits\HasLivewireComponents;
 
     public function __construct(?string $id = null)
@@ -36,7 +35,7 @@ class Panel extends ViewBuilder
 
     static public function make(?string $id = null): static
     {
-        $instance = App::make(static::class, [
+        $instance = app(static::class, [
             'id' => $id,
         ]);
 

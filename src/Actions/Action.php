@@ -9,9 +9,11 @@ use Streams\Ui\Builders\ViewBuilder;
 class Action extends ViewBuilder
 {
     use Traits\HasTag;
+    use Traits\HasStyle;
     use Traits\HasAction;
     use Traits\HasArguments;
-    
+    use Traits\HasKeyBindings;
+
     use Traits\InteractsWithEntry;
 
     use Common\HasUrl;
@@ -24,7 +26,7 @@ class Action extends ViewBuilder
     use Common\CanBeHidden;
     use Common\CanBeDisabled;
     use Common\HasHtmlAttributes;
-    
+
     // use Concerns\CanBeLabeledFrom;
     // use Concerns\CanBeOutlined;
     // use Concerns\CanCallParentAction;
@@ -32,7 +34,6 @@ class Action extends ViewBuilder
     // use Concerns\CanDispatchEvent;
     // use Concerns\CanSubmitForm;
     // use Concerns\HasGroupedIcon;
-    // use Concerns\HasKeyBindings;
     // use Concerns\HasSize;
     // use Concerns\HasTooltip;
 
@@ -54,6 +55,18 @@ class Action extends ViewBuilder
         $static->configure();
 
         return $static;
+    }
+
+    public function link(
+        string | \Closure | null $url = null,
+        bool | \Closure $openInNewTab = false
+    ) {
+        $this->style(__FUNCTION__);
+        
+        $this->tag('a');
+        $this->url($url, $openInNewTab);
+
+        return $this;
     }
 
     public function getLabel(): string
