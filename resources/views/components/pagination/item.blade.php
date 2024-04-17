@@ -38,7 +38,7 @@
         @if (filled($label))
             <span
                 @class([
-                    'px-1.5 text-sm font-semibold',
+                    'px-1.5 font-semibold',
                     'text-gray-700 dark:text-gray-200' => ! ($disabled || $active),
                     'text-gray-500 dark:text-gray-400' => $disabled,
                     'text-primary-600 dark:text-primary-400' => $active,

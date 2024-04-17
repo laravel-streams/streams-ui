@@ -48,7 +48,7 @@ class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
                                 @if ($label = $group->getLabel())
                                 <div @click="collapsed=!collapsed"
                                     class="flex items-center gap-x-3 px-2 py-2 cursor-pointer">
-                                    <span class="flex-1 text-sm font-bold text-black">{{ $label
+                                    <span class="flex-1 font-bold text-black">{{ $label
                                         }}</span>
                                     <button @click="collapsed=!collapsed" title="{{ $label }}"
                                         x-bind:aria-expanded="!collapsed"
@@ -62,7 +62,7 @@ class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
                                     <li>
                                         <a href="{{ $item->getUrl() }}"
                                             target="{{ $item->shouldOpenInNewTab() ? '_blank' : '_self' }}"
-                                            class="{{ $item->isActive() ? 'bg-gray-50 text-primary-600 font-bold' : 'text-gray-700 hover:text-primary-600 hover:bg-gray-50' }} group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                            class="{{ $item->isActive() ? 'bg-gray-50 text-primary-600 font-bold' : 'text-gray-700 hover:text-primary-600 hover:bg-gray-50' }} group flex gap-x-3 rounded-md p-2 leading-6 font-semibold">
                                             @if ($icon = $item->getIcon())
                                             @svg($icon, 'h-6 w-6 shrink-0')
                                             @endif

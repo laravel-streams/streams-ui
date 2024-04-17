@@ -1,6 +1,6 @@
 <p
     data-validation-error
-    {{ $attributes->class(['text-sm text-danger-600']) }}
+    {{ $attributes->class(['text-danger-600']) }}
 >
     {{ $slot }}
 </p>

@@ -28,7 +28,7 @@
                 />
             @endif --}}
 
-            <span class="text-sm font-medium text-gray-500">
+            <span class="font-medium text-gray-500">
                 {{ $getLabel() }}
             </span>
         </div>
@@ -50,7 +50,6 @@
 
                 <span
                     @class([
-                        'text-sm',
                         match ($descriptionColor) {
                             'gray' => 'text-gray-500',
                             default => 'text-custom-600',

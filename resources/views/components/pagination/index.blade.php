@@ -34,7 +34,7 @@
 
     {{-- @if (! $isSimple)
         <span
-            class="text-sm font-medium text-gray-700"
+            class="font-medium text-gray-700"
         >
             {{
                 trans_choice(

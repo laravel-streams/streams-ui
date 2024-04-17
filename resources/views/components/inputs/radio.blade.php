@@ -55,7 +55,7 @@
                         }}
                     />
 
-                    <div class="grid text-sm leading-6">
+                    <div class="grid leading-6">
                         <span
                             class="font-medium text-gray-950"
                         >
