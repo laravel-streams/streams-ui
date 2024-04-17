@@ -1,6 +1,7 @@
 @props([
     'badge' => null,
     'badgeColor' => 'primary',
+    'borderRadius' => null,
     'color' => 'primary',
     'size' => 'md',
     'disabled' => false,
@@ -22,20 +23,37 @@
     'style' => 'button',
 ])
 @php
-    $actionClasses = 'relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus-visible:ring-2';
+    $actionClasses = ['relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75'];
 
-    $actionClasses .= Arr::toCssClasses(
+    $actionClasses[] = Arr::toCssClasses(
         match ($style) {
             'button' => [
                 'shadow-sm' => ! $grouped,
+                match ($borderRadius) {
+                    true => 'rounded',
+                    'sm' => 'rounded-sm',
+                    'md' => 'rounded-md',
+                    'lg' => 'rounded-lg',
+                    'xl' => 'rounded-xl',
+                    '2xl' => 'rounded-2xl',
+                    '3xl' => 'rounded-3xl',
+                    'full' => 'rounded-full',
+                    default => $borderRadius,
+                },
                 ...match ($color) {
-                    'gray' => [
-                        'bg-white text-gray-950 hover:bg-gray-50',
-                        'ring-1 ring-gray-950/10' => ! $grouped,
+                    null => [
+                        'bg-gray-500 text-white hover:bg-gray-600',
                     ],
                     default => [
-                        'bg-gray-600 text-white hover:bg-gray-500',
-                        'focus-visible:ring-gray-500/50' => ! $grouped,
+                        'bg-' . $color . '-500 text-white hover:bg-' . $color . '-600',
+                    ],
+                },
+            ],
+            'link' => [
+                ...match ($color) {
+                    null => [],
+                    default => [
+                        'text-' . $color . '-500 hover:text-' . $color . '-600',
                     ],
                 },
             ],
@@ -43,7 +61,7 @@
         }
     );
 
-    $actionClasses .= Arr::toCssClasses([
+    $actionClasses[] = Arr::toCssClasses([
         ...[
             'relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus-visible:ring-2',
             'pointer-events-none opacity-70' => $disabled,
@@ -133,7 +151,7 @@
                 'wire:loading.attr' => 'disabled',
                 'type' => $tag == 'button' ? $type : false,
             ], escape: false)
-            ->class([$actionClasses])
+            ->class([implode(' ', $actionClasses)])
             ->style([$buttonStyles])
     }}
 >

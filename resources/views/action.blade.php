@@ -6,6 +6,7 @@
     :style="$action->getStyle()"
     :disabled="$action->isDisabled()"
     :keyBindings="$action->getKeyBindings()"
+    :borderRadius="$action->getBorderRadius()"
     target="{{ $action->shouldOpenInNewTab() ? '_blank' : '_self' }}"
     :attributes="$action->getHtmlAttributeBag()"
     >

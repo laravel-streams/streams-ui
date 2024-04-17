@@ -13,6 +13,7 @@ class Action extends ViewBuilder
     use Traits\HasAction;
     use Traits\HasArguments;
     use Traits\HasKeyBindings;
+    use Traits\HasBorderRadius;
 
     use Traits\InteractsWithEntry;
 
