@@ -93,9 +93,9 @@ $selectedRecords = [];
                 </div>
                 @endforeach
 
-                {{-- <x-ui::button type="submit" :class="'hidden'">Submit</x-ui::button>
+                {{-- <x-ui::action type="submit" :class="'hidden'">Submit</x-ui::action>
 
-                <x-ui::button tag="a" href="{{ url()->current() }}" :class="'bg-red-500'">Clear</x-ui::button> --}}
+                <x-ui::action tag="a" href="{{ url()->current() }}" :class="'bg-red-500'">Clear</x-ui::action> --}}
 
             {{-- </form> --}}
             @endif

@@ -21,7 +21,7 @@
     }}
 >
     @if ($isSimple && !$paginator->onFirstPage())
-        <x-ui::button
+        <x-ui::action
             color="gray"
             rel="prev"
             :wire:click="'previousPage(\'' . $paginator->getPageName() . '\')'"
@@ -29,7 +29,7 @@
             class="justify-self-start"
         >
             {{ __('Previous Page') }}
-        </x-ui::button>
+        </x-ui::action>
     @endif
 
     {{-- @if (! $isSimple)
@@ -51,7 +51,7 @@
     @endif --}}
 
     @if ($isSimple && $paginator->hasMorePages())
-        <x-ui::button
+        <x-ui::action
             color="gray"
             rel="next"
             :wire:click="'nextPage(\'' . $paginator->getPageName() . '\')'"
@@ -59,7 +59,7 @@
             class="col-start-3 justify-self-end"
         >
             {{ __('Next Page') }}
-        </x-ui::button>
+        </x-ui::action>
     @endif
 
     @if ((!$isSimple) && $paginator->hasPages())

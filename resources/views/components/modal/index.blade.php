@@ -183,16 +183,16 @@
                                     'end-6 top-6' => $slideOver,
                                 ])
                             >
-                                <x-ui::button
+                                <x-ui::action
                                     color="gray"
                                     icon="heroicon-o-x-mark"
-                                    {{-- icon-alias="modal.close-button" --}}
+                                    {{-- icon-alias="modal.close-action" --}}
                                     icon-size="lg"
                                     {{-- :label="__('ui::components/modal.actions.close.label')" --}}
                                     tabindex="-1"
                                     :x-on:click="filled($id) ? '$dispatch(' . \Illuminate\Support\Js::from($closeEventName) . ', { id: ' . \Illuminate\Support\Js::from($id) . ' })' : 'close()'"
                                     class="ui-modal-close-btn"
-                                >CLOSE</x-ui::button>
+                                >CLOSE</x-ui::action>
                             </div>
                         @endif
 
