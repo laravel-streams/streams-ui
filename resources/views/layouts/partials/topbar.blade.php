@@ -49,7 +49,7 @@ use Streams\Ui\Support\Facades\UI;
             @if (UI::currentPanel()->getUserMenu())
             <div class="relative" x-data="{open: false}">
 
-                <button x-on:click="open=!open" x-on:keydown.escape.window="open=false" type="button"
+                <button x-on:click="open=!open" x-on:click.outside="open=false" x-on:keydown.escape.window="open=false" type="button"
                     class="-m-1.5 flex items-center p-1.5" id="user-menu-button" aria-expanded="false"
                     aria-haspopup="true">
                     <span class="sr-only">Open user menu</span>
