@@ -63,7 +63,7 @@
 
     $actionClasses[] = Arr::toCssClasses([
         ...[
-            'relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus-visible:ring-2',
+            'relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75',
             'pointer-events-none opacity-70' => $disabled,
             'flex-1' => $grouped,
             // 'rounded-lg' => ! $grouped,
@@ -73,11 +73,11 @@
             },
             is_string($color) ? "{$color}" : null,
             match ($size) {
-                'xs' => 'gap-1 px-2 py-1.5',
-                'sm' => 'gap-1 px-2.5 py-1.5',
-                'md' => 'gap-1.5 px-3 py-2',
-                'lg' => 'gap-1.5 px-3.5 py-2.5',
-                'xl' => 'gap-1.5 px-4 py-3',
+                'xs' => 'gap-1 px-2.5 py-1.5',
+                'sm' => 'gap-1 px-3 py-1.5',
+                'md' => 'gap-1.5 px-4 py-2',
+                'lg' => 'gap-1.5 px-5 py-2.5',
+                'xl' => 'gap-1.5 px-6 py-3',
                 default => $size,
             },
             'hidden' => $labeledFrom,
