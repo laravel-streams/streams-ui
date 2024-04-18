@@ -13,6 +13,8 @@ trait HasRoutes
 {
     protected static ?string $slug = null;
 
+    protected static ?string $routeName = null;
+
     protected static string | array $middleware = [];
 
     protected static string | array $withoutMiddleware = [];
@@ -24,7 +26,7 @@ trait HasRoutes
         RouteFacade::get("/{$slug}", static::class)
             ->middleware(static::getRouteMiddleware($panel) ?: ['web'])
             ->withoutMiddleware(static::getWithoutRouteMiddleware($panel))
-            ->name(Str::replace('/', '.', $slug));
+            ->name(static::$routeName ?: Str::replace('/', '.', $slug));
     }
 
     public static function route(string $path): PageRouter
