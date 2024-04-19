@@ -18,6 +18,7 @@
     'outlined' => false,
     'target' => null,
     'tooltip' => null,
+    'tooltipPlacement' => 'top',
     'tag' => 'button',
     'type' => 'button',
     'style' => 'button',
@@ -138,9 +139,9 @@
         x-mousetrap.{{ collect($keyBindings)->map(fn (string $keyBinding): string => str_replace('+', '-', $keyBinding))->implode('.') }}
     @endif
     @if ($hasTooltip)
-        x-tooltip="{
+        x-tooltip.placement.{{ $tooltipPlacement }}="{
             content: @js($tooltip),
-            theme: $store.theme,
+            {{-- theme: $store.theme, --}}
         }"
     @endif
     {{

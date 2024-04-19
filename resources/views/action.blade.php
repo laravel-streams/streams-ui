@@ -4,6 +4,7 @@
     :icon="$action->getIcon()"
     :color="$action->getColor()"
     :style="$action->getStyle()"
+    :tooltip="$action->getTooltip()"
     :disabled="$action->isDisabled()"
     :keyBindings="$action->getKeyBindings()"
     :borderRadius="$action->getBorderRadius()"

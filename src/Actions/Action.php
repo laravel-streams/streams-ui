@@ -11,10 +11,11 @@ class Action extends ViewBuilder
     use Traits\HasTag;
     use Traits\HasStyle;
     use Traits\HasAction;
+    use Traits\HasTooltip;
     use Traits\HasArguments;
     use Traits\HasKeyBindings;
     use Traits\HasBorderRadius;
-
+    
     use Traits\InteractsWithEntry;
 
     use Common\HasUrl;

@@ -1,6 +1,7 @@
 {{-- {!! Assets::tag('/vendor/streams/core/js/index.js') !!}
 {!! Assets::tag('/vendor/streams/api/js/index.js') !!} --}}
 {{-- {!! Assets::tag('/vendor/streams/ui/js/index.js') !!} --}}
+<link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css" />
 
 {!! Assets::collection('scripts')->tags() !!}
 
