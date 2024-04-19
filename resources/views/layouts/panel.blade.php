@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="ui h-full bg-gray-100">
+<html lang="en" class="ui h-full bg-gray-100 overflow-x-hidden">
 
 <head>
     @include('ui::layouts.partials.head')
