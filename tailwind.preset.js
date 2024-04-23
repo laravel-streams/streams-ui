@@ -2,7 +2,6 @@ import forms from '@tailwindcss/forms'
 import typography from '@tailwindcss/typography'
 
 export default {
-    darkMode: false,
     content: ['./vendor/ui/**/*.blade.php'],
     theme: {
         extend: {
