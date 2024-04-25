@@ -52,10 +52,6 @@ class UiServiceProvider extends ServiceProvider
         ]);
 
         $this->publishes([
-            __DIR__ . '/../resources/public' => public_path('vendor/streams/ui'),
-        ], 'laravel-assets');
-
-        $this->publishes([
             __DIR__ . '/../resources/streams' => base_path('streams'),
         ], 'laravel-streams');
 
