@@ -25,6 +25,4 @@
 
 @include('ui::support.constants')
 
-@livewireStyles
-
 @vite(['resources/js/app.js'])

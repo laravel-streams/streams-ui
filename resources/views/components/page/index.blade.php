@@ -4,6 +4,7 @@
 ])
 
 <div class="{{ $class }}">
+    
     {{ $slot }}
 
     <x-ui::modals />

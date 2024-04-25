@@ -26,9 +26,7 @@
     </div>
 
     @include('ui::layouts.partials.assets')
-
-    @livewireScriptConfig
-
+    
     <x-ui::messages/>
 
 </body>
