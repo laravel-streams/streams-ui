@@ -4,8 +4,6 @@
 
 {!! Assets::collection('scripts')->tags() !!}
 
-@vite(['resources/js/app.js'])
-
 <script>
 
     // streams.serviceProviders = window.streams.serviceProviders || [
