@@ -9,7 +9,7 @@
     View::share('topNavigation', $topNavigation = false);
 @endphp
 
-<body class="h-full">
+<body class="h-full" x-cloak x-data="{}">
 
     @include('ui::layouts.partials.sidebar')
     

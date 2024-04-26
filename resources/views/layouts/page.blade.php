@@ -5,7 +5,7 @@
     @include('ui::layouts.partials.head')
 </head>
 
-<body class="h-screen">
+<body class="h-screen" x-cloak x-data="{}">
 
     {!! $slot !!}
 
