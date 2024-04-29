@@ -1,5 +1,3 @@
-@props(['propName'])
-
 <div
     {{
         $attributes->class([

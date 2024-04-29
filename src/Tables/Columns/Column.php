@@ -10,6 +10,7 @@ abstract class Column extends ViewBuilder
 {
     use Support\HasIcon;
     use Support\HasName;
+    use Support\HasState;
     use Support\HasColor;
     use Support\HasLabel;
     use Support\HasEntry;
