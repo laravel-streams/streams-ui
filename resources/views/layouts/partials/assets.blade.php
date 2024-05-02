@@ -21,3 +21,5 @@
     // });
 
 </script>
+
+{!! Includes::render('assets') !!}
