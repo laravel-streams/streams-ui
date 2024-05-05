@@ -27,7 +27,7 @@
         <x-ui::table.actions
             :actions="$actions"
             {{-- :alignment="(!$contentGrid) ? 'start md:end' : 'start'" --}}
-            :alignment="'left'"
+            :alignment="'right'"
             :entry="$entry"
             {{-- wrap="-sm" --}}
             {{-- :class="$recordActionsClasses" --}}

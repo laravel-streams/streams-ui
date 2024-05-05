@@ -1,6 +1,6 @@
 @props([
     'actions',
-    'alignment' => 'end',
+    'alignment' => 'right',
     'entry' => null,
     'wrap' => false,
 ])
@@ -28,8 +28,6 @@
         'flex-wrap' => $wrap,
         'sm:flex-nowrap' => $wrap === '-sm',
         match ($alignment) {
-            'start',
-            'end',
             'right' => 'justify-end',
             'left' => 'justify-start',
             'center' => 'justify-center',

@@ -8,6 +8,7 @@
     'form' => null,
     'grouped' => false,
     'href' => null,
+    'openInNewTab' => false,
     'icon' => null,
     'iconPosition' => 'before',
     'iconSize' => null,
@@ -148,6 +149,7 @@
         $attributes
             ->merge([
                 'href' => $href,
+                'target' => $openInNewTab ? '_blank' : '_self',
                 'disabled' => $disabled,
                 'wire:loading.attr' => 'disabled',
                 'type' => $tag == 'button' ? $type : false,
