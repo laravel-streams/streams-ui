@@ -2,7 +2,7 @@
     'badge' => null,
     'badgeColor' => 'primary',
     'borderRadius' => null,
-    'color' => 'gray',
+    'color' => null,
     'size' => 'md',
     'disabled' => false,
     'form' => null,
@@ -44,7 +44,7 @@
                 },
                 ...match ($color) {
                     null => [
-                        'bg-gray-500 text-white hover:bg-gray-600',
+                        // 'bg-gray-500 text-white hover:bg-gray-600',
                     ],
                     default => [
                         'bg-custom-500 text-white hover:bg-custom-600',
@@ -108,7 +108,7 @@
         \Streams\Ui\Support\Facades\Colors::colorVariables(
             $color,
             shades: [400, 500, 600],
-        ) => $color !== 'gray',
+        ),
     ]);
 
     $iconClasses = Arr::toCssClasses([

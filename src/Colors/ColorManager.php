@@ -54,6 +54,14 @@ class ColorManager
             return null;
         }
 
+        if (strpos($color, '-')) {
+            
+            $parts = explode('-', $color);
+
+            $color = array_shift($parts);
+            $shades[] = array_shift($parts);
+        }
+
         // if ($alias !== null) {
         //     if (($overridingShades = FilamentColor::getOverridingShades($alias)) !== null) {
         //         $shades = $overridingShades;
