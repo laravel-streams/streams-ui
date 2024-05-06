@@ -2,17 +2,16 @@
 
 namespace Streams\Ui\Components\Tables\Concerns;
 
-use Illuminate\Support\Arr;
+use Streams\Ui\Forms\Form;
 use Streams\Core\Entry\Entry;
 use Illuminate\Support\Collection;
-use Streams\Ui\Forms\Form;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Streams\Ui\Exceptions\ValidationException;
 use Streams\Ui\Tables\BulkActions\BulkAction;
+use Streams\Ui\Exceptions\ValidationException;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 trait HasBulkActions
 {
-    public array $selectedTableRecords = [];
+    public array $selectedTableEntries = [];
 
     public ?string $mountedTableBulkAction = null;
 
@@ -56,7 +55,8 @@ trait HasBulkActions
             $action->fire('before_call');
 
             $result = $action->call([
-                // 'form' => $form,
+                'table' => $this->table,
+                'selectedEntries' => $this->selectedTableEntries
             ]);
 
             $result = $action->fire('after_call') ?? $result;
@@ -95,7 +95,7 @@ trait HasBulkActions
         $this->mountedTableBulkAction = $name;
 
         if ($selectedRecords !== null) {
-            $this->selectedTableRecords = $selectedRecords;
+            $this->selectedTableEntries = $selectedRecords;
         }
 
         $action = $this->getMountedTableBulkAction();
@@ -159,7 +159,7 @@ trait HasBulkActions
     protected function resetMountedTableBulkActionProperties(): void
     {
         $this->mountedTableBulkAction = null;
-        $this->selectedTableRecords = [];
+        $this->selectedTableEntries = [];
     }
 
     public function mountedTableBulkActionShouldOpenModal(): bool
@@ -180,7 +180,7 @@ trait HasBulkActions
     public function unmountTableBulkAction(): void
     {
         $this->mountedTableBulkAction = null;
-        $this->selectedTableRecords = [];
+        $this->selectedTableEntries = [];
 
         $this->closeTableBulkActionModal();
     }
@@ -303,7 +303,7 @@ trait HasBulkActions
         // @todo this is not done
         return $this->getTable()
             ->getQuery()
-            ->where('id', 'IN', $this->selectedTableRecords)
+            ->where('id', 'IN', $this->selectedTableEntries)
             ->get();
 
         if (isset($this->cachedSelectedTableRecords)) {
@@ -313,7 +313,7 @@ trait HasBulkActions
         $table = $this->getTable();
 
         if (!($table->getRelationship() instanceof BelongsToMany && $table->allowsDuplicates())) {
-            $query = $table->getQuery()->whereKey($this->selectedTableRecords);
+            $query = $table->getQuery()->whereKey($this->selectedTableEntries);
             $this->applySortingToTableQuery($query);
 
             foreach ($this->getTable()->getColumns() as $column) {
@@ -334,7 +334,7 @@ trait HasBulkActions
         $pivotClass = $relationship->getPivotClass();
         $pivotKeyName = app($pivotClass)->getKeyName();
 
-        $relationship->wherePivotIn($pivotKeyName, $this->selectedTableRecords);
+        $relationship->wherePivotIn($pivotKeyName, $this->selectedTableEntries);
 
         foreach ($this->getTable()->getColumns() as $column) {
             $column->applyEagerLoading($relationship);

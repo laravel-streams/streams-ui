@@ -10,9 +10,9 @@
                         value="all"
                         x-bind:checked="
                             
-                            const records = getRecords()
+                            const entries = getAllEntries()
 
-                            if (records.length && areRecordsSelected(records)) {
+                            if (entries.length && areEntriesSelected(entries)) {
                                 
                                 $el.checked = true
 
@@ -23,7 +23,7 @@
 
                             return null
                         "
-                        x-on:click="toggleSelectAllRecords">
+                        x-on:click="toggleSelectAllEntries">
 
                     <span class="sr-only">
                         Select/deselect all items for bulk actions.

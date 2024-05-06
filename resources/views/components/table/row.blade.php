@@ -5,8 +5,10 @@
         <div class="px-3 py-4">
             <label class="flex">
                 <input type="checkbox"
-                    class="ui-table-row-checkbox rounded border-none bg-white shadow-sm ring-1 transition duration-75 checked:ring-0 focus:ring-2 focus:ring-offset-0 disabled:pointer-events-none disabled:bg-gray-50 disabled:text-gray-50 disabled:checked:bg-current disabled:checked:text-gray-400 text-primary-600 ring-gray-950/10 focus:ring-primary-600 checked:focus:ring-primary-500/50"
-                    value="{{ $entry->id }}" x-model="selectedRecords">
+                    x-model="selectedEntries"
+                    wire:model="selectedTableEntries"
+                    class="ui-table-entry-checkbox rounded border-none bg-white shadow-sm ring-1 transition duration-75 checked:ring-0 focus:ring-2 focus:ring-offset-0 disabled:pointer-events-none disabled:bg-gray-50 disabled:text-gray-50 disabled:checked:bg-current disabled:checked:text-gray-400 text-primary-600 ring-gray-950/10 focus:ring-primary-600 checked:focus:ring-primary-500/50"
+                    value="{{ $entry->id }}">
 
                 <span class="sr-only">
                     Select/deselect item {{ $entry->id }} for bulk actions.
@@ -30,7 +32,7 @@
             :alignment="'right'"
             :entry="$entry"
             {{-- wrap="-sm" --}}
-            {{-- :class="$recordActionsClasses" --}}
+            {{-- :class="$entryActionsClasses" --}}
         />
     </td>
     @endif

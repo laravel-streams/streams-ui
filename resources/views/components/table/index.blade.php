@@ -5,6 +5,7 @@
 ])
 
 <table
+    {{-- x-data="table()" --}}
     {{ $attributes->class(['w-full table-auto divide-y divide-gray-200 text-start']) }}
 >
     {{-- @if ($header) --}}

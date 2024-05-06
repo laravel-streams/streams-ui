@@ -16,48 +16,10 @@ $selectedRecords = [];
 
 @endphp
 
-<div
-    x-data="{
-        selectedRecords: {{ json_encode($selectedRecords) }},
-        toggleSelectAllRecords: function () {
-            let records = this.getRecords();
-            if (this.areRecordsSelected(records)) {
-                this.deselectRecords(records);
-                return;
-            }
-            this.selectRecords(records);
-        },
-        getRecords: function () {
-            
-            let records = [];
+{!! Assets::inline(base_path('/vendor/streams/ui/resources/js/components/table.js')) !!}
 
-            for (let checkbox of this.$root.getElementsByClassName('ui-table-row-checkbox')) {
-                records.push(checkbox.value);
-            }
-            return records;
-        },
-        selectRecords: function (records) {
-            for (let record of records) {
-                if (!this.isRecordSelected(record)) {
-                    this.selectedRecords.push(record);
-                }
-            }
-        },
-        deselectRecords: function (records) {
-            for (let record of records) {
-                let index = this.selectedRecords.indexOf(record);
-                if (index !== -1) {
-                    this.selectedRecords.splice(index, 1);
-                }
-            }
-        },
-        isRecordSelected: function (record) {
-            return this.selectedRecords.includes(record);
-        },
-        areRecordsSelected: function (records) {
-            return records.every(record => this.isRecordSelected(record));
-        },
-    }"
+<div
+    x-data="table()"
     {{-- @if (! $isLoaded)
         wire:init="loadTable"
     @endif --}}
