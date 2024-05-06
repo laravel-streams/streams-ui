@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Components\Tables\Concerns;
 
+use Illuminate\Http\Response;
 use Streams\Ui\Forms\Form;
 use Streams\Core\Entry\Entry;
 use Illuminate\Support\Collection;
@@ -60,8 +61,8 @@ trait HasBulkActions
                 'selectedEntries' => $this->selectedTableEntries
             ]);
 
-            $result = $action->fire('after_call') ?? $result;
-
+            $action->fire('after_call');
+            
             // } catch (Halt $exception) {
             //     return null;
             // } catch (Cancel $exception) {
@@ -79,7 +80,7 @@ trait HasBulkActions
         // if (store($this)->has('redirect')) {
         //     return $result;
         // }
-
+        
         $action->resetArguments();
         // $action->resetFormData();
 
