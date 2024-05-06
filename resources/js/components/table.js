@@ -38,12 +38,17 @@ function table() {
             const keys = this.getAllEntries()
 
             if (this.areEntriesSelected(keys)) {
+                
                 this.deselectEntries(keys)
+
+                this.$wire.set('selectedTableEntries', this.selectedEntries, false);
 
                 return
             }
 
             this.selectEntries(keys)
+
+            this.$wire.set('selectedTableEntries', this.selectedEntries, false);
         },
 
         getAllEntries: function () {
