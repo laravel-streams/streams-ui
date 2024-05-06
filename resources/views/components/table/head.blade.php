@@ -65,6 +65,12 @@
                 </span>
             @endif
 
+            @if ($tooltip = $column->getTooltip())
+            <span x-data="{tooltip: '{{ $tooltip }}'}">
+                <x-ui::icon icon="heroicon-m-question-mark-circle" class="h-5 w-5 opacity-40 mr-1" x-tooltip="tooltip"/>
+            </span>
+            @endif
+
             <span
                 class="font-semibold text-gray-950"
             >

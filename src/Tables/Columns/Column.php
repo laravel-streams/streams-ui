@@ -15,6 +15,7 @@ abstract class Column extends ViewBuilder
     use Support\HasLabel;
     use Support\HasEntry;
     use Support\HasValue;
+    use Support\HasTooltip;
 
     use Support\HasHtmlAttributes;
 
