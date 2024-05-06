@@ -55,6 +55,7 @@ trait HasBulkActions
             $action->fire('before_call');
 
             $result = $action->call([
+                'component' => $this,
                 'table' => $this->table,
                 'selectedEntries' => $this->selectedTableEntries
             ]);
