@@ -5,7 +5,7 @@ use Streams\Ui\Support\Facades\UI;
 <div x-data="{}" x-cloak class="sticky top-0 z-40 flex w-full h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
 
 
-    <button x-data @click.="$dispatch('open-navigation')" type="button"
+    <button x-data @click="$dispatch('toggle-navigation')" type="button"
         class="-m-2.5 p-2.5 text-gray-700 lg:hidden">
         <span class="sr-only">Open sidebar</span>
         @svg('heroicon-o-bars-3', 'h-6 w-6')
@@ -17,6 +17,18 @@ use Streams\Ui\Support\Facades\UI;
 
     {{-- Topbar --}}
     <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+
+        {{-- Brand --}}
+        <div class="ui-brand flex h-16 lg:hidden shrink-0 items-center font-bold">
+            <a href="{{ UI::getHomeUrl() }}" class="text-xl" title="Go to panel homepage.">
+                @if ($logo = UI::currentPanel()->getFavicon())
+                    <img src="{{ $logo }}" alt="{{ __(UI::getPanel()->getBrandName()) }} Logo">
+                @else
+                    {{ __(UI::getPanel()->getBrandName()) }}
+                @endif
+            </a>
+        </div>
+        {{-- EOF Brand --}}
 
         <div class="relative flex flex-1">
             @if ($topNavigation)
@@ -61,7 +73,7 @@ use Streams\Ui\Support\Facades\UI;
                     'class' => 'h-10 w-10 rounded-full bg-gray-50',
                     ],
                     ]) --}}
-                    <span class="hidden lg:flex lg:items-center">
+                    <span class="flex items-center">
                         <span class="ml-4 font-semibold leading-6 text-gray-900" aria-hidden="true">{{ auth()->user()?->name }}</span>
                         @svg('heroicon-o-chevron-down', 'ml-2 h-4 w-4 text-gray-400')
                     </span>
