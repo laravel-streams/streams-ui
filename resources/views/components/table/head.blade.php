@@ -66,7 +66,7 @@
             @endif
 
             @if ($tooltip = $column->getTooltip())
-            <span x-data="{tooltip: '{{ $tooltip }}'}">
+            <span x-data="{tooltip: '{{ addslashes($tooltip) }}'}">
                 <x-ui::icon icon="heroicon-m-question-mark-circle" class="h-5 w-5 opacity-40 mr-1" x-tooltip.interactive.html="tooltip"/>
             </span>
             @endif
