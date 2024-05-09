@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Streams\Ui\Components\Tables\Concerns;
 
@@ -15,14 +15,18 @@ trait CanSortEntries
 
     public function sortTable(?string $column = null, ?string $direction = null): void
     {
+        $initial = $this->table->getColumn($column)?->getInitialSort() ?: 'asc';
+
+        $sequence = $initial == 'asc' ? ['asc', 'desc'] : ['desc', 'asc'];
+
         if ($column === $this->tableSortColumn) {
             $direction ??= match ($this->tableSortDirection) {
-                'asc' => 'desc',
-                'desc' => null,
-                default => 'asc',
+                $sequence[0] => $sequence[1],
+                $sequence[1] => null,
+                default => $sequence[0],
             };
         } else {
-            $direction ??= 'asc';
+            $direction ??= $sequence[0];
         }
 
         $this->tableSortColumn = $direction ? $column : null;
@@ -81,13 +85,13 @@ trait CanSortEntries
             return $query->orderBy($this->getTable()->getReorderColumn());
         }
 
-        if (! $this->tableSortColumn) {
+        if (!$this->tableSortColumn) {
             return $this->applyDefaultSortingToTableQuery($query);
         }
 
         $column = $this->getTable()->getSortableVisibleColumn($this->tableSortColumn);
 
-        if (! $column) {
+        if (!$column) {
             return $this->applyDefaultSortingToTableQuery($query);
         }
 

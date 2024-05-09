@@ -8,6 +8,8 @@ trait IsSortable
 
     protected ?array $sortColumns = [];
 
+    protected ?string $initialSort = null;
+
     protected ?\Closure $sortQuery = null;
 
     public function sortable(
@@ -31,5 +33,17 @@ trait IsSortable
     public function isSortable(): bool
     {
         return $this->sortable;
+    }
+
+    public function initialSort($direction)
+    {
+        $this->initialSort = $direction;
+
+        return $this;
+    }
+
+    function getInitialSort(): string
+    {
+        return $this->initialSort ?: 'asc';
     }
 }
