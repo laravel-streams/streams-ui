@@ -26,3 +26,5 @@
 @include('ui::support.constants')
 
 @vite(['resources/js/app.js'])
+
+{!! Includes::render('head') !!}
