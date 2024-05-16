@@ -5,6 +5,7 @@ namespace Streams\Ui\Components\Tables\Concerns;
 use Illuminate\Support\Collection;
 use Streams\Core\Criteria\Criteria;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Contracts\Database\Query\Builder;
 
 trait HasEntries
 {
@@ -21,7 +22,7 @@ trait HasEntries
         return $this->paginateQuery($query);
     }
 
-    public function getFilteredSortedQuery(): Criteria
+    public function getFilteredSortedQuery(): Criteria | Builder
     {
         $query = $this->getFilteredQuery();
 
@@ -32,12 +33,12 @@ trait HasEntries
         return $query;
     }
 
-    public function getFilteredQuery(): Criteria
+    public function getFilteredQuery(): Criteria | Builder
     {
         return $this->filterQuery($this->getTable()->getQuery());
     }
 
-    public function filterQuery(Criteria $query): Criteria
+    public function filterQuery(Criteria | Builder $query): Criteria | Builder
     {
         $this->applyFiltersToTableQuery($query);
         $this->applySearchToTableQuery($query);

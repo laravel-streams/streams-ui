@@ -3,10 +3,11 @@
 namespace Streams\Ui\Traits;
 
 use Streams\Core\Criteria\Criteria;
+use Illuminate\Contracts\Database\Query\Builder;
 
 trait HasQuery
 {
-    protected Criteria | \Closure | null $query = null;
+    protected Criteria | Builder | \Closure | null $query = null;
 
     public function query(Criteria | \Closure | null $query): static
     {
@@ -15,7 +16,7 @@ trait HasQuery
         return $this;
     }
 
-    public function getQuery(): Criteria
+    public function getQuery(): Criteria | Builder
     {
         if ($query = $this->evaluate($this->query)) {
             return $query;
