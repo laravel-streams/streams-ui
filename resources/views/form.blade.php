@@ -36,6 +36,10 @@
             @endif
             {{-- </x-ui::grid.column> --}}
         @endforeach
+
+        @foreach ($form->getActions() as $action)
+        {!! $action->render() !!}
+        @endforeach
     </div>
     {{--
 </x-ui::grid> --}}
