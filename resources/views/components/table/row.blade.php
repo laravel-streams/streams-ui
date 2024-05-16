@@ -1,3 +1,15 @@
+@props([
+    // 'alpineHidden' => null,
+    // 'alpineSelected' => null,
+    // 'entryAction' => null,
+    'entryUrl' => null,
+    'bulkActions' => [],
+    'actions' => [],
+    'columns' => [],
+    'entry' => null,
+    // 'striped' => false,
+])
+
 <tr class="hover:bg-gray-50">
 
     @if ($bulkActions)
@@ -21,7 +33,11 @@
     @foreach ($columns as $index => $column)
     <td
         class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 {{ $loop->first ? 'w-1' : '' }}">
+        @if ($entryUrl)
+            <a href="{{ $entryUrl }}">{!! $column->entry($entry)->render() !!}</a>
+        @else
         {!! $column->entry($entry)->render() !!}
+        @endif
     </td>
     @endforeach
     @if ($actions)

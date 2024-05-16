@@ -72,8 +72,11 @@ $selectedRecords = [];
             <tbody class="divide-y divide-gray-200 bg-white">
 
                 @foreach ($paginator as $entry)
+                @php
+                    $entryUrl = $getEntryUrl($entry);
+                @endphp
                 <x-ui::table.row :table="$table" :entry="$entry" :columns="$columns" :actions="$actions"
-                    :bulkActions="$bulkActions" />
+                    :bulkActions="$bulkActions" :entryUrl="$entryUrl" />
                 @endforeach
 
             </tbody>
