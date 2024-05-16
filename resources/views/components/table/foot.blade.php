@@ -1,3 +1,7 @@
+@php
+    use Illuminate\Pagination\LengthAwarePaginator;
+@endphp
+
 @props([
     'paginator',
     'paginationOptions' => [],
@@ -8,9 +12,19 @@
     <tr>
         <td colspan="100%">
             <div class="text-left px-6 py-4 flex w-full justify-between items-center">
+
+                @if (!$paginator instanceof LengthAwarePaginator)
+                <div>
+                    <button wire:click="gotoPage(1, '{{ $this->getTablePaginationPageName() }}')">Previous</button>
+                </div>
+                @endif
+
+                @if ($paginator instanceof LengthAwarePaginator)
                 <div class="flex-grow-1">
                     Showing {{ $paginator->firstItem() }} to {{ $paginator->lastItem() }} of {{ number_format($paginator->total()) }} results.
                 </div>
+                @endif
+
                 <div>
 
                     @if (count($paginationOptions) > 1)
@@ -53,9 +67,19 @@
                     @endif
 
                 </div>
+
+                @if ($paginator instanceof LengthAwarePaginator)
                 <div>
                     <x-ui::pagination :paginator="$paginator" class="px-3 py-3 sm:px-6" />
                 </div>
+                @endif
+
+                @if (!$paginator instanceof LengthAwarePaginator)
+                <div>
+                    <button wire:click="gotoPage(2, '{{ $this->getTablePaginationPageName() }}')">Next</button>
+                </div>
+                @endif
+
             </div>
         </td>
     </tr>
