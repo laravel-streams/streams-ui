@@ -4,6 +4,7 @@ namespace Streams\Ui\Components\Tables\Concerns;
 
 use Illuminate\Support\Arr;
 use Streams\Core\Criteria\Criteria;
+use Illuminate\Contracts\Database\Query\Builder;
 
 trait CanSearchEntries
 {
@@ -49,7 +50,7 @@ trait CanSearchEntries
         $this->resetPage();
     }
 
-    protected function applySearchToTableQuery(Criteria $query): Criteria
+    protected function applySearchToTableQuery(Criteria | Builder $query): Criteria | Builder
     {
         //$this->applyColumnSearchesToTableQuery($query);
         $this->applyGlobalSearchToTableQuery($query);
@@ -57,7 +58,7 @@ trait CanSearchEntries
         return $query;
     }
 
-    protected function applyColumnSearchesToTableQuery(Criteria $query): Criteria
+    protected function applyColumnSearchesToTableQuery(Criteria | Builder $query): Criteria | Builder
     {
         foreach ($this->getTableColumnSearches() as $column => $search) {
 
@@ -101,7 +102,7 @@ trait CanSearchEntries
         );
     }
 
-    protected function applyGlobalSearchToTableQuery(Criteria $query): Criteria
+    protected function applyGlobalSearchToTableQuery(Criteria | Builder $query): Criteria | Builder
     {
         $search = $this->getTableSearch();
 

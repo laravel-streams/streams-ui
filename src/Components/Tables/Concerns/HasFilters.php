@@ -2,10 +2,11 @@
 
 namespace Streams\Ui\Components\Tables\Concerns;
 
+use Streams\Ui\Forms\Form;
 use Illuminate\Support\Arr;
 use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Tables\Filters\Filter;
-use Streams\Ui\Forms\Form;
+use Illuminate\Contracts\Database\Query\Builder;
 
 trait HasFilters
 {
@@ -119,7 +120,7 @@ trait HasFilters
     //     return $query;
     // }
 
-    protected function applyFiltersToTableQuery(Criteria $query): Criteria
+    protected function applyFiltersToTableQuery(Criteria | Builder $query): Criteria | Builder
     {
         // $data = $this->getTableFiltersForm()->getRawState();
         $data = $this->tableFilters;

@@ -4,6 +4,7 @@ namespace Streams\Ui\Components\Tables\Concerns;
 
 use Streams\Core\Criteria\Criteria;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Contracts\Database\Query\Builder;
 
 trait CanPaginateEntries
 {
@@ -20,7 +21,7 @@ trait CanPaginateEntries
         $this->resetPage();
     }
 
-    protected function paginateQuery(Criteria $query): Paginator
+    protected function paginateQuery(Criteria | Builder $query): Paginator
     {
         $perPage = $this->getTableRecordsPerPage();
 

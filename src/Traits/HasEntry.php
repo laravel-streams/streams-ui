@@ -3,12 +3,13 @@
 namespace Streams\Ui\Traits;
 
 use Streams\Core\Entry\Entry;
+use Streams\Core\Entry\Contract\EntryInterface;
 
 trait HasEntry
 {
-    public Entry | string | null $entry = null;
+    public EntryInterface | string | null $entry = null;
 
-    public function entry(Entry | \Closure | string | null $entry = null): static
+    public function entry(EntryInterface | \Closure | string | null $entry = null): static
     {
         $this->entry = $entry;
 
@@ -43,7 +44,7 @@ trait HasEntry
     {
         $entry = $this->entry;
 
-        if ($entry instanceof Entry) {
+        if ($entry instanceof EntryInterface) {
             return $entry->getIdAttribute();
         }
 
@@ -55,11 +56,11 @@ trait HasEntry
         // return $this->getParentComponent()?->getEntry();
     }
 
-    public function getEntryInstance(): ?Entry
+    public function getEntryInstance(): ?EntryInterface
     {
         $entry = $this->entry;
 
-        if ($entry instanceof Entry) {
+        if ($entry instanceof EntryInterface) {
             return $entry;
         }
 
