@@ -13,9 +13,9 @@
         <td colspan="100%">
             <div class="text-left px-6 py-4 flex w-full justify-between items-center">
 
-                @if (!$paginator instanceof LengthAwarePaginator)
+                @if (!$paginator instanceof LengthAwarePaginator && !$paginator->onFirstPage())
                 <div>
-                    <button wire:click="gotoPage(1, '{{ $this->getTablePaginationPageName() }}')">Previous</button>
+                    <button wire:click="previousPage('{{ $this->getTablePaginationPageName() }}')">Previous</button>
                 </div>
                 @endif
 
@@ -74,9 +74,9 @@
                 </div>
                 @endif
 
-                @if (!$paginator instanceof LengthAwarePaginator)
+                @if (!$paginator instanceof LengthAwarePaginator && $paginator->hasMorePages())
                 <div>
-                    <button wire:click="gotoPage(2, '{{ $this->getTablePaginationPageName() }}')">Next</button>
+                    <button wire:click="nextPage('{{ $this->getTablePaginationPageName() }}')">Next</button>
                 </div>
                 @endif
 
