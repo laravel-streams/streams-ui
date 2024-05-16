@@ -30,6 +30,7 @@ trait CanPaginateEntries
             $perPage === 'all' ? $query->count() : $perPage,
             ['*'],
             $this->getTablePaginationPageName(),
+            $this->paginators[$this->getTablePaginationPageName()] ?? 1
         );
 
         return $records->onEachSide(0);
