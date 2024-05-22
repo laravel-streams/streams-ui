@@ -25,7 +25,8 @@
                     <ul x-show="!collapsed" role="list">
                         @foreach ($group->getItems() as $item)
                         <li>
-                            <a href="{{ $item->getUrl() }}"
+                            <a wire:navigate href="{{ $item->getUrl() }}"
+                                {!! $item->getHtmlAttributeBag() !!}
                                 target="{{ $item->shouldOpenInNewTab() ? '_blank' : '_self' }}"
                                 class="{{ $item->isActive() ? 'bg-gray-50 text-primary-600' : 'text-gray-700 hover:bg-gray-50' }} group flex w-full items-center gap-x-3 rounded-md p-2 leading-6 font-semibold">
                                 @if ($label)
@@ -49,6 +50,7 @@
                     @foreach ($group->getItems() as $item)
                     <li class="ui-sidebar-item {{ $item->isActive() ? 'ui-sidebar-item-active' : '' }}">
                         <a href="{{ $item->getUrl() }}"
+                            {!! $item->getHtmlAttributeBag() !!}
                             target="{{ $item->shouldOpenInNewTab() ? '_blank' : '_self' }}"
                             class="
                             {{ $item->isActive() ? 'bg-gray-50 text-primary-600' : 'text-gray-700 hover:bg-gray-50' }} group flex w-full items-center gap-x-3 rounded-md p-2 leading-6 font-semibold">

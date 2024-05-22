@@ -1,10 +1,10 @@
 @props([
-'fullHeight' => true,
-'class' => null,
+    'fullHeight' => true,
+    'class' => null,
 ])
 
 <div class="{{ $class }}">
-    
+
     {{ $slot }}
 
     <x-ui::modals />

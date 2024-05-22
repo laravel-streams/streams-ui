@@ -13,6 +13,8 @@ class NavigationItem extends Builder
     use Common\HasSort;
     use Common\HasBadge;
     use Common\HasLabel;
+    use Common\HasHtmlAttributes;
+    
     use Common\CanBeHidden;
 
     use Navigation\Traits\HasGroup;

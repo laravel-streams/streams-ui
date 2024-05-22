@@ -44,7 +44,10 @@ trait HasNavigation
                 ->isActiveWhen(fn (): bool => request()->routeIs(static::getRouteName()))
                 ->sort(static::getNavigationSort())
                 ->badge(static::getNavigationBadge(), color: static::getNavigationBadgeColor())
-                ->url(static::getNavigationUrl()),
+                ->url(static::getNavigationUrl())
+                ->htmlAttributes([
+                    'wire:navigate' => true,
+                ]),
         ];
     }
 

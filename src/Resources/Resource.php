@@ -47,7 +47,10 @@ abstract class Resource
                     static::getNavigationBadge(),
                     static::getNavigationBadgeColor()
                 )
-                ->url(static::getNavigationUrl()),
+                ->url(static::getNavigationUrl())
+                ->htmlAttributes([
+                    'wire:navigate' => true,
+                ]),
         ];
     }
 
