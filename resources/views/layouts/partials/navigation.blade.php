@@ -24,10 +24,16 @@
                     </div>
                     <ul x-show="!collapsed" role="list">
                         @foreach ($group->getItems() as $item)
+                        @php
+                            $url = $item->getUrl();
+                            $target = $item->shouldOpenInNewTab() ? '_blank' : '_self';
+                            $navigate = $spaEnabled && $target == '_self' && Str::startsWith($url, URL::to('/'));
+                        @endphp
                         <li>
-                            <a wire:navigate href="{{ $item->getUrl() }}"
+                            <a href="{{ $url }}"
                                 {!! $item->getHtmlAttributeBag() !!}
-                                target="{{ $item->shouldOpenInNewTab() ? '_blank' : '_self' }}"
+                                {{ $navigate ? 'wire:navigate' : null }}
+                                target="{{ $target }}"
                                 class="{{ $item->isActive() ? 'bg-gray-50 text-primary-600' : 'text-gray-700 hover:bg-gray-50' }} group flex w-full items-center gap-x-3 rounded-md p-2 leading-6 font-semibold">
                                 @if ($label)
                                 <div class="relative ml-1.5 h-3 w-3 flex items-center justify-center">
@@ -48,10 +54,16 @@
                     @else
                     <ul>
                     @foreach ($group->getItems() as $item)
+                    @php
+                        $url = $item->getUrl();
+                        $target = $item->shouldOpenInNewTab() ? '_blank' : '_self';
+                        $navigate = $spaEnabled && $target == '_self' && Str::startsWith($url, URL::to('/'));
+                    @endphp
                     <li class="ui-sidebar-item {{ $item->isActive() ? 'ui-sidebar-item-active' : '' }}">
-                        <a href="{{ $item->getUrl() }}"
-                            {!! $item->getHtmlAttributeBag() !!}
-                            target="{{ $item->shouldOpenInNewTab() ? '_blank' : '_self' }}"
+                        <a href="{{ $url }}"
+                        {!! $item->getHtmlAttributeBag() !!}
+                            {{ $navigate ? 'wire:navigate' : null }}
+                            target="{{ $target }}"
                             class="
                             {{ $item->isActive() ? 'bg-gray-50 text-primary-600' : 'text-gray-700 hover:bg-gray-50' }} group flex w-full items-center gap-x-3 rounded-md p-2 leading-6 font-semibold">
                             @if ($label)

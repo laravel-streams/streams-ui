@@ -88,8 +88,14 @@ use Streams\Ui\Support\Facades\UI;
                     class="absolute min-w-[12rem] right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white p-1 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
                     role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                     @foreach (UI::currentPanel()->getUserMenu() as $item)
-                    <a href="{{ url($item->getUrl()) }}"
-                        target="{{ $item->shouldOpenInNewTab() ? '_blank' : '_self' }}"
+                    @php
+                        $url = url($item->getUrl());
+                        $target = $item->shouldOpenInNewTab() ? '_blank' : '_self';
+                        $navigate = $spaEnabled && $target == '_self' && Str::startsWith($url, URL::to('/'));
+                    @endphp
+                    <a href="{{ $url }}"
+                        {{ $navigate ? 'wire:navigate' : '' }}
+                        target="{{ $target }}"
                         class="flex w-full items-center gap-2 whitespace-nowrap rounded-md p-2 transition-colors duration-75 outline-none disabled:pointer-events-none disabled:opacity-70 hover:bg-gray-50 focus-visible:bg-gray-50"
                         role="menuitem" tabindex="-1" id="user-menu-item-1">
                         @if ($icon = $item->getIcon())

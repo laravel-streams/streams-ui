@@ -14,6 +14,8 @@ class Panel extends ViewBuilder
     use Common\HasActions;
     use Common\CanBeDefault;
 
+    use Traits\CanBeSpa;
+
     use Traits\HasPages;
     use Traits\HasLayout;
     use Traits\HasRoutes;
@@ -63,6 +65,8 @@ class Panel extends ViewBuilder
         }
 
         View::share('cssVariables', $variables);
+
+        View::share('spaEnabled', $this->isSpa());
         
         // Register Icons??
         // Set SPA Mode
