@@ -2,15 +2,17 @@
 
 namespace Streams\Ui\Notifications;
 
-use Streams\Ui\Builders\Builder;
+use Illuminate\Support\Str;
 use Streams\Ui\Traits as Common;
 use Illuminate\Support\Facades\App;
-use Streams\Ui\Support\Facades\Notifications;
+use Streams\Ui\Builders\ViewBuilder;
+use Illuminate\Support\Facades\Session;
 
-class Notification extends Builder
+class Notification extends ViewBuilder
 {
     use Traits\HasDuration;
 
+    use Common\HasId;
     use Common\HasIcon;
     use Common\HasTitle;
     use Common\HasColor;
@@ -18,17 +20,17 @@ class Notification extends Builder
     use Common\HasIconColor;
     use Common\HasDescription;
 
-    public function __construct(?string $title = null)
+    protected string $view = 'ui::notification';
+
+    public function __construct(string $id)
     {
-        if ($title) {
-            $this->title($title);
-        }
+        $this->id($id);
     }
 
-    static public function make(?string $title = null): static
+    static public function make(?string $id = null): static
     {
         $instance = App::make(static::class, [
-            'title' => $title,
+            'id' => $id ?: Str::orderedUuid(),
         ]);
 
         $instance->configure();
@@ -36,9 +38,69 @@ class Notification extends Builder
         return $instance;
     }
 
-    public function send(): void
+    public function toArray(): array
     {
-        Notifications::add($this);
+        return [
+            'id' => $this->getId(),
+            // 'actions' => array_map(fn (Action | ActionGroup $action): array => $action->toArray(), $this->getActions()),
+            'view' => $this->getView(),
+            'icon' => $this->getIcon(),
+            'color' => $this->getColor(),
+            'title' => $this->getTitle(),
+            'duration' => $this->getDuration(),
+            'iconColor' => $this->getIconColor(),
+            'description' => $this->getDescription(),
+            // 'viewData' => $this->getViewData(),
+        ];
+    }
+
+    public static function fromArray(array $data): static
+    {
+        $static = static::make($data['id'] ?? Str::random());
+
+        // If the container constructs an instance of child class
+        // instead of the current class, we should run `fromArray()`
+        // on the child class instead.
+        // if (
+        //     ($static::class !== self::class) &&
+        //     (get_called_class() === self::class)
+        // ) {
+        //     return $static::fromArray($data);
+        // }
+
+        // $static->actions(
+        //     array_map(
+        //         fn (array $action): Action | ActionGroup => match (array_key_exists('actions', $action)) {
+        //             true => ActionGroup::fromArray($action),
+        //             false => Action::fromArray($action),
+        //         },
+        //         $data['actions'] ?? [],
+        //     ),
+        // );
+
+        if ($view = $data['view'] ?? null) {
+            $static->view($view);
+        }
+
+        // $static->viewData($data['viewData'] ?? []);
+        $static->icon($data['icon'] ?? null);
+        $static->color($data['color'] ?? null);
+        $static->title($data['title'] ?? null);
+        $static->duration($data['duration'] ?? null);
+        $static->iconColor($data['iconColor'] ?? null);
+        $static->description($data['description'] ?? null);
+
+        return $static;
+    }
+
+    public function send(): static
+    {
+        Session::push(
+            'streams.notifications',
+            $this->toArray(),
+        );
+
+        return $this;
     }
 
     public function danger(): static

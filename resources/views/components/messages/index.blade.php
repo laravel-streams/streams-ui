@@ -2,9 +2,9 @@
     <div class="flex w-full flex-col items-center space-y-4 sm:items-center">
         
         {{-- Simple --}}
-        @foreach (\Streams\Ui\Support\Facades\Notifications::all() as $notification)
+        @foreach (Session::pull('streams.notifications', []) as $data)
         @php
-        $id = 'message-' . now() . '-' . $loop->index;
+        $notification = \Streams\Ui\Notifications\Notification::fromArray($data);
         @endphp
         <div x-data="{
             show: true,
@@ -12,7 +12,7 @@
             countdown: 0,
             width: 100,
             intervalHandle: null,
-        }" x-show="show" id="{{ $id }}" x-init="() => {
+        }" x-show="show" id="{{ $notification->getId() }}" x-init="() => {
                 if (timeout > 0) {
                     countdown = timeout;
                     width = 100;
