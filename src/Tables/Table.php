@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Actions\Contracts\HasActions;
 use Illuminate\Contracts\Pagination\Paginator;
+use Streams\Ui\Tables\Columns\Column;
 
 class Table extends ViewBuilder implements HasActions
 {
@@ -15,22 +16,22 @@ class Table extends ViewBuilder implements HasActions
     use Concerns\HasFilters;
     use Concerns\HasBulkActions;
     use Concerns\HasHeaderActions;
-    
+
     use Concerns\HasEntryUrl;
-    
+
     use Concerns\CanBeReordered;
-    
+
     use Support\HasQuery;
     use Support\HasHeading;
     use Support\CanBePaginated;
     use Support\HasDescription;
-    
+
     use Support\BelongsToLivewire;
 
     protected string $view = 'ui::builders.table';
 
     protected string $viewIdentifier = 'table';
-    
+
     protected string | \Closure | null $queryStringIdentifier = 'table';
 
     public function __construct($livewire)
@@ -58,5 +59,20 @@ class Table extends ViewBuilder implements HasActions
             'table' => [$this],
             default => parent::resolveDefaultClosureDependency($parameter),
         };
+    }
+
+    public function getSortableColumn(string $name): ?Column
+    {
+        $column = $this->getColumn($name);
+
+        if (!$column) {
+            return null;
+        }
+
+        if (!$column->isSortable()) {
+            return null;
+        }
+
+        return $column;
     }
 }

@@ -46,4 +46,14 @@ trait IsSortable
     {
         return $this->initialSort ?: 'asc';
     }
+    
+    public function getSortColumns(): array
+    {
+        return $this->sortColumns ?? $this->getDefaultSortColumns();
+    }
+
+    public function getDefaultSortColumns(): array
+    {
+        return [str($this->getName())->afterLast('.')];
+    }
 }

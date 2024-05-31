@@ -77,22 +77,22 @@ trait CanSortEntries
 
     protected function applySortingToTableQuery(Criteria $query): Criteria
     {
-        if ($this->getTable()->isGroupsOnly()) {
-            return $query;
-        }
+        // if ($this->getTable()->isGroupsOnly()) {
+        //     return $query;
+        // }
 
-        if ($this->isTableReordering()) {
-            return $query->orderBy($this->getTable()->getReorderColumn());
-        }
+        // if ($this->isTableReordering()) {
+        //     return $query->orderBy($this->getTable()->getReorderColumn());
+        // }
 
         if (!$this->tableSortColumn) {
-            return $this->applyDefaultSortingToTableQuery($query);
+            return $this->applyDefaultSorting($query);
         }
 
-        $column = $this->getTable()->getSortableVisibleColumn($this->tableSortColumn);
+        $column = $this->getTable()->getSortableColumn($this->tableSortColumn);
 
         if (!$column) {
-            return $this->applyDefaultSortingToTableQuery($query);
+            return $this->applyDefaultSorting($query);
         }
 
         $sortDirection = $this->tableSortDirection === 'desc' ? 'desc' : 'asc';
@@ -102,10 +102,11 @@ trait CanSortEntries
         return $query;
     }
 
-    protected function applyDefaultSortingToTableQuery(Builder $query): Builder
+    protected function applyDefaultSorting(Criteria $query): Criteria
     {
         $sortColumnName = $this->getTable()->getDefaultSortColumn();
-        $sortDirection = ($this->getTable()->getDefaultSortDirection() ?? $this->tableSortDirection) === 'desc' ? 'desc' : 'asc';
+        $sortDirection = ($this->getTable()->getDefaultSortDirection()
+            ?? $this->tableSortDirection) === 'desc' ? 'desc' : 'asc';
 
         if (
             $sortColumnName &&

@@ -12,7 +12,7 @@
     $statePath = $getStatePath();
 @endphp
 
-{{-- <x-dynamic-component :component="$getFieldWrapperView()" :field="$field"> --}}
+<x-dynamic-component :component="$getFieldWrapperView()" :field="$field">
     {{-- <x-ui::inputs.wrapper
         :disabled="$isDisabled"
         :inline-prefix="$isPrefixInline"
@@ -155,4 +155,4 @@
             </div> --}}
         {{-- @endif --}}
     {{-- </x-ui::inputs.wrapper> --}}
-{{-- </x-dynamic-component> --}}
+</x-dynamic-component>

@@ -15,10 +15,10 @@
     }}
 >
     @if ($heading || $subheading)
-        <div class="grid gap-y-1 flex-grow">
+        <div class="grid flex-grow">
             @if ($heading)
                 <h1
-                    class="{{ $headingSize }} font-bold text-gray-950"
+                    class="{{ $headingSize }} text-2xl font-bold text-gray-950"
                 >
                     {{ $heading }}
                 </h1>

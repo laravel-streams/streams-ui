@@ -149,6 +149,11 @@ trait InteractsWithTable
         return $this->table;
     }
 
+    public function table(Table $table): Table
+    {
+        return $table;
+    }
+
     public function getQueryStringPropertyName(string $property): string
     {
         if (filled($identifier = $this->getTable()->getQueryStringIdentifier())) {

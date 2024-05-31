@@ -6,7 +6,7 @@
 <fieldset
     {{
         $attributes->class([
-            'rounded-xl border border-gray-300 p-6',
+            'flex flex-col gap-4 rounded-xl border border-gray-300 p-6',
         ])
     }}
 >

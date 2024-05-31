@@ -28,7 +28,7 @@ trait HasEntries
 
         //$this->applyGroupingToTableQuery($query);
 
-        //$this->applySortingToTableQuery($query);
+        $this->applySortingToTableQuery($query);
 
         return $query;
     }

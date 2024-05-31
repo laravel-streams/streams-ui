@@ -7,8 +7,8 @@ use Streams\Ui\Inputs\Traits;
 
 class SelectInput extends Input
 {
-    use Concerns\HasOptions;
-    use Concerns\HasPlaceholder;
+    use Traits\HasOptions;
+    use Traits\HasPlaceholder;
 
     protected string $view = 'ui::components.inputs.select';
 

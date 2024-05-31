@@ -11,7 +11,7 @@ trait InteractsWithQuery
         string $search,
         bool $isFirst
     ): Criteria {
-        
+
         // if ($this->searchQuery) {
         //     $whereClause = $isFirst ? 'where' : 'orWhere';
 
@@ -50,4 +50,58 @@ trait InteractsWithQuery
 
         return $query;
     }
+
+    public function applySort(Criteria $query, string $direction = 'asc'): Criteria
+    {
+        if ($this->sortQuery) {
+
+            $this->evaluate($this->sortQuery, [
+                'direction' => $direction,
+                'query' => $query,
+            ]);
+
+            return $query;
+        }
+
+        foreach (array_reverse($this->getSortColumns()) as $sortColumn) {
+            // $query->orderBy($this->getSortColumnForQuery($query, $sortColumn), $direction);
+            $query->orderBy($sortColumn, $direction);
+        }
+
+        return $query;
+    }
+
+    // protected function getSortColumnForQuery(
+    //     Criteria $query,
+    //     string $sortColumn,
+    //     ?array $relationships = null
+    // ): string | Criteria {
+        
+    //     $relationships ??= ($relationshipName = $this->getRelationshipName()) ?
+    //         explode('.', $relationshipName) :
+    //         [];
+
+    //     if (!count($relationships)) {
+    //         return $sortColumn;
+    //     }
+
+    //     $currentRelationshipName = array_shift($relationships);
+
+    //     $relationship = $this->getRelationship($query->getModel(), $currentRelationshipName);
+
+    //     $relatedQuery = $relationship->getRelated()::query();
+
+    //     return $relationship
+    //         ->getRelationExistenceQuery(
+    //             $relatedQuery,
+    //             $query,
+    //             [$currentRelationshipName => $this->getSortColumnForQuery(
+    //                 $relatedQuery,
+    //                 $sortColumn,
+    //                 $relationships,
+    //             )],
+    //         )
+    //         ->applyScopes()
+    //         ->getQuery();
+    // }
 }
