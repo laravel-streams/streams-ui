@@ -130,7 +130,8 @@ trait CanSortEntries
             return $query;
         }
 
-        return $query->orderBy($query->getModel()->getQualifiedKeyName());
+        // return $query->orderBy($query->getModel()->getQualifiedKeyName());
+        return $query;
     }
 
     public function getTableSortSessionKey(): string

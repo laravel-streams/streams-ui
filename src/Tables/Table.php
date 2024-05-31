@@ -2,12 +2,13 @@
 
 namespace Streams\Ui\Tables;
 
+use Illuminate\Support\Str;
 use Streams\Ui\Traits as Support;
 use Illuminate\Support\Collection;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Tables\Columns\Column;
 use Streams\Ui\Actions\Contracts\HasActions;
 use Illuminate\Contracts\Pagination\Paginator;
-use Streams\Ui\Tables\Columns\Column;
 
 class Table extends ViewBuilder implements HasActions
 {
@@ -74,5 +75,48 @@ class Table extends ViewBuilder implements HasActions
         }
 
         return $column;
+    }
+
+    protected ?string $defaultSortColumn = null;
+
+    protected string | \Closure | null $defaultSortDirection = null;
+
+    protected ?\Closure $defaultSortQuery = null;
+
+    public function defaultSort(
+        string | \Closure | null $column,
+        string | \Closure | null $direction = 'asc'
+    ): static {
+        
+        if ($column instanceof \Closure) {
+            $this->defaultSortQuery = $column;
+        } else {
+            $this->defaultSortColumn = $column;
+        }
+
+        $this->defaultSortDirection = $direction;
+
+        return $this;
+    }
+
+    public function getDefaultSortColumn(): ?string
+    {
+        return $this->defaultSortColumn;
+    }
+
+    public function getDefaultSortDirection(): ?string
+    {
+        $direction = $this->evaluate($this->defaultSortDirection);
+
+        if ($direction !== null) {
+            $direction = Str::lower($direction);
+        }
+
+        return $direction;
+    }
+
+    public function getDefaultSortQuery(): ?\Closure
+    {
+        return $this->defaultSortQuery;
     }
 }

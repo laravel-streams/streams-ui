@@ -37,7 +37,7 @@ $selectedRecords = [];
         @endif
 
         @if ($bulkActions || $filters)
-        <div class="flex gap-x-3 p-3">
+        <div class="flex flex-row-reverse gap-x-3 p-3">
 
             {{-- @if ($bulkActions)
             <div class="flex mr-12">
@@ -48,23 +48,19 @@ $selectedRecords = [];
             @endif --}}
 
             @if ($filters)
-            <x-ui::table.filters
-                {{-- :form="$getFiltersForm()" --}}
-                {{-- x-cloak
-                x-show="areFiltersOpen" --}}
-            />
-            {{-- <form method="get" class="flex gap-x-3"> --}}
-                @foreach ($filters as $filter)
-                <div class="flex items-center w-xl">
-                    {!! $filter->render() !!}
-                </div>
-                @endforeach
+            <div x-data="{open: true}" x-on:click.outside="open=false" x-on:keydown.escape.window="open=false" class="flex justify-center relative">
 
-                {{-- <x-ui::action type="submit" :class="'hidden'">Submit</x-ui::action>
-
-                <x-ui::action tag="a" href="{{ url()->current() }}" :class="'bg-red-500'">Clear</x-ui::action> --}}
-
-            {{-- </form> --}}
+                <button @click="open = !open" class="p-2 text-gray-400 hover:text-gray-500">
+                    <x-heroicon-c-funnel class="h-5 w-5" />
+                </button>
+            
+                <x-ui::table.filters
+                    {{-- :form="$getFiltersForm()" --}}
+                    :filters="$filters"
+                    x-cloak
+                    x-show="open"
+                    class="absolute top-full right-0 w-72 bg-white p-4 border rounded-lg shadow-md"/>
+            </div>
             @endif
             
         </div>
