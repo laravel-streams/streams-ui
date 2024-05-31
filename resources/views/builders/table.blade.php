@@ -48,6 +48,11 @@ $selectedRecords = [];
             @endif --}}
 
             @if ($filters)
+            <x-ui::table.filters
+                {{-- :form="$getFiltersForm()" --}}
+                {{-- x-cloak
+                x-show="areFiltersOpen" --}}
+            />
             {{-- <form method="get" class="flex gap-x-3"> --}}
                 @foreach ($filters as $filter)
                 <div class="flex items-center w-xl">

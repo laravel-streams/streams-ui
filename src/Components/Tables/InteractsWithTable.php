@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Components\Tables;
 
+use Livewire\WithPagination;
 use Streams\Ui\Tables\Table;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
@@ -17,6 +18,10 @@ trait InteractsWithTable
     use Concerns\CanSortEntries;
     use Concerns\CanSearchEntries;
     use Concerns\CanPaginateEntries;
+
+    use WithPagination {
+        WithPagination::resetPage as resetLivewirePage;
+    }
 
     protected Table $table;
 
@@ -161,5 +166,10 @@ trait InteractsWithTable
         }
 
         return $property;
+    }
+
+    public function resetPage($pageName = null): void
+    {
+        $this->resetLivewirePage($pageName ?? $this->getTablePaginationPageName());
     }
 }
