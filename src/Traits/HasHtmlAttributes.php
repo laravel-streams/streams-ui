@@ -35,6 +35,11 @@ trait HasHtmlAttributes
         return $attributes->getAttributes();
     }
 
+    public function hasHtmlAttribute($attribute): bool
+    {
+        return array_key_exists($attribute, $this->getHtmlAttributes());
+    }
+
     public function getHtmlAttributeBag(): ComponentAttributeBag
     {
         return new ComponentAttributeBag($this->getHtmlAttributes());
