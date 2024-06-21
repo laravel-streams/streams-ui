@@ -2,8 +2,8 @@
 
 namespace Streams\Ui\Builders\Concerns;
 
-use Streams\Ui\Support\Facades\UI;
 use Streams\Ui\Panels\Panel;
+use Streams\Ui\Support\Facades\UI;
 use Streams\Ui\Navigation\NavigationItem;
 
 trait HasNavigation
@@ -16,7 +16,7 @@ trait HasNavigation
 
     protected static ?string $activeNavigationIcon = null;
 
-    protected static ?string $navigationGroup = null;
+    // protected static ?string $navigationGroup = null;
 
     protected static ?int $navigationSort = null;
 
@@ -73,10 +73,10 @@ trait HasNavigation
         return null;
     }
 
-    protected static function getNavigationGroup(): ?string
-    {
-        return static::$navigationGroup;
-    }
+    // protected static function getNavigationGroup(): ?string
+    // {
+    //     return static::$navigationGroup;
+    // }
 
     protected static function getNavigationSort(): ?int
     {

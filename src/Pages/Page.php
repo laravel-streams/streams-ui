@@ -18,6 +18,7 @@ abstract class Page extends Component
     use Traits\HasLayout;
     use Traits\HasResource;
     use Traits\HasNavigation;
+    use Traits\HasNavigationGroups;
 
     // use Common\HasTitle;
     protected static ?string $title = null;
@@ -30,6 +31,7 @@ abstract class Page extends Component
             ->title();
     }
     
+    use Common\HasActions;
     use Common\HasDescription;
     use Common\HasHtmlAttributes;
     use Common\InteractsWithForms;

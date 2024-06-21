@@ -11,6 +11,7 @@ class NavigationGroup extends Builder
     use Common\HasIcon;
     use Common\HasSort;
     use Common\HasLabel;
+    use Common\CanBeHidden;
 
     use Navigation\Traits\HasItems;
     use Navigation\Traits\CanBeCollapsed;

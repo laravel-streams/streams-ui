@@ -6,13 +6,13 @@
 </head>
 
 @php
-    View::share('topNavigation', $topNavigation = false);
+View::share('topNavigation', $topNavigation = false);
 @endphp
 
 <body class="h-full" x-cloak x-data="{}">
 
     @include('ui::layouts.partials.sidebar')
-    
+
     <div class="{{ $topNavigation ? '' : 'lg:pl-72' }} h-full flex flex-col">
 
         @include('ui::layouts.partials.topbar')
@@ -26,8 +26,8 @@
     </div>
 
     @include('ui::layouts.partials.assets')
-    
-    <x-ui::messages/>
+
+    <x-ui::messages />
 
 </body>
 

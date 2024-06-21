@@ -13,13 +13,13 @@ trait InteractsWithQuery
     ): Criteria {
 
         // if ($this->searchQuery) {
+            
         //     $whereClause = $isFirst ? 'where' : 'orWhere';
 
         //     $query->{$whereClause}(
         //         fn ($query) => $this->evaluate($this->searchQuery, [
         //             'query' => $query,
         //             'search' => $search,
-        //             'searchQuery' => $search,
         //         ]),
         //     );
 

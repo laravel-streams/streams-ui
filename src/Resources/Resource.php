@@ -3,19 +3,28 @@
 namespace Streams\Ui\Resources;
 
 use Streams\Core\Entry\Entry;
+use Streams\Ui\Traits as Common;
 use Streams\Ui\Resources\Concerns;
-use Streams\Ui\Navigation\NavigationItem;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Builders\Concerns\HasTitle;
+use Streams\Ui\Navigation\NavigationItem;
+use Streams\Core\Support\Traits\HasMemory;
 use Streams\Ui\Builders\Concerns\HasNavigation;
+use Streams\Ui\Actions\Traits\InteractsWithActions;
 
 abstract class Resource
 {
-    use HasTitle;
+    use HasMemory;
+    
     use HasNavigation;
+
+    use Common\HasTitle;
+    use Common\HasActions;
 
     use Concerns\HasRoutes;
     use Concerns\HasStream;
+    use Concerns\HasNavigationGroups;
+
+    use InteractsWithActions;
 
     public static function getUrl(
         string $name = 'index',

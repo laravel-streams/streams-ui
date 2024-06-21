@@ -37,7 +37,7 @@ $selectedRecords = [];
         @endif
 
         @if ($bulkActions || $filters)
-        <div class="flex flex-row-reverse gap-x-3 p-3">
+        <div class="flex flex-col gap-x-3 p-3">
 
             {{-- @if ($bulkActions)
             <div class="flex mr-12">
@@ -47,22 +47,30 @@ $selectedRecords = [];
             </div>
             @endif --}}
 
-            @if ($filters)
-            <div x-data="{open: true}" x-on:click.outside="open=false" x-on:keydown.escape.window="open=false" class="flex justify-center relative">
+            <div class="flex justify-between">
 
-                <button @click="open = !open" class="p-2 text-gray-400 hover:text-gray-500">
-                    <x-heroicon-c-funnel class="h-5 w-5" />
-                </button>
-            
-                <x-ui::table.filters
-                    {{-- :form="$getFiltersForm()" --}}
-                    :filters="$filters"
-                    x-cloak
-                    x-show="open"
-                    class="absolute top-full right-0 w-72 bg-white p-4 border rounded-lg shadow-md"/>
+                <x-ui::table.search />
+
+                @if ($filters)
+                <div x-data="{open: false}" x-on:click.outside="open=false" x-on:keydown.escape.window="open=false" class="flex justify-center relative z-10">
+
+                    <button @click="open = !open" class="p-2 text-gray-400 hover:text-gray-500">
+                        <x-heroicon-c-funnel class="h-5 w-5" />
+                    </button>
+                
+                    <x-ui::table.filters
+                        {{-- :form="$getFiltersForm()" --}}
+                        :filters="$filters"
+                        x-cloak
+                        x-show="open"
+                        class="absolute top-full right-0 w-72 bg-white p-4 border rounded-lg shadow-md"/>
+                </div>
+                @endif
             </div>
-            @endif
             
+        </div>
+        <div>
+            <x-ui::table.indicators :indicators="$this->tableFilters"/>
         </div>
         @endif
 

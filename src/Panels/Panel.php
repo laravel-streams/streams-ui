@@ -13,6 +13,7 @@ class Panel extends ViewBuilder
     use Common\HasColors;
     use Common\HasActions;
     use Common\CanBeDefault;
+    use Common\HasNavigationGroups;
 
     use Traits\CanBeSpa;
 

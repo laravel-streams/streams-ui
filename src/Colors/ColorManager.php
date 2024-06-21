@@ -93,16 +93,15 @@ class ColorManager
         return implode(';', $variables);
     }
 
-    public function getColors(): array
+    public function getColors(array $extra = []): array
     {
-        return [
+        return array_merge([
             'danger' => Color::Red,
             'gray' => Color::Zinc,
             'info' => Color::Blue,
             'primary' => Color::Amber,
             'success' => Color::Green,
             'warning' => Color::Amber,
-            ...$this->colors,
-        ];
+        ], $this->colors, $extra);
     }
 }

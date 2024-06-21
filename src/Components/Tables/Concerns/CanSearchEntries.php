@@ -111,12 +111,11 @@ trait CanSearchEntries
         }
 
         foreach ($this->extractTableSearchWords($search) as $searchWord) {
-            
+
             // $query->where(function (Criteria $query) use ($searchWord) {
             //     $isFirst = true;
             //     // foreach ...
             // });
-
             foreach ($this->getTable()->getColumns() as $k => $column) {
 
                 // if ($column->isHidden()) {
@@ -126,6 +125,10 @@ trait CanSearchEntries
                 // if (!$column->isGloballySearchable()) {
                 //     continue;
                 // }
+
+                if (!$column->isSearchable()) {
+                    continue;
+                }
 
                 $column->applySearch(
                     $query,

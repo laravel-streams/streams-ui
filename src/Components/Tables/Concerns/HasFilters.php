@@ -10,11 +10,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 
 trait HasFilters
 {
-    public ?array $tableFilters = [
-        'search' => [
-            'value' => null,
-        ],
-    ];
+    public ?array $tableFilters = [];
 
     public function getTableFiltersForm(): Form
     {
@@ -92,6 +88,11 @@ trait HasFilters
 
         $this->resetTableSearch();
         $this->resetTableColumnSearches();
+    }
+
+    public function resetTableFilters(): void
+    {
+        $this->reset('tableFilters');
     }
 
     public function resetTableFiltersForm(): void

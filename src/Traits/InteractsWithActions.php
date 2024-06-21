@@ -256,56 +256,56 @@ trait InteractsWithActions
         return null;
     }
 
-    /**
-     * @param  string | array<string>  $name
-     */
-    public function getAction(string | array $name): ?Action
-    {
-        if (is_string($name) && str($name)->contains('.')) {
-            $name = explode('.', $name);
-        }
+    // /**
+    //  * @param  string | array<string>  $name
+    //  */
+    // public function getAction(string | array $name): ?Action
+    // {
+    //     if (is_string($name) && str($name)->contains('.')) {
+    //         $name = explode('.', $name);
+    //     }
 
-        if (is_array($name)) {
-            $firstName = array_shift($name);
-            $modalActionNames = $name;
+    //     if (is_array($name)) {
+    //         $firstName = array_shift($name);
+    //         $modalActionNames = $name;
 
-            $name = $firstName;
-        }
+    //         $name = $firstName;
+    //     }
 
-        if ($action = $this->cachedActions[$name] ?? null) {
-            return $this->getMountableModalActionFromAction(
-                $action,
-                modalActionNames: $modalActionNames ?? [],
-                parentActionName: $name,
-            );
-        }
+    //     if ($action = $this->cachedActions[$name] ?? null) {
+    //         return $this->getMountableModalActionFromAction(
+    //             $action,
+    //             modalActionNames: $modalActionNames ?? [],
+    //             parentActionName: $name,
+    //         );
+    //     }
 
-        if (
-            (!str($name)->endsWith('Action')) &&
-            method_exists($this, "{$name}Action")
-        ) {
-            $methodName = "{$name}Action";
-        } elseif (method_exists($this, $name)) {
-            $methodName = $name;
-        } else {
-            return null;
-        }
+    //     if (
+    //         (!str($name)->endsWith('Action')) &&
+    //         method_exists($this, "{$name}Action")
+    //     ) {
+    //         $methodName = "{$name}Action";
+    //     } elseif (method_exists($this, $name)) {
+    //         $methodName = $name;
+    //     } else {
+    //         return null;
+    //     }
 
-        $action = Action::configureUsing(
-            Closure::fromCallable([$this, 'configureAction']),
-            fn () => $this->{$methodName}(),
-        );
+    //     $action = Action::configureUsing(
+    //         Closure::fromCallable([$this, 'configureAction']),
+    //         fn () => $this->{$methodName}(),
+    //     );
 
-        if (!$action instanceof Action) {
-            throw new InvalidArgumentException('Actions must be an instance of ' . Action::class . ". The [{$methodName}] method on the Livewire component returned an instance of [" . get_class($action) . '].');
-        }
+    //     if (!$action instanceof Action) {
+    //         throw new InvalidArgumentException('Actions must be an instance of ' . Action::class . ". The [{$methodName}] method on the Livewire component returned an instance of [" . get_class($action) . '].');
+    //     }
 
-        return $this->getMountableModalActionFromAction(
-            $this->cacheAction($action),
-            modalActionNames: $modalActionNames ?? [],
-            parentActionName: $name,
-        );
-    }
+    //     return $this->getMountableModalActionFromAction(
+    //         $this->cacheAction($action),
+    //         modalActionNames: $modalActionNames ?? [],
+    //         parentActionName: $name,
+    //     );
+    // }
 
     /**
      * @param  array<string>  $modalActionNames

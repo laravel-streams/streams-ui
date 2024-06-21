@@ -2,9 +2,9 @@
 
 namespace Streams\Ui\Tables\Filters;
 
+use Streams\Ui\Tables\Table;
 use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Inputs\Traits\HasPlaceholder;
-use Streams\Ui\Tables\Table;
 
 class TextFilter extends Filter
 {

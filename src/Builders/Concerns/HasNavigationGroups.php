@@ -7,11 +7,11 @@ use Illuminate\Support\Collection;
 use Streams\Ui\Navigation\NavigationItem;
 use Streams\Ui\Navigation\NavigationGroup;
 
-trait HasNavigation
+trait HasNavigationGroups
 {
     protected bool $navigationMounted = false;
 
-    protected array $navigationItems = [];
+    protected array $navigationGroups = [];
 
     // protected \Closure | bool $navigationBuilder = true;
 
@@ -34,17 +34,19 @@ trait HasNavigation
     //     return $this->navigationBuilder !== false;
     // }
 
-    public function mountNavigation(): void
+    public function navigationGroups(array $groups): static
     {
-        foreach ($this->getPages() as $page) {
-            $page::registerNavigationItems($this);
-        }
+        $this->navigationGroups = [
+            ...$this->navigationGroups,
+            ...$groups,
+        ];
 
-        foreach ($this->getResources() as $resource) {
-            $resource::registerNavigationItems($this);
-        }
+        return $this;
+    }
 
-        $this->navigationMounted = true;
+    public function getNavigationGroups(): array
+    {
+        return $this->navigationGroups;
     }
 
     public function navigationItems(array $items): static

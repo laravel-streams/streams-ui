@@ -35,37 +35,37 @@
     x-data="{
         isOpen: false,
 
-        livewire: null,
-
         close: function () {
-            this.isOpen = false
+            
+            this.isOpen = false;
 
-            {{-- this.$refs.modalContainer.dispatchEvent(
+            this.$refs.modalContainer.dispatchEvent(
                 new CustomEvent('modal-closed', { id: '{{ $id }}' }),
-            ) --}}
+            );
         },
 
         open: function () {
-            this.isOpen = true
+
+            this.isOpen = true;
 
             this.$refs.modalContainer.dispatchEvent(
                 new CustomEvent('modal-opened', { id: '{{ $id }}' }),
-            )
+            );
         },
     }"
     @if ($id)
-        x-on:{{ $closeEventName }}.window="if ($event.detail.id === '{{ $id }}') close()"
-        x-on:{{ $openEventName }}.window="if ($event.detail.id === '{{ $id }}') open()"
+        x-on:{{ $closeEventName }}.window="if ($event.detail.id === '{{ $id }}') close"
+        x-on:{{ $openEventName }}.window="if ($event.detail.id === '{{ $id }}') open"
     @endif
     
     {{-- x-trap.noscroll="isOpen" --}}
-    wire:ignore.self
+    {{-- wire:ignore.self --}}
     @class([
         'ui-modal',
         'ui-width-screen' => $width === 'screen',
         $displayClasses,
     ])>
-    
+
     @if ($trigger)
         <div
             x-on:click="open"
@@ -74,7 +74,7 @@
             {{ $trigger }}
         </div>
     @endif
-
+    
     <div
         x-cloak
         x-show="isOpen"
@@ -94,7 +94,7 @@
                 @endif
             @endif
             @class([
-                'ui-modal-close-overlay fixed inset-0 bg-gray-950/50 dark:bg-gray-950/75',
+                'ui-modal-close-overlay fixed inset-0 bg-gray-950/50',
                 'cursor-pointer' => $closeByClickingAway,
             ])
             style="will-change: transform"
@@ -108,11 +108,12 @@
                     'pointer-events-none relative w-full transition',
                     'my-auto p-4' => ! ($slideOver || ($width === 'screen')),
                 ])
-            }}
-        >
+            }}>
+            
             <div
                 x-cloak
-                x-data="{ isShown: false }"
+                {{-- x-data="{ isShown: false }" --}}
+                x-data="{ isShown: true }"
                 x-init="
                     $nextTick(() => {
                         isShown = isOpen
@@ -162,11 +163,12 @@
                     },
                 ])
             >
+            
                 @if ($heading || $header)
                     <div
                         @class([
                             'ui-modal-header flex px-6 pt-6',
-                            'ui-sticky sticky top-0 z-10 border-b border-gray-200 bg-white pb-6 dark:border-white/10 dark:bg-gray-900' => $stickyHeader,
+                            'ui-sticky sticky top-0 z-10 border-b border-gray-200 bg-white pb-6' => $stickyHeader,
                             'rounded-t-xl' => $stickyHeader && ! ($slideOver || ($width === 'screen')),
                             match ($alignment) {
                                 'start', 'left' => 'gap-x-5',
@@ -191,6 +193,7 @@
                                     {{-- :label="__('ui::components/modal.actions.close.label')" --}}
                                     tabindex="-1"
                                     :x-on:click="filled($id) ? '$dispatch(' . \Illuminate\Support\Js::from($closeEventName) . ', { id: ' . \Illuminate\Support\Js::from($id) . ' })' : 'close()'"
+                                    x-on:click="close()"
                                     class="ui-modal-close-btn"
                                 >CLOSE</x-ui::action>
                             </div>
@@ -209,8 +212,8 @@
                                         @class([
                                             'rounded-full',
                                             match ($iconColor) {
-                                                'gray' => 'ui-color-gray bg-gray-100 dark:bg-gray-500/20',
-                                                default => 'ui-color-custom bg-custom-100 dark:bg-custom-500/20',
+                                                'gray' => 'ui-color-gray bg-gray-100',
+                                                default => 'ui-color-custom bg-custom-100',
                                             },
                                             match ($alignment) {
                                                 'start', 'left' => 'p-2',
@@ -231,8 +234,8 @@
                                             @class([
                                                 'ui-modal-icon h-6 w-6',
                                                 match ($iconColor) {
-                                                    'gray' => 'text-gray-500 dark:text-gray-400',
-                                                    default => 'text-custom-600 dark:text-custom-400',
+                                                    'gray' => 'text-gray-500',
+                                                    default => 'text-custom-600',
                                                 },
                                             ])
                                         />
@@ -279,7 +282,7 @@
                             'ui-modal-footer w-full',
                             'pe-6 ps-[5.25rem]' => $icon && ($alignment === 'start') && ($footerActionsAlignment !== 'center') && (! $stickyFooter),
                             'px-6' => ! ($icon && ($alignment === 'start') && ($footerActionsAlignment !== 'center') && (! $stickyFooter)),
-                            'ui-sticky sticky bottom-0 border-t border-gray-200 bg-white py-5 dark:border-white/10 dark:bg-gray-900' => $stickyFooter,
+                            'ui-sticky sticky bottom-0 border-t border-gray-200 bg-white py-5' => $stickyFooter,
                             'rounded-b-xl' => $stickyFooter && ! ($slideOver || ($width === 'screen')),
                             'pb-6' => ! $stickyFooter,
                             'mt-6' => (! $stickyFooter) && empty($slot),

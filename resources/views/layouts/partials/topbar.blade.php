@@ -52,7 +52,9 @@ use Streams\Ui\Support\Facades\UI;
 
             @foreach (UI::currentPanel()->getActions() as $action)
             @if ($action->isVisible())
-            {!! $action->toHtml() !!}
+            {!! $action
+                ->style('icon')
+                ->toHtml() !!}
             @endif
             @endforeach
 

@@ -15,9 +15,12 @@ class Action extends ViewBuilder
     use Traits\HasArguments;
     use Traits\HasKeyBindings;
     use Traits\HasBorderRadius;
-    
+
+    use Traits\CanOpenModal;
+
     use Traits\InteractsWithEntry;
 
+    use Common\HasId;
     use Common\HasUrl;
     use Common\HasIcon;
     use Common\HasName;
@@ -64,7 +67,7 @@ class Action extends ViewBuilder
         bool | \Closure $openInNewTab = false
     ) {
         $this->style(__FUNCTION__);
-        
+
         $this->tag('a');
         $this->url($url, $openInNewTab);
 

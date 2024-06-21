@@ -1,5 +1,54 @@
+@php
+    $action = $this->getMountedAction();
+@endphp
+
+<x-ui::modal
+    :alignment="$action?->getModalAlignment()"
+    :close-button="$action?->hasModalCloseButton()"
+    :close-by-clicking-away="$action?->isModalClosedByClickingAway()"
+    :description="$action?->getModalDescription()"
+    {{-- display-classes="block" --}}
+    :footer-actions="$action?->getVisibleModalFooterActions()"
+    :footer-actions-alignment="$action?->getModalFooterActionsAlignment()"
+    :heading="$action?->getModalHeading()"
+    :icon="$action?->getModalIcon()"
+    :icon-color="$action?->getModalIconColor()"
+    :id="$action?->getId() . '-action'"
+    {{-- :slide-over="$action?->isModalSlideOver()" --}}
+    :sticky-footer="$action?->isModalFooterSticky()"
+    :sticky-header="$action?->isModalHeaderSticky()"
+    :visible="filled($action)"
+    :width="$action?->getModalWidth()"
+    :wire:key="$action ? $this->getId() . '.actions.' . $action->getName() . '.modal' : null"
+    x-on:modal-closed.stop="
+        const mountedActionShouldOpenModal = {{ \Illuminate\Support\Js::from($action && $this->mountedActionShouldOpenModal()) }}
+
+        if (! mountedActionShouldOpenModal) {
+            return
+        }
+
+        if ($wire.mountedFormComponentActions.length) {
+            return
+        }
+
+        $wire.unmountAction(false)
+    ">
+
+    @if ($action)
+        {{ $action->getModalContent() }}
+
+        {{-- @if (count(($infolist = $action->getInfolist())?->getComponents() ?? []))
+            {{ $infolist }}
+        @elseif ($this->mountedActionHasForm())
+            {{ $this->getMountedActionForm() }}
+        @endif --}}
+
+        {{ $action->getModalContentFooter() }}
+    @endif
+</x-ui::modal>
+
 {{-- @if ($this instanceof \Filament\Actions\Contracts\HasActions && (! $this->hasActionsModalRendered)) --}}
-@if (isset($this->table))
+{{-- @if (isset($this->table))
 
     <form wire:submit.prevent="callMountedAction">
         @php
@@ -18,7 +67,7 @@
             :icon="$action?->getModalIcon()"
             :icon-color="$action?->getModalIconColor()"
             :id="$this->getId() . '-action'"
-            {{-- :slide-over="$action?->isModalSlideOver()" --}}
+            :slide-over="$action?->isModalSlideOver()"
             :sticky-footer="$action?->isModalFooterSticky()"
             :sticky-header="$action?->isModalHeaderSticky()"
             :visible="filled($action)"
@@ -43,11 +92,11 @@
             @if ($action)
                 {{ $action->getModalContent() }}
 
-                {{-- @if (count(($infolist = $action->getInfolist())?->getComponents() ?? []))
+                @if (count(($infolist = $action->getInfolist())?->getComponents() ?? []))
                     {{ $infolist }}
                 @elseif ($this->mountedActionHasForm())
                     {{ $this->getMountedActionForm() }}
-                @endif --}}
+                @endif
 
                 {{ $action->getModalContentFooter() }}
             @endif
@@ -57,7 +106,7 @@
     @php
         $this->hasActionsModalRendered = true;
     @endphp
-@endif
+@endif --}}
 
 {{-- @if ($this instanceof \Filament\Tables\Contracts\HasTable && (! $this->hasTableModalRendered))
     <form wire:submit.prevent="callMountedTableAction">
