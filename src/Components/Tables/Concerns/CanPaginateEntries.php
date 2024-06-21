@@ -8,7 +8,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 
 trait CanPaginateEntries
 {
-    public $tableRecordsPerPage = 25;
+    public $tableRecordsPerPage = null;
 
     protected int | string | null $defaultTableRecordsPerPageSelectOption = null;
 
@@ -38,7 +38,7 @@ trait CanPaginateEntries
 
     public function getTableRecordsPerPage(): int | string | null
     {
-        return $this->tableRecordsPerPage;
+        return $this->tableRecordsPerPage ?: $this->table->getPerPage();
     }
 
     public function getTablePage(): int

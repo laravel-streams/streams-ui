@@ -29,7 +29,7 @@ trait CanBePaginated
             $condition = true;
         }
 
-        $this->isPaginated = $condition;
+        $this->paginated = $condition;
 
         return $this;
     }
