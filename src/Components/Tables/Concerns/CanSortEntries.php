@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Components\Tables\Concerns;
 
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\Url;
 use Streams\Core\Criteria\Criteria;
 
@@ -75,7 +76,7 @@ trait CanSortEntries
         // $this->resetPage();
     }
 
-    protected function applySortingToTableQuery(Criteria $query): Criteria
+    protected function applySortingToTableQuery(Criteria|Builder $query): Criteria|Builder
     {
         // if ($this->getTable()->isGroupsOnly()) {
         //     return $query;
@@ -102,7 +103,7 @@ trait CanSortEntries
         return $query;
     }
 
-    protected function applyDefaultSorting(Criteria $query): Criteria
+    protected function applyDefaultSorting(Criteria|Builder $query): Criteria|Builder
     {
         $sortColumnName = $this->getTable()->getDefaultSortColumn();
         $sortDirection = ($this->getTable()->getDefaultSortDirection()

@@ -15,6 +15,7 @@ class MenuItem extends Builder
     use Common\HasLabel;
     use Common\HasBadge;
     use Common\CanBeHidden;
+    use Common\HasHtmlAttributes;
 
     public static function make(): static
     {

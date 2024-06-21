@@ -2,7 +2,6 @@
 
 namespace Streams\Ui\Traits;
 
-use Streams\Core\Entry\Entry;
 use Streams\Core\Entry\Contract\EntryInterface;
 
 trait HasEntry
