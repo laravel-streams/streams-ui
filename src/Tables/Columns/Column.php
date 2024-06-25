@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Tables\Columns;
 
+use Illuminate\Support\Collection;
 use Streams\Ui\Traits as Support;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Tables\Columns\Concerns;
@@ -16,6 +17,7 @@ abstract class Column extends ViewBuilder
     use Support\HasEntry;
     use Support\HasValue;
     use Support\HasTooltip;
+    use Support\CanBeHidden;
 
     use Support\HasHtmlAttributes;
 
@@ -33,7 +35,7 @@ abstract class Column extends ViewBuilder
         $this->value(function ($entry) {
 
             $entry = $this->getEntryInstance();
-            
+
             return $entry->{$this->getName()} ?: '';
         });
     }

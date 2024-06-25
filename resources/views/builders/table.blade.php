@@ -4,6 +4,9 @@ $columns = $table->getColumns();
 $filters = $table->getFilters();
 $bulkActions = $table->getBulkActions();
 
+// Visible columns only.
+$columns = collect($columns)->filter(fn ($column) => $column->isVisible());
+
 $paginator = $this->getTableEntries();
 
 $heading = $table->getHeading();

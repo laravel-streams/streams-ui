@@ -3,6 +3,7 @@
 namespace Streams\Ui\Tables\Concerns;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Streams\Ui\Tables\Columns\Column;
 
 trait HasColumns
@@ -29,6 +30,14 @@ trait HasColumns
         return Arr::first(
             $this->getColumns(),
             fn (Column $column) => $column->getName() === $name
+        );
+    }
+
+    public function getVisibleColumns(): array
+    {
+        return array_filter(
+            $this->getColumns(),
+            fn (Column $column) => $column->isVisible()
         );
     }
 }
