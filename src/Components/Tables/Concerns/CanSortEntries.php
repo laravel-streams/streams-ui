@@ -109,14 +109,14 @@ trait CanSortEntries
         $sortDirection = ($this->getTable()->getDefaultSortDirection()
             ?? $this->tableSortDirection) === 'desc' ? 'desc' : 'asc';
 
-        if (
-            $sortColumnName &&
-            ($sortColumn = $this->getTable()->getSortableVisibleColumn($sortColumnName))
-        ) {
-            $sortColumn->applySort($query, $sortDirection);
+        // if (
+        //     $sortColumnName &&
+        //     ($sortColumn = $this->getTable()->getSortableVisibleColumn($sortColumnName))
+        // ) {
+        //     $sortColumn->applySort($query, $sortDirection);
 
-            return $query;
-        }
+        //     return $query;
+        // }
 
         if ($sortColumnName) {
             return $query->orderBy($sortColumnName, $sortDirection);
