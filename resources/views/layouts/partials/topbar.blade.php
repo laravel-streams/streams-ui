@@ -96,7 +96,7 @@ use Streams\Ui\Support\Facades\UI;
                         $navigate = $spaEnabled && $target == '_self' && Str::startsWith($url, URL::to('/'));
                     @endphp
                     <a href="{{ $url }}"
-                        {{ $navigate ? 'wire:navigate' : '' }}
+                        {{-- {{ $navigate ? 'wire:navigate' : '' }} --}}
                         target="{{ $target }}"
                         class="flex w-full items-center gap-2 whitespace-nowrap rounded-md p-2 transition-colors duration-75 outline-none disabled:pointer-events-none disabled:opacity-70 hover:bg-gray-50 focus-visible:bg-gray-50"
                         role="menuitem" tabindex="-1" id="user-menu-item-1">
