@@ -30,17 +30,13 @@ $description = $this->getDescription();
             >
             <div x-data="{
                 type: @js($this->getType()),
-                data: @js($this->getType()),
+                data: @js($this->getData()),
                 init() {
                     let chart = new Chart(this.$refs.canvas.getContext('2d'), {
                         type: @js($this->getType()),
                         data: {
                             labels: this.data.labels,
-                            datasets: [{
-                                data: this.data.values,
-                                backgroundColor: '#77C1D2',
-                                borderColor: '#77C1D2',
-                            }],
+                            datasets: this.data.datasets,
                         },
                         options: {
                             interaction: { intersect: false },
@@ -59,9 +55,9 @@ $description = $this->getDescription();
                         }
                     })
          
-                    this.$watch('values', () => {
-                        chart.data.labels = this.labels
-                        chart.data.datasets[0].data = this.values
+                    this.$watch('data', () => {
+                        chart.data.labels = this.data.labels
+                        chart.data.datasets = this.data.datasets
                         chart.update()
                     })
                 }
