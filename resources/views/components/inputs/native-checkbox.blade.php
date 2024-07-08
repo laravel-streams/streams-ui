@@ -1,7 +1,7 @@
 @props([
     'alpineValid' => null,
     'valid' => true,
-    'label',
+    'label' => null,
 ])
 
 @php
