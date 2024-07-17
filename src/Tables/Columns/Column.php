@@ -36,7 +36,7 @@ abstract class Column extends ViewBuilder
 
             $entry = $this->getEntryInstance();
 
-            return $entry->{$this->getName()} ?: '';
+            return $entry->{$this->getName()};
         });
     }
 

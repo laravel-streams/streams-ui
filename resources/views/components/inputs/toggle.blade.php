@@ -1,3 +1,7 @@
+@props([
+    'statePath' => null,
+])
+
 {{-- <x-dynamic-component :component="$getFieldWrapperView()" :field="$field"> --}}
 
     @php
@@ -5,7 +9,7 @@
         // $onColor = $getOnColor() ?? 'primary';
         $offColor = 'red';
         $onColor = 'primary';
-        $statePath = $getStatePath();
+        // $statePath = $getStatePath();
     @endphp
 
 <button
@@ -51,8 +55,8 @@
             ->merge([
                 'aria-checked' => 'false',
                 // 'autofocus' => $isAutofocused(),
-                'disabled' => $isDisabled(),
-                'id' => $getId(),
+                // 'disabled' => $isDisabled(),
+                // 'id' => $getId(),
                 'role' => 'switch',
                 'type' => 'button',
                 'wire:loading.attr' => 'disabled',
@@ -117,6 +121,6 @@
     </span>
 </button>
 
-<label for="{{ $getId() }}">{{ $getLabel() }}</label>
+{{-- <label for="{{ $getId() }}">{{ $getLabel() }}</label> --}}
 
 {{-- </x-dynamic-component> --}}
