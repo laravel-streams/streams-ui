@@ -1,11 +1,21 @@
 <div aria-live="assertive" class="z-50 pointer-events-none fixed inset-0 flex items-start px-4 py-6 sm:items-start sm:p-6">
     <div class="flex w-full flex-col items-center space-y-4 sm:items-center">
         
+        @php
+        
+            $notifications = array_merge(
+                \Streams\Ui\Support\Facades\Notifications::all(),
+                Session::pull('streams.notifications', [])
+            );
+        @endphp
+
+        @foreach ($notifications as $data)
+        
         {{-- Simple --}}
-        @foreach (Session::pull('streams.notifications', []) as $data)
         @php
         $notification = \Streams\Ui\Notifications\Notification::fromArray($data);
         @endphp
+
         <div x-data="{
             show: true,
             timeout: {{ $notification->getDuration() ?? 0 }},

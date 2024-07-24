@@ -35,6 +35,7 @@ class UiServiceProvider extends ServiceProvider
         
         $this->app->singleton('colors', \Streams\Ui\Colors\ColorManager::class);
         $this->app->singleton('breadcrumbs', \Illuminate\Support\Collection::class);
+        $this->app->singleton('notifications', \Illuminate\Support\Collection::class);
     }
 
     public function boot()
