@@ -51,7 +51,7 @@ class Table extends ViewBuilder implements HasActions
 
     public function getEntries(): Collection | Paginator
     {
-        return $this->getTableEntries();
+        return $this->getLivewire()->getTableEntries();
     }
 
     protected function resolveDefaultClosureDependency(string $parameter): array

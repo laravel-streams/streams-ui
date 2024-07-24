@@ -45,23 +45,23 @@ trait HasActions
         $form = $this->getMountedTableActionForm();
 
         $result = null;
-
+        
         try {
-            if ($this->mountedTableActionHasForm()) {
-                $action->callBeforeFormValidated();
+            // if ($this->mountedTableActionHasForm()) {
+            //     $action->callBeforeFormValidated();
 
-                $action->formData($form->getState());
+            //     $action->formData($form->getState());
 
-                $action->callAfterFormValidated();
-            }
+            //     $action->callAfterFormValidated();
+            // }
 
-            $action->callBefore();
-
+            // $action->callBefore();
             $result = $action->call([
-                'form' => $form,
+                'component' => $this,
+                'entry' => $this->mountedTableActionRecord,
             ]);
 
-            $result = $action->callAfter() ?? $result;
+            // $result = $action->callAfter() ?? $result;
         // } catch (Halt $exception) {
         } catch (\Exception $exception) {
             return null;
@@ -78,12 +78,12 @@ trait HasActions
             throw $exception;
         }
 
-        if (store($this)->has('redirect')) {
-            return $result;
-        }
+        // if (store($this)->has('redirect')) {
+        //     return $result;
+        // }
 
         $action->resetArguments();
-        $action->resetFormData();
+        // $action->resetFormData();
 
         $this->unmountTableAction();
 
@@ -95,13 +95,13 @@ trait HasActions
         $this->mountedTableActionRecord = $record;
     }
 
-    public function mountTableAction(string $name, ?string $record = null): mixed
+    public function mountTableAction(string $name, ?string $entry = null): mixed
     {
         $this->mountedTableActions[] = $name;
         $this->mountedTableActionsData[] = [];
 
         if (count($this->mountedTableActions) === 1) {
-            $this->mountedTableActionRecord($record);
+            $this->mountedTableActionRecord($entry);
         }
 
         $action = $this->getMountedTableAction();
@@ -112,7 +112,7 @@ trait HasActions
             return null;
         }
 
-        // if (filled($record) && ($action->getEntry() === null)) {
+        // if (filled($entry) && ($action->getEntry() === null)) {
         //     $this->unmountTableAction();
 
         //     return null;
@@ -134,9 +134,9 @@ trait HasActions
         //         $action->callBeforeFormFilled();
         //     }
 
-        //     $action->mount([
-        //         'form' => $this->getMountedTableActionForm(),
-        //     ]);
+            // $action->mount([
+            //     'form' => $this->getMountedTableActionForm(),
+            // ]);
 
         //     if ($hasForm) {
         //         $action->callAfterFormFilled();
@@ -149,7 +149,7 @@ trait HasActions
         //     return null;
         // }
         
-if ($this->mountedTableActionShouldOpenModal());
+        // if ($this->mountedTableActionShouldOpenModal());
         if (!$this->mountedTableActionShouldOpenModal()) {
             return $this->callMountedTableAction();
         }
@@ -256,29 +256,29 @@ if ($this->mountedTableActionShouldOpenModal());
     {
         $action = $this->getMountedTableAction();
 
-        if (!($shouldCancelParentActions && $action)) {
+        // if (!($shouldCancelParentActions && $action)) {
             $this->popMountedTableAction();
-        } elseif ($action->shouldCancelAllParentActions()) {
-            $this->resetMountedTableActionProperties();
-        } else {
-            $parentActionToCancelTo = $action->getParentActionToCancelTo();
+        // } elseif ($action->shouldCancelAllParentActions()) {
+        //     $this->resetMountedTableActionProperties();
+        // } else {
+        //     $parentActionToCancelTo = $action->getParentActionToCancelTo();
 
-            while (true) {
-                $recentlyClosedParentAction = $this->popMountedTableAction();
+        //     while (true) {
+        //         $recentlyClosedParentAction = $this->popMountedTableAction();
 
-                if (
-                    blank($parentActionToCancelTo) ||
-                    ($recentlyClosedParentAction === $parentActionToCancelTo)
-                ) {
-                    break;
-                }
-            }
-        }
+        //         if (
+        //             blank($parentActionToCancelTo) ||
+        //             ($recentlyClosedParentAction === $parentActionToCancelTo)
+        //         ) {
+        //             break;
+        //         }
+        //     }
+        // }
 
         if (!count($this->mountedTableActions)) {
             $this->closeTableActionModal();
 
-            $action?->record(null);
+            $action?->entry(null);
             // @todo 
             // $this->mountedTableActionRecord(null);
 

@@ -16,7 +16,7 @@ abstract class Resource
     use HasMemory;
     
     use HasNavigation;
-
+    
     use Common\HasTitle;
     use Common\HasActions;
 

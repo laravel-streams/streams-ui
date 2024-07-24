@@ -21,4 +21,9 @@ trait HasAction
 
         return $this->action;
     }
+
+    public function call(array $payload = [])
+    {
+        return $this->evaluate($this->action, $payload);
+    }
 }

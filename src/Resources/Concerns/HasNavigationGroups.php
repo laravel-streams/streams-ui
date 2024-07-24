@@ -15,21 +15,22 @@ trait HasNavigationGroups
     
     public static function getNavigationGroups(): array
     {
-        return [];
+        return self::$navigationGroups;
     }
 
-    public static function getNavigationGroup($label = null): ?NavigationGroup
-    {
-        $groups = static::getNavigationGroups();
+    // This was me - collides with vendor/streams/ui/src/Traits/HasNavigationGroups.php
+    // public static function getNavigationGroup($label = null): ?NavigationGroup
+    // {
+    //     $groups = static::getNavigationGroups();
 
-        return static::once(__METHOD__ . "({$label})", function() use ($groups, $label) {
+    //     return static::once(__METHOD__ . "({$label})", function() use ($groups, $label) {
 
-            if (!$label && $groups) {
-                return reset($groups);
-            }
+    //         if (!$label && $groups) {
+    //             return reset($groups);
+    //         }
 
-            return isset($groups[$label]) ? $groups[$label] : null;
-        });
+    //         return isset($groups[$label]) ? $groups[$label] : null;
+    //     });
 
-    }
+    // }
 }

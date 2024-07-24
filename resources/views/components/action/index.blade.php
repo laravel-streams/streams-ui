@@ -43,8 +43,8 @@
                     default => $borderRadius,
                 },
                 ...match ($color) {
-                    null => [
-                        // 'bg-gray-500 text-white hover:bg-gray-600',
+                    'black' => [
+                        'bg-black text-white hover:bg-gray-700',
                     ],
                     default => [
                         'bg-custom-500 text-white hover:bg-custom-600',
