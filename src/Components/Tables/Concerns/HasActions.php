@@ -93,7 +93,6 @@ trait HasActions
 
     protected function openActionModal(Action $action): void
     {
-        dd("{$action->getId()}-action");
         $this->dispatch('open-modal', id: "{$action->getId()}-action");
     }
 

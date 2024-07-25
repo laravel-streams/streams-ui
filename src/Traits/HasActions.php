@@ -45,7 +45,7 @@ trait HasActions
         }
 
         foreach ((array) $name as $search) {
-            if ($action = Arr::first($actions, fn ($action) => $action->handle === $search)) {
+            if ($action = Arr::first($actions, fn ($action) => $action->getName() === $search)) {
                 return $action;
             }
         }
