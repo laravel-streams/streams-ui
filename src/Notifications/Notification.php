@@ -93,6 +93,13 @@ class Notification extends ViewBuilder
         return $static;
     }
 
+    // public function push(): static
+    // {
+    //     Notifications::push($this->toArray());
+
+    //     return $this;
+    // }
+
     public function send(): static
     {
         Session::push(

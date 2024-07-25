@@ -16,7 +16,7 @@ trait HasNavigation
 
     protected static ?string $activeNavigationIcon = null;
 
-    // protected static ?string $navigationGroup = null;
+    protected static ?string $navigationGroup = null;
 
     protected static ?int $navigationSort = null;
 
@@ -73,10 +73,10 @@ trait HasNavigation
         return null;
     }
 
-    // protected static function getNavigationGroup(): ?string
-    // {
-    //     return static::$navigationGroup;
-    // }
+    protected static function getNavigationGroup(): ?string
+    {
+        return static::$navigationGroup;
+    }
 
     protected static function getNavigationSort(): ?int
     {

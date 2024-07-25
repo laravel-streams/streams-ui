@@ -16,9 +16,9 @@ abstract class Resource
     use HasMemory;
     
     use HasNavigation;
-
+    
     use Common\HasTitle;
-    use Common\HasActions;
+    // use Concerns\HasActions;
 
     use Concerns\HasRoutes;
     use Concerns\HasStream;
@@ -61,6 +61,11 @@ abstract class Resource
     }
 
     public static function getPages(): array
+    {
+        return [];
+    }
+
+    public static function getActions(): array
     {
         return [];
     }

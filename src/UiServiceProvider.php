@@ -35,6 +35,7 @@ class UiServiceProvider extends ServiceProvider
         
         $this->app->singleton('colors', \Streams\Ui\Colors\ColorManager::class);
         $this->app->singleton('breadcrumbs', \Illuminate\Support\Collection::class);
+        $this->app->singleton('notifications', \Illuminate\Support\Collection::class);
     }
 
     public function boot()
@@ -69,21 +70,8 @@ class UiServiceProvider extends ServiceProvider
 
         Livewire::propertySynthesizer(\Streams\Ui\Support\EntrySynthesizer::class);
 
-        // foreach (config('streams.ui.components') as $name => $class) {
-        //     UI::component($name, $class);
-        // }
-
-        // foreach (config('streams.ui.livewire') as $name => $class) {
-        //     Livewire::component($name, $class);
-        // }
-
         $this->app->booted(function () {
-
             $this->loadRoutesFrom(__DIR__ . '/../resources/routes/web.php');
-
-            // foreach (config('streams.ui.components') as $name => $class) {
-            //     Blade::component($name, BladeComponent::class);
-            // }
         });
     }
 }

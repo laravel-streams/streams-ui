@@ -4,9 +4,9 @@ namespace Streams\Ui\Traits;
 
 trait CanBeDisabled
 {
-    protected bool $disabled = false;
+    protected bool | \Closure $disabled = false;
 
-    public function disabled(bool $condition = true): static
+    public function disabled(bool | \Closure $condition = true): static
     {
         $this->disabled = $condition;
 
@@ -15,6 +15,6 @@ trait CanBeDisabled
 
     public function isDisabled(): bool
     {
-        return $this->disabled;
+        return $this->evaluate($this->disabled);
     }
 }

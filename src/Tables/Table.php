@@ -49,6 +49,11 @@ class Table extends ViewBuilder implements HasActions
         return $instance;
     }
 
+    public function getEntries(): Collection | Paginator
+    {
+        return $this->getLivewire()->getTableEntries();
+    }
+
     protected function resolveDefaultClosureDependency(string $parameter): array
     {
         return match ($parameter) {
@@ -82,7 +87,7 @@ class Table extends ViewBuilder implements HasActions
         string | \Closure | null $column,
         string | \Closure | null $direction = 'asc'
     ): static {
-        
+
         if ($column instanceof \Closure) {
             $this->defaultSortQuery = $column;
         } else {

@@ -16,6 +16,7 @@ class NavigationItem extends Builder
     use Common\HasHtmlAttributes;
     
     use Common\CanBeHidden;
+    use Common\CanBeDisabled;
 
     use Navigation\Traits\HasGroup;
     use Navigation\Traits\HasActiveIcon;
