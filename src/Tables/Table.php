@@ -49,11 +49,6 @@ class Table extends ViewBuilder implements HasActions
         return $instance;
     }
 
-    public function getEntries(): Collection | Paginator
-    {
-        return $this->getTableEntries();
-    }
-
     protected function resolveDefaultClosureDependency(string $parameter): array
     {
         return match ($parameter) {

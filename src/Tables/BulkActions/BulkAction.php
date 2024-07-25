@@ -26,9 +26,9 @@ class BulkAction extends \Streams\Ui\Actions\Action
             return $this->evaluate($this->getAction(), $parameters);
         } catch (\Exception $e) {
             dump($e->getMessage());
-            if ($this->shouldDeselectRecordsAfterCompletion()) {
-                $this->getLivewire()->deselectAllTableRecords();
-            }
+            // if ($this->shouldDeselectRecordsAfterCompletion()) {
+            //     $this->getLivewire()->deselectAllTableRecords();
+            // }
         }
     }
 
