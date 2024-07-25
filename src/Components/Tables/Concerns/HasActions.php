@@ -32,10 +32,10 @@ trait HasActions
             return null;
         }
 
-        if (filled($this->mountedTableActionRecord) && ($action->getEntry() === null)) {
-            return null;
-        }
-
+        // if (filled($this->mountedTableActionRecord) && ($action->getEntry() === null)) {
+        //     return null;
+        // }
+        
         if ($action->isDisabled()) {
             return null;
         }
@@ -60,7 +60,7 @@ trait HasActions
                 'component' => $this,
                 'entry' => $this->mountedTableActionRecord,
             ]);
-
+            
             // $result = $action->callAfter() ?? $result;
         // } catch (Halt $exception) {
         } catch (\Exception $exception) {
@@ -84,10 +84,17 @@ trait HasActions
 
         $action->resetArguments();
         // $action->resetFormData();
-
-        $this->unmountTableAction();
+        
+        $this->openActionModal($action);
+        // $this->unmountTableAction();
 
         return $result;
+    }
+
+    protected function openActionModal(Action $action): void
+    {
+        dd("{$action->getId()}-action");
+        $this->dispatch('open-modal', id: "{$action->getId()}-action");
     }
 
     public function mountedTableActionRecord(int | string | null $record): void
@@ -104,9 +111,8 @@ trait HasActions
             $this->mountedTableActionRecord($entry);
         }
 
-        $action = $this->getMountedTableAction();
-
-        if (!$action) {
+        if (!$action = $this->getMountedTableAction()) {
+            
             $this->unmountTableAction();
 
             return null;
@@ -148,7 +154,7 @@ trait HasActions
 
         //     return null;
         // }
-        
+
         // if ($this->mountedTableActionShouldOpenModal());
         if (!$this->mountedTableActionShouldOpenModal()) {
             return $this->callMountedTableAction();
@@ -156,8 +162,8 @@ trait HasActions
 
         $this->resetErrorBag();
 
-        $this->openTableActionModal();
-
+        $this->openTableActionModal($action);
+        
         return null;
     }
 
@@ -231,7 +237,7 @@ trait HasActions
         if (($entries = $this->getTableEntries()) instanceof LengthAwarePaginator) {
             $entry = $entries->first(fn ($entry) => $entry->id == $recordKey);
         } else {
-            $entry = $entries->find($recordKey);
+            $entry = $entries->get($recordKey);
         }
 
         return $this->cachedMountedTableActionRecord = $entry;
@@ -256,9 +262,9 @@ trait HasActions
     {
         $action = $this->getMountedTableAction();
 
-        // if (!($shouldCancelParentActions && $action)) {
+        if (!($shouldCancelParentActions && $action)) {
             $this->popMountedTableAction();
-        // } elseif ($action->shouldCancelAllParentActions()) {
+        }// elseif ($action->shouldCancelAllParentActions()) {
         //     $this->resetMountedTableActionProperties();
         // } else {
         //     $parentActionToCancelTo = $action->getParentActionToCancelTo();
@@ -276,7 +282,7 @@ trait HasActions
         // }
 
         if (!count($this->mountedTableActions)) {
-            $this->closeTableActionModal();
+            $this->closeTableActionModal($action);
 
             $action?->entry(null);
             // @todo 
@@ -289,7 +295,7 @@ trait HasActions
 
         $this->resetErrorBag();
 
-        $this->openTableActionModal();
+        $this->openTableActionModal($action);
     }
 
     protected function cacheMountedTableActionForm(): void
@@ -301,15 +307,15 @@ trait HasActions
         // );
     }
 
-    protected function closeTableActionModal(): void
+    protected function closeTableActionModal(Action $action): void
     {
-        $this->dispatch('close-modal', id: "{$this->getId()}-table-action");
+        $this->dispatch('close-modal', id: "{$action->getId()}-table-action");
     }
 
-    protected function openTableActionModal(): void
+    protected function openTableActionModal(Action $action): void
     {
-        // $this->dispatch('open-modal', id: "{$this->getId()}-table-action");
-        $this->dispatch('open-modal', id: "{$this->getId()}-action");
+        // $this->dispatch('open-modal', id: "{$action->getId()}-table-action");
+        $this->dispatch('open-modal', id: "{$action->getId()}-action");
     }
 
     /**

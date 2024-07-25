@@ -1,5 +1,9 @@
 @php
     $action = $this->getMountedAction();
+    
+    if (!$action && isset($this->table)) {
+        $action = $this->getMountedtableAction();
+    }
 @endphp
 
 <x-ui::modal

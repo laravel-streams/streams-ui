@@ -1,35 +1,19 @@
 @props([
+    'id' => null,
+    'description' => null,
+    'heading' => null,
     'alignment' => 'start',
-    'ariaLabelledby' => null,
     'closeButton' => true,
     'closeByClickingAway' => true,
     'closeEventName' => 'close-modal',
-    'description' => null,
-    'displayClasses' => 'inline-block',
-    'footer' => null,
-    'footerActions' => [],
-    'footerActionsAlignment' => 'start',
-    'header' => null,
-    'heading' => null,
-    'icon' => null,
-    'iconAlias' => null,
-    'iconColor' => 'primary',
-    'id' => null,
     'openEventName' => 'open-modal',
     'slideOver' => false,
-    'stickyFooter' => false,
-    'stickyHeader' => false,
     'trigger' => null,
     'visible' => true,
     'width' => 'sm',
 ])
 
 <div
-    @if ($ariaLabelledby)
-        aria-labelledby="{{ $ariaLabelledby }}"
-    @elseif ($heading)
-        aria-labelledby="{{ "{$id}.heading" }}"
-    @endif
     aria-modal="true"
     role="dialog"
     x-data="{
@@ -53,9 +37,10 @@
             );
         },
     }"
+    {{-- x-on:{{ $openEventName }}.window="alert('Open: ' + $event.detail.id + ' = ' + '{{ $id }}')" --}}
     @if ($id)
-        x-on:{{ $closeEventName }}.window="if ($event.detail.id === '{{ $id }}') close"
-        x-on:{{ $openEventName }}.window="if ($event.detail.id === '{{ $id }}') open"
+        x-on:{{ $closeEventName }}.window="close"
+        x-on:{{ $openEventName }}.window="open"
     @endif
     
     {{-- x-trap.noscroll="isOpen" --}}
@@ -63,7 +48,6 @@
     @class([
         'ui-modal',
         'ui-width-screen' => $width === 'screen',
-        $displayClasses,
     ])>
 
     @if ($trigger)
@@ -80,7 +64,7 @@
         x-show="isOpen"
         x-transition.duration.300ms.opacity
         @class([
-            'fixed inset-0 z-40 min-h-full overflow-y-auto overflow-x-hidden transition',
+            'fixed inset-0 z-50 min-h-full overflow-y-auto overflow-x-hidden transition',
             'flex items-center' => ! $slideOver,
         ])
     >
@@ -103,12 +87,8 @@
         <div
             x-cloak
             x-ref="modalContainer"
-            {{
-                $attributes->class([
-                    'pointer-events-none relative w-full transition',
-                    'my-auto p-4' => ! ($slideOver || ($width === 'screen')),
-                ])
-            }}>
+            class="pointer-events-none relative w-full transition my-auto p-4"
+            >
             
             <div
                 x-cloak
@@ -164,12 +144,10 @@
                 ])
             >
             
-                @if ($heading || $header)
+                @if ($heading)
                     <div
                         @class([
                             'ui-modal-header flex px-6 pt-6',
-                            'ui-sticky sticky top-0 z-10 border-b border-gray-200 bg-white pb-6' => $stickyHeader,
-                            'rounded-t-xl' => $stickyHeader && ! ($slideOver || ($width === 'screen')),
                             match ($alignment) {
                                 'start', 'left' => 'gap-x-5',
                                 'center' => 'flex-col',
@@ -199,66 +177,21 @@
                             </div>
                         @endif
 
-                        @if ($header)
-                            {{ $header }}
-                        @else
-                            @if ($icon)
-                                <div
-                                    @class([
-                                        'mb-5 flex items-center justify-center' => $alignment === 'center',
-                                    ])
-                                >
-                                    <div
-                                        @class([
-                                            'rounded-full',
-                                            match ($iconColor) {
-                                                'gray' => 'ui-color-gray bg-gray-100',
-                                                default => 'ui-color-custom bg-custom-100',
-                                            },
-                                            match ($alignment) {
-                                                'start', 'left' => 'p-2',
-                                                'center' => 'p-3',
-                                                default => null,
-                                            },
-                                        ])
-                                        {{-- @style([
-                                            \Filament\Support\get_color_css_variables(
-                                                $iconColor,
-                                                shades: [100, 400, 500, 600],
-                                            ) => $iconColor !== 'gray',
-                                        ]) --}}
-                                    >
-                                        <x-ui::icon
-                                            :alias="$iconAlias"
-                                            :icon="$icon"
-                                            @class([
-                                                'ui-modal-icon h-6 w-6',
-                                                match ($iconColor) {
-                                                    'gray' => 'text-gray-500',
-                                                    default => 'text-custom-600',
-                                                },
-                                            ])
-                                        />
-                                    </div>
-                                </div>
+                        <div
+                            @class([
+                                'text-center' => $alignment === 'center',
+                            ])
+                        >
+                            <x-ui::modal.heading>
+                                {{ $heading }}
+                            </x-ui::modal.heading>
+
+                            @if (filled($description))
+                                <x-ui::modal.description class="mt-2">
+                                    {{ $description }}
+                                </x-ui::modal.description>
                             @endif
-
-                            <div
-                                @class([
-                                    'text-center' => $alignment === 'center',
-                                ])
-                            >
-                                <x-ui::modal.heading>
-                                    {{ $heading }}
-                                </x-ui::modal.heading>
-
-                                @if (filled($description))
-                                    <x-ui::modal.description class="mt-2">
-                                        {{ $description }}
-                                    </x-ui::modal.description>
-                                @endif
-                            </div>
-                        @endif
+                        </div>
                     </div>
                 @endif
 
@@ -268,8 +201,6 @@
                         @class([
                             'ui-modal-content flex flex-col gap-y-4 py-6',
                             'flex-1' => ($width === 'screen') || $slideOver,
-                            'pe-6 ps-[5.25rem]' => $icon && ($alignment === 'start'),
-                            'px-6' => ! ($icon && ($alignment === 'start')),
                         ])
                     >
                         {{ $slot }}
@@ -280,8 +211,6 @@
                     <div
                         @class([
                             'ui-modal-footer w-full',
-                            'pe-6 ps-[5.25rem]' => $icon && ($alignment === 'start') && ($footerActionsAlignment !== 'center') && (! $stickyFooter),
-                            'px-6' => ! ($icon && ($alignment === 'start') && ($footerActionsAlignment !== 'center') && (! $stickyFooter)),
                             'ui-sticky sticky bottom-0 border-t border-gray-200 bg-white py-5' => $stickyFooter,
                             'rounded-b-xl' => $stickyFooter && ! ($slideOver || ($width === 'screen')),
                             'pb-6' => ! $stickyFooter,
@@ -303,13 +232,13 @@
                                     },
                                 ])
                             >
-                                @if (is_array($footerActions))
+                                {{-- @if (is_array($footerActions))
                                     @foreach ($footerActions as $action)
                                         {{ $action }}
                                     @endforeach
                                 @else
                                     {{ $footerActions }}
-                                @endif
+                                @endif --}}
                             </div>
                         @endif
                     </div>

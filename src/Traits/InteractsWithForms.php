@@ -5,7 +5,6 @@ namespace Streams\Ui\Traits;
 use Streams\Ui\Forms\Form;
 use Livewire\WithFileUploads;
 use Streams\Ui\Exceptions\ValidationException;
-use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 trait InteractsWithForms
 {

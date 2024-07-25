@@ -30,7 +30,7 @@ abstract class BasePage extends Component
     }
 
     use Common\HasDescription;
-    use Common\InteractsWithForms;
+    // use Common\InteractsWithForms;
 
     use Common\EvaluatesClosures;
 
