@@ -117,6 +117,8 @@ trait HasActions
             return null;
         }
 
+        $action->entry($entry);
+
         // if (filled($entry) && ($action->getEntry() === null)) {
         //     $this->unmountTableAction();
 

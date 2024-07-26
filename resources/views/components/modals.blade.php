@@ -7,6 +7,7 @@
 @endphp
 
 <x-ui::modal
+    :action="$action"
     :alignment="$action?->getModalAlignment()"
     :close-button="$action?->hasModalCloseButton()"
     :close-by-clicking-away="$action?->isModalClosedByClickingAway()"
@@ -24,29 +25,9 @@
     :visible="filled($action)"
     :width="$action?->getModalWidth()"
     :wire:key="$action ? $this->getId() . '.actions.' . $action->getName() . '.modal' : null"
-    x-on:modal-closed.stop="
-        const mountedActionShouldOpenModal = {{ \Illuminate\Support\Js::from($action && $this->mountedActionShouldOpenModal()) }}
-
-        if (! mountedActionShouldOpenModal) {
-            return
-        }
-
-        if ($wire.mountedFormComponentActions.length) {
-            return
-        }
-
-        $wire.unmountAction(false)
-    ">
-
+    x-on:modal-closed.stop="$wire.unmountAction(false);">
     @if ($action)
         {{ $action->getModalContent() }}
-
-        {{-- @if (count(($infolist = $action->getInfolist())?->getComponents() ?? []))
-            {{ $infolist }}
-        @elseif ($this->mountedActionHasForm())
-            {{ $this->getMountedActionForm() }}
-        @endif --}}
-
         {{ $action->getModalContentFooter() }}
     @endif
 </x-ui::modal>

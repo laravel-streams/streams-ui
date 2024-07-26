@@ -1,14 +1,11 @@
 @props([
     'id' => null,
-    'description' => null,
     'heading' => null,
-    'alignment' => 'start',
-    'closeButton' => true,
-    'closeByClickingAway' => true,
+    'description' => null,
+    'alignment' => 'center',
     'closeEventName' => 'close-modal',
     'openEventName' => 'open-modal',
     'slideOver' => false,
-    'trigger' => null,
     'visible' => true,
     'width' => 'sm',
 ])
@@ -37,28 +34,13 @@
             );
         },
     }"
-    {{-- x-on:{{ $openEventName }}.window="alert('Open: ' + $event.detail.id + ' = ' + '{{ $id }}')" --}}
-    @if ($id)
-        x-on:{{ $closeEventName }}.window="close"
-        x-on:{{ $openEventName }}.window="open"
-    @endif
+    x-on:{{ $closeEventName }}.window="close"
+    x-on:{{ $openEventName }}.window="open"
     
     {{-- x-trap.noscroll="isOpen" --}}
     {{-- wire:ignore.self --}}
-    @class([
-        'ui-modal',
-        'ui-width-screen' => $width === 'screen',
-    ])>
+    >
 
-    @if ($trigger)
-        <div
-            x-on:click="open"
-            {{ $trigger->attributes->class(['ui-modal-trigger flex cursor-pointer']) }}
-        >
-            {{ $trigger }}
-        </div>
-    @endif
-    
     <div
         x-cloak
         x-show="isOpen"
@@ -70,17 +52,12 @@
     >
         <div
             aria-hidden="true"
-            @if ($closeByClickingAway)
-                @if (filled($id))
-                    x-on:click="$dispatch('{{ $closeEventName }}', { id: '{{ $id }}' })"
-                @else
-                    x-on:click="close()"
-                @endif
+            @if (filled($id))
+                x-on:click="$dispatch('{{ $closeEventName }}', { id: '{{ $id }}' })"
+            @else
+                x-on:click="close()"
             @endif
-            @class([
-                'ui-modal-close-overlay fixed inset-0 bg-gray-950/50',
-                'cursor-pointer' => $closeByClickingAway,
-            ])
+            class="cursor-pointer fixed inset-0 bg-gray-950/50"
             style="will-change: transform"
         ></div>
 
@@ -92,8 +69,7 @@
             
             <div
                 x-cloak
-                {{-- x-data="{ isShown: false }" --}}
-                x-data="{ isShown: true }"
+                x-data="{ isShown: false }"
                 x-init="
                     $nextTick(() => {
                         isShown = isOpen
@@ -108,23 +84,10 @@
                 x-show="isShown"
                 x-transition:enter="duration-300"
                 x-transition:leave="duration-300"
-                @if ($width === 'screen')
-                @elseif ($slideOver)
-                    x-transition:enter-start="translate-x-full rtl:-translate-x-full"
-                    x-transition:enter-end="translate-x-0"
-                    x-transition:leave-start="translate-x-0"
-                    x-transition:leave-end="translate-x-full rtl:-translate-x-full"
-                @else
-                    x-transition:enter-start="scale-95"
-                    x-transition:enter-end="scale-100"
-                    x-transition:leave-start="scale-95"
-                    x-transition:leave-end="scale-100"
-                @endif
                 @class([
-                    'ui-modal-window pointer-events-auto relative flex w-full cursor-default flex-col bg-white shadow-xl ring-1 ring-gray-950/5',
-                    'ui-modal-slide-over-window ms-auto overflow-y-auto' => $slideOver,
-                    'h-screen' => $slideOver || ($width === 'screen'),
-                    'mx-auto rounded-xl' => ! ($slideOver || ($width === 'screen')),
+                    'pointer-events-auto relative flex w-full cursor-default flex-col bg-white shadow-xl ring-1 ring-gray-950/5',
+                    'h-screen' => $width === 'screen',
+                    'mx-auto rounded-xl' => true,//$width !== 'screen',
                     'hidden' => ! $visible,
                     match ($width) {
                         'xs' => 'max-w-xs',
@@ -147,49 +110,33 @@
                 @if ($heading)
                     <div
                         @class([
-                            'ui-modal-header flex px-6 pt-6',
-                            match ($alignment) {
-                                'start', 'left' => 'gap-x-5',
-                                'center' => 'flex-col',
-                                default => null,
-                            },
+                            'flex px-6 pt-6',
                         ])
                     >
-                        @if ($closeButton)
-                            <div
-                                @class([
-                                    'absolute',
-                                    'end-4 top-4' => ! $slideOver,
-                                    'end-6 top-6' => $slideOver,
-                                ])
-                            >
-                                <x-ui::action
-                                    color="gray"
-                                    icon="heroicon-o-x-mark"
-                                    {{-- icon-alias="modal.close-action" --}}
-                                    icon-size="lg"
-                                    {{-- :label="__('ui::components/modal.actions.close.label')" --}}
-                                    tabindex="-1"
-                                    :x-on:click="filled($id) ? '$dispatch(' . \Illuminate\Support\Js::from($closeEventName) . ', { id: ' . \Illuminate\Support\Js::from($id) . ' })' : 'close()'"
-                                    x-on:click="close()"
-                                    class="ui-modal-close-btn"
-                                >CLOSE</x-ui::action>
-                            </div>
-                        @endif
+                        <div class="absolute end-4 top-4">
+                            <x-ui::action
+                                color="black"
+                                borderRadius="full"
+                                icon="heroicon-o-x-mark"
+                                {{-- icon-alias="modal.close-action" --}}
+                                icon-size="lg"
+                                {{-- :label="__('ui::components/modal.actions.close.label')" --}}
+                                tabindex="-1"
+                                :x-on:click="filled($id) ? '$dispatch(' . \Illuminate\Support\Js::from($closeEventName) . ', { id: ' . \Illuminate\Support\Js::from($id) . ' })' : 'close()'"
+                                x-on:click="close()"
+                                class="ui-modal-close-btn"
+                            >CLOSE</x-ui::action>
+                        </div>
 
-                        <div
-                            @class([
-                                'text-center' => $alignment === 'center',
-                            ])
-                        >
-                            <x-ui::modal.heading>
+                        <div>
+                            <h2 class="text-base font-semibold leading-6 text-gray-950">
                                 {{ $heading }}
-                            </x-ui::modal.heading>
+                            </h2>
 
                             @if (filled($description))
-                                <x-ui::modal.description class="mt-2">
-                                    {{ $description }}
-                                </x-ui::modal.description>
+                            <p class="mt-2 text-gray-500 dark:text-gray-400">
+                                {{ $description }}
+                            </p>
                             @endif
                         </div>
                     </div>
