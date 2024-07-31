@@ -7,7 +7,7 @@ $description = $this->getDescription();
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" integrity="sha512-CQBWl4fJHWbryGE+Pc7UAxWMUMNMWzWxF4SQo9CgkJIN1kx6djDQZjh3Y8SZ1d+6I+1zze6Z7kHXO7q3UyZAWw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<x-ui::widget class="">
+<x-ui::widget class="w-[49.32%]">
     <x-ui::section :description="$description" :heading="$heading">
 
         {{-- @if ($filters)

@@ -59,7 +59,7 @@ class="relative z-10 lg:hidden" role="dialog" aria-modal="true">
                                     <li>
                                         <a href="{{ $item->getUrl() }}"
                                             target="{{ $item->shouldOpenInNewTab() ? '_blank' : '_self' }}"
-                                            class="{{ $item->isActive() ? 'bg-gray-50 text-primary-500 font-bold' : 'text-gray-700 hover:text-primary-500 hover:bg-gray-50 font-semibold' }} group flex gap-x-3 rounded-md p-2 leading-6">
+                                            class="{{ $item->isActive() ? 'bg-gray-50 text-primary-500 font-bold' : 'text-gray-700 hover:text-primary-500 hover:bg-gray-50 font-semibold' }} group flex text-sm gap-x-3 rounded-md p-2 leading-6">
                                             @if ($icon = $item->getIcon())
                                             @svg($icon, 'h-6 w-6 shrink-0')
                                             @endif
