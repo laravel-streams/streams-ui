@@ -281,9 +281,9 @@ trait HasActions
         //         }
         //     }
         // }
-
+        $this->closeTableActionModal();
         if (!count($this->mountedTableActions)) {
-            $this->closeTableActionModal($action);
+            // $this->closeTableActionModal($action);
 
             $action?->entry(null);
             // @todo 
@@ -308,15 +308,18 @@ trait HasActions
         // );
     }
 
-    protected function closeTableActionModal(Action $action): void
+    // protected function closeTableActionModal(Action $action): void
+    protected function closeTableActionModal(): void
     {
-        $this->dispatch('close-modal', id: "{$action->getId()}-table-action");
+        // $this->dispatch('close-modal', id: "{$action->getId()}-table-action");
+        $this->dispatch('close-modal');
     }
 
-    protected function openTableActionModal(Action $action): void
+    // protected function openTableActionModal(Action $action): void
+    protected function openTableActionModal(): void
     {
-        // $this->dispatch('open-modal', id: "{$action->getId()}-table-action");
-        $this->dispatch('open-modal', id: "{$action->getId()}-action");
+        // $this->dispatch('open-modal', id: "{$action->getId()}-action");
+        $this->dispatch('open-modal');
     }
 
     /**

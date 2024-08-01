@@ -2,7 +2,7 @@
     $action = $this->getMountedAction();
     
     if (!$action && isset($this->table)) {
-        $action = $this->getMountedtableAction();
+        $action = $this->getMountedTableAction();
     }
 @endphp
 

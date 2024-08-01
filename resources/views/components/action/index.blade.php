@@ -46,6 +46,9 @@
                     'black' => [
                         'bg-black text-white hover:bg-gray-700',
                     ],
+                    'light' => [
+                        'bg-gray-200 hover:bg-gray-300',
+                    ],
                     default => [
                         'bg-custom-500 text-white hover:bg-custom-600',
                     ],
