@@ -102,9 +102,6 @@ trait HasBulkActions
 
         $action = $this->getMountedTableBulkAction();
 
-        // @todo Replace this
-        return $this->callMountedTableBulkAction();
-
         if (!$action) {
             return null;
         }
@@ -138,7 +135,7 @@ trait HasBulkActions
 
             return null;
         }
-
+        
         if (!$this->mountedTableBulkActionShouldOpenModal()) {
             return $this->callMountedTableBulkAction();
         }
@@ -172,11 +169,12 @@ trait HasBulkActions
             return false;
         }
 
-        return $action->getModalDescription() ||
+        return $action->getModalHeading() ||
+            $action->getModalDescription() ||
             $action->getModalContent() ||
-            $action->getModalContentFooter() ||
-            $action->getInfolist() ||
-            $this->mountedTableBulkActionHasForm();
+            $action->getModalContentFooter();
+            // $action->getInfolist() ||
+            // $this->mountedActionHasForm();
     }
 
     public function unmountTableBulkAction(): void
@@ -350,12 +348,14 @@ trait HasBulkActions
 
     protected function closeTableBulkActionModal(): void
     {
-        $this->dispatch('close-modal', id: "{$this->getId()}-table-bulk-action");
+        // $this->dispatch('close-modal', id: "{$this->getId()}-table-bulk-action");
+        $this->dispatch('close-modal');
     }
 
     protected function openTableBulkActionModal(): void
     {
-        $this->dispatch('open-modal', id: "{$this->getId()}-table-bulk-action");
+        // $this->dispatch('open-modal', id: "{$this->getId()}-table-bulk-action");
+        $this->dispatch('open-modal');
     }
 
     public function getMountedTableBulkAction(): ?BulkAction

@@ -4,6 +4,10 @@
     if (!$action && isset($this->table)) {
         $action = $this->getMountedTableAction();
     }
+
+    if (!$action && isset($this->table)) {
+        $action = $this->getMountedTableBulkAction();
+    }
 @endphp
 
 <x-ui::modal
