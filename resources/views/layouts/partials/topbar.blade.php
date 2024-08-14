@@ -69,14 +69,13 @@ use Streams\Ui\Support\Facades\UI;
                     class="-m-1.5 flex items-center p-1.5" id="user-menu-button" aria-expanded="false"
                     aria-haspopup="true">
                     <span class="sr-only">Open user menu</span>
-                    {{-- @livewire('avatar', [
-                    'src' => auth()->user()?->email,
-                    'htmlAttributes' => [
-                    'class' => 'h-10 w-10 rounded-full bg-gray-50',
-                    ],
-                    ]) --}}
+                    @if ($avatar = UI::currentPanel()->getUserAvatar())
+                    <img src="{{ $avatar }}" class="h-10 w-10 rounded-full bg-gray-50">
+                    @endif
                     <span class="flex items-center">
-                        <span class="ml-4 font-semibold leading-6 text-gray-900" aria-hidden="true">{{ auth()->user()?->name }}</span>
+                        @if ($userName = UI::currentPanel()->getUserName())
+                        <span class="ml-4 font-semibold leading-6 text-gray-900" aria-hidden="true">{{ $userName }}</span>
+                        @endif
                         @svg('heroicon-o-chevron-down', 'ml-2 h-4 w-4 text-gray-400')
                     </span>
                 </button>

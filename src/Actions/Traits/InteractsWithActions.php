@@ -40,60 +40,60 @@ trait InteractsWithActions
             ...$arguments,
         ]);
 
-        $form = $this->getMountedActionForm();
+        // $form = $this->getMountedActionForm();
 
         $result = null;
 
-        $originallyMountedActions = $this->mountedActions;
+        // $originallyMountedActions = $this->mountedActions;
 
-        try {
-            if ($this->mountedActionHasForm()) {
-                $action->callBeforeFormValidated();
+        // try {
+        //     if ($this->mountedActionHasForm()) {
+        //         $action->callBeforeFormValidated();
 
-                $action->formData($form->getState());
+        //         $action->formData($form->getState());
 
-                $action->callAfterFormValidated();
-            }
+        //         $action->callAfterFormValidated();
+        //     }
 
-            $action->callBefore();
+        //     $action->callBefore();
 
-            $result = $action->call([
-                'form' => $form,
-            ]);
+        //     $result = $action->call([
+        //         'form' => $form,
+        //     ]);
 
-            $result = $action->callAfter() ?? $result;
+        //     $result = $action->callAfter() ?? $result;
 
-            $this->afterActionCalled();
-        } catch (Halt $exception) {
-            return null;
-        } catch (Cancel $exception) {
-        } catch (ValidationException $exception) {
+        //     $this->afterActionCalled();
+        // } catch (Halt $exception) {
+        //     return null;
+        // } catch (Cancel $exception) {
+        // } catch (ValidationException $exception) {
 
             if (!$this->mountedActionShouldOpenModal()) {
 
                 $action->resetArguments();
-                $action->resetFormData();
+                // $action->resetFormData();
 
                 $this->unmountAction();
             }
 
-            throw $exception;
-        }
+        //     throw $exception;
+        // }
 
-        if (store($this)->has('redirect')) {
-            return $result;
-        }
+        // if (store($this)->has('redirect')) {
+        //     return $result;
+        // }
 
         $action->resetArguments();
-        $action->resetFormData();
+        // $action->resetFormData();
 
         // If the action was replaced while it was being called,
         // we don't want to unmount it.
-        if ($originallyMountedActions !== $this->mountedActions) {
-            $action->clearRecordAfter();
+        // if ($originallyMountedActions !== $this->mountedActions) {
+        //     $action->clearRecordAfter();
 
-            return null;
-        }
+        //     return null;
+        // }
 
         $this->unmountAction();
 
@@ -354,24 +354,24 @@ trait InteractsWithActions
     {
         $action = $this->getMountedAction();
 
-        if (!($shouldCancelParentActions && $action)) {
-            $this->popMountedAction();
-        } elseif ($action->shouldCancelAllParentActions()) {
-            $this->resetMountedActionProperties();
-        } else {
-            $parentActionToCancelTo = $action->getParentActionToCancelTo();
+        // if (!($shouldCancelParentActions && $action)) {
+        //     $this->popMountedAction();
+        // } elseif ($action->shouldCancelAllParentActions()) {
+        //     $this->resetMountedActionProperties();
+        // } else {
+        //     $parentActionToCancelTo = $action->getParentActionToCancelTo();
 
-            while (true) {
-                $recentlyClosedParentAction = $this->popMountedAction();
+        //     while (true) {
+        //         $recentlyClosedParentAction = $this->popMountedAction();
 
-                if (
-                    blank($parentActionToCancelTo) ||
-                    ($recentlyClosedParentAction === $parentActionToCancelTo)
-                ) {
-                    break;
-                }
-            }
-        }
+        //         if (
+        //             blank($parentActionToCancelTo) ||
+        //             ($recentlyClosedParentAction === $parentActionToCancelTo)
+        //         ) {
+        //             break;
+        //         }
+        //     }
+        // }
 
         if (!count($this->mountedActions)) {
             $this->closeActionModal();
@@ -381,7 +381,7 @@ trait InteractsWithActions
             return;
         }
 
-        $this->cacheMountedActionForm();
+        // $this->cacheMountedActionForm();
 
         $this->resetErrorBag();
 
