@@ -16,6 +16,7 @@ class Table extends ViewBuilder implements HasActions
     use Concerns\HasColumns;
     use Concerns\HasFilters;
     use Concerns\HasBulkActions;
+    use Concerns\HasEntryClasses;
     use Concerns\HasHeaderActions;
 
     use Concerns\HasEntryUrl;

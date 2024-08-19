@@ -1,7 +1,7 @@
 @props([
     // 'alpineHidden' => null,
     // 'alpineSelected' => null,
-    // 'entryAction' => null,
+    'entryAction' => null,
     'entryUrl' => null,
     'bulkActions' => [],
     'actions' => [],
@@ -10,7 +10,11 @@
     // 'striped' => false,
 ])
 
-<tr class="hover:bg-gray-50">
+<tr @class([
+    'relative h-full transition duration-75',
+    'hover:bg-gray-50' => ($entryUrl || $entryAction),
+    ...$this->table->getRowClasses($entry),
+])>
 
     @if ($bulkActions)
     <td class="p-0 w-0">
