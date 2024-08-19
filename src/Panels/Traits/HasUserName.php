@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Htmlable;
 
 trait HasUserName
 {
-    protected string | Htmlable | \Closure | null $name = null;
+    protected string | Htmlable | \Closure | null $userName = null;
 
     public function userName(string | Htmlable | \Closure | null $name): static
     {

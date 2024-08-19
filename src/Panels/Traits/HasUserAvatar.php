@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Htmlable;
 
 trait HasUserAvatar
 {
-    protected string | Htmlable | \Closure | null $avatar = null;
+    protected string | Htmlable | \Closure | null $userAvatar = null;
 
     public function userAvatar(string | Htmlable | \Closure | null $avatar): static
     {
