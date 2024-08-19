@@ -461,4 +461,9 @@ trait CanOpenModal
 
         return $this;
     }
+
+    public function shouldOpenModal()
+    {
+        return $this->getModalHeading() || $this->getModalDescription() || $this->getModalContent();
+    }
 }

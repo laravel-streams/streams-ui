@@ -10,6 +10,7 @@
     }
 @endphp
 
+@if ($action && $action->shouldOpenModal())
 <x-ui::modal
     :action="$action"
     :alignment="$action?->getModalAlignment()"
@@ -35,6 +36,7 @@
         {{ $action->getModalContentFooter() }}
     @endif
 </x-ui::modal>
+@endif
 
 {{-- @if ($this instanceof \Filament\Actions\Contracts\HasActions && (! $this->hasActionsModalRendered)) --}}
 {{-- @if (isset($this->table))

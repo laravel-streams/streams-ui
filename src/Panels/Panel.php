@@ -20,11 +20,14 @@ class Panel extends ViewBuilder
     use Traits\HasPages;
     use Traits\HasLayout;
     use Traits\HasRoutes;
+    use Traits\HasTenant;
     use Traits\HasFavicon;
     use Traits\HasUserMenu;
+    use Traits\HasUserName;
     use Traits\HasBrandLogo;
     use Traits\HasBrandName;
     use Traits\HasResources;
+    use Traits\HasUserAvatar;
     use Traits\HasMiddleware;
     use Traits\HasNavigation;
     use Traits\HasLivewireComponents;
