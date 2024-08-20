@@ -40,8 +40,7 @@
 
         $columnClasses = [Arr::toCssClasses([
             ...[
-                // text-gray-900
-                'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6',
+                'whitespace-nowrap py-4 pl-4 pr-3 sm:pl-6',
                 'w-1' => $loop->last,
                 match ($color) {
                     'gray' => '',
@@ -58,7 +57,7 @@
             ),
         ]);
 
-        $attributes = (new \Illuminate\View\ComponentAttributeBag)
+        $attributes = $column->getHtmlAttributeBag()
             ->merge([
                 // 'href' => $href,
                 // 'target' => $openInNewTab ? '_blank' : '_self',
