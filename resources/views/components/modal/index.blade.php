@@ -6,7 +6,8 @@
     'closeEventName' => 'close-modal',
     'openEventName' => 'open-modal',
     'slideOver' => false,
-    'visible' => true,
+    'visible' => false,
+    'open' => false,
     'width' => 'sm',
 ])
 
@@ -14,7 +15,7 @@
     aria-modal="true"
     role="dialog"
     x-data="{
-        isOpen: false,
+        isOpen: {{ json_encode($open) }},
 
         close: function () {
             

@@ -43,6 +43,7 @@ trait CanOpenModal
     protected string | \Closure | null $modalWidth = null;
 
     protected bool | \Closure | null $isModalHidden = false;
+    protected bool | \Closure | null $isModalOpen = false;
 
     protected bool | \Closure | null $hasModalCloseButton = null;
 
@@ -465,5 +466,19 @@ trait CanOpenModal
     public function shouldOpenModal()
     {
         return $this->getModalHeading() || $this->getModalDescription() || $this->getModalContent();
+    }
+
+    public function modalOpen(bool | \Closure | null $condition = true): static
+    {
+        $this->isModalOpen = $condition;
+
+        return $this;
+    }
+    
+    public function isModalOpen(): bool
+    {
+        $result = (bool) $this->evaluate($this->isModalOpen);
+
+        return $result;
     }
 }

@@ -1,6 +1,6 @@
 @php
     $action = $this->getMountedAction();
-    
+
     if (!$action && isset($this->table)) {
         $action = $this->getMountedTableAction();
     }
@@ -26,7 +26,8 @@
     {{-- :slide-over="$action?->isModalSlideOver()" --}}
     :sticky-footer="$action?->isModalFooterSticky()"
     :sticky-header="$action?->isModalHeaderSticky()"
-    :visible="filled($action)"
+    :visible="filled($action) && $action->shouldOpenModal()"
+    :open="$action?->isModalOpen() ?: false"
     :width="$action?->getModalWidth()"
     :wire:key="$action ? $this->getId() . '.actions.' . $action->getName() . '.modal' : null"
     x-on:modal-closed.stop="$wire.unmountAction(false);">

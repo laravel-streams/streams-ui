@@ -394,12 +394,14 @@ trait InteractsWithActions
 
     protected function closeActionModal(): void
     {
-        $this->dispatch('close-modal', id: "{$this->getId()}-action");
+        // $this->dispatch('close-modal', id: "{$this->getId()}-action");
+        $this->dispatch('close-modal');
     }
 
     protected function openActionModal(): void
     {
-        $this->dispatch('open-modal', id: "{$this->getId()}-action");
+        // $this->dispatch('open-modal', id: "{$this->getId()}-action");
+        $this->dispatch('open-modal');
     }
 
     public function getActiveActionsLocale(): ?string
