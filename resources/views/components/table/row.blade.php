@@ -35,8 +35,42 @@
     @endif
 
     @foreach ($columns as $index => $column)
-    <td
-        class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 {{ $loop->first ? 'w-1' : '' }}">
+    @php
+        $color = $column->getColor();
+
+        $columnClasses = [Arr::toCssClasses([
+            ...[
+                // text-gray-900
+                'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6',
+                'w-1' => $loop->last,
+                match ($color) {
+                    'gray' => '',
+                    default => '',
+                },
+                is_string($color) ? "{$color}" : null,
+            ],
+        ])];
+
+        $columnStyles = Arr::toCssStyles([
+            \Streams\Ui\Support\Facades\Colors::colorVariables(
+                $color,
+                shades: [400, 500, 600],
+            ),
+        ]);
+
+        $attributes = (new \Illuminate\View\ComponentAttributeBag)
+            ->merge([
+                // 'href' => $href,
+                // 'target' => $openInNewTab ? '_blank' : '_self',
+                // 'disabled' => $disabled,
+                // 'wire:loading.attr' => 'disabled',
+                // 'type' => $tag == 'button' ? $type : false,
+            ], escape: false)
+            ->class([implode(' ', $columnClasses)])
+            ->style([$columnStyles])
+
+    @endphp
+    <td {{ $attributes }}>
         @if ($entryUrl)
             <a href="{{ $entryUrl }}" class="hover:underline">{!! $column->entry($entry)->render() !!}</a>
         @else

@@ -2,7 +2,6 @@
 
 namespace Streams\Ui\Components\Tables\Concerns;
 
-use Illuminate\Http\Response;
 use Streams\Ui\Forms\Form;
 use Streams\Core\Entry\Entry;
 use Illuminate\Support\Collection;
