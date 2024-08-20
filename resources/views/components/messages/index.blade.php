@@ -53,7 +53,7 @@
                     <div class="ml-3 w-0 flex-1 pt-0.5">
                         <p class="font-medium text-gray-900">{!! $notification->getTitle() !!}</p>
                         @if ($notification->getDescription())
-                        <p class="mt-1 text-gray-500">{{ $notification->getDescription() }}</p>
+                        <p class="mt-1 text-gray-500">{!! $notification->getDescription() !!}</p>
                         @endif
                     </div>
 

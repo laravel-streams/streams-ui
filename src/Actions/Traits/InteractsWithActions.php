@@ -385,7 +385,7 @@ trait InteractsWithActions
 
         $this->resetErrorBag();
 
-        $this->openActionModal($action);
+        $this->closeActionModal($action);
     }
 
     protected function cacheMountedActionForm(): void
