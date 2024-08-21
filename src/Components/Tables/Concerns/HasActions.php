@@ -68,14 +68,14 @@ trait HasActions
         } catch (Cancel $exception) {
         // } catch (ValidationException $exception) {
         } catch (\Exception $exception) {
-            if (!$this->mountedTableActionShouldOpenModal()) {
-                $action->resetArguments();
-                $action->resetFormData();
+            // if (!$this->mountedTableActionShouldOpenModal()) {
+            //     $action->resetArguments();
+            //     $action->resetFormData();
 
-                $this->unmountTableAction();
-            }
+            //     $this->unmountTableAction();
+            // }
 
-            throw $exception;
+            // throw $exception;
         }
 
         // if (store($this)->has('redirect')) {
@@ -84,7 +84,7 @@ trait HasActions
 
         $action->resetArguments();
         // $action->resetFormData();
-        
+        return $result;
         // $this->openActionModal($action);
         $this->unmountTableAction();
 
@@ -282,7 +282,9 @@ trait HasActions
         //         }
         //     }
         // }
+        
         $this->closeTableActionModal();
+
         if (!count($this->mountedTableActions)) {
             // $this->closeTableActionModal($action);
 
