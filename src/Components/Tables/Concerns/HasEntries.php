@@ -9,17 +9,21 @@ use Illuminate\Contracts\Database\Query\Builder;
 
 trait HasEntries
 {
-    public Collection | Paginator $records;
+    protected Collection | Paginator $entries;
 
     public function getTableEntries(): Collection | Paginator
     {
+        if (isset($this->entries)) {
+            return $this->entries;
+        }
+
         $query = $this->getFilteredSortedQuery();
 
         if (!$this->getTable()->isPaginated()) {
             return $query->get();
         }
 
-        return $this->paginateQuery($query);
+        return $this->entries = $this->paginateQuery($query);
     }
 
     public function getFilteredSortedQuery(): Criteria | Builder
