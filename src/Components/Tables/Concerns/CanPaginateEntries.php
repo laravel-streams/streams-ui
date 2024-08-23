@@ -8,7 +8,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 
 trait CanPaginateEntries
 {
-    public $tableRecordsPerPage = null;
+    public $tableRecordsPerPage = 25;
 
     protected int | string | null $defaultTableRecordsPerPageSelectOption = null;
 
