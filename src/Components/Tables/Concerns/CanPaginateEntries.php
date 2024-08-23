@@ -26,12 +26,12 @@ trait CanPaginateEntries
         $perPage = $this->getTableRecordsPerPage();
 
         /** @var LengthAwarePaginator $records */
-        $records = $query->paginate(
-            $perPage === 'all' ? $query->count() : $perPage,
+        $records = $query->paginate([
+            'per_page' => $perPage === 'all' ? $query->count() : $perPage,
             ['*'],
-            $this->getTablePaginationPageName(),
-            $this->paginators[$this->getTablePaginationPageName()] ?? 1
-        );
+            'page_name' => $this->getTablePaginationPageName(),
+            'page' => $this->paginators[$this->getTablePaginationPageName()] ?? 1
+        ]);
 
         return $records->onEachSide(0);
     }

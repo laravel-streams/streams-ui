@@ -7,18 +7,16 @@
     'label' => null,
     'isRtl' => false,
 ])
-
 <li
-    {{
-        $attributes->class([
-            'group/item border-x-[0.5px] border-gray-200 first:border-s-0 last:border-e-0',
-            '' => $disabled,
-            '' => $active,
-        ])
-    }}
+    @class([
+        'group/item border-x-[0.5px] border-gray-200 first:border-s-0 last:border-e-0',
+        '' => $disabled,
+        '' => $active,
+    ])
 >
     <button
         aria-label="{{ $ariaLabel }}"
+        {!! $attributes !!}
         @disabled($disabled)
         type="button"
         @class([
