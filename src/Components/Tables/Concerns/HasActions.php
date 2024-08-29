@@ -264,7 +264,7 @@ trait HasActions
     {
         $action = $this->getMountedTableAction();
 
-        if (!($shouldCancelParentActions && $action)) {
+        if ($action) {
             $this->popMountedTableAction();
         }// elseif ($action->shouldCancelAllParentActions()) {
         //     $this->resetMountedTableActionProperties();
