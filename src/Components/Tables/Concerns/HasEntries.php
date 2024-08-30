@@ -23,7 +23,16 @@ trait HasEntries
             return $query->get();
         }
 
-        return $this->entries = $this->paginateQuery($query);
+        $this->entries = $this->paginateQuery($query);
+
+        // @todo this is tied to PinClicks Rank Tracking data
+        // Need to flesh out proper callbacks and clean up.
+        $this->getTable()->fire('entries_loaded', [
+            'livewire' => $this,
+            'table' => $this->getTable(),
+        ]);
+
+        return $this->entries;
     }
 
     public function getFilteredSortedQuery(): Criteria | Builder
