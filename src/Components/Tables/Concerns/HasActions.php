@@ -84,10 +84,9 @@ trait HasActions
 
         $action->resetArguments();
         // $action->resetFormData();
-        return $result;
         // $this->openActionModal($action);
         $this->unmountTableAction();
-
+        
         return $result;
     }
 
