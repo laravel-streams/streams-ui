@@ -36,6 +36,8 @@
 
     @foreach ($columns as $index => $column)
     @php
+        $column->entry($entry);
+        
         $color = $column->getColor();
 
         $columnClasses = [Arr::toCssClasses([
@@ -71,9 +73,9 @@
     @endphp
     <td {{ $attributes }}>
         @if ($entryUrl)
-            <a href="{{ $entryUrl }}" class="hover:underline">{!! $column->entry($entry)->render() !!}</a>
+            <a href="{{ $entryUrl }}" class="hover:underline">{!! $column->render() !!}</a>
         @else
-        {!! $column->entry($entry)->render() !!}
+        {!! $column->render() !!}
         @endif
     </td>
     @endforeach
