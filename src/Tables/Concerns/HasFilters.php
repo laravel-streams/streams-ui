@@ -2,9 +2,9 @@
 
 namespace Streams\Ui\Tables\Concerns;
 
+use Streams\Ui\Forms\Form;
 use Streams\Ui\Actions\Action;
 use Streams\Ui\Tables\Filters\Filter;
-use Streams\Ui\Forms\Form;
 
 trait HasFilters
 {

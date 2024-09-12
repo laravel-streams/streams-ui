@@ -2,7 +2,6 @@
 
 namespace Streams\Ui\Tables\Columns;
 
-use Illuminate\Support\Collection;
 use Streams\Ui\Traits as Support;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Tables\Columns\Concerns;

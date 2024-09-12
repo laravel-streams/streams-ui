@@ -68,17 +68,12 @@
 
                 </div>
 
-                @if ($paginator instanceof LengthAwarePaginator)
                 <div>
-                    <x-ui::pagination :paginator="$paginator" class="px-3 py-3 sm:px-6" />
+                    <x-ui::pagination
+                        :paginator="$paginator"
+                        :isSimple="$paginator instanceof LengthAwarePaginator"
+                        class="px-3 py-3 sm:px-6" />
                 </div>
-                @endif
-
-                @if (!$paginator instanceof LengthAwarePaginator && $paginator->hasMorePages())
-                <div>
-                    <button wire:click="nextPage('{{ $this->getTablePaginationPageName() }}')">Next</button>
-                </div>
-                @endif
 
             </div>
         </td>

@@ -20,49 +20,7 @@
         ])
     }}
 >
-    @if ($isSimple && !$paginator->onFirstPage())
-        <x-ui::action
-            color="gray"
-            rel="prev"
-            :wire:click="'previousPage(\'' . $paginator->getPageName() . '\')'"
-            :wire:key="$this->getId() . '.pagination.previous'"
-            class="justify-self-start"
-        >
-            {{ __('Previous Page') }}
-        </x-ui::action>
-    @endif
-
-    {{-- @if (! $isSimple)
-        <span
-            class="font-medium text-gray-700"
-        >
-            {{
-                trans_choice(
-                    'ui::components/pagination.overview',
-                    $paginator->total(),
-                    [
-                        'first' => \Filament\Support\format_number($paginator->firstItem() ?? 0),
-                        'last' => \Filament\Support\format_number($paginator->lastItem() ?? 0),
-                        'total' => \Filament\Support\format_number($paginator->total()),
-                    ],
-                )
-            }}
-        </span>
-    @endif --}}
-
-    @if ($isSimple && $paginator->hasMorePages())
-        <x-ui::action
-            color="gray"
-            rel="next"
-            :wire:click="'nextPage(\'' . $paginator->getPageName() . '\')'"
-            :wire:key="$this->getId() . '.pagination.next'"
-            class="col-start-3 justify-self-end"
-        >
-            {{ __('Next Page') }}
-        </x-ui::action>
-    @endif
-
-    @if ((!$isSimple) && $paginator->hasPages())
+    @if ($paginator->hasPages())
         <ol
             class="flex justify-self-end rounded-lg bg-white shadow-sm ring-1 ring-gray-950/10">
             @if (! $paginator->onFirstPage())
@@ -77,6 +35,7 @@
                 />
             @endif
 
+            @if (!$isSimple)
             @foreach ($paginator->render()->offsetGet('elements') as $element)
                 @if (is_string($element))
                     <x-ui::pagination.item disabled :label="$element" />
@@ -94,6 +53,7 @@
                     @endforeach
                 @endif
             @endforeach
+            @endif
 
             @if ($paginator->hasMorePages())
                 <x-ui::pagination.item
