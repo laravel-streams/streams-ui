@@ -71,7 +71,7 @@
                 <div>
                     <x-ui::pagination
                         :paginator="$paginator"
-                        :isSimple="$paginator instanceof LengthAwarePaginator"
+                        :isSimple="!$paginator instanceof LengthAwarePaginator"
                         class="px-3 py-3 sm:px-6" />
                 </div>
 
