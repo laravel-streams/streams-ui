@@ -16,17 +16,22 @@ class ChartWidget extends Widget
 
     protected static string $view = 'ui::builders.chart';
 
-    protected \Closure | array | string | null $type = 'doughnut';
+    protected  static string $type = 'line';
+
+    protected static array $options = [];
 
     public function getType(): string
     {
-        return $this->evaluate($this->type, [
-            'widget' => $this,
-        ]);
+        return static::$type;
     }
 
     public function getData(): array
     {
         return [];
+    }
+
+    public function getOptions(): array
+    {
+        return static::$options;
     }
 }

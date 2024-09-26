@@ -1,13 +1,16 @@
 @php
-$color = $this->getColor();
 $heading = $this->getHeading();
 $description = $this->getDescription();
 // $filters = $this->getFilters();
 @endphp
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" integrity="sha512-CQBWl4fJHWbryGE+Pc7UAxWMUMNMWzWxF4SQo9CgkJIN1kx6djDQZjh3Y8SZ1d+6I+1zze6Z7kHXO7q3UyZAWw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@^2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@^1"></script>
 
-<x-ui::widget class="w-[49.32%]">
+
+<x-ui::widget>
+    
     <x-ui::section :description="$description" :heading="$heading">
 
         {{-- @if ($filters)
@@ -29,7 +32,6 @@ $description = $this->getDescription();
             @endif
             >
             <div x-data="{
-                type: @js($this->getType()),
                 data: @js($this->getData()),
                 init() {
                     let chart = new Chart(this.$refs.canvas.getContext('2d'), {
@@ -38,21 +40,7 @@ $description = $this->getDescription();
                             labels: this.data.labels,
                             datasets: this.data.datasets,
                         },
-                        options: {
-                            interaction: { intersect: false },
-                            scales: { y: { beginAtZero: true }},
-                            plugins: {
-                                legend: { display: false },
-                                tooltip: {
-                                    displayColors: false,
-                                    callbacks: {
-                                        label(point) {
-                                            return 'Sales: $'+point.raw
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        options: @js($this->getOptions())
                     })
          
                     this.$watch('data', () => {

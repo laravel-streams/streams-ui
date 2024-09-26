@@ -12,7 +12,6 @@ class Widget extends Component
     use HasMemory;
     
     use Common\CanSpanColumns;
-    
     use Common\EvaluatesClosures;
 
     protected static string $view;
