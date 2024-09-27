@@ -20,6 +20,10 @@ class ChartWidget extends Widget
 
     protected static array $options = [];
 
+    protected static array $callbacks = [];
+    
+    protected static array $functions = [];
+
     public function getType(): string
     {
         return static::$type;
@@ -33,5 +37,15 @@ class ChartWidget extends Widget
     public function getOptions(): array
     {
         return static::$options;
+    }
+    
+    public function getCallbacks(): array
+    {
+        return static::$callbacks;
+    }
+
+    public function getFunctions(): array
+    {
+        return static::$functions;
     }
 }

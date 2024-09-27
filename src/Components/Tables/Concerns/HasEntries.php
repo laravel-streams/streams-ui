@@ -11,6 +11,13 @@ trait HasEntries
 {
     protected Collection | Paginator $entries;
 
+    public function entries($entries): static
+    {
+        $this->entries = $entries;
+
+        return $this;
+    }
+
     public function getTableEntries(): Collection | Paginator
     {
         if (isset($this->entries)) {

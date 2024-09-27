@@ -61,7 +61,7 @@ abstract class Column extends ViewBuilder
     protected function resolveDefaultClosureDependency(string $parameter): array
     {
         return match ($parameter) {
-            //'stream' => [$this->getStream()],
+            'table' => [$this->getTable()],
             'entry' => [$this->getEntryInstance()],
             default => parent::resolveDefaultClosureDependency($parameter),
         };
