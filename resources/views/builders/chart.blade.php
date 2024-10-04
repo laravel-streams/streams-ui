@@ -82,7 +82,7 @@ $description = $this->getDescription();
                         chart.data.datasets = this.data.datasets;
                     }) --}}
                 }
-            }" class="w-full">
+            }" class="w-full max-h-96">
 
                 <canvas x-ref="canvas" {{-- @if ($maxHeight=$this->getMaxHeight())
                     style="max-height: {{ $maxHeight }}"
