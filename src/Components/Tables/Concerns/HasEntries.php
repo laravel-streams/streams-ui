@@ -11,7 +11,13 @@ trait HasEntries
 {
     protected Collection | Paginator $entries;
 
+    // @deprecated
     public function entries($entries): static
+    {
+        return $this->tableEntries($entries);
+    }
+
+    public function tableEntries($entries): static
     {
         $this->entries = $entries;
 
@@ -65,7 +71,7 @@ trait HasEntries
         $this->applySearchToTableQuery($query);
 
         foreach ($this->getTable()->getColumns() as $column) {
-          
+
             // if ($column->isHidden()) {
             //     continue;
             // }
