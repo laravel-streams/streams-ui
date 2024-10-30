@@ -13,12 +13,6 @@
         <td colspan="100%">
             <div class="text-left px-6 py-4 flex w-full justify-between items-center">
 
-                @if (!$paginator instanceof LengthAwarePaginator && !$paginator->onFirstPage())
-                <div>
-                    <button wire:click="previousPage('{{ $this->getTablePaginationPageName() }}')">Previous</button>
-                </div>
-                @endif
-
                 @if ($paginator instanceof LengthAwarePaginator)
                 <div class="flex-grow-1">
                     Showing {{ $paginator->firstItem() }} to {{ $paginator->lastItem() }} of {{ number_format($paginator->total()) }} results.
