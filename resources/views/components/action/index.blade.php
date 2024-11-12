@@ -10,7 +10,7 @@
     'href' => null,
     'openInNewTab' => false,
     'icon' => null,
-    'iconPosition' => 'before',
+    'iconPosition' => 'after',
     'iconSize' => null,
     'keyBindings' => null,
     'labeledFrom' => null,
@@ -187,11 +187,9 @@
     @if ($icon && $iconPosition === 'after')
     <x-ui::icon
         :attributes="
-            \Filament\Support\prepare_inherited_attributes(
-                new \Illuminate\View\ComponentAttributeBag([
-                    'icon' => $icon,
-                ])
-            )->class([$iconClasses])
+            new \Illuminate\View\ComponentAttributeBag([
+                'icon' => $icon,
+            ])
         "
     />
     @endif
