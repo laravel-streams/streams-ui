@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Streams\Ui\Components\Tables\Concerns;
 
@@ -25,12 +25,21 @@ trait CanPaginateEntries
     {
         $perPage = $this->getTableRecordsPerPage();
 
-        /** @var Paginator $records */
-        $records = $query->paginate([
-            'per_page' => $perPage === 'all' ? $query->count() : $perPage,
-            'page_name' => $this->getTablePaginationPageName(),
-            'page' => $this->paginators[$this->getTablePaginationPageName()] ?? 1
-        ]);
+        if ($query instanceof Criteria) {
+            /** @var Paginator $records */
+            $records = $query->paginate([
+                'per_page' => $perPage === 'all' ? $query->count() : $perPage,
+                'page_name' => $this->getTablePaginationPageName(),
+                'page' => $this->paginators[$this->getTablePaginationPageName()] ?? 1
+            ]);
+        } elseif ($query instanceof Builder) {
+            $records = $query->paginate(
+                $perPage === 'all' ? $query->count() : $perPage,
+                ['*'],
+                $this->getTablePaginationPageName(),
+                $this->paginators[$this->getTablePaginationPageName()] ?? 1
+            );
+        }
 
         return $records->onEachSide(0);
     }

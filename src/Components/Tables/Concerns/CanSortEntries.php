@@ -2,9 +2,9 @@
 
 namespace Streams\Ui\Components\Tables\Concerns;
 
-use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\Url;
 use Streams\Core\Criteria\Criteria;
+use Illuminate\Database\Query\Builder;
 
 trait CanSortEntries
 {

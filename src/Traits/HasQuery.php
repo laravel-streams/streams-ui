@@ -9,7 +9,7 @@ trait HasQuery
 {
     protected Criteria | Builder | \Closure | null $query = null;
 
-    public function query(Criteria | \Closure | null $query): static
+    public function query(Criteria | Builder | \Closure | null $query): static
     {
         $this->query = $query;
 
