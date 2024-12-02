@@ -3,6 +3,7 @@
 namespace Streams\Ui\Tables\Columns\Concerns;
 
 use Streams\Core\Criteria\Criteria;
+use Illuminate\Database\Query\Builder;
 
 trait InteractsWithQuery
 {
@@ -51,7 +52,7 @@ trait InteractsWithQuery
         return $query;
     }
 
-    public function applySort(Criteria $query, string $direction = 'asc'): Criteria
+    public function applySort(Criteria|Builder $query, string $direction = 'asc'): Criteria|Builder
     {
         if ($this->sortQuery) {
 
