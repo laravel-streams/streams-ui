@@ -5,7 +5,7 @@
 
 <title>{{ $metaTitle ?? config('app.name') }}</title>
 
-@if ($favicon = \Streams\Ui\Support\Facades\UI::currentPanel()->getFavicon())
+@if ($favicon = \Streams\Ui\Support\Facades\UI::currentPanel()?->getFavicon())
 <link rel="icon" type="image/png" href="{{ $favicon }}"/>
 @endif
 

@@ -63,9 +63,9 @@ class UiManager
         $this->current = $panel->getId();
     }
 
-    public function currentPanel(): Panel
+    public function currentPanel(): ?Panel
     {
-        return $this->panels[$this->current];
+        return $this->panels[$this->current] ?? null;
     }
 
     public function getHomeUrl(): ?string
