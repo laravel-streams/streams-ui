@@ -2,6 +2,7 @@
     :tag="$action->getTag()"
     :href="$action->getUrl()"
     :icon="$action->getIcon()"
+    :size="$action->getSize()"
     :color="$action->getColor()"
     :style="$action->getStyle()"
     :tooltip="$action->getTooltip()"

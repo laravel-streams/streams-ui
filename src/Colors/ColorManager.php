@@ -80,13 +80,13 @@ class ColorManager
 
         if (is_string($color)) {
             foreach ($shades as $shade) {
-                $variables[] = "--c-{$shade}:var(--{$color}-{$shade})";
+                $variables[] = "--custom-{$shade}:var(--{$color}-{$shade})";
             }
         }
 
         if (is_array($color)) {
             foreach ($shades as $shade) {
-                $variables[] = "--c-{$shade}:{$color[$shade]}";
+                $variables[] = "--custom-{$shade}:{$color[$shade]}";
             }
         }
 

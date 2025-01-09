@@ -6,6 +6,19 @@ export default {
     theme: {
         extend: {
             colors: {
+                custom: {
+                    50: 'rgba(var(--custom-50), <alpha-value>)',
+                    100: 'rgba(var(--custom-100), <alpha-value>)',
+                    200: 'rgba(var(--custom-200), <alpha-value>)',
+                    300: 'rgba(var(--custom-300), <alpha-value>)',
+                    400: 'rgba(var(--custom-400), <alpha-value>)',
+                    500: 'rgba(var(--custom-500), <alpha-value>)',
+                    600: 'rgba(var(--custom-600), <alpha-value>)',
+                    700: 'rgba(var(--custom-700), <alpha-value>)',
+                    800: 'rgba(var(--custom-800), <alpha-value>)',
+                    900: 'rgba(var(--custom-900), <alpha-value>)',
+                    950: 'rgba(var(--custom-950), <alpha-value>)',
+                },
                 primary: {
                     50: 'rgba(var(--primary-50), <alpha-value>)',
                     100: 'rgba(var(--primary-100), <alpha-value>)',

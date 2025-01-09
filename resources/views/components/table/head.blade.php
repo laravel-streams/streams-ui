@@ -1,4 +1,8 @@
-<thead class="bg-gray-50">
+<thead {{
+    $attributes->except(['table', 'columns', 'actions', 'bulkActions'])->merge([
+        'class' => $attributes->get('class', 'bg-gray-50'),
+    ])
+}}>
     <tr>
 
         @if ($bulkActions)

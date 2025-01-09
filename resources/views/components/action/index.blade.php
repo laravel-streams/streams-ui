@@ -116,7 +116,7 @@
 
     $iconClasses = Arr::toCssClasses([
         '',
-        match ($iconSize) {
+        match ($iconSize ?: $size) {
             'sm' => 'h-4 w-4',
             'md' => 'h-5 w-5',
             'lg' => 'h-6 w-6',
@@ -166,17 +166,20 @@
         :attributes="
             new \Illuminate\View\ComponentAttributeBag([
                 'icon' => $icon,
+                'class' => $iconClasses,
             ])
         "
     />
     @endif
 
+    @if (!$slot->isEmpty())
     <span class="{{ Arr::toCssClasses([
         'ui-button-label',
         'sr-only' => $labelSrOnly,
     ]) }}">
         {{ $slot }}
     </span>
+    @endif
 
     {{-- @if ($hasFileUploadLoadingIndicator)
         <span x-show="isUploadingFile" x-cloak>
@@ -189,6 +192,7 @@
         :attributes="
             new \Illuminate\View\ComponentAttributeBag([
                 'icon' => $icon,
+                'class' => $iconClasses,
             ])
         "
     />

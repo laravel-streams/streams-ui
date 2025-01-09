@@ -23,6 +23,7 @@ class Action extends ViewBuilder
     use Common\HasId;
     use Common\HasUrl;
     use Common\HasIcon;
+    use Common\HasSize;
     use Common\HasName;
     use Common\HasBadge;
     use Common\HasColor;
