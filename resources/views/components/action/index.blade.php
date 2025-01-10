@@ -20,12 +20,14 @@
     'target' => null,
     'tooltip' => null,
     'tooltipPlacement' => 'top',
-    'tag' => 'button',
+    'tag' => null,
     'type' => 'button',
     'style' => 'button',
 ])
 @php
     $actionClasses = ['relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75'];
+
+    $tag = $tag ?: ($href ? 'a' : 'button');
 
     $actionClasses[] = Arr::toCssClasses(
         match ($style) {
