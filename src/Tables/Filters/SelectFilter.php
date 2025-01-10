@@ -11,6 +11,8 @@ use Streams\Ui\Tables\Filters\Filter;
 class SelectFilter extends Filter
 {
     use Inputs\Traits\HasOptions;
+    use Inputs\Traits\HasPlaceholder;
+    
     use Builders\Concerns\HasLabel;
 
     protected string $view = 'ui::builders.filters.select';
