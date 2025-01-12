@@ -69,10 +69,16 @@ trait InteractsWithTable
 
         // // https://github.com/filamentphp/filament/pull/7999
         if ($this->tableFilters) {
-            // $this->normalizeTableFilterValuesFromQueryString($this->tableFilters);
+            // $this->normalizeTableFilterValues($this->tableFilters);
         }
 
+        // @todo replace with a form
         // $this->getTableFiltersForm()->fill($this->tableFilters);
+        foreach ($this->table->getFilters() as $filter) {
+            if (!isset($this->tableFilters[$filter->getName()])) {
+                $this->tableFilters[$filter->getName()] = ['value' => null];
+            }
+        }
 
         // if ($shouldPersistFiltersInSession) {
         //     session()->put(
@@ -171,5 +177,20 @@ trait InteractsWithTable
     public function resetPage($pageName = null): void
     {
         $this->resetLivewirePage($pageName ?? $this->getTablePaginationPageName());
+    }
+
+    protected function normalizeTableFilterValues(array &$data): void
+    {
+        foreach ($data as &$value) {
+            if (is_array($value)) {
+                $this->normalizeTableFilterValues($value);
+            } elseif ($value === 'null') {
+                $value = null;
+            } elseif ($value === 'false') {
+                $value = false;
+            } elseif ($value === 'true') {
+                $value = true;
+            }
+        }
     }
 }

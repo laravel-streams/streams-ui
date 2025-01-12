@@ -37,7 +37,7 @@ trait HasFilters
         //     $this->deselectAllTableRecords();
         // }
 
-        $this->resetPage();
+        // $this->resetPage(); // DO NOT DO THIS.. but why was it here?
     }
 
     public function removeTableFilter(
