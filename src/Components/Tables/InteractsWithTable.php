@@ -27,8 +27,14 @@ trait InteractsWithTable
 
     public function bootedInteractsWithTable(): void
     {
-        $this->table = $this->table($this->makeTable($this));
+        $this->fire('booting_table', [
+            'component' => $this,
+        ]);
 
+        if (empty($this->table)) {
+            $this->table = $this->table($this->makeTable($this));
+        }
+        
         // $this->table = Action::configureUsing(
         //     Closure::fromCallable([$this, 'configureTableAction']),
         //     fn (): Table => BulkAction::configureUsing(
