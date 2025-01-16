@@ -125,7 +125,7 @@
             default => $iconSize,
         },
         match ($color) {
-            'gray' => 'text-gray-400',
+            'gray' => 'text-white',
             default => null,
         },
     ]);

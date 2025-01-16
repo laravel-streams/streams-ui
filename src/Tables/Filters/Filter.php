@@ -17,6 +17,7 @@ class Filter extends ViewBuilder
 
     use Support\HasName;
     use Support\HasQuery;
+    use Support\HasLabel;
     // use Support\HasColumns;
     use Support\CanBeHidden;
     use Support\HasComponents;
