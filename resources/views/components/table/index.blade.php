@@ -4,6 +4,22 @@
     'reorderable' => false,
 ])
 
+<style>
+    .sortable-ghost {
+        opacity: 0.5;
+        background-color: #f8f9fa;
+    }
+
+    .drag-handle {
+        position: relative;
+        cursor: grab !important;
+    }
+
+    .sortable-chosen:active .drag-handle {
+        cursor: grabbing;
+    }
+</style>
+
 <table
     {{-- x-data="table()" --}}
     {{ $attributes->class(['w-full table-auto bg-white divide-y divide-gray-200 text-start']) }}

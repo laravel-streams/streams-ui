@@ -1,3 +1,5 @@
+// import Sortable from 'sortablejs';
+
 function table() {
     return {
         
@@ -5,13 +7,35 @@ function table() {
 
         selectedEntries: [],
 
+        isDraggable: true,
+        draggedIndex: null,
+        droppedIndex: null,
+
         shouldCheckUniqueSelection: true,
 
         init: function () {
-            
+
+            const sortable = new Sortable(document.querySelector('table.min-w-full tbody'), {
+                animation: 150,
+                draggable: 'tr',
+                handle: '.drag-handle',
+                dataIdAttr: 'data-key',
+                dragClass: 'sortable-drag',
+                ghostClass: 'sortable-ghost',
+                onEnd: (evt) => {
+                    
+                    let sortedIds = Array.from(evt.target.querySelectorAll('tr'))
+                        .map(row => row.getAttribute('data-key'));
+
+                    console.log(sortedIds);
+
+                    this.$wire.set('sortedIds', sortedIds);
+                }
+            });
+
             this.$wire.$on('deselectAllTableEntries', () =>
                 this.deselectAllEntries(),
-            )
+            );
 
             this.$watch('selectedEntries', () => {
                 
@@ -25,7 +49,7 @@ function table() {
                 this.selectedEntries = [...new Set(this.selectedEntries)]
 
                 this.shouldCheckUniqueSelection = false
-            })
+            });
         },
 
         mountBulkAction: function (name) {
@@ -33,6 +57,9 @@ function table() {
             this.$wire.mountTableBulkAction(name)
         },
 
+        /**
+         * Selection
+         */
         toggleSelectAllEntries: function () {
             
             const keys = this.getAllEntries()
@@ -108,5 +135,10 @@ function table() {
         areEntriesSelected: function (keys) {
             return keys.every((key) => this.isEntrySelected(key))
         },
+
+        /**
+         * Drag and Drop
+         */
+        
     }
 }
