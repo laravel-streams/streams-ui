@@ -15,7 +15,7 @@ function table() {
 
         init: function () {
 
-            const sortable = new Sortable(document.querySelector('table.min-w-full tbody'), {
+            const sortable = new Sortable(this.$refs.table.querySelector('table.min-w-full tbody'), {
                 animation: 150,
                 draggable: 'tr',
                 handle: '.drag-handle',

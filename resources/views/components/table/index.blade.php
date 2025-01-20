@@ -21,6 +21,7 @@
 </style>
 
 <table
+    x-ref="table"
     {{-- x-data="table()" --}}
     {{ $attributes->class(['w-full table-auto bg-white divide-y divide-gray-200 text-start']) }}
 >
