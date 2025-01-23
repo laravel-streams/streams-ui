@@ -23,4 +23,18 @@ class SelectFilter extends Filter
             return $query->where($this->getName(), $state);
         });
     }
+
+    protected bool $required = false;
+
+    public function required(bool | \Closure $required = true)
+    {
+        $this->required = $required;
+
+        return $this;
+    }
+
+    public function isRequired(): bool
+    {
+        return (bool) $this->evaluate($this->required);
+    }
 }
