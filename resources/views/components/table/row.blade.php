@@ -36,6 +36,11 @@
 
     @foreach ($columns as $index => $column)
     @php
+
+        if ($column->isHidden()) {
+            continue;
+        }
+
         $column->entry($entry);
         
         $color = $column->getColor();
