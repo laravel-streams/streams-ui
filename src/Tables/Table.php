@@ -25,6 +25,7 @@ class Table extends ViewBuilder implements HasActions
 
     use Support\HasQuery;
     use Support\HasHeading;
+    use Support\CanBeSorted;
     use Support\CanBePaginated;
     use Support\HasDescription;
 

@@ -4,9 +4,8 @@ namespace Streams\Ui\Components\Tables\Concerns;
 
 use Streams\Core\Entry\Entry;
 use Streams\Ui\Actions\Action;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Streams\Ui\Exceptions\Cancel;
-use Streams\Ui\Exceptions\Halt;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 trait HasActions
 {
@@ -45,7 +44,7 @@ trait HasActions
         $form = $this->getMountedTableActionForm();
 
         $result = null;
-        
+
         try {
             // if ($this->mountedTableActionHasForm()) {
             //     $action->callBeforeFormValidated();
@@ -58,9 +57,9 @@ trait HasActions
             // $action->callBefore();
             $result = $action->call([
                 'component' => $this,
+                'livewire' => $this,
                 'entry' => $this->mountedTableActionRecord,
             ]);
-            
             // $result = $action->callAfter() ?? $result;
         // } catch (Halt $exception) {
         } catch (\Exception $exception) {

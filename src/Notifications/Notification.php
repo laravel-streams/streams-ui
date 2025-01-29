@@ -109,7 +109,7 @@ class Notification extends ViewBuilder
 
         return $this;
     }
-
+    
     public function danger(): static
     {
         $this->icon('heroicon-o-x-circle');

@@ -11,10 +11,12 @@
 ])
 
 <tr @class([
-    'relative h-full transition duration-75',
-    'hover:bg-gray-50' => ($entryUrl || $entryAction),
-    ...$this->table->getRowClasses($entry),
-])>
+        'relative h-full transition duration-75',
+        'hover:bg-gray-50' => ($entryUrl || $entryAction),
+        ...$this->table->getRowClasses($entry),
+    ])
+    data-key="{{ $entry->id }}"
+>
 
     @if ($bulkActions)
     <td class="p-0 w-0">

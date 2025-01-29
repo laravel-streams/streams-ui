@@ -4,7 +4,7 @@
     {{-- onchange="this.form.submit()" --}}
     wire:model.live="tableFilters.{{ $filter->getName() }}.value">
     
-    <option value="">{{ $filter->getPlaceholder() ?: Str::title($filter->getName()) }}</option>
+    <option {{ $filter->isRequired() ? 'disabled' : null }} value="">{{ $filter->getPlaceholder() ?: Str::title($filter->getName()) }}</option>
 
     @foreach ($filter->getOptions() as $key => $value)
     <option {{ Request::get($path)==$key ? 'selected' : '' }} value="{{ $key }}">{{ $value }}</option>
