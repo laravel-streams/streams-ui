@@ -15,23 +15,27 @@ function table() {
 
         init: function () {
 
-            const sortable = new Sortable(this.$refs.table.querySelector('table.min-w-full tbody'), {
-                animation: 150,
-                draggable: 'tr',
-                handle: '.drag-handle',
-                dataIdAttr: 'data-key',
-                dragClass: 'sortable-drag',
-                ghostClass: 'sortable-ghost',
-                onEnd: (evt) => {
-                    
-                    let sortedIds = Array.from(evt.target.querySelectorAll('tr'))
-                        .map(row => row.getAttribute('data-key'));
-
-                    console.log(sortedIds);
-
-                    this.$wire.set('sortedIds', sortedIds);
-                }
-            });
+            
+            if (typeof Sortable !== 'undefined') {
+                
+                const sortable = new Sortable(this.$refs.table.querySelector('table.min-w-full tbody'), {
+                    animation: 150,
+                    draggable: 'tr',
+                    handle: '.drag-handle',
+                    dataIdAttr: 'data-key',
+                    dragClass: 'sortable-drag',
+                    ghostClass: 'sortable-ghost',
+                    onEnd: (evt) => {
+                        
+                        let sortedIds = Array.from(evt.target.querySelectorAll('tr'))
+                            .map(row => row.getAttribute('data-key'));
+    
+                        console.log(sortedIds);
+    
+                        this.$wire.set('sortedIds', sortedIds);
+                    }
+                });
+            }
 
             this.$wire.$on('deselectAllTableEntries', () =>
                 this.deselectAllEntries(),

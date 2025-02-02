@@ -57,10 +57,14 @@ class UiServiceProvider extends ServiceProvider
             __DIR__ . '/../resources/config/ui.php' => config_path('streams/ui.php'),
         ], 'config');
 
+        $this->publishes([
+            __DIR__ . '/../resources/views/' => resource_path('views/vendor/ui'),
+        ], 'ui');
+
         Assets::addPath('ui', 'vendor/streams/ui/resources');
         Images::addPath('ui', 'vendor/streams/ui/resources');
 
-        View::addNamespace('ui', __DIR__ . '/../resources/views');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'ui');
 
         Lang::addNamespace('ui', realpath(base_path('vendor/streams/ui/resources/lang')));
 
