@@ -44,7 +44,7 @@ trait HasEntries
             'livewire' => $this,
             'table' => $this->getTable(),
         ]);
-
+        
         return $this->entries;
     }
 

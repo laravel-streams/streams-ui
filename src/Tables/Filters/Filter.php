@@ -8,6 +8,7 @@ use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Inputs\Traits\CanBeAutofocused;
 use Streams\Ui\Tables\Concerns\BelongsToTable;
+use Illuminate\Contracts\Database\Query\Builder;
 
 class Filter extends ViewBuilder
 {
@@ -60,7 +61,7 @@ class Filter extends ViewBuilder
         return null;
     }
 
-    public function apply(Criteria $query, Table $table, $state): Criteria
+    public function apply(Criteria | Builder $query, Table $table, $state): Criteria | Builder
     {
         // if ($this->isHidden()) {
         //     return $query;
