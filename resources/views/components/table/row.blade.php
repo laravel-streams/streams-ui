@@ -15,7 +15,7 @@
         'hover:bg-gray-50' => ($entryUrl || $entryAction),
         ...$this->table->getRowClasses($entry),
     ])
-    data-key="{{ $entry->id }}"
+    data-key="{{ $entry->id ?? null }}"
 >
 
     @if ($bulkActions)
