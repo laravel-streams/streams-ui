@@ -6,6 +6,7 @@ use Streams\Core\Entry\Entry;
 use Streams\Ui\Actions\Action;
 use Streams\Ui\Exceptions\Cancel;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Streams\Core\Entry\Contract\EntryInterface;
 
 trait HasActions
 {
@@ -44,7 +45,7 @@ trait HasActions
         $form = $this->getMountedTableActionForm();
 
         $result = null;
-
+        
         try {
             // if ($this->mountedTableActionHasForm()) {
             //     $action->callBeforeFormValidated();
@@ -224,7 +225,7 @@ trait HasActions
         return $this->mountedTableActionRecord;
     }
 
-    public function getMountedTableActionRecord(): ?Entry
+    public function getMountedTableActionRecord(): ?EntryInterface
     {
         $recordKey = $this->getMountedTableActionRecordKey();
 
@@ -240,7 +241,8 @@ trait HasActions
             $entry = $entries->get($recordKey);
         }
 
-        return $this->cachedMountedTableActionRecord = $entry;
+        // return $this->cachedMountedTableActionRecord = $entry;
+        return $entry;
     }
 
     protected function popMountedTableAction(): ?string

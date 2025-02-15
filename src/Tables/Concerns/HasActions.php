@@ -4,6 +4,7 @@ namespace Streams\Ui\Tables\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Streams\Core\Entry\Contract\EntryInterface;
 use Streams\Core\Entry\Entry;
 use Streams\Ui\Actions\Action;
 use Streams\Ui\Actions\ActionGroup;
@@ -130,7 +131,7 @@ trait HasActions
         Action $action,
         array $modalActionNames,
         string $parentActionName,
-        ?Entry $mountedRecord = null
+        ?EntryInterface $mountedRecord = null
     ): ?Action {
 
         foreach ($modalActionNames as $modalActionName) {
