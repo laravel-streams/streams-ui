@@ -6,10 +6,12 @@ use Livewire\Component;
 use Streams\Ui\Traits as Common;
 use Illuminate\Contracts\View\View;
 use Streams\Core\Support\Traits\HasMemory;
+use Streams\Core\Support\Traits\FiresCallbacks;
 
 class Widget extends Component
 {
     use HasMemory;
+    use FiresCallbacks;
     
     use Common\CanSpanColumns;
     use Common\EvaluatesClosures;
