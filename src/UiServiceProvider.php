@@ -37,13 +37,13 @@ class UiServiceProvider extends ServiceProvider
         $this->app->singleton('colors', \Streams\Ui\Colors\ColorManager::class);
         $this->app->singleton('breadcrumbs', \Illuminate\Support\Collection::class);
         $this->app->singleton('notifications', \Illuminate\Support\Collection::class);
+
+        $this->app->alias(\Streams\Ui\UiManager::class, 'ui');
+        $this->app->alias(\Streams\Ui\Colors\ColorManager::class, 'colors');
     }
 
     public function boot()
-    {
-        $this->app->alias(\Streams\Ui\UiManager::class, 'ui');
-        $this->app->alias(\Streams\Ui\Colors\ColorManager::class, 'colors');
-        
+    {        
         app(Router::class)->aliasMiddleware('panel', SetUpPanel::class);
 
         Integrator::aliases([
