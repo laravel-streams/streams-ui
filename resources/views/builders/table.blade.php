@@ -13,6 +13,7 @@ $heading = $table->getHeading();
 $description = $table->getDescription();
 $headerActions = [];//$table->getHeaderActions();
 
+$isPaginated = $table->isPaginated();
 $paginationOptions = $table->getPaginationOptions();
 
 $selectedRecords = [];
@@ -93,7 +94,9 @@ $selectedRecords = [];
 
             </tbody>
 
+            @if ($isPaginated)    
             <x-ui::table.foot :table="$table" :paginator="$paginator" :paginationOptions="$paginationOptions"/>
+            @endif
 
         </table>
 

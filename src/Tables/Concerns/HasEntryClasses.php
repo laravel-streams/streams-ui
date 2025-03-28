@@ -16,7 +16,7 @@ trait HasEntryClasses
         return $this;
     }
 
-    public function getRowClasses(EntryInterface | \stdClass $entry): array
+    public function getRowClasses($entry): array
     {
         return Arr::wrap($this->evaluate(
             $this->rowClasses,

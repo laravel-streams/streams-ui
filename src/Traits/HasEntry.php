@@ -6,9 +6,9 @@ use Streams\Core\Entry\Contract\EntryInterface;
 
 trait HasEntry
 {
-    public EntryInterface | \stdClass | string | null $entry = null;
+    public $entry = null;
 
-    public function entry(EntryInterface | \stdClass | \Closure | string | null $entry = null): static
+    public function entry($entry = null): static
     {
         $this->entry = $entry;
 
@@ -55,7 +55,7 @@ trait HasEntry
         // return $this->getParentComponent()?->getEntry();
     }
 
-    public function getEntryInstance(): EntryInterface | \stdClass | null
+    public function getEntryInstance()
     {
         $entry = $this->entry;
 
