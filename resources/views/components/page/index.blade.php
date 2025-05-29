@@ -7,6 +7,4 @@
 
     {{ $slot }}
 
-    <x-ui::modals />
-
 </div>
