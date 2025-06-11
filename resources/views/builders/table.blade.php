@@ -43,13 +43,13 @@ $selectedRecords = [];
         @if ($bulkActions || $filters)
         <div class="flex flex-col gap-x-3 p-3">
 
-            {{-- @if ($bulkActions)
+            @if ($bulkActions)
             <div class="flex mr-12">
                 @foreach ($bulkActions as $action)
                 {!! $action->render() !!}
                 @endforeach
             </div>
-            @endif --}}
+            @endif
 
             <div class="flex justify-between">
 
