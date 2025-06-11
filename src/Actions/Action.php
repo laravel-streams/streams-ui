@@ -9,6 +9,7 @@ use Streams\Ui\Builders\ViewBuilder;
 class Action extends ViewBuilder
 {
     use Traits\HasTag;
+    use Traits\HasForm;
     use Traits\HasStyle;
     use Traits\HasAction;
     use Traits\HasTooltip;

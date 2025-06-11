@@ -42,17 +42,17 @@ trait HasForm
             return null;
         }
 
-        if (is_array($modifiedForm) && $this->isWizard()) {
-            $modifiedForm = [
-                Wizard::make($modifiedForm)
-                    ->contained(false)
-                    ->startOnStep($this->getWizardStartStep())
-                    ->cancelAction($this->getModalCancelAction())
-                    ->submitAction($this->getModalSubmitAction())
-                    ->skippable($this->isWizardSkippable())
-                    ->disabled($this->isFormDisabled()),
-            ];
-        }
+        // if (is_array($modifiedForm) && $this->isWizard()) {
+        //     $modifiedForm = [
+        //         Wizard::make($modifiedForm)
+        //             ->contained(false)
+        //             ->startOnStep($this->getWizardStartStep())
+        //             ->cancelAction($this->getModalCancelAction())
+        //             ->submitAction($this->getModalSubmitAction())
+        //             ->skippable($this->isWizardSkippable())
+        //             ->disabled($this->isFormDisabled()),
+        //     ];
+        // }
 
         if (is_array($modifiedForm)) {
             $modifiedForm = $form->components($modifiedForm);

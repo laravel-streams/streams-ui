@@ -3,19 +3,20 @@
 namespace Streams\Ui\Forms;
 
 use Livewire\Component;
+use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Traits as Support;
-use Streams\Ui\Containers\Container;
 
-class Form extends Container
+class Form extends ViewBuilder
 {
+    use Support\HasState;
     use Support\HasStream;
     use Support\HasActions;
     use Support\HasHeading;
+    use Support\HasComponents;
     use Support\HasDescription;
     
-    // use Containers\Concerns\HasContainers;
-
-    protected ?string $statePath = 'form';
+    use Support\BelongsToParent;
+    use Support\BelongsToLivewire;
 
     protected string $view = 'ui::form';
 
@@ -23,6 +24,8 @@ class Form extends Container
 
     public function __construct(Component $livewire = null)
     {
+        $this->statePath = 'form';
+
         $this->livewire($livewire);
     }
 

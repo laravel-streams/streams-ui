@@ -88,7 +88,7 @@
                 @class([
                     'pointer-events-auto relative flex w-full cursor-default flex-col bg-white shadow-xl ring-1 ring-gray-950/5',
                     'h-screen' => $width === 'screen',
-                    'mx-auto rounded-xl' => true,//$width !== 'screen',
+                    'mx-auto rounded-2xl' => true,//$width !== 'screen',
                     'hidden' => ! $visible,
                     match ($width) {
                         'xs' => 'max-w-xs',
@@ -117,7 +117,6 @@
                         <div class="absolute end-4 top-4">
                             <x-ui::action
                                 color="black"
-                                borderRadius="full"
                                 icon="heroicon-o-x-mark"
                                 {{-- icon-alias="modal.close-action" --}}
                                 icon-size="lg"
