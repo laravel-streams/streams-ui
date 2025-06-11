@@ -7,6 +7,7 @@ use Streams\Ui\Traits as Common;
 use Illuminate\Support\Facades\App;
 use Streams\Ui\Builders\ViewBuilder;
 use Illuminate\Support\Facades\Session;
+use Streams\Ui\Support\Facades\Notifications;
 
 class Notification extends ViewBuilder
 {
@@ -93,12 +94,12 @@ class Notification extends ViewBuilder
         return $static;
     }
 
-    // public function push(): static
-    // {
-    //     Notifications::push($this->toArray());
+    public function push(): static
+    {
+        Notifications::push($this->toArray());
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
     public function send(): static
     {

@@ -17,8 +17,23 @@ class Container extends ViewBuilder
     
     use Support\BelongsToParent;
     use Support\BelongsToLivewire;
-    
-    use Traits\HasColumns;
+
+    protected string $viewIdentifier = 'container';
 
     protected string $view = 'ui::builders.container';
+
+    public function __construct(string $id)
+    {
+        $this->id($id);
+        $this->statePath($id);
+    }
+
+    public static function make(string $id): static
+    {
+        $static = app(static::class, ['id' => $id]);
+
+        $static->configure();
+
+        return $static;
+    }
 }
