@@ -3,7 +3,7 @@
     $classes = Arr::toCssClasses([
         '',
         match ($section->isDisabled()) {
-            true => 'opacity-60 pointer-events-none',
+            true => 'opacity-40 pointer-events-none',
             default => '',
         },
         // match ($color) {
