@@ -2,7 +2,11 @@
     'indicators' => [],
 ])
 
-@if ($indicators)
+@php
+    $indications = array_filter($indicators, fn ($item) => $item['value'] ?? null);
+@endphp
+
+@if ($indications)
 <div
     {{ $attributes->class(['fi-ta-filter-indicators flex items-start justify-between gap-x-3 bg-gray-50 px-3 py-1.5 sm:px-6']) }}
 >
@@ -12,7 +16,7 @@
         >Active filters:</span>
 
         <div class="flex flex-wrap gap-1.5">
-            @foreach ($indicators as $label => $indicator)
+            @foreach ($indications as $label => $indicator)
                 {{-- <x-ui::badge :color="$indicator->getColor()">
                     {{ $indicator->getLabel() }}
 
@@ -27,7 +31,7 @@
                     @endif
                 </x-ui::badge> --}}
                 <x-ui::badge color="primary">
-                    {{ $label }}
+                    {{ Str::title(Str::humanize($label)) }}
 
                     {{-- @if ($indicator->isRemovable())
                         <x-slot
