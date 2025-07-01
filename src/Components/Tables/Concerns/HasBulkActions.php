@@ -57,7 +57,8 @@ trait HasBulkActions
             $result = $action->call([
                 'component' => $this,
                 'table' => $this->table,
-                'selectedEntries' => $this->selectedTableEntries
+                'selectedEntries' => $this->selectedTableEntries,
+                'arguments' => $arguments,
             ]);
 
             $action->fire('after_call');
@@ -194,9 +195,6 @@ trait HasBulkActions
         $this->dispatch('deselectAllTableRecords');
     }
 
-    /**
-     * @return array<string>
-     */
     public function getAllSelectableTableRecordKeys(): array
     {
         $query = $this->getFilteredTableQuery();
@@ -230,9 +228,6 @@ trait HasBulkActions
         );
     }
 
-    /**
-     * @return array<string>
-     */
     public function getGroupedSelectableTableRecordKeys(string $group): array
     {
         $query = $this->getFilteredTableQuery();

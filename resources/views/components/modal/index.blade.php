@@ -119,9 +119,10 @@
                                 color="black"
                                 icon="heroicon-o-x-mark"
                                 {{-- icon-alias="modal.close-action" --}}
-                                icon-size="lg"
+                                icon-size="xl"
                                 {{-- :label="__('ui::components/modal.actions.close.label')" --}}
                                 tabindex="-1"
+                                borderRadius="lg"
                                 :x-on:click="filled($id) ? '$dispatch(' . \Illuminate\Support\Js::from($closeEventName) . ', { id: ' . \Illuminate\Support\Js::from($id) . ' })' : 'close()'"
                                 x-on:click="close()"
                                 class="ui-modal-close-btn"

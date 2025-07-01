@@ -55,13 +55,14 @@ trait InteractsWithActions
         //         $action->callAfterFormValidated();
         //     }
 
-        //     $action->callBefore();
+        $action->fire('before_call');
 
-        //     $result = $action->call([
-        //         'form' => $form,
-        //     ]);
+        $result = $action->call([
+            'component' => $this,
+            'arguments' => $arguments,
+        ]);
 
-        //     $result = $action->callAfter() ?? $result;
+        $action->fire('after_call');
 
         //     $this->afterActionCalled();
         // } catch (Halt $exception) {
