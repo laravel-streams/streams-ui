@@ -13,21 +13,28 @@ trait InteractsWithQuery
         bool $isFirst
     ): Criteria {
 
-        // if ($this->searchQuery) {
-            
-        //     $whereClause = $isFirst ? 'where' : 'orWhere';
+        if ($this->searchQuery) {
 
-        //     $query->{$whereClause}(
-        //         fn ($query) => $this->evaluate($this->searchQuery, [
-        //             'query' => $query,
-        //             'search' => $search,
-        //         ]),
-        //     );
+            // $whereClause = $isFirst ? 'where' : 'orWhere';
 
-        //     $isFirst = false;
+            // $query->{$whereClause}(
+            //     fn ($query) => $this->evaluate($this->searchQuery, [
+            //         'query' => $query,
+            //         'search' => $search,
+            //         'state' => $search,
+            //     ]),
+            // );
 
-        //     return $query;
-        // }
+            $this->evaluate($this->searchQuery, [
+                'query' => $query,
+                'search' => $search,
+                'state' => $search,
+            ]);
+
+            $isFirst = false;
+
+            return $query;
+        }
 
         // /** @var Connection $databaseConnection */
         // $databaseConnection = $query->getConnection();
@@ -77,7 +84,7 @@ trait InteractsWithQuery
     //     string $sortColumn,
     //     ?array $relationships = null
     // ): string | Criteria {
-        
+
     //     $relationships ??= ($relationshipName = $this->getRelationshipName()) ?
     //         explode('.', $relationshipName) :
     //         [];

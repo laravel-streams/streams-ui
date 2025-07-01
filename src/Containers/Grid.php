@@ -20,7 +20,7 @@ class Grid extends Container
         $this->id($id);
     }
 
-    public static function make(string $id): static
+    public static function make(?string $id = null): static
     {
         $static = app(static::class, ['id' => $id]);
 

@@ -12,16 +12,17 @@
     //     // },
     // ]);
 @endphp
+
 <div {{ $attributes->class([
-    'grid grid-cols-3 gap-4 p-4',
-    $classes,
+    'grid grid-cols-3 gap-4',
+    // $classes,
 ]) }}>
 
     {{-- Section Header --}}
-    <div class="flex flex-col space-y-2">
+    {{-- <div class="flex flex-col space-y-2"> --}}
 
         {{-- Heading --}}
-        @if ($heading = $section->getHeading())
+        {{-- @if ($heading = $section->getHeading())
         @if ($url = $section->getUrl())
             <h2 class="">
                 <a href="{{ $url }}" class="text-xl font-semibold underline">{{ __($heading) }}</a>
@@ -29,14 +30,14 @@
         @else
             <h2 class="text-xl font-semibold">{{ __($heading) }}</h2>
         @endif
-        @endif
+        @endif --}}
 
         {{-- Description --}}
-        @if ($description = $section->getDescription())
+        {{-- @if ($description = $section->getDescription())
             <p class="">{{ __($description) }}</p>
-        @endif
+        @endif --}}
 
-    </div>
+    {{-- </div> --}}
     {{-- EOF Section Header --}}
 
     {{-- Components --}}
