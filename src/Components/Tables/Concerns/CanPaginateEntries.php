@@ -30,7 +30,7 @@ trait CanPaginateEntries
             $records = $query->paginate([
                 'per_page' => $perPage === 'all' ? $query->count() : $perPage,
                 'page_name' => $this->getTablePaginationPageName(),
-                'page' => $this->paginators[$this->getTablePaginationPageName()] ?? 1
+                'page' => $this->paginators[$this->getTablePaginationPageName()] ?? 1,
             ]);
         } elseif ($query instanceof Builder) {
             $records = $query->paginate(

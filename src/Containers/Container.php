@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Containers;
 
+use Illuminate\Support\Str;
 use Streams\Ui\Traits as Support;
 use Streams\Ui\Builders\ViewBuilder;
 
@@ -9,7 +10,6 @@ class Container extends ViewBuilder
 {
     use Support\HasId;
     use Support\HasEntry;
-    use Support\HasState;
     use Support\HasComponents;
     use Support\HasHtmlAttributes;
     
@@ -25,12 +25,11 @@ class Container extends ViewBuilder
     public function __construct(string $id)
     {
         $this->id($id);
-        $this->statePath($id);
     }
 
-    public static function make(string $id): static
+    public static function make(?string $id = null): static
     {
-        $static = app(static::class, ['id' => $id]);
+        $static = app(static::class, ['id' => $id ?: Str::random(10)]);
 
         $static->configure();
 
