@@ -17,7 +17,7 @@
 
 <div class="col-span-full">
     <{{ $priority }} class="{{ $classes }} font-bold text-gray-900">{{ $heading->getTitle() }}</{{ $priority }}>
-    {{-- @if (isset($description) && $description)
+    @if ($description = $heading->getDescription())
     <p class="text-gray-500 mt-2">{{ $description }}</p>
-    @endif --}}
+    @endif
 </div>

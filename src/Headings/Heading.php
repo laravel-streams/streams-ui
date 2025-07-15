@@ -11,6 +11,7 @@ class Heading extends ViewBuilder
     use Common\HasIcon;
     use Common\HasBadge;
     use Common\HasTitle;
+    use Common\HasDescription;
     use Common\HasHtmlAttributes;
     
     protected string $viewIdentifier = 'heading';
