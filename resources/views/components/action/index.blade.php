@@ -25,12 +25,14 @@
     'style' => 'button',
 ])
 @php
-    $actionClasses = ['relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75'];
-
     $tag = $tag ?: ($href ? 'a' : 'button');
 
-    $actionClasses[] = Arr::toCssClasses(
-        match ($style) {
+    $classes = Arr::toCssClasses([
+        // Base classes
+        'relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75',
+        
+        // Style-specific classes
+        ...match ($style) {
             'button' => [
                 'shadow-sm' => ! $grouped,
                 match ($borderRadius) {
@@ -64,49 +66,49 @@
                     ],
                 },
             ],
+            default => [],
+        },
+        
+        // State classes
+        'pointer-events-none opacity-70' => $disabled,
+        'flex-1' => $grouped,
+        
+        // Color classes
+        match ($color) {
+            'gray' => '',
             default => '',
-        }
-    );
-
-    $actionClasses[] = Arr::toCssClasses([
-        ...[
-            'relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75',
-            'pointer-events-none opacity-70' => $disabled,
-            'flex-1' => $grouped,
-            // 'rounded-lg' => ! $grouped,
+        },
+        is_string($color) ? "{$color}" : null,
+        
+        // Size classes
+        match ($size) {
+            'xs' => 'gap-1 px-2.5 py-1.5',
+            'sm' => 'gap-1 px-3 py-1.5',
+            'md' => 'gap-1.5 px-4 py-2',
+            'lg' => 'gap-1.5 px-5 py-2.5',
+            'xl' => 'gap-1.5 px-6 py-3',
+            default => $size,
+        },
+        
+        // Responsive visibility
+        'hidden' => $labeledFrom,
+        match ($labeledFrom) {
+            'sm' => 'sm:inline-grid',
+            'md' => 'md:inline-grid',
+            'lg' => 'lg:inline-grid',
+            'xl' => 'xl:inline-grid',
+            '2xl' => '2xl:inline-grid',
+            default => 'inline-grid',
+        },
+        
+        // Outlined styles
+        ...($outlined ? [
+            'ring-1',
             match ($color) {
-                'gray' => '',
-                default => '',
+                'gray' => 'text-gray-950 ring-gray-300 hover:bg-gray-400/10 focus-visible:ring-gray-400/40',
+                default => 'text-gray-600 ring-gray-600 hover:bg-gray-400/10',
             },
-            is_string($color) ? "{$color}" : null,
-            match ($size) {
-                'xs' => 'gap-1 px-2.5 py-1.5',
-                'sm' => 'gap-1 px-3 py-1.5',
-                'md' => 'gap-1.5 px-4 py-2',
-                'lg' => 'gap-1.5 px-5 py-2.5',
-                'xl' => 'gap-1.5 px-6 py-3',
-                default => $size,
-            },
-            'hidden' => $labeledFrom,
-            match ($labeledFrom) {
-                'sm' => 'sm:inline-grid',
-                'md' => 'md:inline-grid',
-                'lg' => 'lg:inline-grid',
-                'xl' => 'xl:inline-grid',
-                '2xl' => '2xl:inline-grid',
-                default => 'inline-grid',
-            },
-        ],
-        ...(
-            $outlined ?
-                [
-                    'ring-1',
-                    match ($color) {
-                        'gray' => 'text-gray-950 ring-gray-300 hover:bg-gray-400/10 focus-visible:ring-gray-400/40',
-                        default => 'text-gray-600 ring-gray-600 hover:bg-gray-400/10',
-                    },
-                ] : []
-        ),
+        ] : []),
     ]);
 
     $actionStyles = Arr::toCssStyles([
@@ -159,7 +161,7 @@
                 'wire:loading.attr' => 'disabled',
                 'type' => $tag == 'button' ? $type : false,
             ], escape: false)
-            ->class([implode(' ', $actionClasses)])
+            ->class([$classes])
             ->style([$actionStyles])
     }}
 >

@@ -8,7 +8,7 @@ use Illuminate\Contracts\View\View;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
-class Widget extends Component
+abstract class Widget extends Component
 {
     use HasMemory;
     use FiresCallbacks;

@@ -11,6 +11,7 @@ class Heading extends ViewBuilder
     use Common\HasIcon;
     use Common\HasBadge;
     use Common\HasTitle;
+    use Common\HasActions;
     use Common\HasDescription;
     use Common\HasHtmlAttributes;
     
