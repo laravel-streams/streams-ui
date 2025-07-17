@@ -1,21 +1,31 @@
 @php
 
-    // $classes = Arr::toCssClasses([
-    //     '',
-    //     match ($section->isDisabled()) {
-    //         true => 'opacity-40 pointer-events-none',
-    //         default => '',
-    //     },
-    //     // match ($color) {
-    //     //     'gray' => 'text-white',
-    //     //     default => null,
-    //     // },
-    // ]);
+    $classes = Arr::toCssClasses([
+        'grid gap-4',
+        match ($grid->isDisabled()) {
+            true => 'opacity-40 pointer-events-none',
+            default => '',
+        },
+        match ($grid->getColumns()) {
+            1 => 'grid-cols-1',
+            2 => 'grid-cols-2',
+            3 => 'grid-cols-3',
+            4 => 'grid-cols-4',
+            5 => 'grid-cols-5',
+            6 => 'grid-cols-6',
+            7 => 'grid-cols-7',
+            8 => 'grid-cols-8',
+            9 => 'grid-cols-9',
+            10 => 'grid-cols-10',
+            11 => 'grid-cols-11',
+            12 => 'grid-cols-12',
+            default => null,
+        },
+    ]);
 @endphp
 
 <div {{ $attributes->class([
-    'grid grid-cols-3 gap-4',
-    // $classes,
+    $classes,
 ]) }}>
 
     {{-- Section Header --}}
@@ -41,7 +51,7 @@
     {{-- EOF Section Header --}}
 
     {{-- Components --}}
-    @foreach ($section->getComponents() as $component)
+    @foreach ($grid->getComponents() as $component)
     {{ $component }}
     @endforeach
 </div>

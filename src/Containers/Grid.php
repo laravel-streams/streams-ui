@@ -10,8 +10,10 @@ class Grid extends Container
     use Common\HasHeading;
     use Common\CanBeDisabled;
     use Common\HasDescription;
+
+    use Traits\HasColumns;
     
-    protected string $viewIdentifier = 'section';
+    protected string $viewIdentifier = 'grid';
 
     protected string $view = 'ui::builders.grid';
 
