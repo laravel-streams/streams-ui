@@ -6,7 +6,7 @@
             true => 'opacity-40 pointer-events-none',
             default => '',
         },
-        match ($grid->getColumns()) {
+        match ($grid->getColumns()['default'] ?? 3) {
             1 => 'grid-cols-1',
             2 => 'grid-cols-2',
             3 => 'grid-cols-3',
