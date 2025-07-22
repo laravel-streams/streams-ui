@@ -56,7 +56,7 @@
             ])
     }}
 >
-    @if ($icon && $iconPosition === IconPosition::Before)
+    @if ($icon && $iconPosition === 'before')
         <x-ui::icon
             :icon="$icon"
             :x-bind:class="$hasAlpineActiveClasses ? '{ ' . \Illuminate\Support\Js::from($inactiveIconClasses) . ': ! (' . $alpineActive . '), ' . \Illuminate\Support\Js::from($activeIconClasses) . ': ' . $alpineActive . ' }' : null"
@@ -84,7 +84,7 @@
         {{ $slot }}
     </span>
 
-    @if ($icon && $iconPosition === IconPosition::After)
+    @if ($icon && $iconPosition === 'after')
         <x-ui::icon
             :icon="$icon"
             :x-bind:class="$hasAlpineActiveClasses ? '{ ' . \Illuminate\Support\Js::from($inactiveIconClasses) . ': ! (' . $alpineActive . '), ' . \Illuminate\Support\Js::from($activeIconClasses) . ': ' . $alpineActive . ' }' : null"
