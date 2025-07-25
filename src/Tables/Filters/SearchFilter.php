@@ -16,7 +16,7 @@ class SearchFilter extends Filter
     {
         $this->query(function (Criteria $query, Table $table, $state): Criteria {
 
-            $search = '%' . $state . '%';
+            $search = $state . '%';
 
             foreach ($table->getColumns() as $column) {
 
