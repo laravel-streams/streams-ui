@@ -4,6 +4,7 @@
     'wireModel' => 'tableSearch',
 ])
 
+@if ($this->table->getSearchableColumns())    
 <div
     x-id="['input']"
     {{ $attributes->class(['ui-table-search-field']) }}
@@ -31,3 +32,6 @@
         />
     {{-- </x-ui::input.wrapper> --}}
 </div>
+@else
+<div></div>
+@endif
