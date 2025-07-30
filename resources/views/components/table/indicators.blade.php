@@ -31,7 +31,18 @@
                     @endif
                 </x-ui::badge> --}}
                 <x-ui::badge color="primary">
-                    {{ Str::title(Str::humanize($label)) }}
+                    {{ Str::title(Str::humanize($label)) }}: {{ $indicator['value'] }}
+
+                    {{-- Uncomment if you want to add a delete button --}}
+                    {{-- @if ($indicator->isRemovable())
+                        <x-slot
+                            name="deleteButton"
+                            :label="__('ui::table.filters.actions.remove.label')"
+                            wire:click="{{ $indicator->getRemoveLivewireClickHandler() }}"
+                            wire:loading.attr="disabled"
+                            wire:target="removeTableFilter"
+                        ></x-slot>
+                    {{-- {{ $this->tableFilters }} --}}
 
                     {{-- @if ($indicator->isRemovable())
                         <x-slot

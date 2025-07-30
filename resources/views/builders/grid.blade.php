@@ -1,7 +1,7 @@
 @php
 
     $classes = Arr::toCssClasses([
-        'grid gap-4',
+        'grid gap-4 w-full',
         match ($grid->isDisabled()) {
             true => 'opacity-40 pointer-events-none',
             default => '',

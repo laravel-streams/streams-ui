@@ -40,4 +40,12 @@ trait HasColumns
             fn (Column $column) => $column->isVisible()
         );
     }
+
+    public function getSearchableColumns(): array
+    {
+        return array_filter(
+            $this->getColumns(),
+            fn (Column $column) => $column->isSearchable()
+        );
+    }
 }
