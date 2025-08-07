@@ -72,6 +72,7 @@ trait HasBulkActions
                 $action->resetFormData();
 
                 $this->unmountTableBulkAction();
+                $this->selectedTableEntries = [];
             }
 
             throw $exception;
@@ -85,6 +86,8 @@ trait HasBulkActions
         // $action->resetFormData();
 
         $this->unmountTableBulkAction();
+
+        $this->selectedTableEntries = [];
 
         return $result;
     }

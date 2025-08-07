@@ -136,6 +136,16 @@ function table() {
             return this.selectedEntries.includes(key)
         },
 
+        toggleEntry: function (key) {
+            if (this.isEntrySelected(key)) {
+                this.deselectEntries([key])
+            } else {
+                this.selectEntries([key])
+            }
+            
+            this.$wire.set('selectedTableEntries', this.selectedEntries, false);
+        },
+
         areEntriesSelected: function (keys) {
             return keys.every((key) => this.isEntrySelected(key))
         },

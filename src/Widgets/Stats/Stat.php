@@ -16,6 +16,8 @@ class Stat extends Component implements Htmlable
     use Common\HasDescription;
     use Common\HasHtmlAttributes;
     
+    use Common\CanSpanColumns;
+    
     use Common\EvaluatesClosures;
 
     final public function __construct(string | Htmlable $label, $value)
