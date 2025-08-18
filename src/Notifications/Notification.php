@@ -103,8 +103,8 @@ class Notification extends ViewBuilder
 
     public function send(): static
     {
-        Session::push(
-            'streams.notifications',
+        Session::put(
+            'streams.notifications.' . $this->getId(),
             $this->toArray(),
         );
 
