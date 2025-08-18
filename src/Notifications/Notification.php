@@ -96,7 +96,7 @@ class Notification extends ViewBuilder
 
     public function push(): static
     {
-        Notifications::push($this->toArray());
+        Notifications::put($this->getId(), $this->toArray());
 
         return $this;
     }
