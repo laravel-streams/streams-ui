@@ -159,7 +159,7 @@ trait InteractsWithActions
         }
 
         $this->resetErrorBag();
-
+        
         $this->openActionModal($action);
 
         return null;
@@ -353,7 +353,9 @@ trait InteractsWithActions
 
     public function unmountAction(bool $shouldCancelParentActions = true): void
     {
-        $action = $this->getMountedAction();
+        if (!$action = $this->getMountedAction()) {
+            return;
+        }
 
         // if (!($shouldCancelParentActions && $action)) {
         //     $this->popMountedAction();
@@ -373,6 +375,10 @@ trait InteractsWithActions
         //         }
         //     }
         // }
+
+        if (($key = array_search($action->getName(), $this->mountedActions)) !== false) {
+            array_splice($this->mountedActions, $key, 1);
+        }
 
         if (!count($this->mountedActions)) {
             $this->closeActionModal();
