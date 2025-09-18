@@ -21,10 +21,12 @@ class Modal extends Builder
 
     public static function make(string | \Closure | null $name = null): static
     {
-        $static = new static($name);
+        $instance = app(static::class, [
+            'name' => $name,
+        ]);
 
-        $static->configure();
+        $instance->configure();
 
-        return $static;
+        return $instance;
     }
 }

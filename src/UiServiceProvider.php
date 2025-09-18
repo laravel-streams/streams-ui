@@ -35,11 +35,12 @@ class UiServiceProvider extends ServiceProvider
         $this->app->singleton(\Streams\Ui\Support\Facades\Notifications::class);
         
         $this->app->singleton('colors', \Streams\Ui\Colors\ColorManager::class);
-        $this->app->singleton('breadcrumbs', \Illuminate\Support\Collection::class);
-        $this->app->singleton('notifications', \Illuminate\Support\Collection::class);
+        $this->app->singleton('breadcrumbs', \Streams\Ui\Components\Breadcrumbs\BreadcrumbsManager::class);
+        $this->app->singleton('notifications', \Streams\Ui\Notifications\NotificationsManager::class);
 
         $this->app->alias(\Streams\Ui\UiManager::class, 'ui');
         $this->app->alias(\Streams\Ui\Colors\ColorManager::class, 'colors');
+        $this->app->alias(\Streams\Ui\Notifications\NotificationsManager::class, 'notifications');
     }
 
     public function boot()
@@ -48,6 +49,8 @@ class UiServiceProvider extends ServiceProvider
 
         Integrator::aliases([
             'UI' => \Streams\Ui\Support\Facades\UI::class,
+            'Breadcrumbs' => \Streams\Ui\Support\Facades\Breadcrumbs::class,
+            'Notifications' => \Streams\Ui\Support\Facades\Notifications::class,
         ]);
 
         $this->publishes([

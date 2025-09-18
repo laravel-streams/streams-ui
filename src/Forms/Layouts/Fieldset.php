@@ -3,7 +3,6 @@
 namespace Streams\Ui\Forms\Layouts;
 
 use Streams\Ui\Traits as Common;
-use Streams\Ui\Builders\Concerns;
 use Streams\Ui\Builders\ViewBuilder;
 
 class Fieldset extends ViewBuilder
@@ -29,10 +28,10 @@ class Fieldset extends ViewBuilder
     public static function make(
         string | array | \Closure | null $label = null
     ): static {
-        $static = app(static::class, ['label' => $label]);
+        $instance = app(static::class, ['label' => $label]);
 
-        $static->configure();
+        $instance->configure();
 
-        return $static;
+        return $instance;
     }
 }

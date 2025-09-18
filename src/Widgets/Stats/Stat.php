@@ -28,7 +28,15 @@ class Stat extends Component implements Htmlable
 
     public static function make(string | Htmlable $label, $value): static
     {
-        return app(static::class, ['label' => $label, 'value' => $value]);
+        $instance = app(static::class, [
+            'label' => $label, 
+            'value' => $value
+        ]);
+
+        // @todo This is a livewire component not a builder
+        // $instance->configure();
+
+        return $instance;
     }
 
     public function toHtml(): string

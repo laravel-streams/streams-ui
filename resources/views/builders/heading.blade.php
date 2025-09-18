@@ -3,10 +3,15 @@
 ])
 
 @php
+
+    $priority = $heading->getPriority() ?? $priority;
+    
     $classes = Arr::toCssClasses([
         match ($priority) {
             'h1' => 'text-3xl',
-            default => '',
+            'h2' => 'text-2xl',
+            'h3' => 'text-xl',
+            default => 'text-3xl',
         },
         // match ($color) {
         //     'gray' => 'text-white',

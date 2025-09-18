@@ -14,7 +14,7 @@ class Heading extends ViewBuilder
     use Common\HasActions;
     use Common\HasDescription;
     use Common\HasHtmlAttributes;
-    
+
     protected string $viewIdentifier = 'heading';
 
     protected string $view = 'ui::builders.heading';
@@ -28,10 +28,26 @@ class Heading extends ViewBuilder
 
     public static function make(string | \Closure | null $title = null): static
     {
-        $static = new static($title);
+        $instance = app(static::class, [
+            'title' => $title,
+        ]);
 
-        $static->configure();
+        $instance->configure();
 
-        return $static;
+        return $instance;
+    }
+
+    protected string | \Closure | null $priority = 'h1';
+
+    public function priority(string | \Closure | null $priority): static
+    {
+        $this->priority = $priority;
+
+        return $this;
+    }
+
+    public function getPriority(): string | null
+    {
+        return $this->evaluate($this->priority);
     }
 }

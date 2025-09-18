@@ -201,9 +201,10 @@ trait HasState
 
         $parts = [];
 
-        if ($parentStatePath = $this->getParent()?->getStatePath()) {
-            $parts[] = $parentStatePath;
-        }
+        // @todo this is weird..
+        // if ($parentStatePath = $this->getParent()?->getStatePath()) {
+        //     $parts[] = $parentStatePath;
+        // }
 
         if ($this->statePath) {
             $parts[] = $this->statePath;

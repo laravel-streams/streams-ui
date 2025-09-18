@@ -9,7 +9,6 @@ use Streams\Ui\Builders\ViewBuilder;
 class Container extends ViewBuilder
 {
     use Support\HasId;
-    use Support\HasEntry;
     use Support\HasComponents;
     use Support\HasHtmlAttributes;
     

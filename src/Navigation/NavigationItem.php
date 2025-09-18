@@ -32,10 +32,12 @@ class NavigationItem extends Builder
 
     public static function make(string | \Closure | null $label = null): static
     {
-        $static = new static($label);
+        $instance = app(static::class, [
+            'label' => $label,
+        ]);
 
-        $static->configure();
+        $instance->configure();
 
-        return $static;
+        return $instance;
     }
 }

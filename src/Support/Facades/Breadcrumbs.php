@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Builders\Facades;
+namespace Streams\Ui\Support\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

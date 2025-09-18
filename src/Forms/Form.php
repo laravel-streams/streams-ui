@@ -14,6 +14,7 @@ class Form extends ViewBuilder
     use Support\HasHeading;
     use Support\HasComponents;
     use Support\HasDescription;
+    use Support\HasHtmlAttributes;
     
     use Support\BelongsToParent;
     use Support\BelongsToLivewire;
@@ -31,7 +32,9 @@ class Form extends ViewBuilder
 
     public static function make(Component $livewire = null): static
     {
-        $instance = new static($livewire);
+        $instance = app(static::class, [
+            'livewire' => $livewire,
+        ]);
 
         $instance->configure();
 

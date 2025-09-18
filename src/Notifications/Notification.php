@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Notifications;
 
+use Livewire\Component;
 use Illuminate\Support\Str;
 use Streams\Ui\Traits as Common;
 use Illuminate\Support\Facades\App;
@@ -94,10 +95,14 @@ class Notification extends ViewBuilder
         return $static;
     }
 
-    public function push(): static
+    public function push(?Component $livewire = null): static
     {
         Notifications::put($this->getId(), $this->toArray());
 
+        if ($livewire) {
+            $livewire->notifications[$this->getId()] = $this->toArray();
+        }
+        
         return $this;
     }
 

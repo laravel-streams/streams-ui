@@ -4,15 +4,16 @@ namespace Streams\Ui\Inputs;
 
 use Streams\Ui\Inputs;
 use Streams\Ui\Traits as Support;
-use Streams\Ui\Containers\Container;
+use Streams\Ui\Builders\ViewBuilder;
 
-abstract class Input extends Container
+abstract class Input extends ViewBuilder
 {
     // use BelongsToContainer;
     
     use Support\HasId;
     use Support\HasName;
     use Support\HasLabel;
+    use Support\HasState;
     use Support\HasHtmlAttributes;
     
     use Support\CanSpanColumns;
