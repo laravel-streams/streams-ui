@@ -9,6 +9,8 @@ class TextInput extends Input
     use Traits\HasMask;
     use Traits\HasStep;
     use Traits\HasType;
+    use Traits\HasPrefix;
+    use Traits\HasSuffix;
     use Traits\HasDatalist;
     use Traits\HasInputMode;
     use Traits\HasPlaceholder;

@@ -2,7 +2,7 @@
 
     $classes = Arr::toCssClasses([
         '',
-        match ($section->isDisabled()) {
+        match ($card->isDisabled()) {
             true => 'opacity-40 pointer-events-none',
             default => '',
         },
@@ -13,15 +13,15 @@
     ]);
 @endphp
 <div {{ $attributes->class([
-    'flex flex-col',
+    'flex flex-col rounded-lg shadow-md bg-white p-6',
     $classes,
 ]) }}>
 
-    {{-- Section Heading --}}
+    {{-- Card Heading --}}
     <div class="flex items-center justify-between mb-4 heading">
         <div class="flex flex-col">
-            @if ($heading = $section->getHeading())
-                @if ($url = $section->getUrl())
+            @if ($heading = $card->getHeading())
+                @if ($url = $card->getUrl())
                     <h2 class="text-xl font-semibold">
                         <a href="{{ $url }}" class="underline">{{ __($heading) }}</a>
                     </h2>
@@ -29,23 +29,23 @@
                     <h2 class="text-xl font-semibold">{{ __($heading) }}</h2>
                 @endif
             @endif
-            @if ($description = $section->getDescription())
+            @if ($description = $card->getDescription())
                 <p class="">{{ __($description) }}</p>
             @endif
         </div>
         {{-- Actions --}}
-        @if (method_exists($section, 'getActions') && $section->getActions())
+        @if ($actions = $card->getActions())
             <div class="flex items-center space-x-2">
-                @foreach ($section->getActions() as $action)
+                @foreach ($actions as $action)
                     {!! $action->render() !!}
                 @endforeach
             </div>
         @endif
     </div>
-    {{-- EOF Section Heading --}}
+    {{-- EOF Card Heading --}}
 
     {{-- Components --}}
-    @foreach ($section->getComponents() as $component)
+    @foreach ($card->getComponents() as $component)
     {{ $component }}
     @endforeach
 </div>

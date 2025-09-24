@@ -9,14 +9,14 @@
     $mask = $getMask();
     // $prefixActions = $getPrefixActions();
     // $prefixIcon = $getPrefixIcon();
-    // $prefixLabel = $getPrefixLabel();
+    $prefixLabel = $getPrefix();
     // $suffixActions = $getSuffixActions();
     // $suffixIcon = $getSuffixIcon();
-    // $suffixLabel = $getSuffixLabel();
+    $suffixLabel = $getSuffix();
     $statePath = $getStatePath();
 @endphp
 
-<x-dynamic-component :component="$getFieldWrapperView()" :field="$field">
+<x-dynamic-component :component="$getFieldWrapperView()" :field="$field" class="flex">
     {{-- <x-ui::inputs.wrapper
         :disabled="$isDisabled"
         :inline-prefix="$isPrefixInline"

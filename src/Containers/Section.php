@@ -9,6 +9,7 @@ class Section extends Container
 {
     use Common\HasUrl;
     use Common\HasHeading;
+    use Common\HasActions;
     use Common\CanBeDisabled;
     use Common\HasDescription;
     
