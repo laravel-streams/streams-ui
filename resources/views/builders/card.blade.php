@@ -46,7 +46,7 @@
 
     {{-- Components --}}
     @if ($components = $card->getComponents())    
-    <div class="p-6">
+    <div class="p-6 overflow-auto">
     @foreach ($components as $component)
     {{ $component }}
     @endforeach

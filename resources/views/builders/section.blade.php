@@ -46,7 +46,7 @@
 
     {{-- Components --}}
     @if ($components = $section->getComponents())
-    <div>
+    <div class="p-6 overflow-auto">
     @foreach ($components as $component)
     {{ $component }}
     @endforeach
