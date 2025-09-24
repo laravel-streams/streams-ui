@@ -34,9 +34,9 @@
             @endif
         </div>
         {{-- Actions --}}
-        @if (method_exists($section, 'getActions') && $section->getActions())
+        @if ($actions = $section->getActions())
             <div class="flex items-center space-x-2">
-                @foreach ($section->getActions() as $action)
+                @foreach ($actions as $action)
                     {!! $action->render() !!}
                 @endforeach
             </div>
