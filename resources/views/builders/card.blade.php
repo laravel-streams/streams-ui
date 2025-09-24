@@ -13,12 +13,12 @@
     ]);
 @endphp
 <div {{ $attributes->class([
-    'flex flex-col rounded-lg shadow-md bg-white p-6',
+    'flex flex-col rounded-lg shadow-md bg-white',
     $classes,
 ]) }}>
 
     {{-- Card Heading --}}
-    <div class="flex items-center justify-between mb-4 heading">
+    <div class="flex items-center justify-between heading p-6 border-b border-black/10">
         <div class="flex flex-col">
             @if ($heading = $card->getHeading())
                 @if ($url = $card->getUrl())
@@ -33,7 +33,7 @@
                 <p class="">{{ __($description) }}</p>
             @endif
         </div>
-        {{-- Actions --}}
+        
         @if ($actions = $card->getActions())
             <div class="flex items-center space-x-2">
                 @foreach ($actions as $action)
@@ -45,7 +45,11 @@
     {{-- EOF Card Heading --}}
 
     {{-- Components --}}
-    @foreach ($card->getComponents() as $component)
+    @if ($components = $card->getComponents())    
+    <div class="p-6">
+    @foreach ($components as $component)
     {{ $component }}
     @endforeach
+    </div>
+    @endif
 </div>

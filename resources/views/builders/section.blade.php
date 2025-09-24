@@ -45,7 +45,11 @@
     {{-- EOF Section Heading --}}
 
     {{-- Components --}}
-    @foreach ($section->getComponents() as $component)
+    @if ($components = $section->getComponents())
+    <div>
+    @foreach ($components as $component)
     {{ $component }}
     @endforeach
+    </div>
+    @endif
 </div>
