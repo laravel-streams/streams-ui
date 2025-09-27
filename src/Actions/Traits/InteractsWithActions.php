@@ -178,6 +178,10 @@ trait InteractsWithActions
     {
         $action = $this->getMountedAction() ?: $this->getMountedTableAction();
 
+        if (!$action) {
+            return false;
+        }
+
         if ($action->isModalHidden()) {
             return false;
         }
