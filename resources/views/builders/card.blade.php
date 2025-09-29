@@ -17,7 +17,7 @@
     'flex flex-col rounded-lg shadow-md bg-white',
     $classes,
 ]) }}>
-Test
+
     {{-- Card Heading --}}
     <div class="flex items-center justify-between heading p-6 border-b border-black/10">
         <div class="flex flex-col">
