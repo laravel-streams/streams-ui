@@ -41,7 +41,7 @@
                 :attributes="
                     (new \Illuminate\View\ComponentAttributeBag())
                         ->merge([
-                            //$applyStateBindingModifiers('wire:model') => $statePath,
+                            'wire:model' => $statePath,
                             'multiple' => $isMultiple(),
                         ], escape: false)
                 "

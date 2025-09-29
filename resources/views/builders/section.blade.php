@@ -12,7 +12,7 @@
         // },
     ]);
 @endphp
-<div {{ $attributes->class([
+<div {{ $attributes->merge($card->getHtmlAttributes())->class([
     'flex flex-col',
     $classes,
 ]) }}>

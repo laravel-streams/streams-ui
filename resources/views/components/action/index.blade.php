@@ -181,7 +181,7 @@
         'ui-button-label',
         'sr-only' => $labelSrOnly,
     ]) }}">
-        {{ $slot }}
+        {!! $slot !!}
     </span>
     @endif
 

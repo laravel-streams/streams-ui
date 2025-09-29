@@ -11,8 +11,9 @@
         //     default => null,
         // },
     ]);
+
 @endphp
-<div {{ $attributes->class([
+<div {{ $attributes->merge($card->getHtmlAttributes())->class([
     'flex flex-col rounded-lg shadow-md bg-white',
     $classes,
 ]) }}>

@@ -82,7 +82,6 @@ class Action extends ViewBuilder
             ?? (string) str($this->getName())
                 ->beforeLast('.')
                 ->afterLast('.')
-                ->kebab()
                 ->replace(['-', '_'], ' ')
                 ->title();
 

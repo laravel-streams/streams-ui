@@ -8,7 +8,7 @@
 
 {{-- <x-ui::grid :default="$getColumns('default')" :sm="$getColumns('sm')" :md="$getColumns('md')"
     :lg="$getColumns('lg')" :xl="$getColumns('xl')" :two-xl="$getColumns('2xl')" class="gap-6"> --}}
-    <div>
+    <div class="flexf flex-col space-y-4">
         @foreach ($getComponents(true) as $component)
         @php
         // $isHidden = $component->isHidden();

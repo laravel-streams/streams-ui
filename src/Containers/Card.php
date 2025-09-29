@@ -15,5 +15,4 @@ class Card extends Section
     protected string $viewIdentifier = 'card';
 
     protected string $view = 'ui::builders.card';
-
 }
