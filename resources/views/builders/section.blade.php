@@ -22,8 +22,8 @@
         <div class="flex flex-col">
             @if ($heading = $section->getHeading())
                 @if ($url = $section->getUrl())
-                    <h2 class="text-xl font-semibold">
-                        <a href="{{ $url }}" class="underline">{{ __($heading) }}</a>
+                    <h2 class="font-semibold">
+                        <a href="{{ $url }}" class="text-xl underline">{{ __($heading) }}</a>
                     </h2>
                 @else
                     <h2 class="text-xl font-semibold">{{ __($heading) }}</h2>
