@@ -2,13 +2,13 @@
 
 namespace Streams\Ui\Traits;
 
-use Illuminate\Database\Eloquent\Model;
+use Streams\Ui\Forms\Form;
 use Illuminate\Support\Arr;
 use Streams\Core\Entry\Entry;
 use Streams\Ui\Actions\Action;
 use Streams\Ui\Exceptions\Halt;
 use Streams\Ui\Exceptions\Cancel;
-use Streams\Ui\Forms\Form;
+use Illuminate\Database\Eloquent\Model;
 use Streams\Ui\Exceptions\ValidationException;
 
 trait InteractsWithActions
