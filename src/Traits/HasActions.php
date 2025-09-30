@@ -31,7 +31,7 @@ trait HasActions
         $actions = $this->getActions();
 
         $actions = array_merge($actions, Actions::all());
-// dump(Actions::all());
+
         if ($name === null) {
             return Arr::first($this->actions);
         }
@@ -48,12 +48,16 @@ trait HasActions
         }
 
         foreach ((array) $name as $search) {
-            if ($action = Arr::first($actions, fn ($action) => $action->getName() === $search)) {
+            if ($action = Arr::first($actions, fn($action) => $action->getName() === $search)) {
                 return $action;
             }
         }
 
-            if (
+        if ($action = Actions::make($name)) {
+            return $action;
+        }
+
+        if (
             (!str($name)->endsWith('Action')) &&
             method_exists($this, "{$name}Action")
         ) {

@@ -109,7 +109,7 @@ trait InteractsWithActions
         $this->mountedActions[] = $name;
         $this->mountedActionsArguments[] = $arguments;
         $this->mountedActionsData[] = [];
-dd($this->getActions());
+
         $action = $this->getMountedAction();
 
         if (!$action) {

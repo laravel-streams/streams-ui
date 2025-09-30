@@ -28,11 +28,9 @@ trait HasForm
         return $this;
     }
 
-    public function getForm(Form $form): ?Form
+    public function getForm(): ?Form
     {
-        $modifiedForm = $this->evaluate($this->form, [
-            'form' => $form,
-        ]);
+        $modifiedForm = $this->evaluate($this->form);
 
         if ($modifiedForm === null) {
             return null;
