@@ -9,7 +9,6 @@ use Streams\Ui\Actions\Action;
 use Streams\Ui\Exceptions\Halt;
 use Streams\Ui\Exceptions\Cancel;
 use Illuminate\Database\Eloquent\Model;
-use Streams\Ui\Exceptions\ValidationException;
 
 trait InteractsWithActions
 {
@@ -188,6 +187,7 @@ trait InteractsWithActions
 
         return $action->getModalHeading() ||
             $action->getModalDescription() ||
+            $action->getModalComponents() ||
             $action->getModalContent() ||
             $action->getModalContentFooter();
         // $action->getInfolist() ||

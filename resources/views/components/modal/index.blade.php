@@ -147,7 +147,7 @@
                 @if (!empty($slot))
                     <div
                         @class([
-                            'ui-modal-content flex flex-col gap-y-4 py-6',
+                            'ui-modal-content flex flex-col gap-y-4',
                             'flex-1' => ($width === 'screen') || $slideOver,
                         ])
                     >

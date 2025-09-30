@@ -33,6 +33,13 @@
     x-on:modal-closed.stop="$wire.unmountAction(false);">
     @if ($action)
         {{ $action->getModalContent() }}
+        @foreach ($action->getModalComponents() as $component)
+        @if (is_string($component))
+            @livewire($component)
+        @else
+            {!! $component->render() !!}
+        @endif
+        @endforeach
         {{ $action->getModalContentFooter() }}
     @endif
 </x-ui::modal>

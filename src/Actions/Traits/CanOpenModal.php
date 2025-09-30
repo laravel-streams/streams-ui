@@ -34,6 +34,8 @@ trait CanOpenModal
 
     protected View | Htmlable | \Closure | null $modalContent = null;
 
+    protected \Closure | array | null $modalComponents = [];
+
     protected View | Htmlable | \Closure | null $modalContentFooter = null;
 
     protected string | Htmlable | \Closure | null $modalHeading = null;
@@ -150,6 +152,13 @@ trait CanOpenModal
     public function modalContent(View | Htmlable | \Closure | null $content = null): static
     {
         $this->modalContent = $content;
+
+        return $this;
+    }
+
+    public function modalComponents(\Closure | array | null $components = null): static
+    {
+        $this->modalComponents = $components;
 
         return $this;
     }
@@ -298,7 +307,7 @@ trait CanOpenModal
     {
         return array_filter(
             $this->getModalFooterActions(),
-            fn (Action $action): bool => $action->isVisible(),
+            fn(Action $action): bool => $action->isVisible(),
         );
     }
 
@@ -374,6 +383,11 @@ trait CanOpenModal
     public function getModalContent(): View | Htmlable | null
     {
         return $this->evaluate($this->modalContent);
+    }
+
+    public function getModalComponents(): array
+    {
+        return $this->evaluate($this->modalComponents);
     }
 
     public function getModalContentFooter(): View | Htmlable | null
@@ -465,7 +479,10 @@ trait CanOpenModal
 
     public function shouldOpenModal()
     {
-        return $this->getModalHeading() || $this->getModalDescription() || $this->getModalContent();
+        return $this->getModalHeading()
+            || $this->getModalDescription()
+            || $this->getModalContent()
+            || $this->getModalComponents();
     }
 
     public function modalOpen(bool | \Closure | null $condition = true): static
@@ -474,7 +491,7 @@ trait CanOpenModal
 
         return $this;
     }
-    
+
     public function isModalOpen(): bool
     {
         $result = (bool) $this->evaluate($this->isModalOpen);
