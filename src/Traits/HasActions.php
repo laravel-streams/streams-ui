@@ -4,6 +4,7 @@ namespace Streams\Ui\Traits;
 
 use Illuminate\Support\Arr;
 use Streams\Ui\Actions\Action;
+use Streams\Ui\Support\Facades\Actions;
 
 trait HasActions
 {
@@ -29,6 +30,8 @@ trait HasActions
     {
         $actions = $this->getActions();
 
+        $actions = array_merge($actions, Actions::all());
+// dump(Actions::all());
         if ($name === null) {
             return Arr::first($this->actions);
         }

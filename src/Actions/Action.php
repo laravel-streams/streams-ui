@@ -4,6 +4,7 @@ namespace Streams\Ui\Actions;
 
 use Streams\Ui\Traits as Common;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Support\Facades\Actions;
 
 // StaticAction
 class Action extends ViewBuilder
@@ -60,6 +61,8 @@ class Action extends ViewBuilder
         $static = new static($name);
 
         $static->configure();
+
+        Actions::register($name, $static);
 
         return $static;
     }
