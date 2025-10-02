@@ -6,7 +6,7 @@ use Streams\Ui\Inputs\Traits;
 
 class ColorInput extends Input
 {
-    use Concerns\HasPlaceholder;
+    use Traits\HasPlaceholder;
 
     protected string $view = 'ui::builders.inputs.color';
 }
