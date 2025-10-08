@@ -8,7 +8,7 @@ trait HasForm
 {
     protected array $formData = [];
 
-    protected array | \Closure | null $form = null;
+    protected array | \Closure | Form | null $form = null;
 
     protected bool | \Closure $isFormDisabled = false;
 
@@ -21,7 +21,7 @@ trait HasForm
         return $this;
     }
 
-    public function form(array | \Closure | null $form): static
+    public function form(array | \Closure | Form | null $form): static
     {
         $this->form = $form;
 

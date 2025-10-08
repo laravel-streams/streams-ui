@@ -21,6 +21,8 @@
             
             this.isOpen = false;
 
+            this.$wire.unmountAction();
+
             this.$refs.modalContainer.dispatchEvent(
                 new CustomEvent('modal-closed', { id: '{{ $id }}' }),
             );

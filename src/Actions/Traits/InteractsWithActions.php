@@ -36,29 +36,35 @@ trait InteractsWithActions
 
         $action->arguments([
             ...Arr::last($this->mountedActionsArguments),
-            ...$arguments,
+            ...(array)$arguments,
         ]);
 
-        // $form = $this->getMountedActionForm();
+        $form = $this->getMountedActionForm();
 
         $result = null;
 
         // $originallyMountedActions = $this->mountedActions;
 
         // try {
-        //     if ($this->mountedActionHasForm()) {
+            if ($this->mountedActionHasForm()) {
         //         $action->callBeforeFormValidated();
 
-        //         $action->formData($form->getState());
+                $action->formData((array)$form->getState());
 
         //         $action->callAfterFormValidated();
-        //     }
+            }
 
-        $action->fire('before_call');
+        $action->fire('before_call', [
+            'action' => $action,
+            'component' => $this,
+            'arguments' => (array) $arguments,
+        ]);
 
         $result = $action->call([
+            'action' => $action,
             'component' => $this,
-            'arguments' => $arguments,
+            'livewire' => $this,
+            'arguments' => (array) $arguments,
         ]);
 
         $action->fire('after_call');
@@ -131,19 +137,22 @@ trait InteractsWithActions
         // $this->cacheMountedActionForm();
 
         try {
-            // $hasForm = $this->mountedActionHasForm();
+            $hasForm = $this->mountedActionHasForm();
 
             // if ($hasForm) {
             //     $action->callBeforeFormFilled();
             // }
 
-            // $action->mount([
-            //     'form' => $this->getMountedActionForm(),
-            // ]);
+            $action->form($this->getMountedActionForm());
 
-            // if ($hasForm) {
-            //     $action->callAfterFormFilled();
-            // }
+            if ($hasForm) {
+                $action->fire('form_filled', [
+                    'action' => $action,
+                    'component' => $this,
+                    'livewire' => $this,
+                    'entry' => $this->getMountedAction()->getEntryInstance(),
+                ]);
+            }
         } catch (Halt $exception) {
             return null;
         } catch (Cancel $exception) {
@@ -248,16 +257,17 @@ trait InteractsWithActions
             return null;
         }
 
-        if ((!$this->isCachingForms) && $this->hasCachedForm('mountedActionForm')) {
-            return $this->getForm('mountedActionForm');
-        }
+        // if ((!$this->isCachingForms) && $this->hasCachedForm('mountedActionForm')) {
+        //     return $this->getForm('mountedActionForm');
+        // }
 
-        return $action->getForm(
-            $this->makeForm()
-                ->statePath('mountedActionsData.' . array_key_last($this->mountedActionsData))
-                ->model($action->getEntry() ?? $action->getModel() ?? $this->getMountedActionFormModel())
-                ->operation(implode('.', $this->mountedActions)),
-        );
+        return $action->getForm();
+        // return $action->getForm(
+        //     $this->makeForm()
+        //         ->statePath('mountedActionsData.' . array_key_last($this->mountedActionsData))
+        //         ->model($action->getEntry() ?? $action->getModel() ?? $this->getMountedActionFormModel())
+        //         ->operation(implode('.', $this->mountedActions)),
+        // );
     }
 
     protected function getMountedActionFormModel(): Model | Entry | string | null

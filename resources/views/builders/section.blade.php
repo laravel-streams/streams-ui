@@ -23,10 +23,10 @@
             @if ($heading = $section->getHeading())
                 @if ($url = $section->getUrl())
                     <h2 class="font-semibold">
-                        <a href="{{ $url }}" class="text-xl underline">{{ __($heading) }}</a>
+                        <a href="{{ $url }}" class="text-xl underline">{!! __($heading) !!}</a>
                     </h2>
                 @else
-                    <h2 class="text-xl font-semibold">{{ __($heading) }}</h2>
+                    <h2 class="text-xl font-semibold">{!! __($heading) !!}</h2>
                 @endif
             @endif
             @if ($description = $section->getDescription())

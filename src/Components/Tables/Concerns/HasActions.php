@@ -50,21 +50,28 @@ trait HasActions
             // if ($this->mountedTableActionHasForm()) {
             //     $action->callBeforeFormValidated();
 
-            //     $action->formData($form->getState());
+                // $action->formData($form->getState());
 
             //     $action->callAfterFormValidated();
             // }
 
-            // $action->callBefore();
+            $action->fire('before_call', [
+                'action' => $action,
+                'component' => $this,
+                'livewire' => $this,
+                'entry' => $this->mountedTableActionRecord,
+            ]);
+
             $result = $action->call([
+                'action' => $action,
                 'component' => $this,
                 'livewire' => $this,
                 'entry' => $this->mountedTableActionRecord,
             ]);
             // $result = $action->callAfter() ?? $result;
         // } catch (Halt $exception) {
-        } catch (\Exception $exception) {
-            return null;
+        // } catch (\Exception $exception) {
+        //     return null;
         } catch (Cancel $exception) {
         // } catch (ValidationException $exception) {
         } catch (\Exception $exception) {

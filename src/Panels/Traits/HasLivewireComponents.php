@@ -51,11 +51,12 @@ trait HasLivewireComponents
 
             $this->queueLivewireComponent($page);
 
-            if (method_exists($page, 'getWidgets')) {
-                foreach ($page::getWidgets() as $widget) {
-                    $this->queueLivewireComponent($widget);
-                }
-            }
+            // @todo don't step on toes of widgets
+            // if (method_exists($page, 'getWidgets')) {
+            //     foreach ($page::getWidgets() as $widget) {
+            //         $this->queueLivewireComponent($widget);
+            //     }
+            // }
         }
 
         foreach ($this->getResources() as $resource) {

@@ -14,7 +14,8 @@
 
     <span class="font-medium leading-6 text-gray-950">
         {{-- Deliberately poor formatting to ensure that the asterisk sticks to the final word in the label. --}}
-        {{ $slot }}@if ($required && $isMarkedAsRequired && ! $isDisabled)<sup class="text-danger-600 text-red-600 font-medium">*</sup>
+        {{ $slot }}@if ($required && $isMarkedAsRequired && ! $isDisabled)
+        <sup class="text-danger-500 font-medium">*</sup>
         @endif
     </span>
 

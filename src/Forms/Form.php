@@ -15,7 +15,7 @@ class Form extends ViewBuilder
     use Support\HasComponents;
     use Support\HasDescription;
     use Support\HasHtmlAttributes;
-    
+
     use Support\BelongsToParent;
     use Support\BelongsToLivewire;
 
@@ -45,7 +45,7 @@ class Form extends ViewBuilder
     {
         // $components = array_map(function (Component $component): Component {
         $components = array_map(function ($component) {
-        
+
             $component->parent($this);
             $component->livewire($this->getLivewire());
 
@@ -55,11 +55,11 @@ class Form extends ViewBuilder
         if ($withHidden) {
             return $components;
         }
-
+        return $components;
         return array_filter(
             $components,
             // fn (Component $component) => $component->isVisible(),
-            fn ($component) => !$component->isHidden(),
+            fn($component) => !$component->isHidden(),
         );
     }
 }

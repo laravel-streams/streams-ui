@@ -50,12 +50,13 @@
 <div {{ $attributes->class([]) }}>
     @if ($label && $labelSrOnly)
         <label for="{{ $id }}" class="sr-only">
-            {{ $label }}
+            {{ _($label) }}
         </label>
     @endif
 
     <div
         @class([
+            'w-full',
             'grid gap-y-2',
             'sm:grid-cols-3 sm:items-start sm:gap-x-4' => $hasInlineLabel,
         ])
@@ -78,7 +79,7 @@
                         :suffix="$labelSuffix"
                         :required="$required"
                     >
-                        {{ $label }}
+                        {{ __($label) }}
                     </x-ui::field.label>
                 @elseif ($labelPrefix)
                     {{ $labelPrefix }}
