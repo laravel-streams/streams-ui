@@ -18,7 +18,7 @@
         <div class="grid flex-grow">
             @if ($heading)
                 <h1
-                    class="{{ $headingSize }} text-2xl font-bold text-gray-950"
+                    class="{{ $headingSize }} text-xl font-bold text-gray-950"
                 >
                     {{ $heading }}
                 </h1>
@@ -26,7 +26,7 @@
 
             @if ($subheading)
                 <p
-                    class="{{ $subheadingSize }} text-gray-600"
+                    class="{{ $subheadingSize }}"
                 >
                     {{ $subheading }}
                 </p>

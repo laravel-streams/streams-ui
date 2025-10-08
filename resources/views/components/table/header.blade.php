@@ -8,7 +8,7 @@
     
     <x-ui::header
         :heading="$heading"
-        headingSize="xl"
+        :priority="2"
         :breadcrumbs="$breadcrumbs"
         :subheading="$description"
         :actions="$actions"
