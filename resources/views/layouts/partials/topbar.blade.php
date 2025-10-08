@@ -48,7 +48,7 @@ use Streams\Ui\Support\Facades\UI;
             @endif
         </div>
         
-        <div class="flex items-center gap-x-4 lg:gap-x-6">
+        <div class="flex items-center gap-x-2">
 
             @foreach (UI::currentPanel()->getActions() as $action)
             @if ($action->isVisible())
