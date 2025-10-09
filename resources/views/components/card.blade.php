@@ -1,8 +1,9 @@
-<div {!! $attributes->class([
-    'flex',
-    'rounded-2xl',
-    'bg-gray-200',
-    'p-4',
+<x-ui::grid.column
+    {!! $attributes->class([
+        'flex',
+        'rounded-2xl',
+        'bg-gray-200',
+        'p-4',
 ]) !!}>
     {!! $slot !!}
-</div>
+</x-ui::grid.column>

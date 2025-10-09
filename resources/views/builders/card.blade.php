@@ -1,5 +1,13 @@
 @php
 
+    $columnSpan = $getColumnSpan();
+
+    if (! is_array($columnSpan)) {
+        $columnSpan = [
+            'default' => $columnSpan,
+        ];
+    }
+
     $classes = Arr::toCssClasses([
         '',
         match ($card->isDisabled()) {
