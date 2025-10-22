@@ -52,11 +52,9 @@
 
                 {{-- @if ($canSelectPlaceholder) --}}
                 @if ($placeholder = $getPlaceholder())
-                    <option value="">
-                        @if (!$isDisabled)
-                            {{ $placeholder() }}
-                        @endif
-                    </option>
+                @if (!$isDisabled)
+                    <option value="">{{ $placeholder }}</option>
+                @endif
                 @endif
 
                 @foreach ($getOptions() as $value => $label)

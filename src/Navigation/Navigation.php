@@ -1,18 +1,20 @@
 <?php
 
-namespace Streams\Ui\Lists;
+namespace Streams\Ui\Navigation;
 
-use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Traits as Common;
 use Illuminate\Support\Facades\App;
+use Streams\Ui\Builders\ViewBuilder;
 
-class UiList extends ViewBuilder
+class Navigation extends ViewBuilder
 {
     use Common\HasId;
     use Common\HasHtmlAttributes;
 
-    protected string $view = 'ui::components.lists.list';
-    
+    protected string $viewIdentifier = 'navigation';
+
+    protected string $view = 'ui::builders.navigation';
+
     protected array $items = [];
 
     final public function __construct(?string $id = null)
