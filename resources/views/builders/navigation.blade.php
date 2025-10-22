@@ -18,9 +18,14 @@
     <div _class="border-b border-gray-200">
       <nav aria-label="Tabs" class="-mb-px flex space-x-8">
         @foreach ($navigation->getItems() as $item)
-        <a href="{{ $item->getUrl() }}" {{ $item->isActive() ? 'aria-current="page"' : '' }} class="border-b-2 px-1 py-4
+        <a href="{{ $item->getUrl() }}" {{ $item->isActive() ? 'aria-current="page"' : '' }} class="flex border-b-2 px-1 py-4
           font-medium whitespace-nowrap {{ $item->isActive() ? 'border-primary-500 text-primary-600' :
-          'border-transparent hover:text-gray-700 hover:border-gray-400' }}">{{ $item->getLabel() }}</a>
+          'border-transparent hover:text-gray-700 hover:border-gray-400' }}">{{ $item->getLabel() }}
+          @if ($badge = $item->getBadge())
+          <div class="flex justify-center items-center">
+            <x-ui::badge class="ml-2" size="xs">{{ $badge }}</x-ui::badge>
+          </div>
+          @endif</a>
         @endforeach
       </nav>
     </div>

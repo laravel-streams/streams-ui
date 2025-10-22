@@ -123,9 +123,7 @@
         @endif --}}
     @endif
 
-    <span class="grid">
-        {{ $slot }}
-    </span>
+    {{ $slot }}
 
     @if ($isDeletable)
         <button
