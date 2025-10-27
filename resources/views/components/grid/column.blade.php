@@ -16,6 +16,7 @@
 
 @php
     $getSpanValue = function ($span): string {
+        
         if ($span === 'full') {
             return '1 / -1';
         }
@@ -69,7 +70,7 @@
                 "--col-start-xl: {$xlStart}" => $xlStart,
                 "--col-start-2xl: {$twoXlStart}" => $twoXlStart,
             ])
-            ->merge($getHtmlAttributes())
+            ->merge($this->getHtmlAttributes())
     !!}
 >
     {{ $slot }}
