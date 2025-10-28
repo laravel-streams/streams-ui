@@ -51,7 +51,10 @@
                         'bg-black text-white hover:bg-gray-700',
                     ],
                     'light' => [
-                        'bg-gray-200 hover:bg-gray-300',
+                        'bg-gray-200 text-gray-700 hover:bg-gray-300',
+                    ],
+                    'secondary' => [
+                        'border border-black bg-white hover:bg-black hover:text-white',
                     ],
                     default => [
                         'bg-custom-500 text-white hover:bg-custom-600',
