@@ -46,7 +46,9 @@
         @if ($actions = $card->getActions())
             <div class="flex items-center space-x-2">
                 @foreach ($actions as $action)
-                    {!! $action->render() !!}
+                @if ($action->isVisible())
+                {!! $action->render() !!}
+                @endif
                 @endforeach
             </div>
         @endif

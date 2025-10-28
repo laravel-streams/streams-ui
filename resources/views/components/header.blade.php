@@ -37,7 +37,9 @@
     @if ($actions)
     <div class="flex justify-end">
         @foreach ($actions as $action)
-            {!! $action->toHtml() !!}
+        @if ($action->isVisible())
+        {!! $action->toHtml() !!}
+        @endif
         @endforeach
     </div>
     @endif
