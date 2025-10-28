@@ -24,7 +24,7 @@
     ]);
 @endphp
 
-<div {{ $attributes->class([
+<div {{ $attributes->merge($grid->getHtmlAttributes())->class([
     $classes,
 ]) }}>
 
