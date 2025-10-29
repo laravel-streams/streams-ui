@@ -150,9 +150,9 @@ function table() {
             return keys.every((key) => this.isEntrySelected(key))
         },
 
-        /**
-         * Drag and Drop
-         */
+        hasSelectedEntries: function () {
+            return this.selectedEntries.length > 0;
+        }
         
     }
 }
