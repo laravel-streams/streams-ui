@@ -44,7 +44,7 @@ $selectedRecords = [];
         <div class="flex flex-col gap-x-3 p-3">
 
             @if ($bulkActions)
-            <div class="flex mr-12" x-show="hasSelectedEntries()">
+            <div class="flex mr-12" x-show="selectedEntries.length > 0">
                 @foreach ($bulkActions as $action)
                 {!! $action->render() !!}
                 @endforeach

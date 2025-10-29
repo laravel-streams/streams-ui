@@ -148,10 +148,6 @@ function table() {
 
         areEntriesSelected: function (keys) {
             return keys.every((key) => this.isEntrySelected(key))
-        },
-
-        hasSelectedEntries: function () {
-            return this.selectedEntries.length > 0;
         }
         
     }
