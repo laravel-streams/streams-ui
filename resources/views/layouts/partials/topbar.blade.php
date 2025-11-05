@@ -31,6 +31,14 @@ use Streams\Ui\Support\Facades\UI;
         {{-- EOF Brand --}}
 
         <div class="relative flex flex-1">
+            <button type="button" @click.prevent="$dispatch('toggle-sidebar');" class="-ml-4 hidden lg:inline-block">
+                <span x-show="!sidebar_collapsed">
+                    @svg('heroicon-o-arrow-left-on-rectangle', 'h-6 w-6')
+                </span>
+                <span x-show="sidebar_collapsed">
+                    @svg('heroicon-o-arrow-right-on-rectangle', 'h-6 w-6')
+                </span>
+            </button>
             @if ($topNavigation)
             <div class="flex h-16 shrink-0 items-center font-bold mr-12">
                 <a href="{{ UI::getHomeUrl() }}" class="text-xl" title="Go to panel homepage.">
@@ -94,6 +102,7 @@ use Streams\Ui\Support\Facades\UI;
                         $target = $item->shouldOpenInNewTab() ? '_blank' : '_self';
                         $navigate = $spaEnabled && $target == '_self' && Str::startsWith($url, URL::to('/'));
                     @endphp
+                    Tst
                     <a href="{{ $url }}"
                         {{-- {{ $navigate ? 'wire:navigate' : '' }} --}}
                         target="{{ $target }}"

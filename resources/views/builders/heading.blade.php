@@ -27,7 +27,11 @@
         <p class="text-gray-500 mt-2">{!! $description !!}</p>
         @endif
     </div>
-    @foreach ($heading->getActions() as $action)
+    @if ($actions = $heading->getActions())
+    <div class="flex gap-2">
+        @foreach ($actions as $action)
         {!! $action->render() !!}
-    @endforeach
+        @endforeach
+    </div>
+    @endif
 </div>

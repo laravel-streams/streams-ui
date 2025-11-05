@@ -7,7 +7,7 @@
     $initialHeight = (($rows ?? 2) * 1.5) + 0.75;
 @endphp
 
-{{-- <x-dynamic-component :component="$getFieldWrapperView()" :field="$field"> --}}
+<x-dynamic-component :component="$getFieldWrapperView()" :field="$field">
     <textarea
         {{-- @if ($shouldAutosize)
             ax-load
@@ -37,16 +37,16 @@
                     // 'required' => $isRequired() && (! $isConcealed),
                     'required' => $isRequired(),
                     'rows' => $rows,
-                    // $applyStateBindingModifiers('wire:model') => $statePath,
+                    'wire:model' => $statePath,
                 ], escape: false)
                 // ->merge($getExtraAttributes(), escape: false)
                 // ->merge($getExtraInputAttributes(), escape: false)
                 ->class([
-                    'rounded-lg border-none bg-white px-3 py-1.5 text-base text-gray-950 shadow-sm outline-none ring-1 transition duration-75 placeholder:text-gray-400 focus-visible:ring-2 disabled:bg-gray-50 disabled:text-gray-500 disabled:[-webkit-text-fill-color:theme(colors.gray.500)] disabled:placeholder:[-webkit-text-fill-color:theme(colors.gray.400)]',
+                    'block w-full rounded-md px-3 py-2',
                     // 'resize-none' => $shouldAutosize,
                     'ring-gray-950/10 focus-visible:ring-primary-600' => ! $errors->has($statePath),
                     'ring-danger-600 focus-visible:ring-danger-600 dark:ring-danger-500 dark:focus-visible:ring-danger-500' => $errors->has($statePath),
                 ])
         }}
     ></textarea>
-{{-- </x-dynamic-component> --}}
+</x-dynamic-component>

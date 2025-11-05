@@ -2,14 +2,16 @@
 
 namespace Streams\Ui\Inputs;
 
+use Streams\Ui\Inputs\Traits;
+
 class DateInput extends Input
 {
-    use Concerns\HasStep;
-    use Concerns\HasDatalist;
-    use Concerns\HasPlaceholder;
+    use Traits\HasStep;
+    use Traits\HasDatalist;
+    use Traits\HasPlaceholder;
     
-    use Concerns\CanBeAutocompleted;
-    use Concerns\CanBeDateConstrained;
+    use Traits\CanBeAutocompleted;
+    use Traits\CanBeDateConstrained;
 
     protected string $view = 'ui::builders.inputs.date';
 }

@@ -7,9 +7,9 @@ use Streams\Ui\Traits as Support;
 
 class TextareaInput extends Input
 {
-    use Concerns\HasPlaceholder;
-    use Concerns\CanBeAutocompleted;
-    use Concerns\CanBeLengthConstrained;
+    use Traits\HasPlaceholder;
+    use Traits\CanBeAutocompleted;
+    use Traits\CanBeLengthConstrained;
 
     protected string $view = 'ui::components.inputs.textarea';
 

@@ -4,7 +4,7 @@
 ])
 
 <label for="{{ $field->getId() }}" class="inline-flex items-center space-x-2 cursor-pointer">
-    <input type="checkbox" id="{{ $field->getId() }}" name="{{ $field->getName() }}"
+    <input type="checkbox" id="{{ $field->getId() }}" name="{{ $field->getName() }}" wire:model="{{ $field->getStatePath() }}"
         {{
             $attributes
                 ->class([

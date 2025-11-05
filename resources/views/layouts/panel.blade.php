@@ -9,7 +9,9 @@
 View::share('topNavigation', $topNavigation = false);
 @endphp
 
-<body class="h-full" x-cloak x-data="{}">
+<body class="h-full" x-data="{
+    sidebar_collapsed: $persist(false),
+}" @toggle-sidebar.window="sidebar_collapsed=!sidebar_collapsed">
 
     @include('ui::layouts.partials.sidebar')
 

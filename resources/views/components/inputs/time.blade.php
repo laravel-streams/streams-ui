@@ -53,7 +53,7 @@
                             'required' => $isRequired() && (! $isConcealed),
                             'step' => $getStep(),
                             'type' => 'time',
-                            // $applyStateBindingModifiers('wire:model') => $statePath,
+                            'wire:model' => $statePath,
                             // 'x-data' => count($extraAlpineAttributes) ? '{}' : null,
                         ], escape: false)
                 "

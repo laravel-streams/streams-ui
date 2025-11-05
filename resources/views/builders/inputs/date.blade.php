@@ -14,7 +14,7 @@
     $statePath = $getStatePath();
 @endphp
 
-{{-- <x-dynamic-component :component="$getFieldWrapperView()" :field="$field"> --}}
+<x-dynamic-component :component="$getFieldWrapperView()" :field="$field">
     {{-- <x-filament::input.wrapper
         :disabled="$isDisabled"
         :inline-prefix="$isPrefixInline"
@@ -54,7 +54,7 @@
                             'required' => $isRequired() && (! $isConcealed),
                             'step' => $getStep(),
                             'type' => 'date',
-                            // $applyStateBindingModifiers('wire:model') => $statePath,
+                            'wire:model' => $statePath,
                             // 'x-data' => count($extraAlpineAttributes) ? '{}' : null,
                         ], escape: false)
                 "
@@ -71,4 +71,4 @@
             @endforeach
         </datalist>
     @endif
-{{-- </x-dynamic-component> --}}
+</x-dynamic-component>

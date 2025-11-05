@@ -14,7 +14,7 @@
     $statePath = $getStatePath();
 @endphp
 
-{{-- <x-dynamic-component :component="$getFieldWrapperView()" :field="$field"> --}}
+<x-dynamic-component :component="$getFieldWrapperView()" :field="$field">
     {{-- <x-filament::input.wrapper
         :disabled="$isDisabled"
         :inline-prefix="$isPrefixInline"
@@ -44,16 +44,16 @@
                             // 'inlinePrefix' => $isPrefixInline && (count($prefixActions) || $prefixIcon || filled($prefixLabel)),
                             // 'inlineSuffix' => $isSuffixInline && (count($suffixActions) || $suffixIcon || filled($suffixLabel)),
                             'list' => $datalistOptions ? $id . '-list' : null,
-                            // 'max' => (! $isConcealed) ? $getMaxDate() : null,
-                            // 'min' => (! $isConcealed) ? $getMinDate() : null,
+                            'max' => $getMaxDate() ?: null,
+                            'min' => $getMinDate() ?: null,
                             'max' => $getMaxDate() ?: null,
                             'min' => $getMinDate() ?: null,
                             'placeholder' => $getPlaceholder(),
                             'readonly' => $isReadonly(),
-                            'required' => $isRequired() && (! $isConcealed),
+                            'required' => $isRequired(),
                             'step' => $getStep(),
                             'type' => 'datetime-local',
-                            // $applyStateBindingModifiers('wire:model') => $statePath,
+                            'wire:model' => $statePath,
                             // 'x-data' => count($extraAlpineAttributes) ? '{}' : null,
                         ], escape: false)
                 "
@@ -70,4 +70,4 @@
             @endforeach
         </datalist>
     @endif
-{{-- </x-dynamic-component> --}}
+</x-dynamic-component>
