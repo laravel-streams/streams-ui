@@ -102,7 +102,6 @@ use Streams\Ui\Support\Facades\UI;
                         $target = $item->shouldOpenInNewTab() ? '_blank' : '_self';
                         $navigate = $spaEnabled && $target == '_self' && Str::startsWith($url, URL::to('/'));
                     @endphp
-                    Tst
                     <a href="{{ $url }}"
                         {{-- {{ $navigate ? 'wire:navigate' : '' }} --}}
                         target="{{ $target }}"
