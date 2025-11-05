@@ -30,7 +30,9 @@
     @if ($actions = $heading->getActions())
     <div class="flex gap-2">
         @foreach ($actions as $action)
+        @if ($action->isVisible())
         {!! $action->render() !!}
+        @endif
         @endforeach
     </div>
     @endif
