@@ -14,6 +14,7 @@ class Field extends ViewBuilder
     use Common\HasHtmlAttributes;
     
     use Common\CanBeDisabled;
+    use Common\CanSpanColumns;
     
     use Common\BelongsToParent;
     use Common\BelongsToLivewire;

@@ -9,12 +9,12 @@
         // $onColor = $getOnColor() ?? 'primary';
         $offColor = 'red';
         $onColor = 'primary';
-        // $statePath = $getStatePath();
+        $statePath = $getStatePath();
     @endphp
 
 <button
     x-data="{
-        {{-- state: $wire.{{ $applyStateBindingModifiers("\$entangle('{$statePath}')") }}, --}}
+        state: $wire.entangle('{$statePath}'),
     }"
     x-bind:aria-checked="state?.toString()"
     x-on:click="state = ! state"

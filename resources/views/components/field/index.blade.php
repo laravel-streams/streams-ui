@@ -38,6 +38,24 @@
         $statePath ??= $field->getStatePath();
     }
 
+    // Get column span
+    $columnSpan = $field?->getColumnSpan() ?? 1;
+
+    if (! is_array($columnSpan)) {
+        $columnSpan = [
+            'default' => $columnSpan,
+        ];
+    }
+
+    $getSpanValue = function ($span): string {
+        
+        if ($span === 'full') {
+            return '1 / -1';
+        }
+
+        return "span {$span} / span {$span}";
+    };
+
     // $hintActions = array_filter(
     //     $hintActions ?? [],
     //     fn (\Filament\Forms\Components\Actions\Action $hintAction): bool => $hintAction->isVisible(),
@@ -47,7 +65,25 @@
     $hasError = $errors->has($statePath) || $errors->has("{$statePath}.*");
 @endphp
 
-<div {{ $attributes->class([]) }}>
+<div {{
+    $attributes
+        ->class([
+            'col-[--col-span-default]' => $columnSpan['default'] ?? null,
+            'sm:col-[--col-span-sm]' => $columnSpan['sm'] ?? null,
+            'md:col-[--col-span-md]' => $columnSpan['md'] ?? null,
+            'lg:col-[--col-span-lg]' => $columnSpan['lg'] ?? null,
+            'xl:col-[--col-span-xl]' => $columnSpan['xl'] ?? null,
+            '2xl:col-[--col-span-2xl]' => $columnSpan['2xl'] ?? null,
+        ])
+        ->style([
+            "--col-span-default: {$getSpanValue($columnSpan['default'])}" => $columnSpan['default'] ?? null,
+            "--col-span-sm: {$getSpanValue($columnSpan['sm'])}" => $columnSpan['sm'] ?? null,
+            "--col-span-md: {$getSpanValue($columnSpan['md'])}" => $columnSpan['md'] ?? null,
+            "--col-span-lg: {$getSpanValue($columnSpan['lg'])}" => $columnSpan['lg'] ?? null,
+            "--col-span-xl: {$getSpanValue($columnSpan['xl'])}" => $columnSpan['xl'] ?? null,
+            "--col-span-2xl: {$getSpanValue($columnSpan['2xl'])}" => $columnSpan['2xl'] ?? null,
+        ])
+}}>
     @if ($label && $labelSrOnly)
         <label for="{{ $id }}" class="sr-only">
             {{ _($label) }}
