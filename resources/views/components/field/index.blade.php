@@ -77,11 +77,11 @@
         ])
         ->style([
             "--col-span-default: {$getSpanValue($columnSpan['default'])}" => $columnSpan['default'] ?? null,
-            "--col-span-sm: {$getSpanValue($columnSpan['sm'])}" => $columnSpan['sm'] ?? null,
-            "--col-span-md: {$getSpanValue($columnSpan['md'])}" => $columnSpan['md'] ?? null,
-            "--col-span-lg: {$getSpanValue($columnSpan['lg'])}" => $columnSpan['lg'] ?? null,
-            "--col-span-xl: {$getSpanValue($columnSpan['xl'])}" => $columnSpan['xl'] ?? null,
-            "--col-span-2xl: {$getSpanValue($columnSpan['2xl'])}" => $columnSpan['2xl'] ?? null,
+            "--col-span-sm: {$getSpanValue($columnSpan['sm'] ?? null)}" => $columnSpan['sm'] ?? null,
+            "--col-span-md: {$getSpanValue($columnSpan['md'] ?? null)}" => $columnSpan['md'] ?? null,
+            "--col-span-lg: {$getSpanValue($columnSpan['lg'] ?? null)}" => $columnSpan['lg'] ?? null,
+            "--col-span-xl: {$getSpanValue($columnSpan['xl'] ?? null)}" => $columnSpan['xl'] ?? null,
+            "--col-span-2xl: {$getSpanValue($columnSpan['2xl'] ?? null)}" => $columnSpan['2xl'] ?? null,
         ])
 }}>
     @if ($label && $labelSrOnly)
