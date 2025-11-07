@@ -2,7 +2,7 @@
     $items = $breadcrumbs->getItems();
 @endphp
 
-<div {{ $attributes->class('p-2 opacity-70') }}>
+<div {{ $attributes->class('-mx-4 mb-4 -mt-4 opacity-70') }}>
     @foreach ($items as $item)
         {!! $item->render() !!}
         {{-- @if (isset($item['href']))
