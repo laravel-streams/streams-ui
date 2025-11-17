@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Actions\Traits;
+namespace Streams\Ui\Builders\Actions\Traits;
 
 trait HasTooltip
 {

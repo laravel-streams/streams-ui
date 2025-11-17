@@ -9,7 +9,7 @@ use Streams\Ui\Builders\Navigation\NavigationItem;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Ui\Builders\Concerns as Common;
 use Streams\Ui\Builders\Concerns\HasNavigation;
-use Streams\Ui\Actions\Traits\InteractsWithActions;
+use Streams\Ui\Builders\Actions\Traits\InteractsWithActions;
 
 abstract class Resource
 {

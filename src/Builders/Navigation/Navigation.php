@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Navigation;
+namespace Streams\Ui\Builders\Navigation;
 
 use Streams\Ui\Traits as Common;
 use Illuminate\Support\Facades\App;

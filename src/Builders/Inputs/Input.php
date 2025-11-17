@@ -1,8 +1,8 @@
 <?php
 
-namespace Streams\Ui\Inputs;
+namespace Streams\Ui\Builders\Inputs;
 
-use Streams\Ui\Inputs;
+use Streams\Ui\Builders\Inputs;
 use Streams\Ui\Traits as Support;
 use Streams\Ui\Builders\ViewBuilder;
 

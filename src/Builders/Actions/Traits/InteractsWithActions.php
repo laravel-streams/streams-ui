@@ -1,11 +1,11 @@
 <?php
 
-namespace Streams\Ui\Actions\Traits;
+namespace Streams\Ui\Builders\Actions\Traits;
 
-use Streams\Ui\Forms\Form;
+use Streams\Ui\Builders\Forms\Form;
 use Illuminate\Support\Arr;
 use Streams\Core\Entry\Entry;
-use Streams\Ui\Actions\Action;
+use Streams\Ui\Builders\Actions\Action;
 use Streams\Ui\Exceptions\Halt;
 use Streams\Ui\Exceptions\Cancel;
 use Illuminate\Database\Eloquent\Model;

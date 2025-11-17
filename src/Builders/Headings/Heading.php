@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Headings;
+namespace Streams\Ui\Builders\Headings;
 
 use Streams\Ui\Traits as Common;
 use Streams\Ui\Builders\ViewBuilder;

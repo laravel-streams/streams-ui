@@ -1,8 +1,8 @@
 <?php
 
-namespace Streams\Ui\Actions\Contracts;
+namespace Streams\Ui\Builders\Actions\Contracts;
 
-use Streams\Ui\Actions\Action;
+use Streams\Ui\Builders\Actions\Action;
 
 interface HasActions
 {

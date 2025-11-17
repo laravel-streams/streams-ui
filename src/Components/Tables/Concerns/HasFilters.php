@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Components\Tables\Concerns;
 
-use Streams\Ui\Forms\Form;
+use Streams\Ui\Builders\Forms\Form;
 use Illuminate\Support\Arr;
 use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Builders\Tables\Filters\Filter;

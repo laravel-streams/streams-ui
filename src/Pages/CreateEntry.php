@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Pages;
 
-use Streams\Ui\Forms\Form;
+use Streams\Ui\Builders\Forms\Form;
 use Streams\Core\Entry\Entry;
 use Streams\Ui\Traits\HasEntry;
 use Streams\Ui\Pages\PanelPage;

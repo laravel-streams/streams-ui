@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Actions;
+namespace Streams\Ui\Builders\Actions;
 
 use Streams\Core\Entry\Entry;
 use Streams\Ui\Builders\Tables\Table;

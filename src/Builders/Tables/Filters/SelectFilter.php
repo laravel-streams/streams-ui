@@ -2,16 +2,15 @@
 
 namespace Streams\Ui\Builders\Tables\Filters;
 
-use Streams\Ui\Inputs;
 use Streams\Ui\Builders;
-use Streams\Ui\Builders\Tables\Table;
 use Streams\Core\Criteria\Criteria;
+use Streams\Ui\Builders\Tables\Table;
 use Streams\Ui\Builders\Tables\Filters\Filter;
 
 class SelectFilter extends Filter
 {
-    use Inputs\Traits\HasOptions;
-    use Inputs\Traits\HasPlaceholder;
+    use Builders\Inputs\Traits\HasOptions;
+    use Builders\Inputs\Traits\HasPlaceholder;
     
     use Builders\Concerns\HasLabel;
 

@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Traits;
 
-use Streams\Ui\Forms\Form;
+use Streams\Ui\Builders\Forms\Form;
 use Livewire\WithFileUploads;
 use Streams\Ui\Exceptions\ValidationException;
 

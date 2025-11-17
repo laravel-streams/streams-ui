@@ -1,10 +1,10 @@
 <?php
 
-namespace Streams\Ui\Actions\Traits;
+namespace Streams\Ui\Builders\Actions\Traits;
 
 use Illuminate\View\View;
-use Streams\Ui\Actions\Action;
-use Streams\Ui\Actions\MountableAction;
+use Streams\Ui\Builders\Actions\Action;
+use Streams\Ui\Builders\Actions\MountableAction;
 use Illuminate\Contracts\Support\Htmlable;
 
 trait CanOpenModal

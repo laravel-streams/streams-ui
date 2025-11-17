@@ -6,7 +6,7 @@ use Streams\Ui\Builders\ViewComponent;
 use Streams\Ui\Builders\Concerns\HasId;
 use Streams\Ui\Traits\HasColumns;
 use Streams\Ui\Builders\Concerns\HasHeading;
-use Streams\Ui\Forms\Concerns\HasComponents;
+use Streams\Ui\Builders\Forms\Concerns\HasComponents;
 use Streams\Ui\Builders\Concerns\HasLivewire;
 use Streams\Ui\Builders\Concerns\CanSpanColumns;
 use Streams\Ui\Builders\Concerns\HasDescription;

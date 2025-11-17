@@ -3,7 +3,7 @@
 namespace Streams\Ui\Components\Tables\Concerns;
 
 use Streams\Core\Entry\Entry;
-use Streams\Ui\Actions\Action;
+use Streams\Ui\Builders\Actions\Action;
 use Streams\Ui\Exceptions\Cancel;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Streams\Core\Entry\Contract\EntryInterface;

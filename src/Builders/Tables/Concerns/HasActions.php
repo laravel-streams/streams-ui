@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Streams\Core\Entry\Contract\EntryInterface;
 use Streams\Core\Entry\Entry;
-use Streams\Ui\Actions\Action;
-use Streams\Ui\Actions\ActionGroup;
+use Streams\Ui\Builders\Actions\Action;
+use Streams\Ui\Builders\Actions\ActionGroup;
 
 trait HasActions
 {

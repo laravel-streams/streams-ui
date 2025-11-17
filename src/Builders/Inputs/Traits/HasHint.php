@@ -3,7 +3,7 @@
 namespace Streams\Ui\Builders\Inputs\Traits;
 
 use Illuminate\Support\Arr;
-use Streams\Ui\Actions\Action;
+use Streams\Ui\Builders\Actions\Action;
 
 trait HasHint
 {

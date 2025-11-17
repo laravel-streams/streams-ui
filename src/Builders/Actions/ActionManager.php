@@ -1,8 +1,8 @@
 <?php
 
-namespace Streams\Ui\Actions;
+namespace Streams\Ui\Builders\Actions;
 
-use Streams\Ui\Actions\Action;
+use Streams\Ui\Builders\Actions\Action;
 
 class ActionManager
 {

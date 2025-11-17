@@ -1,10 +1,10 @@
 <?php
 
-namespace Streams\Ui\Navigation;
+namespace Streams\Ui\Builders\Navigation;
 
-use Streams\Ui\Navigation;
 use Streams\Ui\Builders\Builder;
 use Streams\Ui\Traits as Common;
+use Streams\Ui\Builders\Navigation;
 
 class NavigationGroup extends Builder
 {

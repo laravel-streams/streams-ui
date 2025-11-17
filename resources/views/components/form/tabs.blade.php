@@ -33,7 +33,7 @@
         $attributes
             ->merge([
                 'id' => $getId(),
-                //'wire:key' => "{$this->getId()}.{$getStatePath()}." . \Streams\Ui\Forms\Layouts\Tabs::class . '.container',
+                //'wire:key' => "{$this->getId()}.{$getStatePath()}." . \Streams\Ui\Builders\Forms\Layouts\Tabs::class . '.container',
             ], escape: false)
             ->merge($getHtmlAttributes(), escape: false)
             //->merge($getExtraAlpineAttributes(), escape: false)
@@ -48,8 +48,8 @@
         value="{{
             // collect($getChildComponentContainer()->getComponents())
             collect($getComponents())
-                // ->filter(static fn (\Streams\Ui\Forms\Layouts\Tab $tab): bool => $tab->isVisible())
-                ->map(static fn (\Streams\Ui\Forms\Layouts\Tab $tab) => $tab->getId())
+                // ->filter(static fn (\Streams\Ui\Builders\Forms\Layouts\Tab $tab): bool => $tab->isVisible())
+                ->map(static fn (\Streams\Ui\Builders\Forms\Layouts\Tab $tab) => $tab->getId())
                 ->values()
                 ->toJson()
         }}"

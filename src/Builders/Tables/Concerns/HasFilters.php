@@ -2,8 +2,8 @@
 
 namespace Streams\Ui\Builders\Tables\Concerns;
 
-use Streams\Ui\Forms\Form;
-use Streams\Ui\Actions\Action;
+use Streams\Ui\Builders\Forms\Form;
+use Streams\Ui\Builders\Actions\Action;
 use Streams\Ui\Builders\Tables\Filters\Filter;
 
 trait HasFilters

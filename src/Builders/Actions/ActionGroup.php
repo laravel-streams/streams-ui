@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Actions;
+namespace Streams\Ui\Builders\Actions;
 
 use Streams\Ui\Builders\Concerns;
 use Streams\Ui\Builders\ViewBuilder;

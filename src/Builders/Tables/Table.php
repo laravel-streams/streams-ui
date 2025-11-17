@@ -7,7 +7,7 @@ use Streams\Ui\Traits as Support;
 use Illuminate\Support\Collection;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Builders\Tables\Columns\Column;
-use Streams\Ui\Actions\Contracts\HasActions;
+use Streams\Ui\Builders\Actions\Contracts\HasActions;
 use Illuminate\Contracts\Pagination\Paginator;
 
 class Table extends ViewBuilder implements HasActions

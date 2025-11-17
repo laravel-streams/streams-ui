@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Components\Forms;
 
-use Streams\Ui\Forms\Form;
+use Streams\Ui\Builders\Forms\Form;
 use Livewire\WithFileUploads;
 
 trait InteractsWithForms

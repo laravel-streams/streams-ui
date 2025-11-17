@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Inputs;
+namespace Streams\Ui\Builders\Inputs;
 
 class EditorInput extends Input
 {

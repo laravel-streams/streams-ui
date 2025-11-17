@@ -1,8 +1,8 @@
 <?php
 
-namespace Streams\Ui\Actions\Traits;
+namespace Streams\Ui\Builders\Actions\Traits;
 
-use Streams\Ui\Forms\Form;
+use Streams\Ui\Builders\Forms\Form;
 use Streams\Ui\Builders\Containers\Container;
 
 trait CanBeMounted
