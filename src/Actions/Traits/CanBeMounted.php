@@ -3,7 +3,7 @@
 namespace Streams\Ui\Actions\Traits;
 
 use Streams\Ui\Forms\Form;
-use Streams\Ui\Containers\Container;
+use Streams\Ui\Builders\Containers\Container;
 
 trait CanBeMounted
 {

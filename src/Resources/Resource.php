@@ -5,7 +5,7 @@ namespace Streams\Ui\Resources;
 use Streams\Core\Entry\Entry;
 use Streams\Ui\Resources\Concerns;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Navigation\NavigationItem;
+use Streams\Ui\Builders\Navigation\NavigationItem;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Ui\Builders\Concerns as Common;
 use Streams\Ui\Builders\Concerns\HasNavigation;

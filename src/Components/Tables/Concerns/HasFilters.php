@@ -5,7 +5,7 @@ namespace Streams\Ui\Components\Tables\Concerns;
 use Streams\Ui\Forms\Form;
 use Illuminate\Support\Arr;
 use Streams\Core\Criteria\Criteria;
-use Streams\Ui\Tables\Filters\Filter;
+use Streams\Ui\Builders\Tables\Filters\Filter;
 use Illuminate\Contracts\Database\Query\Builder;
 
 trait HasFilters

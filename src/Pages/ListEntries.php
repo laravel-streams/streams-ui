@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Pages;
 
-use Streams\Ui\Tables\Table;
+use Streams\Ui\Builders\Tables\Table;
 use Streams\Ui\Components\Tables\InteractsWithTable;
 
 class ListEntries extends PanelPage

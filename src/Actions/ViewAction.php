@@ -3,7 +3,7 @@
 namespace Streams\Ui\Actions;
 
 use Streams\Core\Entry\Entry;
-use Streams\Ui\Tables\Table;
+use Streams\Ui\Builders\Tables\Table;
 use Streams\Ui\Traits as Common;
 
 class ViewAction extends MountableAction

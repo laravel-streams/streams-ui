@@ -3,7 +3,7 @@
 namespace Streams\Ui\Components\Tables;
 
 use Livewire\WithPagination;
-use Streams\Ui\Tables\Table;
+use Streams\Ui\Builders\Tables\Table;
 use Streams\Core\Support\Traits\FiresCallbacks;
 
 trait InteractsWithTable

@@ -137,7 +137,7 @@ Here's a minimal example to get you started. Create a panel in `app/Panels/Admin
 
 namespace App\Panels;
 
-use Streams\Ui\Panels\Panel;
+use Streams\Ui\Builders\Panels\Panel;
 
 class AdminPanel extends Panel
 {

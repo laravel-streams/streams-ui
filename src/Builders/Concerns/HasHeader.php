@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Tables\Concerns;
+namespace Streams\Ui\Builders\Tables\Concerns;
 
 use Streams\Ui\Views\ViewComponent;
 

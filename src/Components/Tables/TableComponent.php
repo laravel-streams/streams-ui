@@ -3,7 +3,7 @@
 namespace Streams\Ui\Components\Tables;
 
 use Livewire\Component;
-use Streams\Ui\Tables\Table;
+use Streams\Ui\Builders\Tables\Table;
 use Streams\Ui\Components\Tables\InteractsWithTable;
 
 class TableComponent extends Component

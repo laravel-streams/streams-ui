@@ -5,7 +5,7 @@ namespace Streams\Ui\Components\Tables\Concerns;
 use Streams\Ui\Forms\Form;
 use Streams\Core\Entry\Entry;
 use Illuminate\Support\Collection;
-use Streams\Ui\Tables\BulkActions\BulkAction;
+use Streams\Ui\Builders\Tables\BulkActions\BulkAction;
 use Streams\Ui\Exceptions\ValidationException;
 use Illuminate\Pagination\LengthAwarePaginator;
 

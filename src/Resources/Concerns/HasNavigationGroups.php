@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Resources\Concerns;
 
-use Streams\Ui\Navigation\NavigationGroup;
+use Streams\Ui\Builders\Navigation\NavigationGroup;
 
 trait HasNavigationGroups
 {
