@@ -4,13 +4,13 @@ namespace Streams\Ui\Builders\Inputs\Traits;
 
 trait CanBeLengthConstrained
 {
-    protected int | \Closure | null $length = null;
+    protected int|\Closure|null $length = null;
 
-    protected int | \Closure | null $maxLength = null;
+    protected int|\Closure|null $maxLength = null;
 
-    protected int | \Closure | null $minLength = null;
+    protected int|\Closure|null $minLength = null;
 
-    public function length(int | \Closure $length): static
+    public function length(int|\Closure $length): static
     {
         $this->length = $length;
         $this->maxLength = $length;
@@ -18,7 +18,7 @@ trait CanBeLengthConstrained
 
         $this->rule(
             static function (
-                /*Contracts\CanBeLengthConstrained*/
+                /* Contracts\CanBeLengthConstrained */
                 $component
             ): string {
 
@@ -31,7 +31,7 @@ trait CanBeLengthConstrained
                 return "size:{$length}";
             },
             static fn (
-                /*Contracts\CanBeLengthConstrained*/
+                /* Contracts\CanBeLengthConstrained */
                 $component
             ): bool => filled($component->getLength())
         );
@@ -39,13 +39,13 @@ trait CanBeLengthConstrained
         return $this;
     }
 
-    public function maxLength(int | \Closure $length): static
+    public function maxLength(int|\Closure $length): static
     {
         $this->maxLength = $length;
 
         $this->rule(
             static function (
-                /*Contracts\CanBeLengthConstrained*/
+                /* Contracts\CanBeLengthConstrained */
                 $component
             ): string {
 
@@ -58,7 +58,7 @@ trait CanBeLengthConstrained
                 return "max:{$length}";
             },
             static fn (
-                /*Contracts\CanBeLengthConstrained*/
+                /* Contracts\CanBeLengthConstrained */
                 $component
             ): bool => filled($component->getMaxLength())
         );
@@ -66,13 +66,13 @@ trait CanBeLengthConstrained
         return $this;
     }
 
-    public function minLength(int | \Closure $length): static
+    public function minLength(int|\Closure $length): static
     {
         $this->minLength = $length;
 
         $this->rule(
             static function (
-                /*Contracts\CanBeLengthConstrained*/
+                /* Contracts\CanBeLengthConstrained */
                 $component
             ): string {
 
@@ -85,7 +85,7 @@ trait CanBeLengthConstrained
                 return "min:{$length}";
             },
             static fn (
-                /*Contracts\CanBeLengthConstrained*/
+                /* Contracts\CanBeLengthConstrained */
                 $component
             ): bool => filled($component->getMinLength())
         );

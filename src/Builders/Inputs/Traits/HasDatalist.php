@@ -4,9 +4,9 @@ namespace Streams\Ui\Builders\Inputs\Traits;
 
 trait HasDatalist
 {
-    protected array | \Closure | null $datalist = null;
+    protected array|\Closure|null $datalist = null;
 
-    public function datalist(array | \Closure | null $options): static
+    public function datalist(array|\Closure|null $options): static
     {
         $this->datalist = $options;
 

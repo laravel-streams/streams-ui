@@ -2,29 +2,26 @@
 
 namespace Streams\Ui\Builders\Inputs;
 
-use Streams\Ui\Builders\Inputs\Traits;
-use Streams\Ui\Traits as Support;
-
 class TextareaInput extends Input
 {
-    use Traits\HasPlaceholder;
     use Traits\CanBeAutocompleted;
     use Traits\CanBeLengthConstrained;
+    use Traits\HasPlaceholder;
 
     protected string $view = 'ui::components.inputs.textarea';
 
-    protected int | \Closure | null $columns = null;
+    protected int|\Closure|null $columns = null;
 
-    protected int | \Closure | null $rows = null;
+    protected int|\Closure|null $rows = null;
 
-    public function columns(int | \Closure | null $columns): static
+    public function columns(int|\Closure|null $columns): static
     {
         $this->columns = $columns;
 
         return $this;
     }
 
-    public function rows(int | \Closure | null $rows): static
+    public function rows(int|\Closure|null $rows): static
     {
         $this->rows = $rows;
 

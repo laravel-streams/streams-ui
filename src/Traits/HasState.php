@@ -9,6 +9,7 @@ trait HasState
     protected mixed $defaultState = null;
 
     protected ?string $statePath = null;
+
     protected ?string $statePathCache = null;
 
     public function default(mixed $state): static
@@ -41,7 +42,7 @@ trait HasState
 
     public function dehydrateState(array &$state): void
     {
-        if (!$this->isDehydrated()) {
+        if (! $this->isDehydrated()) {
             if ($this->statePath) {
                 Arr::forget($state, $this->getStatePath());
             }
@@ -113,7 +114,7 @@ trait HasState
             return;
         }
 
-        if (!$this->hasDefaultState()) {
+        if (! $this->hasDefaultState()) {
 
             $this->state(null);
 
@@ -195,7 +196,7 @@ trait HasState
             return $this->statePathCache;
         }
 
-        if (!$absolute) {
+        if (! $absolute) {
             return $this->statePath ?? '';
         }
 

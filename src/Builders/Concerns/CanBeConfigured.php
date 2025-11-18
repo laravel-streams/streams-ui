@@ -22,7 +22,7 @@ trait CanBeConfigured
             static::$configurations[static::class][] = $configuration;
         }
 
-        if (!$during) {
+        if (! $during) {
             return null;
         }
 
@@ -41,7 +41,7 @@ trait CanBeConfigured
     {
         foreach (static::$configurations as $target => $configurations) {
 
-            if (!$this instanceof $target) {
+            if (! $this instanceof $target) {
                 continue;
             }
 
@@ -54,7 +54,7 @@ trait CanBeConfigured
 
         foreach (static::$deferredConfigurations as $target => $configurations) {
 
-            if (!$this instanceof $target) {
+            if (! $this instanceof $target) {
                 continue;
             }
 
@@ -66,7 +66,5 @@ trait CanBeConfigured
         return $this;
     }
 
-    protected function setUp(): void
-    {
-    }
+    protected function setUp(): void {}
 }

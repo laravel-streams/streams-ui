@@ -11,13 +11,13 @@ class NotificationsManager
 
     public function __construct()
     {
-        $this->notifications = new Collection();
+        $this->notifications = new Collection;
     }
 
     public function put(string $id, array $notification): void
     {
         $this->notifications->put($id, $notification);
-        
+
         // Also share with views so they're immediately available
         View::share('notifications', $this->all());
     }
@@ -40,7 +40,7 @@ class NotificationsManager
 
     public function flush(): void
     {
-        $this->notifications = new Collection();
+        $this->notifications = new Collection;
         View::share('notifications', []);
     }
 }

@@ -2,28 +2,26 @@
 
 namespace Streams\Ui\Builders\Tables\Concerns;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
-use Streams\Core\Entry\Contract\EntryInterface;
-use Streams\Core\Entry\Entry;
 use Streams\Ui\Builders\Actions\Action;
 use Streams\Ui\Builders\Actions\ActionGroup;
+use Streams\Core\Entry\Contract\EntryInterface;
 
 trait HasActions
 {
     protected array $actions = [];
 
-    //protected array $flatActions = [];
+    // protected array $flatActions = [];
 
     // protected string | \Closure | null $actionsColumnLabel = null;
 
     // protected string | \Closure | null $actionsAlignment = null;
 
-    //protected ActionsPosition | \Closure | null $actionsPosition = null;
+    // protected ActionsPosition | \Closure | null $actionsPosition = null;
 
     public function actions(
         array $actions
-        //ActionsPosition | string | \Closure | null $position = null
+        // ActionsPosition | string | \Closure | null $position = null
     ): static {
 
         $this->pushActions($actions);
@@ -35,7 +33,7 @@ trait HasActions
         return $this;
     }
 
-    public function pushActions(array | ActionGroup $actions): static
+    public function pushActions(array|ActionGroup $actions): static
     {
         foreach (Arr::wrap($actions) as $action) {
 
@@ -90,7 +88,7 @@ trait HasActions
         return $this->actions;
     }
 
-    public function getAction(string | array $name): ?Action
+    public function getAction(string|array $name): ?Action
     {
         if (is_string($name) && str($name)->contains('.')) {
             $name = explode('.', $name);
@@ -110,7 +108,7 @@ trait HasActions
         // $action = $this->getFlatActions()[$name] ?? null;
         $action = Arr::first($this->getActions(), fn ($action) => $action->getName() == $name);
 
-        if (!$action) {
+        if (! $action) {
             return null;
         }
 
@@ -138,7 +136,7 @@ trait HasActions
 
             $action = $action->getMountableModalAction($modalActionName);
 
-            if (!$action) {
+            if (! $action) {
                 return null;
             }
 
@@ -149,7 +147,7 @@ trait HasActions
             $parentActionName = $modalActionName;
         }
 
-        if (!$action instanceof Action) {
+        if (! $action instanceof Action) {
             return null;
         }
 

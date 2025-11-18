@@ -4,9 +4,9 @@ namespace Streams\Ui\Builders\Inputs\Traits;
 
 trait CanBeAutocompleted
 {
-    protected bool | string | \Closure | null $autocomplete = null;
+    protected bool|string|\Closure|null $autocomplete = null;
 
-    public function autocomplete(bool | string | \Closure $condition = true): static
+    public function autocomplete(bool|string|\Closure $condition = true): static
     {
         $this->autocomplete = $condition;
 

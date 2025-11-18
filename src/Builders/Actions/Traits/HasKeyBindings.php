@@ -6,9 +6,9 @@ use Illuminate\Support\Arr;
 
 trait HasKeyBindings
 {
-    protected string | array | \Closure | null $keyBindings = null;
+    protected string|array|\Closure|null $keyBindings = null;
 
-    public function keyBindings(string | array | \Closure | null $bindings): static
+    public function keyBindings(string|array|\Closure|null $bindings): static
     {
         $this->keyBindings = $bindings;
 

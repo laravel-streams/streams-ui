@@ -2,16 +2,11 @@
 
 namespace Streams\Ui\Builders\Inputs;
 
-use Streams\Ui\Builders\Inputs\Input;
-use Streams\Ui\Builders\Inputs\Traits;
-
 class MarkdownInput extends Input
 {
-    use Concerns\HasOptions;
-    use Concerns\HasPlaceholder;
-    use Concerns\CanBeLengthConstrained;
+    use Traits\CanBeLengthConstrained;
+    use Traits\HasOptions;
+    use Traits\HasPlaceholder;
 
     protected string $view = 'ui::components.inputs.markdown';
-
-
 }

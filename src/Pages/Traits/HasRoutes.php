@@ -4,9 +4,9 @@ namespace Streams\Ui\Pages\Traits;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Streams\Ui\Builders\Panels\Panel;
 use Illuminate\Routing\Route;
 use Streams\Ui\Pages\PageRouter;
+use Streams\Ui\Builders\Panels\Panel;
 use Illuminate\Support\Facades\Route as RouteFacade;
 
 trait HasRoutes
@@ -15,9 +15,9 @@ trait HasRoutes
 
     protected static ?string $routeName = null;
 
-    protected static string | array $middleware = [];
+    protected static string|array $middleware = [];
 
-    protected static string | array $withoutMiddleware = [];
+    protected static string|array $withoutMiddleware = [];
 
     public static function routes(Panel $panel): void
     {
@@ -46,16 +46,16 @@ trait HasRoutes
             ->slug();
     }
 
-    public static function getRouteMiddleware(Panel $panel): string | array
+    public static function getRouteMiddleware(Panel $panel): string|array
     {
         return [
-            //...(static::isEmailVerificationRequired($panel) ? [static::getEmailVerifiedMiddleware($panel)] : []),
-            //...(static::isTenantSubscriptionRequired($panel) ? [static::getTenantSubscribedMiddleware($panel)] : []),
+            // ...(static::isEmailVerificationRequired($panel) ? [static::getEmailVerifiedMiddleware($panel)] : []),
+            // ...(static::isTenantSubscriptionRequired($panel) ? [static::getTenantSubscribedMiddleware($panel)] : []),
             ...Arr::wrap(static::$middleware),
         ];
     }
 
-    public static function getWithoutRouteMiddleware(Panel $panel): string | array
+    public static function getWithoutRouteMiddleware(Panel $panel): string|array
     {
         return static::$withoutMiddleware;
     }

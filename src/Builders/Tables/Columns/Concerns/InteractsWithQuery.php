@@ -51,7 +51,7 @@ trait InteractsWithQuery
 
             $where = $isFirst ? 'where' : 'orWhere';
 
-            $query->{$where}($column, 'LIKE', '%' . $search . '%');
+            $query->{$where}($column, 'LIKE', '%'.$search.'%');
 
             $isFirst = false;
         }

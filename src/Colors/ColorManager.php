@@ -17,7 +17,7 @@ class ColorManager
         return $this;
     }
 
-    public function processColor(array | string $color): array | string
+    public function processColor(array|string $color): array|string
     {
         if (is_string($color) && str_starts_with($color, '#')) {
             return Color::hex($color);
@@ -48,14 +48,14 @@ class ColorManager
         return $color;
     }
 
-    function colorVariables(string | array | null $color, array $shades): ?string
+    public function colorVariables(string|array|null $color, array $shades): ?string
     {
         if ($color === null) {
             return null;
         }
 
         if (strpos($color, '-')) {
-            
+
             $parts = explode('-', $color);
 
             $color = array_shift($parts);

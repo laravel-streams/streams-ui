@@ -11,36 +11,33 @@ use Streams\Ui\Builders\Actions\Traits\InteractsWithActions;
 
 abstract class Page extends Component
 {
-    use HasMemory;
     use FiresCallbacks;
-
-    use Traits\HasRoutes;
+    use HasMemory;
     use Traits\HasLayout;
-    use Traits\HasResource;
     use Traits\HasNavigation;
     use Traits\HasNavigationGroups;
+    use Traits\HasResource;
+    use Traits\HasRoutes;
 
     // use Common\HasTitle;
     protected static ?string $title = null;
 
-    static public function getTitle(): string
+    public static function getTitle(): string
     {
         return static::$title ?? (string) str(class_basename(static::class))
             ->kebab()
             ->replace('-', ' ')
             ->title();
     }
-    
+
+    use Common\EvaluatesClosures;
     use Common\HasActions;
     use Common\HasDescription;
     use Common\HasHtmlAttributes;
-
-    use Common\EvaluatesClosures;
-
     use InteractsWithActions;
 
     public ?array $data = [];
-    
+
     protected static string $view;
 
     protected static string $resource;
@@ -59,7 +56,7 @@ abstract class Page extends Component
 
     protected function extractPublicMethods(): array
     {
-        $methods = $this->once(static::class . __FUNCTION__, function () {
+        $methods = $this->once(static::class.__FUNCTION__, function () {
 
             $reflection = new \ReflectionClass($this);
 
@@ -84,8 +81,8 @@ abstract class Page extends Component
         ?string $panel = null
         // ?Entry $tenant = null
     ): string {
-        
-        //$parameters['tenant'] ??= ($tenant ?? UI::getTenant());
+
+        // $parameters['tenant'] ??= ($tenant ?? UI::getTenant());
 
         return route(static::getRouteName($panel), $parameters, $isAbsolute);
     }

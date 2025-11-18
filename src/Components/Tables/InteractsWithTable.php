@@ -8,17 +8,14 @@ use Streams\Core\Support\Traits\FiresCallbacks;
 
 trait InteractsWithTable
 {
-    use FiresCallbacks;
-
-    use Concerns\HasEntries;
-    use Concerns\HasFilters;
+    use Concerns\CanPaginateEntries;
+    use Concerns\CanSearchEntries;
+    use Concerns\CanSortEntries;
     use Concerns\HasActions;
     use Concerns\HasBulkActions;
-
-    use Concerns\CanSortEntries;
-    use Concerns\CanSearchEntries;
-    use Concerns\CanPaginateEntries;
-
+    use Concerns\HasEntries;
+    use Concerns\HasFilters;
+    use FiresCallbacks;
     use WithPagination {
         WithPagination::resetPage as resetLivewirePage;
     }
@@ -34,7 +31,7 @@ trait InteractsWithTable
         if (empty($this->table)) {
             $this->table = $this->table($this->makeTable($this));
         }
-        
+
         // $this->table = Action::configureUsing(
         //     Closure::fromCallable([$this, 'configureTableAction']),
         //     fn (): Table => BulkAction::configureUsing(
@@ -43,10 +40,8 @@ trait InteractsWithTable
         //     ),
         // );
 
-
         // $this->remember('toggleTableColumnForm', $this->getTableColumnToggleForm());
         // $this->remember('tableFiltersForm', $this->getTableFiltersForm());
-
 
         // if (! $this->shouldMountInteractsWithTable) {
         //     return;
@@ -62,7 +57,7 @@ trait InteractsWithTable
         // $shouldPersistFiltersInSession = $this->getTable()->persistsFiltersInSession();
         // $filtersSessionKey = $this->getTableFiltersSessionKey();
 
-        if (!count($this->tableFilters ?? [])) {
+        if (! count($this->tableFilters ?? [])) {
             $this->tableFilters = null;
         }
 
@@ -81,7 +76,7 @@ trait InteractsWithTable
         // @todo replace with a form
         // $this->getTableFiltersForm()->fill($this->tableFilters);
         foreach ($this->table->getFilters() as $filter) {
-            if (!isset($this->tableFilters[$filter->getName()])) {
+            if (! isset($this->tableFilters[$filter->getName()])) {
                 $this->tableFilters[$filter->getName()] = ['value' => null];
             }
         }
@@ -174,7 +169,7 @@ trait InteractsWithTable
     public function getQueryStringPropertyName(string $property): string
     {
         if (filled($identifier = $this->getTable()->getQueryStringIdentifier())) {
-            return $identifier . ucfirst($property);
+            return $identifier.ucfirst($property);
         }
 
         return $property;

@@ -4,9 +4,9 @@ namespace Streams\Ui\Builders\Inputs\Traits;
 
 trait CanBeAutofocused
 {
-    protected bool | \Closure $isAutofocused = false;
+    protected bool|\Closure $isAutofocused = false;
 
-    public function autofocus(bool | \Closure $condition = true): static
+    public function autofocus(bool|\Closure $condition = true): static
     {
         $this->isAutofocused = $condition;
 

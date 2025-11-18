@@ -7,12 +7,12 @@ use Streams\Ui\Traits as Common;
 
 class Section extends Container
 {
-    use Common\HasUrl;
-    use Common\HasHeading;
-    use Common\HasActions;
     use Common\CanBeDisabled;
+    use Common\HasActions;
     use Common\HasDescription;
-    
+    use Common\HasHeading;
+    use Common\HasUrl;
+
     protected string $viewIdentifier = 'section';
 
     protected string $view = 'ui::builders.section';

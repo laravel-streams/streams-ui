@@ -4,9 +4,9 @@ namespace Streams\Ui\Builders\Tables\Concerns;
 
 trait HasEntryUrl
 {
-    protected string | \Closure | null $entryUrl = null;
+    protected string|\Closure|null $entryUrl = null;
 
-    public function entryUrl(string | \Closure | null $url): static
+    public function entryUrl(string|\Closure|null $url): static
     {
         $this->entryUrl = $url;
 

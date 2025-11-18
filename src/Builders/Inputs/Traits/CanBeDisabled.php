@@ -4,9 +4,9 @@ namespace Streams\Ui\Builders\Inputs\Traits;
 
 trait CanBeDisabled
 {
-    protected bool | \Closure | null $disabled = null;
+    protected bool|\Closure|null $disabled = null;
 
-    public function disabled(string | \Closure | null $disabled): static
+    public function disabled(string|\Closure|null $disabled): static
     {
         $this->disabled = $disabled;
 

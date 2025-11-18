@@ -4,9 +4,9 @@ namespace Streams\Ui\Builders\Navigation\Traits;
 
 trait HasGroup
 {
-    protected string | \Closure | null $group = null;
-    
-    public function group(string | \Closure | null $group): static
+    protected string|\Closure|null $group = null;
+
+    public function group(string|\Closure|null $group): static
     {
         $this->group = $group;
 

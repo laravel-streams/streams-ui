@@ -4,17 +4,17 @@ namespace Streams\Ui\Builders\Concerns;
 
 trait CanBeDisabled
 {
-    protected bool $disabled = false;
+    protected bool|\Closure|null $disabled = null;
 
-    public function disabled(bool $condition = true): static
+    public function disabled(string|\Closure|null $disabled): static
     {
-        $this->disabled = $condition;
+        $this->disabled = $disabled;
 
         return $this;
     }
 
     public function isDisabled(): bool
     {
-        return $this->disabled;
+        return (bool) $this->evaluate($this->disabled);
     }
 }

@@ -7,11 +7,11 @@ use Illuminate\Contracts\Pagination\Paginator;
 
 trait CanBePaginated
 {
-    public int | string $perPage = 25;
+    public int|string $perPage = 25;
 
-    protected bool | \Closure $paginated = true;
+    protected bool|\Closure $paginated = true;
 
-    protected array | \Closure | null $paginationOptions = null;
+    protected array|\Closure|null $paginationOptions = null;
 
     public function perPage($perPage): self
     {
@@ -20,7 +20,7 @@ trait CanBePaginated
         return $this;
     }
 
-    public function paginated(bool | array | \Closure $condition = true): static
+    public function paginated(bool|array|\Closure $condition = true): static
     {
         if (is_array($condition)) {
 
@@ -34,7 +34,7 @@ trait CanBePaginated
         return $this;
     }
 
-    public function paginationOptions(array | \Closure | null $options): static
+    public function paginationOptions(array|\Closure|null $options): static
     {
         $this->paginationOptions = $options;
 
@@ -48,7 +48,7 @@ trait CanBePaginated
 
     protected function paginateQuery(Criteria $query): Paginator
     {
-        //$perPage = $this->getPerPage();
+        // $perPage = $this->getPerPage();
         $perPage = $this->getLiveWire()->getTableRecordsPerPage();
         $pageName = $this->getTablePageName();
 

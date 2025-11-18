@@ -2,8 +2,6 @@
 
 namespace Streams\Ui\Builders\Actions;
 
-use Streams\Ui\Builders\Actions\Action;
-
 class ActionManager
 {
     protected array $actions = [];
@@ -19,7 +17,7 @@ class ActionManager
     {
         $action = $this->actions[$key] ?? null;
 
-        if (is_callable($action) && !($action instanceof Action)) {
+        if (is_callable($action) && ! ($action instanceof Action)) {
 
             $action = $action();
 

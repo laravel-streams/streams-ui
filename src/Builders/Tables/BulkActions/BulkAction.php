@@ -7,7 +7,6 @@ use Streams\Ui\Builders\Tables\Concerns\BelongsToTable;
 class BulkAction extends \Streams\Ui\Builders\Actions\Action
 {
     use BelongsToTable;
-
     use Concerns\InteractsWithRecords;
 
     protected function setUp(): void

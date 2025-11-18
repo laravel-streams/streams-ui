@@ -10,9 +10,9 @@ trait HasRoutes
 {
     protected static ?string $slug = null;
 
-    protected static string | array $middleware = [];
+    protected static string|array $middleware = [];
 
-    protected static string | array $withoutMiddleware = [];
+    protected static string|array $withoutMiddleware = [];
 
     public static function routes(Panel $panel): void
     {
@@ -49,12 +49,12 @@ trait HasRoutes
             ->slug();
     }
 
-    public static function getRouteMiddleware(Panel $panel): string | array
+    public static function getRouteMiddleware(Panel $panel): string|array
     {
         return static::$middleware;
     }
 
-    public static function getWithoutRouteMiddleware(Panel $panel): string | array
+    public static function getWithoutRouteMiddleware(Panel $panel): string|array
     {
         return static::$withoutMiddleware;
     }

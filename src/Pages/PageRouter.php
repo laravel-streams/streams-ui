@@ -2,16 +2,15 @@
 
 namespace Streams\Ui\Pages;
 
-use Streams\Ui\Builders\Panels\Panel;
 use Illuminate\Routing\Route;
+use Streams\Ui\Builders\Panels\Panel;
 
 class PageRouter
 {
     public function __construct(
         protected string $page,
         protected \Closure $route,
-    ) {
-    }
+    ) {}
 
     public function registerRoute(Panel $panel): ?Route
     {

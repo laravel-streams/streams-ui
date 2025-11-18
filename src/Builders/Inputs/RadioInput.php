@@ -2,9 +2,6 @@
 
 namespace Streams\Ui\Builders\Inputs;
 
-use Streams\Ui\Builders\Inputs\Input;
-use Streams\Ui\Builders\Inputs\Traits;
-
 class RadioInput extends Input
 {
     use Traits\HasOptions;

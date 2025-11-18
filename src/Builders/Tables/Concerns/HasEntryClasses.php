@@ -7,9 +7,9 @@ use Streams\Core\Entry\Contract\EntryInterface;
 
 trait HasEntryClasses
 {
-    protected array | string | \Closure | null $rowClasses = null;
+    protected array|string|\Closure|null $rowClasses = null;
 
-    public function rowClasses(array | string | \Closure | null $classes): static
+    public function rowClasses(array|string|\Closure|null $classes): static
     {
         $this->rowClasses = $classes;
 

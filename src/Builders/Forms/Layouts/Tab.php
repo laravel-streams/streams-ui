@@ -8,13 +8,13 @@ use Streams\Ui\Builders\ViewBuilder;
 
 class Tab extends ViewBuilder
 {
-    use Common\HasId;
-    use Common\HasIcon;
     use Common\HasBadge;
-    use Common\HasLabel;
     use Common\HasComponents;
-    use Common\HasIconPosition;
     use Common\HasHtmlAttributes;
+    use Common\HasIcon;
+    use Common\HasIconPosition;
+    use Common\HasId;
+    use Common\HasLabel;
 
     protected string $view = 'ui::components.tabs.tab';
 
@@ -28,7 +28,7 @@ class Tab extends ViewBuilder
     public static function make(string $label): static
     {
         $static = app(static::class, ['label' => $label]);
-        
+
         $static->configure();
 
         return $static;

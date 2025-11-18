@@ -7,5 +7,6 @@ use Streams\Ui\Builders\Actions\Action;
 interface HasActions
 {
     public function getActions(): array;
-    public function getAction(string | array $name): ?Action;
+
+    public function getAction(string|array $name): ?Action;
 }

@@ -10,7 +10,7 @@ trait CanPaginateEntries
 {
     public $tableRecordsPerPage = 25;
 
-    protected int | string | null $defaultTableRecordsPerPageSelectOption = null;
+    protected int|string|null $defaultTableRecordsPerPageSelectOption = null;
 
     public function updatedTableRecordsPerPage(): void
     {
@@ -21,7 +21,7 @@ trait CanPaginateEntries
         $this->resetPage();
     }
 
-    protected function paginateQuery(Criteria | Builder $query): Paginator
+    protected function paginateQuery(Criteria|Builder $query): Paginator
     {
         $perPage = $this->getTableRecordsPerPage();
 
@@ -44,7 +44,7 @@ trait CanPaginateEntries
         return $records->onEachSide(0);
     }
 
-    public function getTableRecordsPerPage(): int | string | null
+    public function getTableRecordsPerPage(): int|string|null
     {
         return $this->tableRecordsPerPage ?: $this->table->getPerPage();
     }
@@ -54,7 +54,7 @@ trait CanPaginateEntries
         return $this->getPage($this->getTablePaginationPageName());
     }
 
-    public function getDefaultTableRecordsPerPageSelectOption(): int | string
+    public function getDefaultTableRecordsPerPageSelectOption(): int|string
     {
         $option = session()->get(
             $this->getTablePerPageSessionKey(),

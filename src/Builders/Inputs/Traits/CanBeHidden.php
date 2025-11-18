@@ -4,9 +4,9 @@ namespace Streams\Ui\Builders\Inputs\Traits;
 
 trait CanBeHidden
 {
-    protected bool | \Closure | null $hidden = null;
+    protected bool|\Closure|null $hidden = null;
 
-    public function hidden(bool | \Closure | null $hidden = true): static
+    public function hidden(bool|\Closure|null $hidden = true): static
     {
         $this->hidden = $hidden;
 

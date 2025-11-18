@@ -9,10 +9,10 @@ trait HasInputAttributes
     protected array $inputAttributes = [];
 
     public function inputAttributes(
-        array | \Closure $attributes,
+        array|\Closure $attributes,
         bool $merge = false
     ): static {
-        
+
         if ($merge) {
             $this->inputAttributes[] = $attributes;
         } else {
@@ -24,7 +24,7 @@ trait HasInputAttributes
 
     public function getInputAttributes(): array
     {
-        $attributes = new ComponentAttributeBag();
+        $attributes = new ComponentAttributeBag;
 
         foreach ($this->inputAttributes as $inputAttributes) {
             $attributes = $attributes->merge(

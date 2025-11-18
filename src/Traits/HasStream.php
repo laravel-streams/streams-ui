@@ -7,9 +7,9 @@ use Streams\Core\Support\Facades\Streams;
 
 trait HasStream
 {
-    protected Stream | string | null $stream = null;
+    protected Stream|string|null $stream = null;
 
-    public function stream(Stream | string | null $stream = null): static
+    public function stream(Stream|string|null $stream = null): static
     {
         $this->stream = $stream;
 

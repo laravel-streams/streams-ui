@@ -9,7 +9,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 
 trait HasEntries
 {
-    protected Collection | Paginator $entries;
+    protected Collection|Paginator $entries;
 
     // @deprecated
     public function entries($entries): static
@@ -24,7 +24,7 @@ trait HasEntries
         return $this;
     }
 
-    public function getTableEntries(): Collection | Paginator
+    public function getTableEntries(): Collection|Paginator
     {
         if (isset($this->entries)) {
             return $this->entries;
@@ -32,7 +32,7 @@ trait HasEntries
 
         $query = $this->getFilteredSortedQuery();
 
-        if (!$this->getTable()->isPaginated()) {
+        if (! $this->getTable()->isPaginated()) {
             return $query->get();
         }
 
@@ -44,11 +44,11 @@ trait HasEntries
             'livewire' => $this,
             'table' => $this->getTable(),
         ]);
-        
+
         return $this->entries;
     }
 
-    public function getFilteredSortedQuery(): Criteria | Builder
+    public function getFilteredSortedQuery(): Criteria|Builder
     {
         $query = $this->getFilteredQuery();
 
@@ -60,12 +60,12 @@ trait HasEntries
         return $query;
     }
 
-    public function getFilteredQuery(): Criteria | Builder
+    public function getFilteredQuery(): Criteria|Builder
     {
         return $this->filterQuery($this->getTable()->getQuery());
     }
 
-    public function filterQuery(Criteria | Builder $query): Criteria | Builder
+    public function filterQuery(Criteria|Builder $query): Criteria|Builder
     {
         $this->applyFiltersToTableQuery($query);
         $this->applySearchToTableQuery($query);

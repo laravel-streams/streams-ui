@@ -3,37 +3,33 @@
 namespace Streams\Ui\Builders\Inputs;
 
 use Streams\Ui\Builders\Inputs;
-use Streams\Ui\Traits as Support;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Builders\Concerns as Common;
 
 abstract class Input extends ViewBuilder
 {
-    // use BelongsToContainer;
-    
-    use Support\HasId;
-    use Support\HasName;
-    use Support\HasLabel;
-    use Support\HasState;
-    use Support\HasHtmlAttributes;
-    
-    use Support\CanSpanColumns;
-    
-    use Support\BelongsToParent;
-    use Support\BelongsToLivewire;
-    
-    use Inputs\Traits\HasKey;
-    use Inputs\Traits\HasHint;
-    use Inputs\Traits\HasFieldWrapper;
-    
-    use Inputs\Traits\CanBeHidden;
+    use Inputs\Traits\CanBeAutofocused;
     use Inputs\Traits\CanBeDisabled;
+    use Inputs\Traits\CanBeHidden;
     use Inputs\Traits\CanBeReadonly;
     use Inputs\Traits\CanBeValidated;
-    use Inputs\Traits\CanBeAutofocused;
+    use Inputs\Traits\HasFieldWrapper;
+    use Inputs\Traits\HasHint;
+    use Inputs\Traits\HasKey;
+    use Common\BelongsToLivewire;
+    use \Streams\Ui\Traits\BelongsToParent;
+    use \Streams\Ui\Traits\CanSpanColumns;
+    use Common\HasHtmlAttributes;
+    // use BelongsToContainer;
+
+    use Common\HasId;
+    use Common\HasLabel;
+    use Common\HasName;
+    use Common\HasState;
 
     protected string $viewIdentifier = 'field';
 
-    protected string | \Closure | null $helpText = null;
+    protected string|\Closure|null $helpText = null;
 
     final public function __construct(string $name)
     {
@@ -60,14 +56,14 @@ abstract class Input extends ViewBuilder
         return $this->key ?: $this->getStatePath();
     }
 
-    public function helpText(string | \Closure | null $helpText): static
+    public function helpText(string|\Closure|null $helpText): static
     {
         $this->helpText = $helpText;
 
         return $this;
     }
 
-    public function getHelpText(): string | null
+    public function getHelpText(): ?string
     {
         return $this->evaluate($this->helpText);
     }

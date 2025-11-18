@@ -86,13 +86,13 @@ trait CanSortEntries
         //     return $query->orderBy($this->getTable()->getReorderColumn());
         // }
 
-        if (!$this->tableSortColumn) {
+        if (! $this->tableSortColumn) {
             return $this->applyDefaultSorting($query);
         }
 
         $column = $this->getTable()->getSortableColumn($this->tableSortColumn);
 
-        if (!$column) {
+        if (! $column) {
             return $this->applyDefaultSorting($query);
         }
 

@@ -5,7 +5,6 @@ namespace Streams\Ui;
 use Livewire\Livewire;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\View;
 use Streams\Core\Support\Integrator;
 use Illuminate\Support\ServiceProvider;
 use Streams\Core\Support\Facades\Assets;
@@ -27,13 +26,13 @@ class UiServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../resources/config/ui.php',
+            __DIR__.'/../resources/config/ui.php',
             'streams.ui'
         );
 
         $this->app->singleton(\Streams\Ui\UiManager::class);
         $this->app->singleton(\Streams\Ui\Support\Facades\Notifications::class);
-        
+
         $this->app->singleton('colors', \Streams\Ui\Colors\ColorManager::class);
         $this->app->singleton('actions', \Streams\Ui\Builders\Actions\ActionManager::class);
         $this->app->singleton('breadcrumbs', \Streams\Ui\Components\Breadcrumbs\BreadcrumbsManager::class);
@@ -45,7 +44,7 @@ class UiServiceProvider extends ServiceProvider
     }
 
     public function boot()
-    {        
+    {
         app(Router::class)->aliasMiddleware('panel', SetUpPanel::class);
 
         Integrator::aliases([
@@ -56,21 +55,21 @@ class UiServiceProvider extends ServiceProvider
         ]);
 
         $this->publishes([
-            __DIR__ . '/../resources/streams' => base_path('streams'),
+            __DIR__.'/../resources/streams' => base_path('streams'),
         ], 'laravel-streams');
 
         $this->publishes([
-            __DIR__ . '/../resources/config/ui.php' => config_path('streams/ui.php'),
+            __DIR__.'/../resources/config/ui.php' => config_path('streams/ui.php'),
         ], 'config');
 
         $this->publishes([
-            __DIR__ . '/../resources/views/' => resource_path('views/vendor/ui'),
+            __DIR__.'/../resources/views/' => resource_path('views/vendor/ui'),
         ], 'ui');
 
         Assets::addPath('ui', 'vendor/streams/ui/resources');
         Images::addPath('ui', 'vendor/streams/ui/resources');
 
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'ui');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'ui');
 
         Lang::addNamespace('ui', realpath(base_path('vendor/streams/ui/resources/lang')));
 
@@ -81,7 +80,7 @@ class UiServiceProvider extends ServiceProvider
         Livewire::propertySynthesizer(\Streams\Ui\Support\EntrySynthesizer::class);
 
         $this->app->booted(function () {
-            $this->loadRoutesFrom(__DIR__ . '/../resources/routes/web.php');
+            $this->loadRoutesFrom(__DIR__.'/../resources/routes/web.php');
         });
     }
 }

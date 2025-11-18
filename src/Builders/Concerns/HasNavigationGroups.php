@@ -70,7 +70,7 @@ trait HasNavigationGroups
         //     return $this->buildNavigation();
         // }
 
-        if (!$this->navigationMounted) {
+        if (! $this->navigationMounted) {
             $this->mountNavigation();
         }
 
@@ -87,8 +87,8 @@ trait HasNavigationGroups
 
                     $registeredGroup = collect($this->getNavigationGroups())
                         ->first(function (
-                            NavigationGroup | string $registeredGroup,
-                            string | int $registeredGroupIndex
+                            NavigationGroup|string $registeredGroup,
+                            string|int $registeredGroupIndex
                         ) use ($groupIndex) {
 
                             if ($registeredGroupIndex === $groupIndex) {
@@ -99,7 +99,7 @@ trait HasNavigationGroups
                                 return true;
                             }
 
-                            if (!$registeredGroup instanceof NavigationGroup) {
+                            if (! $registeredGroup instanceof NavigationGroup) {
                                 return false;
                             }
 

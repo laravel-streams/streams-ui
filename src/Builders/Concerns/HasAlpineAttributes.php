@@ -9,10 +9,10 @@ trait HasAlpineAttributes
     protected array $alpineAttributes = [];
 
     public function alpineAttributes(
-        array | \Closure $attributes,
+        array|\Closure $attributes,
         bool $merge = false
     ): static {
-        
+
         if ($merge) {
             $this->alpineAttributes[] = $attributes;
         } else {
@@ -24,7 +24,7 @@ trait HasAlpineAttributes
 
     public function getAlpineAttributes(): array
     {
-        $attributes = new ComponentAttributeBag();
+        $attributes = new ComponentAttributeBag;
 
         foreach ($this->alpineAttributes as $alpineAttributes) {
             $attributes = $attributes->merge(

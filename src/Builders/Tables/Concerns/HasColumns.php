@@ -3,7 +3,6 @@
 namespace Streams\Ui\Builders\Tables\Concerns;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
 use Streams\Ui\Builders\Tables\Columns\Column;
 
 trait HasColumns

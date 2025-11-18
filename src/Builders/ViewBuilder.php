@@ -2,7 +2,6 @@
 
 namespace Streams\Ui\Builders;
 
-use Streams\Ui\Builders\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\View\ComponentAttributeBag;
@@ -15,11 +14,9 @@ class ViewBuilder extends Builder implements Htmlable
 
     protected string $viewIdentifier;
 
-    protected string | \Closure | null $defaultView = null;
+    protected string|\Closure|null $queryStringIdentifier = null;
 
-    protected string | \Closure | null $queryStringIdentifier = null;
-
-    public function view(string | \Closure | null $view, array $data = []): static
+    public function view(?string $view, array $data = []): static
     {
         if ($view === null) {
             return $this;
@@ -37,14 +34,11 @@ class ViewBuilder extends Builder implements Htmlable
     public function getView(): string
     {
         if (isset($this->view)) {
-            return $this->evaluate($this->view);
+            // return $this->evaluate($this->view);
+            return $this->view;
         }
 
-        if (filled($defaultView = $this->getDefaultView())) {
-            return $defaultView;
-        }
-
-        throw new \Exception('Class [' . static::class . '] does not have a [protected string $view] property defined.');
+        throw new \Exception('Class ['.static::class.'] does not have a [protected string $view] property defined.');
     }
 
     public function viewData(array $data): static
@@ -62,7 +56,7 @@ class ViewBuilder extends Builder implements Htmlable
         return view(
             $this->getView(),
             [
-                'attributes' => new ComponentAttributeBag(),
+                'attributes' => new ComponentAttributeBag,
                 ...$this->extractPublicMethods(),
                 ...(isset($this->viewIdentifier)
                     ? [$this->viewIdentifier => $this]
@@ -75,7 +69,7 @@ class ViewBuilder extends Builder implements Htmlable
 
     protected function extractPublicMethods(): array
     {
-        $methods = $this->once(static::class . __FUNCTION__, function () {
+        $methods = $this->once(static::class.__FUNCTION__, function () {
 
             $reflection = new \ReflectionClass($this);
 
@@ -94,19 +88,7 @@ class ViewBuilder extends Builder implements Htmlable
         return $values;
     }
 
-    public function defaultView(string | \Closure | null $view): static
-    {
-        $this->defaultView = $view;
-
-        return $this;
-    }
-
-    public function getDefaultView(): ?string
-    {
-        return $this->evaluate($this->defaultView);
-    }
-
-    public function queryStringIdentifier(string | \Closure | null $identifier): static
+    public function queryStringIdentifier(string|\Closure|null $identifier): static
     {
         $this->queryStringIdentifier = $identifier;
 

@@ -20,7 +20,7 @@ trait HasBulkActions
 
     // protected RecordCheckboxPosition | \Closure | null $recordCheckboxPosition = null;
 
-    public function bulkActions(array | ActionGroup $actions): static
+    public function bulkActions(array|ActionGroup $actions): static
     {
         $this->bulkActions = [];
 
@@ -29,7 +29,7 @@ trait HasBulkActions
         return $this;
     }
 
-    public function pushBulkActions(array | ActionGroup $actions): static
+    public function pushBulkActions(array|ActionGroup $actions): static
     {
         foreach (Arr::wrap($actions) as $action) {
 
@@ -43,7 +43,7 @@ trait HasBulkActions
             } elseif ($action instanceof BulkAction) {
                 $this->cacheBulkAction($action);
             } else {
-                throw new \Exception('Table bulk actions must be an instance of ' . BulkAction::class . ' or ' . ActionGroup::class . '.');
+                throw new \Exception('Table bulk actions must be an instance of '.BulkAction::class.' or '.ActionGroup::class.'.');
             }
 
             $this->bulkActions[] = $action;
@@ -79,7 +79,7 @@ trait HasBulkActions
         return $this;
     }
 
-    public function selectCurrentPageOnly(bool | \Closure $condition = true): static
+    public function selectCurrentPageOnly(bool|\Closure $condition = true): static
     {
         $this->selectsCurrentPageOnly = $condition;
 
@@ -142,7 +142,7 @@ trait HasBulkActions
         return $this->checkIfRecordIsSelectableUsing !== null;
     }
 
-    public function recordCheckboxPosition(RecordCheckboxPosition | \Closure | null $position = null): static
+    public function recordCheckboxPosition(RecordCheckboxPosition|\Closure|null $position = null): static
     {
         $this->recordCheckboxPosition = $position;
 

@@ -7,26 +7,26 @@ use Streams\Ui\Builders\ViewBuilder;
 
 class Heading extends ViewBuilder
 {
-    use Common\HasUrl;
-    use Common\HasIcon;
-    use Common\HasBadge;
-    use Common\HasTitle;
     use Common\HasActions;
+    use Common\HasBadge;
     use Common\HasDescription;
     use Common\HasHtmlAttributes;
+    use Common\HasIcon;
+    use Common\HasTitle;
+    use Common\HasUrl;
 
     protected string $viewIdentifier = 'heading';
 
     protected string $view = 'ui::builders.heading';
 
-    final public function __construct(string | \Closure | null $title = null)
+    final public function __construct(string|\Closure|null $title = null)
     {
         if (filled($title)) {
             $this->title($title);
         }
     }
 
-    public static function make(string | \Closure | null $title = null): static
+    public static function make(string|\Closure|null $title = null): static
     {
         $instance = app(static::class, [
             'title' => $title,
@@ -37,16 +37,16 @@ class Heading extends ViewBuilder
         return $instance;
     }
 
-    protected string | \Closure | null $priority = 'h1';
+    protected string|\Closure|null $priority = 'h1';
 
-    public function priority(string | \Closure | null $priority): static
+    public function priority(string|\Closure|null $priority): static
     {
         $this->priority = $priority;
 
         return $this;
     }
 
-    public function getPriority(): string | null
+    public function getPriority(): ?string
     {
         return $this->evaluate($this->priority);
     }

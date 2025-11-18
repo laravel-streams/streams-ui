@@ -6,9 +6,9 @@ trait HasColumns
 {
     protected ?array $columns = null;
 
-    public function columns(array | int | string | null $columns = 2): static
+    public function columns(array|int|string|null $columns = 2): static
     {
-        if (!is_array($columns)) {
+        if (! is_array($columns)) {
             $columns = [
                 'default' => $columns,
             ];
@@ -24,8 +24,8 @@ trait HasColumns
 
     public function getColumns(
         ?string $breakpoint = null
-    ): array | int | string | null {
-        
+    ): array|int|string|null {
+
         $columns = $this->getColumnsConfig();
 
         if ($breakpoint !== null) {

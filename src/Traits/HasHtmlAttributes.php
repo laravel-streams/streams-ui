@@ -8,7 +8,7 @@ trait HasHtmlAttributes
 {
     protected array $htmlAttributes = [];
 
-    public function htmlAttributes(array | \Closure $attributes, bool $merge = false): static
+    public function htmlAttributes(array|\Closure $attributes, bool $merge = false): static
     {
         if ($merge) {
             $this->htmlAttributes[] = $attributes;
@@ -19,14 +19,14 @@ trait HasHtmlAttributes
         return $this;
     }
 
-    public function mergeHtmlAttributes(array | \Closure $attributes): static
+    public function mergeHtmlAttributes(array|\Closure $attributes): static
     {
         return $this->htmlAttributes($attributes, true);
     }
 
     public function getHtmlAttributes(): array
     {
-        $attributes = new ComponentAttributeBag();
+        $attributes = new ComponentAttributeBag;
 
         foreach ($this->htmlAttributes as $htmlAttributes) {
             $attributes = $attributes->merge($this->evaluate($htmlAttributes));

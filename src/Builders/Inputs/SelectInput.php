@@ -2,9 +2,6 @@
 
 namespace Streams\Ui\Builders\Inputs;
 
-use Streams\Ui\Builders\Inputs\Input;
-use Streams\Ui\Builders\Inputs\Traits;
-
 class SelectInput extends Input
 {
     use Traits\HasOptions;
@@ -12,9 +9,9 @@ class SelectInput extends Input
 
     protected string $view = 'ui::components.inputs.select';
 
-    protected bool | \Closure $multiple = false;
+    protected bool|\Closure $multiple = false;
 
-    public function multiple(bool | \Closure $condition = true): static
+    public function multiple(bool|\Closure $condition = true): static
     {
         $this->multiple = $condition;
 

@@ -88,7 +88,7 @@ trait HasState
                 continue;
             }
 
-            if (!$component->isDehydrated()) {
+            if (! $component->isDehydrated()) {
                 continue;
             }
 
@@ -103,7 +103,7 @@ trait HasState
 
             if ($component->getStatePath(isAbsolute: false)) {
 
-                if (!$component->mutatesDehydratedState()) {
+                if (! $component->mutatesDehydratedState()) {
                     continue;
                 }
 

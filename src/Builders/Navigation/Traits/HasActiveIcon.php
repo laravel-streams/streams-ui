@@ -4,9 +4,9 @@ namespace Streams\Ui\Builders\Navigation\Traits;
 
 trait HasActiveIcon
 {
-    protected string | \Closure | null $activeIcon = null;
+    protected string|\Closure|null $activeIcon = null;
 
-    public function activeIcon(string | \Closure | null $activeIcon): static
+    public function activeIcon(string|\Closure|null $activeIcon): static
     {
         $this->activeIcon = $activeIcon;
 

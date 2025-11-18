@@ -4,9 +4,9 @@ namespace Streams\Ui\Builders\Inputs\Traits;
 
 trait CanBeReadonly
 {
-    protected bool | \Closure | null $readonly = null;
+    protected bool|\Closure|null $readonly = null;
 
-    public function readonly(bool | \Closure | null $readonly): static
+    public function readonly(bool|\Closure|null $readonly): static
     {
         $this->readonly = $readonly;
 

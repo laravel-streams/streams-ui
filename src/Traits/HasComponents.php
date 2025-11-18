@@ -4,9 +4,9 @@ namespace Streams\Ui\Traits;
 
 trait HasComponents
 {
-    protected array | \Closure $components = [];
+    protected array|\Closure $components = [];
 
-    public function components(array | \Closure $components): static
+    public function components(array|\Closure $components): static
     {
         $this->components = $components;
 

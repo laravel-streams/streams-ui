@@ -6,17 +6,17 @@ trait HasHeaderActions
 {
     protected array $headerActions = [];
 
-    //protected array $flatActions = [];
+    // protected array $flatActions = [];
 
     // protected string | \Closure | null $headerActionsColumnLabel = null;
 
     // protected string | \Closure | null $headerActionsAlignment = null;
 
-    //protected ActionsPosition | \Closure | null $headerActionsPosition = null;
+    // protected ActionsPosition | \Closure | null $headerActionsPosition = null;
 
     public function headerActions(
         array $headerActions
-        //ActionsPosition | string | \Closure | null $position = null
+        // ActionsPosition | string | \Closure | null $position = null
     ): static {
 
         $this->headerActions = [
@@ -24,7 +24,7 @@ trait HasHeaderActions
             ...$headerActions,
         ];
 
-        //$this->pushActions($headerActions);
+        // $this->pushActions($headerActions);
 
         // if ($position) {
         //     $this->headerActionsPosition($position);

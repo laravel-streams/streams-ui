@@ -2,8 +2,8 @@
 
 namespace Streams\Ui\Builders\Tables\Filters;
 
-use Streams\Ui\Builders\Tables\Table;
 use Streams\Core\Criteria\Criteria;
+use Streams\Ui\Builders\Tables\Table;
 use Streams\Ui\Builders\Inputs\Traits\HasPlaceholder;
 
 class SearchFilter extends Filter
@@ -16,14 +16,14 @@ class SearchFilter extends Filter
     {
         $this->query(function (Criteria $query, Table $table, $state): Criteria {
 
-            $search = $state . '%';
-echo'Test';
+            $search = $state.'%';
+            echo 'Test';
             foreach ($table->getColumns() as $column) {
 
-                if (!$column->isSearchable()) {
+                if (! $column->isSearchable()) {
                     continue;
                 }
-                
+
                 foreach ($column->getSearchColumns() as $searchColumn) {
                     $query->orWhere($searchColumn, 'LIKE', $search);
                 }

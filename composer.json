@@ -18,7 +18,8 @@
         "spatie/color": "^1.5"
     },
     "require-dev": {
-        "streams/testing": "^1.0"
+        "streams/testing": "^1.0",
+        "laravel/pint": "^1.25"
     },
     "autoload": {
         "psr-4": {

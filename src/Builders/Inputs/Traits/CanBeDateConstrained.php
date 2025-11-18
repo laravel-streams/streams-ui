@@ -4,11 +4,11 @@ namespace Streams\Ui\Builders\Inputs\Traits;
 
 trait CanBeDateConstrained
 {
-    protected int | \Closure | null $maxDate = null;
+    protected \DateTime|string|\Closure|null $maxDate = null;
 
-    protected int | \Closure | null $minDate = null;
+    protected \DateTime|string|\Closure|null $minDate = null;
 
-    public function maxDate(\DateTime | string | \Closure | null $date): static
+    public function maxDate(\DateTime|string|\Closure|null $date): static
     {
         $this->maxDate = $date;
 
@@ -19,7 +19,7 @@ trait CanBeDateConstrained
         return $this;
     }
 
-    public function minDate(\DateTime | string | \Closure | null $date): static
+    public function minDate(\DateTime|string|\Closure|null $date): static
     {
         $this->minDate = $date;
 
@@ -30,12 +30,12 @@ trait CanBeDateConstrained
         return $this;
     }
 
-    public function getMaxDate(): ?int
+    public function getMaxDate(): \DateTime|string|null
     {
         return $this->evaluate($this->maxDate);
     }
 
-    public function getMinDate(): ?int
+    public function getMinDate(): \DateTime|string|null
     {
         return $this->evaluate($this->minDate);
     }

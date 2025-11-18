@@ -2,9 +2,9 @@
 
 namespace Streams\Ui\Pages;
 
-use Streams\Ui\Builders\Forms\Form;
 use Streams\Core\Entry\Entry;
 use Streams\Ui\Traits\HasEntry;
+use Streams\Ui\Builders\Forms\Form;
 use Streams\Ui\Components\Forms\InteractsWithForms;
 
 class EditEntry extends PanelPage
@@ -24,19 +24,19 @@ class EditEntry extends PanelPage
     {
         return static::getResource()::form($table);
     }
-    
-    public function mount(int | string $entry): void
+
+    public function mount(int|string $entry): void
     {
         $this->entry = $this->resolveEntry($entry);
 
-        //$this->authorizeAccess();
+        // $this->authorizeAccess();
 
         $this->fillForm();
 
         $this->previousUrl = url()->previous();
     }
 
-    protected function resolveEntry(int | string $key): Entry
+    protected function resolveEntry(int|string $key): Entry
     {
         $entry = static::getResource()::resolveEntryRouteBinding($key);
 

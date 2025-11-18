@@ -19,7 +19,7 @@ class EntrySynthesizer extends Synth
     public function dehydrate(Entry $target)
     {
         $data = $target->toArray();
-        
+
         $data['__STREAM__'] = $target->stream()->id;
 
         return [$data, []];

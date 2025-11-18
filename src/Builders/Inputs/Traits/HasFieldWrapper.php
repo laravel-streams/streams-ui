@@ -4,9 +4,9 @@ namespace Streams\Ui\Builders\Inputs\Traits;
 
 trait HasFieldWrapper
 {
-    protected string | \Closure | null $fieldWrapperView = null;
+    protected string|\Closure|null $fieldWrapperView = null;
 
-    public function fieldWrapper(string | \Closure | null $view): static
+    public function fieldWrapper(string|\Closure|null $view): static
     {
         $this->fieldWrapperView = $view;
 

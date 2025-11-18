@@ -4,16 +4,16 @@ namespace Streams\Ui\Traits;
 
 trait HasValue
 {
-    protected string | \Closure | null $value = null;
+    protected string|\Closure|null $value = null;
 
-    public function value(string | \Closure | null $value): static
+    public function value(string|\Closure|null $value): static
     {
         $this->value = $value;
 
         return $this;
     }
 
-    public function getValue(): string | null
+    public function getValue(): ?string
     {
         return $this->evaluate($this->value);
     }

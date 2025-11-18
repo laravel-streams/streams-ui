@@ -6,27 +6,27 @@ use Illuminate\Support\Collection;
 
 trait InteractsWithRecords
 {
-    protected string | \Closure | null $modelLabel = null;
+    protected string|\Closure|null $modelLabel = null;
 
-    protected string | \Closure | null $pluralModelLabel = null;
+    protected string|\Closure|null $pluralModelLabel = null;
 
-    protected Collection | \Closure | null $records = null;
+    protected Collection|\Closure|null $records = null;
 
-    public function records(Collection | \Closure | null $records): static
+    public function records(Collection|\Closure|null $records): static
     {
         $this->records = $records;
 
         return $this;
     }
 
-    public function modelLabel(string | \Closure | null $label): static
+    public function modelLabel(string|\Closure|null $label): static
     {
         $this->modelLabel = $label;
 
         return $this;
     }
 
-    public function pluralModelLabel(string | \Closure | null $label): static
+    public function pluralModelLabel(string|\Closure|null $label): static
     {
         $this->pluralModelLabel = $label;
 

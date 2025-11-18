@@ -4,16 +4,16 @@ namespace Streams\Ui\Builders\Actions\Traits;
 
 trait HasTag
 {
-    protected string | \Closure | null $tag = 'button';
+    protected string|\Closure|null $tag = 'button';
 
-    public function tag(string | \Closure | null $tag): static
+    public function tag(string|\Closure|null $tag): static
     {
         $this->tag = $tag;
 
         return $this;
     }
 
-    public function getTag(): string | null
+    public function getTag(): ?string
     {
         return $this->evaluate($this->tag);
     }

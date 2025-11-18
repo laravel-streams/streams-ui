@@ -2,8 +2,8 @@
 
 namespace Streams\Ui\Traits;
 
-use Streams\Ui\Builders\Forms\Form;
 use Livewire\WithFileUploads;
+use Streams\Ui\Builders\Forms\Form;
 use Streams\Ui\Exceptions\ValidationException;
 
 trait InteractsWithForms
@@ -35,9 +35,7 @@ trait InteractsWithForms
         }
     }
 
-    protected function onValidationError(ValidationException $exception): void
-    {
-    }
+    protected function onValidationError(ValidationException $exception): void {}
 
     public function validateField($field, $rules = null, $messages = [], $attributes = [], $dataOverrides = [])
     {

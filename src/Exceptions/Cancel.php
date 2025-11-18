@@ -2,6 +2,4 @@
 
 namespace Streams\Ui\Exceptions;
 
-class Cancel extends \Exception
-{
-}
+class Cancel extends \Exception {}

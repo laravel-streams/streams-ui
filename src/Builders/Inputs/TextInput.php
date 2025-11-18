@@ -2,28 +2,25 @@
 
 namespace Streams\Ui\Builders\Inputs;
 
-use Streams\Ui\Builders\Inputs\Traits;
-
 class TextInput extends Input
 {
-    use Traits\HasMask;
-    use Traits\HasStep;
-    use Traits\HasType;
-    use Traits\HasPrefix;
-    use Traits\HasSuffix;
+    use Traits\CanBeAutocompleted;
+    use Traits\CanBeLengthConstrained;
+    use Traits\CanBeValueConstrained;
     use Traits\HasDatalist;
     use Traits\HasInputMode;
+    use Traits\HasMask;
     use Traits\HasPlaceholder;
-
-    use Traits\CanBeAutocompleted;
-    use Traits\CanBeValueConstrained;
-    use Traits\CanBeLengthConstrained;
+    use Traits\HasPrefix;
+    use Traits\HasStep;
+    use Traits\HasSuffix;
+    use Traits\HasType;
 
     protected string $view = 'ui::builders.inputs.text';
 
-    protected string | \Closure | null $telRegex = null;
+    protected string|\Closure|null $telRegex = null;
 
-    public function telRegex(string | \Closure | null $regex): static
+    public function telRegex(string|\Closure|null $regex): static
     {
         $this->telRegex = $regex;
 

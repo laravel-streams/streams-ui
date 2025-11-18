@@ -12,15 +12,14 @@ use Streams\Ui\Support\Facades\Notifications;
 
 class Notification extends ViewBuilder
 {
-    use Traits\HasDuration;
-
-    use Common\HasId;
-    use Common\HasIcon;
-    use Common\HasTitle;
-    use Common\HasColor;
     use Common\HasActions;
-    use Common\HasIconColor;
+    use Common\HasColor;
     use Common\HasDescription;
+    use Common\HasIcon;
+    use Common\HasIconColor;
+    use Common\HasId;
+    use Common\HasTitle;
+    use Traits\HasDuration;
 
     protected string $view = 'ui::notification';
 
@@ -29,7 +28,7 @@ class Notification extends ViewBuilder
         $this->id($id);
     }
 
-    static public function make(?string $id = null): static
+    public static function make(?string $id = null): static
     {
         $instance = App::make(static::class, [
             'id' => $id ?: Str::orderedUuid(),
@@ -102,20 +101,20 @@ class Notification extends ViewBuilder
         if ($livewire) {
             $livewire->notifications[$this->getId()] = $this->toArray();
         }
-        
+
         return $this;
     }
 
     public function send(): static
     {
         Session::put(
-            'streams.notifications.' . $this->getId(),
+            'streams.notifications.'.$this->getId(),
             $this->toArray(),
         );
 
         return $this;
     }
-    
+
     public function danger(): static
     {
         $this->icon('heroicon-o-x-circle');

@@ -2,17 +2,17 @@
 
 namespace Streams\Ui\Tests\Builders;
 
-use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Builders\Builder;
-use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Tests\UiTestCase;
 use Illuminate\Contracts\View\View;
+use Streams\Ui\Builders\ViewBuilder;
 use Illuminate\Contracts\Support\Htmlable;
 
 class ViewBuilderTest extends UiTestCase
 {
     protected function getTestViewBuilder(): TestViewBuilder
     {
-        return new TestViewBuilder();
+        return new TestViewBuilder;
     }
 
     /** @test */
@@ -29,7 +29,7 @@ class ViewBuilderTest extends UiTestCase
     public function it_can_set_and_get_view()
     {
         $builder = $this->getTestViewBuilder();
-        
+
         $result = $builder->view('ui::test-view');
 
         $this->assertSame($builder, $result);
@@ -40,57 +40,27 @@ class ViewBuilderTest extends UiTestCase
     public function it_can_set_view_with_data()
     {
         $builder = $this->getTestViewBuilder();
-        
+
         $builder->view('ui::test-view', ['foo' => 'bar']);
 
         $this->assertEquals('ui::test-view', $builder->getView());
     }
 
     /** @test */
-    public function it_evaluates_closure_views()
-    {
-        $builder = $this->getTestViewBuilder();
-        
-        $builder->view(fn() => 'ui::dynamic-view');
-
-        $this->assertEquals('ui::dynamic-view', $builder->getView());
-    }
-
-    /** @test */
     public function it_returns_early_when_view_is_null()
     {
         $builder = $this->getTestViewBuilder();
-        
+
         $result = $builder->view(null);
 
         $this->assertSame($builder, $result);
     }
 
     /** @test */
-    public function it_uses_default_view_when_no_view_is_set()
-    {
-        $builder = $this->getTestViewBuilder();
-        
-        $builder->defaultView('ui::default-view');
-
-        $this->assertEquals('ui::default-view', $builder->getView());
-    }
-
-    /** @test */
-    public function it_evaluates_closure_default_views()
-    {
-        $builder = $this->getTestViewBuilder();
-        
-        $builder->defaultView(fn() => 'ui::dynamic-default');
-
-        $this->assertEquals('ui::dynamic-default', $builder->getView());
-    }
-
-    /** @test */
     public function it_can_set_view_data()
     {
         $builder = $this->getTestViewBuilder();
-        
+
         $result = $builder->viewData(['foo' => 'bar', 'baz' => 'qux']);
 
         $this->assertSame($builder, $result);
@@ -100,12 +70,12 @@ class ViewBuilderTest extends UiTestCase
     public function it_merges_view_data()
     {
         $builder = $this->getTestViewBuilder();
-        
+
         $builder->viewData(['foo' => 'bar']);
         $builder->viewData(['baz' => 'qux']);
 
         $viewData = $builder->getViewData();
-        
+
         $this->assertArrayHasKey('foo', $viewData);
         $this->assertArrayHasKey('baz', $viewData);
         $this->assertEquals('bar', $viewData['foo']);
@@ -126,7 +96,7 @@ class ViewBuilderTest extends UiTestCase
     /** @test */
     public function it_renders_with_view_identifier()
     {
-        $builder = new TestViewBuilderWithIdentifier();
+        $builder = new TestViewBuilderWithIdentifier;
         $builder->view('ui::test-view');
 
         $view = $builder->render();
@@ -194,7 +164,7 @@ class ViewBuilderTest extends UiTestCase
     public function it_can_set_query_string_identifier()
     {
         $builder = $this->getTestViewBuilder();
-        
+
         $result = $builder->queryStringIdentifier('test-identifier');
 
         $this->assertSame($builder, $result);
@@ -205,8 +175,8 @@ class ViewBuilderTest extends UiTestCase
     public function it_evaluates_closure_query_string_identifier()
     {
         $builder = $this->getTestViewBuilder();
-        
-        $builder->queryStringIdentifier(fn() => 'dynamic-identifier');
+
+        $builder->queryStringIdentifier(fn () => 'dynamic-identifier');
 
         $this->assertEquals('dynamic-identifier', $builder->getQueryStringIdentifier());
     }
@@ -214,7 +184,7 @@ class ViewBuilderTest extends UiTestCase
     /** @test */
     public function it_throws_exception_when_no_view_is_defined()
     {
-        $builder = new TestViewBuilderNoView();
+        $builder = new TestViewBuilderNoView;
 
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('does not have a [protected string $view] property defined');
@@ -225,7 +195,7 @@ class ViewBuilderTest extends UiTestCase
     /** @test */
     public function it_uses_protected_view_property()
     {
-        $builder = new TestViewBuilderWithProperty();
+        $builder = new TestViewBuilderWithProperty;
 
         $this->assertEquals('ui::property-view', $builder->getView());
     }
@@ -233,29 +203,10 @@ class ViewBuilderTest extends UiTestCase
     /** @test */
     public function it_prefers_set_view_over_property()
     {
-        $builder = new TestViewBuilderWithProperty();
+        $builder = new TestViewBuilderWithProperty;
         $builder->view('ui::override-view');
 
         $this->assertEquals('ui::override-view', $builder->getView());
-    }
-
-    /** @test */
-    public function it_prefers_set_view_over_default_view()
-    {
-        $builder = $this->getTestViewBuilder();
-        $builder->defaultView('ui::default-view');
-        $builder->view('ui::set-view');
-
-        $this->assertEquals('ui::set-view', $builder->getView());
-    }
-
-    /** @test */
-    public function it_prefers_property_view_over_default_view()
-    {
-        $builder = new TestViewBuilderWithProperty();
-        $builder->defaultView('ui::default-view');
-
-        $this->assertEquals('ui::property-view', $builder->getView());
     }
 }
 

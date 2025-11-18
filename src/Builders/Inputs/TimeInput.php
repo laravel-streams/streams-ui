@@ -2,21 +2,19 @@
 
 namespace Streams\Ui\Builders\Inputs;
 
-use Streams\Ui\Builders\Inputs\Traits;
-
 class TimeInput extends Input
 {
-    use Concerns\HasStep;
-    use Concerns\HasDatalist;
-    use Concerns\HasPlaceholder;
+    use Traits\HasDatalist;
+    use Traits\HasPlaceholder;
+    use Traits\HasStep;
 
     protected string $view = 'ui::components.inputs.time';
 
-    protected \DateTime | string | \Closure | null $maxTime = null;
+    protected \DateTime|string|\Closure|null $maxTime = null;
 
-    protected \DateTime | string | \Closure | null $minTime = null;
+    protected \DateTime|string|\Closure|null $minTime = null;
 
-    public function maxTime(\DateTime | string | \Closure | null $date): static
+    public function maxTime(\DateTime|string|\Closure|null $date): static
     {
         $this->maxTime = $date;
 
@@ -27,7 +25,7 @@ class TimeInput extends Input
         return $this;
     }
 
-    public function minTime(\DateTime | string | \Closure | null $date): static
+    public function minTime(\DateTime|string|\Closure|null $date): static
     {
         $this->minTime = $date;
 

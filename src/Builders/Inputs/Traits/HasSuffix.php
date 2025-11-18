@@ -4,9 +4,9 @@ namespace Streams\Ui\Builders\Inputs\Traits;
 
 trait HasSuffix
 {
-    protected string | \Closure | null $suffix = null;
-    
-    public function suffix(string | \Closure | null $suffix): static
+    protected string|\Closure|null $suffix = null;
+
+    public function suffix(string|\Closure|null $suffix): static
     {
         $this->suffix = $suffix;
 

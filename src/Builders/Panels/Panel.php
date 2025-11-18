@@ -9,28 +9,26 @@ use Streams\Ui\Support\Facades\Colors;
 
 class Panel extends ViewBuilder
 {
-    use Common\HasId;
-    use Common\HasColors;
-    use Common\HasActions;
     use Common\CanBeDefault;
+    use Common\HasActions;
+    use Common\HasColors;
+    use Common\HasId;
     use Common\HasNavigationGroups;
-
     use Traits\CanBeSpa;
-
-    use Traits\HasPages;
-    use Traits\HasLayout;
-    use Traits\HasRoutes;
-    use Traits\HasTenant;
-    use Traits\HasFavicon;
-    use Traits\HasUserMenu;
-    use Traits\HasUserName;
     use Traits\HasBrandLogo;
     use Traits\HasBrandName;
-    use Traits\HasResources;
-    use Traits\HasUserAvatar;
+    use Traits\HasFavicon;
+    use Traits\HasLayout;
+    use Traits\HasLivewireComponents;
     use Traits\HasMiddleware;
     use Traits\HasNavigation;
-    use Traits\HasLivewireComponents;
+    use Traits\HasPages;
+    use Traits\HasResources;
+    use Traits\HasRoutes;
+    use Traits\HasTenant;
+    use Traits\HasUserAvatar;
+    use Traits\HasUserMenu;
+    use Traits\HasUserName;
 
     public function __construct(?string $id = null)
     {
@@ -39,7 +37,7 @@ class Panel extends ViewBuilder
         }
     }
 
-    static public function make(?string $id = null): static
+    public static function make(?string $id = null): static
     {
         $instance = app(static::class, [
             'id' => $id,
@@ -53,7 +51,7 @@ class Panel extends ViewBuilder
     public function register(): void
     {
         $this->registerLivewireComponents();
-        //$this->registerLivewirePersistentMiddleware();
+        // $this->registerLivewirePersistentMiddleware();
     }
 
     public function boot(): void
@@ -71,7 +69,7 @@ class Panel extends ViewBuilder
         View::share('cssVariables', $variables);
 
         View::share('spaEnabled', $this->isSpa());
-        
+
         // Register Icons??
         // Set SPA Mode
     }

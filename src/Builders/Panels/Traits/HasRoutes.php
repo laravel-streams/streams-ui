@@ -10,9 +10,9 @@ trait HasRoutes
 
     protected array $domains = [];
 
-    protected \Closure | null $routes = null;
+    protected ?\Closure $routes = null;
 
-    protected string | \Closure | null $homeUrl = null;
+    protected string|\Closure|null $homeUrl = null;
 
     public function path(string $path): static
     {
@@ -52,7 +52,7 @@ trait HasRoutes
         return $this->routes;
     }
 
-    public function homeUrl(string | \Closure | null $url): static
+    public function homeUrl(string|\Closure|null $url): static
     {
         $this->homeUrl = $url;
 
@@ -107,13 +107,13 @@ trait HasRoutes
 
         $firstGroup = Arr::first($navigation);
 
-        if (!$firstGroup) {
+        if (! $firstGroup) {
             return null;
         }
 
         $firstItem = Arr::first($firstGroup->getItems());
 
-        if (!$firstItem) {
+        if (! $firstItem) {
             return null;
         }
 

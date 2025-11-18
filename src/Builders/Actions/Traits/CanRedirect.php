@@ -4,9 +4,9 @@ namespace Streams\Ui\Builders\Actions\Traits;
 
 trait CanRedirect
 {
-    protected string | \Closure | null $failureRedirectUrl = null;
+    protected string|\Closure|null $failureRedirectUrl = null;
 
-    protected string | \Closure | null $successRedirectUrl = null;
+    protected string|\Closure|null $successRedirectUrl = null;
 
     public function dispatchFailureRedirect(): static
     {
@@ -30,19 +30,19 @@ trait CanRedirect
         return $this;
     }
 
-    public function redirect(string | \Closure $url): void
+    public function redirect(string|\Closure $url): void
     {
         $this->getLivewire()->redirect($this->evaluate($url));
     }
 
-    public function failureRedirectUrl(string | \Closure | null $url): static
+    public function failureRedirectUrl(string|\Closure|null $url): static
     {
         $this->failureRedirectUrl = $url;
 
         return $this;
     }
 
-    public function successRedirectUrl(string | \Closure | null $url): static
+    public function successRedirectUrl(string|\Closure|null $url): static
     {
         $this->successRedirectUrl = $url;
 

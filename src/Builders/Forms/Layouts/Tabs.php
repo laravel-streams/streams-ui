@@ -7,14 +7,14 @@ use Streams\Ui\Builders\ViewBuilder;
 
 class Tabs extends ViewBuilder
 {
-    use Common\HasId;
-    use Common\HasLabel;
     use Common\HasComponents;
     use Common\HasHtmlAttributes;
+    use Common\HasId;
+    use Common\HasLabel;
 
     protected string $view = 'ui::components.form.tabs';
 
-    protected int | \Closure $activeTab = 1;
+    protected int|\Closure $activeTab = 1;
 
     // protected string | \Closure | null $tabQueryStringKey = null;
 
@@ -32,14 +32,14 @@ class Tabs extends ViewBuilder
         return $static;
     }
 
-    public function tabs(array | \Closure $tabs): static
+    public function tabs(array|\Closure $tabs): static
     {
         $this->components($tabs);
 
         return $this;
     }
 
-    public function activeTab(int | \Closure $activeTab): static
+    public function activeTab(int|\Closure $activeTab): static
     {
         $this->activeTab = $activeTab;
 

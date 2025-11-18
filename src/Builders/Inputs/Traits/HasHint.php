@@ -7,26 +7,26 @@ use Streams\Ui\Builders\Actions\Action;
 
 trait HasHint
 {
-    protected string | \Closure | null $hint = null;
+    protected string|\Closure|null $hint = null;
 
     protected ?array $cachedHintActions = null;
 
     protected array $hintActions = [];
 
-    protected string | array | \Closure | null $hintColor = null;
+    protected string|array|\Closure|null $hintColor = null;
 
-    protected string | \Closure | null $hintIcon = null;
+    protected string|\Closure|null $hintIcon = null;
 
-    protected string | \Closure | null $hintIconTooltip = null;
+    protected string|\Closure|null $hintIconTooltip = null;
 
-    public function hint(string | \Closure | null $hint): static
+    public function hint(string|\Closure|null $hint): static
     {
         $this->hint = $hint;
 
         return $this;
     }
 
-    public function hintColor(string | array | \Closure | null $color): static
+    public function hintColor(string|array|\Closure|null $color): static
     {
         $this->hintColor = $color;
 
@@ -34,8 +34,8 @@ trait HasHint
     }
 
     public function hintIcon(
-        string | \Closure | null $icon,
-        string | \Closure | null $tooltip = null
+        string|\Closure|null $icon,
+        string|\Closure|null $tooltip = null
     ): static {
 
         $this->hintIcon = $icon;
@@ -45,14 +45,14 @@ trait HasHint
         return $this;
     }
 
-    public function hintIconTooltip(string | \Closure | null $tooltip): static
+    public function hintIconTooltip(string|\Closure|null $tooltip): static
     {
         $this->hintIconTooltip = $tooltip;
 
         return $this;
     }
 
-    public function hintAction(Action | \Closure $action): static
+    public function hintAction(Action|\Closure $action): static
     {
         $this->hintActions([$action]);
 
@@ -69,12 +69,12 @@ trait HasHint
         return $this;
     }
 
-    public function getHint(): string | null
+    public function getHint(): ?string
     {
         return $this->evaluate($this->hint);
     }
 
-    public function getHintColor(): string | array | null
+    public function getHintColor(): string|array|null
     {
         return $this->evaluate($this->hintColor);
     }

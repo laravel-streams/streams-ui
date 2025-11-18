@@ -6,9 +6,9 @@ use Illuminate\Support\Arr;
 
 trait IsSearchable
 {
-    //protected bool $isGloballySearchable = false;
+    // protected bool $isGloballySearchable = false;
 
-    //protected bool $isIndividuallySearchable = false;
+    // protected bool $isIndividuallySearchable = false;
 
     protected bool $searchable = false;
 
@@ -16,15 +16,15 @@ trait IsSearchable
 
     protected ?\Closure $searchQuery = null;
 
-    protected bool | \Closure | null $isSearchForcedCaseInsensitive = null;
+    protected bool|\Closure|null $isSearchForcedCaseInsensitive = null;
 
     public function searchable(
-        bool | array | string $condition = true,
+        bool|array|string $condition = true,
         ?\Closure $query = null,
         // bool $isIndividual = false,
         // bool $isGlobal = true,
     ): static {
-        
+
         if (is_bool($condition)) {
             $this->searchable = $condition;
             $this->searchColumns = null;

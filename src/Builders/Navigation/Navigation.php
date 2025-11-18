@@ -8,8 +8,8 @@ use Streams\Ui\Builders\ViewBuilder;
 
 class Navigation extends ViewBuilder
 {
-    use Common\HasId;
     use Common\HasHtmlAttributes;
+    use Common\HasId;
 
     protected string $viewIdentifier = 'navigation';
 
@@ -27,7 +27,7 @@ class Navigation extends ViewBuilder
     public static function make(?string $id = null): static
     {
         $instance = App::make(static::class, [
-            'id' => $id ?: 'list-' . uniqid(),
+            'id' => $id ?: 'list-'.uniqid(),
         ]);
 
         $instance->configure();
@@ -41,7 +41,7 @@ class Navigation extends ViewBuilder
     public function items(array|\Closure $items): static
     {
         $this->items = $items;
-        
+
         return $this;
     }
 

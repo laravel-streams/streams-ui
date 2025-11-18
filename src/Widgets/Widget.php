@@ -10,11 +10,10 @@ use Streams\Core\Support\Traits\FiresCallbacks;
 
 abstract class Widget extends Component
 {
-    use HasMemory;
-    use FiresCallbacks;
-    
     use Common\CanSpanColumns;
     use Common\EvaluatesClosures;
+    use FiresCallbacks;
+    use HasMemory;
 
     protected static string $view;
 

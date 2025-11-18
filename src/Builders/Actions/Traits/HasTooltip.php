@@ -4,9 +4,9 @@ namespace Streams\Ui\Builders\Actions\Traits;
 
 trait HasTooltip
 {
-    protected string | \Closure | null $tooltip = null;
+    protected string|\Closure|null $tooltip = null;
 
-    public function tooltip(string | \Closure | null $tooltip): static
+    public function tooltip(string|\Closure|null $tooltip): static
     {
         $this->tooltip = $tooltip;
 

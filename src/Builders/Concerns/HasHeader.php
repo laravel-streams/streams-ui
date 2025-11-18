@@ -6,16 +6,16 @@ use Streams\Ui\Views\ViewComponent;
 
 trait HasHeader
 {
-    protected string | array | \Closure | null $header = null;
+    protected string|array|\Closure|null $header = null;
 
-    public function header(string | array | \Closure | null $header): static
+    public function header(string|array|\Closure|null $header): static
     {
         $this->header = $header;
 
         return $this;
     }
 
-    public function getHeader(): ViewComponent | null
+    public function getHeader(): ?ViewComponent
     {
         return $this->evaluate($this->header);
     }

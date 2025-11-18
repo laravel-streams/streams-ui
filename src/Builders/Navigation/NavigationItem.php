@@ -8,29 +8,26 @@ use Streams\Ui\Builders\Navigation;
 
 class NavigationItem extends Builder
 {
-    use Common\HasUrl;
-    use Common\HasIcon;
-    use Common\HasSort;
-    use Common\HasBadge;
-    use Common\HasLabel;
-    use Common\HasHtmlAttributes;
-    
-    use Common\CanBeHidden;
     use Common\CanBeDisabled;
-
-    use Navigation\Traits\HasGroup;
-    use Navigation\Traits\HasActiveIcon;
-    
+    use Common\CanBeHidden;
+    use Common\HasBadge;
+    use Common\HasHtmlAttributes;
+    use Common\HasIcon;
+    use Common\HasLabel;
+    use Common\HasSort;
+    use Common\HasUrl;
     use Navigation\Traits\CanBeActive;
+    use Navigation\Traits\HasActiveIcon;
+    use Navigation\Traits\HasGroup;
 
-    final public function __construct(string | \Closure | null $label = null)
+    final public function __construct(string|\Closure|null $label = null)
     {
         if (filled($label)) {
             $this->label($label);
         }
     }
 
-    public static function make(string | \Closure | null $label = null): static
+    public static function make(string|\Closure|null $label = null): static
     {
         $instance = app(static::class, [
             'label' => $label,

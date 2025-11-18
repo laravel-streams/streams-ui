@@ -22,9 +22,9 @@ trait CanSpanColumns
         '2xl' => null,
     ];
 
-    public function columnSpan(array | int | string | \Closure | null $span): static
+    public function columnSpan(array|int|string|\Closure|null $span): static
     {
-        if (!is_array($span)) {
+        if (! is_array($span)) {
             $span = [
                 'default' => $span,
             ];
@@ -46,10 +46,10 @@ trait CanSpanColumns
     }
 
     public function columnStart(
-        array | int | string | \Closure | null $start
+        array|int|string|\Closure|null $start
     ): static {
 
-        if (!is_array($start)) {
+        if (! is_array($start)) {
             $start = [
                 'default' => $start,
             ];
@@ -64,8 +64,8 @@ trait CanSpanColumns
     }
 
     public function getColumnSpan(
-        int | string | null $breakpoint = null
-    ): array | int | string | null {
+        int|string|null $breakpoint = null
+    ): array|int|string|null {
 
         $span = $this->columnSpan;
 
@@ -74,15 +74,15 @@ trait CanSpanColumns
         }
 
         return array_map(
-            fn (array | int | string | \Closure | null $value): array | int | string | null => $this->evaluate($value),
+            fn (array|int|string|\Closure|null $value): array|int|string|null => $this->evaluate($value),
             $span,
         );
     }
 
     public function getColumnStart(
-        int | string | null $breakpoint = null
-    ): array | int | string | null {
-        
+        int|string|null $breakpoint = null
+    ): array|int|string|null {
+
         $start = $this->columnStart;
 
         if ($breakpoint !== null) {
@@ -90,7 +90,7 @@ trait CanSpanColumns
         }
 
         return array_map(
-            fn (array | int | string | \Closure | null $value): array | int | string | null => $this->evaluate($value),
+            fn (array|int|string|\Closure|null $value): array|int|string|null => $this->evaluate($value),
             $start,
         );
     }

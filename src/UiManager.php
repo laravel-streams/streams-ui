@@ -9,10 +9,11 @@ use Streams\Core\Support\Traits\FiresCallbacks;
 
 class UiManager
 {
-    use Macroable;
     use FiresCallbacks;
+    use Macroable;
 
     protected array $panels = [];
+
     protected array $booted = [];
 
     protected ?string $current = null;

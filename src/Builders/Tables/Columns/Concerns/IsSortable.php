@@ -13,7 +13,7 @@ trait IsSortable
     protected ?\Closure $sortQuery = null;
 
     public function sortable(
-        bool | array $condition = true,
+        bool|array $condition = true,
         ?\Closure $query = null
     ): static {
 
@@ -42,11 +42,11 @@ trait IsSortable
         return $this;
     }
 
-    function getInitialSort(): string
+    public function getInitialSort(): string
     {
         return $this->initialSort ?: 'asc';
     }
-    
+
     public function getSortColumns(): array
     {
         return $this->sortColumns ?? $this->getDefaultSortColumns();

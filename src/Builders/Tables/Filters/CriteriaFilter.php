@@ -2,11 +2,11 @@
 
 namespace Streams\Ui\Builders\Tables\Filters;
 
-use Streams\Ui\Builders\Inputs;
 use Streams\Ui\Builders;
+use Streams\Ui\Builders\Inputs;
 
 class SelectFilter extends Filter
 {
-    use Inputs\Traits\HasOptions;
     use Builders\Concerns\HasLabel;
+    use Inputs\Traits\HasOptions;
 }

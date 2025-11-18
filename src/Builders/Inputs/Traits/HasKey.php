@@ -4,9 +4,9 @@ namespace Streams\Ui\Builders\Inputs\Traits;
 
 trait HasKey
 {
-    protected string | \Closure | null $key = null;
+    protected string|\Closure|null $key = null;
 
-    public function key(string | \Closure | null $key): static
+    public function key(string|\Closure|null $key): static
     {
         $this->key = $key;
 

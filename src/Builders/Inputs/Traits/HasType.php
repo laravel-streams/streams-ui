@@ -6,11 +6,15 @@ use Streams\Ui\Builders\Inputs\TextInput;
 
 trait HasType
 {
-    protected bool | \Closure $tel = false;
-    protected bool | \Closure $url = false;
-    protected bool | \Closure $email = false;
-    protected bool | \Closure $numeric = false;
-    protected bool | \Closure $password = false;
+    protected bool|\Closure $tel = false;
+
+    protected bool|\Closure $url = false;
+
+    protected bool|\Closure $email = false;
+
+    protected bool|\Closure $numeric = false;
+
+    protected bool|\Closure $password = false;
 
     protected ?string $type = null;
 
@@ -35,7 +39,7 @@ trait HasType
         return $this->type = 'text';
     }
 
-    public function url(bool | \Closure $condition = true): static
+    public function url(bool|\Closure $condition = true): static
     {
         $this->url = $condition;
 
@@ -44,7 +48,7 @@ trait HasType
         return $this;
     }
 
-    public function email(bool | \Closure $condition = true): static
+    public function email(bool|\Closure $condition = true): static
     {
         $this->email = $condition;
 
@@ -53,14 +57,14 @@ trait HasType
         return $this;
     }
 
-    public function password(bool | \Closure $condition = true): static
+    public function password(bool|\Closure $condition = true): static
     {
         $this->password = $condition;
 
         return $this;
     }
 
-    public function integer(bool | \Closure $condition = true): static
+    public function integer(bool|\Closure $condition = true): static
     {
         $this->numeric($condition);
         $this->inputMode(static fn (): ?string => $condition ? 'numeric' : null);
@@ -69,7 +73,7 @@ trait HasType
         return $this;
     }
 
-    public function numeric(bool | \Closure $condition = true): static
+    public function numeric(bool|\Closure $condition = true): static
     {
         $this->numeric = $condition;
 
@@ -80,7 +84,7 @@ trait HasType
         return $this;
     }
 
-    public function tel(bool | \Closure $condition = true): static
+    public function tel(bool|\Closure $condition = true): static
     {
         $this->tel = $condition;
 

@@ -4,9 +4,9 @@ namespace Streams\Ui\Builders\Panels\Traits;
 
 trait CanBeSpa
 {
-    protected bool | \Closure $spa = false;
+    protected bool|\Closure $spa = false;
 
-    public function spa(bool | \Closure $condition = true): static
+    public function spa(bool|\Closure $condition = true): static
     {
         $this->spa = $condition;
 

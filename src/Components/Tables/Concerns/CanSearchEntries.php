@@ -50,15 +50,15 @@ trait CanSearchEntries
         $this->resetPage();
     }
 
-    protected function applySearchToTableQuery(Criteria | Builder $query): Criteria | Builder
+    protected function applySearchToTableQuery(Criteria|Builder $query): Criteria|Builder
     {
-        //$this->applyColumnSearchesToTableQuery($query);
+        // $this->applyColumnSearchesToTableQuery($query);
         $this->applyGlobalSearchToTableQuery($query);
 
         return $query;
     }
 
-    protected function applyColumnSearchesToTableQuery(Criteria | Builder $query): Criteria | Builder
+    protected function applyColumnSearchesToTableQuery(Criteria|Builder $query): Criteria|Builder
     {
         foreach ($this->getTableColumnSearches() as $column => $search) {
 
@@ -68,7 +68,7 @@ trait CanSearchEntries
 
             $column = $this->getTable()->getColumn($column);
 
-            if (!$column) {
+            if (! $column) {
                 continue;
             }
 
@@ -76,14 +76,13 @@ trait CanSearchEntries
                 continue;
             }
 
-            if (!$column->isIndividuallySearchable()) {
+            if (! $column->isIndividuallySearchable()) {
                 continue;
             }
 
             foreach ($this->extractTableSearchWords($search) as $searchWord) {
                 // $query->where(function (Criteria $query) use ($column, $searchWord) {
                 //     $isFirst = true;
-
 
                 // });
 
@@ -102,7 +101,7 @@ trait CanSearchEntries
         );
     }
 
-    protected function applyGlobalSearchToTableQuery(Criteria | Builder $query): Criteria | Builder
+    protected function applyGlobalSearchToTableQuery(Criteria|Builder $query): Criteria|Builder
     {
         $search = $this->getTableSearch();
 
@@ -126,7 +125,7 @@ trait CanSearchEntries
                 //     continue;
                 // }
 
-                if (!$column->isSearchable()) {
+                if (! $column->isSearchable()) {
                     continue;
                 }
 
@@ -185,7 +184,7 @@ trait CanSearchEntries
                 continue;
             }
 
-            if (!$column->isIndividuallySearchable()) {
+            if (! $column->isIndividuallySearchable()) {
                 continue;
             }
 
@@ -211,7 +210,7 @@ trait CanSearchEntries
     protected function castTableColumnSearches(array $searches): array
     {
         return array_map(
-            fn ($search): array | string => is_array($search) ?
+            fn ($search): array|string => is_array($search) ?
                 $this->castTableColumnSearches($search) :
                 strval($search),
             $searches,

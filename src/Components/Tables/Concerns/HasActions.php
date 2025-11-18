@@ -3,8 +3,8 @@
 namespace Streams\Ui\Components\Tables\Concerns;
 
 use Streams\Core\Entry\Entry;
-use Streams\Ui\Builders\Actions\Action;
 use Streams\Ui\Exceptions\Cancel;
+use Streams\Ui\Builders\Actions\Action;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Streams\Core\Entry\Contract\EntryInterface;
 
@@ -18,24 +18,22 @@ trait HasActions
 
     protected ?Entry $cachedMountedTableActionRecord = null;
 
-    protected int | string | null $cachedMountedTableActionRecordKey = null;
+    protected int|string|null $cachedMountedTableActionRecordKey = null;
 
-    protected function configureTableAction(Action $action): void
-    {
-    }
+    protected function configureTableAction(Action $action): void {}
 
     public function callMountedTableAction(array $arguments = []): mixed
     {
         $action = $this->getMountedTableAction();
 
-        if (!$action) {
+        if (! $action) {
             return null;
         }
 
         // if (filled($this->mountedTableActionRecord) && ($action->getEntry() === null)) {
         //     return null;
         // }
-        
+
         if ($action->isDisabled()) {
             return null;
         }
@@ -45,12 +43,12 @@ trait HasActions
         $form = $this->getMountedTableActionForm();
 
         $result = null;
-        
+
         try {
             // if ($this->mountedTableActionHasForm()) {
             //     $action->callBeforeFormValidated();
 
-                // $action->formData($form->getState());
+            // $action->formData($form->getState());
 
             //     $action->callAfterFormValidated();
             // }
@@ -69,11 +67,11 @@ trait HasActions
                 'entry' => $this->mountedTableActionRecord,
             ]);
             // $result = $action->callAfter() ?? $result;
-        // } catch (Halt $exception) {
-        // } catch (\Exception $exception) {
-        //     return null;
+            // } catch (Halt $exception) {
+            // } catch (\Exception $exception) {
+            //     return null;
         } catch (Cancel $exception) {
-        // } catch (ValidationException $exception) {
+            // } catch (ValidationException $exception) {
         } catch (\Exception $exception) {
             // if (!$this->mountedTableActionShouldOpenModal()) {
             //     $action->resetArguments();
@@ -93,7 +91,7 @@ trait HasActions
         // $action->resetFormData();
         // $this->openActionModal($action);
         $this->unmountTableAction();
-        
+
         return $result;
     }
 
@@ -103,7 +101,7 @@ trait HasActions
         $this->dispatch('open-modal');
     }
 
-    public function mountedTableActionRecord(int | string | null $record): void
+    public function mountedTableActionRecord(int|string|null $record): void
     {
         $this->mountedTableActionRecord = $record;
     }
@@ -117,8 +115,8 @@ trait HasActions
             $this->mountedTableActionRecord($entry);
         }
 
-        if (!$action = $this->getMountedTableAction()) {
-            
+        if (! $action = $this->getMountedTableAction()) {
+
             $this->unmountTableAction();
 
             return null;
@@ -148,9 +146,9 @@ trait HasActions
         //         $action->callBeforeFormFilled();
         //     }
 
-            // $action->mount([
-            //     'form' => $this->getMountedTableActionForm(),
-            // ]);
+        // $action->mount([
+        //     'form' => $this->getMountedTableActionForm(),
+        // ]);
 
         //     if ($hasForm) {
         //         $action->callAfterFormFilled();
@@ -164,14 +162,14 @@ trait HasActions
         // }
 
         // if ($this->mountedTableActionShouldOpenModal());
-        if (!$this->mountedTableActionShouldOpenModal()) {
+        if (! $this->mountedTableActionShouldOpenModal()) {
             return $this->callMountedTableAction();
         }
 
         $this->resetErrorBag();
 
         $this->openTableActionModal($action);
-        
+
         return null;
     }
 
@@ -182,12 +180,12 @@ trait HasActions
         if ($action->isModalHidden()) {
             return false;
         }
-        
+
         return $action->getModalDescription() ||
             $action->getModalContent() ||
-            $action->getModalContentFooter();// ||
-            // $action->getInfolist() ||
-            // $this->mountedTableActionHasForm();
+            $action->getModalContentFooter(); // ||
+        // $action->getInfolist() ||
+        // $this->mountedTableActionHasForm();
     }
 
     public function mountedTableActionHasForm(): bool
@@ -197,7 +195,7 @@ trait HasActions
 
     public function getMountedTableAction(): ?Action
     {
-        if (!count($this->mountedTableActions ?? [])) {
+        if (! count($this->mountedTableActions ?? [])) {
             return null;
         }
 
@@ -208,26 +206,26 @@ trait HasActions
     {
         // @todo
         return null;
-        
+
         $action = $this->getMountedTableAction();
 
-        if (!$action) {
+        if (! $action) {
             return null;
         }
 
-        if ((!$this->isCachingForms) && $this->hasCachedForm('mountedTableActionForm')) {
+        if ((! $this->isCachingForms) && $this->hasCachedForm('mountedTableActionForm')) {
             return $this->getForm('mountedTableActionForm');
         }
 
         return $action->getForm(
             $this->makeForm()
                 ->model($this->getMountedTableActionRecord() ?? $this->getTable()->getModel())
-                ->statePath('mountedTableActionsData.' . array_key_last($this->mountedTableActionsData))
+                ->statePath('mountedTableActionsData.'.array_key_last($this->mountedTableActionsData))
                 ->operation(implode('.', $this->mountedTableActions)),
         );
     }
 
-    public function getMountedTableActionRecordKey(): int | string | null
+    public function getMountedTableActionRecordKey(): int|string|null
     {
         return $this->mountedTableActionRecord;
     }
@@ -289,14 +287,14 @@ trait HasActions
         //         }
         //     }
         // }
-        
+
         $this->closeTableActionModal();
 
-        if (!count($this->mountedTableActions)) {
+        if (! count($this->mountedTableActions)) {
             // $this->closeTableActionModal($action);
 
             $action?->entry(null);
-            // @todo 
+            // @todo
             // $this->mountedTableActionRecord(null);
 
             return;

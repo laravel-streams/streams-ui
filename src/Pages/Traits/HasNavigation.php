@@ -2,8 +2,8 @@
 
 namespace Streams\Ui\Pages\Traits;
 
-use Streams\Ui\Builders\Panels\Panel;
 use Streams\Ui\support\Facades\UI;
+use Streams\Ui\Builders\Panels\Panel;
 use Streams\Ui\Builders\Navigation\NavigationItem;
 
 trait HasNavigation
@@ -22,7 +22,7 @@ trait HasNavigation
 
     public static function registerNavigationItems(Panel $panel): void
     {
-        if (!static::shouldRegisterNavigation()) {
+        if (! static::shouldRegisterNavigation()) {
             return;
         }
 

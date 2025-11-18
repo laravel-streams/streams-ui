@@ -8,7 +8,7 @@ use Streams\Ui\Builders\ViewBuilder;
 class Breadcrumbs extends ViewBuilder
 {
     use Common\HasHtmlAttributes;
-    
+
     protected string $viewIdentifier = 'breadcrumbs';
 
     protected string $view = 'ui::builders.breadcrumbs';
@@ -51,7 +51,7 @@ class Breadcrumbs extends ViewBuilder
         return $this->items;
     }
 
-    public function addItem(string $title, string $href = null): static
+    public function addItem(string $title, ?string $href = null): static
     {
         $this->items[] = [
             'title' => $title,

@@ -4,15 +4,15 @@ namespace Streams\Ui\Builders\Concerns;
 
 trait HasUrl
 {
-    protected string | \Closure | null $url = null;
+    protected string|\Closure|null $url = null;
 
-    protected bool | \Closure $openInNewTab = false;
+    protected bool|\Closure $openInNewTab = false;
 
     public function url(
-        string | \Closure | null $url,
-        bool | \Closure $openInNewTab = false
+        string|\Closure|null $url,
+        bool|\Closure $openInNewTab = false
     ): static {
-        
+
         $this->openInNewTab($openInNewTab);
 
         $this->url = $url;
@@ -25,7 +25,7 @@ trait HasUrl
         return $this->evaluate($this->url);
     }
 
-    public function openInNewTab(bool | \Closure $condition = true): static
+    public function openInNewTab(bool|\Closure $condition = true): static
     {
         $this->openInNewTab = $condition;
 

@@ -3,7 +3,6 @@
 namespace Streams\Ui\Builders\Concerns;
 
 use Streams\Ui\Builders\ViewBuilder;
-use Streams\Ui\Builders\Concerns\HasComponents;
 use Streams\Ui\Builders\Containers\Container;
 
 trait HasContainers
@@ -12,7 +11,7 @@ trait HasContainers
 
     public function getComponentContainers(bool $hidden = false): array
     {
-        if (!$this->hasComponentContainer($hidden)) {
+        if (! $this->hasComponentContainer($hidden)) {
             return [];
         }
 
@@ -37,11 +36,11 @@ trait HasContainers
 
     public function hasComponentContainer(bool $hidden = false): bool
     {
-        if (!$hidden && $this->isHidden()) {
+        if (! $hidden && $this->isHidden()) {
             return false;
         }
 
-        if (!$this->getComponents()) {
+        if (! $this->getComponents()) {
             return false;
         }
 

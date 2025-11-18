@@ -14,7 +14,7 @@ class ComponentAction extends Controller
     {
         $parameters = json_decode(Request::get('data'), true);
 
-        if (!$parameters && UI::exists($component)) {
+        if (! $parameters && UI::exists($component)) {
             $parameters = [
                 'component' => $component,
             ];
@@ -22,7 +22,7 @@ class ComponentAction extends Controller
 
         $parameters = array_merge($parameters, Request::query());
 
-        if (!$parameters) {
+        if (! $parameters) {
             return abort(400, "Component [{$component}] not found.");
         }
 
@@ -34,11 +34,11 @@ class ComponentAction extends Controller
             return $response;
         }
 
-        //if (Request::expectsJson()) {
-            return Response::json([
-                'dom' => (string) $component->render(),
-                'data' => $component->toArray(),
-            ]);
+        // if (Request::expectsJson()) {
+        return Response::json([
+            'dom' => (string) $component->render(),
+            'data' => $component->toArray(),
+        ]);
         // } else {
         //     return $component->render();
         // }

@@ -2,6 +2,4 @@
 
 namespace Streams\Ui\Exceptions;
 
-class Halt extends \Exception
-{
-}
+class Halt extends \Exception {}

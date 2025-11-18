@@ -3,24 +3,22 @@
 namespace Streams\Ui\Builders\Actions;
 
 use Streams\Ui\Exceptions;
-use Streams\Ui\Traits as Common;
 use Streams\Ui\Traits\BelongsToLivewire;
 
 class MountableAction extends Action
 {
     use BelongsToLivewire;
-
-    use Traits\HasForm;
     use Traits\CanOpenModal;
+    use Traits\HasForm;
 
     // use Concerns\CanBeMounted;
     // use Concerns\CanRedirect;
-    //use Concerns\CanNotify;
-    //use Concerns\CanRequireConfirmation;
-    //use Concerns\HasInfolist;
-    //use Concerns\HasLifecycleHooks;
-    //use Concerns\HasParentActions;
-    //use Concerns\HasWizard;
+    // use Concerns\CanNotify;
+    // use Concerns\CanRequireConfirmation;
+    // use Concerns\HasInfolist;
+    // use Concerns\HasLifecycleHooks;
+    // use Concerns\HasParentActions;
+    // use Concerns\HasWizard;
 
     protected function setUp(): void
     {
@@ -28,8 +26,8 @@ class MountableAction extends Action
 
         $this->defaultView('ui::builders.action');
 
-        //$this->failureNotification(fn (Notification $notification): Notification => $notification);
-        //$this->successNotification(fn (Notification $notification): Notification => $notification);
+        // $this->failureNotification(fn (Notification $notification): Notification => $notification);
+        // $this->successNotification(fn (Notification $notification): Notification => $notification);
     }
 
     public function call(array $parameters = []): mixed
@@ -39,12 +37,12 @@ class MountableAction extends Action
 
     public function cancel(): void
     {
-        throw new Exceptions\Cancel();
+        throw new Exceptions\Cancel;
     }
 
     public function halt(): void
     {
-        throw new Exceptions\Halt();
+        throw new Exceptions\Halt;
     }
 
     public function success(): void

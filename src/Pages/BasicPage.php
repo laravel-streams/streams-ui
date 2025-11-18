@@ -10,18 +10,17 @@ use Streams\Core\Support\Traits\FiresCallbacks;
 
 abstract class BasePage extends Component
 {
-    use HasMemory;
     use FiresCallbacks;
-
-    use Traits\HasRoutes;
+    use HasMemory;
     use Traits\HasLayout;
     use Traits\HasResource;
+    use Traits\HasRoutes;
 
     // use Common\HasNavigation;
     // use Common\HasTitle;
     protected static ?string $title = null;
 
-    static public function getTitle(): string
+    public static function getTitle(): string
     {
         return static::$title ?? (string) str(class_basename(static::class))
             ->kebab()
@@ -29,13 +28,13 @@ abstract class BasePage extends Component
             ->title();
     }
 
-    use Common\HasDescription;
     // use Common\InteractsWithForms;
 
     use Common\EvaluatesClosures;
+    use Common\HasDescription;
 
     public ?array $data = [];
-    
+
     protected static string $view;
 
     protected static string $resource;
@@ -52,7 +51,7 @@ abstract class BasePage extends Component
 
     protected function extractPublicMethods(): array
     {
-        $methods = $this->once(static::class . __FUNCTION__, function () {
+        $methods = $this->once(static::class.__FUNCTION__, function () {
 
             $reflection = new \ReflectionClass($this);
 
@@ -77,8 +76,8 @@ abstract class BasePage extends Component
         ?string $panel = null
         // ?Entry $tenant = null
     ): string {
-        
-        //$parameters['tenant'] ??= ($tenant ?? UI::getTenant());
+
+        // $parameters['tenant'] ??= ($tenant ?? UI::getTenant());
 
         return route(static::getRouteName($panel), $parameters, $isAbsolute);
     }

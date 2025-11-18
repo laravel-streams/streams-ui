@@ -4,11 +4,11 @@ namespace Streams\Ui\Builders\Navigation\Traits;
 
 trait CanBeCollapsed
 {
-    protected bool | \Closure $collapsed = false;
+    protected bool|\Closure $collapsed = false;
 
-    protected bool | \Closure | null $collapsible = null;
+    protected bool|\Closure|null $collapsible = null;
 
-    public function collapsed(bool | \Closure $condition = true): static
+    public function collapsed(bool|\Closure $condition = true): static
     {
         $this->collapsed = $condition;
 
@@ -17,7 +17,7 @@ trait CanBeCollapsed
         return $this;
     }
 
-    public function collapsible(bool | \Closure | null $condition = true): static
+    public function collapsible(bool|\Closure|null $condition = true): static
     {
         $this->collapsible = $condition;
 

@@ -2,13 +2,13 @@
 
 namespace Streams\Ui\Builders\Actions\Traits;
 
-use Streams\Ui\Builders\Forms\Form;
 use Illuminate\Support\Arr;
 use Streams\Core\Entry\Entry;
-use Streams\Ui\Builders\Actions\Action;
 use Streams\Ui\Exceptions\Halt;
 use Streams\Ui\Exceptions\Cancel;
+use Streams\Ui\Builders\Forms\Form;
 use Illuminate\Database\Eloquent\Model;
+use Streams\Ui\Builders\Actions\Action;
 
 trait InteractsWithActions
 {
@@ -22,11 +22,11 @@ trait InteractsWithActions
 
     protected bool $hasActionsModalRendered = false;
 
-    public function callMountedAction(array | string $arguments = []): mixed
+    public function callMountedAction(array|string $arguments = []): mixed
     {
         $action = $this->getMountedAction();
 
-        if (!$action) {
+        if (! $action) {
             return null;
         }
 
@@ -36,7 +36,7 @@ trait InteractsWithActions
 
         $action->arguments([
             ...Arr::last($this->mountedActionsArguments),
-            ...(array)$arguments,
+            ...(array) $arguments,
         ]);
 
         $form = $this->getMountedActionForm();
@@ -46,13 +46,13 @@ trait InteractsWithActions
         // $originallyMountedActions = $this->mountedActions;
 
         // try {
-            if ($this->mountedActionHasForm()) {
-        //         $action->callBeforeFormValidated();
+        if ($this->mountedActionHasForm()) {
+            //         $action->callBeforeFormValidated();
 
-                $action->formData((array)$form->getState());
+            $action->formData((array) $form->getState());
 
-        //         $action->callAfterFormValidated();
-            }
+            //         $action->callAfterFormValidated();
+        }
 
         $action->fire('before_call', [
             'action' => $action,
@@ -75,13 +75,13 @@ trait InteractsWithActions
         // } catch (Cancel $exception) {
         // } catch (ValidationException $exception) {
 
-            if (!$this->mountedActionShouldOpenModal()) {
+        if (! $this->mountedActionShouldOpenModal()) {
 
-                $action->resetArguments();
-                // $action->resetFormData();
+            $action->resetArguments();
+            // $action->resetFormData();
 
-                $this->unmountAction();
-            }
+            $this->unmountAction();
+        }
 
         //     throw $exception;
         // }
@@ -106,9 +106,7 @@ trait InteractsWithActions
         return $result;
     }
 
-    protected function afterActionCalled(): void
-    {
-    }
+    protected function afterActionCalled(): void {}
 
     public function mountAction(string $name, array $arguments = []): mixed
     {
@@ -118,7 +116,7 @@ trait InteractsWithActions
 
         $action = $this->getMountedAction();
 
-        if (!$action) {
+        if (! $action) {
 
             $this->unmountAction();
 
@@ -162,12 +160,12 @@ trait InteractsWithActions
             return null;
         }
 
-        if (!$this->mountedActionShouldOpenModal()) {
+        if (! $this->mountedActionShouldOpenModal()) {
             return $this->callMountedAction();
         }
 
         $this->resetErrorBag();
-        
+
         $this->openActionModal($action);
 
         return null;
@@ -186,7 +184,7 @@ trait InteractsWithActions
     {
         $action = $this->getMountedAction() ?: $this->getMountedTableAction();
 
-        if (!$action) {
+        if (! $action) {
             return false;
         }
 
@@ -226,13 +224,11 @@ trait InteractsWithActions
         ];
     }
 
-    protected function configureAction(Action $action): void
-    {
-    }
+    protected function configureAction(Action $action): void {}
 
     public function getMountedAction(): ?Action
     {
-        if (!count($this->mountedActions ?? [])) {
+        if (! count($this->mountedActions ?? [])) {
             return null;
         }
 
@@ -253,7 +249,7 @@ trait InteractsWithActions
     {
         $action = $this->getMountedAction();
 
-        if (!$action) {
+        if (! $action) {
             return null;
         }
 
@@ -270,7 +266,7 @@ trait InteractsWithActions
         // );
     }
 
-    protected function getMountedActionFormModel(): Model | Entry | string | null
+    protected function getMountedActionFormModel(): Model|Entry|string|null
     {
         return null;
     }
@@ -334,14 +330,14 @@ trait InteractsWithActions
         foreach ($modalActionNames as $modalActionName) {
             $action = $action->getMountableModalAction($modalActionName);
 
-            if (!$action) {
+            if (! $action) {
                 return null;
             }
 
             $parentActionName = $modalActionName;
         }
 
-        if (!$action instanceof Action) {
+        if (! $action instanceof Action) {
             return null;
         }
 
@@ -367,7 +363,7 @@ trait InteractsWithActions
 
     public function unmountAction(bool $shouldCancelParentActions = true): void
     {
-        if (!$action = $this->getMountedAction()) {
+        if (! $action = $this->getMountedAction()) {
             return;
         }
 
@@ -394,7 +390,7 @@ trait InteractsWithActions
             array_splice($this->mountedActions, $key, 1);
         }
 
-        if (!count($this->mountedActions)) {
+        if (! count($this->mountedActions)) {
             $this->closeActionModal();
 
             // $action?->clearRecordAfter();

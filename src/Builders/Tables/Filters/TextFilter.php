@@ -2,17 +2,17 @@
 
 namespace Streams\Ui\Builders\Tables\Filters;
 
-use Streams\Ui\Builders\Tables\Table;
 use Streams\Core\Criteria\Criteria;
+use Streams\Ui\Builders\Tables\Table;
 use Streams\Ui\Builders\Inputs\Traits\HasPlaceholder;
 
 class TextFilter extends Filter
 {
     use HasPlaceholder;
 
-    protected bool | \Closure | null $absolute = null;
+    protected bool|\Closure|null $absolute = null;
 
-    public function absolute(bool | \Closure | null $absolute = true): static
+    public function absolute(bool|\Closure|null $absolute = true): static
     {
         $this->absolute = $absolute;
 
@@ -33,7 +33,7 @@ class TextFilter extends Filter
             }
 
             return $query
-                ->where($this->getName(), 'LIKE', '%' . $state . '%');
+                ->where($this->getName(), 'LIKE', '%'.$state.'%');
         });
     }
 }

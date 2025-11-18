@@ -6,11 +6,11 @@ use Streams\Ui\Traits as Common;
 
 class Card extends Section
 {
-    use Common\HasUrl;
-    use Common\HasHeading;
     use Common\CanBeDisabled;
     use Common\HasDescription;
-    
+    use Common\HasHeading;
+    use Common\HasUrl;
+
     protected string $viewIdentifier = 'card';
 
     protected string $view = 'ui::builders.card';

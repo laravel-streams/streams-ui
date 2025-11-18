@@ -3,27 +3,23 @@
 namespace Streams\Ui\Resources;
 
 use Streams\Core\Entry\Entry;
-use Streams\Ui\Resources\Concerns;
 use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Builders\Navigation\NavigationItem;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Ui\Builders\Concerns as Common;
 use Streams\Ui\Builders\Concerns\HasNavigation;
+use Streams\Ui\Builders\Navigation\NavigationItem;
 use Streams\Ui\Builders\Actions\Traits\InteractsWithActions;
 
 abstract class Resource
 {
-    use HasMemory;
-    
-    use HasNavigation;
-    
     use Common\HasTitle;
+    use Concerns\HasNavigationGroups;
     // use Concerns\HasActions;
 
     use Concerns\HasRoutes;
     use Concerns\HasStream;
-    use Concerns\HasNavigationGroups;
-
+    use HasMemory;
+    use HasNavigation;
     use InteractsWithActions;
 
     public static function getUrl(
@@ -31,10 +27,10 @@ abstract class Resource
         array $parameters = [],
         bool $isAbsolute = true,
         ?string $panel = null,
-        //?Model $tenant = null
+        // ?Model $tenant = null
     ): string {
 
-        //$parameters['tenant'] ??= ($tenant ?? Filament::getTenant());
+        // $parameters['tenant'] ??= ($tenant ?? Filament::getTenant());
 
         $routeBaseName = static::getRouteBaseName(panel: $panel);
 
@@ -49,7 +45,7 @@ abstract class Resource
                 ->icon(static::getNavigationIcon())
                 ->activeIcon(static::getActiveNavigationIcon())
                 ->isActiveWhen(
-                    fn () => request()->routeIs(static::getRouteBaseName() . '.*')
+                    fn () => request()->routeIs(static::getRouteBaseName().'.*')
                 )
                 ->sort(static::getNavigationSort())
                 ->badge(
@@ -70,7 +66,7 @@ abstract class Resource
         return [];
     }
 
-    public static function resolveEntryRouteBinding(int | string $key): ?Entry
+    public static function resolveEntryRouteBinding(int|string $key): ?Entry
     {
         $stream = Streams::make(static::getStream());
 

@@ -7,16 +7,16 @@ use Illuminate\Contracts\Database\Query\Builder;
 
 trait HasQuery
 {
-    protected Criteria | Builder | \Closure | null $query = null;
+    protected Criteria|Builder|\Closure|null $query = null;
 
-    public function query(Criteria | Builder | \Closure | null $query): static
+    public function query(Criteria|Builder|\Closure|null $query): static
     {
         $this->query = $query;
 
         return $this;
     }
 
-    public function getQuery(): Criteria | Builder
+    public function getQuery(): Criteria|Builder
     {
         if ($query = $this->evaluate($this->query)) {
             return $query;

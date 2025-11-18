@@ -2,12 +2,12 @@
 
 namespace Streams\Ui\Components\Tables\Concerns;
 
-use Streams\Ui\Builders\Forms\Form;
 use Streams\Core\Entry\Entry;
 use Illuminate\Support\Collection;
-use Streams\Ui\Builders\Tables\BulkActions\BulkAction;
+use Streams\Ui\Builders\Forms\Form;
 use Streams\Ui\Exceptions\ValidationException;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Streams\Ui\Builders\Tables\BulkActions\BulkAction;
 
 trait HasBulkActions
 {
@@ -19,15 +19,13 @@ trait HasBulkActions
 
     protected Collection $cachedSelectedTableRecords;
 
-    protected function configureTableBulkAction(BulkAction $action): void
-    {
-    }
+    protected function configureTableBulkAction(BulkAction $action): void {}
 
     public function callMountedTableBulkAction(array $arguments = []): mixed
     {
         $action = $this->getMountedTableBulkAction();
 
-        if (!$action) {
+        if (! $action) {
             return null;
         }
 
@@ -62,12 +60,12 @@ trait HasBulkActions
             ]);
 
             $action->fire('after_call');
-            
+
             // } catch (Halt $exception) {
             //     return null;
             // } catch (Cancel $exception) {
         } catch (ValidationException $exception) {
-            if (!$this->mountedTableBulkActionShouldOpenModal()) {
+            if (! $this->mountedTableBulkActionShouldOpenModal()) {
                 $action->resetArguments();
                 $action->resetFormData();
 
@@ -81,7 +79,7 @@ trait HasBulkActions
         // if (store($this)->has('redirect')) {
         //     return $result;
         // }
-        
+
         $action->resetArguments();
         // $action->resetFormData();
 
@@ -105,7 +103,7 @@ trait HasBulkActions
 
         $action = $this->getMountedTableBulkAction();
 
-        if (!$action) {
+        if (! $action) {
             return null;
         }
 
@@ -138,8 +136,8 @@ trait HasBulkActions
 
             return null;
         }
-        
-        if (!$this->mountedTableBulkActionShouldOpenModal()) {
+
+        if (! $this->mountedTableBulkActionShouldOpenModal()) {
             return $this->callMountedTableBulkAction();
         }
 
@@ -176,8 +174,8 @@ trait HasBulkActions
             $action->getModalDescription() ||
             $action->getModalContent() ||
             $action->getModalContentFooter();
-            // $action->getInfolist() ||
-            // $this->mountedActionHasForm();
+        // $action->getInfolist() ||
+        // $this->mountedActionHasForm();
     }
 
     public function unmountTableBulkAction(): void
@@ -202,7 +200,7 @@ trait HasBulkActions
     {
         $query = $this->getFilteredTableQuery();
 
-        if (!$this->getTable()->checksIfRecordIsSelectable()) {
+        if (! $this->getTable()->checksIfRecordIsSelectable()) {
             $records = $this->getTable()->selectsCurrentPageOnly() ?
                 $this->getTableRecords() :
                 $query;
@@ -219,7 +217,7 @@ trait HasBulkActions
 
         return $records->reduce(
             function (array $carry, Entry $record): array {
-                if (!$this->getTable()->isRecordSelectable($record)) {
+                if (! $this->getTable()->isRecordSelectable($record)) {
                     return $carry;
                 }
 
@@ -239,7 +237,7 @@ trait HasBulkActions
 
         $tableGrouping->scopeQueryByKey($query, $group);
 
-        if (!$this->getTable()->checksIfRecordIsSelectable()) {
+        if (! $this->getTable()->checksIfRecordIsSelectable()) {
             $records = $this->getTable()->selectsCurrentPageOnly() ?
                 $this->getTableRecords()->filter(
                     fn (Entry $record) => $tableGrouping->getStringKey($record) === $group,
@@ -260,7 +258,7 @@ trait HasBulkActions
 
         return $records->reduce(
             function (array $carry, Entry $record): array {
-                if (!$this->getTable()->isRecordSelectable($record)) {
+                if (! $this->getTable()->isRecordSelectable($record)) {
                     return $carry;
                 }
 
@@ -309,7 +307,7 @@ trait HasBulkActions
 
         $table = $this->getTable();
 
-        if (!($table->getRelationship() instanceof BelongsToMany && $table->allowsDuplicates())) {
+        if (! ($table->getRelationship() instanceof BelongsToMany && $table->allowsDuplicates())) {
             $query = $table->getQuery()->whereKey($this->selectedTableEntries);
             $this->applySortingToTableQuery($query);
 
@@ -357,7 +355,7 @@ trait HasBulkActions
 
     public function getMountedTableBulkAction(): ?BulkAction
     {
-        if (!$this->mountedTableBulkAction) {
+        if (! $this->mountedTableBulkAction) {
             return null;
         }
 
@@ -368,12 +366,12 @@ trait HasBulkActions
     {
         $action = $this->getMountedTableBulkAction();
 
-        if (!$action) {
+        if (! $action) {
             return null;
         }
 
         if (
-            (!$this->isCachingForms)
+            (! $this->isCachingForms)
             && $this->hasCachedForm('mountedTableBulkActionForm')
         ) {
             return $this->getForm('mountedTableBulkActionForm');

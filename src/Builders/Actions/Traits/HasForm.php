@@ -8,20 +8,20 @@ trait HasForm
 {
     protected array $formData = [];
 
-    protected array | \Closure | Form | null $form = null;
+    protected array|\Closure|Form|null $form = null;
 
-    protected bool | \Closure $isFormDisabled = false;
+    protected bool|\Closure $isFormDisabled = false;
 
     protected ?\Closure $mutateFormDataUsing = null;
 
-    public function disabledForm(bool | \Closure $condition = true): static
+    public function disabledForm(bool|\Closure $condition = true): static
     {
         $this->isFormDisabled = $condition;
 
         return $this;
     }
 
-    public function form(array | \Closure | Form | null $form): static
+    public function form(array|\Closure|Form|null $form): static
     {
         $this->form = $form;
 

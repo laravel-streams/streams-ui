@@ -8,7 +8,7 @@ use Streams\Ui\Builders\ViewBuilder;
 class Component extends ViewBuilder
 {
     use Common\HasHtmlAttributes;
-    
+
     protected string $viewIdentifier = 'component';
 
     protected string $view = 'ui::builders.component';

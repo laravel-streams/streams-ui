@@ -6,7 +6,7 @@ trait HasNavigationGroups
 {
     protected bool $navigationMounted = false;
 
-    protected array | \Closure $navigationGroups = [];
+    protected array|\Closure $navigationGroups = [];
 
     // protected \Closure | bool $navigationBuilder = true;
 
@@ -24,7 +24,7 @@ trait HasNavigationGroups
     //     return $builder->getNavigation();
     // }
 
-    public function navigationGroups(array | \Closure $groups): static
+    public function navigationGroups(array|\Closure $groups): static
     {
         $this->navigationGroups = [
             ...$this->evaluate($this->navigationGroups),

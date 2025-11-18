@@ -2,29 +2,28 @@
 
 namespace Streams\Ui\Builders\Tables\Filters;
 
-use Streams\Ui\Builders\Tables\Table;
 use Streams\Ui\Traits as Support;
 use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Builders\Tables\Table;
+use Illuminate\Contracts\Database\Query\Builder;
 use Streams\Ui\Builders\Inputs\Traits\CanBeAutofocused;
 use Streams\Ui\Builders\Tables\Concerns\BelongsToTable;
-use Illuminate\Contracts\Database\Query\Builder;
 
 class Filter extends ViewBuilder
 {
     use BelongsToTable;
-
     use CanBeAutofocused;
 
-    use Support\HasName;
-    use Support\HasQuery;
-    use Support\HasLabel;
     // use Support\HasColumns;
     use Support\CanBeHidden;
-    use Support\HasComponents;
     use Support\CanPersistData;
     use Support\CanSpanColumns;
+    use Support\HasComponents;
     use Support\HasHtmlAttributes;
+    use Support\HasLabel;
+    use Support\HasName;
+    use Support\HasQuery;
 
     protected string $view = 'ui::builders.filters.filter';
 
@@ -32,7 +31,7 @@ class Filter extends ViewBuilder
 
     protected string $evaluationIdentifier = 'filter';
 
-    protected string | \Closure | null $queryStringIdentifier = null;
+    protected string|\Closure|null $queryStringIdentifier = null;
 
     final public function __construct(string $name)
     {
@@ -61,7 +60,7 @@ class Filter extends ViewBuilder
         return null;
     }
 
-    public function apply(Criteria | Builder $query, Table $table, $state): Criteria | Builder
+    public function apply(Criteria|Builder $query, Table $table, $state): Criteria|Builder
     {
         // if ($this->isHidden()) {
         //     return $query;

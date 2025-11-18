@@ -26,7 +26,7 @@ trait HasActions
         return $this->actions;
     }
 
-    public function getAction(string | array | null $name = null): ?Action
+    public function getAction(string|array|null $name = null): ?Action
     {
         $actions = $this->getActions();
 
@@ -48,7 +48,7 @@ trait HasActions
         }
 
         foreach ((array) $name as $search) {
-            if ($action = Arr::first($actions, fn($action) => $action->getName() === $search)) {
+            if ($action = Arr::first($actions, fn ($action) => $action->getName() === $search)) {
                 return $action;
             }
         }
@@ -58,7 +58,7 @@ trait HasActions
         }
 
         if (
-            (!str($name)->endsWith('Action')) &&
+            (! str($name)->endsWith('Action')) &&
             method_exists($this, "{$name}Action")
         ) {
             return $this->{"{$name}Action"}();

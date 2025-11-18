@@ -4,9 +4,9 @@ namespace Streams\Ui\Builders\Inputs\Traits;
 
 trait HasInputMode
 {
-    protected string | \Closure | null $inputMode = null;
+    protected string|\Closure|null $inputMode = null;
 
-    public function inputMode(string | \Closure | null $mode): static
+    public function inputMode(string|\Closure|null $mode): static
     {
         $this->inputMode = $mode;
 

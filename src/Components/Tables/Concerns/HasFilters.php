@@ -2,9 +2,9 @@
 
 namespace Streams\Ui\Components\Tables\Concerns;
 
-use Streams\Ui\Builders\Forms\Form;
 use Illuminate\Support\Arr;
 use Streams\Core\Criteria\Criteria;
+use Streams\Ui\Builders\Forms\Form;
 use Streams\Ui\Builders\Tables\Filters\Filter;
 use Illuminate\Contracts\Database\Query\Builder;
 
@@ -66,7 +66,7 @@ trait HasFilters
             });
         }
 
-        if (!$shouldTriggerUpdatedFiltersHook) {
+        if (! $shouldTriggerUpdatedFiltersHook) {
             return;
         }
 
@@ -121,7 +121,7 @@ trait HasFilters
     //     return $query;
     // }
 
-    protected function applyFiltersToTableQuery(Criteria | Builder $query): Criteria | Builder
+    protected function applyFiltersToTableQuery(Criteria|Builder $query): Criteria|Builder
     {
         // $data = $this->getTableFiltersForm()->getRawState();
         $data = $this->tableFilters;
@@ -135,7 +135,7 @@ trait HasFilters
 
         foreach ($this->getTable()->getFilters() as $filter) {
             // $filter->apply($query, $data[$filter->getName()] ?? []);
-            if ($state = Arr::get($data, $filter->getName() . '.value')) {
+            if ($state = Arr::get($data, $filter->getName().'.value')) {
                 $filter->apply($query, $this->getTable(), $state);
             }
         }
@@ -150,11 +150,11 @@ trait HasFilters
 
     public function parseTableFilterName(string $name): string
     {
-        if (!class_exists($name)) {
+        if (! class_exists($name)) {
             return $name;
         }
 
-        if (!is_subclass_of($name, Filter::class)) {
+        if (! is_subclass_of($name, Filter::class)) {
             return $name;
         }
 

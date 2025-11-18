@@ -5,7 +5,7 @@ namespace Streams\Ui\Builders\Panels\Traits;
 trait HasLayout
 {
     protected string $layout = 'ui::layouts.app';
-    
+
     public function layout(string $layout): static
     {
         $this->layout = $layout;

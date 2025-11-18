@@ -4,26 +4,23 @@ namespace Streams\Ui\Builders\Tables\Columns;
 
 use Streams\Ui\Traits as Support;
 use Streams\Ui\Builders\ViewBuilder;
-use Streams\Ui\Builders\Tables\Columns\Concerns;
 
 abstract class Column extends ViewBuilder
 {
+    use Concerns\HasTable;
+    use Concerns\InteractsWithQuery;
+    use Concerns\IsSearchable;
+    use Concerns\IsSortable;
+    use Support\CanBeHidden;
+    use Support\HasColor;
+    use Support\HasEntry;
+    use Support\HasHtmlAttributes;
     use Support\HasIcon;
+    use Support\HasLabel;
     use Support\HasName;
     use Support\HasState;
-    use Support\HasColor;
-    use Support\HasLabel;
-    use Support\HasEntry;
-    use Support\HasValue;
     use Support\HasTooltip;
-    use Support\CanBeHidden;
-
-    use Support\HasHtmlAttributes;
-
-    use Concerns\HasTable;
-    use Concerns\IsSortable;
-    use Concerns\IsSearchable;
-    use Concerns\InteractsWithQuery;
+    use Support\HasValue;
 
     protected string $viewIdentifier = 'column';
 
@@ -39,7 +36,7 @@ abstract class Column extends ViewBuilder
         });
     }
 
-    static public function make($name): static
+    public static function make($name): static
     {
         $static = new static($name);
 

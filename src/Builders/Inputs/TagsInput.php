@@ -8,8 +8,9 @@ use Illuminate\Support\Collection;
 class TagsInput extends Input
 {
     public ?int $min = null;
+
     public ?int $max = null;
-    
+
     public ?string $placeholder = null;
 
     public function render()

@@ -2,6 +2,4 @@
 
 namespace Streams\Ui\Builders\Tables\Columns;
 
-class ColorColumn extends Column
-{
-}
+class ColorColumn extends Column {}

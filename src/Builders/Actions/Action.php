@@ -9,31 +9,28 @@ use Streams\Ui\Support\Facades\Actions;
 // StaticAction
 class Action extends ViewBuilder
 {
-    use Traits\HasTag;
-    use Traits\HasForm;
-    use Traits\HasStyle;
-    use Traits\HasAction;
-    use Traits\HasTooltip;
-    use Traits\HasArguments;
-    use Traits\HasKeyBindings;
-    use Traits\HasBorderRadius;
-
-    use Traits\CanOpenModal;
-
-    use Traits\InteractsWithEntry;
-
-    use Common\HasId;
-    use Common\HasUrl;
-    use Common\HasIcon;
-    use Common\HasSize;
-    use Common\HasName;
+    use Common\CanBeDisabled;
+    use Common\CanBeHidden;
     use Common\HasBadge;
     use Common\HasColor;
     use Common\HasEntry;
-    use Common\HasLabel;
-    use Common\CanBeHidden;
-    use Common\CanBeDisabled;
     use Common\HasHtmlAttributes;
+    use Common\HasIcon;
+    use Common\HasId;
+    use Common\HasLabel;
+    use Common\HasName;
+    use Common\HasSize;
+    use Common\HasUrl;
+    use Traits\CanOpenModal;
+    use Traits\HasAction;
+    use Traits\HasArguments;
+    use Traits\HasBorderRadius;
+    use Traits\HasForm;
+    use Traits\HasKeyBindings;
+    use Traits\HasStyle;
+    use Traits\HasTag;
+    use Traits\HasTooltip;
+    use Traits\InteractsWithEntry;
 
     // use Concerns\CanBeLabeledFrom;
     // use Concerns\CanBeOutlined;
@@ -56,7 +53,7 @@ class Action extends ViewBuilder
         $this->name($name);
     }
 
-    static public function make($name): static
+    public static function make($name): static
     {
         $static = new static($name);
 
@@ -68,8 +65,8 @@ class Action extends ViewBuilder
     }
 
     public function link(
-        string | \Closure | null $url = null,
-        bool | \Closure $openInNewTab = false
+        string|\Closure|null $url = null,
+        bool|\Closure $openInNewTab = false
     ) {
         $this->style(__FUNCTION__);
 
@@ -94,7 +91,7 @@ class Action extends ViewBuilder
     protected function resolveDefaultClosureDependency(string $parameter): array
     {
         return match ($parameter) {
-            'entry' => [$this->getEntryInstance()],
+            'entry' => $this->getEntryInstance(),
             default => parent::resolveDefaultClosureDependency($parameter),
         };
     }

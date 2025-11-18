@@ -11,10 +11,10 @@ use Streams\Ui\Builders\Concerns\EvaluatesClosures;
 
 abstract class Builder
 {
-    use Tappable;
-    use HasMemory;
-    use Conditionable;
-    use FiresCallbacks;
     use CanBeConfigured;
+    use Conditionable;
     use EvaluatesClosures;
+    use FiresCallbacks;
+    use HasMemory;
+    use Tappable;
 }

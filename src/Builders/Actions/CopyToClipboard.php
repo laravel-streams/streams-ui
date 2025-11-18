@@ -6,7 +6,7 @@ use Closure;
 
 class CopyToClipboard extends Action
 {
-    protected string | Closure | null $content = null;
+    protected string|Closure|null $content = null;
 
     protected string $view = 'ui::copy-to-clipboard';
 
@@ -17,12 +17,11 @@ class CopyToClipboard extends Action
     public function __construct(string $name)
     {
         parent::__construct($name);
-        
-        // Default to button tag for clipboard actions
+
         $this->tag('button');
     }
 
-    static public function make($name, string | Closure | null $content = null): static
+    public static function make($name, string|Closure|null $content = null): static
     {
         $instance = app(static::class, ['name' => $name]);
 
@@ -35,7 +34,7 @@ class CopyToClipboard extends Action
         return $instance;
     }
 
-    public function content(string | Closure | null $content): static
+    public function content(string|Closure|null $content): static
     {
         $this->content = $content;
 

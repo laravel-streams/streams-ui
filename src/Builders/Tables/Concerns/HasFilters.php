@@ -10,26 +10,26 @@ trait HasFilters
 {
     protected array $filters = [];
 
-    protected int | array | \Closure | null $filtersFormColumns = null;
+    protected int|array|\Closure|null $filtersFormColumns = null;
 
-    protected string | \Closure | null $filtersFormMaxHeight = null;
+    protected string|\Closure|null $filtersFormMaxHeight = null;
 
-    protected string | \Closure | null $filtersFormWidth = null;
+    protected string|\Closure|null $filtersFormWidth = null;
 
-    protected \Closure | null $filtersLayout = null;
+    protected ?\Closure $filtersLayout = null;
 
     protected ?\Closure $modifyFiltersTriggerActionUsing = null;
 
-    protected bool | \Closure $shouldDeselectAllRecordsWhenFiltered = true;
+    protected bool|\Closure $shouldDeselectAllRecordsWhenFiltered = true;
 
-    public function resetWhenFiltered(bool | \Closure $condition = true): static
+    public function resetWhenFiltered(bool|\Closure $condition = true): static
     {
         $this->shouldDeselectAllRecordsWhenFiltered = $condition;
 
         return $this;
     }
 
-    public function filters(array $filters, string | \Closure | null $layout = null): static
+    public function filters(array $filters, string|\Closure|null $layout = null): static
     {
         $this->filters = [];
 
@@ -54,28 +54,28 @@ trait HasFilters
         return $this;
     }
 
-    public function filtersFormColumns(int | array | \Closure | null $columns): static
+    public function filtersFormColumns(int|array|\Closure|null $columns): static
     {
         $this->filtersFormColumns = $columns;
 
         return $this;
     }
 
-    public function filtersFormMaxHeight(string | \Closure | null $height): static
+    public function filtersFormMaxHeight(string|\Closure|null $height): static
     {
         $this->filtersFormMaxHeight = $height;
 
         return $this;
     }
 
-    public function filtersFormWidth(string | \Closure | null $width): static
+    public function filtersFormWidth(string|\Closure|null $width): static
     {
         $this->filtersFormWidth = $width;
 
         return $this;
     }
 
-    public function filtersLayout(\Closure | null $filtersLayout): static
+    public function filtersLayout(?\Closure $filtersLayout): static
     {
         $this->filtersLayout = $filtersLayout;
 
@@ -111,11 +111,11 @@ trait HasFilters
     {
         $action = Action::make('openFilters')
             ->label(__('filament-tables::table.actions.filter.label'))
-            //->iconButton()
+            // ->iconButton()
             ->icon('heroicon-m-funnel')
             ->color('gray');
-        //->livewireClickHandlerEnabled(false)
-        //->modalSubmitAction(false)
+        // ->livewireClickHandlerEnabled(false)
+        // ->modalSubmitAction(false)
         // ->extraModalFooterActions([
         //     Action::make('resetFilters')
         //         ->label(__('filament-tables::table.filters.actions.reset.label'))
@@ -123,7 +123,7 @@ trait HasFilters
         //         ->action('resetTableFiltersForm'),
         // ])
         // ->modalCancelActionLabel(__('filament::components/modal.actions.close.label'))
-        //->table($this);
+        // ->table($this);
 
         if ($this->modifyFiltersTriggerActionUsing) {
             $action = $this->evaluate($this->modifyFiltersTriggerActionUsing, [
@@ -138,7 +138,7 @@ trait HasFilters
         return $action;
     }
 
-    public function getFiltersFormColumns(): int | array
+    public function getFiltersFormColumns(): int|array
     {
         return $this->evaluate($this->filtersFormColumns)
             ?? match ($this->getFiltersLayout()) {

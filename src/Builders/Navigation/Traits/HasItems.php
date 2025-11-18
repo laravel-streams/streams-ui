@@ -6,9 +6,9 @@ use Illuminate\Contracts\Support\Arrayable;
 
 trait HasItems
 {
-    protected array | Arrayable $items = [];
+    protected array|Arrayable $items = [];
 
-    public function items(array | Arrayable $items): static
+    public function items(array|Arrayable $items): static
     {
         $this->items = [
             ...$this->items,
@@ -18,7 +18,7 @@ trait HasItems
         return $this;
     }
 
-    public function getItems(): array | Arrayable
+    public function getItems(): array|Arrayable
     {
         return $this->items;
     }

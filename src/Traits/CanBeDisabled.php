@@ -4,9 +4,9 @@ namespace Streams\Ui\Traits;
 
 trait CanBeDisabled
 {
-    protected bool | \Closure $disabled = false;
+    protected bool|\Closure $disabled = false;
 
-    public function disabled(bool | \Closure $condition = true): static
+    public function disabled(bool|\Closure $condition = true): static
     {
         $this->disabled = $condition;
 

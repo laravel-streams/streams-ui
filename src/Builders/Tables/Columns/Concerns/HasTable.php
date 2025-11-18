@@ -20,7 +20,7 @@ trait HasTable
         return $this->table ?? $this->getLayout()->getTable();
     }
 
-    public function getLivewire()//: \Streams\Ui\Tables\Concerns\HasTable
+    public function getLivewire()// : \Streams\Ui\Tables\Concerns\HasTable
     {
         return $this->getTable()->getLivewire();
     }

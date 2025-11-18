@@ -2,18 +2,18 @@
 
 namespace Streams\Ui\Builders\Lists;
 
-use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Traits as Common;
 use Illuminate\Support\Facades\App;
+use Streams\Ui\Builders\ViewBuilder;
 
 class ListItem extends ViewBuilder
 {
+    use Common\HasActions;
+    use Common\HasDescription;
+    use Common\HasHtmlAttributes;
+    use Common\HasIcon;
     use Common\HasId;
     use Common\HasTitle;
-    use Common\HasDescription;
-    use Common\HasIcon;
-    use Common\HasActions;
-    use Common\HasHtmlAttributes;
 
     protected string $view = 'ui::components.lists.list-item';
 
@@ -27,7 +27,7 @@ class ListItem extends ViewBuilder
     public static function make(?string $id = null): static
     {
         $instance = App::make(static::class, [
-            'id' => $id ?: 'list-item-' . uniqid(),
+            'id' => $id ?: 'list-item-'.uniqid(),
         ]);
 
         $instance->configure();

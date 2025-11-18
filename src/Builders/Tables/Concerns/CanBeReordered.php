@@ -6,9 +6,9 @@ use Streams\Ui\Builders\Actions\Action;
 
 trait CanBeReordered
 {
-    protected bool | \Closure $reorderable = true;
+    protected bool|\Closure $reorderable = true;
 
-    protected string | \Closure | null $reorderColumn = null;
+    protected string|\Closure|null $reorderColumn = null;
 
     protected ?\Closure $reorderTriggerActionUsing = null;
 
@@ -20,8 +20,8 @@ trait CanBeReordered
     }
 
     public function reorderable(
-        string | \Closure | null $column = null,
-        bool | \Closure | null $condition = null
+        string|\Closure|null $column = null,
+        bool|\Closure|null $condition = null
     ): static {
 
         $this->reorderColumn = $column;

@@ -2,17 +2,17 @@
 
 namespace Streams\Ui\Builders\Lists;
 
-use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Traits as Common;
 use Illuminate\Support\Facades\App;
+use Streams\Ui\Builders\ViewBuilder;
 
 class ListBuilder extends ViewBuilder
 {
-    use Common\HasId;
     use Common\HasHtmlAttributes;
+    use Common\HasId;
 
     protected string $view = 'ui::components.lists.list';
-    
+
     protected array $items = [];
 
     final public function __construct(?string $id = null)
@@ -25,7 +25,7 @@ class ListBuilder extends ViewBuilder
     public static function make(?string $id = null): static
     {
         $instance = App::make(static::class, [
-            'id' => $id ?: 'list-' . uniqid(),
+            'id' => $id ?: 'list-'.uniqid(),
         ]);
 
         $instance->configure();
@@ -39,7 +39,7 @@ class ListBuilder extends ViewBuilder
     public function items(array|\Closure $items): static
     {
         $this->items = $items;
-        
+
         return $this;
     }
 

@@ -21,7 +21,7 @@ trait CanBeMounted
         return $this;
     }
 
-    public function fillForm(array | \Closure $data): static
+    public function fillForm(array|\Closure $data): static
     {
         $this->mountUsing(function (?Form $form) use ($data) {
             $form?->fill($this->evaluate($data));

@@ -8,20 +8,19 @@ use Streams\Ui\Builders\Navigation;
 
 class NavigationGroup extends Builder
 {
-    use Common\HasIcon;
-    use Common\HasSort;
-    use Common\HasLabel;
     use Common\CanBeHidden;
-
-    use Navigation\Traits\HasItems;
+    use Common\HasIcon;
+    use Common\HasLabel;
+    use Common\HasSort;
     use Navigation\Traits\CanBeCollapsed;
+    use Navigation\Traits\HasItems;
 
-    final public function __construct(string | \Closure | null $label = null)
+    final public function __construct(string|\Closure|null $label = null)
     {
         $this->label($label);
     }
 
-    public static function make(string | \Closure | null $label = null): static
+    public static function make(string|\Closure|null $label = null): static
     {
         $instance = app(static::class, [
             'label' => $label,
@@ -36,7 +35,7 @@ class NavigationGroup extends Builder
     {
         foreach ($this->getItems() as $item) {
 
-            if (!$item->isActive()) {
+            if (! $item->isActive()) {
                 continue;
             }
 

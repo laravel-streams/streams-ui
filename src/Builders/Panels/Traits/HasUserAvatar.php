@@ -6,16 +6,16 @@ use Illuminate\Contracts\Support\Htmlable;
 
 trait HasUserAvatar
 {
-    protected string | Htmlable | \Closure | null $userAvatar = null;
+    protected string|Htmlable|\Closure|null $userAvatar = null;
 
-    public function userAvatar(string | Htmlable | \Closure | null $avatar): static
+    public function userAvatar(string|Htmlable|\Closure|null $avatar): static
     {
         $this->userAvatar = $avatar;
 
         return $this;
     }
 
-    public function getUserAvatar(): string | Htmlable | null
+    public function getUserAvatar(): string|Htmlable|null
     {
         return $this->evaluate($this->userAvatar);
     }

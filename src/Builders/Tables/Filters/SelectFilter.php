@@ -5,14 +5,12 @@ namespace Streams\Ui\Builders\Tables\Filters;
 use Streams\Ui\Builders;
 use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Builders\Tables\Table;
-use Streams\Ui\Builders\Tables\Filters\Filter;
 
 class SelectFilter extends Filter
 {
+    use Builders\Concerns\HasLabel;
     use Builders\Inputs\Traits\HasOptions;
     use Builders\Inputs\Traits\HasPlaceholder;
-    
-    use Builders\Concerns\HasLabel;
 
     protected string $view = 'ui::builders.filters.select';
 
@@ -25,7 +23,7 @@ class SelectFilter extends Filter
 
     protected bool $required = false;
 
-    public function required(bool | \Closure $required = true)
+    public function required(bool|\Closure $required = true)
     {
         $this->required = $required;
 
