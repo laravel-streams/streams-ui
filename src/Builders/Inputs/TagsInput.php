@@ -1,8 +1,8 @@
 <?php
 
-namespace Streams\Ui\Components\Inputs;
+namespace Streams\Ui\Livewire\Inputs;
 
-use Streams\Ui\Components\Input;
+use Streams\Ui\Livewire\Input;
 use Illuminate\Support\Collection;
 
 class TagsInput extends Input

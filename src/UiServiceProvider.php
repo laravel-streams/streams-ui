@@ -35,7 +35,7 @@ class UiServiceProvider extends ServiceProvider
 
         $this->app->singleton('colors', \Streams\Ui\Colors\ColorManager::class);
         $this->app->singleton('actions', \Streams\Ui\Builders\Actions\ActionManager::class);
-        $this->app->singleton('breadcrumbs', \Streams\Ui\Components\Breadcrumbs\BreadcrumbsManager::class);
+        $this->app->singleton('breadcrumbs', \Streams\Ui\Livewire\Breadcrumbs\BreadcrumbsManager::class);
         $this->app->singleton('notifications', \Streams\Ui\Notifications\NotificationsManager::class);
 
         $this->app->alias(\Streams\Ui\UiManager::class, 'ui');

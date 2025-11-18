@@ -3,7 +3,7 @@
 namespace Streams\Ui\Builders\Tables\Actions;
 
 use Streams\Ui\Traits\HasEntry;
-use Streams\Ui\Components\Tables\InteractsWithTable;
+use Streams\Ui\Livewire\Tables\InteractsWithTable;
 
 class Action extends \Streams\Ui\Builders\Actions\Action
 {
