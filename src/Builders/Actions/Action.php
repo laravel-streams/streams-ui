@@ -91,7 +91,7 @@ class Action extends ViewBuilder
     protected function resolveDefaultClosureDependency(string $parameter): array
     {
         return match ($parameter) {
-            'entry' => $this->getEntryInstance(),
+            'entry' => [$this->getEntryInstance()],
             default => parent::resolveDefaultClosureDependency($parameter),
         };
     }
