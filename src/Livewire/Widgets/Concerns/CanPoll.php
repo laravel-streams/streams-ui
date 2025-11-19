@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Livewire\Widgets\Traits;
+namespace Streams\Ui\Livewire\Widgets\Concerns;
 
 trait CanPoll
 {

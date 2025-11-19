@@ -4,24 +4,23 @@ namespace Streams\Ui\Notifications;
 
 use Livewire\Component;
 use Illuminate\Support\Str;
+use Streams\Ui\Builders\Builder;
 use Illuminate\Support\Facades\App;
-use Streams\Ui\Builders\ViewBuilder;
 use Illuminate\Support\Facades\Session;
 use Streams\Ui\Builders\Concerns as Common;
 use Streams\Ui\Support\Facades\Notifications;
 
-class Notification extends ViewBuilder
+class Notification extends Builder
 {
     use Common\HasId;
     use Common\HasIcon;
     use Common\HasColor;
     use Common\HasTitle;
     use Common\HasActions;
-    use Concerns\HasDuration;
     use Common\HasIconColor;
     use Common\HasDescription;
-
-    protected string $view = 'ui::notification';
+    
+    use Concerns\HasDuration;
 
     public function __construct(string $id)
     {
@@ -44,7 +43,6 @@ class Notification extends ViewBuilder
         return [
             'id' => $this->getId(),
             // 'actions' => array_map(fn (Action | ActionGroup $action): array => $action->toArray(), $this->getActions()),
-            'view' => $this->getView(),
             'icon' => $this->getIcon(),
             'color' => $this->getColor(),
             'title' => $this->getTitle(),

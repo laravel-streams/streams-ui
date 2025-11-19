@@ -8,14 +8,16 @@ use Streams\Core\Support\Traits\FiresCallbacks;
 
 trait InteractsWithTable
 {
-    use Concerns\CanPaginateEntries;
-    use Concerns\CanSearchEntries;
-    use Concerns\CanSortEntries;
     use Concerns\HasActions;
-    use Concerns\HasBulkActions;
     use Concerns\HasEntries;
     use Concerns\HasFilters;
+    use Concerns\HasBulkActions;
+    use Concerns\CanSortEntries;
+    use Concerns\CanSearchEntries;
+    use Concerns\CanPaginateEntries;
+    
     use FiresCallbacks;
+    
     use WithPagination {
         WithPagination::resetPage as resetLivewirePage;
     }

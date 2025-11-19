@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Notifications\Traits;
+namespace Streams\Ui\Notifications\Concerns;
 
 trait HasDuration
 {
