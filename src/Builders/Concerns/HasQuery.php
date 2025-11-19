@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Builders\Tables\Concerns;
+namespace Streams\Ui\Builders\Concerns;
 
 use Streams\Core\Criteria\Criteria;
 use Illuminate\Contracts\Database\Query\Builder;

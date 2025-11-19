@@ -12,7 +12,6 @@ use Streams\Ui\Builders\Actions\Contracts\HasActions;
 
 class Table extends ViewBuilder implements HasActions
 {
-    use Concerns\HasQuery;
     use Concerns\HasActions;
     use Concerns\HasColumns;
     use Concerns\HasFilters;
@@ -20,12 +19,13 @@ class Table extends ViewBuilder implements HasActions
     use Concerns\HasBulkActions;
     use Concerns\HasEntryClasses;
     use Concerns\HasHeaderActions;
-
+    
     use Concerns\CanBeReordered;
     use Concerns\CanBePaginated;
-
+    
     use Common\BelongsToLivewire;
     
+    use Common\HasQuery;
     use Common\HasHeading;
     use Common\HasDescription;
     use Common\CanBeSorted;
