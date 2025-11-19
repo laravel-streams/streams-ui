@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Livewire\Breadcrumbs;
+namespace Streams\Ui\Builders\Breadcrumbs;
 
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Builders\Concerns as Common;
