@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\View;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Ui\Builders\Concerns as Common;
 use Streams\Core\Support\Traits\FiresCallbacks;
-use Streams\Ui\Builders\Actions\Traits\InteractsWithActions;
+use Streams\Ui\Builders\Actions\Concerns\InteractsWithActions;
 
 abstract class Page extends Component
 {
