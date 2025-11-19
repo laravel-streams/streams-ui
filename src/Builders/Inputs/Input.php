@@ -8,14 +8,14 @@ use Streams\Ui\Builders\Concerns as Common;
 
 abstract class Input extends ViewBuilder
 {
-    use Inputs\Traits\CanBeAutofocused;
-    use Inputs\Traits\CanBeDisabled;
-    use Inputs\Traits\CanBeHidden;
-    use Inputs\Traits\CanBeReadonly;
-    use Inputs\Traits\CanBeValidated;
-    use Inputs\Traits\HasFieldWrapper;
-    use Inputs\Traits\HasHint;
-    use Inputs\Traits\HasKey;
+    use Inputs\Concerns\CanBeAutofocused;
+    use Inputs\Concerns\CanBeDisabled;
+    use Inputs\Concerns\CanBeHidden;
+    use Inputs\Concerns\CanBeReadonly;
+    use Inputs\Concerns\CanBeValidated;
+    use Inputs\Concerns\HasFieldWrapper;
+    use Inputs\Concerns\HasHint;
+    use Inputs\Concerns\HasKey;
     use Common\CanSpanColumns;
     use Common\BelongsToLivewire;
     use Common\HasHtmlAttributes;

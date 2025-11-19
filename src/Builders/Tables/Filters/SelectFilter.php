@@ -9,8 +9,8 @@ use Streams\Ui\Builders\Tables\Table;
 class SelectFilter extends Filter
 {
     use Builders\Concerns\HasLabel;
-    use Builders\Inputs\Traits\HasOptions;
-    use Builders\Inputs\Traits\HasPlaceholder;
+    use Builders\Inputs\Concerns\HasOptions;
+    use Builders\Inputs\Concerns\HasPlaceholder;
 
     protected string $view = 'ui::builders.filters.select';
 

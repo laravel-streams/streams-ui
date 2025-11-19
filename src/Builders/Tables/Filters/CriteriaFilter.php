@@ -8,5 +8,5 @@ use Streams\Ui\Builders\Inputs;
 class SelectFilter extends Filter
 {
     use Builders\Concerns\HasLabel;
-    use Inputs\Traits\HasOptions;
+    use Inputs\Concerns\HasOptions;
 }

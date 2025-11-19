@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Builders\Inputs\Traits;
+namespace Streams\Ui\Builders\Inputs\Concerns;
 
 use Illuminate\View\ComponentAttributeBag;
 

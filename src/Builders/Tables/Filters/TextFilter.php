@@ -4,7 +4,7 @@ namespace Streams\Ui\Builders\Tables\Filters;
 
 use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Builders\Tables\Table;
-use Streams\Ui\Builders\Inputs\Traits\HasPlaceholder;
+use Streams\Ui\Builders\Inputs\Concerns\HasPlaceholder;
 
 class TextFilter extends Filter
 {

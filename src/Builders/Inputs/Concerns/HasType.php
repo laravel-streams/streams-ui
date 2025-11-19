@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Builders\Inputs\Traits;
+namespace Streams\Ui\Builders\Inputs\Concerns;
 
 use Streams\Ui\Builders\Inputs\TextInput;
 

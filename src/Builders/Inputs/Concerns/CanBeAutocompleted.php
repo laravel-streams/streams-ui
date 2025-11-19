@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Builders\Inputs\Traits;
+namespace Streams\Ui\Builders\Inputs\Concerns;
 
 trait CanBeAutocompleted
 {
@@ -10,7 +10,7 @@ trait CanBeAutocompleted
     {
         $this->autocomplete = $condition;
 
-        return $this;
+        return $this; 
     }
 
     public function getAutocomplete(): ?string

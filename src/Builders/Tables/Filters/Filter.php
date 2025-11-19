@@ -7,7 +7,7 @@ use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Builders\Tables\Table;
 use Streams\Ui\Builders\Concerns as Support;
 use Illuminate\Contracts\Database\Query\Builder;
-use Streams\Ui\Builders\Inputs\Traits\CanBeAutofocused;
+use Streams\Ui\Builders\Inputs\Concerns\CanBeAutofocused;
 use Streams\Ui\Builders\Tables\Concerns\BelongsToTable;
 
 class Filter extends ViewBuilder
