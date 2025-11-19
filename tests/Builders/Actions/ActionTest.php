@@ -404,7 +404,7 @@ class ActionTest extends UiTestCase
     {
         $action = $this->getTestAction();
 
-        $result = $action->disabled();
+        $result = $action->disabled(true);
 
         $this->assertSame($action, $result);
         $this->assertTrue($action->isDisabled());

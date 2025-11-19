@@ -241,7 +241,7 @@ class ResourceTest extends UiTestCase
         UI::panel($panel);
 
         $resource = new class extends Resource {
-            protected static ?string $title = 'My Resource';
+            protected static ?string $navigationLabel = 'My Resource';
             protected static ?string $slug = 'my-resource';
             
             public static function getUrl(

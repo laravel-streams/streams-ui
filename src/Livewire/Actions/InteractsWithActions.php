@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Builders\Actions\Concerns;
+namespace Streams\Ui\Livewire\Actions;
 
 use Illuminate\Support\Arr;
 use Streams\Core\Entry\Entry;
