@@ -8,8 +8,8 @@ use Streams\Ui\Builders\Concerns\BelongsToLivewire;
 class MountableAction extends Action
 {
     use BelongsToLivewire;
-    use Traits\CanOpenModal;
-    use Traits\HasForm;
+    use Concerns\CanOpenModal;
+    use Concerns\HasForm;
 
     // use Concerns\CanBeMounted;
     // use Concerns\CanRedirect;

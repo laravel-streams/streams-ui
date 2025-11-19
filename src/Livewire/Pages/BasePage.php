@@ -13,9 +13,9 @@ abstract class BasePage extends Component
     use FiresCallbacks;
     use HasMemory;
     
-    use Traits\HasLayout;
-    use Traits\HasResource;
-    use Traits\HasRoutes;
+    use Concerns\HasLayout;
+    use Concerns\HasResource;
+    use Concerns\HasRoutes;
 
     // use Common\HasNavigation;
     // use Common\HasTitle;

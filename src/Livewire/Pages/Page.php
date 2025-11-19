@@ -13,11 +13,11 @@ abstract class Page extends Component
 {
     use FiresCallbacks;
     use HasMemory;
-    use Traits\HasLayout;
-    use Traits\HasNavigation;
-    use Traits\HasNavigationGroups;
-    use Traits\HasResource;
-    use Traits\HasRoutes;
+    use Concerns\HasLayout;
+    use Concerns\HasNavigation;
+    use Concerns\HasNavigationGroups;
+    use Concerns\HasResource;
+    use Concerns\HasRoutes;
 
     // use Common\HasTitle;
     protected static ?string $title = null;

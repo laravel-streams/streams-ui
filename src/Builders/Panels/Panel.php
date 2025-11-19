@@ -14,23 +14,23 @@ class Panel extends ViewBuilder
     // use Common\HasNavigationGroups;
     use Common\CanBeDefault;
 
-    use Traits\CanBeSpa;
+    use Concerns\CanBeSpa;
 
-    use Traits\HasPages;
-    use Traits\HasColors;
-    use Traits\HasLayout;
-    use Traits\HasRoutes;
-    use Traits\HasTenant;
-    use Traits\HasFavicon;
-    use Traits\HasUserMenu;
-    use Traits\HasUserName;
-    use Traits\HasBrandLogo;
-    use Traits\HasBrandName;
-    use Traits\HasResources;
-    use Traits\HasMiddleware;
-    use Traits\HasNavigation;
-    use Traits\HasUserAvatar;
-    use Traits\HasLivewireComponents;
+    use Concerns\HasPages;
+    use Concerns\HasColors;
+    use Concerns\HasLayout;
+    use Concerns\HasRoutes;
+    use Concerns\HasTenant;
+    use Concerns\HasFavicon;
+    use Concerns\HasUserMenu;
+    use Concerns\HasUserName;
+    use Concerns\HasBrandLogo;
+    use Concerns\HasBrandName;
+    use Concerns\HasResources;
+    use Concerns\HasMiddleware;
+    use Concerns\HasNavigation;
+    use Concerns\HasUserAvatar;
+    use Concerns\HasLivewireComponents;
 
     public function __construct(?string $id = null)
     {

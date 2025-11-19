@@ -4,9 +4,9 @@ namespace Streams\Ui\Builders\Inputs;
 
 class TextareaInput extends Input
 {
-    use Traits\CanBeAutocompleted;
-    use Traits\CanBeLengthConstrained;
-    use Traits\HasPlaceholder;
+    use Concerns\CanBeAutocompleted;
+    use Concerns\CanBeLengthConstrained;
+    use Concerns\HasPlaceholder;
 
     protected string $view = 'ui::components.inputs.textarea';
 

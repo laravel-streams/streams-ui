@@ -4,10 +4,10 @@ namespace Streams\Ui\Builders\Inputs;
 
 class DatetimeInput extends Input
 {
-    use Traits\CanBeDateConstrained;
-    use Traits\HasDatalist;
-    use Traits\HasPlaceholder;
-    use Traits\HasStep;
+    use Concerns\CanBeDateConstrained;
+    use Concerns\HasDatalist;
+    use Concerns\HasPlaceholder;
+    use Concerns\HasStep;
 
     protected string $view = 'ui::builders.inputs.datetime';
 }

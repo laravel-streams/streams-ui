@@ -6,7 +6,7 @@ use Streams\Ui\Builders\Concerns as Common;
 
 class Grid extends Container
 {
-    use Traits\HasColumns;
+    use Concerns\HasColumns;
     
     use Common\HasUrl;
     use Common\HasHeading;

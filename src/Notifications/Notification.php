@@ -17,7 +17,7 @@ class Notification extends ViewBuilder
     use Common\HasColor;
     use Common\HasTitle;
     use Common\HasActions;
-    use Traits\HasDuration;
+    use Concerns\HasDuration;
     use Common\HasIconColor;
     use Common\HasDescription;
 

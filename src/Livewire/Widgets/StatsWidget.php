@@ -4,7 +4,7 @@ namespace Streams\Ui\Livewire\Widgets;
 
 class StatsWidget extends Widget
 {
-    use Traits\CanPoll;
+    use Concerns\CanPoll;
 
     protected static string $view = 'ui::builders.stats';
 

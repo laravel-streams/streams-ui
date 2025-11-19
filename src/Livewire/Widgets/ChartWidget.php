@@ -11,7 +11,7 @@ class ChartWidget extends Widget
     use Common\HasComponents;
     use Common\HasDescription;
     
-    use Traits\CanPoll;
+    use Concerns\CanPoll;
 
     protected static string $view = 'ui::builders.chart';
 

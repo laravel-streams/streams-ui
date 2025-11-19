@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Livewire\Pages\Traits;
+namespace Streams\Ui\Livewire\Pages\Concerns;
 
 use Streams\Ui\support\Facades\UI;
 use Streams\Ui\Builders\Panels\Panel;

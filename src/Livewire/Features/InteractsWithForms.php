@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Livewire\Forms;
+namespace Streams\Ui\Livewire\Features;
 
 use Livewire\WithFileUploads;
 use Streams\Ui\Builders\Forms\Form;

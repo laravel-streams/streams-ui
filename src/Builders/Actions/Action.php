@@ -21,16 +21,16 @@ class Action extends ViewBuilder
     use Common\HasName;
     use Common\HasSize;
     use Common\HasUrl;
-    use Traits\CanOpenModal;
-    use Traits\HasAction;
-    use Traits\HasArguments;
-    use Traits\HasBorderRadius;
-    use Traits\HasForm;
-    use Traits\HasKeyBindings;
-    use Traits\HasStyle;
-    use Traits\HasTag;
-    use Traits\HasTooltip;
-    use Traits\InteractsWithEntry;
+    use Concerns\CanOpenModal;
+    use Concerns\HasAction;
+    use Concerns\HasArguments;
+    use Concerns\HasBorderRadius;
+    use Concerns\HasForm;
+    use Concerns\HasKeyBindings;
+    use Concerns\HasStyle;
+    use Concerns\HasTag;
+    use Concerns\HasTooltip;
+    use Concerns\InteractsWithEntry;
 
     // use Concerns\CanBeLabeledFrom;
     // use Concerns\CanBeOutlined;

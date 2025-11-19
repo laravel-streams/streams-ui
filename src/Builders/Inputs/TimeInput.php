@@ -4,9 +4,9 @@ namespace Streams\Ui\Builders\Inputs;
 
 class TimeInput extends Input
 {
-    use Traits\HasDatalist;
-    use Traits\HasPlaceholder;
-    use Traits\HasStep;
+    use Concerns\HasDatalist;
+    use Concerns\HasPlaceholder;
+    use Concerns\HasStep;
 
     protected string $view = 'ui::components.inputs.time';
 
