@@ -26,7 +26,6 @@ class Action extends ViewBuilder
     use Concerns\HasTag;
     use Concerns\HasForm;
     use Concerns\HasStyle;
-    use Concerns\HasTooltip;
     use Concerns\HasArguments;
     use Concerns\HasKeyBindings;
     use Concerns\HasBorderRadius;
