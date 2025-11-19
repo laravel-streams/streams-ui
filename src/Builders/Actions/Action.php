@@ -30,8 +30,7 @@ class Action extends ViewBuilder
     use Concerns\HasStyle;
     use Concerns\HasTag;
     use Concerns\HasTooltip;
-    use Concerns\InteractsWithEntry;
-
+    
     // use Concerns\CanBeLabeledFrom;
     // use Concerns\CanBeOutlined;
     // use Concerns\CanCallParentAction;

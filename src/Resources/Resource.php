@@ -7,19 +7,16 @@ use Streams\Core\Support\Facades\Streams;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Ui\Builders\Concerns as Common;
 use Streams\Ui\Builders\Navigation\NavigationItem;
-use Streams\Ui\Builders\Actions\Concerns\InteractsWithActions;
 
 abstract class Resource
 {
     use Common\HasTitle;
     use Concerns\HasNavigationGroups;
     use Common\ProvidesNavigationItem;
-    // use Concerns\HasActions;
 
     use Concerns\HasRoutes;
     use Concerns\HasStream;
     use HasMemory;
-    use InteractsWithActions;
 
     public static function getUrl(
         string $name = 'index',
