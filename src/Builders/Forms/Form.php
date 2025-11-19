@@ -45,7 +45,6 @@ class Form extends ViewBuilder
     {
         $components = array_map(function ($component) {
 
-            $component->parent($this);
             $component->livewire($this->getLivewire());
 
             return $component;
