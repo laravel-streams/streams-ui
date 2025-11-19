@@ -2,10 +2,6 @@
 
 namespace Streams\Ui\Builders\Concerns;
 
-use Illuminate\Support\Arr;
-use Streams\Ui\Builders\Actions\Action;
-use Streams\Ui\Support\Facades\Actions;
-
 trait HasActions
 {
     protected array $actions = [];
@@ -23,51 +19,6 @@ trait HasActions
 
     public function getActions(): array
     {
-        return $this->actions;
-    }
-
-    public function getAction(string|array|null $name = null): ?Action
-    {
-        $actions = $this->getActions();
-
-        $actions = array_merge($actions, Actions::all());
-
-        if ($name === null) {
-            return Arr::first($this->actions);
-        }
-
-        if (is_string($name) && str($name)->contains('.')) {
-            $name = explode('.', $name);
-        }
-
-        if (is_array($name)) {
-            $firstName = array_shift($name);
-            $modalActionNames = $name;
-
-            $name = $firstName;
-        }
-
-        foreach ((array) $name as $search) {
-            if ($action = Arr::first($actions, fn ($action) => $action->getName() === $search)) {
-                return $action;
-            }
-        }
-
-        if ($action = Actions::make($name)) {
-            return $action;
-        }
-
-        if (
-            (! str($name)->endsWith('Action')) &&
-            method_exists($this, "{$name}Action")
-        ) {
-            return $this->{"{$name}Action"}();
-        } elseif (method_exists($this, $name)) {
-            return $this->{$name}();
-        } else {
-            return null;
-        }
-
-        return null;
+        return $this->evaluate($this->actions);
     }
 }

@@ -6,21 +6,24 @@ use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Support\Facades\Actions;
 use Streams\Ui\Builders\Concerns as Common;
 
-// StaticAction
 class Action extends ViewBuilder
 {
-    use Common\CanBeDisabled;
-    use Common\CanBeHidden;
+    use Common\HasId;
+    use Common\HasUrl;
+    use Common\HasIcon;
+    use Common\HasSize;
+    use Common\HasName;
     use Common\HasBadge;
     use Common\HasColor;
     use Common\HasEntry;
-    use Common\HasHtmlAttributes;
-    use Common\HasIcon;
-    use Common\HasId;
     use Common\HasLabel;
-    use Common\HasName;
-    use Common\HasSize;
-    use Common\HasUrl;
+    use Common\HasHtmlAttributes;
+
+    use Common\CanBeHidden;
+    use Common\CanBeDisabled;
+
+    use Common\BelongsToLivewire;
+
     use Concerns\CanOpenModal;
     use Concerns\HasAction;
     use Concerns\HasArguments;

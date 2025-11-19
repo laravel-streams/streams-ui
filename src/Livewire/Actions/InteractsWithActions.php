@@ -18,9 +18,7 @@ trait InteractsWithActions
 
     public ?array $mountedActionsData = [];
 
-    protected array $cachedActions = [];
-
-    protected bool $hasActionsModalRendered = false;
+    protected ?array $cachedActions = null;
 
     public function callMountedAction(array|string $arguments = []): mixed
     {
@@ -69,7 +67,6 @@ trait InteractsWithActions
 
         $action->fire('after_call');
 
-        //     $this->afterActionCalled();
         // } catch (Halt $exception) {
         //     return null;
         // } catch (Cancel $exception) {
@@ -105,8 +102,6 @@ trait InteractsWithActions
 
         return $result;
     }
-
-    protected function afterActionCalled(): void {}
 
     public function mountAction(string $name, array $arguments = []): mixed
     {
@@ -155,7 +150,7 @@ trait InteractsWithActions
             return null;
         } catch (Cancel $exception) {
 
-            $this->unmountAction(shouldCancelParentActions: false);
+            $this->unmountAction();
 
             return null;
         }
@@ -176,7 +171,10 @@ trait InteractsWithActions
      */
     public function replaceMountedAction(string $name, array $arguments = []): void
     {
-        $this->resetMountedActionProperties();
+        $this->mountedActions = [];
+        $this->mountedActionsArguments = [];
+        $this->mountedActionsData = [];
+
         $this->mountAction($name, $arguments);
     }
 
@@ -197,8 +195,6 @@ trait InteractsWithActions
             $action->getModalComponents() ||
             $action->getModalContent() ||
             $action->getModalContentFooter();
-        // $action->getInfolist() ||
-        // $this->mountedActionHasForm();
     }
 
     public function mountedActionHasForm(): bool
@@ -206,11 +202,16 @@ trait InteractsWithActions
         return (bool) count($this->getMountedActionForm()?->getComponents() ?? []);
     }
 
-    public function cacheAction(Action $action): Action
+    public function cacheActions(): array
     {
-        $action->livewire($this);
+        $actions = $this->getMountableActions();
 
-        return $this->cachedActions[$action->getName()] = $action;
+        foreach ($actions as $action) {
+            $action->livewire($this);
+            $this->cachedActions[$action->getName()] = $action;
+        }
+
+        return $this->cachedActions;
     }
 
     /**
@@ -232,17 +233,7 @@ trait InteractsWithActions
             return null;
         }
 
-        return $this->getAction($this->mountedActions);
-    }
-
-    /**
-     * @return array<int | string, string | Form>
-     */
-    protected function getInteractsWithActionsForms(): array
-    {
-        return [
-            'mountedActionForm' => $this->getMountedActionForm(),
-        ];
+        return $this->getAction(end($this->mountedActions));
     }
 
     public function getMountedActionForm(): ?Form
@@ -266,125 +257,26 @@ trait InteractsWithActions
         // );
     }
 
-    protected function getMountedActionFormModel(): Model|Entry|string|null
+    public function getAction(string $name): ?Action
     {
-        return null;
-    }
-
-    /**
-     * @param  string | array<string>  $name
-     */
-    // public function getAction(string | array $name): ?Action
-    // {
-    //     if (is_string($name) && str($name)->contains('.')) {
-    //         $name = explode('.', $name);
-    //     }
-
-    //     if (is_array($name)) {
-    //         $firstName = array_shift($name);
-    //         $modalActionNames = $name;
-
-    //         $name = $firstName;
-    //     }
-
-    //     if ($action = $this->cachedActions[$name] ?? null) {
-    //         return $this->getMountableModalActionFromAction(
-    //             $action,
-    //             modalActionNames: $modalActionNames ?? [],
-    //             parentActionName: $name,
-    //         );
-    //     }
-
-    //     if (
-    //         (!str($name)->endsWith('Action')) &&
-    //         method_exists($this, "{$name}Action")
-    //     ) {
-    //         $methodName = "{$name}Action";
-    //     } elseif (method_exists($this, $name)) {
-    //         $methodName = $name;
-    //     } else {
-    //         return null;
-    //     }
-
-    //     $action = Action::configureUsing(
-    //         Closure::fromCallable([$this, 'configureAction']),
-    //         fn () => $this->{$methodName}(),
-    //     );
-
-    //     if (!$action instanceof Action) {
-    //         throw new InvalidArgumentException('Actions must be an instance of ' . Action::class . ". The [{$methodName}] method on the Livewire component returned an instance of [" . get_class($action) . '].');
-    //     }
-
-    //     return $this->getMountableModalActionFromAction(
-    //         $this->cacheAction($action),
-    //         modalActionNames: $modalActionNames ?? [],
-    //         parentActionName: $name,
-    //     );
-    // }
-
-    /**
-     * @param  array<string>  $modalActionNames
-     */
-    protected function getMountableModalActionFromAction(Action $action, array $modalActionNames, string $parentActionName): ?Action
-    {
-        foreach ($modalActionNames as $modalActionName) {
-            $action = $action->getMountableModalAction($modalActionName);
-
-            if (! $action) {
-                return null;
-            }
-
-            $parentActionName = $modalActionName;
+        if ($this->cachedActions === null) {
+            $this->cachedActions = $this->cacheActions();
         }
 
-        if (! $action instanceof Action) {
-            return null;
+        $action = $this->cachedActions[$name] ?? null;
+
+        if (! $action) {
+            throw new \InvalidArgumentException("No action named [{$name}] found in the Livewire component.");
         }
 
         return $action;
     }
 
-    protected function popMountedAction(): ?string
-    {
-        try {
-            return array_pop($this->mountedActions);
-        } finally {
-            array_pop($this->mountedActionsArguments);
-            array_pop($this->mountedActionsData);
-        }
-    }
-
-    protected function resetMountedActionProperties(): void
-    {
-        $this->mountedActions = [];
-        $this->mountedActionsArguments = [];
-        $this->mountedActionsData = [];
-    }
-
-    public function unmountAction(bool $shouldCancelParentActions = true): void
+    public function unmountAction(): void
     {
         if (! $action = $this->getMountedAction()) {
             return;
         }
-
-        // if (!($shouldCancelParentActions && $action)) {
-        //     $this->popMountedAction();
-        // } elseif ($action->shouldCancelAllParentActions()) {
-        //     $this->resetMountedActionProperties();
-        // } else {
-        //     $parentActionToCancelTo = $action->getParentActionToCancelTo();
-
-        //     while (true) {
-        //         $recentlyClosedParentAction = $this->popMountedAction();
-
-        //         if (
-        //             blank($parentActionToCancelTo) ||
-        //             ($recentlyClosedParentAction === $parentActionToCancelTo)
-        //         ) {
-        //             break;
-        //         }
-        //     }
-        // }
 
         if (($key = array_search($action->getName(), $this->mountedActions)) !== false) {
             array_splice($this->mountedActions, $key, 1);
@@ -405,14 +297,6 @@ trait InteractsWithActions
         $this->closeActionModal($action);
     }
 
-    protected function cacheMountedActionForm(): void
-    {
-        $this->cacheForm(
-            'mountedActionForm',
-            fn () => $this->getMountedActionForm(),
-        );
-    }
-
     protected function closeActionModal(): void
     {
         $this->dispatch('close-modal');
@@ -424,14 +308,4 @@ trait InteractsWithActions
         $this->dispatch('open-modal');
         // $this->dispatch('open-modal', id: "{$action->getId()}-action");
     }
-
-    public function getActiveActionsLocale(): ?string
-    {
-        return null;
-    }
-
-    // public function mountedActionInfolist(): Infolist
-    // {
-    //     return $this->getMountedAction()->getInfolist();
-    // }
 }

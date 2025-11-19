@@ -17,4 +17,17 @@ trait HasComponents
     {
         return $this->evaluate($this->components);
     }
+
+    public function getComponentActions(): array
+    {
+        $actions = [];
+
+        foreach ($this->getComponents() as $component) {
+            if (method_exists($component, 'getActions')) {
+                $actions = array_merge($actions, $component->getActions());
+            }
+        }
+
+        return $actions;
+    }
 }

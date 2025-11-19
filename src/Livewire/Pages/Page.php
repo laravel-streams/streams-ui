@@ -11,11 +11,13 @@ use Streams\Ui\Livewire\Actions\InteractsWithActions;
 
 abstract class Page extends Component
 {
-    use FiresCallbacks;
     use HasMemory;
+    use FiresCallbacks;
+
     use Concerns\HasLayout;
     use Concerns\HasNavigation;
     use Concerns\HasNavigationGroups;
+    
     use Concerns\HasResource;
     use Concerns\HasRoutes;
 
@@ -30,10 +32,11 @@ abstract class Page extends Component
             ->title();
     }
 
-    use Common\EvaluatesClosures;
     use Common\HasActions;
     use Common\HasDescription;
     use Common\HasHtmlAttributes;
+    use Common\EvaluatesClosures;
+    
     use InteractsWithActions;
 
     public ?array $data = [];
@@ -79,11 +82,12 @@ abstract class Page extends Component
         array $parameters = [],
         bool $isAbsolute = true,
         ?string $panel = null
-        // ?Entry $tenant = null
     ): string {
-
-        // $parameters['tenant'] ??= ($tenant ?? UI::getTenant());
-
         return route(static::getRouteName($panel), $parameters, $isAbsolute);
+    }
+
+    public static function getMountableActions(): array
+    {
+        return [];
     }
 }
