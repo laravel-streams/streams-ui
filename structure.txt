@@ -1,0 +1,272 @@
+src/
+├── Builders
+│   ├── Actions
+│   │   ├── Action.php
+│   │   ├── ActionManager.php
+│   │   ├── Contracts
+│   │   │   └── HasActions.php
+│   │   ├── CopyToClipboard.php
+│   │   ├── MountableAction.php
+│   │   └── Traits
+│   │       ├── CanBeMounted.php
+│   │       ├── CanOpenModal.php
+│   │       ├── CanRedirect.php
+│   │       ├── HasAction.php
+│   │       ├── HasArguments.php
+│   │       ├── HasBorderRadius.php
+│   │       ├── HasForm.php
+│   │       ├── HasKeyBindings.php
+│   │       ├── HasStyle.php
+│   │       ├── HasTag.php
+│   │       ├── HasTooltip.php
+│   │       ├── InteractsWithActions.php
+│   │       └── InteractsWithEntry.php
+│   ├── Breadcrumbs
+│   │   └── Breadcrumbs.php
+│   ├── Builder.php
+│   ├── Concerns
+│   │   ├── BelongsToLivewire.php
+│   │   ├── BelongsToParent.php
+│   │   ├── CanBeConfigured.php
+│   │   ├── CanBeDefault.php
+│   │   ├── CanBeDisabled.php
+│   │   ├── CanBeHidden.php
+│   │   ├── CanBeSorted.php
+│   │   ├── CanPersistData.php
+│   │   ├── CanSpanColumns.php
+│   │   ├── EvaluatesClosures.php
+│   │   ├── HasActions.php
+│   │   ├── HasAlpineAttributes.php
+│   │   ├── HasBadge.php
+│   │   ├── HasColor.php
+│   │   ├── HasComponents.php
+│   │   ├── HasContainers.php
+│   │   ├── HasDescription.php
+│   │   ├── HasEntry.php
+│   │   ├── HasHeader.php
+│   │   ├── HasHeading.php
+│   │   ├── HasHtmlAttributes.php
+│   │   ├── HasIcon.php
+│   │   ├── HasIconPosition.php
+│   │   ├── HasId.php
+│   │   ├── HasLabel.php
+│   │   ├── HasName.php
+│   │   ├── HasNavigationGroups.php
+│   │   ├── HasQuery.php
+│   │   ├── HasSize.php
+│   │   ├── HasSortOrder.php
+│   │   ├── HasState.php
+│   │   ├── HasStream.php
+│   │   ├── HasTitle.php
+│   │   ├── HasTooltip.php
+│   │   ├── HasUrl.php
+│   │   ├── HasValue.php
+│   │   ├── HasVisibility.php
+│   │   └── ProvidesNavigationItem.php
+│   ├── Containers
+│   │   ├── Card.php
+│   │   ├── Container.php
+│   │   ├── Grid.php
+│   │   ├── Section.php
+│   │   └── Traits
+│   │       └── HasColumns.php
+│   ├── Forms
+│   │   ├── Form.php
+│   │   └── Layouts
+│   │       ├── Container.php
+│   │       ├── Field.php
+│   │       ├── Fieldset.php
+│   │       ├── Tab.php
+│   │       └── Tabs.php
+│   ├── Headings
+│   │   └── Heading.php
+│   ├── Inputs
+│   │   ├── CheckboxInput.php
+│   │   ├── ColorInput.php
+│   │   ├── DateInput.php
+│   │   ├── DatetimeInput.php
+│   │   ├── EditorInput.php
+│   │   ├── FileInput.php
+│   │   ├── Input.php
+│   │   ├── MarkdownInput.php
+│   │   ├── RadioInput.php
+│   │   ├── SelectInput.php
+│   │   ├── TagsInput.php
+│   │   ├── TextareaInput.php
+│   │   ├── TextInput.php
+│   │   ├── TimeInput.php
+│   │   ├── ToggleInput.php
+│   │   └── Traits
+│   │       ├── CanBeAutocompleted.php
+│   │       ├── CanBeAutofocused.php
+│   │       ├── CanBeDateConstrained.php
+│   │       ├── CanBeDisabled.php
+│   │       ├── CanBeHidden.php
+│   │       ├── CanBeLengthConstrained.php
+│   │       ├── CanBeReadonly.php
+│   │       ├── CanBeValidated.php
+│   │       ├── CanBeValueConstrained.php
+│   │       ├── HasDatalist.php
+│   │       ├── HasFieldWrapper.php
+│   │       ├── HasHint.php
+│   │       ├── HasInputAttributes.php
+│   │       ├── HasInputMode.php
+│   │       ├── HasKey.php
+│   │       ├── HasMask.php
+│   │       ├── HasOptions.php
+│   │       ├── HasPlaceholder.php
+│   │       ├── HasPrefix.php
+│   │       ├── HasStep.php
+│   │       ├── HasSuffix.php
+│   │       └── HasType.php
+│   ├── Lists
+│   │   ├── ListBuilder.php
+│   │   ├── ListComponent.php
+│   │   └── ListItem.php
+│   ├── Menu
+│   │   └── MenuItem.php
+│   ├── Modals
+│   │   └── Modal.php
+│   ├── Navigation
+│   │   ├── Navigation.php
+│   │   ├── NavigationGroup.php
+│   │   ├── NavigationItem.php
+│   │   └── Traits
+│   │       ├── CanBeActive.php
+│   │       ├── CanBeCollapsed.php
+│   │       ├── HasActiveIcon.php
+│   │       ├── HasGroup.php
+│   │       └── HasItems.php
+│   ├── Panels
+│   │   ├── Panel.php
+│   │   └── Traits
+│   │       ├── CanBeSpa.php
+│   │       ├── HasBrandLogo.php
+│   │       ├── HasBrandName.php
+│   │       ├── HasColors.php
+│   │       ├── HasFavicon.php
+│   │       ├── HasLayout.php
+│   │       ├── HasLivewireComponents.php
+│   │       ├── HasMiddleware.php
+│   │       ├── HasNavigation.php
+│   │       ├── HasPages.php
+│   │       ├── HasResources.php
+│   │       ├── HasRoutes.php
+│   │       ├── HasTenant.php
+│   │       ├── HasUserAvatar.php
+│   │       ├── HasUserMenu.php
+│   │       └── HasUserName.php
+│   ├── Tables
+│   │   ├── Actions
+│   │   │   └── Action.php
+│   │   ├── BulkActions
+│   │   │   ├── BulkAction.php
+│   │   │   ├── BulkActionGroup.php
+│   │   │   └── Concerns
+│   │   │       └── InteractsWithRecords.php
+│   │   ├── Columns
+│   │   │   ├── ColorColumn.php
+│   │   │   ├── Column.php
+│   │   │   ├── Concerns
+│   │   │   │   ├── HasTable.php
+│   │   │   │   ├── HasValue.php
+│   │   │   │   ├── InteractsWithQuery.php
+│   │   │   │   ├── IsSearchable.php
+│   │   │   │   └── IsSortable.php
+│   │   │   ├── IconColumn.php
+│   │   │   ├── ImageColumn.php
+│   │   │   ├── LinkColumn.php
+│   │   │   ├── SelectColumn.php
+│   │   │   ├── TextColumn.php
+│   │   │   ├── ToggleColumn.php
+│   │   │   └── ViewColumn.php
+│   │   ├── Concerns
+│   │   │   ├── BelongsToTable.php
+│   │   │   ├── CanBePaginated.php
+│   │   │   ├── CanBeReordered.php
+│   │   │   ├── HasActions.php
+│   │   │   ├── HasBulkActions.php
+│   │   │   ├── HasColumns.php
+│   │   │   ├── HasEntryClasses.php
+│   │   │   ├── HasEntryUrl.php
+│   │   │   ├── HasFilters.php
+│   │   │   └── HasHeaderActions.php
+│   │   ├── Filters
+│   │   │   ├── CriteriaFilter.php
+│   │   │   ├── Filter.php
+│   │   │   ├── SearchFilter.php
+│   │   │   ├── SelectFilter.php
+│   │   │   ├── TextFilter.php
+│   │   │   └── ToggleFilter.php
+│   │   └── Table.php
+│   └── ViewBuilder.php
+├── Colors
+│   ├── Color.php
+│   └── ColorManager.php
+├── Exceptions
+│   ├── Cancel.php
+│   ├── Halt.php
+│   └── ValidationException.php
+├── Http
+│   └── Middleware
+│       └── SetUpPanel.php
+├── Livewire
+│   ├── Component.php
+│   ├── Forms
+│   │   └── InteractsWithForms.php
+│   ├── Pages
+│   │   ├── BasePage.php
+│   │   ├── CreateEntry.php
+│   │   ├── EditEntry.php
+│   │   ├── ListEntries.php
+│   │   ├── Page.php
+│   │   ├── PageRouter.php
+│   │   ├── PanelPage.php
+│   │   └── Traits
+│   │       ├── HasLayout.php
+│   │       ├── HasNavigation.php
+│   │       ├── HasNavigationGroups.php
+│   │       ├── HasResource.php
+│   │       └── HasRoutes.php
+│   ├── Tables
+│   │   ├── Concerns
+│   │   │   ├── CanPaginateEntries.php
+│   │   │   ├── CanSearchEntries.php
+│   │   │   ├── CanSortEntries.php
+│   │   │   ├── HasActions.php
+│   │   │   ├── HasBulkActions.php
+│   │   │   ├── HasEntries.php
+│   │   │   └── HasFilters.php
+│   │   └── InteractsWithTable.php
+│   └── Widgets
+│       ├── ChartWidget.php
+│       ├── Stats
+│       │   └── Stat.php
+│       ├── StatsWidget.php
+│       ├── Traits
+│       │   ├── CanPoll.php
+│       │   └── HasColumns.php
+│       └── Widget.php
+├── Notifications
+│   ├── Notification.php
+│   ├── NotificationsManager.php
+│   └── Traits
+│       └── HasDuration.php
+├── Resources
+│   ├── Concerns
+│   │   ├── HasNavigationGroups.php
+│   │   ├── HasRoutes.php
+│   │   └── HasStream.php
+│   └── Resource.php
+├── Support
+│   ├── EntrySynthesizer.php
+│   └── Facades
+│       ├── Actions.php
+│       ├── Breadcrumbs.php
+│       ├── Colors.php
+│       ├── Notifications.php
+│       └── UI.php
+├── UiManager.php
+└── UiServiceProvider.php
+
+48 directories, 222 files
