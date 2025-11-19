@@ -4,13 +4,27 @@ namespace Streams\Ui\Builders\Concerns;
 
 trait HasTitle
 {
-    protected static ?string $title = null;
+    // protected static ?string $title = null;
 
-    public static function getTitle(): string
+    // public static function getTitle(): string
+    // {
+    //     return static::$title ?? (string) str(class_basename(static::class))
+    //         ->kebab()
+    //         ->replace('-', ' ')
+    //         ->title();
+    // }
+
+    protected string|\Closure|null $title = null;
+
+    public function title(string|\Closure|null $title): static
     {
-        return static::$title ?? (string) str(class_basename(static::class))
-            ->kebab()
-            ->replace('-', ' ')
-            ->title();
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->evaluate($this->title);
     }
 }
