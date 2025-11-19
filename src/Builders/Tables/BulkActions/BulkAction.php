@@ -42,21 +42,6 @@ class BulkAction extends \Streams\Ui\Builders\Actions\Action
         return $action;
     }
 
-    // public function getLivewireCallMountedActionName(): string
-    // {
-    //     return 'callMountedTableBulkAction';
-    // }
-
-    // public function getAlpineClickHandler(): ?string
-    // {
-    //     return "mountBulkAction('{$this->getName()}')";
-    // }
-
-    // public function getLivewireTarget(): ?string
-    // {
-    //     return "mountTableBulkAction('{$this->getName()}')";
-    // }
-
     protected function resolveDefaultClosureDependency(string $parameterName): array
     {
         return match ($parameterName) {
@@ -65,12 +50,4 @@ class BulkAction extends \Streams\Ui\Builders\Actions\Action
             default => parent::resolveDefaultClosureDependency($parameterName),
         };
     }
-    // protected function resolveDefaultClosureDependencyForEvaluationByName(string $parameterName): array
-    // {
-    //     return match ($parameterName) {
-    //         'records' => [$this->getRecords()],
-    //         'table' => [$this->getTable()],
-    //         default => parent::resolveDefaultClosureDependencyForEvaluationByName($parameterName),
-    //     };
-    // }
 }

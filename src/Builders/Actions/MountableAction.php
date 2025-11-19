@@ -3,32 +3,24 @@
 namespace Streams\Ui\Builders\Actions;
 
 use Streams\Ui\Exceptions;
-use Streams\Ui\Builders\Concerns\BelongsToLivewire;
+use Streams\Ui\Builders\Concerns as Common;
 
 class MountableAction extends Action
 {
-    use BelongsToLivewire;
-    use Concerns\CanOpenModal;
-    use Concerns\HasForm;
+    use Common\BelongsToLivewire;
 
-    // use Concerns\CanBeMounted;
-    // use Concerns\CanRedirect;
+    use Concerns\HasForm;
+    use Concerns\HasAction;
+    use Concerns\CanRedirect;
+    use Concerns\CanOpenModal;
+
+    // use Concerns\CanBeMounted; // #configured like builders kinda
     // use Concerns\CanNotify;
+    // use Concerns\CanSubmitForm;
     // use Concerns\CanRequireConfirmation;
     // use Concerns\HasInfolist;
     // use Concerns\HasLifecycleHooks;
-    // use Concerns\HasParentActions;
     // use Concerns\HasWizard;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->defaultView('ui::builders.action');
-
-        // $this->failureNotification(fn (Notification $notification): Notification => $notification);
-        // $this->successNotification(fn (Notification $notification): Notification => $notification);
-    }
 
     public function call(array $parameters = []): mixed
     {
@@ -57,13 +49,14 @@ class MountableAction extends Action
         // $this->dispatchFailureRedirect();
     }
 
-    protected function resolveDefaultClosureDependencyForEvaluationByName(string $parameterName): array
+    protected function resolveDefaultClosureDependency(string $parameterName): array
     {
         return match ($parameterName) {
             // 'arguments' => [$this->getArguments()],
             // 'data' => [$this->getFormData()],
             'livewire' => [$this->getLivewire()],
-            default => parent::resolveDefaultClosureDependencyForEvaluationByName($parameterName),
+            'entry' => [$this->getEntryInstance()],
+            default => parent::resolveDefaultClosureDependency($parameterName),
         };
     }
 }

@@ -598,4 +598,164 @@ class ActionTest extends UiTestCase
 
         $this->assertEquals('dynamic-id', $action->getId());
     }
+
+    /** @test */
+    public function it_renders_view_with_label()
+    {
+        $action = Action::make('test-action')
+            ->label('Click Here');
+
+        $html = $action->toHtml();
+
+        $this->assertStringContainsString('Click Here', $html);
+    }
+
+    /** @test */
+    public function it_renders_view_with_generated_label()
+    {
+        $action = Action::make('save-record');
+
+        $html = $action->toHtml();
+
+        $this->assertStringContainsString('Save Record', $html);
+    }
+
+    /** @test */
+    public function it_renders_button_by_default()
+    {
+        $action = Action::make('test-action')
+            ->label('Submit');
+
+        $html = $action->toHtml();
+
+        $this->assertStringContainsString('Submit', $html);
+        $this->assertStringContainsString('button', $html);
+    }
+
+    /** @test */
+    public function it_renders_link_when_configured()
+    {
+        $action = Action::make('test-link')
+            ->label('Visit Page')
+            ->link('/test-url');
+
+        $html = $action->toHtml();
+
+        $this->assertStringContainsString('Visit Page', $html);
+        $this->assertStringContainsString('/test-url', $html);
+    }
+
+    /** @test */
+    public function it_renders_with_icon()
+    {
+        $action = Action::make('test-action')
+            ->label('Save')
+            ->icon('heroicon-o-check');
+
+        $html = $action->toHtml();
+
+        // Label should be present
+        $this->assertStringContainsString('Save', $html);
+        // Icon variable is passed to view (may not be fully rendered in test)
+        $view = $action->render();
+        $this->assertEquals('heroicon-o-check', $view->getData()['action']->getIcon());
+    }
+
+    /** @test */
+    public function it_renders_with_color()
+    {
+        $action = Action::make('test-action')
+            ->label('Delete')
+            ->color('danger');
+
+        $html = $action->toHtml();
+
+        $this->assertStringContainsString('Delete', $html);
+        $this->assertStringContainsString('danger', $html);
+    }
+
+    /** @test */
+    public function it_renders_with_size()
+    {
+        $action = Action::make('test-action')
+            ->label('Click')
+            ->size('lg');
+
+        $html = $action->toHtml();
+
+        // Label should be present
+        $this->assertStringContainsString('Click', $html);
+        // Size is passed to view (may be transformed to classes)
+        $view = $action->render();
+        $this->assertEquals('lg', $view->getData()['action']->getSize());
+    }
+
+    /** @test */
+    public function it_renders_with_tooltip()
+    {
+        $action = Action::make('test-action')
+            ->label('Help')
+            ->tooltip('Click for help');
+
+        $html = $action->toHtml();
+
+        // Label should be present
+        $this->assertStringContainsString('Help', $html);
+        // Tooltip is passed to view and rendered via Alpine.js
+        $view = $action->render();
+        $this->assertEquals('Click for help', $view->getData()['action']->getTooltip());
+    }
+
+    /** @test */
+    public function it_renders_disabled_state()
+    {
+        $action = Action::make('test-action')
+            ->label('Submit')
+            ->disabled(true);
+
+        $html = $action->toHtml();
+
+        $this->assertStringContainsString('Submit', $html);
+        $this->assertStringContainsString('disabled', $html);
+    }
+
+    /** @test */
+    public function it_renders_with_custom_style()
+    {
+        $action = Action::make('test-action')
+            ->label('Action')
+            ->style('secondary');
+
+        $html = $action->toHtml();
+
+        $this->assertStringContainsString('Action', $html);
+    }
+
+    /** @test */
+    public function it_renders_link_with_new_tab_target()
+    {
+        $action = Action::make('external-link')
+            ->label('External')
+            ->link('/external', true);
+
+        $html = $action->toHtml();
+
+        $this->assertStringContainsString('External', $html);
+        $this->assertStringContainsString('_blank', $html);
+    }
+
+    /** @test */
+    public function it_renders_with_html_attributes()
+    {
+        $action = Action::make('test-action')
+            ->label('Custom')
+            ->htmlAttributes(['data-custom' => 'value']);
+
+        $html = $action->toHtml();
+
+        // Label should be present and custom attribute in HTML
+        $this->assertStringContainsString('Custom', $html);
+        $this->assertStringContainsString('data-custom', $html);
+        $this->assertStringContainsString('value', $html);
+    }
 }

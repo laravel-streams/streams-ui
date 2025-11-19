@@ -44,15 +44,6 @@ trait EvaluatesClosures
             return value($namedInjections[$parameterName]);
         }
 
-        // $typedParameterClassName = $this->getTypedReflectionParameterClassName($parameter);
-
-        // if (
-        //     filled($typedParameterClassName)
-        //     && array_key_exists($typedParameterClassName, $typedInjections)
-        // ) {
-        //     return value($typedInjections[$typedParameterClassName]);
-        // }
-
         // Dependencies are wrapped in an array to differentiate between null and no value.
         $dependencyByName = $this->resolveDefaultClosureDependency($parameterName);
 
@@ -61,26 +52,12 @@ trait EvaluatesClosures
             return $dependencyByName[0];
         }
 
-        // if (filled($typedParameterClassName)) {
-        //     // Dependencies are wrapped in an array to differentiate between null and no value.
-        //     $defaultWrappedDependencyByType = $this->resolveDefaultClosureDependencyForEvaluationByType($typedParameterClassName);
-
-        //     if (count($defaultWrappedDependencyByType)) {
-        //         // Unwrap the dependency if it was resolved.
-        //         return $defaultWrappedDependencyByType[0];
-        //     }
-        // }
-
         if (
             isset($this->evaluationIdentifier)
             && $parameterName === $this->evaluationIdentifier
         ) {
             return $this;
         }
-
-        // if (filled($typedParameterClassName)) {
-        //     return app()->make($typedParameterClassName);
-        // }
 
         if ($parameter->isDefaultValueAvailable()) {
             return $parameter->getDefaultValue();
@@ -124,16 +101,6 @@ trait EvaluatesClosures
         }
 
         return $name;
-    }
-
-    protected function resolveDefaultClosureDependencyForEvaluationByName(string $parameterName): array
-    {
-        return [];
-    }
-
-    protected function resolveDefaultClosureDependencyForEvaluationByType(string $parameterName): array
-    {
-        return [];
     }
 
     protected function resolveDefaultClosureDependency(string $parameterName): array

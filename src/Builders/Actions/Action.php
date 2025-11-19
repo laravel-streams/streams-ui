@@ -17,33 +17,23 @@ class Action extends ViewBuilder
     use Common\HasColor;
     use Common\HasEntry;
     use Common\HasLabel;
+    use Common\HasTooltip;
     use Common\HasHtmlAttributes;
 
     use Common\CanBeHidden;
     use Common\CanBeDisabled;
 
-    use Common\BelongsToLivewire;
-
-    use Concerns\CanOpenModal;
-    use Concerns\HasAction;
-    use Concerns\HasArguments;
-    use Concerns\HasBorderRadius;
-    use Concerns\HasForm;
-    use Concerns\HasKeyBindings;
-    use Concerns\HasStyle;
     use Concerns\HasTag;
+    use Concerns\HasForm;
+    use Concerns\HasStyle;
     use Concerns\HasTooltip;
+    use Concerns\HasArguments;
+    use Concerns\HasKeyBindings;
+    use Concerns\HasBorderRadius;
     
     // use Concerns\CanBeLabeledFrom;
     // use Concerns\CanBeOutlined;
-    // use Concerns\CanCallParentAction;
-    // use Concerns\CanClose;
-    // use Concerns\CanDispatchEvent;
-    // use Concerns\CanSubmitForm;
-    // use Concerns\HasGroupedIcon;
-    // use Concerns\HasSize;
-    // use Concerns\HasTooltip;
-
+    
     protected string $view = 'ui::action';
 
     protected string $viewIdentifier = 'action';
@@ -88,13 +78,5 @@ class Action extends ViewBuilder
                 ->title();
 
         return $label;
-    }
-
-    protected function resolveDefaultClosureDependency(string $parameter): array
-    {
-        return match ($parameter) {
-            'entry' => [$this->getEntryInstance()],
-            default => parent::resolveDefaultClosureDependency($parameter),
-        };
     }
 }

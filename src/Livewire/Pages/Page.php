@@ -86,8 +86,8 @@ abstract class Page extends Component
         return route(static::getRouteName($panel), $parameters, $isAbsolute);
     }
 
-    public static function getMountableActions(): array
+    public function getMountableActions(): array
     {
-        return [];
+        return [...$this->getComponentMountableActions()];
     }
 }

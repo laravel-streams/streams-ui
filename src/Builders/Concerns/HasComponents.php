@@ -18,13 +18,17 @@ trait HasComponents
         return $this->evaluate($this->components);
     }
 
-    public function getComponentActions(): array
+    /**
+     * This ensures that mountable actions defined
+     * within components are accessible from the parent.
+     */
+    public function getComponentMountableActions(): array
     {
         $actions = [];
 
         foreach ($this->getComponents() as $component) {
-            if (method_exists($component, 'getActions')) {
-                $actions = array_merge($actions, $component->getActions());
+            if (method_exists($component, 'getMountableActions')) {
+                $actions = array_merge($actions, $component->getMountableActions());
             }
         }
 
