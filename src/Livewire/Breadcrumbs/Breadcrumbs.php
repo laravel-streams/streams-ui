@@ -2,8 +2,8 @@
 
 namespace Streams\Ui\Livewire\Breadcrumbs;
 
-use Streams\Ui\Traits as Common;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Builders\Concerns as Common;
 
 class Breadcrumbs extends ViewBuilder
 {

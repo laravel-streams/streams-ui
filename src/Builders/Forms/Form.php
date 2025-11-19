@@ -3,20 +3,21 @@
 namespace Streams\Ui\Builders\Forms;
 
 use Livewire\Component;
-use Streams\Ui\Traits as Support;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Builders\Concerns as Support;
 
 class Form extends ViewBuilder
 {
-    use Support\BelongsToLivewire;
     use Support\BelongsToParent;
-    use Support\HasActions;
-    use Support\HasComponents;
-    use Support\HasDescription;
-    use Support\HasHeading;
-    use Support\HasHtmlAttributes;
+    use Support\BelongsToLivewire;
+
     use Support\HasState;
     use Support\HasStream;
+    use Support\HasActions;
+    use Support\HasHeading;
+    use Support\HasComponents;
+    use Support\HasDescription;
+    use Support\HasHtmlAttributes;
 
     protected string $view = 'ui::form';
 
@@ -42,7 +43,6 @@ class Form extends ViewBuilder
 
     public function getComponents(bool $withHidden = false): array
     {
-        // $components = array_map(function (Component $component): Component {
         $components = array_map(function ($component) {
 
             $component->parent($this);
@@ -59,8 +59,7 @@ class Form extends ViewBuilder
 
         return array_filter(
             $components,
-            // fn (Component $component) => $component->isVisible(),
-            fn ($component) => ! $component->isHidden(),
+            fn ($component) => $component->isVisible(),
         );
     }
 }

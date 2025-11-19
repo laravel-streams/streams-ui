@@ -13,6 +13,8 @@ trait HasNavigation
 
     protected array $navigationItems = [];
 
+    protected array $navigationGroups = [];
+
     // protected \Closure | bool $navigationBuilder = true;
 
     // public function navigation(\Closure | bool $builder = true): static
@@ -45,6 +47,21 @@ trait HasNavigation
         }
 
         $this->navigationMounted = true;
+    }
+
+    public function navigationGroups(array $groups): static
+    {
+        $this->navigationGroups = [
+            ...$this->navigationGroups,
+            ...$groups,
+        ];
+
+        return $this;
+    }
+
+    public function getNavigationGroups(): array
+    {
+        return $this->navigationGroups;
     }
 
     public function navigationItems(array $items): static

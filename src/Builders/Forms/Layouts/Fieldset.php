@@ -2,17 +2,18 @@
 
 namespace Streams\Ui\Builders\Forms\Layouts;
 
-use Streams\Ui\Traits as Common;
+use Streams\Ui\Builders\Concerns as Common;
 use Streams\Ui\Builders\ViewBuilder;
 
 class Fieldset extends ViewBuilder
 {
     use Common\BelongsToLivewire;
     use Common\BelongsToParent;
-    use Common\HasComponents;
-    use Common\HasHtmlAttributes;
+    
     use Common\HasId;
     use Common\HasLabel;
+    use Common\HasComponents;
+    use Common\HasHtmlAttributes;
 
     protected string $view = 'ui::components.form.fieldset';
 

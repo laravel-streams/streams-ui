@@ -2,15 +2,16 @@
 
 namespace Streams\Ui\Builders\Containers;
 
-use Streams\Ui\Traits as Common;
+use Streams\Ui\Builders\Concerns as Common;
 
 class Grid extends Container
 {
-    use Common\CanBeDisabled;
-    use Common\HasDescription;
-    use Common\HasHeading;
-    use Common\HasUrl;
     use Traits\HasColumns;
+    
+    use Common\HasUrl;
+    use Common\HasHeading;
+    use Common\HasDescription;
+    use Common\CanBeDisabled;
 
     protected string $viewIdentifier = 'grid';
 

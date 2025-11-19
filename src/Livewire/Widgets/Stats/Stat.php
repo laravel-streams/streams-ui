@@ -3,9 +3,9 @@
 namespace Streams\Ui\Livewire\Widgets\Stats;
 
 use Illuminate\View\Component;
-use Streams\Ui\Traits as Common;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\Support\Htmlable;
+use Streams\Ui\Builders\Concerns as Common;
 
 class Stat extends Component implements Htmlable
 {

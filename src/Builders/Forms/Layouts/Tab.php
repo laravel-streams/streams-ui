@@ -3,18 +3,18 @@
 namespace Streams\Ui\Builders\Forms\Layouts;
 
 use Illuminate\Support\Str;
-use Streams\Ui\Traits as Common;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Builders\Concerns as Common;
 
 class Tab extends ViewBuilder
 {
-    use Common\HasBadge;
-    use Common\HasComponents;
-    use Common\HasHtmlAttributes;
-    use Common\HasIcon;
-    use Common\HasIconPosition;
     use Common\HasId;
+    use Common\HasIcon;
+    use Common\HasBadge;
     use Common\HasLabel;
+    use Common\HasComponents;
+    use Common\HasIconPosition;
+    use Common\HasHtmlAttributes;
 
     protected string $view = 'ui::components.tabs.tab';
 

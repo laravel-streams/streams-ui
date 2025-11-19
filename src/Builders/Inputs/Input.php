@@ -16,9 +16,8 @@ abstract class Input extends ViewBuilder
     use Inputs\Traits\HasFieldWrapper;
     use Inputs\Traits\HasHint;
     use Inputs\Traits\HasKey;
+    use Common\CanSpanColumns;
     use Common\BelongsToLivewire;
-    use \Streams\Ui\Traits\BelongsToParent;
-    use \Streams\Ui\Traits\CanSpanColumns;
     use Common\HasHtmlAttributes;
     // use BelongsToContainer;
 

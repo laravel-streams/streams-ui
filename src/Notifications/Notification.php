@@ -4,22 +4,22 @@ namespace Streams\Ui\Notifications;
 
 use Livewire\Component;
 use Illuminate\Support\Str;
-use Streams\Ui\Traits as Common;
 use Illuminate\Support\Facades\App;
 use Streams\Ui\Builders\ViewBuilder;
 use Illuminate\Support\Facades\Session;
+use Streams\Ui\Builders\Concerns as Common;
 use Streams\Ui\Support\Facades\Notifications;
 
 class Notification extends ViewBuilder
 {
-    use Common\HasActions;
-    use Common\HasColor;
-    use Common\HasDescription;
-    use Common\HasIcon;
-    use Common\HasIconColor;
     use Common\HasId;
+    use Common\HasIcon;
+    use Common\HasColor;
     use Common\HasTitle;
+    use Common\HasActions;
     use Traits\HasDuration;
+    use Common\HasIconColor;
+    use Common\HasDescription;
 
     protected string $view = 'ui::notification';
 

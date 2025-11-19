@@ -2,25 +2,26 @@
 
 namespace Streams\Ui\Builders\Tables\Columns;
 
-use Streams\Ui\Traits as Support;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Builders\Concerns as Support;
 
 abstract class Column extends ViewBuilder
 {
     use Concerns\HasTable;
-    use Concerns\InteractsWithQuery;
-    use Concerns\IsSearchable;
     use Concerns\IsSortable;
-    use Support\CanBeHidden;
+    use Concerns\IsSearchable;
+    use Concerns\InteractsWithQuery;
+
+    use Support\HasIcon;
+    use Support\HasName;
     use Support\HasColor;
     use Support\HasEntry;
-    use Support\HasHtmlAttributes;
-    use Support\HasIcon;
     use Support\HasLabel;
-    use Support\HasName;
     use Support\HasState;
-    use Support\HasTooltip;
     use Support\HasValue;
+    use Support\HasTooltip;
+    use Support\HasHtmlAttributes;
+    use Support\CanBeHidden;
 
     protected string $viewIdentifier = 'column';
 

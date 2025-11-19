@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Builders\Containers;
 
-use Streams\Ui\Traits as Common;
+use Streams\Ui\Builders\Concerns as Common;
 
 class Card extends Section
 {

@@ -3,9 +3,9 @@
 namespace Streams\Ui\Livewire\Pages;
 
 use Livewire\Component;
-use Streams\Ui\Traits as Common;
 use Illuminate\Support\Facades\View;
 use Streams\Core\Support\Traits\HasMemory;
+use Streams\Ui\Builders\Concerns as Common;
 use Streams\Core\Support\Traits\FiresCallbacks;
 use Streams\Ui\Builders\Actions\Traits\InteractsWithActions;
 

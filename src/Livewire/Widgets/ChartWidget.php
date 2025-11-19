@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Livewire\Widgets;
 
-use Streams\Ui\Traits as Common;
+use Streams\Ui\Builders\Concerns as Common;
 
 class ChartWidget extends Widget
 {

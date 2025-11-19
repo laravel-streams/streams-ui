@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Builders\Panels\Traits;
+namespace Streams\Ui\Builders\Concerns;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;

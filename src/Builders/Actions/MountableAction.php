@@ -3,7 +3,7 @@
 namespace Streams\Ui\Builders\Actions;
 
 use Streams\Ui\Exceptions;
-use Streams\Ui\Traits\BelongsToLivewire;
+use Streams\Ui\Builders\Concerns\BelongsToLivewire;
 
 class MountableAction extends Action
 {

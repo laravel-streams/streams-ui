@@ -2,21 +2,24 @@
 
 namespace Streams\Ui\Builders\Forms\Layouts;
 
-use Streams\Ui\Traits as Common;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Builders\Concerns as Common;
 
 class Field extends ViewBuilder
 {
-    use Common\BelongsToLivewire;
+    // @todo This is out of place.
+    use \Streams\Ui\Builders\Inputs\Traits\HasHint;
+
     use Common\BelongsToParent;
-    use Common\CanBeDisabled;
-    use Common\CanSpanColumns;
-    use Common\HasComponents;
-    use Common\HasHtmlAttributes;
+    use Common\BelongsToLivewire;
+    
     use Common\HasId;
     use Common\HasLabel;
     use Common\HasState;
-    use \Streams\Ui\Builders\Inputs\Traits\HasHint;
+    use Common\HasComponents;
+    use Common\HasHtmlAttributes;
+    use Common\CanSpanColumns;
+    use Common\CanBeDisabled;
 
     protected string $viewIdentifier = 'field';
 

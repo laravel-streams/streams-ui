@@ -2,18 +2,18 @@
 
 namespace Streams\Ui\Builders\Lists;
 
-use Streams\Ui\Traits as Common;
 use Illuminate\Support\Facades\App;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Builders\Concerns as Common;
 
 class ListItem extends ViewBuilder
 {
+    use Common\HasId;
+    use Common\HasIcon;
+    use Common\HasTitle;
     use Common\HasActions;
     use Common\HasDescription;
     use Common\HasHtmlAttributes;
-    use Common\HasIcon;
-    use Common\HasId;
-    use Common\HasTitle;
 
     protected string $view = 'ui::components.lists.list-item';
 

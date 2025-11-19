@@ -2,23 +2,17 @@
 
 namespace Streams\Ui\Builders\Forms\Layouts;
 
-use Streams\Ui\Traits\HasColumns;
-use Streams\Ui\Builders\Component;
-use Streams\Ui\Builders\ViewComponent;
-use Streams\Ui\Builders\Concerns\HasId;
-use Streams\Ui\Builders\Concerns\HasLivewire;
-use Streams\Ui\Builders\Concerns\CanSpanColumns;
-use Streams\Ui\Builders\Concerns\HasHtmlAttributes;
-use Streams\Ui\Builders\Forms\Concerns\HasComponents;
+use Livewire\Component;
+use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Builders\Concerns as Common;
 
-class Container extends ViewComponent
+class Container extends ViewBuilder
 {
-    use CanSpanColumns;
-    use HasColumns;
-    use HasComponents;
-    use HasHtmlAttributes;
-    use HasId;
-    use HasLivewire;
+    use Common\HasId;
+    use Common\HasComponents;
+    use Common\HasHtmlAttributes;
+    use Common\BelongsToLivewire;
+    use Common\CanSpanColumns;
 
     protected string $view = 'ui::components.form.container';
 

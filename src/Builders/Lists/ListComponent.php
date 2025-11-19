@@ -2,14 +2,14 @@
 
 namespace Streams\Ui\Builders\Lists;
 
-use Streams\Ui\Traits as Common;
 use Illuminate\Support\Facades\App;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Builders\Concerns as Common;
 
 class ListComponent extends ViewBuilder
 {
-    use Common\HasHtmlAttributes;
     use Common\HasId;
+    use Common\HasHtmlAttributes;
 
     protected string $view = 'ui::components.lists.list';
 

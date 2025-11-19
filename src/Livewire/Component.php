@@ -2,8 +2,8 @@
 
 namespace Streams\Ui\Livewire;
 
-use Streams\Ui\Traits as Common;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Builders\Concerns as Common;
 
 class Component extends ViewBuilder
 {

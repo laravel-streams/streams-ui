@@ -3,19 +3,21 @@
 namespace Streams\Ui\Builders\Navigation;
 
 use Streams\Ui\Builders\Builder;
-use Streams\Ui\Traits as Common;
 use Streams\Ui\Builders\Navigation;
+use Streams\Ui\Builders\Concerns as Common;
 
 class NavigationItem extends Builder
 {
-    use Common\CanBeDisabled;
-    use Common\CanBeHidden;
-    use Common\HasBadge;
-    use Common\HasHtmlAttributes;
-    use Common\HasIcon;
-    use Common\HasLabel;
-    use Common\HasSort;
     use Common\HasUrl;
+    use Common\HasIcon;
+    use Common\HasBadge;
+    use Common\HasLabel;
+    use Common\HasSortOrder;
+    use Common\HasHtmlAttributes;
+    
+    use Common\CanBeHidden;
+    use Common\CanBeDisabled;
+
     use Navigation\Traits\CanBeActive;
     use Navigation\Traits\HasActiveIcon;
     use Navigation\Traits\HasGroup;

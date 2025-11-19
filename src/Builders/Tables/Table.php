@@ -3,29 +3,32 @@
 namespace Streams\Ui\Builders\Tables;
 
 use Illuminate\Support\Str;
-use Streams\Ui\Traits as Support;
 use Illuminate\Support\Collection;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Builders\Concerns as Common;
 use Illuminate\Contracts\Pagination\Paginator;
 use Streams\Ui\Builders\Tables\Columns\Column;
 use Streams\Ui\Builders\Actions\Contracts\HasActions;
 
 class Table extends ViewBuilder implements HasActions
 {
-    use Concerns\CanBeReordered;
+    use Concerns\HasQuery;
     use Concerns\HasActions;
-    use Concerns\HasBulkActions;
     use Concerns\HasColumns;
-    use Concerns\HasEntryClasses;
-    use Concerns\HasEntryUrl;
     use Concerns\HasFilters;
+    use Concerns\HasEntryUrl;
+    use Concerns\HasBulkActions;
+    use Concerns\HasEntryClasses;
     use Concerns\HasHeaderActions;
-    use Support\BelongsToLivewire;
-    use Support\CanBePaginated;
-    use Support\CanBeSorted;
-    use Support\HasDescription;
-    use Support\HasHeading;
-    use Support\HasQuery;
+
+    use Concerns\CanBeReordered;
+    use Concerns\CanBePaginated;
+
+    use Common\BelongsToLivewire;
+    
+    use Common\HasHeading;
+    use Common\HasDescription;
+    use Common\CanBeSorted;
 
     protected string $view = 'ui::builders.table';
 

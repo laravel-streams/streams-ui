@@ -16,9 +16,9 @@ class UiServiceProvider extends ServiceProvider
     public function provides(): array
     {
         return [
-            \Streams\Ui\Panels\Panel::class,
             \Streams\Ui\Builders\Builder::class,
             \Streams\Ui\Support\Facades\UI::class,
+            \Streams\Ui\Builders\Panels\Panel::class,
             \Streams\Ui\Support\Facades\Colors::class,
         ];
     }

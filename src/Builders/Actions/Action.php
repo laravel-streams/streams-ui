@@ -2,9 +2,9 @@
 
 namespace Streams\Ui\Builders\Actions;
 
-use Streams\Ui\Traits as Common;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Support\Facades\Actions;
+use Streams\Ui\Builders\Concerns as Common;
 
 // StaticAction
 class Action extends ViewBuilder

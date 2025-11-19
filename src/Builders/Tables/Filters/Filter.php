@@ -2,10 +2,10 @@
 
 namespace Streams\Ui\Builders\Tables\Filters;
 
-use Streams\Ui\Traits as Support;
 use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Builders\Tables\Table;
+use Streams\Ui\Builders\Concerns as Support;
 use Illuminate\Contracts\Database\Query\Builder;
 use Streams\Ui\Builders\Inputs\Traits\CanBeAutofocused;
 use Streams\Ui\Builders\Tables\Concerns\BelongsToTable;
@@ -19,11 +19,12 @@ class Filter extends ViewBuilder
     use Support\CanBeHidden;
     use Support\CanPersistData;
     use Support\CanSpanColumns;
-    use Support\HasComponents;
-    use Support\HasHtmlAttributes;
+
     use Support\HasLabel;
     use Support\HasName;
     use Support\HasQuery;
+    use Support\HasComponents;
+    use Support\HasHtmlAttributes;
 
     protected string $view = 'ui::builders.filters.filter';
 

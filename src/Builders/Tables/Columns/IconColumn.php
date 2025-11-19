@@ -2,7 +2,7 @@
 
 namespace Streams\Ui\Builders\Tables\Columns;
 
-use Streams\Ui\Traits as Support;
+use Streams\Ui\Builders\Concerns as Support;
 
 class IconColumn extends Column
 {

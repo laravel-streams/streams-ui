@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Traits;
+namespace Streams\Ui\Builders\Concerns;
 
 trait HasIconPosition
 {

@@ -2,33 +2,35 @@
 
 namespace Streams\Ui\Builders\Panels;
 
-use Streams\Ui\Traits as Common;
 use Illuminate\Support\Facades\View;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Support\Facades\Colors;
+use Streams\Ui\Builders\Concerns as Common;
 
 class Panel extends ViewBuilder
 {
-    use Common\CanBeDefault;
-    use Common\HasActions;
-    use Common\HasColors;
     use Common\HasId;
-    use Common\HasNavigationGroups;
+    use Common\HasActions;
+    // use Common\HasNavigationGroups;
+    use Common\CanBeDefault;
+
     use Traits\CanBeSpa;
-    use Traits\HasBrandLogo;
-    use Traits\HasBrandName;
-    use Traits\HasFavicon;
-    use Traits\HasLayout;
-    use Traits\HasLivewireComponents;
-    use Traits\HasMiddleware;
-    use Traits\HasNavigation;
+
     use Traits\HasPages;
-    use Traits\HasResources;
+    use Traits\HasColors;
+    use Traits\HasLayout;
     use Traits\HasRoutes;
     use Traits\HasTenant;
-    use Traits\HasUserAvatar;
+    use Traits\HasFavicon;
     use Traits\HasUserMenu;
     use Traits\HasUserName;
+    use Traits\HasBrandLogo;
+    use Traits\HasBrandName;
+    use Traits\HasResources;
+    use Traits\HasMiddleware;
+    use Traits\HasNavigation;
+    use Traits\HasUserAvatar;
+    use Traits\HasLivewireComponents;
 
     public function __construct(?string $id = null)
     {

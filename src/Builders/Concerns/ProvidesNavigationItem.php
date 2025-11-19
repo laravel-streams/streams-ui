@@ -6,7 +6,7 @@ use Streams\Ui\Support\Facades\UI;
 use Streams\Ui\Builders\Panels\Panel;
 use Streams\Ui\Builders\Navigation\NavigationItem;
 
-trait HasNavigation
+trait ProvidesNavigationItem
 {
     protected static bool $registerNavigation = true;
 
@@ -42,7 +42,7 @@ trait HasNavigation
                 ->icon(static::getNavigationIcon())
                 ->activeIcon(static::getActiveNavigationIcon())
                 ->isActiveWhen(fn (): bool => request()->routeIs(static::getRouteName()))
-                ->sort(static::getNavigationSort())
+                ->sortOrder(static::getNavigationSortOrder())
                 ->badge(static::getNavigationBadge(), color: static::getNavigationBadgeColor())
                 ->url(static::getNavigationUrl()),
         ];

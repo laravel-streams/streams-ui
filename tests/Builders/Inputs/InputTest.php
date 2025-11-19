@@ -406,13 +406,4 @@ class InputTest extends UiTestCase
 
         $this->assertSame($livewire, $input->getLivewire());
     }
-
-    /** @test */
-    public function it_can_have_parent()
-    {
-        $parent = TextInput::make('parent');
-        $input = TextInput::make('child')->parent($parent);
-
-        $this->assertSame($parent, $input->getParent());
-    }
 }

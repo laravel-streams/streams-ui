@@ -3,17 +3,18 @@
 namespace Streams\Ui\Builders\Navigation;
 
 use Streams\Ui\Builders\Builder;
-use Streams\Ui\Traits as Common;
 use Streams\Ui\Builders\Navigation;
+use Streams\Ui\Builders\Concerns as Common;
 
 class NavigationGroup extends Builder
 {
-    use Common\CanBeHidden;
     use Common\HasIcon;
     use Common\HasLabel;
-    use Common\HasSort;
-    use Navigation\Traits\CanBeCollapsed;
+    use Common\CanBeHidden;
+    use Common\HasSortOrder;
+    
     use Navigation\Traits\HasItems;
+    use Navigation\Traits\CanBeCollapsed;
 
     final public function __construct(string|\Closure|null $label = null)
     {

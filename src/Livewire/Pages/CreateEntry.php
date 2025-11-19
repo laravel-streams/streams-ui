@@ -3,8 +3,8 @@
 namespace Streams\Ui\Livewire\Pages;
 
 use Streams\Core\Entry\Entry;
-use Streams\Ui\Traits\HasEntry;
 use Streams\Ui\Builders\Forms\Form;
+use Streams\Ui\Builders\Concerns\HasEntry;
 use Streams\Ui\Livewire\Forms\InteractsWithForms;
 
 class CreateEntry extends PanelPage

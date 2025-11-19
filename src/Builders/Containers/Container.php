@@ -3,8 +3,8 @@
 namespace Streams\Ui\Builders\Containers;
 
 use Illuminate\Support\Str;
-use Streams\Ui\Traits as Support;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Builders\Concerns as Support;
 
 class Container extends ViewBuilder
 {

@@ -2,14 +2,14 @@
 
 namespace Streams\Ui\Builders\Navigation;
 
-use Streams\Ui\Traits as Common;
 use Illuminate\Support\Facades\App;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Builders\Concerns as Common;
 
 class Navigation extends ViewBuilder
 {
-    use Common\HasHtmlAttributes;
     use Common\HasId;
+    use Common\HasHtmlAttributes;
 
     protected string $viewIdentifier = 'navigation';
 

@@ -3,14 +3,14 @@
 namespace Streams\Ui\Builders\Modals;
 
 use Streams\Ui\Builders\Builder;
-use Streams\Ui\Traits as Common;
+use Streams\Ui\Builders\Concerns as Common;
 
 class Modal extends Builder
 {
+    use Common\HasName;
+    use Common\HasHeading;
     use Common\HasComponents;
     use Common\HasDescription;
-    use Common\HasHeading;
-    use Common\HasName;
 
     final public function __construct(string|\Closure|null $name = null)
     {
