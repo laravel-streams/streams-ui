@@ -19,7 +19,7 @@ class Form extends ViewBuilder
     use Support\HasDescription;
     use Support\HasHtmlAttributes;
 
-    protected string $view = 'ui::form';
+    protected string $view = 'ui::builders.form';
 
     protected string $viewIdentifier = 'form';
 

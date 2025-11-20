@@ -28,6 +28,7 @@ class Table extends ViewBuilder implements HasActions
     use Common\HasQuery;
     use Common\HasHeading;
     use Common\HasDescription;
+    
     use Common\CanBeSorted;
 
     protected string $view = 'ui::builders.table';

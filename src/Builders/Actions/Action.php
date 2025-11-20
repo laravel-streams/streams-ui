@@ -33,7 +33,7 @@ class Action extends ViewBuilder
     // use Concerns\CanBeLabeledFrom;
     // use Concerns\CanBeOutlined;
     
-    protected string $view = 'ui::action';
+    protected string $view = 'ui::builders.action';
 
     protected string $viewIdentifier = 'action';
 
@@ -77,5 +77,13 @@ class Action extends ViewBuilder
                 ->title();
 
         return $label;
+    }
+
+    protected function resolveDefaultClosureDependency(string $parameter): array
+    {
+        return match ($parameter) {
+            'entry' => [$this->getEntryInstance()],
+            default => parent::resolveDefaultClosureDependency($parameter),
+        };
     }
 }
