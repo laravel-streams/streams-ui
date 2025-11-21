@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Builders\Forms\Layouts;
+namespace Streams\Ui\Builders\Navigation;
 
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Builders\Concerns as Common;
@@ -12,11 +12,9 @@ class Tabs extends ViewBuilder
     use Common\HasComponents;
     use Common\HasHtmlAttributes;
 
-    protected string $view = 'ui::components.form.tabs';
+    protected string $view = 'ui::builders.navigation.tabs';
 
     protected int|\Closure $activeTab = 1;
-
-    // protected string | \Closure | null $tabQueryStringKey = null;
 
     final public function __construct(?string $label = null)
     {
