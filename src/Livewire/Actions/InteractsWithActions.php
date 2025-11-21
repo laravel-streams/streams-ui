@@ -202,7 +202,7 @@ trait InteractsWithActions
         return (bool) count($this->getMountedActionForm()?->getComponents() ?? []);
     }
 
-    public function cacheActions(): array
+    public function cacheActions(): ?array
     {
         $actions = $this->getMountableActions();
 
