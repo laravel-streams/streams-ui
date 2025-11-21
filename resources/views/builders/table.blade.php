@@ -16,7 +16,7 @@ $headerActions = [];//$table->getHeaderActions();
 $isPaginated = $table->isPaginated();
 $paginationOptions = $table->getPaginationOptions();
 
-$selectedRecords = $table->getSelectedRecords();
+$selectedRecords = [];//$table->getSelectedRecords();
 
 @endphp
 
