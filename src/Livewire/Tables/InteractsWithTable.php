@@ -27,7 +27,7 @@ trait InteractsWithTable
     public function bootedInteractsWithTable(): void
     {
         $this->fire('booting_table', [
-            'component' => $this,
+            'livewire' => $this,
         ]);
 
         if (empty($this->table)) {

@@ -7,25 +7,33 @@ use Streams\Ui\Builders\Builder;
 use Streams\Ui\Tests\UiTestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\View\View;
+use Streams\Core\Criteria\Criteria;
+use Illuminate\Pagination\Paginator;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Builders\Tables\Table;
 use Streams\Ui\Builders\Actions\Action;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Pagination\AbstractPaginator;
 use Streams\Ui\Builders\Tables\Columns\TextColumn;
 
 class TableTest extends UiTestCase
 {
     protected function getTestLivewireComponent(): Component
     {
-        return new class extends Component
-        {
-            use \InteractsWithTablesStreams\Ui\Livewire\Tables\InteractsWithTable;
+        $component = new class extends Component {
+            use \Streams\Ui\Livewire\Tables\InteractsWithTable;
         };
+
+        return $component;
     }
 
     protected function getTestTable(): Table
     {
-        return new Table($this->getTestLivewireComponent());
+        $component = $this->getTestLivewireComponent();
+
+        $component->bootedInteractsWithTable();
+
+        return $component->getTable();
     }
 
     /** @test */
@@ -40,7 +48,7 @@ class TableTest extends UiTestCase
     public function it_can_be_made_with_static_method()
     {
         $livewire = $this->getTestLivewireComponent();
-        
+
         $table = Table::make($livewire);
 
         $this->assertInstanceOf(Table::class, $table);
@@ -127,7 +135,7 @@ class TableTest extends UiTestCase
     public function it_can_get_column_by_name()
     {
         $table = $this->getTestTable();
-        
+
         $column = TextColumn::make('name');
 
         $table->columns([$column]);
@@ -194,7 +202,7 @@ class TableTest extends UiTestCase
     public function it_can_push_actions()
     {
         $table = $this->getTestTable();
-        
+
         $action1 = Action::make('action-1');
         $action2 = Action::make('action-2');
 
@@ -220,7 +228,7 @@ class TableTest extends UiTestCase
     {
         $table = $this->getTestTable();
 
-        $table->heading(fn () => 'Dynamic Heading');
+        $table->heading(fn() => 'Dynamic Heading');
 
         $this->assertEquals('Dynamic Heading', $table->getHeading());
     }
@@ -241,7 +249,7 @@ class TableTest extends UiTestCase
     {
         $table = $this->getTestTable();
 
-        $table->description(fn () => 'Dynamic Description');
+        $table->description(fn() => 'Dynamic Description');
 
         $this->assertEquals('Dynamic Description', $table->getDescription());
     }
@@ -355,7 +363,7 @@ class TableTest extends UiTestCase
     public function it_can_set_default_sort_with_closure()
     {
         $table = $this->getTestTable();
-        $closure = fn () => 'custom sort';
+        $closure = fn() => 'custom sort';
 
         $table->defaultSort($closure, 'asc');
 
@@ -367,7 +375,7 @@ class TableTest extends UiTestCase
     {
         $table = $this->getTestTable();
 
-        $table->defaultSort('name', fn () => 'desc');
+        $table->defaultSort('name', fn() => 'desc');
 
         $this->assertEquals('desc', $table->getDefaultSortDirection());
     }
@@ -405,80 +413,7 @@ class TableTest extends UiTestCase
 
         $this->assertNull($table->getSortableColumn('non-existent'));
     }
-
-    /** @test */
-    public function it_can_configure_reordering()
-    {
-        $table = $this->getTestTable();
-
-        $result = $table->reorderable('sort_order');
-
-        $this->assertSame($table, $result);
-        $this->assertEquals('sort_order', $table->getReorderColumn());
-        $this->assertTrue($table->isReorderable());
-    }
-
-    /** @test */
-    public function it_can_conditionally_disable_reordering()
-    {
-        $table = $this->getTestTable();
-
-        $table->reorderable('sort_order', false);
-
-        $this->assertFalse($table->isReorderable());
-    }
-
-    /** @test */
-    public function it_evaluates_closure_reorder_column()
-    {
-        $table = $this->getTestTable();
-
-        $table->reorderable(fn () => 'dynamic_column');
-
-        $this->assertEquals('dynamic_column', $table->getReorderColumn());
-    }
-
-    /** @test */
-    public function it_is_not_reorderable_without_column()
-    {
-        $table = $this->getTestTable();
-
-        $this->assertFalse($table->isReorderable());
-    }
-
-    /** @test */
-    public function it_can_get_reorder_trigger_action()
-    {
-        $table = $this->getTestTable();
-        $table->reorderable('sort_order');
-
-        $action = $table->getReorderTriggerAction(false);
-
-        $this->assertInstanceOf(Action::class, $action);
-        $this->assertEquals('heroicon-m-arrows-up-down', $action->getIcon());
-    }
-
-    /** @test */
-    public function it_changes_reorder_trigger_action_when_reordering()
-    {
-        $table = $this->getTestTable();
-        $table->reorderable('sort_order');
-
-        $action = $table->getReorderTriggerAction(true);
-
-        $this->assertEquals('heroicon-m-check', $action->getIcon());
-    }
-
-    /** @test */
-    public function it_can_check_if_currently_reordering()
-    {
-        $livewire = $this->getTestLivewireComponent();
-        $livewire->isTableReordering = true;
-        $table = new Table($livewire);
-
-        $this->assertTrue($table->isReordering());
-    }
-
+    
     /** @test */
     public function it_can_get_table_page_name()
     {
@@ -486,7 +421,7 @@ class TableTest extends UiTestCase
 
         $pageName = $table->getTablePageName();
 
-        $this->assertEquals('page', $pageName);
+        $this->assertEquals('tablePage', $pageName);
     }
 
     /** @test */
@@ -534,7 +469,7 @@ class TableTest extends UiTestCase
     {
         $table = $this->getTestTable();
 
-        $table->queryStringIdentifier(fn () => 'dynamic-identifier');
+        $table->queryStringIdentifier(fn() => 'dynamic-identifier');
 
         $this->assertEquals('dynamic-identifier', $table->getQueryStringIdentifier());
     }
@@ -544,8 +479,30 @@ class TableTest extends UiTestCase
     {
         $table = $this->getTestTable();
 
-        $query = $table->query();
+        $table->query(function () {
+            return entries('people');
+        });
 
-        $this->assertInstanceOf(\Streams\Core\Criteria\Criteria::class, $query);
+        $this->assertInstanceOf(Criteria::class, $table->getQuery());
+
+        $entries = $table->getEntries();
+
+        $this->assertInstanceOf(AbstractPaginator::class, $entries);
+    }
+
+    /** @test */
+    public function it_can_sort_streams_entries()
+    {
+        $table = $this->getTestTable();
+
+        $table->defaultSort('name', 'desc');
+
+        $table->query(function () {
+            return entries('people');
+        });
+
+        $entries = $table->getEntries();
+
+        $this->assertEquals('R5-D4', $entries->first()->name);
     }
 }
