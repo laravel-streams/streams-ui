@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Builders\Forms\Layouts;
+namespace Streams\Ui\Builders\Navigation;
 
 use Illuminate\Support\Str;
 use Streams\Ui\Builders\ViewBuilder;

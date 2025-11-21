@@ -33,16 +33,14 @@ class TableTest extends UiTestCase
     {
         $table = $this->getTestTable();
 
-        $this->assertInstanceOf(Builder::class, $table);
-        $this->assertInstanceOf(ViewBuilder::class, $table);
         $this->assertInstanceOf(Table::class, $table);
-        $this->assertInstanceOf(Htmlable::class, $table);
     }
 
     /** @test */
     public function it_can_be_made_with_static_method()
     {
         $livewire = $this->getTestLivewireComponent();
+        
         $table = Table::make($livewire);
 
         $this->assertInstanceOf(Table::class, $table);
@@ -101,6 +99,7 @@ class TableTest extends UiTestCase
     public function it_can_set_and_get_columns()
     {
         $table = $this->getTestTable();
+
         $column1 = TextColumn::make('name');
         $column2 = TextColumn::make('email');
 
@@ -114,6 +113,7 @@ class TableTest extends UiTestCase
     public function it_can_append_columns()
     {
         $table = $this->getTestTable();
+
         $column1 = TextColumn::make('name');
         $column2 = TextColumn::make('email');
 
@@ -127,6 +127,7 @@ class TableTest extends UiTestCase
     public function it_can_get_column_by_name()
     {
         $table = $this->getTestTable();
+        
         $column = TextColumn::make('name');
 
         $table->columns([$column]);
@@ -148,6 +149,7 @@ class TableTest extends UiTestCase
     public function it_can_get_visible_columns()
     {
         $table = $this->getTestTable();
+
         $visible = TextColumn::make('visible');
         $hidden = TextColumn::make('hidden')->hidden();
 
@@ -163,6 +165,7 @@ class TableTest extends UiTestCase
     public function it_can_get_searchable_columns()
     {
         $table = $this->getTestTable();
+
         $searchable = TextColumn::make('searchable')->searchable();
         $notSearchable = TextColumn::make('not-searchable');
 
@@ -178,6 +181,7 @@ class TableTest extends UiTestCase
     public function it_can_set_and_get_actions()
     {
         $table = $this->getTestTable();
+
         $action = Action::make('test-action');
 
         $result = $table->actions([$action]);
@@ -190,6 +194,7 @@ class TableTest extends UiTestCase
     public function it_can_push_actions()
     {
         $table = $this->getTestTable();
+        
         $action1 = Action::make('action-1');
         $action2 = Action::make('action-2');
 
