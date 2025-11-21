@@ -7,7 +7,7 @@ $bulkActions = $table->getBulkActions();
 // Visible columns only.
 $columns = collect($columns)->filter(fn ($column) => $column->isVisible());
 
-$paginator = $this->getTableEntries();
+$paginator = $table->getEntries();
 
 $heading = $table->getHeading();
 $description = $table->getDescription();
@@ -16,7 +16,7 @@ $headerActions = [];//$table->getHeaderActions();
 $isPaginated = $table->isPaginated();
 $paginationOptions = $table->getPaginationOptions();
 
-$selectedRecords = [];
+$selectedRecords = $table->getSelectedRecords();
 
 @endphp
 

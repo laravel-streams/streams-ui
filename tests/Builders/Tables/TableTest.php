@@ -19,37 +19,7 @@ class TableTest extends UiTestCase
     {
         return new class extends Component
         {
-            public array $paginators = [];
-
-            public bool $isTableReordering = false;
-
-            public function getTableEntries(): Collection
-            {
-                return collect([
-                    ['id' => 1, 'name' => 'Test 1'],
-                    ['id' => 2, 'name' => 'Test 2'],
-                ]);
-            }
-
-            public function isTableReordering(): bool
-            {
-                return $this->isTableReordering;
-            }
-
-            public function getTableRecordsPerPage(): int
-            {
-                return 25;
-            }
-
-            public function getQueryStringPropertyName(string $property): string
-            {
-                return $property;
-            }
-
-            public function render()
-            {
-                return '';
-            }
+            use \InteractsWithTablesStreams\Ui\Livewire\Tables\InteractsWithTable;
         };
     }
 
@@ -562,5 +532,15 @@ class TableTest extends UiTestCase
         $table->queryStringIdentifier(fn () => 'dynamic-identifier');
 
         $this->assertEquals('dynamic-identifier', $table->getQueryStringIdentifier());
+    }
+
+    /** @test */
+    public function it_can_query_streams_entries()
+    {
+        $table = $this->getTestTable();
+
+        $query = $table->query();
+
+        $this->assertInstanceOf(\Streams\Core\Criteria\Criteria::class, $query);
     }
 }
