@@ -9,9 +9,10 @@
             ])
     }}
 >
+
     {{-- @if (count($arrayState = \Illuminate\Support\Arr::wrap($getState())))
         @foreach ($arrayState as $state) --}}
-            @if ($icon = $getIcon($state ?? null))
+            @if ($icon = $column->getIcon($state = $column->getValue()))
                 @php
                     $color = $getColor($state) ?? 'gray';
                     $size = $getSize($state) ?? 'lg';
