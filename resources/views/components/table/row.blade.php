@@ -12,7 +12,8 @@
 
 <tr @class([
         'relative h-full transition duration-75',
-        'hover:bg-gray-50' => ($entryUrl || $entryAction),
+        // 'hover:bg-gray-50' => ($entryUrl || $entryAction),
+        'hover:bg-gray-50',
         ...$this->table->getRowClasses($entry),
     ])
     data-key="{{ $entry->id ?? null }}"
