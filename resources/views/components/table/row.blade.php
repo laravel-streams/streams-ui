@@ -20,7 +20,7 @@
 >
 
     @if ($bulkActions)
-    <td class="p-0 w-0">
+    <td class="p-0 w-0 whitespace-nowrap">
         <div class="px-3 py-4">
             <label class="flex">
                 <input type="checkbox"
