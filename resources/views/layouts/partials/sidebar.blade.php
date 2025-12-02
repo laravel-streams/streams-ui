@@ -85,17 +85,25 @@ class="relative z-10 lg:hidden" role="dialog" aria-modal="true">
 <!-- EOF Off-canvas -->
 
 <!-- Sidebar -->
-<div x-data="{}" x-cloak class="hidden fixed inset-y-0 {{ $topNavigation ? '' : 'lg:flex' }} lg:fixed lg:inset-y-0 lg:z-10 lg:w-72 lg:flex-col">
+<div x-cloak class="hidden fixed inset-y-0 {{ $topNavigation ? '' : 'lg:flex' }} lg:fixed lg:inset-y-0 lg:z-10 lg:w-72 lg:flex-col" :class="{
+    'lg:w-72': !sidebar_collapsed,
+    'lg:w-[4.5rem]': sidebar_collapsed
+}">
     <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
 
         {{-- Brand --}}
-        <div class="ui-brand flex h-16 shrink-0 items-center font-bold">
+        <div x-show="!sidebar_collapsed" class="ui-brand flex h-16 shrink-0 items-center font-bold">
             <a href="{{ UI::getHomeUrl() }}" class="text-xl flex gap-4" title="Go to panel homepage.">
                 @if ($logo = UI::currentPanel()->getBrandLogo())
                     <img src="{{ $logo }}" alt="{{ __(UI::getPanel()->getBrandName()) }} Logo">
                 @else
                     {{ __(UI::getPanel()->getBrandName()) }}
                 @endif
+            </a>
+        </div>
+        <div x-show="sidebar_collapsed" class="ui-brand flex h-16 shrink-0 items-center justify-center font-bold -mx-4">
+            <a href="{{ UI::getHomeUrl() }}" class="text-xl flex gap-4" title="Go to panel homepage.">
+                <img src="{{ asset('/img/favicon.png') }}" alt="{{ __(UI::getPanel()->getBrandName()) }} Logo">
             </a>
         </div>
         {{-- EOF Brand --}}

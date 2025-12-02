@@ -61,6 +61,10 @@
                     @endphp
                     <li class="ui-sidebar-item {{ $item->isActive() ? 'ui-sidebar-item-active' : '' }}">
                         <a href="{{ $url }}"
+                        x-data="{
+                            tooltip: '{{ __($item->getLabel()) }}',
+                        }"
+                        x-tooltip.placement.right="sidebar_collapsed ? tooltip : ''"
                         {!! $item->getHtmlAttributeBag() !!}
                             {{ $navigate ? 'wire:navigate' : null }}
                             target="{{ $target }}"
@@ -77,7 +81,9 @@
                             @if ($icon = $item->getIcon())
                             @svg($icon, 'h-6 w-6 shrink-0')
                             @endif
-                            {{ __($item->getLabel()) }}
+                            <span x-show="!sidebar_collapsed">
+                                {{ __($item->getLabel()) }}
+                            </span>
                         </a>
                     </li>
                     @endforeach
