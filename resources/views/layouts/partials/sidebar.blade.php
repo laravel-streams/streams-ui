@@ -103,7 +103,7 @@ class="relative z-10 lg:hidden" role="dialog" aria-modal="true">
         </div>
         <div x-show="sidebar_collapsed" class="ui-brand flex h-16 shrink-0 items-center justify-center font-bold -mx-4">
             <a href="{{ UI::getHomeUrl() }}" class="text-xl flex gap-4" title="Go to panel homepage.">
-                <img src="{{ asset('/img/favicon.png') }}" alt="{{ __(UI::getPanel()->getBrandName()) }} Logo">
+                <img src="{{ asset('/favicon.png') }}" alt="{{ __(UI::getPanel()->getBrandName()) }} Logo">
             </a>
         </div>
         {{-- EOF Brand --}}
