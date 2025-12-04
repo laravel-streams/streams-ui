@@ -74,7 +74,7 @@
                     default => $size,
                 },
                 match ($color) {
-                    'gray' => 'bg-gray-50 text-gray-600',
+                    'gray' => 'bg-gray-200 text-gray-600',
                     default => 'bg-custom-500 text-white',
                 },
             ])
