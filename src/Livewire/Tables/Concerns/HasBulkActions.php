@@ -8,6 +8,7 @@ use Streams\Ui\Builders\Forms\Form;
 use Streams\Ui\Exceptions\ValidationException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Streams\Ui\Builders\Tables\BulkActions\BulkAction;
+use Streams\Ui\Support\Facades\Actions;
 
 trait HasBulkActions
 {
@@ -357,6 +358,13 @@ trait HasBulkActions
     {
         if (! $this->mountedTableBulkAction) {
             return null;
+        }
+
+        if ($action = Actions::make($this->mountedTableBulkAction)) {
+            
+            // $this->configureTableBulkAction($action);
+
+            return $action;
         }
 
         return $this->getTable()->getBulkAction($this->mountedTableBulkAction);

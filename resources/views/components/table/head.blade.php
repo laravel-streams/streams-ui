@@ -59,7 +59,7 @@
             }
         @endphp
         
-        <th scope="col" class="py-2.5 pl-4 pr-3 text-left font-semibold text-gray-900 sm:pl-6">
+        <th scope="col" class="py-2.5 {{ ($bulkActions && $loop->first) ? 'pl-0' : 'pr-4 sm:pl-6' }} text-left font-semibold text-gray-900">
             <{{ $column->isSortable() ? 'button' : 'span' }}
             @if ($column->isSortable())
             type="button"

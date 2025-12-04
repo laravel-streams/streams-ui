@@ -52,7 +52,9 @@
 
         $columnClasses = [Arr::toCssClasses([
             ...[
-                'whitespace-nowrap py-4 pl-4 pr-3 sm:pl-6',
+                'whitespace-nowrap py-4 pr-3',
+                'pl-0' => ($bulkActions && $loop->first),
+                'pl-4 sm:pl-6' => !($bulkActions && $loop->first),
                 'w-px' => !$loop->last,
                 match ($color) {
                     'gray' => '',

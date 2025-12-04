@@ -49,7 +49,8 @@ trait InteractsWithActions
         if ($this->mountedActionHasForm()) {
             //         $action->callBeforeFormValidated();
 
-            $action->formData((array) $form->getState());
+            // $action->formData((array) $form->getState());
+            $action->formData((array) $this->data);
 
             //         $action->callAfterFormValidated();
         }
