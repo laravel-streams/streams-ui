@@ -9,6 +9,8 @@ use Streams\Ui\Exceptions\Cancel;
 use Streams\Ui\Builders\Forms\Form;
 use Illuminate\Database\Eloquent\Model;
 use Streams\Ui\Builders\Actions\Action;
+use Streams\Ui\Builders\Actions\MountableAction;
+use Streams\Ui\Support\Facades\Actions;
 
 trait InteractsWithActions
 {
@@ -204,10 +206,16 @@ trait InteractsWithActions
 
     public function cacheActions(): ?array
     {
+        $registered = Actions::all();
+
         $actions = $this->getMountableActions();
 
-        foreach ($actions as $action) {
-            $action->livewire($this);
+        foreach ($actions + $registered as $action) {
+            
+            if ($action instanceof MountableAction) {
+                $action->livewire($this);
+            }
+
             $this->cachedActions[$action->getName()] = $action;
         }
 
