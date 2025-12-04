@@ -1,25 +1,26 @@
 @props([
-    'color' => 'primary',
-    'deleteButton' => null,
     'disabled' => false,
-    'form' => null,
+    
+    'color' => 'primary',
+    
     'href' => null,
-    'icon' => null,
-    'iconAlias' => null,
-    'iconPosition' => 'before',
-    'iconSize' => 'sm',
     'keyBindings' => null,
-    'loadingIndicator' => true,
     'size' => 'md',
     'tag' => 'div',
     'target' => null,
-    'tooltip' => null,
     'type' => 'button',
+    
+    'icon' => null,
+    'iconSize' => 'sm',
+    'iconAlias' => null,
+    'iconPosition' => 'before',
+
+    'tooltip' => null,
+    'tooltipPosition' => null,
 ])
 
 @php
-    $isDeletable = count($deleteButton?->attributes->getAttributes() ?? []) > 0;
-
+    
     $iconClasses = \Illuminate\Support\Arr::toCssClasses([
         'h-4 w-4',
         match ($iconSize) {
@@ -34,13 +35,7 @@
         },
     ]);
 
-    $wireTarget = $loadingIndicator ? $attributes->whereStartsWith(['wire:target', 'wire:click'])->filter(fn ($value): bool => filled($value))->first() : null;
-
-    $hasLoadingIndicator = filled($wireTarget) || ($type === 'submit' && filled($form));
-
-    if ($hasLoadingIndicator) {
-        $loadingIndicatorTarget = html_entity_decode($wireTarget ?: $form, ENT_QUOTES);
-    }
+    $wireTarget = $attributes->whereStartsWith(['wire:target', 'wire:click'])->filter(fn ($value): bool => filled($value))->first();
 
     $hasTooltip = filled($tooltip);
 @endphp
@@ -67,7 +62,7 @@
                 'disabled' => $tag === 'button' ? $disabled : null,
                 'type' => $tag === 'button' ? $type : null,
                 'wire:loading.attr' => $tag === 'button' ? 'disabled' : null,
-                'wire:target' => ($hasLoadingIndicator && $loadingIndicatorTarget) ? $loadingIndicatorTarget : null,
+                // 'wire:target' => ($hasLoadingIndicator && $loadingIndicatorTarget) ? $loadingIndicatorTarget : null,
             ], escape: false)
             ->class([
                 'flex items-center justify-center gap-x-1 rounded-md text-xs font-medium',
@@ -101,8 +96,8 @@
                         new \Illuminate\View\ComponentAttributeBag([
                             'alias' => $iconAlias,
                             'icon' => $icon,
-                            'wire:loading.remove.delay.' . config('filament.livewire_loading_delay', 'default') => $hasLoadingIndicator,
-                            'wire:target' => $hasLoadingIndicator ? $loadingIndicatorTarget : null,
+                            // 'wire:loading.remove.delay.' . config('filament.livewire_loading_delay', 'default') => $hasLoadingIndicator,
+                            // 'wire:target' => $hasLoadingIndicator ? $loadingIndicatorTarget : null,
                         ])
                     )->class([$iconClasses])
                 "
@@ -125,35 +120,7 @@
 
     {{ $slot }}
 
-    @if ($isDeletable)
-        <button
-            type="button"
-            {{
-                $deleteButton
-                    ->attributes
-                    ->except(['label'])
-                    ->class([
-                        '-my-1 -me-2 -ms-1 flex items-center justify-center p-1 outline-none transition duration-75',
-                        match ($color) {
-                            'gray' => 'text-gray-700/50 hover:text-gray-700/75 focus-visible:text-gray-700/75',
-                            default => 'text-custom-700/50 hover:text-custom-700/75 focus-visible:text-custom-700/75',
-                        },
-                    ])
-            }}
-        >
-            {{-- <x-filament::icon
-                alias="badge.delete-button"
-                icon="heroicon-m-x-mark"
-                class="h-3.5 w-3.5"
-            /> --}}
-
-            @if (filled($label = $deleteButton->attributes->get('label')))
-                <span class="sr-only">
-                    {{ $label }}
-                </span>
-            @endif
-        </button>
-    @elseif ($iconPosition === 'after')
+    @if ($iconPosition === 'after')
         @if ($icon)
             {{-- <x-filament::icon
                 :attributes="

@@ -47,7 +47,7 @@
             }
         @endphp
         
-        <th scope="col" class="w-0 py-3.5 pl-4 pr-3 text-left font-semibold text-gray-900 sm:pl-6">
+        <th scope="col" class="py-3.5 pl-4 pr-3 text-left font-semibold text-gray-900 sm:pl-6">
             <{{ $column->isSortable() ? 'button' : 'span' }}
             @if ($column->isSortable())
             type="button"
@@ -104,7 +104,7 @@
         @endforeach
 
         @if ($actions)
-        <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+        <th scope="col" class="relative w-full py-3.5 pl-3 pr-4 sm:pr-6">
             <span class="sr-only">Row Actions</span>
         </th>
         @endif

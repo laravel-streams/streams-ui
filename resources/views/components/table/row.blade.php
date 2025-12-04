@@ -53,16 +53,14 @@
         $columnClasses = [Arr::toCssClasses([
             ...[
                 'whitespace-nowrap py-4 pl-4 pr-3 sm:pl-6',
-                'w-1' => $loop->last,
+                'w-px' => !$loop->last,
                 match ($color) {
                     'gray' => '',
                     default => '',
                 },
                 is_string($color) ? "{$color}" : null,
             ],
-        ])];
-
-        $columnStyles = Arr::toCssStyles([
+        ])];        $columnStyles = Arr::toCssStyles([
             \Streams\Ui\Support\Facades\Colors::colorVariables(
                 $color,
                 shades: [400, 500, 600],
@@ -90,7 +88,7 @@
     </td>
     @endforeach
     @if ($actions)
-    <td class="whitespace-nowrap py-4 pr-4 pl-3 text-sm font-medium text-gray-900 sm:pl-6">
+    <td class="py-4 pr-4 pl-3 text-sm font-medium text-gray-900 sm:pl-6">
         <x-ui::table.actions
             :actions="$actions"
             {{-- :alignment="(!$contentGrid) ? 'start md:end' : 'start'" --}}
