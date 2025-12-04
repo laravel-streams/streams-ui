@@ -20,9 +20,9 @@
 >
 
     @if ($bulkActions)
-    <td class="p-0 w-0 whitespace-nowrap">
+    <td class="p-0 w-px">
         <div class="px-3 py-4">
-            <label class="flex">
+            <label>
                 <input type="checkbox"
                     {{-- x-model="selectedEntries" --}}
                     wire:model="selectedTableEntries"

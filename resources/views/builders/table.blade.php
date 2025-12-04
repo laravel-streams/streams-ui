@@ -43,17 +43,7 @@ $selectedRecords = [];//$table->getSelectedRecords();
         @if ($bulkActions || $filters)
         <div class="flex flex-col gap-x-3 p-3">
 
-            @if ($bulkActions)
-            <div class="flex mr-12" x-show="selectedEntries.length > 0">
-                @foreach ($bulkActions as $action)
-                {!! $action->render() !!}
-                @endforeach
-            </div>
-            @endif
-
-            <div class="flex justify-between">
-
-                <x-ui::table.search />
+            <div class="flex items-center">
 
                 @if ($filters)
                 <div x-data="{open: false}" x-on:click.outside="open=false" x-on:keydown.escape.window="open=false" class="flex justify-center relative z-10">
@@ -67,9 +57,12 @@ $selectedRecords = [];//$table->getSelectedRecords();
                         :filters="$filters"
                         x-cloak
                         x-show="open"
-                        class="absolute top-full right-0 w-72 bg-white p-4 border rounded-lg shadow-md"/>
+                        class="absolute top-full left-0 w-72 bg-white p-4 border rounded-lg shadow-md"/>
                 </div>
                 @endif
+
+                <x-ui::table.search />
+
             </div>
             
         </div>

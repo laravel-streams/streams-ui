@@ -7,7 +7,7 @@
 
         @if ($bulkActions)
         <th scope="col" class="p-0 w-0" width="10px">
-            <div class="px-3 py-4">
+            <div class="px-3 flex items-center">
                 <label class="flex">
                     <input type="checkbox"
                         class="rounded border-none bg-white shadow-sm ring-1 transition duration-75 checked:ring-0 focus:ring-2 focus:ring-offset-0 disabled:pointer-events-none disabled:bg-gray-50 disabled:text-gray-50 disabled:checked:bg-current disabled:checked:text-gray-400 text-primary-600 ring-gray-950/10 focus:ring-primary-600 checked:focus:ring-primary-500/50"
@@ -33,6 +33,18 @@
                         Select/deselect all items for bulk actions.
                     </span>
                 </label>
+                <div class="ml-2 relative" x-data="{ open: false }">
+                    <button type="button" class="p-1 text-gray-700 rounded-md disabled:border-transparent disabled:bg-none disabled:opacity-50" :class="selectedEntries.length > 0 ? 'bg-gray-200 hover:bg-gray-300 text-black' : null" x-on:click="open = !open" aria-haspopup="true" :aria-expanded="open.toString()" x-bind:disabled="selectedEntries.length == 0">
+                        <x-ui::icon icon="heroicon-o-ellipsis-vertical" class="h-5 w-5 text-gray-400 hover:text-gray-500"/>
+                    </button>
+                    <div x-show="open" x-cloak x-on:click.outside="open = false" x-on:keydown.escape.window="open = false" class="absolute bg-white border rounded-lg shadow-lg overflow-hidden left-0 w-48 z-10">
+                        {{-- Bulk Actions --}}
+                        @foreach ($bulkActions as $action)
+                            {!! $action->mergeHtmlAttributes(['class' => 'w-full'])->borderRadius('none')->render() !!}
+                        @endforeach
+
+                    </div>
+                </div>
             </div>
         </th>
         @endif
@@ -47,7 +59,7 @@
             }
         @endphp
         
-        <th scope="col" class="py-3.5 pl-4 pr-3 text-left font-semibold text-gray-900 sm:pl-6">
+        <th scope="col" class="py-2.5 pl-4 pr-3 text-left font-semibold text-gray-900 sm:pl-6">
             <{{ $column->isSortable() ? 'button' : 'span' }}
             @if ($column->isSortable())
             type="button"
@@ -104,7 +116,7 @@
         @endforeach
 
         @if ($actions)
-        <th scope="col" class="relative w-full py-3.5 pl-3 pr-4 sm:pr-6">
+        <th scope="col" class="relative w-full py-2.5 pl-3 pr-4 sm:pr-6">
             <span class="sr-only">Row Actions</span>
         </th>
         @endif
