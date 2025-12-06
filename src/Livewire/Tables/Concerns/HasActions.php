@@ -95,11 +95,11 @@ trait HasActions
         return $result;
     }
 
-    protected function openActionModal(Action $action): void
-    {
-        // $this->dispatch('open-modal', id: "{$action->getId()}-action");
-        $this->dispatch('open-modal');
-    }
+    // protected function openActionModal(Action $action): void
+    // {
+    //     // $this->dispatch('open-modal', id: "{$action->getId()}-action");
+    //     $this->dispatch('open-modal');
+    // }
 
     public function mountedTableActionRecord(int|string|null $record): void
     {

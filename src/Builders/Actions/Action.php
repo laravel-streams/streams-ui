@@ -29,10 +29,10 @@ class Action extends ViewBuilder
     use Concerns\HasArguments;
     use Concerns\HasKeyBindings;
     use Concerns\HasBorderRadius;
-    
+
     // use Concerns\CanBeLabeledFrom;
     // use Concerns\CanBeOutlined;
-    
+
     protected string $view = 'ui::builders.action';
 
     protected string $viewIdentifier = 'action';
@@ -53,6 +53,13 @@ class Action extends ViewBuilder
         Actions::register($name, $static);
 
         return $static;
+    }
+
+    public static function register($name): static
+    {
+        Actions::register($name, $action = static::make($name));
+        
+        return $action;
     }
 
     public function link(

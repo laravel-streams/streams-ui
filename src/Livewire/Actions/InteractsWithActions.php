@@ -275,7 +275,7 @@ trait InteractsWithActions
         $action = $this->cachedActions[$name] ?? null;
 
         if (! $action) {
-            throw new \InvalidArgumentException("No action named [{$name}] found in the Livewire component.");
+            throw new \InvalidArgumentException("No action named [{$name}] found in the Livewire component [" . get_class($this) . "].");
         }
 
         return $action;
@@ -304,6 +304,17 @@ trait InteractsWithActions
         $this->resetErrorBag();
 
         $this->closeActionModal($action);
+    }
+
+    public function getMountableActions(): array
+    {
+        if (method_exists($this, 'getComponentMountableActions')) {
+            $componentActions = $this->getComponentMountableActions();
+        } else {
+            $componentActions = [];
+        }
+        
+        return [...$componentActions];
     }
 
     protected function closeActionModal(): void
