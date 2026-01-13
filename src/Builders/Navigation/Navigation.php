@@ -8,8 +8,8 @@ use Streams\Ui\Builders\Concerns as Common;
 
 class Navigation extends ViewBuilder
 {
-    use Common\HasId;
     use Common\HasHtmlAttributes;
+    use Common\HasId;
 
     protected string $viewIdentifier = 'navigation';
 

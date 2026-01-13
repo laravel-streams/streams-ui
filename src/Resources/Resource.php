@@ -11,9 +11,8 @@ use Streams\Ui\Builders\Navigation\NavigationItem;
 abstract class Resource
 {
     use Common\HasTitle;
-    use Concerns\HasNavigationGroups;
     use Common\ProvidesNavigationItem;
-
+    use Concerns\HasNavigationGroups;
     use Concerns\HasRoutes;
     use Concerns\HasStream;
     use HasMemory;

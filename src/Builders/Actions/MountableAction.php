@@ -8,11 +8,10 @@ use Streams\Ui\Builders\Concerns as Common;
 class MountableAction extends Action
 {
     use Common\BelongsToLivewire;
-
-    use Concerns\HasForm;
-    use Concerns\HasAction;
-    use Concerns\CanRedirect;
     use Concerns\CanOpenModal;
+    use Concerns\CanRedirect;
+    use Concerns\HasAction;
+    use Concerns\HasForm;
 
     // use Concerns\CanBeMounted; // #configured like builders kinda
     // use Concerns\CanNotify;

@@ -6,12 +6,11 @@ use Streams\Ui\Builders\Concerns as Common;
 
 class Grid extends Container
 {
-    use Concerns\HasColumns;
-    
-    use Common\HasUrl;
-    use Common\HasHeading;
-    use Common\HasDescription;
     use Common\CanBeDisabled;
+    use Common\HasDescription;
+    use Common\HasHeading;
+    use Common\HasUrl;
+    use Concerns\HasColumns;
 
     protected string $viewIdentifier = 'grid';
 

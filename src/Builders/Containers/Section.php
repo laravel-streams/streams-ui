@@ -7,11 +7,11 @@ use Streams\Ui\Builders\Concerns as Common;
 
 class Section extends Container
 {
-    use Common\HasUrl;
-    use Common\HasActions;
-    use Common\HasHeading;
-    use Common\HasDescription;
     use Common\CanBeDisabled;
+    use Common\HasActions;
+    use Common\HasDescription;
+    use Common\HasHeading;
+    use Common\HasUrl;
 
     protected string $viewIdentifier = 'section';
 

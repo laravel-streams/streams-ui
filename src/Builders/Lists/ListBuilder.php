@@ -8,8 +8,8 @@ use Streams\Ui\Builders\Concerns as Common;
 
 class ListBuilder extends ViewBuilder
 {
-    use Common\HasId;
     use Common\HasHtmlAttributes;
+    use Common\HasId;
 
     protected string $view = 'ui::components.lists.list';
 

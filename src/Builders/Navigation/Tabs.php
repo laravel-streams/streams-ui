@@ -7,10 +7,10 @@ use Streams\Ui\Builders\Concerns as Common;
 
 class Tabs extends ViewBuilder
 {
-    use Common\HasId;
-    use Common\HasLabel;
     use Common\HasComponents;
     use Common\HasHtmlAttributes;
+    use Common\HasId;
+    use Common\HasLabel;
 
     protected string $view = 'ui::builders.navigation.tabs';
 

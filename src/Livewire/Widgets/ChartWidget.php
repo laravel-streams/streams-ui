@@ -7,10 +7,9 @@ use Streams\Ui\Builders\Concerns as Common;
 class ChartWidget extends Widget
 {
     use Common\HasColor;
-    use Common\HasHeading;
     use Common\HasComponents;
     use Common\HasDescription;
-    
+    use Common\HasHeading;
     use Concerns\CanPoll;
 
     protected static string $view = 'ui::builders.chart';

@@ -8,6 +8,15 @@ use Streams\Ui\Builders\Concerns as Common;
 
 abstract class Input extends ViewBuilder
 {
+    use Common\BelongsToLivewire;
+    use Common\CanSpanColumns;
+    use Common\HasHtmlAttributes;
+    // use BelongsToContainer;
+
+    use Common\HasId;
+    use Common\HasLabel;
+    use Common\HasName;
+    use Common\HasState;
     use Inputs\Concerns\CanBeAutofocused;
     use Inputs\Concerns\CanBeDisabled;
     use Inputs\Concerns\CanBeHidden;
@@ -16,15 +25,6 @@ abstract class Input extends ViewBuilder
     use Inputs\Concerns\HasFieldWrapper;
     use Inputs\Concerns\HasHint;
     use Inputs\Concerns\HasKey;
-    use Common\CanSpanColumns;
-    use Common\BelongsToLivewire;
-    use Common\HasHtmlAttributes;
-    // use BelongsToContainer;
-
-    use Common\HasId;
-    use Common\HasLabel;
-    use Common\HasName;
-    use Common\HasState;
 
     protected string $viewIdentifier = 'field';
 

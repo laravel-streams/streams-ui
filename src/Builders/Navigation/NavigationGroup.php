@@ -8,13 +8,12 @@ use Streams\Ui\Builders\Concerns as Common;
 
 class NavigationGroup extends Builder
 {
+    use Common\CanBeHidden;
     use Common\HasIcon;
     use Common\HasLabel;
-    use Common\CanBeHidden;
     use Common\HasSortOrder;
-    
-    use Navigation\Traits\HasItems;
     use Navigation\Traits\CanBeCollapsed;
+    use Navigation\Traits\HasItems;
 
     final public function __construct(string|\Closure|null $label = null)
     {

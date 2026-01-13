@@ -5,8 +5,8 @@ namespace Streams\Ui\Livewire\Pages\Concerns;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Routing\Route;
-use Streams\Ui\Livewire\Pages\PageRouter;
 use Streams\Ui\Builders\Panels\Panel;
+use Streams\Ui\Livewire\Pages\PageRouter;
 use Illuminate\Support\Facades\Route as RouteFacade;
 
 trait HasRoutes

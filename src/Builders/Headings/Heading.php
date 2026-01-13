@@ -7,13 +7,13 @@ use Streams\Ui\Builders\Concerns as Common;
 
 class Heading extends ViewBuilder
 {
-    use Common\HasUrl;
-    use Common\HasIcon;
-    use Common\HasBadge;
-    use Common\HasTitle;
     use Common\HasActions;
+    use Common\HasBadge;
     use Common\HasDescription;
     use Common\HasHtmlAttributes;
+    use Common\HasIcon;
+    use Common\HasTitle;
+    use Common\HasUrl;
 
     protected string $viewIdentifier = 'heading';
 

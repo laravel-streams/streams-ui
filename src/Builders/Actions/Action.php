@@ -8,27 +8,25 @@ use Streams\Ui\Builders\Concerns as Common;
 
 class Action extends ViewBuilder
 {
-    use Common\HasId;
-    use Common\HasUrl;
-    use Common\HasIcon;
-    use Common\HasSize;
-    use Common\HasName;
+    use Common\CanBeDisabled;
+    use Common\CanBeHidden;
     use Common\HasBadge;
     use Common\HasColor;
     use Common\HasEntry;
-    use Common\HasLabel;
-    use Common\HasTooltip;
     use Common\HasHtmlAttributes;
-
-    use Common\CanBeHidden;
-    use Common\CanBeDisabled;
-
-    use Concerns\HasTag;
-    use Concerns\HasForm;
-    use Concerns\HasStyle;
+    use Common\HasIcon;
+    use Common\HasId;
+    use Common\HasLabel;
+    use Common\HasName;
+    use Common\HasSize;
+    use Common\HasTooltip;
+    use Common\HasUrl;
     use Concerns\HasArguments;
-    use Concerns\HasKeyBindings;
     use Concerns\HasBorderRadius;
+    use Concerns\HasForm;
+    use Concerns\HasKeyBindings;
+    use Concerns\HasStyle;
+    use Concerns\HasTag;
 
     // use Concerns\CanBeLabeledFrom;
     // use Concerns\CanBeOutlined;
@@ -58,7 +56,7 @@ class Action extends ViewBuilder
     public static function register($name): static
     {
         Actions::register($name, $action = static::make($name));
-        
+
         return $action;
     }
 

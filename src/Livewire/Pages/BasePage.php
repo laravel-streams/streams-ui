@@ -10,12 +10,11 @@ use Streams\Core\Support\Traits\FiresCallbacks;
 
 abstract class BasePage extends Component
 {
+    use Concerns\HasLayout;
+    use Concerns\HasResource;
+    use Concerns\HasRoutes;
     use FiresCallbacks;
     use HasMemory;
-    
-    use Concerns\HasLayout;
-    use Concerns\HasRoutes;
-    use Concerns\HasResource;
 
     // use Common\HasNavigation;
     // use Common\HasTitle;

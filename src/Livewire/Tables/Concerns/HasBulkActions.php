@@ -2,14 +2,14 @@
 
 namespace Streams\Ui\Livewire\Tables\Concerns;
 
-use Illuminate\Notifications\Action;
 use Streams\Core\Entry\Entry;
 use Illuminate\Support\Collection;
 use Streams\Ui\Builders\Forms\Form;
+use Illuminate\Notifications\Action;
+use Streams\Ui\Support\Facades\Actions;
 use Streams\Ui\Exceptions\ValidationException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Streams\Ui\Builders\Tables\BulkActions\BulkAction;
-use Streams\Ui\Support\Facades\Actions;
 
 trait HasBulkActions
 {
@@ -362,7 +362,7 @@ trait HasBulkActions
         }
 
         if ($action = Actions::make($this->mountedTableBulkAction)) {
-            
+
             // $this->configureTableBulkAction($action);
 
             return $action;

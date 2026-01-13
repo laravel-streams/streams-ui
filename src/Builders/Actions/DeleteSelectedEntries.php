@@ -17,8 +17,10 @@ class DeleteSelectedEntries extends BulkAction
             ->color('danger')
             ->action(function (array $selectedEntries): void {
 
+                $entries = $this->getStreamInstance()->entries();
+
                 foreach ($selectedEntries as $id) {
-                    $this->getStreamInstance()->entries()->find($id)?->delete();
+                    $entries->find($id)?->delete();
                 }
 
                 Notification::make()
@@ -29,7 +31,7 @@ class DeleteSelectedEntries extends BulkAction
             })
             ->mergeHtmlAttributes(function () {
                 return [
-                    'wire:click' => 'mountTableBulkAction(\''. $this->getName() .'\')',
+                    'wire:click' => 'mountTableBulkAction(\''.$this->getName().'\')',
                 ];
             });
     }

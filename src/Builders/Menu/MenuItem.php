@@ -8,14 +8,14 @@ use Streams\Ui\Builders\Concerns as Common;
 
 class MenuItem extends Builder
 {
-    use Common\HasUrl;
-    use Common\HasIcon;
+    use Common\CanBeHidden;
     use Common\HasBadge;
     use Common\HasColor;
+    use Common\HasHtmlAttributes;
+    use Common\HasIcon;
     use Common\HasLabel;
     use Common\HasSortOrder;
-    use Common\HasHtmlAttributes;
-    use Common\CanBeHidden;
+    use Common\HasUrl;
 
     public static function make(): static
     {

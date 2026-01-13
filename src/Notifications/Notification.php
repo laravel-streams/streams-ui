@@ -12,14 +12,13 @@ use Streams\Ui\Support\Facades\Notifications;
 
 class Notification extends Builder
 {
-    use Common\HasId;
-    use Common\HasIcon;
-    use Common\HasColor;
-    use Common\HasTitle;
     use Common\HasActions;
-    use Common\HasIconColor;
+    use Common\HasColor;
     use Common\HasDescription;
-    
+    use Common\HasIcon;
+    use Common\HasIconColor;
+    use Common\HasId;
+    use Common\HasTitle;
     use Concerns\HasDuration;
 
     public function __construct(string $id)

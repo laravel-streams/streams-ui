@@ -8,20 +8,19 @@ use Streams\Ui\Builders\Concerns as Support;
 abstract class Column extends ViewBuilder
 {
     use Concerns\HasTable;
-    use Concerns\IsSortable;
-    use Concerns\IsSearchable;
     use Concerns\InteractsWithQuery;
-
-    use Support\HasIcon;
-    use Support\HasName;
+    use Concerns\IsSearchable;
+    use Concerns\IsSortable;
+    use Support\CanBeHidden;
     use Support\HasColor;
     use Support\HasEntry;
-    use Support\HasLabel;
-    use Support\HasState;
-    use Support\HasValue;
-    use Support\HasTooltip;
     use Support\HasHtmlAttributes;
-    use Support\CanBeHidden;
+    use Support\HasIcon;
+    use Support\HasLabel;
+    use Support\HasName;
+    use Support\HasState;
+    use Support\HasTooltip;
+    use Support\HasValue;
 
     protected string $viewIdentifier = 'column';
 

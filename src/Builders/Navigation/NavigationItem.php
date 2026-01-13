@@ -8,16 +8,14 @@ use Streams\Ui\Builders\Concerns as Common;
 
 class NavigationItem extends Builder
 {
-    use Common\HasUrl;
-    use Common\HasIcon;
+    use Common\CanBeDisabled;
+    use Common\CanBeHidden;
     use Common\HasBadge;
+    use Common\HasHtmlAttributes;
+    use Common\HasIcon;
     use Common\HasLabel;
     use Common\HasSortOrder;
-    use Common\HasHtmlAttributes;
-    
-    use Common\CanBeHidden;
-    use Common\CanBeDisabled;
-
+    use Common\HasUrl;
     use Navigation\Traits\CanBeActive;
     use Navigation\Traits\HasActiveIcon;
     use Navigation\Traits\HasGroup;

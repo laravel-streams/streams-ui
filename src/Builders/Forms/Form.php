@@ -8,16 +8,15 @@ use Streams\Ui\Builders\Concerns as Support;
 
 class Form extends ViewBuilder
 {
-    use Support\BelongsToParent;
     use Support\BelongsToLivewire;
-
-    use Support\HasState;
-    use Support\HasStream;
+    use Support\BelongsToParent;
     use Support\HasActions;
-    use Support\HasHeading;
     use Support\HasComponents;
     use Support\HasDescription;
+    use Support\HasHeading;
     use Support\HasHtmlAttributes;
+    use Support\HasState;
+    use Support\HasStream;
 
     protected string $view = 'ui::builders.form';
 

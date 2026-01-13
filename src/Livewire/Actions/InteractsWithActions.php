@@ -3,14 +3,13 @@
 namespace Streams\Ui\Livewire\Actions;
 
 use Illuminate\Support\Arr;
-use Streams\Core\Entry\Entry;
 use Streams\Ui\Exceptions\Halt;
 use Streams\Ui\Exceptions\Cancel;
 use Streams\Ui\Builders\Forms\Form;
 use Illuminate\Database\Eloquent\Model;
 use Streams\Ui\Builders\Actions\Action;
-use Streams\Ui\Builders\Actions\MountableAction;
 use Streams\Ui\Support\Facades\Actions;
+use Streams\Ui\Builders\Actions\MountableAction;
 
 trait InteractsWithActions
 {
@@ -209,10 +208,10 @@ trait InteractsWithActions
     {
         $registered = Actions::all();
 
-        $actions = $this->getMountableActions();
+        $actions = $this->getActions();
 
         foreach ($actions + $registered as $action) {
-            
+
             if ($action instanceof MountableAction) {
                 $action->livewire($this);
             }
@@ -275,7 +274,7 @@ trait InteractsWithActions
         $action = $this->cachedActions[$name] ?? null;
 
         if (! $action) {
-            throw new \InvalidArgumentException("No action named [{$name}] found in the Livewire component [" . get_class($this) . "].");
+            throw new \InvalidArgumentException("No action named [{$name}] found in the Livewire component [".get_class($this).'].');
         }
 
         return $action;
@@ -304,17 +303,6 @@ trait InteractsWithActions
         $this->resetErrorBag();
 
         $this->closeActionModal($action);
-    }
-
-    public function getMountableActions(): array
-    {
-        if (method_exists($this, 'getComponentMountableActions')) {
-            $componentActions = $this->getComponentMountableActions();
-        } else {
-            $componentActions = [];
-        }
-        
-        return [...$componentActions];
     }
 
     protected function closeActionModal(): void
