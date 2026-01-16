@@ -95,9 +95,7 @@ class ChartWidgetTest extends UiTestCase
     /** @test */
     public function it_returns_empty_array_for_default_data()
     {
-        $widget = new class extends ChartWidget
-        {
-        };
+        $widget = new class extends ChartWidget {};
 
         $this->assertEquals([], $widget->getData());
     }
@@ -284,7 +282,7 @@ class ChartWidgetTest extends UiTestCase
             {
                 public function __construct(string $type)
                 {
-                    static::$type = $type;
+                    self::$type = $type;
                 }
             };
 

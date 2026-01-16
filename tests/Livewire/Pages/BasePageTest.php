@@ -2,11 +2,9 @@
 
 namespace Streams\Ui\Tests\Livewire\Pages;
 
-use Livewire\Livewire;
-use Illuminate\Support\Facades\View;
 use Streams\Ui\Tests\UiTestCase;
-use Streams\Ui\Livewire\Pages\BasePage;
 use Streams\Ui\Builders\Panels\Panel;
+use Streams\Ui\Livewire\Pages\BasePage;
 
 class BasePageTest extends UiTestCase
 {
@@ -15,17 +13,21 @@ class BasePageTest extends UiTestCase
         return new class extends BasePage
         {
             protected static string $view = 'test-view';
+
             protected static string $resource = 'TestResource';
+
             protected static ?string $title = 'Test Page';
+
             protected static ?string $slug = 'test-page';
+
             protected static ?string $routeName = 'test.page';
 
-            public function testPublicMethod(): string
+            public function test_public_method(): string
             {
                 return 'test-value';
             }
 
-            protected function testProtectedMethod(): string
+            protected function test_protected_method(): string
             {
                 return 'protected-value';
             }
@@ -54,6 +56,7 @@ class BasePageTest extends UiTestCase
         $page = new class extends BasePage
         {
             protected static string $view = 'test-view';
+
             protected static string $resource = 'TestResource';
         };
 
@@ -133,6 +136,7 @@ class BasePageTest extends UiTestCase
         $page = new class extends BasePage
         {
             protected static string $view = 'test-view';
+
             protected static string $resource = 'TestResource';
         };
 
@@ -273,7 +277,9 @@ class BasePageTest extends UiTestCase
         $page = new class extends BasePage
         {
             protected static string $view = 'test-view';
+
             protected static string $resource = 'TestResource';
+
             protected static string|array $middleware = ['auth', 'verified'];
         };
 
@@ -290,7 +296,9 @@ class BasePageTest extends UiTestCase
         $page = new class extends BasePage
         {
             protected static string $view = 'test-view';
+
             protected static string $resource = 'TestResource';
+
             protected static string|array $withoutMiddleware = ['csrf'];
         };
 

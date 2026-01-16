@@ -4,8 +4,8 @@ namespace Streams\Ui\Tests\Livewire\Widgets;
 
 use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Livewire\Widgets\Widget;
-use Streams\Ui\Livewire\Widgets\StatsWidget;
 use Streams\Ui\Livewire\Widgets\Stats\Stat;
+use Streams\Ui\Livewire\Widgets\StatsWidget;
 
 class StatsWidgetTest extends UiTestCase
 {
@@ -71,9 +71,7 @@ class StatsWidgetTest extends UiTestCase
     /** @test */
     public function it_returns_empty_array_for_default_stats()
     {
-        $widget = new class extends StatsWidget
-        {
-        };
+        $widget = new class extends StatsWidget {};
 
         $this->assertEquals([], $widget->getStats());
     }

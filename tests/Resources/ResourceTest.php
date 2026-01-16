@@ -3,22 +3,21 @@
 namespace Streams\Ui\Tests\Resources;
 
 use Mockery;
-use Streams\Ui\Tests\UiTestCase;
-use Streams\Core\Stream\Stream;
 use Streams\Core\Entry\Entry;
-use Streams\Core\Criteria\Criteria;
-use Streams\Core\Support\Facades\Streams;
-use Streams\Ui\Builders\Panels\Panel;
-use Streams\Ui\Support\Facades\UI;
+use Streams\Core\Stream\Stream;
+use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Resources\Resource;
+use Streams\Ui\Support\Facades\UI;
 use Illuminate\Support\Facades\Route;
+use Streams\Ui\Builders\Panels\Panel;
+use Streams\Core\Support\Facades\Streams;
 
 class ResourceTest extends UiTestCase
 {
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         // Clear any existing routes
         Route::getRoutes()->refreshNameLookups();
     }
@@ -32,7 +31,8 @@ class ResourceTest extends UiTestCase
     /** @test */
     public function it_can_get_stream_from_property(): void
     {
-        $resource = new class extends Resource {
+        $resource = new class extends Resource
+        {
             protected static ?string $stream = 'test_stream';
         };
 
@@ -42,7 +42,8 @@ class ResourceTest extends UiTestCase
     /** @test */
     public function it_falls_back_to_slug_when_no_stream_defined(): void
     {
-        $resource = new class extends Resource {
+        $resource = new class extends Resource
+        {
             protected static ?string $slug = 'my-resource';
         };
 
@@ -52,7 +53,8 @@ class ResourceTest extends UiTestCase
     /** @test */
     public function it_can_get_slug_from_property(): void
     {
-        $resource = new class extends Resource {
+        $resource = new class extends Resource
+        {
             protected static ?string $slug = 'custom-slug';
         };
 
@@ -76,7 +78,8 @@ class ResourceTest extends UiTestCase
         $panel = Panel::make('admin')->default();
         UI::panel($panel);
 
-        $resource = new class extends Resource {
+        $resource = new class extends Resource
+        {
             protected static ?string $slug = 'posts';
         };
 
@@ -91,7 +94,8 @@ class ResourceTest extends UiTestCase
         $panel = Panel::make('admin')->default();
         UI::panel($panel);
 
-        $resource = new class extends Resource {
+        $resource = new class extends Resource
+        {
             protected static ?string $slug = 'users';
         };
 
@@ -106,7 +110,8 @@ class ResourceTest extends UiTestCase
         $panel = Panel::make('admin')->default();
         UI::panel($panel);
 
-        $resource = new class extends Resource {
+        $resource = new class extends Resource
+        {
             protected static ?string $slug = 'admin/posts';
         };
 
@@ -120,7 +125,8 @@ class ResourceTest extends UiTestCase
     {
         $panel = Panel::make('admin');
 
-        $resource = new class extends Resource {
+        $resource = new class extends Resource
+        {
             protected static string|array $middleware = ['auth', 'verified'];
         };
 
@@ -134,7 +140,8 @@ class ResourceTest extends UiTestCase
     {
         $panel = Panel::make('admin');
 
-        $resource = new class extends Resource {
+        $resource = new class extends Resource
+        {
             protected static string|array $middleware = 'auth';
         };
 
@@ -148,7 +155,8 @@ class ResourceTest extends UiTestCase
     {
         $panel = Panel::make('admin');
 
-        $resource = new class extends Resource {
+        $resource = new class extends Resource
+        {
             protected static string|array $withoutMiddleware = ['throttle'];
         };
 
@@ -172,7 +180,7 @@ class ResourceTest extends UiTestCase
     public function it_can_get_navigation_groups(): void
     {
         $resourceClass = new class extends Resource {};
-        
+
         // Set navigation groups using the static method
         $resourceClass::navigationGroups(['Admin', 'Settings']);
 
@@ -205,13 +213,18 @@ class ResourceTest extends UiTestCase
         $panel = Panel::make('admin')->default();
         UI::panel($panel);
 
-        $resource = new class extends Resource {
+        $resource = new class extends Resource
+        {
             protected static ?string $slug = 'posts';
+
             protected static ?string $navigationLabel = 'Posts';
+
             protected static ?string $navigationIcon = 'heroicon-o-document';
+
             protected static ?string $navigationGroup = 'Content';
+
             protected static ?int $navigationSort = 10;
-            
+
             public static function getUrl(
                 string $name = 'index',
                 array $parameters = [],
@@ -226,7 +239,7 @@ class ResourceTest extends UiTestCase
 
         $this->assertIsArray($items);
         $this->assertCount(1, $items);
-        
+
         $item = $items[0];
         $this->assertEquals('Posts', $item->getLabel());
         $this->assertEquals('heroicon-o-document', $item->getIcon());
@@ -240,10 +253,12 @@ class ResourceTest extends UiTestCase
         $panel = Panel::make('admin')->default();
         UI::panel($panel);
 
-        $resource = new class extends Resource {
+        $resource = new class extends Resource
+        {
             protected static ?string $navigationLabel = 'My Resource';
+
             protected static ?string $slug = 'my-resource';
-            
+
             public static function getUrl(
                 string $name = 'index',
                 array $parameters = [],
@@ -255,7 +270,7 @@ class ResourceTest extends UiTestCase
         };
 
         $items = $resource::getNavigationItems();
-        
+
         $this->assertEquals('My Resource', $items[0]->getLabel());
     }
 
@@ -263,14 +278,15 @@ class ResourceTest extends UiTestCase
     public function it_can_resolve_entry_route_binding(): void
     {
         // Test the method exists and returns expected type
-        $resource = new class extends Resource {
+        $resource = new class extends Resource
+        {
             protected static ?string $stream = 'test-stream';
         };
 
         // The method signature should return Entry or null
         $reflection = new \ReflectionMethod($resource, 'resolveEntryRouteBinding');
         $returnType = $reflection->getReturnType();
-        
+
         $this->assertNotNull($returnType);
         $this->assertStringContainsString('Entry', $returnType->getName());
     }
@@ -279,13 +295,14 @@ class ResourceTest extends UiTestCase
     public function it_can_resolve_entry_with_string_key(): void
     {
         // Verify the method accepts both int and string keys
-        $resource = new class extends Resource {
+        $resource = new class extends Resource
+        {
             protected static ?string $stream = 'test-stream';
         };
 
         $reflection = new \ReflectionMethod($resource, 'resolveEntryRouteBinding');
         $params = $reflection->getParameters();
-        
+
         $this->assertCount(1, $params);
         $this->assertEquals('key', $params[0]->getName());
     }
@@ -300,7 +317,8 @@ class ResourceTest extends UiTestCase
             ->once()
             ->andReturn($mockStream);
 
-        $resource = new class extends Resource {
+        $resource = new class extends Resource
+        {
             protected static ?string $stream = 'my-stream';
         };
 
@@ -313,13 +331,14 @@ class ResourceTest extends UiTestCase
     public function it_can_get_stream_entries_criteria(): void
     {
         // Verify the method exists and has correct signature
-        $resource = new class extends Resource {
+        $resource = new class extends Resource
+        {
             protected static ?string $stream = 'posts';
         };
 
         $reflection = new \ReflectionMethod($resource, 'streamEntries');
         $returnType = $reflection->getReturnType();
-        
+
         $this->assertNotNull($returnType);
         $this->assertStringContainsString('Criteria', $returnType->getName());
     }
@@ -329,9 +348,10 @@ class ResourceTest extends UiTestCase
     {
         $panel = Panel::make('admin');
 
-        $resource = new class extends Resource {
+        $resource = new class extends Resource
+        {
             protected static ?string $slug = 'posts';
-            
+
             public static function getPages(): array
             {
                 return [];

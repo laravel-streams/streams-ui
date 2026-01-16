@@ -2,8 +2,8 @@
 
 namespace Streams\Ui\Tests\Colors;
 
-use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Colors\Color;
+use Streams\Ui\Tests\UiTestCase;
 
 class ColorTest extends UiTestCase
 {
@@ -301,7 +301,7 @@ class ColorTest extends UiTestCase
 
         // Shade 500 should be closest to the original red color
         $rgb = array_map('intval', explode(', ', $shades[500]));
-        
+
         $this->assertEquals(255, $rgb[0]);
         $this->assertEquals(0, $rgb[1]);
         $this->assertEquals(0, $rgb[2]);
@@ -314,7 +314,7 @@ class ColorTest extends UiTestCase
 
         foreach ($shades as $shade => $rgb) {
             $values = array_map('intval', explode(', ', $rgb));
-            
+
             foreach ($values as $value) {
                 $this->assertGreaterThanOrEqual(0, $value);
                 $this->assertLessThanOrEqual(255, $value);

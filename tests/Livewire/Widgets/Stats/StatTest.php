@@ -3,9 +3,9 @@
 namespace Streams\Ui\Tests\Livewire\Widgets\Stats;
 
 use Streams\Ui\Tests\UiTestCase;
-use Streams\Ui\Livewire\Widgets\Stats\Stat;
-use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\Support\Htmlable;
+use Streams\Ui\Livewire\Widgets\Stats\Stat;
 
 class StatTest extends UiTestCase
 {
@@ -153,7 +153,7 @@ class StatTest extends UiTestCase
             ->columnSpan(2);
 
         $columnSpan = $stat->getColumnSpan();
-        
+
         $this->assertNotNull($columnSpan);
     }
 

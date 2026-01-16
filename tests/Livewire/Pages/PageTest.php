@@ -5,7 +5,6 @@ namespace Streams\Ui\Tests\Livewire\Pages;
 use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Livewire\Pages\Page;
 use Streams\Ui\Builders\Panels\Panel;
-use Streams\Ui\Support\Facades\UI;
 
 class PageTest extends UiTestCase
 {
@@ -14,13 +13,18 @@ class PageTest extends UiTestCase
         return new class extends Page
         {
             protected static string $view = 'test-view';
+
             protected static string $resource = 'TestResource';
+
             protected static ?string $title = 'Test Page';
+
             protected static ?string $slug = 'test-page';
+
             protected static ?string $navigationLabel = 'Test Nav';
+
             protected static ?string $navigationIcon = 'test-icon';
 
-            public function testPublicMethod(): string
+            public function test_public_method(): string
             {
                 return 'test-value';
             }
@@ -57,6 +61,7 @@ class PageTest extends UiTestCase
         $page = new class extends Page
         {
             protected static string $view = 'test-view';
+
             protected static string $resource = 'TestResource';
         };
 
@@ -126,6 +131,7 @@ class PageTest extends UiTestCase
         $page = new class extends Page
         {
             protected static string $view = 'test-view';
+
             protected static string $resource = 'TestResource';
         };
 
@@ -273,7 +279,9 @@ class PageTest extends UiTestCase
         $page = new class extends Page
         {
             protected static string $view = 'test-view';
+
             protected static string $resource = 'TestResource';
+
             protected static ?string $title = 'Fallback Title';
         };
 
@@ -338,7 +346,9 @@ class PageTest extends UiTestCase
         $page = new class extends Page
         {
             protected static string $view = 'test-view';
+
             protected static string $resource = 'TestResource';
+
             protected static ?string $navigationGroup = 'Settings';
         };
 
@@ -355,7 +365,9 @@ class PageTest extends UiTestCase
         $page = new class extends Page
         {
             protected static string $view = 'test-view';
+
             protected static string $resource = 'TestResource';
+
             protected static ?int $navigationSort = 10;
         };
 
@@ -372,7 +384,9 @@ class PageTest extends UiTestCase
         $page = new class extends Page
         {
             protected static string $view = 'test-view';
+
             protected static string $resource = 'TestResource';
+
             protected static string|array $middleware = ['auth', 'verified'];
         };
 
@@ -389,7 +403,9 @@ class PageTest extends UiTestCase
         $page = new class extends Page
         {
             protected static string $view = 'test-view';
+
             protected static string $resource = 'TestResource';
+
             protected static string|array $withoutMiddleware = ['csrf'];
         };
 
@@ -451,15 +467,15 @@ class PageTest extends UiTestCase
 
         $this->app['view']->addNamespace('test', __DIR__);
         $this->app['view']->addLocation(__DIR__);
-        
+
         // Create a simple test view
-        file_put_contents(__DIR__ . '/test-view.blade.php', '<div>Test</div>');
+        file_put_contents(__DIR__.'/test-view.blade.php', '<div>Test</div>');
 
         $result = $page->render();
 
         $this->assertInstanceOf(\Illuminate\Contracts\View\View::class, $result);
-        
+
         // Cleanup
-        @unlink(__DIR__ . '/test-view.blade.php');
+        @unlink(__DIR__.'/test-view.blade.php');
     }
 }

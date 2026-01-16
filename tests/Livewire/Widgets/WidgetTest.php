@@ -3,8 +3,8 @@
 namespace Streams\Ui\Tests\Livewire\Widgets;
 
 use Streams\Ui\Tests\UiTestCase;
-use Streams\Ui\Livewire\Widgets\Widget;
 use Illuminate\Contracts\View\View;
+use Streams\Ui\Livewire\Widgets\Widget;
 
 class WidgetTest extends UiTestCase
 {
@@ -14,7 +14,7 @@ class WidgetTest extends UiTestCase
         {
             protected static string $view = 'test-widget-view';
 
-            public function testPublicMethod(): string
+            public function test_public_method(): string
             {
                 return 'test';
             }
@@ -79,13 +79,13 @@ class WidgetTest extends UiTestCase
         $widget = $this->getTestWidget();
 
         $this->app['view']->addLocation(__DIR__);
-        file_put_contents(__DIR__ . '/test-widget-view.blade.php', '<div>Test Widget</div>');
+        file_put_contents(__DIR__.'/test-widget-view.blade.php', '<div>Test Widget</div>');
 
         $result = $widget->render();
 
         $this->assertInstanceOf(View::class, $result);
 
-        @unlink(__DIR__ . '/test-widget-view.blade.php');
+        @unlink(__DIR__.'/test-widget-view.blade.php');
     }
 
     /** @test */

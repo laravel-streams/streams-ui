@@ -3,16 +3,12 @@
 namespace Streams\Ui\Tests\Builders\Tables;
 
 use Livewire\Component;
-use Streams\Ui\Builders\Builder;
 use Streams\Ui\Tests\UiTestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\View\View;
 use Streams\Core\Criteria\Criteria;
-use Illuminate\Pagination\Paginator;
-use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Builders\Tables\Table;
 use Streams\Ui\Builders\Actions\Action;
-use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Pagination\AbstractPaginator;
 use Streams\Ui\Builders\Tables\Columns\TextColumn;
 
@@ -20,7 +16,8 @@ class TableTest extends UiTestCase
 {
     protected function getTestLivewireComponent(): Component
     {
-        $component = new class extends Component {
+        $component = new class extends Component
+        {
             use \Streams\Ui\Livewire\Tables\InteractsWithTable;
         };
 
@@ -228,7 +225,7 @@ class TableTest extends UiTestCase
     {
         $table = $this->getTestTable();
 
-        $table->heading(fn() => 'Dynamic Heading');
+        $table->heading(fn () => 'Dynamic Heading');
 
         $this->assertEquals('Dynamic Heading', $table->getHeading());
     }
@@ -249,7 +246,7 @@ class TableTest extends UiTestCase
     {
         $table = $this->getTestTable();
 
-        $table->description(fn() => 'Dynamic Description');
+        $table->description(fn () => 'Dynamic Description');
 
         $this->assertEquals('Dynamic Description', $table->getDescription());
     }
@@ -363,7 +360,7 @@ class TableTest extends UiTestCase
     public function it_can_set_default_sort_with_closure()
     {
         $table = $this->getTestTable();
-        $closure = fn() => 'custom sort';
+        $closure = fn () => 'custom sort';
 
         $table->defaultSort($closure, 'asc');
 
@@ -375,7 +372,7 @@ class TableTest extends UiTestCase
     {
         $table = $this->getTestTable();
 
-        $table->defaultSort('name', fn() => 'desc');
+        $table->defaultSort('name', fn () => 'desc');
 
         $this->assertEquals('desc', $table->getDefaultSortDirection());
     }
@@ -413,7 +410,7 @@ class TableTest extends UiTestCase
 
         $this->assertNull($table->getSortableColumn('non-existent'));
     }
-    
+
     /** @test */
     public function it_can_get_table_page_name()
     {
@@ -469,7 +466,7 @@ class TableTest extends UiTestCase
     {
         $table = $this->getTestTable();
 
-        $table->queryStringIdentifier(fn() => 'dynamic-identifier');
+        $table->queryStringIdentifier(fn () => 'dynamic-identifier');
 
         $this->assertEquals('dynamic-identifier', $table->getQueryStringIdentifier());
     }

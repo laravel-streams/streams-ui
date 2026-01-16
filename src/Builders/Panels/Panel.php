@@ -12,7 +12,6 @@ class Panel extends ViewBuilder
     // use Common\HasNavigationGroups;
     use Common\CanBeDefault;
     use Common\HasActions;
-
     use Common\HasId;
     use Concerns\CanBeSpa;
     use Concerns\HasBrandLogo;

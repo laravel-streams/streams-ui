@@ -2,9 +2,9 @@
 
 namespace Streams\Ui\Tests\Builders\Inputs;
 
-use Streams\Ui\Builders\Inputs\CheckboxInput;
-use Streams\Ui\Builders\Inputs\Input;
 use Streams\Ui\Tests\UiTestCase;
+use Streams\Ui\Builders\Inputs\Input;
+use Streams\Ui\Builders\Inputs\CheckboxInput;
 
 class CheckboxInputTest extends UiTestCase
 {

@@ -2,18 +2,18 @@
 
 namespace Streams\Ui\Tests\Builders\Breadcrumbs;
 
-use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Builders\Builder;
+use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Builders\ViewBuilder;
-use Streams\Ui\Builders\Breadcrumbs\Breadcrumbs;
 use Illuminate\Contracts\Support\Htmlable;
+use Streams\Ui\Builders\Breadcrumbs\Breadcrumbs;
 
 class BreadcrumbsTest extends UiTestCase
 {
     /** @test */
     public function it_can_be_instantiated()
     {
-        $breadcrumbs = new Breadcrumbs();
+        $breadcrumbs = new Breadcrumbs;
 
         $this->assertInstanceOf(Builder::class, $breadcrumbs);
         $this->assertInstanceOf(ViewBuilder::class, $breadcrumbs);

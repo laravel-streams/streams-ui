@@ -2,9 +2,9 @@
 
 namespace Streams\Ui\Tests\Builders\Inputs;
 
+use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Builders\Inputs\Input;
 use Streams\Ui\Builders\Inputs\TextareaInput;
-use Streams\Ui\Tests\UiTestCase;
 
 class TextareaInputTest extends UiTestCase
 {

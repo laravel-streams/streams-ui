@@ -2,9 +2,9 @@
 
 namespace Streams\Ui\Tests\Builders\Inputs;
 
-use Streams\Ui\Builders\Inputs\ColorInput;
-use Streams\Ui\Builders\Inputs\Input;
 use Streams\Ui\Tests\UiTestCase;
+use Streams\Ui\Builders\Inputs\Input;
+use Streams\Ui\Builders\Inputs\ColorInput;
 
 class ColorInputTest extends UiTestCase
 {

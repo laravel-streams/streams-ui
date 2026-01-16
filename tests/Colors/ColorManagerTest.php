@@ -2,15 +2,15 @@
 
 namespace Streams\Ui\Tests\Colors;
 
-use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Colors\Color;
+use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Colors\ColorManager;
 
 class ColorManagerTest extends UiTestCase
 {
     protected function getManager(): ColorManager
     {
-        return new ColorManager();
+        return new ColorManager;
     }
 
     /** @test */
@@ -322,7 +322,7 @@ class ColorManagerTest extends UiTestCase
         ]);
 
         $this->assertInstanceOf(ColorManager::class, $result);
-        
+
         $colors = $manager->getColors();
         $this->assertArrayHasKey('color1', $colors);
         $this->assertArrayHasKey('color2', $colors);

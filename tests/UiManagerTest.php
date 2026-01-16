@@ -13,8 +13,8 @@ class UiManagerTest extends UiTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
-        $this->manager = new UiManager();
+
+        $this->manager = new UiManager;
     }
 
     /** @test */
@@ -162,7 +162,7 @@ class UiManagerTest extends UiTestCase
 
         // First boot
         $this->manager->bootCurrentPanel();
-        
+
         // Should not boot again
         $this->manager->bootCurrentPanel();
 
@@ -177,12 +177,12 @@ class UiManagerTest extends UiTestCase
         // This test verifies the booted check works correctly
         $panel = Panel::make('test')->default();
         $this->manager->panel($panel);
-        
+
         $this->manager->bootCurrentPanel();
-        
+
         // Verify it was marked as booted
         $this->manager->bootCurrentPanel(); // Should return early
-        
+
         $this->assertTrue(true);
     }
 
@@ -212,7 +212,7 @@ class UiManagerTest extends UiTestCase
         // which may return null if navigation is not configured
         // This tests the fallback mechanism works
         $homeUrl = $this->manager->getHomeUrl();
-        
+
         // Either returns a URL or null (both are valid fallback behaviors)
         $this->assertTrue($homeUrl === null || is_string($homeUrl));
     }

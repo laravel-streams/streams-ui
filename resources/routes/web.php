@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Streams\Ui\Support\Facades\UI;
+use Illuminate\Support\Facades\Route;
 
 Route::name('streams.ui.')
     ->group(function () {
@@ -19,10 +19,10 @@ Route::name('streams.ui.')
 
                 Route::domain($domain)
                     ->middleware($panel->getMiddleware())
-                    ->name($id . '.')
+                    ->name($id.'.')
                     ->prefix($path)
                     ->group(function () use ($panel) {
-                        
+
                         foreach ($panel->getPages() as $page) {
                             $page::routes($panel);
                         }

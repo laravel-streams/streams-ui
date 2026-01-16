@@ -13,7 +13,9 @@ class PanelPageTest extends UiTestCase
         return new class extends PanelPage
         {
             protected static string $view = 'test-view';
+
             protected static string $resource = 'TestResource';
+
             protected static ?string $title = 'Test Panel Page';
         };
     }
@@ -158,7 +160,9 @@ class PanelPageTest extends UiTestCase
         $customPage = new class extends PanelPage
         {
             protected static string $view = 'custom-view';
+
             protected static string $resource = 'CustomResource';
+
             protected static ?string $title = 'Custom Panel Page';
 
             public function customMethod(): string
@@ -177,7 +181,9 @@ class PanelPageTest extends UiTestCase
         $customPage = new class extends PanelPage
         {
             protected static string $view = 'test-view';
+
             protected static string $resource = 'TestResource';
+
             protected static string $layout = 'custom::layout';
         };
 
@@ -222,15 +228,15 @@ class PanelPageTest extends UiTestCase
 
         $this->app['view']->addNamespace('test', __DIR__);
         $this->app['view']->addLocation(__DIR__);
-        
+
         // Create a simple test view
-        file_put_contents(__DIR__ . '/test-view.blade.php', '<div>Panel Test</div>');
+        file_put_contents(__DIR__.'/test-view.blade.php', '<div>Panel Test</div>');
 
         $result = $page->render();
 
         $this->assertInstanceOf(\Illuminate\Contracts\View\View::class, $result);
-        
+
         // Cleanup
-        @unlink(__DIR__ . '/test-view.blade.php');
+        @unlink(__DIR__.'/test-view.blade.php');
     }
 }

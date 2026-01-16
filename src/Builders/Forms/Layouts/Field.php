@@ -16,6 +16,7 @@ class Field extends ViewBuilder
     use Common\HasId;
     use Common\HasLabel;
     use Common\HasState;
+
     // @todo This is out of place.
     use \Streams\Ui\Builders\Inputs\Concerns\HasHint;
 
