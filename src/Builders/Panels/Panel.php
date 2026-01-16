@@ -10,25 +10,29 @@ use Streams\Ui\Builders\Concerns as Common;
 class Panel extends ViewBuilder
 {
     // use Common\HasNavigationGroups;
-    use Common\CanBeDefault;
-    use Common\HasActions;
+    
+    
     use Common\HasId;
+    use Common\HasActions;
+    use Common\CanBeDefault;
+    
     use Concerns\CanBeSpa;
-    use Concerns\HasBrandLogo;
-    use Concerns\HasBrandName;
-    use Concerns\HasColors;
-    use Concerns\HasFavicon;
-    use Concerns\HasLayout;
-    use Concerns\HasLivewireComponents;
-    use Concerns\HasMiddleware;
-    use Concerns\HasNavigation;
+
     use Concerns\HasPages;
-    use Concerns\HasResources;
+    use Concerns\HasColors;
+    use Concerns\HasLayout;
     use Concerns\HasRoutes;
     use Concerns\HasTenant;
-    use Concerns\HasUserAvatar;
+    use Concerns\HasFavicon;
     use Concerns\HasUserMenu;
     use Concerns\HasUserName;
+    use Concerns\HasBrandLogo;
+    use Concerns\HasBrandName;
+    use Concerns\HasResources;
+    use Concerns\HasMiddleware;
+    use Concerns\HasNavigation;
+    use Concerns\HasUserAvatar;
+    use Concerns\HasLivewireComponents;
 
     public function __construct(?string $id = null)
     {
