@@ -31,7 +31,7 @@ trait HasBulkActions
 
     public function pushBulkActions(array|ActionGroup $actions): static
     {
-        foreach (Arr::wrap($actions) as $action) {
+        foreach (Arr::wrap(array_filter($actions)) as $action) {
 
             $action->table($this);
 
