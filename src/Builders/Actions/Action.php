@@ -8,25 +8,27 @@ use Streams\Ui\Builders\Concerns as Common;
 
 class Action extends ViewBuilder
 {
-    use Common\CanBeDisabled;
     use Common\CanBeHidden;
+    use Common\CanBeDisabled;
+
+    use Common\HasId;
+    use Common\HasUrl;
+    use Common\HasIcon;
+    use Common\HasName;
+    use Common\HasSize;
     use Common\HasBadge;
     use Common\HasColor;
     use Common\HasEntry;
-    use Common\HasHtmlAttributes;
-    use Common\HasIcon;
-    use Common\HasId;
     use Common\HasLabel;
-    use Common\HasName;
-    use Common\HasSize;
     use Common\HasTooltip;
-    use Common\HasUrl;
-    use Concerns\HasArguments;
-    use Concerns\HasBorderRadius;
-    use Concerns\HasForm;
-    use Concerns\HasKeyBindings;
-    use Concerns\HasStyle;
+    use Common\HasHtmlAttributes;
+    
     use Concerns\HasTag;
+    use Concerns\HasForm;
+    use Concerns\HasStyle;
+    use Concerns\HasArguments;
+    use Concerns\HasKeyBindings;
+    use Concerns\HasBorderRadius;
 
     // use Concerns\CanBeLabeledFrom;
     // use Concerns\CanBeOutlined;
