@@ -53,8 +53,6 @@ class Action extends ViewBuilder
 
         $static->configure();
 
-        Actions::register($name, $static);
-
         return $static;
     }
 
@@ -63,6 +61,13 @@ class Action extends ViewBuilder
         $name = $name ?? self::getDefaultName();
 
         Actions::register($name, static::make($name));
+    }
+
+    public static function resolve(?string $name = null): ?Action
+    {
+        $name = $name ?? self::getDefaultName();
+
+        return Actions::resolve($name);
     }
 
     public function link(

@@ -13,7 +13,7 @@ class ActionManager
         $this->actions[$key] = $action;
     }
 
-    public function make(string $key): ?Action
+    public function resolve(string $key): ?Action
     {
         $action = $this->actions[$key] ?? null;
 
