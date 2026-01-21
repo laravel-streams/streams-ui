@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Builders\Actions;
 
+use Illuminate\Support\Str;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Support\Facades\Actions;
 use Streams\Ui\Builders\Concerns as Common;
@@ -44,8 +45,10 @@ class Action extends ViewBuilder
         $this->name($name);
     }
 
-    public static function make($name): static
+    public static function make(?string $name = null): static
     {
+        $name = $name ?? self::getDefaultName();
+
         $static = new static($name);
 
         $static->configure();
@@ -55,11 +58,11 @@ class Action extends ViewBuilder
         return $static;
     }
 
-    public static function register($name): static
+    public static function register(?string $name = null): void
     {
-        Actions::register($name, $action = static::make($name));
+        $name = $name ?? self::getDefaultName();
 
-        return $action;
+        Actions::register($name, static::make($name));
     }
 
     public function link(
@@ -92,5 +95,12 @@ class Action extends ViewBuilder
             'entry' => [$this->getEntryInstance()],
             default => parent::resolveDefaultClosureDependency($parameter),
         };
+    }
+
+    protected static function getDefaultName(): string
+    {
+        $parts = explode('\\', static::class);
+
+        return Str::kebab(end($parts));
     }
 }

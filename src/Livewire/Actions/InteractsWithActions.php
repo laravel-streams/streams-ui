@@ -6,10 +6,10 @@ use Illuminate\Support\Arr;
 use Streams\Ui\Exceptions\Halt;
 use Streams\Ui\Exceptions\Cancel;
 use Streams\Ui\Builders\Forms\Form;
-use Illuminate\Database\Eloquent\Model;
 use Streams\Ui\Builders\Actions\Action;
 use Streams\Ui\Support\Facades\Actions;
 use Streams\Ui\Builders\Actions\MountableAction;
+use Streams\Ui\Notifications\Notification;
 
 trait InteractsWithActions
 {
@@ -54,6 +54,7 @@ trait InteractsWithActions
             //         $action->callAfterFormValidated();
         }
 
+        
         $action->fire('before_call', [
             'action' => $action,
             'component' => $this,
@@ -68,6 +69,7 @@ trait InteractsWithActions
         ]);
 
         $action->fire('after_call');
+        
 
         // } catch (Halt $exception) {
         //     return null;

@@ -132,7 +132,7 @@
                         </div>
 
                         <div>
-                            <h2 class="text-base font-semibold leading-6 text-gray-950">
+                            <h2 class="text-2xl font-semibold leading-6 text-gray-950">
                                 {{ $heading }}
                             </h2>
 

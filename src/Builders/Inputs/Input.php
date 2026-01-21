@@ -17,14 +17,16 @@ abstract class Input extends ViewBuilder
     use Common\HasLabel;
     use Common\HasName;
     use Common\HasState;
-    use Inputs\Concerns\CanBeAutofocused;
-    use Inputs\Concerns\CanBeDisabled;
+    
+    use Inputs\Concerns\HasKey;
+    use Inputs\Concerns\HasHint;
+    use Inputs\Concerns\HasFieldWrapper;
+
     use Inputs\Concerns\CanBeHidden;
+    use Inputs\Concerns\CanBeDisabled;
     use Inputs\Concerns\CanBeReadonly;
     use Inputs\Concerns\CanBeValidated;
-    use Inputs\Concerns\HasFieldWrapper;
-    use Inputs\Concerns\HasHint;
-    use Inputs\Concerns\HasKey;
+    use Inputs\Concerns\CanBeAutofocused;
 
     protected string $viewIdentifier = 'field';
 
