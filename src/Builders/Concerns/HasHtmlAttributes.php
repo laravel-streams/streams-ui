@@ -32,7 +32,7 @@ trait HasHtmlAttributes
         $attributes = new ComponentAttributeBag;
 
         foreach ($this->htmlAttributes as $htmlAttributes) {
-            $attributes = $attributes->merge($this->evaluate($htmlAttributes));
+            $attributes = $attributes->merge($this->evaluate($htmlAttributes), false);
         }
 
         return $attributes->getAttributes();
