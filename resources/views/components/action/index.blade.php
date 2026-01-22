@@ -155,18 +155,16 @@
             {{-- theme: $store.theme, --}}
         }"
     @endif
-    {{
-        $attributes
-            ->merge([
-                'href' => $href,
-                'target' => $openInNewTab ? '_blank' : '_self',
-                'disabled' => $disabled,
-                'wire:loading.attr' => 'disabled',
-                'type' => $tag == 'button' ? $type : false,
-            ], escape: false)
-            ->class([$classes])
-            ->style([$actionStyles])
-    }}
+    {!! $attributes
+        ->merge([
+            'href' => $href,
+            'target' => $openInNewTab ? '_blank' : '_self',
+            'disabled' => $disabled,
+            'wire:loading.attr' => 'disabled',
+            'type' => $tag == 'button' ? $type : false,
+        ], escape: false)
+        ->class([$classes])
+        ->style([$actionStyles]) !!}
 >
     @if ($icon && $iconPosition === 'before')
     <x-ui::icon
