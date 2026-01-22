@@ -98,7 +98,7 @@
         ])
     >
         {{-- @if (($label && (! $labelSrOnly)) || $labelPrefix || $labelSuffix || filled($hint) || $hintIcon || count($hintActions)) --}}
-        @if ($label)
+        @if ($label || $hint)
             <div
                 @class([
                     'flex items-center justify-between gap-x-3',
