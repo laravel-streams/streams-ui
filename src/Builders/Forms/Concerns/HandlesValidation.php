@@ -30,8 +30,6 @@ trait HandlesValidation
 
         $validatedData = $validator->validate();
         
-        $this->resetErrorBag();
-
         return $validatedData;
     }
 
@@ -57,6 +55,8 @@ trait HandlesValidation
 
     protected function getDataForValidation(array $rules): array
     {
-        return $this->livewire->data;
+        return [
+            'data' => $this->livewire->data,
+        ];
     }
 }

@@ -27,8 +27,6 @@ class Form extends ViewBuilder
 
     public function __construct(?Component $livewire = null)
     {
-        $this->statePath = 'form';
-
         $this->livewire($livewire);
     }
 

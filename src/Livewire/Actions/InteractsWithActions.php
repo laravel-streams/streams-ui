@@ -9,6 +9,7 @@ use Streams\Ui\Builders\Forms\Form;
 use Streams\Ui\Builders\Actions\Action;
 use Streams\Ui\Support\Facades\Actions;
 use Streams\Ui\Builders\Actions\MountableAction;
+use Streams\Ui\Notifications\Notification;
 
 trait InteractsWithActions
 {
@@ -37,44 +38,52 @@ trait InteractsWithActions
             ...(array) $arguments,
         ]);
 
-        $form = $this->getMountedActionForm();
-
         $result = null;
 
         // $originallyMountedActions = $this->mountedActions;
-        dd($form->getState());
-        // try {
-        if ($this->mountedActionHasForm()) {
-            //         $action->callBeforeFormValidated();
-
-            // $action->formData((array) $form->getState());
-            dd($form->getState());
-            $action->formData((array) $form->getState());
-
-            //         $action->callAfterFormValidated();
-        }
-
         
-        $action->fire('before_call', [
-            'action' => $action,
-            'component' => $this,
-            'arguments' => (array) $arguments,
-        ]);
+        try {
+        
+            if ($this->mountedActionHasForm()) {
 
-        $result = $action->call([
-            'action' => $action,
-            'component' => $this,
-            'livewire' => $this,
-            'arguments' => (array) $arguments,
-        ]);
+                $form = $this->getMountedActionForm();
 
-        $action->fire('after_call');
+                $action->formData((array) $form->getState()['data']);
+            }
+
+            
+            $action->fire('before_call', [
+                'action' => $action,
+                'component' => $this,
+                'arguments' => (array) $arguments,
+            ]);
+
+            $result = $action->call([
+                'action' => $action,
+                'component' => $this,
+                'livewire' => $this,
+                'arguments' => (array) $arguments,
+            ]);
+
+            $action->fire('after_call');
         
 
         // } catch (Halt $exception) {
         //     return null;
         // } catch (Cancel $exception) {
-        // } catch (ValidationException $exception) {
+        } catch (\Streams\Ui\Exceptions\ValidationException) {
+
+            return null;
+        } catch (\Exception $exception) {
+
+            Notification::make()
+                ->title('Error')
+                ->description($exception->getMessage())
+                ->danger()
+                ->send();
+
+            return null;
+        }
 
         if (! $this->mountedActionShouldOpenModal()) {
 
