@@ -2,19 +2,19 @@
 
 namespace Streams\Ui\Builders;
 
-use Illuminate\Support\Traits\Tappable;
-use Streams\Core\Support\Traits\HasMemory;
-use Illuminate\Support\Traits\Conditionable;
-use Streams\Core\Support\Traits\FiresCallbacks;
-use Streams\Ui\Builders\Concerns\CanBeConfigured;
-use Streams\Ui\Builders\Concerns\EvaluatesClosures;
+use Streams\Ui\Builders\Concerns;
+use Illuminate\Support\Traits as Laravel;
+use Streams\Core\Support\Traits as Streams;
 
 abstract class Builder
 {
-    use CanBeConfigured;
-    use Conditionable;
-    use EvaluatesClosures;
-    use FiresCallbacks;
-    use HasMemory;
-    use Tappable;
+    use Laravel\Tappable;
+    use Laravel\Conditionable;
+    
+    use Streams\HasMemory;
+    use Streams\FiresCallbacks;
+
+    use Concerns\CanBeConfigured;
+    use Concerns\CanBeAuthorized;
+    use Concerns\EvaluatesClosures;
 }
