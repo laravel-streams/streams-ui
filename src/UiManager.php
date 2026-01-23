@@ -9,14 +9,26 @@ use Streams\Core\Support\Traits\FiresCallbacks;
 
 class UiManager
 {
-    use FiresCallbacks;
     use Macroable;
+    use FiresCallbacks;
 
     protected array $panels = [];
 
     protected array $booted = [];
 
     protected ?string $current = null;
+
+    protected ?\Closure $tenant = null;
+
+    public function tenant(\Closure $tenant): void
+    {
+        $this->tenant = $tenant;
+    }
+
+    public function getTenant(): mixed
+    {
+        return $this->tenant ? call_user_func($this->tenant) : null;
+    }
 
     public function bootCurrentPanel(): void
     {

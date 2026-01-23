@@ -5,6 +5,7 @@ namespace Streams\Ui\Builders\Panels\Concerns;
 trait HasTenant
 {
     protected $tenant = null;
+    protected $cachedTenant = null;
 
     public function tenant($tenant): static
     {
@@ -15,6 +16,6 @@ trait HasTenant
 
     public function getTenant(): mixed
     {
-        return $this->evaluate($this->tenant);
+        return $this->cachedTenant ?: $this->cachedTenant = $this->evaluate($this->tenant);
     }
 }
