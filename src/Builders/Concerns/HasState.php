@@ -169,18 +169,9 @@ trait HasState
         return $this;
     }
 
-    /**
-     * @return array<string, mixed>
-     */
     public function getState(bool $shouldCallHooksBefore = true): array
     {
         $state = $this->validate();
-
-        if ($shouldCallHooksBefore) {
-            $this->callBeforeStateDehydrated();
-            $this->saveRelationships();
-            $this->loadStateFromRelationships(andHydrate: true);
-        }
 
         $this->dehydrateState($state);
         $this->mutateDehydratedState($state);
@@ -197,7 +188,7 @@ trait HasState
         return data_get($this->getLivewire(), $this->getStatePath()) ?? [];
     }
 
-    public function getStatePath(bool $isAbsolute = true): string
+    public function getStatePath(): string
     {
         if (isset($this->cachedFullStatePath)) {
             return $this->cachedFullStatePath;
@@ -205,12 +196,15 @@ trait HasState
 
         $pathComponents = [];
 
-        // if ($isAbsolute && $parentComponentStatePath = $this->getParentComponent()?->getStatePath()) {
-        //     $pathComponents[] = $parentComponentStatePath;
-        // }
-
         if (($statePath = $this->statePath) !== null) {
             $pathComponents[] = $statePath;
+        }
+
+        if (!$pathComponents) {
+            $pathComponents = [
+                'data',
+                $this->getName(),
+            ];
         }
 
         return $this->cachedFullStatePath = implode('.', $pathComponents);

@@ -616,6 +616,7 @@ trait CanBeValidated
         }
 
         foreach ($this->rules as [$rule, $condition]) {
+
             if (is_numeric($rule)) {
                 $rules[] = $this->evaluate($condition);
             } elseif ($this->evaluate($condition)) {

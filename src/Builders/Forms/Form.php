@@ -4,19 +4,22 @@ namespace Streams\Ui\Builders\Forms;
 
 use Livewire\Component;
 use Streams\Ui\Builders\ViewBuilder;
-use Streams\Ui\Builders\Concerns as Support;
+use Streams\Ui\Builders\Concerns as Common;
 
 class Form extends ViewBuilder
 {
-    use Support\BelongsToLivewire;
-    use Support\BelongsToParent;
-    use Support\HasActions;
-    use Support\HasComponents;
-    use Support\HasDescription;
-    use Support\HasHeading;
-    use Support\HasHtmlAttributes;
-    use Support\HasState;
-    use Support\HasStream;
+    use Common\BelongsToParent;
+    use Common\BelongsToLivewire;
+    
+    use Common\HasState;
+    use Common\HasStream;
+    use Common\HasActions;
+    use Common\HasHeading;
+    use Common\HasComponents;
+    use Common\HasDescription;
+    use Common\HasHtmlAttributes;
+    
+    use Concerns\HandlesValidation;
 
     protected string $view = 'ui::builders.form';
 
@@ -54,10 +57,5 @@ class Form extends ViewBuilder
         }
 
         return $components;
-
-        return array_filter(
-            $components,
-            fn ($component) => $component->isVisible(),
-        );
     }
 }

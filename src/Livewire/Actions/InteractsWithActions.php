@@ -9,7 +9,6 @@ use Streams\Ui\Builders\Forms\Form;
 use Streams\Ui\Builders\Actions\Action;
 use Streams\Ui\Support\Facades\Actions;
 use Streams\Ui\Builders\Actions\MountableAction;
-use Streams\Ui\Notifications\Notification;
 
 trait InteractsWithActions
 {
@@ -43,13 +42,14 @@ trait InteractsWithActions
         $result = null;
 
         // $originallyMountedActions = $this->mountedActions;
-
+        dd($form->getState());
         // try {
         if ($this->mountedActionHasForm()) {
             //         $action->callBeforeFormValidated();
 
             // $action->formData((array) $form->getState());
-            $action->formData((array) $this->data);
+            dd($form->getState());
+            $action->formData((array) $form->getState());
 
             //         $action->callAfterFormValidated();
         }
@@ -237,7 +237,7 @@ trait InteractsWithActions
 
     protected function configureAction(Action $action): void {}
 
-    public function getMountedAction(): ?Action
+    public function getMountedAction(): ?MountableAction
     {
         if (! count($this->mountedActions ?? [])) {
             return null;
@@ -258,13 +258,36 @@ trait InteractsWithActions
         //     return $this->getForm('mountedActionForm');
         // }
 
-        return $action->getForm();
+        $form = $action->getForm();
+
+        return $form ?: $this->extractFormFromActionComponents($action->getModalComponents());
+
+        // return $this->makeForm()
+        //     ->statePath('mountedActionsData.' . array_key_last($this->mountedActionsData))
+        //     ->model($action->getEntry() ?? $action->getModel() ?? $this->getMountedActionFormModel())
+        //     ->operation(implode('.', $this->mountedActions));
         // return $action->getForm(
         //     $this->makeForm()
         //         ->statePath('mountedActionsData.' . array_key_last($this->mountedActionsData))
         //         ->model($action->getEntry() ?? $action->getModel() ?? $this->getMountedActionFormModel())
         //         ->operation(implode('.', $this->mountedActions)),
         // );
+    }
+
+    protected function extractFormFromActionComponents(array $components): ?Form
+    {
+        foreach ($components as $component) {
+            
+            if ($component instanceof Form) {
+                return $component;
+            }
+
+            if (method_exists($component, 'getComponents')) {
+                return $this->extractFormFromActionComponents($component->getComponents());
+            }
+        }
+
+        return null;
     }
 
     public function getAction(string $name): ?Action

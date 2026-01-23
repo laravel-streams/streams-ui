@@ -35,7 +35,6 @@ abstract class Input extends ViewBuilder
     final public function __construct(string $name)
     {
         $this->name($name);
-        $this->statePath($name);
     }
 
     public static function make(string $name): static
@@ -67,5 +66,13 @@ abstract class Input extends ViewBuilder
     public function getHelpText(): ?string
     {
         return $this->evaluate($this->helpText);
+    }
+
+    protected function resolveDefaultClosureDependency(string $parameter): array
+    {
+        return match ($parameter) {
+            'component' => [$this],
+            default => parent::resolveDefaultClosureDependency($parameter),
+        };
     }
 }
