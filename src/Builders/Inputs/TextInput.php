@@ -4,10 +4,6 @@ namespace Streams\Ui\Builders\Inputs;
 
 class TextInput extends Input
 {
-    use Concerns\CanBeAutocompleted;
-    use Concerns\CanBeValueConstrained;
-    use Concerns\CanBeLengthConstrained;
-
     use Concerns\HasMask;
     use Concerns\HasStep;
     use Concerns\HasType;
@@ -16,6 +12,10 @@ class TextInput extends Input
     use Concerns\HasDatalist;
     use Concerns\HasInputMode;
     use Concerns\HasPlaceholder;
+
+    use Concerns\CanBeAutocompleted;
+    use Concerns\CanBeValueConstrained;
+    use Concerns\CanBeLengthConstrained;
 
     protected string $view = 'ui::builders.inputs.text';
 
