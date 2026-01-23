@@ -23,6 +23,7 @@ class Action extends ViewBuilder
     use Common\HasLabel;
     use Common\HasTooltip;
     use Common\HasHtmlAttributes;
+    use Common\HasLoadingIndicator;
     
     use Concerns\HasTag;
     use Concerns\HasForm;

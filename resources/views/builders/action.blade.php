@@ -12,6 +12,7 @@
     target="{{ $action->shouldOpenInNewTab() ? '_blank' : '_self' }}"
     :attributes="$action->getHtmlAttributeBag()"
     :openInNewTab="$action->shouldOpenInNewTab()"
+    :loadingIndicator="$action->getLoadingIndicator()"
     >
     {{ $action->getLabel() }}
 </x-ui::action>
