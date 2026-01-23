@@ -39,8 +39,6 @@ trait InteractsWithActions
         ]);
 
         $result = null;
-
-        // $originallyMountedActions = $this->mountedActions;
         
         try {
         
@@ -68,11 +66,11 @@ trait InteractsWithActions
             $action->fire('after_call');
         
 
-        // } catch (Halt $exception) {
-        //     return null;
-        // } catch (Cancel $exception) {
+        } catch (\Streams\Ui\Exceptions\Halt $exception) {
+            return null;
+        } catch (\Streams\Ui\Exceptions\Cancel $exception) {
+            return null;
         } catch (\Streams\Ui\Exceptions\ValidationException) {
-
             return null;
         } catch (\Exception $exception) {
 
