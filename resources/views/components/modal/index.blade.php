@@ -60,7 +60,7 @@
             @else
                 x-on:click="close()"
             @endif
-            class="cursor-pointer fixed inset-0 bg-gray-950/50"
+            class="cursor-pointer fixed inset-0 bg-gray-950/50 backdrop-blur"
             style="will-change: transform"
         ></div>
 
