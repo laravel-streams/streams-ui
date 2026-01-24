@@ -12,19 +12,24 @@ use Streams\Ui\Builders\Actions\Contracts\HasActions;
 
 class Table extends ViewBuilder implements HasActions
 {
-    use Common\BelongsToLivewire;
     use Common\CanBeSorted;
-    use Common\HasDescription;
-    use Common\HasHeading;
+    
+    use Common\BelongsToLivewire;
+    
     use Common\HasQuery;
+    use Common\HasHeading;
+    use Common\HasDescription;
+
     use Concerns\CanBePaginated;
     use Concerns\CanBeReordered;
+
     use Concerns\HasActions;
-    use Concerns\HasBulkActions;
     use Concerns\HasColumns;
-    use Concerns\HasEntryClasses;
-    use Concerns\HasEntryUrl;
     use Concerns\HasFilters;
+    use Concerns\HasEntryUrl;
+    use Concerns\HasEmptyState;
+    use Concerns\HasBulkActions;
+    use Concerns\HasEntryClasses;
     use Concerns\HasHeaderActions;
 
     protected string $view = 'ui::builders.table';

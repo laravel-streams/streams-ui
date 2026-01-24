@@ -1,4 +1,5 @@
 @php
+
 $actions = $table->getActions();
 $columns = $table->getColumns();
 $filters = $table->getFilters();
@@ -34,6 +35,7 @@ $selectedRecords = [];//$table->getSelectedRecords();
     @endif --}}
     {{-- ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('table', 'filament/tables') }}" --}}>
 
+    @if ($paginator->count() > 0)
     <x-ui::table.container>
 
         @if ($heading || $description || $headerActions)
@@ -94,5 +96,18 @@ $selectedRecords = [];//$table->getSelectedRecords();
         </table>
 
     </x-ui::table.container>
+    @elseif ($emptyState = $getEmptyState())
+    {{ $emptyState }}
+    @else
+    <div>
+        <x-ui::empty-state
+            :actions="$getEmptyStateActions()"
+            :description="$getEmptyStateDescription()"
+            :components="$getEmptyStateComponents()"
+            :heading="$getEmptyStateHeading()"
+            :icon="$getEmptyStateIcon()"
+        />
+    </div>
+    @endif
 
 </div>
