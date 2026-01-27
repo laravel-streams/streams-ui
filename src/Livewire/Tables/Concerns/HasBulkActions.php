@@ -5,11 +5,11 @@ namespace Streams\Ui\Livewire\Tables\Concerns;
 use Streams\Core\Entry\Entry;
 use Illuminate\Support\Collection;
 use Streams\Ui\Builders\Forms\Form;
-use Illuminate\Notifications\Action;
 use Streams\Ui\Support\Facades\Actions;
 use Streams\Ui\Exceptions\ValidationException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Streams\Ui\Builders\Tables\BulkActions\BulkAction;
+use Streams\Ui\Notifications\Notification;
 
 trait HasBulkActions
 {
@@ -21,7 +21,7 @@ trait HasBulkActions
 
     protected Collection $cachedSelectedTableRecords;
 
-    protected function configureTableBulkAction(BulkAction $action): void {}
+    protected function configureBulkAction(BulkAction $action): void {}
 
     public function callMountedTableBulkAction(array $arguments = []): mixed
     {
@@ -63,19 +63,21 @@ trait HasBulkActions
 
             $action->fire('after_call');
 
-            // } catch (Halt $exception) {
-            //     return null;
-            // } catch (Cancel $exception) {
-        } catch (ValidationException $exception) {
-            if (! $this->mountedTableBulkActionShouldOpenModal()) {
-                $action->resetArguments();
-                $action->resetFormData();
+        } catch (\Streams\Ui\Exceptions\Halt $exception) {
+            return null;
+        } catch (\Streams\Ui\Exceptions\Cancel $exception) {
+            return null;
+        } catch (\Streams\Ui\Exceptions\ValidationException) {
+            return null;
+        } catch (\Exception $exception) {
 
-                $this->unmountTableBulkAction();
-                $this->selectedTableEntries = [];
-            }
+            Notification::make()
+                ->title('Error')
+                ->description($exception->getMessage())
+                ->danger()
+                ->send();
 
-            throw $exception;
+            return null;
         }
 
         // if (store($this)->has('redirect')) {
@@ -88,6 +90,8 @@ trait HasBulkActions
         $this->unmountTableBulkAction();
 
         $this->selectedTableEntries = [];
+
+        $this->boot();
 
         return $result;
     }
@@ -113,7 +117,7 @@ trait HasBulkActions
             return null;
         }
 
-        $this->cacheMountedTableBulkActionForm();
+        // $this->cacheMountedTableBulkActionForm();
 
         try {
             // $hasForm = $this->mountedTableBulkActionHasForm();
@@ -209,7 +213,7 @@ trait HasBulkActions
 
             return $records
                 ->pluck($query->getModel()->getQualifiedKeyName())
-                ->map(fn ($key): string => (string) $key)
+                ->map(fn($key): string => (string) $key)
                 ->all();
         }
 
@@ -242,19 +246,19 @@ trait HasBulkActions
         if (! $this->getTable()->checksIfRecordIsSelectable()) {
             $records = $this->getTable()->selectsCurrentPageOnly() ?
                 $this->getTableRecords()->filter(
-                    fn (Entry $record) => $tableGrouping->getStringKey($record) === $group,
+                    fn(Entry $record) => $tableGrouping->getStringKey($record) === $group,
                 ) :
                 $query;
 
             return $records
                 ->pluck($query->getModel()->getQualifiedKeyName())
-                ->map(fn ($key): string => (string) $key)
+                ->map(fn($key): string => (string) $key)
                 ->all();
         }
 
         $records = $this->getTable()->selectsCurrentPageOnly() ?
             $this->getTableRecords()->filter(
-                fn (Entry $record) => $tableGrouping->getStringKey($record) === $group,
+                fn(Entry $record) => $tableGrouping->getStringKey($record) === $group,
             ) :
             $query->get();
 
@@ -280,7 +284,7 @@ trait HasBulkActions
                 $this->getFilteredTableQuery()->get();
 
             return $records
-                ->filter(fn (Entry $record): bool => $this->getTable()->isRecordSelectable($record))
+                ->filter(fn(Entry $record): bool => $this->getTable()->isRecordSelectable($record))
                 ->count();
         }
 
@@ -361,9 +365,11 @@ trait HasBulkActions
             return null;
         }
 
-        if ($action = Actions::make($this->mountedTableBulkAction)) {
+        if ($action = Actions::resolve($this->mountedTableBulkAction)) {
 
-            // $this->configureTableBulkAction($action);
+            $action->table($this->table);
+
+            $this->configureBulkAction($action);
 
             return $action;
         }

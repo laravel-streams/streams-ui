@@ -34,6 +34,7 @@ trait HasBulkActions
         foreach (Arr::wrap(array_filter($actions)) as $action) {
 
             $action->table($this);
+            $action->livewire($this->livewire);
 
             if ($action instanceof ActionGroup) {
 

@@ -60,14 +60,14 @@ class Action extends ViewBuilder
     public static function register(?string $name = null): void
     {
         $name = $name ?? self::getDefaultName();
-
-        Actions::register($name, static::make($name));
+        
+        Actions::register($name, fn () => static::make($name));
     }
 
     public static function resolve(?string $name = null): ?Action
     {
         $name = $name ?? self::getDefaultName();
-
+        
         return Actions::resolve($name);
     }
 
