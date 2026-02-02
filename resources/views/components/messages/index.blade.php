@@ -10,22 +10,27 @@
             $notifications = array_merge(
                 Notifications::all(),
                 Session::pull('streams.notifications', []),
-                $notifications ?? []
+                $this->notifications ?? []
             );
         @endphp
 
-        @foreach ($notifications as $data)
-        {{-- Simple --}}
+        @foreach ($notifications as $id => $data)
+
         @php
         $notification = Notification::fromArray($data);
         @endphp
 
+        {{-- Simple --}}
         <div x-data="{
             show: true,
             timeout: {{ $notification->getDuration() ?? 0 }},
             countdown: 0,
             width: 100,
             intervalHandle: null,
+            close() {
+                this.show = false;
+                $wire.call('removeNotification', '{{ $notification->getId() }}');
+            }
         }" x-show="show" id="{{ $notification->getId() }}" x-init="() => {
                 if (timeout > 0) {
                     countdown = timeout;
@@ -36,17 +41,17 @@
         
                         if (countdown <= 0) {
                             clearInterval(intervalHandle);
-                            show = false;
+                            close();
                         }
                     }, 100);
 
-                    setTimeout(() => { show = false }, timeout * 1000);
+                    setTimeout(() => { close() }, timeout * 1000);
                 } else {
                     countdown = 0;
                     width = 0;
                 }
             }"
-            x-on:keydown.escape.window="show=false"
+            x-on:keydown.escape.window="close()"
             class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 relative">
 
             <div class="p-4">

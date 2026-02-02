@@ -40,6 +40,11 @@ abstract class Page extends Component
     
     public ?array $notifications = [];
 
+    public function removeNotification(string $id): void
+    {
+        unset($this->notifications[$id]);
+    }
+
     protected static string $view;
 
     protected static string $resource;
