@@ -10,7 +10,7 @@
             $notifications = array_merge(
                 Notifications::all(),
                 Session::pull('streams.notifications', []),
-                $this->notifications ?? []
+                $notifications ?? []
             );
         @endphp
 
