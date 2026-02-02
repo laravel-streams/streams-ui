@@ -6,10 +6,10 @@ use Streams\Core\Entry\Entry;
 use Illuminate\Support\Collection;
 use Streams\Ui\Builders\Forms\Form;
 use Streams\Ui\Support\Facades\Actions;
+use Streams\Ui\Notifications\Notification;
 use Streams\Ui\Exceptions\ValidationException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Streams\Ui\Builders\Tables\BulkActions\BulkAction;
-use Streams\Ui\Notifications\Notification;
 
 trait HasBulkActions
 {
@@ -39,18 +39,12 @@ trait HasBulkActions
 
         $action->arguments($arguments);
 
-        // $form = $this->getMountedTableBulkActionForm();
-
         $result = null;
 
         try {
-            // if ($this->mountedTableBulkActionHasForm()) {
-            //     $action->callBeforeFormValidated();
-
-            //     $action->formData($form->getState());
-
-            //     $action->callAfterFormValidated();
-            // }
+            if ($form = $this->getMountedTableBulkActionForm()) {
+                $action->formData($form->getState());
+            }
 
             $action->fire('before_call');
 
@@ -117,8 +111,6 @@ trait HasBulkActions
             return null;
         }
 
-        // $this->cacheMountedTableBulkActionForm();
-
         try {
             // $hasForm = $this->mountedTableBulkActionHasForm();
 
@@ -152,14 +144,6 @@ trait HasBulkActions
         $this->openTableBulkActionModal();
 
         return null;
-    }
-
-    protected function cacheMountedTableBulkActionForm(): void
-    {
-        // $this->cacheForm(
-        //     'mountedTableBulkActionForm',
-        //     fn () => $this->getMountedTableBulkActionForm(),
-        // );
     }
 
     protected function resetMountedTableBulkActionProperties(): void
@@ -385,19 +369,39 @@ trait HasBulkActions
             return null;
         }
 
-        if (
-            (! $this->isCachingForms)
-            && $this->hasCachedForm('mountedTableBulkActionForm')
-        ) {
-            return $this->getForm('mountedTableBulkActionForm');
+        $form = $action->getForm();
+
+        return $form ?: $this->extractFormFromBulkActionComponents($action->getModalComponents());
+
+        // if (
+        //     (! $this->isCachingForms)
+        //     && $this->hasCachedForm('mountedTableBulkActionForm')
+        // ) {
+        //     return $this->getForm('mountedTableBulkActionForm');
+        // }
+
+        // return $action->getForm(
+        //     $this->makeForm()
+        //         ->model($this->getTable()->getModel())
+        //         ->statePath('mountedTableBulkActionData')
+        //         ->operation($this->mountedTableBulkAction),
+        // );
+    }
+
+    protected function extractFormFromBulkActionComponents(array $components): ?Form
+    {
+        foreach ($components as $component) {
+            
+            if ($component instanceof Form) {
+                return $component;
+            }
+
+            if (method_exists($component, 'getComponents')) {
+                return $this->extractFormFromBulkActionComponents($component->getComponents());
+            }
         }
 
-        return $action->getForm(
-            $this->makeForm()
-                ->model($this->getTable()->getModel())
-                ->statePath('mountedTableBulkActionData')
-                ->operation($this->mountedTableBulkAction),
-        );
+        return null;
     }
 
     // public function mountedTableBulkActionInfolist(): Infolist
