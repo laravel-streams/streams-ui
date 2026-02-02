@@ -220,7 +220,6 @@
 
         @if (!$slot->isEmpty())
         <span class="{{ Arr::toCssClasses([
-            'ui-button-label',
             'sr-only' => $labelSrOnly,
         ]) }}">
             {!! $slot !!}
@@ -244,6 +243,12 @@
             {{ __('ui::components/button.messages.uploading_file') }}
         </span>
     @endif --}}
+
+    @if ($keyBindings)
+    <kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 border-b border-gray-200 rounded-lg">
+        {{ collect($keyBindings)->map(fn (string $keyBinding): string => str_replace('+', ' + ', $keyBinding))->implode(' / ') }}
+    </kbd>
+    @endif
 
     {{-- @if (filled($badge))
         <div class="{{ $badgeContainerClasses }}">
