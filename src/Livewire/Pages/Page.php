@@ -37,6 +37,8 @@ abstract class Page extends Component
     use InteractsWithActions;
 
     public ?array $data = [];
+    
+    public ?array $notifications = [];
 
     protected static string $view;
 
