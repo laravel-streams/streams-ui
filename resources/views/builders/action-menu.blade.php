@@ -1,4 +1,9 @@
-<div x-data="{ open: false }" @click.away="open = false" class="relative inline-block">
+<div
+    x-data="{ open: false }"
+    class="relative inline-block"
+    @keydown.window.escape="open = false"
+    @click.away="open = false"
+>
     
     <div @click="open = !open">
         <x-ui::action
