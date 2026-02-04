@@ -26,9 +26,63 @@
          class="absolute right-0 mt-2 min-w-48 max-w-xs rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50 overflow-hidden">
         <div class="py-1" role="menu">
             @foreach ($action->getActions() as $menuAction)
-            <div>
-                {{ $menuAction->render() }}
-            </div>
+            
+            @php
+                $disabled = $menuAction->isDisabled();
+
+                $href = $menuAction->getUrl();
+                $tag = $menuAction->getTag() ?: ($href ? 'a' : 'button');
+                $target = $menuAction->shouldOpenInNewTab() ? '_blank' : '_self';
+
+                $classes = Arr::toCssClasses([
+                    // Base classes
+                    'block w-full text-left px-4 py-2',
+
+                    // State classes
+                    'pointer-events-none opacity-70' => $disabled,
+                    
+                    // Style-specific classes
+                    ...match ($color) {
+                        // 'black' => [
+                        //     'bg-black text-white hover:bg-gray-700',
+                        // ],
+                        // 'light' => [
+                        //     'bg-gray-200 text-gray-700 hover:bg-gray-300',
+                        // ],
+                        // 'secondary' => [
+                        //     'border border-black bg-white hover:bg-black hover:text-white',
+                        // ],
+                        default => [
+                            'hover:bg-black/5',
+                        ],
+                    },
+                    
+                    // 'flex-1' => $grouped,
+                    
+                    // Color classes
+                    // match ($color) {
+                    //     'gray' => '',
+                    //     default => '',
+                    // },
+                    // is_string($color) ? "{$color}" : null,
+                ]);
+            @endphp
+
+            <{{ $tag }}
+                {!! $menuAction
+                    ->getHtmlAttributeBag()
+                    ->merge([
+                        'href' => $href,
+                        'target' => $target,
+                        'disabled' => $menuAction->isDisabled(),
+                        'wire:loading.attr' => 'disabled',
+                        'type' => $tag == 'button' ? 'button' : false,
+                    ], escape: false)
+                    ->class([$classes])
+                    // ->style([$actionStyles])
+                !!}>
+                {{ $menuAction->getLabel() }}
+            </{{ $tag }}>
             @endforeach
         </div>
     </div>
