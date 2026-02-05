@@ -221,6 +221,10 @@ trait InteractsWithActions
 
         foreach ($actions + $registered as $action) {
 
+            if ($action instanceof \Closure) {
+                $action = $action();
+            }
+
             if ($action instanceof MountableAction) {
                 $action->livewire($this);
             }
