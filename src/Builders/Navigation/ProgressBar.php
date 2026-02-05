@@ -8,14 +8,16 @@ use Streams\Ui\Builders\Concerns as Common;
 
 class ProgressBar extends ViewBuilder
 {
-    use Common\HasHtmlAttributes;
     use Common\HasId;
+    use Common\HasLabel;
+    use Common\HasHtmlAttributes;
 
     protected string $viewIdentifier = 'progressBar';
 
-    protected string $view = 'ui::builders.progress-bar';
+    protected string $view = 'ui::builders/progress-bar';
 
-    protected array $steps = [];
+    protected array|\Closure $steps = [];
+    protected int|\Closure $progress = 0;
 
     final public function __construct(?string $id = null)
     {
@@ -27,7 +29,7 @@ class ProgressBar extends ViewBuilder
     public static function make(?string $id = null): static
     {
         $instance = App::make(static::class, [
-            'id' => $id ?: 'list-'.uniqid(),
+            'id' => $id ?: 'progress-bar-' . uniqid(),
         ]);
 
         $instance->configure();
@@ -50,11 +52,25 @@ class ProgressBar extends ViewBuilder
      */
     public function getSteps(): array
     {
-        if (is_callable($this->steps)) {
-            return call_user_func($this->steps);
-        }
+        return $this->evaluate($this->steps);
+    }
 
-        return $this->steps;
+    /**
+     * Set the progress for the progress bar
+     */
+    public function progress(int|\Closure $progress): static
+    {
+        $this->progress = $progress;
+
+        return $this;
+    }
+
+    /**
+     * Get the steps for the progress bar
+     */
+    public function getProgress(): int
+    {
+        return $this->evaluate($this->progress);
     }
 
     /**
