@@ -1,14 +1,14 @@
 {{-- /var/www/development/Trabajo/GroupVitals/groupvitals.app.backend/vendor/streams/ui/resources/views/builders/action-card.blade.php --}}
-<div {!! $action
+<div {!! $card
     ->getHtmlAttributeBag()
-    ->class([$action->attributes['class'] ?? ''])
+    ->class([$card->attributes['class'] ?? 'bg-white p-8 rounded-2xl border border-gray-200 shadow-sm'])
 !!}>
 
     <div class="flex flex-col items-center text-center">
 
-        <div class="w-20 h-20 rounded-full flex items-center justify-center mb-6 bg-blue-50 text-blue-600">
+        <div class="w-20 h-20 rounded-md flex items-center justify-center mb-6 bg-blue-50 text-blue-600">
             @php
-                $iconName = $action->getIcon();
+                $iconName = $card->getIcon();
             @endphp
 
             {{-- Usamos una directiva de Blade para renderizar el icono solo si es un string --}}
@@ -23,12 +23,12 @@
         </div>
 
         <h3 class="text-xl font-bold mb-2 text-gray-900">
-            {{ $action->getLabel() }}
+            {{ $card->getLabel() }}
         </h3>
 
         <p class="text-gray-500 text-sm mb-6 max-w-[250px]">
-            {{ $action->getDescription() }}
+            {{ $card->getDescription() }}
         </p>
-        {!! $action->getAction()?->render() ?? '' !!}
+        {!! $card->getAction()?->render() ?? '' !!}
     </div>
 </div>

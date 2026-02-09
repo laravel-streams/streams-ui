@@ -2,66 +2,43 @@
 
 namespace Streams\Ui\Builders\Actions;
 
-use Streams\Ui\Builders\Concerns\HasActionCard;
+use Illuminate\Support\Str;
+use Streams\Ui\Builders\Concerns;
+use Streams\Ui\Builders\ViewBuilder;
 
-
-class ActionCard extends Action
+class ActionCard extends ViewBuilder
 {
-    ///var/www/development/Trabajo/GroupVitals/groupvitals.app.backend/vendor/streams/ui/src/Builders/Actions/ActionCard.php
-    use HasActionCard;
+    use Concerns\HasId;
+    use Concerns\HasIcon;
+    use Concerns\HasLabel;
+    use Concerns\HasAction;
+    use Concerns\HasDescription;
+    use Concerns\HasHtmlAttributes;
 
-    // Usaremos una ruta de vista que luego registraremos
     protected string $view = 'ui::builders.action-card';
 
-    protected mixed $cardAction = null;
-    protected string|null $actionName = null;
+    protected string $viewIdentifier = 'card';
 
-    /**
-     * Establece la acción a ejecutar cuando se hace clic
-     */
-    public function action(mixed $action): static
+    public function __construct(string $id)
     {
-        $this->cardAction = $action;
-        return $this;
+        $this->id($id);
     }
 
-    public function getAction(): mixed
+    public static function make(?string $id = null): static
     {
-        return $this->evaluate($this->cardAction);
+        $id = $id ?? self::getDefaultName();
+
+        $static = new static($id);
+
+        $static->configure();
+
+        return $static;
     }
 
-    /**
-     * Establece el nombre de la acción (alternativa para modales)
-     */
-    public function actionName(string $name): static
+    protected static function getDefaultName(): string
     {
-        $this->actionName = $name;
-        return $this;
-    }
+        $parts = explode('\\', static::class);
 
-    /**
-     * Obtiene la acción configurada
-     */
-    public function getCardAction(): mixed
-    {
-        return $this->evaluate($this->cardAction);
-    }
-
-    /**
-     * Obtiene el nombre de la acción
-     */
-    public function getActionName(): string|null
-    {
-        return $this->evaluate($this->actionName);
-    }
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        // Intentar pasarlo por el constructor de atributos
-        $this->htmlAttributes([
-            'class' => 'bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg transition-all'
-        ]);
+        return Str::kebab(end($parts));
     }
 }
