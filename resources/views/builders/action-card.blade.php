@@ -1,12 +1,12 @@
 {{-- /var/www/development/Trabajo/GroupVitals/groupvitals.app.backend/vendor/streams/ui/resources/views/builders/action-card.blade.php --}}
 <div {!! $card
     ->getHtmlAttributeBag()
-    ->class([$card->attributes['class'] ?? 'bg-white p-8 rounded-2xl border border-gray-200 shadow-sm'])
+    ->class([$card->attributes['class'] ?? 'bg-white p-8 rounded-xl border border-gray-200 shadow-sm'])
 !!}>
 
     <div class="flex flex-col items-center text-center">
 
-        <div class="w-20 h-20 rounded-md flex items-center justify-center mb-6 bg-blue-50 text-blue-600">
+        <div class="w-20 h-20 flex items-center justify-center mb-6 bg-blue-50 text-blue-600 rounded-full">
             @php
                 $iconName = $card->getIcon();
             @endphp
