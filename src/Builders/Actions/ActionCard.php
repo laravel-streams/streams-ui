@@ -25,6 +25,11 @@ class ActionCard extends Action
         return $this;
     }
 
+    public function getAction(): mixed
+    {
+        return $this->evaluate($this->cardAction);
+    }
+
     /**
      * Establece el nombre de la acción (alternativa para modales)
      */

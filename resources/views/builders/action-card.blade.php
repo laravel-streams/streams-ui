@@ -1,5 +1,9 @@
 {{-- /var/www/development/Trabajo/GroupVitals/groupvitals.app.backend/vendor/streams/ui/resources/views/builders/action-card.blade.php --}}
-<div {!! $action->getHtmlAttributeBag()->class([$action->attributes['class'] ?? '']) !!}>
+<div {!! $action
+    ->getHtmlAttributeBag()
+    ->class([$action->attributes['class'] ?? ''])
+!!}>
+
     <div class="flex flex-col items-center text-center">
 
         <div class="w-20 h-20 rounded-full flex items-center justify-center mb-6 bg-blue-50 text-blue-600">
@@ -25,10 +29,6 @@
         <p class="text-gray-500 text-sm mb-6 max-w-[250px]">
             {{ $action->getDescription() }}
         </p>
-        <button
-            wire:click="mountAction('{{ $action->getName() }}')"
-            class="w-full py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-sm">
-            {{ $action->getLabel() }}
-        </button>
+        {!! $action->getAction()?->render() ?? '' !!}
     </div>
 </div>
