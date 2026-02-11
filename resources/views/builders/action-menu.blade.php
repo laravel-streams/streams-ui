@@ -41,7 +41,7 @@
 
                 $classes = Arr::toCssClasses([
                     // Base classes
-                    'block w-full text-left px-4 py-2',
+                    'block w-full text-left px-4 py-2 text-nowrap',
 
                     // State classes
                     'pointer-events-none opacity-70' => $disabled,
