@@ -3,110 +3,38 @@
     $label = $wizard->getLabel();
     $steps = $wizard->getSteps();
 
+    $stepsCount = count($steps);
     $isContained = true;
-    $statePath = 'wizard'; //$wizard->getStatePath();
-    // $previousAction = $getAction('previous');
-    // $nextAction = $getAction('next');
+    $statePath = 'wizard';
 @endphp
 
 <div
     wire:ignore.self
     x-cloak
     x-data="{
-        step: null,
+        step: 0,
+        stepsCount: @js($stepsCount),
 
-        nextStep: function () {
-            let nextStepIndex = this.getStepIndex(this.step) + 1
+        nextStep() {
+            if (this.step >= this.stepsCount - 1) return
+            this.step++
+            this.$nextTick(() => this.scrollToStep())
+        },
 
-            if (nextStepIndex >= this.getSteps().length) {
-                return
+        previousStep() {
+            if (this.step <= 0) return
+            this.step--
+            this.$nextTick(() => this.scrollToStep())
+        },
+
+        scrollToStep() {
+            const header = this.$refs.header
+            if (header?.children[this.step]) {
+                header.children[this.step].scrollIntoView({ behavior: 'smooth', block: 'start' })
             }
-
-            this.step = this.getSteps()[nextStepIndex]
-
-            this.autofocusFields()
-            this.scroll()
-        },
-
-        previousStep: function () {
-            let previousStepIndex = this.getStepIndex(this.step) - 1
-
-            if (previousStepIndex < 0) {
-                return
-            }
-
-            this.step = this.getSteps()[previousStepIndex]
-
-            this.autofocusFields()
-            this.scroll()
-        },
-
-        scroll: function () {
-            this.$nextTick(() => {
-                this.$refs.header.children[
-                    this.getStepIndex(this.step)
-                ].scrollIntoView({ behavior: 'smooth', block: 'start' })
-            })
-        },
-
-        autofocusFields: function () {
-            $nextTick(() =>
-                this.$refs[`step-${this.step}`]
-                    .querySelector('[autofocus]')
-                    ?.focus(),
-            )
-        },
-
-        getStepIndex: function (step) {
-            let index = this.getSteps().findIndex(
-                (indexedStep) => indexedStep === step,
-            )
-
-            if (index === -1) {
-                return 0
-            }
-
-            return index
-        },
-
-        getSteps: function () {
-            return JSON.parse(this.$refs.stepsData.value)
-        },
-
-        isFirstStep: function () {
-            return this.getStepIndex(this.step) <= 0
-        },
-
-        isLastStep: function () {
-            return this.getStepIndex(this.step) + 1 >= this.getSteps().length
-        },
-
-        isStepAccessible: function (stepId) {
-            return (
-                {{-- @js($isSkippable()) || this.getStepIndex(this.step) > this.getStepIndex(stepId) --}}
-                true
-            )
-        },
-
-        updateQueryString: function () {
-            {{-- if (! @js($isStepPersistedInQueryString())) {
-                return
-            } --}}
-
-            const url = new URL(window.location.href)
-            url.searchParams.set('step', this.step)
-
-            history.pushState(null, document.title, url.toString())
         },
     }"
-    x-init="
-        $watch('step', () => updateQueryString())
-
-        step = getSteps().at(0)
-
-        autofocusFields()
-    "
-    x-on:next-wizard-step.window="if ($event.detail.statePath === '{{ $statePath }}') nextStep()"
+    x-init="step = 0"
     {{
         $attributes
             ->merge([
@@ -137,38 +65,36 @@
         @endif
         role="list"
         @class([
-            'flex divide-y divide-gray-200 md:grid-flow-col md:divide-y-0 md:overflow-x-auto',
-            // 'border-b border-gray-200 dark:border-white/10' => $isContained,
-            'rounded-xl bg-white shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10' => ! $isContained,
+            'flex divide-y divide-x divide-gray-200 md:flex-row md:divide-y-0 md:overflow-x-auto',
+            'border-b border-gray-200',
         ])
         x-ref="header"
     >
         @foreach ($steps as $step)
         <li
-                class="ui-wizard-header-step relative flex"
+                class="px-4 md:flex md:flex-1"
                 x-bind:class="{
-                    'ui-active': getStepIndex(step) === {{ $loop->index }},
-                    'ui-completed': getStepIndex(step) > {{ $loop->index }},
+                    'ui-active': step === {{ $loop->index }},
+                    'ui-completed': step > {{ $loop->index }},
                 }"
             >
                 <button
                     type="button"
-                    x-bind:aria-current="getStepIndex(step) === {{ $loop->index }} ? 'step' : null"
-                    x-on:click="step = @js($step->getId())"
-                    {{-- x-bind:disabled="! isStepAccessible(@js($step->getId())) || @js($previousAction->isDisabled())" --}}
+                    id="{{ $id }}-tab-{{ $loop->index }}"
+                    x-bind:aria-current="step === {{ $loop->index }} ? 'step' : null"
+                    x-on:click="step = {{ $loop->index }}"
                     role="step"
-                    class="ui-wizard-header-step-button flex h-full items-center gap-x-4 px-6 py-4 text-start"
+                    class="flex h-full items-center gap-x-4 px-6 py-4 text-start"
                 >
                     <div
-                        class="ui-wizard-header-step-icon-ctn flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
+                        class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full {{ $loop->index === 0 ? 'bg-primary-500' : 'bg-gray-200' }}"
                         x-bind:class="{
-                            'bg-primary-600 dark:bg-primary-500':
-                                getStepIndex(step) > {{ $loop->index }},
-                            'border-2': getStepIndex(step) <= {{ $loop->index }},
-                            'border-primary-600 dark:border-primary-500':
-                                getStepIndex(step) === {{ $loop->index }},
-                            'border-gray-300 dark:border-gray-600':
-                                getStepIndex(step) < {{ $loop->index }},
+                            'bg-primary-600': step > {{ $loop->index }},
+                            'border-2': step <= {{ $loop->index }},
+                            'border-primary-600': step === {{ $loop->index }},
+                            'border-gray-300': step < {{ $loop->index }},
+                            'text-white': step > {{ $loop->index }} || (step === {{ $loop->index }} && {{ $loop->index }} === 0),
+                            'text-base': step < {{ $loop->index }} || (step === {{ $loop->index }} && {{ $loop->index }} > 0),
                         }"
                     >
                         {{-- @php
@@ -196,13 +122,10 @@
                             />
                         @else --}}
                             <span
-                                {{-- x-show="getStepIndex(step) <= {{ $loop->index }}" --}}
                                 class="text-sm font-medium"
                                 x-bind:class="{
-                                    'text-gray-500 dark:text-gray-400':
-                                        getStepIndex(step) !== {{ $loop->index }},
-                                    'text-primary-600 dark:text-primary-500':
-                                        getStepIndex(step) === {{ $loop->index }},
+                                    'text-white': step > {{ $loop->index }} || (step === {{ $loop->index }} && {{ $loop->index }} === 0),
+                                    'text-base': step < {{ $loop->index }} || (step === {{ $loop->index }} && {{ $loop->index }} > 0),
                                 }"
                             >
                                 {{ str_pad($loop->index + 1, 2, '0', STR_PAD_LEFT) }}
@@ -211,20 +134,20 @@
                     </div>
 
                     <div class="grid justify-items-start md:w-max md:max-w-60">
-                        {{-- @if (! $step->isLabelHidden())
+                        @if ($label = $step->getLabel())
                             <span
-                                class="ui-wizard-header-step-label text-sm font-medium"
+                                class="text-sm font-medium"
                                 x-bind:class="{
-                                    'text-gray-500 dark:text-gray-400':
-                                        getStepIndex(step) < {{ $loop->index }},
-                                    'text-primary-600 dark:text-primary-400':
-                                        getStepIndex(step) === {{ $loop->index }},
-                                    'text-gray-950 dark:text-white': getStepIndex(step) > {{ $loop->index }},
+                                    'text-gray-500':
+                                        step < {{ $loop->index }},
+                                    'text-primary-600':
+                                        step === {{ $loop->index }},
+                                    'text-gray-950': step > {{ $loop->index }},
                                 }"
                             >
                                 {{ $step->getLabel() }}
                             </span>
-                        @endif --}}
+                        @endif
 
                         {{-- @if (filled($description = $step->getDescription()))
                             <span
@@ -236,7 +159,7 @@
                     </div>
                 </button>
 
-                @if (! $loop->last)
+                {{-- @if (! $loop->last)
                     <div
                         aria-hidden="true"
                         class="ui-wizard-header-step-separator absolute end-0 hidden h-full w-5 md:block"
@@ -245,7 +168,7 @@
                             fill="none"
                             preserveAspectRatio="none"
                             viewBox="0 0 22 80"
-                            class="h-full w-full text-gray-200 dark:text-white/5 rtl:rotate-180"
+                            class="h-full w-full text-gray-200 rtl:rotate-180"
                         >
                             <path
                                 d="M0 -2L20 40L0 82"
@@ -255,19 +178,29 @@
                             ></path>
                         </svg>
                     </div>
-                @endif
+                @endif --}}
             </li>
         @endforeach
     </ol>
 
     @foreach ($steps as $step)
-    @foreach ($step->getComponents() as $component)
-    @if (is_string($component))
-        @livewire($component)
-    @else
-        {!! $component->render() !!}
-    @endif
-    @endforeach
+    <div
+        x-bind:tabindex="$el.querySelector('[autofocus]') ? '-1' : '0'"
+        x-show="step === {{ $loop->index }}"
+        x-transition
+        role="tabpanel"
+        aria-labelledby="{{ $id }}-tab-{{ $loop->index }}"
+        id="{{ $id }}-panel-{{ $loop->index }}"
+        class="outline-none"
+    >
+        @foreach ($step->getComponents() as $component)
+        @if (is_string($component))
+            @livewire($component)
+        @else
+            {!! $component->render() !!}
+        @endif
+        @endforeach
+    </div>
     @endforeach
 
     <div
