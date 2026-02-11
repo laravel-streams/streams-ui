@@ -137,18 +137,18 @@
         @endif
         role="list"
         @class([
-            'ui-wizard-header grid divide-y divide-gray-200 md:grid-flow-col md:divide-y-0 md:overflow-x-auto',
+            'flex divide-y divide-gray-200 md:grid-flow-col md:divide-y-0 md:overflow-x-auto',
             // 'border-b border-gray-200 dark:border-white/10' => $isContained,
             'rounded-xl bg-white shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10' => ! $isContained,
         ])
         x-ref="header"
     >
         @foreach ($steps as $step)
-            <li
+        <li
                 class="ui-wizard-header-step relative flex"
                 x-bind:class="{
-                    'fi-active': getStepIndex(step) === {{ $loop->index }},
-                    'fi-completed': getStepIndex(step) > {{ $loop->index }},
+                    'ui-active': getStepIndex(step) === {{ $loop->index }},
+                    'ui-completed': getStepIndex(step) > {{ $loop->index }},
                 }"
             >
                 <button
@@ -196,8 +196,8 @@
                             />
                         @else --}}
                             <span
-                                x-show="getStepIndex(step) <= {{ $loop->index }}"
-                                class="ui-wizard-header-step-indicator text-sm font-medium"
+                                {{-- x-show="getStepIndex(step) <= {{ $loop->index }}" --}}
+                                class="text-sm font-medium"
                                 x-bind:class="{
                                     'text-gray-500 dark:text-gray-400':
                                         getStepIndex(step) !== {{ $loop->index }},
