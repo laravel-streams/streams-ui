@@ -6,19 +6,18 @@ use Illuminate\Support\Facades\App;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Builders\Concerns as Common;
 
-class ProgressBar extends ViewBuilder
+class Wizard extends ViewBuilder
 {
     use Common\HasId;
     use Common\HasLabel;
+    use Common\HasSteps;
     use Common\HasHeading;
     use Common\HasDescription;
     use Common\HasHtmlAttributes;
 
-    protected string $viewIdentifier = 'progressBar';
+    protected string $viewIdentifier = 'wizard';
 
-    protected string $view = 'ui::builders/progress-bar';
-
-    protected int|\Closure $progress = 0;
+    protected string $view = 'ui::builders/wizard';
 
     final public function __construct(?string $id = null)
     {
@@ -36,17 +35,5 @@ class ProgressBar extends ViewBuilder
         $instance->configure();
 
         return $instance;
-    }
-
-    public function progress(int|\Closure $progress): static
-    {
-        $this->progress = $progress;
-
-        return $this;
-    }
-
-    public function getProgress(): int
-    {
-        return $this->evaluate($this->progress);
     }
 }
