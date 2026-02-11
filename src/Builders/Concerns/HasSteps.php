@@ -1,6 +1,6 @@
 <?php
 
-namespace Streams\Ui\Builders\Inputs\Concerns;
+namespace Streams\Ui\Builders\Concerns;
 
 trait HasSteps
 {
