@@ -25,8 +25,8 @@
     ]);
 
 @endphp
-<div {{
-    $attributes
+<div {!!
+    $container->getHtmlAttributeBag()
         ->class([
             'flex flex-col space-y-4',
             'col-[--col-span-default]' => $columnSpan['default'] ?? null,
@@ -44,7 +44,8 @@
             "--col-span-xl: {$getSpanValue($columnSpan['xl'])}" => $columnSpan['xl'] ?? null,
             "--col-span-2xl: {$getSpanValue($columnSpan['2xl'])}" => $columnSpan['2xl'] ?? null,
         ])
-}}>
+        // ->merge($container->getHtmlAttributes())
+!!}>
     @foreach ($container->getComponents() as $component)
     {{ $component }}
     @endforeach
