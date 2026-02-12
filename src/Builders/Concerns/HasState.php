@@ -2,6 +2,8 @@
 
 namespace Streams\Ui\Builders\Concerns;
 
+use Illuminate\Support\Str;
+
 trait HasState
 {
     protected ?string $statePath = null;
@@ -203,11 +205,18 @@ trait HasState
         if (!$pathComponents) {
             $pathComponents = [
                 'data',
-                $this->getName(),
+                $this->getDefaultStatePath(),
             ];
         }
 
         return $this->cachedFullStatePath = implode('.', $pathComponents);
+    }
+
+    protected function getDefaultStatePath(): string
+    {
+        $parts = explode('\\', static::class);
+
+        return Str::kebab(end($parts));
     }
 
     protected function flushCachedStatePath(): void

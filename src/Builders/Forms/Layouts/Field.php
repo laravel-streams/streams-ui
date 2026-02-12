@@ -7,15 +7,17 @@ use Streams\Ui\Builders\Concerns as Common;
 
 class Field extends ViewBuilder
 {
-    use Common\BelongsToLivewire;
-    use Common\BelongsToParent;
-    use Common\CanBeDisabled;
-    use Common\CanSpanColumns;
-    use Common\HasComponents;
-    use Common\HasHtmlAttributes;
     use Common\HasId;
     use Common\HasLabel;
     use Common\HasState;
+    use Common\HasComponents;
+    use Common\HasHtmlAttributes;
+
+    use Common\CanBeDisabled;
+    use Common\CanSpanColumns;
+    
+    use Common\BelongsToParent;
+    use Common\BelongsToLivewire;
 
     // @todo This is out of place.
     use \Streams\Ui\Builders\Inputs\Concerns\HasHint;
