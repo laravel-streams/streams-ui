@@ -541,8 +541,8 @@ trait CanBeValidated
 
         $this->rule(
             static function (
-                Input $component,
-                ?string $model
+                Input $component
+                // ?string $model
             ) use (
                 $column,
                 $ignorable,
@@ -550,11 +550,11 @@ trait CanBeValidated
                 $modifyRuleUsing,
                 $table
             ) {
-                $table = $component->evaluate($table) ?? $model;
+                $table = $component->evaluate($table);
                 $column = $component->evaluate($column) ?? $component->getName();
 
                 $ignorable = ($ignoreRecord && ! $ignorable) ?
-                    $component->getRecord() :
+                    $component->getEntry() :
                     $component->evaluate($ignorable);
 
                 $rule = Rule::unique($table, $column)
@@ -576,8 +576,8 @@ trait CanBeValidated
             },
             fn (
                 Input $component,
-                ?string $model
-            ): bool => (bool) ($component->evaluate($table) ?? $model)
+                // ?string $model
+            ): bool => (bool) ($component->evaluate($table))
         );
 
         return $this;

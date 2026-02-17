@@ -48,7 +48,6 @@ trait InteractsWithActions
 
                 $action->formData((array) $form->getState()['data']);
             }
-
             
             $action->fire('before_call', [
                 'action' => $action,

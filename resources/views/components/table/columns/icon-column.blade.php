@@ -3,7 +3,7 @@
         $attributes
             ->merge($getHtmlAttributes(), escape: false)
             ->class([
-                ' justify-center gap-1.5',
+                ' justify-center',
                 // 'px-3 py-4' => ! $isInline(),
                 // 'flex-col' => $isListWithLineBreaks(),
             ])

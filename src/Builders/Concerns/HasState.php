@@ -214,6 +214,10 @@ trait HasState
 
     protected function getDefaultStatePath(): string
     {
+        if (method_exists(static::class, 'getName')) {
+            return static::getName();
+        }
+
         $parts = explode('\\', static::class);
 
         return Str::kebab(end($parts));

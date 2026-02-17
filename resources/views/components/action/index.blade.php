@@ -85,11 +85,11 @@
         
         // Size classes
         match ($size) {
-            'xs' => 'gap-1 px-1.5 py-1.5',
-            'sm' => 'gap-1 px-2 py-1.5',
-            'md' => 'gap-1.5 px-3 py-2',
-            'lg' => 'gap-1.5 px-4 py-2.5',
-            'xl' => 'gap-1.5 px-5 py-3',
+            'xs' => '_gap-1 px-1.5 py-1.5',
+            'sm' => '_gap-1 px-2 py-1.5',
+            'md' => '_gap-1.5 px-3 py-2',
+            'lg' => '_gap-1.5 px-4 py-2.5',
+            'xl' => '_gap-1.5 px-5 py-3',
             default => $size,
         },
         
@@ -205,7 +205,7 @@
                 wire:loading.delay.class="invisible"
             @endif
         @endif
-        class="flex items-center gap-1.5"
+        class="flex items-center"
     >
         @if ($icon && $iconPosition === 'before')
         <x-ui::icon

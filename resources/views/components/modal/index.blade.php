@@ -124,11 +124,11 @@
                                 icon-size="xl"
                                 {{-- :label="__('ui::components/modal.actions.close.label')" --}}
                                 tabindex="-1"
-                                borderRadius="lg"
+                                borderRadius="full"
                                 :x-on:click="filled($id) ? '$dispatch(' . \Illuminate\Support\Js::from($closeEventName) . ', { id: ' . \Illuminate\Support\Js::from($id) . ' })' : 'close()'"
                                 x-on:click="close()"
                                 class="ui-modal-close-btn"
-                            >CLOSE</x-ui::action>
+                            ><x-ui::icon icon="heroicon-o-x-mark" class="w-5 h-5 mr-0" /></x-ui::action>
                         </div>
 
                         <div>

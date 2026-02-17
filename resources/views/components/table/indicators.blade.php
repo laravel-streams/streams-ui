@@ -15,7 +15,7 @@
             class="whitespace-nowrap text-sm font-medium leading-6 text-gray-600"
         >Active filters:</span>
 
-        <div class="flex flex-wrap gap-1.5">
+        <div class="flex flex-wrap">
             @foreach ($indications as $label => $indicator)
                 {{-- <x-ui::badge :color="$indicator->getColor()">
                     {{ $indicator->getLabel() }}
