@@ -62,6 +62,7 @@
     // );
 
     // $hasError = $errors->has($statePath) || ($hasNestedRecursiveValidationRules && $errors->has("{$statePath}.*"));
+    // dump($statePath, $errors->all());
     $hasError = $errors->has($statePath) || $errors->has("{$statePath}.*");
 @endphp
 

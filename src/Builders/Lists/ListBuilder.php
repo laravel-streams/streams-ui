@@ -8,10 +8,12 @@ use Streams\Ui\Builders\Concerns as Common;
 
 class ListBuilder extends ViewBuilder
 {
-    use Common\HasHtmlAttributes;
     use Common\HasId;
+    use Common\HasHtmlAttributes;
 
-    protected string $view = 'ui::components.lists.list';
+    protected string $viewIdentifier = 'list';
+
+    protected string $view = 'ui::builders.list';
 
     protected array $items = [];
 
@@ -53,17 +55,5 @@ class ListBuilder extends ViewBuilder
         }
 
         return $this->items;
-    }
-
-    /**
-     * Get the view data
-     */
-    public function getViewData(): array
-    {
-        return array_merge([
-            'id' => $this->getId(),
-            'items' => $this->getItems(),
-            'htmlAttributes' => $this->getHtmlAttributeBag(),
-        ], $this->viewData);
     }
 }

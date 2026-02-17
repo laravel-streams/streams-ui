@@ -1,16 +1,9 @@
-@props([
-    'id' => null,
-    'items' => [],
-    'htmlAttributes' => null,
-])
-
-<div 
-    @if($id) id="{{ $id }}" @endif
-    @if($htmlAttributes) {{ $htmlAttributes }} @endif
-    class="flex flex-col space-y-4 {{ $attributes->get('class', '') }}"
-    {{ $attributes->except(['class']) }}
+<div
+    @if($list->getId()) id="{{ $list->getId() }}" @endif
+    {!! $list->getHtmlAttributeBag() !!}
+    {{ $attributes->class('flex flex-col space-y-4') }}
 >
-    @foreach($items as $item)
+    @foreach ($list->getItems() as $item)
         @if(is_object($item) && method_exists($item, 'toHtml'))
             {!! $item->toHtml() !!}
         @elseif(is_array($item))
@@ -38,7 +31,7 @@
         @endif
     @endforeach
 
-    @if(empty($items))
+    @if(empty($list->getItems()))
         <div class="flex items-center justify-center py-8 text-gray-500">
             No items to display
         </div>
