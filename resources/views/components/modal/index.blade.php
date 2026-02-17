@@ -119,7 +119,6 @@
                         <div class="absolute end-4 top-4">
                             <x-ui::action
                                 color="black"
-                                icon="heroicon-o-x-mark"
                                 {{-- icon-alias="modal.close-action" --}}
                                 icon-size="xl"
                                 {{-- :label="__('ui::components/modal.actions.close.label')" --}}
