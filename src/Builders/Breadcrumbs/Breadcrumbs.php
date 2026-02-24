@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Builders\Breadcrumbs;
 
+use Streams\Ui\Builders\Actions\Action;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Builders\Concerns as Common;
 
@@ -51,12 +52,9 @@ class Breadcrumbs extends ViewBuilder
         return $this->items;
     }
 
-    public function addItem(string $title, ?string $href = null): static
+    public function addItem(Action|string $item): static
     {
-        $this->items[] = [
-            'title' => $title,
-            'href' => $href,
-        ];
+        $this->items[] = $item;
 
         return $this;
     }
