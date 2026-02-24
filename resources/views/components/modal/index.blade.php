@@ -113,7 +113,7 @@
                 @if ($heading)
                     <div
                         @class([
-                            'flex px-6 pt-6',
+                            'flex px-6 pt-6 mb-6',
                         ])
                     >
                         <div class="absolute end-4 top-4">
@@ -148,7 +148,7 @@
                 @if (!empty($slot))
                     <div
                         @class([
-                            'ui-modal-content flex flex-col gap-y-4',
+                            'ui-modal-content flex flex-col gap-y-4 px-6',
                             'flex-1' => ($width === 'screen') || $slideOver,
                         ])
                     >
