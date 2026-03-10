@@ -12,6 +12,7 @@ class ListItem extends ViewBuilder
     use Common\HasIcon;
     use Common\HasTitle;
     use Common\HasActions;
+    use Common\HasComponents;
     use Common\HasDescription;
     use Common\HasHtmlAttributes;
 

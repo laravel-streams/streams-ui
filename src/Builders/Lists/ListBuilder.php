@@ -15,7 +15,7 @@ class ListBuilder extends ViewBuilder
 
     protected string $view = 'ui::builders.list';
 
-    protected array $items = [];
+    protected array|\Closure $items = [];
 
     final public function __construct(?string $id = null)
     {
@@ -50,10 +50,6 @@ class ListBuilder extends ViewBuilder
      */
     public function getItems(): array
     {
-        if (is_callable($this->items)) {
-            return call_user_func($this->items);
-        }
-
-        return $this->items;
+        return $this->evaluate($this->items);
     }
 }

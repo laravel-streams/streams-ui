@@ -143,9 +143,9 @@ trait HasState
             }
         }
 
-        $this->hydrateState($defaultState);
+        // $this->hydrateState($defaultState);
 
-        $this->fillStateWithNull();
+        // $this->fillStateWithNull();
 
         return $this;
     }

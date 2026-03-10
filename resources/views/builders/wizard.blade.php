@@ -34,7 +34,7 @@
             }
         },
     }"
-    x-init="step = 0"
+    x-init="step = {{ $initialStepIndex ?? 0 }}"
     {{
         $attributes
             ->merge([
@@ -71,13 +71,27 @@
         x-ref="header"
     >
         @foreach ($steps as $step)
-        <li
+            <li
                 class="px-4 md:flex md:flex-1"
                 x-bind:class="{
                     'ui-active': step === {{ $loop->index }},
                     'ui-completed': step > {{ $loop->index }},
                 }"
             >
+                @if ($stepUrl = $step->getUrl())
+                <a
+                    href="{{ $stepUrl }}"
+                    id="{{ $id }}-tab-{{ $loop->index }}"
+                    x-bind:aria-current="step === {{ $loop->index }} ? 'step' : null"
+                    role="step"
+                    @if ($step->shouldOpenInNewTab())
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    @endif
+                    class="flex h-full items-center gap-x-4 px-6 py-4 text-start"
+                    wire:navigate
+                >
+                @else
                 <button
                     type="button"
                     id="{{ $id }}-tab-{{ $loop->index }}"
@@ -86,6 +100,7 @@
                     role="step"
                     class="flex h-full items-center gap-x-4 px-6 py-4 text-start"
                 >
+                @endif
                     <div
                         class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full {{ $loop->index === 0 ? 'bg-primary-500' : 'bg-gray-200' }}"
                         x-bind:class="{
@@ -157,7 +172,11 @@
                             </span>
                         @endif --}}
                     </div>
+                @if ($stepUrl)
+                </a>
+                @else
                 </button>
+                @endif
 
                 {{-- @if (! $loop->last)
                     <div
