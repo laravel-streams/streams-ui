@@ -3,7 +3,7 @@
     'badgeColor' => 'primary',
     'borderRadius' => null,
     'color' => null,
-    'size' => 'md',
+    'size' => 'sm',
     'disabled' => false,
     'form' => null,
     'grouped' => false,

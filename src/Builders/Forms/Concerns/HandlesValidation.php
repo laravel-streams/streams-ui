@@ -19,7 +19,7 @@ trait HandlesValidation
     public function validate(array $rules = [], array $messages = [], array $attributes = [])
     {
         $fieldRules = $this->resolveInputRules($this->getComponents());
-        
+           
         $rules = array_merge($fieldRules, $this->validationRules, $rules);
 
         $data = $this->getDataForValidation($rules);

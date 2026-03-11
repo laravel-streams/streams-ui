@@ -45,9 +45,11 @@
             {{-- </x-ui::grid.column> --}}
         @endforeach
 
-        @foreach ($form->getActions() as $action)
-        {!! $action->render() !!}
-        @endforeach
+        <div class="pt-4">
+            @foreach ($form->getActions() as $action)
+            {!! $action->render() !!}
+            @endforeach
+        </div>
     </div>
     {{--
 </x-ui::grid> --}}

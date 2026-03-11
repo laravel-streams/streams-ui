@@ -58,7 +58,7 @@
 
     {{-- Card Heading --}}
     @if ($heading || $description || $actions)
-    <div class="flex items-center justify-between heading p-6 border-b border-black/10">
+    <div class="flex items-center justify-between heading py-4 px-6 border-b border-black/10">
         <div class="flex flex-col">
             @if ($heading)
                 @if ($url = $card->getUrl())

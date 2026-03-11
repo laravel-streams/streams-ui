@@ -1,7 +1,7 @@
 <div
     @if($list->getId()) id="{{ $list->getId() }}" @endif
     {!! $list->getHtmlAttributeBag() !!}
-    {{ $attributes->class('flex flex-col space-y-4') }}
+    {{ $attributes->class('flex flex-col space-y-2') }}
 >
     @foreach ($list->getItems() as $item)
         {{-- @if(is_object($item) && method_exists($item, 'toHtml'))
@@ -26,14 +26,14 @@
             </div>
         @else --}}
             @if($title = $item->getTitle())
-                <div class="flex-1 px-4">
+                <div class="flex-1">
                     <h3 class="text-sm font-medium text-gray-900">{{ $title }}</h3>
                     @if($description = $item->getDescription())
                         <p class="text-sm text-gray-500">{{ $description }}</p>
                     @endif
                 </div>
             @endif
-            <div class="flex items-center px-4">
+            <div class="flex items-center">
                 @foreach ($item->getComponents() as $component)
                 @if (is_string($component))
                     @livewire($component)

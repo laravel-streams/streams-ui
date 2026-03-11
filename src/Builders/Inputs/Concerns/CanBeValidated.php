@@ -597,7 +597,7 @@ trait CanBeValidated
 
     public function getRequiredRule(): string
     {
-        return $this->required() ? 'required' : 'nullable';
+        return $this->isRequired() ? 'required' : 'nullable';
     }
 
     public function getValidationAttribute(): string

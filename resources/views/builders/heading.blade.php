@@ -15,6 +15,7 @@
             'h1' => 'text-3xl',
             'h2' => 'text-2xl',
             'h3' => 'text-xl',
+            'h4' => 'text-lg',
             default => 'text-3xl',
         },
         // match ($color) {
@@ -51,7 +52,7 @@
         />
         @endif
         <div>
-            <{{ $priority }} class="{{ $classes }} font-bold text-gray-900">{{ $heading->getTitle() }}</{!! $priority !!}>
+            <{{ $priority }} {{ $heading->getHtmlAttributeBag()->class([$classes . ' font-bold text-gray-900']) }}>{{ $heading->getTitle() }}</{!! $priority !!}>
             @if ($description = $heading->getDescription())
             <p class="text-gray-500 mt-2">{!! $description !!}</p>
             @endif

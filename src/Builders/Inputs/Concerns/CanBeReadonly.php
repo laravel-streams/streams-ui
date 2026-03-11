@@ -6,7 +6,7 @@ trait CanBeReadonly
 {
     protected bool|\Closure|null $readonly = null;
 
-    public function readonly(bool|\Closure|null $readonly): static
+    public function readonly(bool|\Closure|null $readonly = true): static
     {
         $this->readonly = $readonly;
 
