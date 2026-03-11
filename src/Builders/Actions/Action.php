@@ -44,6 +44,8 @@ class Action extends ViewBuilder
     public function __construct(string $name)
     {
         $this->name($name);
+        
+        $this->id(Str::slug($name));
     }
 
     public static function make(?string $name = null): static

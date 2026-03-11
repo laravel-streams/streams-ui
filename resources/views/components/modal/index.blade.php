@@ -37,8 +37,8 @@
             );
         },
     }"
-    x-on:{{ $closeEventName }}.window="close"
-    x-on:{{ $openEventName }}.window="open"
+    x-on:{{ $closeEventName }}.window="console.log('close', $event.detail?.id); if ($event.detail?.id === undefined || $event.detail?.id === '{{ $id }}') close()"
+    x-on:{{ $openEventName }}.window="console.log('open', $event.detail?.id); if ($event.detail?.id === undefined || $event.detail?.id === '{{ $id }}') open()"
     
     {{-- x-trap.noscroll="isOpen" --}}
     {{-- wire:ignore.self --}}

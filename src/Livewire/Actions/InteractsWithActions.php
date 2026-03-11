@@ -39,16 +39,16 @@ trait InteractsWithActions
         ]);
 
         $result = null;
-        
+
         try {
-        
+
             if ($this->mountedActionHasForm()) {
 
                 $form = $this->getMountedActionForm();
 
                 $action->formData((array) $form->getState()['data']);
             }
-            
+
             $action->fire('before_call', [
                 'action' => $action,
                 'component' => $this,
@@ -63,8 +63,6 @@ trait InteractsWithActions
             ]);
 
             $action->fire('after_call');
-        
-
         } catch (\Streams\Ui\Exceptions\Halt $exception) {
             return null;
         } catch (\Streams\Ui\Exceptions\Cancel $exception) {
@@ -218,6 +216,31 @@ trait InteractsWithActions
 
         $actions = $this->getActions();
 
+        $nestedActions = [];
+
+        if (method_exists($this, 'getComponents')) {
+            $components = $this->getComponents();
+
+            foreach ($components as $component) {
+
+                if ($component instanceof MountableAction) {
+                    $nestedActions[] = $component;
+                }
+
+                if (method_exists($component, 'cacheActions')) {
+                    $nestedActions = [
+                        ...$nestedActions,
+                        ...$component->cacheActions(),
+                    ];
+                }
+            }
+        }
+
+        $actions = [
+            ...$actions,
+            ...$nestedActions,
+        ];
+
         foreach ($actions + $registered as $action) {
 
             if ($action instanceof \Closure) {
@@ -287,7 +310,7 @@ trait InteractsWithActions
     protected function extractFormFromActionComponents(array $components): ?Form
     {
         foreach ($components as $component) {
-            
+
             if ($component instanceof Form) {
                 return $component;
             }
@@ -300,16 +323,23 @@ trait InteractsWithActions
         return null;
     }
 
-    public function getAction(string $name): ?Action
+    public function getCachedActions(): array
     {
         if ($this->cachedActions === null) {
             $this->cachedActions = $this->cacheActions();
         }
 
-        $action = $this->cachedActions[$name] ?? null;
+        return $this->cachedActions;
+    }
+
+    public function getAction(string $name): ?Action
+    {
+        $cachedActions = $this->getCachedActions();
+
+        $action = $cachedActions[$name] ?? null;
 
         if (! $action) {
-            throw new \InvalidArgumentException("No action named [{$name}] found in the Livewire component [".get_class($this).'].');
+            throw new \InvalidArgumentException("No action named [{$name}] found in the Livewire component [" . get_class($this) . '].');
         }
 
         return $action;
@@ -326,7 +356,7 @@ trait InteractsWithActions
         }
 
         if (! count($this->mountedActions)) {
-            $this->closeActionModal();
+            $this->closeActionModal($action);
 
             // $action?->clearRecordAfter();
 
@@ -340,15 +370,21 @@ trait InteractsWithActions
         $this->closeActionModal($action);
     }
 
-    protected function closeActionModal(): void
+    protected function closeActionModal(?Action $action = null): void
     {
-        $this->dispatch('close-modal');
-        // $this->dispatch('close-modal', id: "{$this->getId()}-action");
+        if ($action) {
+            $this->dispatch('close-modal', id: $action->getId());
+        } else {
+            $this->dispatch('close-modal');
+        }
     }
 
     protected function openActionModal(Action $action): void
     {
-        $this->dispatch('open-modal');
-        // $this->dispatch('open-modal', id: "{$action->getId()}-action");
+        if ($action) {
+            $this->dispatch('open-modal', id: $action->getId());
+        } else {
+            $this->dispatch('open-modal');
+        }
     }
 }
