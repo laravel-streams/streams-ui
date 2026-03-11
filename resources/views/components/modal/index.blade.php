@@ -18,30 +18,25 @@
         isOpen: {{ json_encode($open) }},
 
         close: function () {
-            
             this.isOpen = false;
-
             this.$wire.unmountAction();
-
-            this.$refs.modalContainer.dispatchEvent(
-                new CustomEvent('modal-closed', { id: '{{ $id }}' }),
+            this.$refs.modalContainer?.dispatchEvent(
+                new CustomEvent('modal-closed', { detail: { id: '{{ $id }}' } }),
             );
         },
 
         open: function () {
-
             this.isOpen = true;
-
-            this.$refs.modalContainer.dispatchEvent(
-                new CustomEvent('modal-opened', { id: '{{ $id }}' }),
+            this.$refs.modalContainer?.dispatchEvent(
+                new CustomEvent('modal-opened', { detail: { id: '{{ $id }}' } }),
             );
         },
     }"
-    x-on:{{ $closeEventName }}.window="console.log('close', $event.detail?.id); if ($event.detail?.id === undefined || $event.detail?.id === '{{ $id }}') close()"
-    x-on:{{ $openEventName }}.window="console.log('open', $event.detail?.id); if ($event.detail?.id === undefined || $event.detail?.id === '{{ $id }}') open()"
+    x-on:{{ $closeEventName }}.window="if ($event.detail?.id === undefined || $event.detail?.id === '{{ $id }}') close()"
+    x-on:{{ $openEventName }}.window="if ($event.detail?.id === undefined || $event.detail?.id === '{{ $id }}') open()"
     
     {{-- x-trap.noscroll="isOpen" --}}
-    {{-- wire:ignore.self --}}
+    wire:ignore.self
     >
 
     <div

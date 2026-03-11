@@ -373,8 +373,10 @@ trait InteractsWithActions
     protected function closeActionModal(?Action $action = null): void
     {
         if ($action) {
+            dump('close-modal', $action->getId());
             $this->dispatch('close-modal', id: $action->getId());
         } else {
+            dump('close-modal');
             $this->dispatch('close-modal');
         }
     }
