@@ -32,7 +32,6 @@
         :width="$action?->getModalWidth()"
         :wire:key="$action ? $this->getId() . '.actions.' . $action->getName() . '.modal' : null"
         x-on:modal-closed.stop="$wire.unmountAction(false);">
-        {{ date('U') }}
         @if ($action)
             {{ $action->getModalContent() }}
             @foreach ($action->getModalComponents() as $component)

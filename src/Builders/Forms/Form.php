@@ -45,7 +45,9 @@ class Form extends ViewBuilder
     {
         $components = array_map(function ($component) {
 
-            $component->livewire($this->getLivewire());
+            if ($component instanceof Common\BelongsToLivewire) {
+                $component->livewire($this->getLivewire());
+            }
 
             return $component;
         }, $this->evaluate($this->components));
