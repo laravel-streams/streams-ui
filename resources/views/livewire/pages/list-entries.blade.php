@@ -10,8 +10,4 @@
 
     </div>
 
-    <x-ui::messages/>
-    
-    <x-ui::modals />
-
 </x-ui::page>

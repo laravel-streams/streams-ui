@@ -27,6 +27,9 @@ View::share('topNavigation', $topNavigation = false);
 
     </div>
 
+    <x-ui::modals />
+    <x-ui::messages />
+
     @include('ui::layouts.partials.assets')
 
 </body>

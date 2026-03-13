@@ -26,29 +26,4 @@ trait HasComponents
     {
         return $this->evaluate($this->components);
     }
-
-    // @todo not working.. we need to refresh tables.
-    public function refreshTables(array $components = []): void
-    {
-        $components = $components ?: $this->getComponents();
-        
-        foreach ($components as $component) {
-
-            if (method_exists($component, 'bootedInteractsWithTable')) {
-                $component->bootedInteractsWithTable();
-            }
-
-            // if (method_exists($component, 'getLivewireComponent')) {
-            //     $component = app($component->getLivewireComponent());
-            // }
-
-            if (method_exists($component, 'refreshTables')) {
-                $component->refreshTables();
-            }
-
-            if (method_exists($component, 'getComponents')) {
-                $this->refreshTables($component->getComponents());
-            }
-        }
-    }
 }

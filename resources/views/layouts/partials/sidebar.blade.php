@@ -3,15 +3,15 @@
 @endphp
 
 <!-- Off-canvas -->
-<div x-data="{open: false}" x-cloak @toggle-navigation.window="open=!open" x-on:keydown.escape.window="open=false"
+<div x-data="{expanded: false}" x-cloak @toggle-navigation.window="expanded=!expanded" x-on:keydown.escape.window="expanded=false"
 class="relative z-10 lg:hidden" role="dialog" aria-modal="true">
 
-<div x-show="open" x-click="open=false" x-transition:enter="transition-opacity ease-linear duration-300"
+<div x-show="expanded" x-click="expanded=false" x-transition:enter="transition-opacity ease-linear duration-300"
     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
     x-transition:leave="transition-opacity ease-linear duration-300" x-transition:leave-start="opacity-100"
     x-transition:leave-end="opacity-0" class="fixed inset-0 bg-black/80"></div>
 
-<div x-show="open" x-transition:enter="transition ease-in-out duration-300 transform"
+<div x-show="expanded" x-transition:enter="transition ease-in-out duration-300 transform"
     x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
     x-transition:leave="transition ease-in-out duration-300 transform" x-transition:leave-start="translate-x-0"
     x-transition:leave-end="-translate-x-full" class="fixed inset-0 flex">
@@ -19,7 +19,7 @@ class="relative z-10 lg:hidden" role="dialog" aria-modal="true">
     <div class="relative mr-16 flex w-full max-w-xs flex-1">
 
         <div class="absolute left-full top-0 flex w-16 justify-center pt-5">
-            <button @click="open=false" type="button" class="-m-2.5 p-2.5">
+            <button @click="expanded=false" type="button" class="-m-2.5 p-2.5">
                 <span class="sr-only">Close sidebar</span>
                 @svg('heroicon-o-x-mark', 'h-6 w-6 text-white')
             </button>

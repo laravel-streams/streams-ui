@@ -216,31 +216,6 @@ trait InteractsWithActions
 
         $actions = $this->getActions();
 
-        $nestedActions = [];
-
-        if (method_exists($this, 'getComponents')) {
-            $components = $this->getComponents();
-
-            foreach ($components as $component) {
-
-                if ($component instanceof MountableAction) {
-                    $nestedActions[] = $component;
-                }
-
-                if (method_exists($component, 'cacheActions')) {
-                    $nestedActions = [
-                        ...$nestedActions,
-                        ...$component->cacheActions(),
-                    ];
-                }
-            }
-        }
-
-        $actions = [
-            ...$actions,
-            ...$nestedActions,
-        ];
-
         foreach ($actions + $registered as $action) {
 
             if ($action instanceof \Closure) {
