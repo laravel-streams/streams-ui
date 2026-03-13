@@ -8,12 +8,9 @@
     if (!$action && isset($this->table)) {
         $action = $this->getMountedTableBulkAction();
     }
-
-    if (!$action) {
-        return;
-    }
 @endphp
 <div>
+    @if ($action)
     <x-ui::modal
         :action="$action"
         :alignment="$action?->getModalAlignment()"
@@ -35,6 +32,7 @@
         :width="$action?->getModalWidth()"
         :wire:key="$action ? $this->getId() . '.actions.' . $action->getName() . '.modal' : null"
         x-on:modal-closed.stop="$wire.unmountAction(false);">
+        {{ date('U') }}
         @if ($action)
             {{ $action->getModalContent() }}
             @foreach ($action->getModalComponents() as $component)
@@ -47,4 +45,5 @@
             {{ $action->getModalContentFooter() }}
         @endif
     </x-ui::modal>
+    @endif
 </div>
