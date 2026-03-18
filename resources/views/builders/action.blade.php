@@ -13,6 +13,7 @@
     :attributes="$action->getHtmlAttributeBag()"
     :openInNewTab="$action->shouldOpenInNewTab()"
     :loadingIndicator="$action->getLoadingIndicator()"
+    :loadingText="$action->getLoadingText()"
     >
     {{ $action->getLabel() }}
 </x-ui::action>

@@ -16,6 +16,7 @@
     'labeledFrom' => null,
     'labelSrOnly' => false,
     'loadingIndicator' => false,
+    'loadingText' => null,
     'outlined' => false,
     'target' => null,
     'tooltip' => null,
@@ -137,13 +138,17 @@
 
     $badgeContainerClasses = 'absolute -top-1 start-full z-[1] -ms-1 w-max -translate-x-1/2 rounded-md bg-white rtl:translate-x-1/2';
 
-    $wireTarget = $loadingIndicator ? $attributes->whereStartsWith(['wire:target', 'wire:click'])->filter(fn ($value): bool => filled($value))->first() : null;
-    
     $hasTooltip = filled($tooltip);
 
     // Determine loading indicator icon
     $loadingIcon = is_string($loadingIndicator) ? $loadingIndicator : 'heroicon-o-arrow-path';
     $showLoadingIndicator = (bool) $loadingIndicator;
+    $hasLoadingText = filled($loadingText);
+    $hasLoadingUi = $showLoadingIndicator || $hasLoadingText;
+
+    $wireTarget = $hasLoadingUi
+        ? $attributes->whereStartsWith(['wire:target', 'wire:click'])->filter(fn ($value): bool => filled($value))->first()
+        : null;
 @endphp
 
 <{{ $tag }}
@@ -170,10 +175,10 @@
         ->class([$classes])
         ->style([$actionStyles]) !!}
 >
-    @if ($showLoadingIndicator)
-        {{-- Loading Indicator --}}
-        <span 
-            class="absolute inset-0 flex items-center justify-center invisible"
+    @if ($hasLoadingUi)
+        {{-- Loading layer: icon only, text only, or icon + text --}}
+        <span
+            class="absolute inset-0 flex items-center justify-center gap-2 invisible"
             @if ($wireTarget)
                 wire:loading.delay.class.remove="invisible"
                 wire:target="{{ $wireTarget }}"
@@ -181,23 +186,29 @@
                 wire:loading.delay.class.remove="invisible"
             @endif
         >
-            <x-ui::icon
-                :attributes="
-                    new \Illuminate\View\ComponentAttributeBag([
-                        'icon' => $loadingIcon,
-                        'class' => Arr::toCssClasses([
-                            $iconClasses,
-                            'animate-spin',
-                        ]),
-                    ])
-                "
-            />
+            @if ($showLoadingIndicator)
+                <x-ui::icon
+                    :attributes="
+                        new \Illuminate\View\ComponentAttributeBag([
+                            'icon' => $loadingIcon,
+                            'class' => Arr::toCssClasses([
+                                $iconClasses,
+                                'animate-spin',
+                                $hasLoadingText ? 'shrink-0' : null,
+                            ]),
+                        ])
+                    "
+                />
+            @endif
+            @if ($hasLoadingText)
+                <span class="{{ $showLoadingIndicator ? '' : 'text-center' }}">{{ $loadingText }}</span>
+            @endif
         </span>
     @endif
 
-    {{-- Content (hidden when loading) --}}
-    <span 
-        @if ($showLoadingIndicator)
+    {{-- Default label (hidden while loading when any loading UI is active) --}}
+    <span
+        @if ($hasLoadingUi)
             @if ($wireTarget)
                 wire:loading.delay.class="invisible"
                 wire:target="{{ $wireTarget }}"
