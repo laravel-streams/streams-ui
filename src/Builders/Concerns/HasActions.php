@@ -8,7 +8,6 @@ trait HasActions
 
     public function actions(array $actions): static
     {
-
         $this->actions = [
             ...$this->actions,
             ...$actions,

@@ -8,8 +8,8 @@ use Streams\Ui\Exceptions\Cancel;
 use Streams\Ui\Builders\Forms\Form;
 use Streams\Ui\Builders\Actions\Action;
 use Streams\Ui\Support\Facades\Actions;
-use Streams\Ui\Builders\Actions\MountableAction;
 use Streams\Ui\Notifications\Notification;
+use Streams\Ui\Builders\Actions\MountableAction;
 
 trait InteractsWithActions
 {

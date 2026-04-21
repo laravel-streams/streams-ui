@@ -44,6 +44,7 @@
                             'wire:model' => $statePath,
                             'multiple' => $isMultiple(),
                         ], escape: false)
+                        ->merge($field->getHtmlAttributes(), escape: false)
                 "
             >
                 @php

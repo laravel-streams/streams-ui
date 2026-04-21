@@ -3,14 +3,17 @@
 namespace Streams\Ui\Builders\Forms;
 
 use Livewire\Component;
+use Illuminate\Support\Str;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Support\Facades\Forms;
 use Streams\Ui\Builders\Concerns as Common;
 
 class Form extends ViewBuilder
 {
     use Common\BelongsToParent;
     use Common\BelongsToLivewire;
-    
+    use Common\HasName;
+
     use Common\HasState;
     use Common\HasStream;
     use Common\HasActions;
@@ -25,20 +28,43 @@ class Form extends ViewBuilder
 
     protected string $viewIdentifier = 'form';
 
-    public function __construct(?Component $livewire = null)
+    public function __construct(?Component $livewire = null, ?string $name = null)
     {
         $this->livewire($livewire);
+
+        $this->name($name ?? static::getDefaultName());
     }
 
-    public static function make(?Component $livewire = null): static
+    public static function make(?Component $livewire = null, ?string $name = null): static
     {
-        $instance = app(static::class, [
-            'livewire' => $livewire,
-        ]);
+        $resolvedName = $name ?? static::getDefaultName();
+
+        $instance = new static($livewire, $resolvedName);
 
         $instance->configure();
 
         return $instance;
+    }
+
+    public static function register(Component $livewire, ?string $name = null): void
+    {
+        $name = $name ?? self::getDefaultName();
+
+        Forms::register($name, fn () => static::make($livewire, $name));
+    }
+
+    public static function resolve(?string $name = null): ?static
+    {
+        $name = $name ?? self::getDefaultName();
+
+        return Forms::resolve($name);
+    }
+
+    protected static function getDefaultName(): string
+    {
+        $parts = explode('\\', static::class);
+
+        return Str::kebab(end($parts));
     }
 
     public function getComponents(bool $withHidden = false): array
