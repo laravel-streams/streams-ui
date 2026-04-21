@@ -4,6 +4,7 @@
 
 <div {{ $attributes->class('-mx-4 mb-4 -mt-4 opacity-70') }}>
     @foreach ($items as $item)
+    @if ($item->isVisible())
         {!! $item->render() !!}
         {{-- @if (isset($item['href']))
             <a href="{{ $item['href'] }}" class="opacity-50 font-medium hover:opacity-75">{{ $item['title'] }}</a>
@@ -13,5 +14,6 @@
         {{-- @if (!$loop->last || count($breadcrumbsItems) == 1) --}}
         <span class="opacity-50 text-lg">&rsaquo;</span>
         {{-- @endif --}}
+    @endif
     @endforeach
 </div>

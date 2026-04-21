@@ -78,8 +78,12 @@
                                 <div class="relative h-1.5 w-1.5 rounded-full {{ $item->isActive() ? 'bg-current' : 'bg-gray-400' }}"></div>
                             </div>
                             @endif
-                            @if ($icon = $item->getIcon())
-                            @svg($icon, 'h-6 w-6 shrink-0')
+                            @if ($item->isActive())
+                                @if ($icon = $item->getActiveIcon())
+                                    @svg($icon, 'h-6 w-6 shrink-0')
+                                @endif
+                            @elseif ($icon = $item->getIcon())
+                                @svg($icon, 'h-6 w-6 shrink-0')
                             @endif
                             <span x-show="!sidebar_collapsed">
                                 {{ __($item->getLabel()) }}
