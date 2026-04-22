@@ -3,6 +3,7 @@
 namespace Streams\Ui\Livewire\Pages;
 
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\View;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Ui\Builders\Concerns as Common;
@@ -17,6 +18,8 @@ abstract class Page extends Component
     use Concerns\HasNavigationGroups;
     use Concerns\HasResource;
     use Concerns\HasRoutes;
+
+    use WithFileUploads;
     use FiresCallbacks;
     use HasMemory;
 
