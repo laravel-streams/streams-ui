@@ -39,7 +39,7 @@
                     'rows' => $rows,
                     'wire:model' => $statePath,
                 ], escape: false)
-                // ->merge($getExtraAttributes(), escape: false)
+                ->merge($getHtmlAttributes(), escape: false)
                 // ->merge($getExtraInputAttributes(), escape: false)
                 ->class([
                     'block w-full rounded-md px-3 py-2',

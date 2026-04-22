@@ -1,9 +1,13 @@
 <form
-    x-data="{ isUploadingFile: false }"
-    x-on:submit="if (isUploadingFile) $event.preventDefault()"
-    x-on:file-upload-started="isUploadingFile = true"
-    x-on:file-upload-finished="isUploadingFile = false"
-    {!! $attributes->merge($form->getHtmlAttributes())->class(['ui-form grid gap-y-6']) !!}>
+    {!! $attributes
+        ->merge($getHtmlAttributes())
+        ->merge([
+            'x-data' => '{ isUploadingFile: false }',
+            'x-on:submit' => 'if (isUploadingFile) $event.preventDefault()',
+            'x-on:file-upload-started' => 'isUploadingFile = true',
+            'x-on:file-upload-finished' => 'isUploadingFile = false',
+        ])
+        ->class(['ui-form grid gap-y-6']) !!}>
 
 
 {{-- <x-ui::grid :default="$getColumns('default')" :sm="$getColumns('sm')" :md="$getColumns('md')"
