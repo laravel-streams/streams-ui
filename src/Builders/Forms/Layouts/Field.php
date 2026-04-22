@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Builders\Forms\Layouts;
 
+use Livewire\Component;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Builders\Concerns as Common;
 
@@ -42,6 +43,18 @@ class Field extends ViewBuilder
         $instance->configure();
 
         return $instance;
+    }
+
+    public static function for(
+        Component $livewire,
+        string|array|\Closure|null $label = null
+    ): static {
+        $static = app(static::class, ['label' => $label]);
+
+        $static->livewire($livewire);
+        $static->configure();
+
+        return $static;
     }
 
     protected string|\Closure|null $helpText = null;

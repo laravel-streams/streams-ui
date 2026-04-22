@@ -28,29 +28,39 @@ class Form extends ViewBuilder
 
     protected string $viewIdentifier = 'form';
 
-    public function __construct(?Component $livewire = null, ?string $name = null)
+    public function __construct(?string $name = null)
     {
-        $this->livewire($livewire);
-
         $this->name($name ?? static::getDefaultName());
     }
 
-    public static function make(?Component $livewire = null, ?string $name = null): static
+    public static function make(?string $name = null): static
     {
         $resolvedName = $name ?? static::getDefaultName();
 
-        $instance = new static($livewire, $resolvedName);
+        $instance = new static($resolvedName);
 
         $instance->configure();
 
         return $instance;
     }
 
+    public static function for(Component $livewire, ?string $name = null): static
+    {
+        $resolvedName = $name ?? static::getDefaultName();
+
+        $static = new static($resolvedName);
+
+        $static->livewire($livewire);
+        $static->configure();
+
+        return $static;
+    }
+
     public static function register(Component $livewire, ?string $name = null): void
     {
         $name = $name ?? self::getDefaultName();
 
-        Forms::register($name, fn () => static::make($livewire, $name));
+        Forms::register($name, fn () => static::for($livewire, $name));
     }
 
     public static function resolve(?string $name = null): ?static

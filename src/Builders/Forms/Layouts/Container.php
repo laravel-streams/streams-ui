@@ -34,6 +34,16 @@ class Container extends ViewBuilder
         return $static;
     }
 
+    public static function for(Component $livewire): static
+    {
+        $static = app(static::class);
+
+        $static->livewire($livewire);
+        $static->configure();
+
+        return $static;
+    }
+
     public function parentComponent(Component $component): static
     {
         $this->parentComponent = $component;

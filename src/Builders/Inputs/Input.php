@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Builders\Inputs;
 
+use Livewire\Component;
 use Streams\Ui\Builders\Inputs;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Builders\Concerns as Common;
@@ -41,6 +42,16 @@ abstract class Input extends ViewBuilder
     {
         $static = app(static::class, ['name' => $name]);
 
+        $static->configure();
+
+        return $static;
+    }
+
+    public static function for(Component $livewire, string $name): static
+    {
+        $static = app(static::class, ['name' => $name]);
+
+        $static->livewire($livewire);
         $static->configure();
 
         return $static;

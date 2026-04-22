@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Builders\Tables;
 
+use Livewire\Component;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Streams\Ui\Builders\ViewBuilder;
@@ -50,6 +51,16 @@ class Table extends ViewBuilder implements HasActions
         $instance->configure();
 
         return $instance;
+    }
+
+    public static function for(Component $livewire): static
+    {
+        $static = app(static::class, ['livewire' => $livewire]);
+
+        $static->livewire($livewire);
+        $static->configure();
+
+        return $static;
     }
 
     public function getEntries(): Collection|Paginator

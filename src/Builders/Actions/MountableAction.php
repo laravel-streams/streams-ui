@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Builders\Actions;
 
+use Livewire\Component;
 use Streams\Ui\Exceptions;
 use Streams\Ui\Builders\Concerns as Common;
 
@@ -24,6 +25,18 @@ class MountableAction extends Action
     public function call(array $parameters = []): mixed
     {
         return $this->evaluate($this->action, $parameters);
+    }
+
+    public static function for(Component $livewire, ?string $name = null): static
+    {
+        $resolvedName = $name ?? static::getDefaultName();
+
+        $static = new static($resolvedName);
+
+        $static->livewire($livewire);
+        $static->configure();
+
+        return $static;
     }
 
     public function cancel(): void
