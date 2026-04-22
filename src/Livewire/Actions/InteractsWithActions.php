@@ -21,6 +21,56 @@ trait InteractsWithActions
 
     protected ?array $cachedActions = null;
 
+    public function callMountedActionMethod(string $method, array|string $arguments = []): mixed
+    {
+        $action = $this->getMountedAction();
+
+        if (! $action) {
+            return null;
+        }
+
+        if ($action->isDisabled()) {
+            return null;
+        }
+
+        if (! method_exists($action, $method)) {
+            throw new \InvalidArgumentException("No mounted action method [{$method}] found on action [" . $action->getName() . '].');
+        }
+
+        $action->arguments([
+            ...Arr::last($this->mountedActionsArguments),
+            ...(array) $arguments,
+        ]);
+
+        try {
+            if ($this->mountedActionHasForm()) {
+                $form = $this->getMountedActionForm();
+                $action->formData((array) $form->getState()['data']);
+            }
+
+            return app()->call([$action, $method], [
+                'action' => $action,
+                'component' => $this,
+                'livewire' => $this,
+                'arguments' => (array) $arguments,
+            ]);
+        } catch (\Streams\Ui\Exceptions\Halt $exception) {
+            return null;
+        } catch (\Streams\Ui\Exceptions\Cancel $exception) {
+            return null;
+        } catch (\Streams\Ui\Exceptions\ValidationException) {
+            return null;
+        } catch (\Exception $exception) {
+            Notification::make()
+                ->title('Error')
+                ->description($exception->getMessage())
+                ->danger()
+                ->send();
+
+            return null;
+        }
+    }
+
     public function callMountedAction(array|string $arguments = []): mixed
     {
         $action = $this->getMountedAction();
