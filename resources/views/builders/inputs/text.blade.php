@@ -71,7 +71,7 @@
                 // 'x-data' => (count($extraAlpineAttributes) || filled($mask)) ? '{}' : null,
                 'x-data' => (filled($mask)) ? '{}' : null,
                 // 'x-mask' . ($mask instanceof \Filament\Support\RawJs ? ':dynamic' : '') => filled($mask) ? $mask : null,
-            ])"
+            ])->merge($getHtmlAttributes())"
         />
     {{-- </x-ui::inputs.wrapper> --}}
 
