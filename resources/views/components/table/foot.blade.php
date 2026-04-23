@@ -39,7 +39,7 @@
                                     <label>
                                         <x-ui::inputs.native-select
                                             wire:key="currentPagination"
-                                            wire:model.live="data.{{ $table->getStatePath() }}.records_per_page">
+                                            wire:model.live="{{ $table->getStatePath() }}.records_per_page">
                                             @foreach ($paginationOptions as $option)
                                             <option value="{{ $option }}" {{ $table->getRecordsPerPage() == $option ? 'selected' : null }}>
                                                 {{ $option === 'all' ?
