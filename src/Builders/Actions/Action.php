@@ -12,6 +12,8 @@ class Action extends ViewBuilder
 {
     use Common\CanBeHidden;
     use Common\CanBeDisabled;
+    
+    use Common\BelongsToLivewire;
 
     use Common\HasId;
     use Common\HasUrl;

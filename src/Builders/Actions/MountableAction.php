@@ -8,7 +8,6 @@ use Streams\Ui\Builders\Concerns as Common;
 
 class MountableAction extends Action
 {
-    use Common\BelongsToLivewire;
     use Concerns\CanOpenModal;
     use Concerns\CanRedirect;
     use Concerns\HasAction;
