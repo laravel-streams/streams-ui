@@ -4,6 +4,7 @@ $actions = $table->getActions();
 $columns = $table->getColumns();
 $filters = $table->getFilters();
 $bulkActions = $table->getBulkActions();
+$tableName = $table->getName();
 
 // Visible columns only.
 $columns = collect($columns)->filter(fn ($column) => $column->isVisible());
@@ -17,14 +18,14 @@ $headerActions = [];//$table->getHeaderActions();
 $isPaginated = $table->isPaginated();
 $paginationOptions = $table->getPaginationOptions();
 
-$selectedRecords = [];//$table->getSelectedRecords();
+$selectedRecords = $table->getSelectedEntryKeys();
 
 @endphp
 
 {!! Assets::inline(base_path('/vendor/streams/ui/resources/js/components/table.js')) !!}
 
 <div
-    x-data="table()"
+    x-data="table('{{ $tableName }}', @js($selectedRecords))"
     {{-- @if (! $isLoaded)
         wire:init="loadTable"
     @endif --}}
@@ -57,25 +58,26 @@ $selectedRecords = [];//$table->getSelectedRecords();
                     <x-ui::table.filters
                         {{-- :form="$getFiltersForm()" --}}
                         :filters="$filters"
+                        :tableName="$tableName"
                         x-cloak
                         x-show="open"
                         class="absolute top-full left-0 w-72 bg-white p-4 border rounded-lg shadow-md"/>
                 </div>
                 @endif
 
-                <x-ui::table.search />
+                <x-ui::table.search :table="$table" :tableName="$tableName" />
 
             </div>
             
         </div>
         <div>
-            <x-ui::table.indicators :indicators="$this->tableFilters"/>
+            <x-ui::table.indicators :indicators="$table->getFiltersState()"/>
         </div>
         @endif
 
         <table class="min-w-full divide-y divide-gray-200">
 
-            <x-ui::table.head :table="$table" :columns="$columns" :actions="$actions" :bulkActions="$bulkActions" />
+            <x-ui::table.head :table="$table" :tableName="$tableName" :columns="$columns" :actions="$actions" :bulkActions="$bulkActions" />
 
             <tbody class="divide-y divide-gray-200 bg-white">
 
@@ -83,14 +85,14 @@ $selectedRecords = [];//$table->getSelectedRecords();
                 @php
                     $entryUrl = $getEntryUrl($entry);
                 @endphp
-                <x-ui::table.row :table="$table" :entry="$entry" :columns="$columns" :actions="$actions"
+                <x-ui::table.row :table="$table" :tableName="$tableName" :entry="$entry" :columns="$columns" :actions="$actions"
                     :bulkActions="$bulkActions" :entryUrl="$entryUrl" />
                 @endforeach
 
             </tbody>
 
             @if ($isPaginated)    
-            <x-ui::table.foot :table="$table" :paginator="$paginator" :paginationOptions="$paginationOptions"/>
+            <x-ui::table.foot :table="$table" :tableName="$tableName" :paginator="$paginator" :paginationOptions="$paginationOptions"/>
             @endif
 
         </table>

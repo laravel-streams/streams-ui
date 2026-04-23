@@ -9,6 +9,7 @@ use Streams\Core\Support\Traits\HasMemory;
 use Streams\Ui\Builders\Concerns as Common;
 use Streams\Core\Support\Traits\FiresCallbacks;
 use Streams\Ui\Livewire\Forms\InteractsWithForms;
+use Streams\Ui\Livewire\Tables\InteractsWithTables;
 use Streams\Ui\Livewire\Actions\InteractsWithActions;
 
 abstract class Page extends Component
@@ -40,6 +41,7 @@ abstract class Page extends Component
     use Common\HasHtmlAttributes;
     
     use InteractsWithActions;
+    // use InteractsWithTables;
     use InteractsWithForms;
 
     public ?array $data = [];

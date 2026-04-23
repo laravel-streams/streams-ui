@@ -1,11 +1,12 @@
 // import Sortable from 'sortablejs';
 
-function table() {
+function table(tableName = 'default', initialSelectedEntries = []) {
     return {
         
         isLoading: false,
 
-        selectedEntries: [],
+        tableName,
+        selectedEntries: initialSelectedEntries,
 
         isDraggable: true,
         draggedIndex: null,
@@ -51,14 +52,14 @@ function table() {
                 }
 
                 this.selectedEntries = [...new Set(this.selectedEntries)]
+                this.$wire.set(`data.tables.${this.tableName}.selected`, this.selectedEntries, false);
 
                 this.shouldCheckUniqueSelection = false
             });
         },
 
         mountBulkAction: function (name) {
-            this.$wire.set('selectedTableEntries', this.selectedEntries, false)
-            this.$wire.mountTableBulkAction(name)
+            this.$wire.mountTableBulkAction(name, this.selectedEntries, this.tableName)
         },
 
         /**
@@ -72,14 +73,11 @@ function table() {
                 
                 this.deselectEntries(keys)
 
-                this.$wire.set('selectedTableEntries', this.selectedEntries, false);
-
                 return
             }
 
             this.selectEntries(keys)
 
-            this.$wire.set('selectedTableEntries', this.selectedEntries, false);
         },
 
         getAllEntries: function () {
@@ -143,7 +141,7 @@ function table() {
                 this.selectEntries([key])
             }
             
-            this.$wire.set('selectedTableEntries', this.selectedEntries, false);
+            this.$wire.set(`data.tables.${this.tableName}.selected`, this.selectedEntries, false);
         },
 
         areEntriesSelected: function (keys) {

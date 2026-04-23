@@ -2,7 +2,7 @@
     id="{{ $filter->getName() }}-filter"
     name="{{ $path = $filter->getName() . '-filter' }}"
     {{-- onchange="this.form.submit()" --}}
-    wire:model.live="tableFilters.{{ $filter->getName() }}.value">
+    wire:model.live="{{ $filter->getTable()->getStatePath() }}.filters.{{ $filter->getName() }}.value">
     
     <option {{ $filter->isRequired() ? 'disabled' : null }} value="">{{ $filter->getPlaceholder() ?: Str::title($filter->getName()) }}</option>
 

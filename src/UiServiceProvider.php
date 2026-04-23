@@ -34,8 +34,9 @@ class UiServiceProvider extends ServiceProvider
         $this->app->singleton(\Streams\Ui\Support\Facades\Notifications::class);
 
         $this->app->singleton('colors', \Streams\Ui\Colors\ColorManager::class);
-        $this->app->singleton('actions', \Streams\Ui\Builders\Actions\ActionManager::class);
         $this->app->singleton('forms', \Streams\Ui\Builders\Forms\FormManager::class);
+        $this->app->singleton('tables', \Streams\Ui\Builders\Tables\TableManager::class);
+        $this->app->singleton('actions', \Streams\Ui\Builders\Actions\ActionManager::class);
         $this->app->singleton('notifications', \Streams\Ui\Notifications\NotificationsManager::class);
 
         $this->app->alias(\Streams\Ui\UiManager::class, 'ui');
@@ -49,8 +50,9 @@ class UiServiceProvider extends ServiceProvider
 
         Integrator::aliases([
             'UI' => \Streams\Ui\Support\Facades\UI::class,
-            'Actions' => \Streams\Ui\Support\Facades\Actions::class,
             'Forms' => \Streams\Ui\Support\Facades\Forms::class,
+            'Tables' => \Streams\Ui\Support\Facades\Tables::class,
+            'Actions' => \Streams\Ui\Support\Facades\Actions::class,
             'Notifications' => \Streams\Ui\Support\Facades\Notifications::class,
         ]);
 

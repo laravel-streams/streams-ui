@@ -7,6 +7,8 @@
     'actions' => [],
     'columns' => [],
     'entry' => null,
+    'table' => null,
+    'tableName' => 'default',
     // 'striped' => false,
 ])
 
@@ -14,7 +16,7 @@
         'relative h-full transition duration-75',
         // 'hover:bg-gray-50' => ($entryUrl || $entryAction),
         'hover:bg-gray-50',
-        ...$this->table->getRowClasses($entry),
+        ...($table?->getRowClasses($entry) ?? []),
     ])
     data-key="{{ $entry->id ?? null }}"
 >
@@ -25,7 +27,6 @@
             <label>
                 <input type="checkbox"
                     {{-- x-model="selectedEntries" --}}
-                    wire:model="selectedTableEntries"
                     :checked="isEntrySelected('{{ $entry->id }}')"
                     @change="toggleEntry('{{ $entry->id }}')"
                     class="ui-table-entry-checkbox rounded border-none bg-white shadow-sm ring-1 transition duration-75 checked:ring-0 focus:ring-2 focus:ring-offset-0 disabled:pointer-events-none disabled:bg-gray-50 disabled:text-gray-50 disabled:checked:bg-current disabled:checked:text-gray-400 text-primary-600 ring-gray-950/10 focus:ring-primary-600 checked:focus:ring-primary-500/50"

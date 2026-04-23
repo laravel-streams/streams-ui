@@ -8,10 +8,10 @@ trait HasActions
 
     public function actions(array $actions): static
     {
-        $this->actions = [
+        $this->actions = array_filter([
             ...$this->actions,
             ...$actions,
-        ];
+        ]);
 
         return $this;
     }

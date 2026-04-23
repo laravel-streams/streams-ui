@@ -6,7 +6,7 @@ use Livewire\Component;
 
 trait BelongsToLivewire
 {
-    protected Component $livewire;
+    public Component $livewire;
 
     public function livewire(Component $livewire): static
     {

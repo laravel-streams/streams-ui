@@ -1,1 +1,1 @@
-<x-ui::inputs.input id="{{ $filter->getName() }}-filter" name="{{ $path = $filter->getName() . '-filter' }}" placeholder="{{ $filter->getPlaceholder() }}" wire:model.live.debounce.200ms="tableFilters.{{ $filter->getName() }}.value" />
+<x-ui::inputs.input id="{{ $filter->getName() }}-filter" name="{{ $path = $filter->getName() . '-filter' }}" placeholder="{{ $filter->getPlaceholder() }}" wire:model.live.debounce.200ms="{{ $filter->getTable()->getStatePath() }}.filters.{{ $filter->getName() }}.value" />

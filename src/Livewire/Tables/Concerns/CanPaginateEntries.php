@@ -8,80 +8,60 @@ use Illuminate\Contracts\Database\Query\Builder;
 
 trait CanPaginateEntries
 {
-    public $tableRecordsPerPage = 25;
-
     protected int|string|null $defaultTableRecordsPerPageSelectOption = null;
 
-    public function updatedTableRecordsPerPage(): void
+    public function updatedData($value, string $key): void
     {
-        session()->put([
-            $this->getTablePerPageSessionKey() => $this->getTableRecordsPerPage(),
-        ]);
-
-        $this->resetPage();
-    }
-
-    protected function paginateQuery(Criteria|Builder $query): Paginator
-    {
-        $perPage = $this->getTableRecordsPerPage();
-
-        if ($query instanceof Criteria) {
-            /** @var Paginator $records */
-            $records = $query->paginate([
-                'per_page' => $perPage === 'all' ? $query->count() : $perPage,
-                'page_name' => $this->getTablePaginationPageName(),
-                'page' => $this->paginators[$this->getTablePaginationPageName()] ?? 1,
-            ]);
-        } elseif ($query instanceof Builder) {
-            $records = $query->paginate(
-                $perPage === 'all' ? $query->count() : $perPage,
-                ['*'],
-                $this->getTablePaginationPageName(),
-                $this->paginators[$this->getTablePaginationPageName()] ?? 1
-            );
+        if (! str_starts_with($key, 'tables.')) {
+            return;
         }
 
-        return $records->onEachSide(0);
+        $parts = explode('.', $key);
+        $table = $parts[1] ?? 'default';
+        $field = implode('.', array_slice($parts, 2));
+
+        if (in_array($field, ['search', 'filters', 'records_per_page', 'sort.column', 'sort.direction'], true)) {
+            $this->resetPage(table: $table);
+        }
     }
 
-    public function getTableRecordsPerPage(): int|string|null
+    protected function paginateQuery(Criteria|Builder $query, string $table = 'default'): Paginator
     {
-        return $this->tableRecordsPerPage ?: $this->table->getPerPage();
+        return $this->getTable($table)->paginate($query);
     }
 
-    public function getTablePage(): int
+    public function getTableRecordsPerPage(string $table = 'default'): int|string|null
     {
-        return $this->getPage($this->getTablePaginationPageName());
+        return $this->getTable($table)->getRecordsPerPage();
     }
 
-    public function getDefaultTableRecordsPerPageSelectOption(): int|string
+    public function getTablePage(string $table = 'default'): int
     {
-        $option = session()->get(
-            $this->getTablePerPageSessionKey(),
-            $this->defaultTableRecordsPerPageSelectOption ?? $this->getTable()->getDefaultPaginationPageOption(),
+        return $this->getPage($this->getTablePaginationPageName($table));
+    }
+
+    public function getDefaultTableRecordsPerPageSelectOption(string $table = 'default'): int|string
+    {
+        $tableInstance = $this->getTable($table);
+        $option = $tableInstance->getState(
+            'records_per_page',
+            $this->defaultTableRecordsPerPageSelectOption ?? $tableInstance->getDefaultPaginationPageOption(),
         );
 
-        $pageOptions = $this->getTable()->getPaginationPageOptions();
+        $pageOptions = $tableInstance->getPaginationOptions();
 
         if (in_array($option, $pageOptions)) {
             return $option;
         }
 
-        session()->remove($this->getTablePerPageSessionKey());
+        $tableInstance->setState('records_per_page', $pageOptions[0]);
 
         return $pageOptions[0];
     }
 
-    public function getTablePaginationPageName(): string
+    public function getTablePaginationPageName(string $table = 'default'): string
     {
-        return $this->getQueryStringPropertyName('page');
-    }
-
-    public function getTablePerPageSessionKey(): string
-    {
-        $table = class_basename($this::class);
-
-        return "tables.{$table}_per_page";
+        return $this->getQueryStringPropertyName('page', $table);
     }
 
     /**

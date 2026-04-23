@@ -1,3 +1,11 @@
+@props([
+    'table' => null,
+    'columns' => [],
+    'actions' => [],
+    'bulkActions' => [],
+    'tableName' => 'default',
+])
+
 <thead {{
     $attributes->except(['table', 'columns', 'actions', 'bulkActions'])->merge([
         'class' => $attributes->get('class', 'bg-gray-50'),
@@ -63,7 +71,7 @@
             <{{ $column->isSortable() ? 'button' : 'span' }}
             @if ($column->isSortable())
             type="button"
-            wire:click="sortTable('{{ $column->getName() }}')"
+            wire:click="sortTable('{{ $column->getName() }}', null, '{{ $tableName }}')"
             @endif
             @class([
                 'group flex w-full items-center gap-x-1',
@@ -99,16 +107,16 @@
 
             @if ($column->isSortable())
             <x-ui::icon
-                :icon="$this->tableSortColumn == $column->getName() && $this->tableSortDirection === 'asc' ? 'heroicon-m-chevron-up' : 'heroicon-m-chevron-down'"
+                :icon="$this->getTableSortColumn($tableName) == $column->getName() && $this->getTableSortDirection($tableName) === 'asc' ? 'heroicon-m-chevron-up' : 'heroicon-m-chevron-down'"
                 @class([
                     'h-5 w-5 transition duration-75',
-                    'text-gray-950' => $this->tableSortColumn == $column->getName(),
-                    'text-gray-400 group-hover:text-gray-500 group-focus-visible:text-gray-500' => $this->tableSortColumn != $column->getName(),
+                    'text-gray-950' => $this->getTableSortColumn($tableName) == $column->getName(),
+                    'text-gray-400 group-hover:text-gray-500 group-focus-visible:text-gray-500' => $this->getTableSortColumn($tableName) != $column->getName(),
                 ])
             />
 
             <span class="sr-only">
-                {{ $this->tableSortDirection === 'asc' ? __('Descending') : __('Ascending') }}
+                {{ $this->getTableSortDirection($tableName) === 'asc' ? __('Descending') : __('Ascending') }}
             </span>
             @endif
             </{{ $column->isSortable() ? 'button' : 'span' }}>

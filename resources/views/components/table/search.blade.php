@@ -1,10 +1,11 @@
 @props([
     // 'placeholder' => __('ui-tables::table.fields.search.placeholder'),
     'placeholder' => 'Search',
-    'wireModel' => 'tableSearch',
+    'table' => null,
+    'tableName' => 'default',
 ])
 
-@if ($this->table->getSearchableColumns())    
+@if ($table?->getSearchableColumns())    
 <div
     x-id="['input']"
     {{ $attributes->class(['ui-table-search-field']) }}
@@ -26,7 +27,8 @@
             type="search"
             class="border-none"
             {{-- prefix-icon="heroicon-m-magnifying-glass" --}}
-            :wire:model.live.debounce.500ms="$wireModel"
+            :value="$this->getTableSearch($tableName)"
+            :wire:change="'setTableSearch(\''.$tableName.'\', $event.target.value)'"
             {{-- x-bind:id="$id('input')"
             :wire:key="$this->getId() . '.table.' . $wireModel . '.field.input'" --}}
         />

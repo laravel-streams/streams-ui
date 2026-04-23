@@ -1,5 +1,5 @@
 @props([
-    'wireModel' => 'tableSearch',
+    'wireModel' => null,
 ])
 
 <x-ui::inputs.input
@@ -7,8 +7,7 @@
     name="{{ $path = $filter->getName() . '-filter' }}"
     placeholder="Search"
     wire:key="$id('input')"
-    :wire:target="$wireModel"
-    :wire:model.live.debounce.500ms="$wireModel"
+    :wire:change="'setTableSearch(\''.$filter->getTable()->getName().'\', $event.target.value)'"
     :attributes="(new \Illuminate\View\ComponentAttributeBag([
                 //'autocapitalize' => $getAutocapitalize(),
                 //'autocomplete' => $getAutocomplete(),

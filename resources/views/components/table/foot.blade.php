@@ -3,8 +3,10 @@
 @endphp
 
 @props([
+    'table' => null,
     'paginator',
     'paginationOptions' => [],
+    'tableName' => 'default',
 ])
 
 <tfoot>
@@ -37,9 +39,9 @@
                                     <label>
                                         <x-ui::inputs.native-select
                                             wire:key="currentPagination"
-                                            wire:model.live="tableRecordsPerPage">
+                                            wire:model.live="data.{{ $table->getStatePath() }}.records_per_page">
                                             @foreach ($paginationOptions as $option)
-                                            <option value="{{ $option }}" {{ $this->tableRecordsPerPage == $option ? 'selected' : null }}>
+                                            <option value="{{ $option }}" {{ $table->getRecordsPerPage() == $option ? 'selected' : null }}>
                                                 {{ $option === 'all' ?
                                                 __('All') :
                                                 $option }}
