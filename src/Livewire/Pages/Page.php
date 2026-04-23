@@ -36,12 +36,13 @@ abstract class Page extends Component
     }
 
     use Common\EvaluatesClosures;
+    
     use Common\HasActions;
     use Common\HasDescription;
     use Common\HasHtmlAttributes;
     
     use InteractsWithActions;
-    // use InteractsWithTables;
+    use InteractsWithTables;
     use InteractsWithForms;
 
     public ?array $data = [];
