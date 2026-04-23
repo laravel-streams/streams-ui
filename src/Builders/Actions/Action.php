@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Builders\Actions;
 
+use Livewire\Component;
 use Illuminate\Support\Str;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Support\Facades\Actions;
@@ -24,7 +25,7 @@ class Action extends ViewBuilder
     use Common\HasTooltip;
     use Common\HasHtmlAttributes;
     use Common\HasLoadingIndicator;
-    
+
     use Concerns\HasTag;
     use Concerns\HasForm;
     use Concerns\HasStyle;
@@ -44,7 +45,7 @@ class Action extends ViewBuilder
     public function __construct(string $name)
     {
         $this->name($name);
-        
+
         $this->id(Str::slug($name));
     }
 
@@ -59,17 +60,35 @@ class Action extends ViewBuilder
         return $static;
     }
 
-    public static function register(?string $name = null): void
+    public static function for(Component $livewire, ?string $name = null): static
+    {
+        $resolvedName = $name ?? static::getDefaultName();
+
+        $static = new static($resolvedName);
+
+        if (method_exists($static, 'livewire')) {
+            $static->livewire($livewire);
+        }
+
+        $static->configure();
+
+        return $static;
+    }
+
+    public static function register(?Component $livewire = null, ?string $name = null): void
     {
         $name = $name ?? self::getDefaultName();
-        
-        Actions::register($name, fn () => static::make($name));
+
+        Actions::register(
+            $name,
+            fn() => $livewire ? static::for($livewire, $name) : static::make($name),
+        );
     }
 
     public static function resolve(?string $name = null): ?static
     {
         $name = $name ?? self::getDefaultName();
-        
+
         return Actions::resolve($name);
     }
 
