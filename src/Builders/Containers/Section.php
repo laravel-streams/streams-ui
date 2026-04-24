@@ -8,8 +8,8 @@ use Streams\Ui\Builders\Concerns as Common;
 class Section extends Container
 {
     use Common\CanBeDisabled;
-    use Common\HasActions;
     use Common\HasDescription;
+    use Common\HasActions;
     use Common\HasHeading;
     use Common\HasUrl;
 

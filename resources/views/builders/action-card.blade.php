@@ -1,7 +1,7 @@
 {{-- /var/www/development/Trabajo/GroupVitals/groupvitals.app.backend/vendor/streams/ui/resources/views/builders/action-card.blade.php --}}
 <div {!! $card
     ->getHtmlAttributeBag()
-    ->class([$card->attributes['class'] ?? 'bg-white p-8 rounded-xl border border-gray-200 shadow-sm'])
+    ->class([$card->attributes['class'] ?? 'bg-white p-8 rounded-xl border border-gray-200 shadow-sm w-full'])
 !!}>
 
     <div class="flex flex-col items-center text-center">
