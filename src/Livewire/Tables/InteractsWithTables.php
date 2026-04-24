@@ -21,19 +21,12 @@ trait InteractsWithTables
     use Concerns\CanSearchEntries;
     use Concerns\CanPaginateEntries;
 
-    protected Table $table;
-
     protected array $cachedTables = [];
 
     public function bootedInteractsWithTables(): void
     {
-        $this->fire('booting_tables', [
-            'livewire' => $this,
-        ]);
-
         $this->cacheTables();
         $this->initializeTableState();
-        $this->table = $this->getTable('default');
     }
 
     protected function initializeTableState(): void
@@ -72,6 +65,7 @@ trait InteractsWithTables
         $tables = $this->getTables();
 
         foreach ($tables + $registered as $key => $table) {
+            
             if ($table instanceof \Closure) {
                 $table = $table();
             }
@@ -123,6 +117,7 @@ trait InteractsWithTables
         $tables = $this->getCachedTables();
 
         if (! isset($tables[$name])) {
+            
             $resolved = Tables::resolve($name);
 
             if (! $resolved instanceof Table) {
