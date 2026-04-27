@@ -6,6 +6,8 @@ $filters = $table->getFilters();
 $bulkActions = $table->getBulkActions();
 $tableName = $table->getName();
 
+$filtersState = $table->getFiltersStateValues();
+
 // Visible columns only.
 $columns = collect($columns)->filter(fn ($column) => $column->isVisible());
 
@@ -36,7 +38,7 @@ $selectedRecords = $table->getSelectedEntryKeys();
     @endif --}}
     {{-- ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('table', 'filament/tables') }}" --}}>
 
-    @if ($paginator->count() > 0)
+    @if ($paginator->count() > 0 || $filtersState)
     <x-ui::table.container>
 
         @if ($heading || $description || $headerActions)

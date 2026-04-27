@@ -61,6 +61,8 @@ class Table extends ViewBuilder implements HasActions
 
         $instance->configure();
 
+        Tables::register($instance->getName(), fn () => $instance);
+
         return $instance;
     }
 
@@ -242,6 +244,19 @@ class Table extends ViewBuilder implements HasActions
     public function getFiltersState(): array
     {
         return $this->getState('filters', []);
+    }
+
+    public function getFiltersStateValues(): array
+    {
+        $state = $this->getState('filters', []);
+
+        $values = [];
+
+        foreach ($state as $filter => $value) {
+            $values[$filter] = $value['value'];
+        }
+
+        return array_filter($values);
     }
 
     public function getSortColumn(): ?string
