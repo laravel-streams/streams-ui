@@ -4,7 +4,7 @@
 
 <!-- Off-canvas -->
 <div x-data="{expanded: false}" x-cloak @toggle-navigation.window="expanded=!expanded" x-on:keydown.escape.window="expanded=false"
-class="relative z-10 lg:hidden" role="dialog" aria-modal="true">
+class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
 
 <div x-show="expanded" x-click="expanded=false" x-transition:enter="transition-opacity ease-linear duration-300"
     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"

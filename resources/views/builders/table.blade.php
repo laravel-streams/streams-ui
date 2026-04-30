@@ -49,7 +49,7 @@ $selectedRecords = $table->getSelectedEntryKeys();
             <div class="flex items-center">
 
                 @if ($filters)
-                <div x-data="{open: false}" x-on:click.outside="open=false" x-on:keydown.escape.window="open=false" class="flex justify-center relative z-10">
+                <div x-data="{open: false}" x-on:click.outside="open=false" x-on:keydown.escape.window="open=false" class="flex justify-center relative z-20">
 
                     <button @click="open = !open" class="p-2 text-gray-400 hover:text-gray-500">
                         <x-heroicon-c-funnel class="h-5 w-5" />
