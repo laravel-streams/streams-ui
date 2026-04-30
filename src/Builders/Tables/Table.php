@@ -34,6 +34,7 @@ class Table extends ViewBuilder implements HasActions
     use Concerns\HasActions;
     use Concerns\HasColumns;
     use Concerns\HasFilters;
+    use Concerns\HasViews;
     use Concerns\HasEntryUrl;
     use Concerns\HasEmptyState;
     use Concerns\HasBulkActions;
@@ -120,6 +121,13 @@ class Table extends ViewBuilder implements HasActions
     public function flushEntries(): void
     {
         $this->entries = null;
+    }
+
+    public function setEntries(Collection|Paginator $entries): static
+    {
+        $this->entries = $entries;
+
+        return $this;
     }
 
     public function getFilteredSortedQuery(): Criteria|Builder

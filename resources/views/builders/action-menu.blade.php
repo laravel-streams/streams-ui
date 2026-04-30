@@ -35,6 +35,10 @@
             @php
                 $disabled = $menuAction->isDisabled();
 
+                $entry = $action->getEntry();
+
+                $menuAction->entry($entry);
+
                 $href = $menuAction->getUrl();
                 $tag = $menuAction->getTag() ?: ($href ? 'a' : 'button');
                 $target = $menuAction->shouldOpenInNewTab() ? '_blank' : '_self';

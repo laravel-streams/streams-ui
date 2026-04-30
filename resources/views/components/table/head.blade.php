@@ -48,7 +48,16 @@
                     <div x-show="open" x-cloak x-on:click.outside="open = false" x-on:keydown.escape.window="open = false" class="absolute bg-white border rounded-lg shadow-lg overflow-hidden left-0 w-48 z-10">
                         {{-- Bulk Actions --}}
                         @foreach ($bulkActions as $action)
-                            {!! $action->mergeHtmlAttributes(['class' => 'w-full'])->borderRadius('none')->render() !!}
+                            @php
+                                $bulkActionClick = "mountTableBulkAction('".$action->getName()."', null, '".$tableName."')";
+                            @endphp
+                            {!! $action
+                                ->mergeHtmlAttributes([
+                                    'class' => 'w-full',
+                                    'wire:click' => $bulkActionClick,
+                                ])
+                                ->borderRadius('none')
+                                ->render() !!}
                         @endforeach
 
                     </div>

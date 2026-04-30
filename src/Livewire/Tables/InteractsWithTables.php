@@ -16,6 +16,7 @@ trait InteractsWithTables
     use Concerns\HasActions;
     use Concerns\HasEntries;
     use Concerns\HasFilters;
+    use Concerns\HasViews;
     use Concerns\HasBulkActions;
     use Concerns\CanSortEntries;
     use Concerns\CanSearchEntries;
@@ -47,6 +48,13 @@ trait InteractsWithTables
         }
 
         $table->setState('filters', $filters);
+        $activeView = $table->getState('active_view');
+        $defaultView = $table->getDefaultView();
+        $table->setState(
+            'active_view',
+            $activeView
+                ?? ($defaultView && $table->getTableView($defaultView) ? $defaultView : null),
+        );
         $table->setState('search', strval($table->getState('search', '')));
         $table->setState('records_per_page', $table->getState('records_per_page', $table->getPerPage()));
         $table->setState('selected', $table->getState('selected', []));

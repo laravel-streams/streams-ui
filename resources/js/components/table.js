@@ -1,12 +1,13 @@
 // import Sortable from 'sortablejs';
 
-function table(tableName = 'default', initialSelectedEntries = []) {
+function table(tableName = 'default', initialSelectedEntries = [], selectedStatePath = null) {
     return {
         
         isLoading: false,
 
         tableName,
         selectedEntries: initialSelectedEntries,
+        selectedStatePath,
 
         isDraggable: true,
         draggedIndex: null,
@@ -52,10 +53,18 @@ function table(tableName = 'default', initialSelectedEntries = []) {
                 }
 
                 this.selectedEntries = [...new Set(this.selectedEntries)]
-                this.$wire.set(`data.tables.${this.tableName}.selected`, this.selectedEntries, false);
+                this.syncSelectedEntries();
 
                 this.shouldCheckUniqueSelection = false
             });
+        },
+
+        getSelectedStatePath: function () {
+            return this.selectedStatePath ?? `data.tables.${this.tableName}.selected`
+        },
+
+        syncSelectedEntries: function () {
+            this.$wire.set(this.getSelectedStatePath(), this.selectedEntries, false);
         },
 
         mountBulkAction: function (name) {
@@ -141,7 +150,7 @@ function table(tableName = 'default', initialSelectedEntries = []) {
                 this.selectEntries([key])
             }
             
-            this.$wire.set(`data.tables.${this.tableName}.selected`, this.selectedEntries, false);
+            this.syncSelectedEntries();
         },
 
         areEntriesSelected: function (keys) {

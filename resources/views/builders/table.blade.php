@@ -3,6 +3,7 @@
 $actions = $table->getActions();
 $columns = $table->getColumns();
 $filters = $table->getFilters();
+$views = $table->getTableViews();
 $bulkActions = $table->getBulkActions();
 $tableName = $table->getName();
 
@@ -21,13 +22,14 @@ $isPaginated = $table->isPaginated();
 $paginationOptions = $table->getPaginationOptions();
 
 $selectedRecords = $table->getSelectedEntryKeys();
+$selectedStatePath = $table->getStatePath() . '.selected';
 
 @endphp
 
 {!! Assets::inline(base_path('/vendor/streams/ui/resources/js/components/table.js')) !!}
 
 <div
-    x-data="table('{{ $tableName }}', @js($selectedRecords))"
+    x-data="table('{{ $tableName }}', @js($selectedRecords), @js($selectedStatePath))"
     {{-- @if (! $isLoaded)
         wire:init="loadTable"
     @endif --}}
@@ -45,10 +47,15 @@ $selectedRecords = $table->getSelectedEntryKeys();
         <x-ui::table.header :heading="$heading" :description="$description" :actions="$headerActions" />
         @endif
 
-        @if ($bulkActions || $filters)
+        @if ($bulkActions || $filters || $views)
         <div class="flex flex-col gap-x-3 p-3">
 
-            <div class="flex items-center">
+            <div class="flex items-center gap-3">
+
+                <x-ui::table.views :views="$views" :tableName="$tableName" :active="$this->getActiveTableView($tableName)" />
+
+                <div class="ml-auto flex items-center gap-2">
+                    <x-ui::table.search :table="$table" :tableName="$tableName" />
 
                 @if ($filters)
                 <div x-data="{open: false}" x-on:click.outside="open=false" x-on:keydown.escape.window="open=false" class="flex justify-center relative z-20">
@@ -66,8 +73,7 @@ $selectedRecords = $table->getSelectedEntryKeys();
                         class="absolute top-full left-0 w-72 bg-white p-4 border rounded-lg shadow-md"/>
                 </div>
                 @endif
-
-                <x-ui::table.search :table="$table" :tableName="$tableName" />
+                </div>
 
             </div>
             
