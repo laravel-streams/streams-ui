@@ -54,25 +54,25 @@ $selectedStatePath = $table->getStatePath() . '.selected';
 
                 <x-ui::table.views :views="$views" :tableName="$tableName" :active="$this->getActiveTableView($tableName)" />
 
-                <div class="ml-auto flex items-center gap-2">
+                <div class="flex items-center gap-2">
+                    @if ($filters)
+                    <div x-data="{open: false}" x-on:click.outside="open=false" x-on:keydown.escape.window="open=false" class="flex justify-center relative z-20">
+
+                        <button @click="open = !open" class="p-2 text-gray-400 hover:text-gray-500">
+                            <x-heroicon-c-funnel class="h-5 w-5" />
+                        </button>
+                    
+                        <x-ui::table.filters
+                            {{-- :form="$getFiltersForm()" --}}
+                            :filters="$filters"
+                            :tableName="$tableName"
+                            x-cloak
+                            x-show="open"
+                            class="absolute top-full left-0 w-72 bg-white p-4 border rounded-lg shadow-md"/>
+                    </div>
+                    @endif
+
                     <x-ui::table.search :table="$table" :tableName="$tableName" />
-
-                @if ($filters)
-                <div x-data="{open: false}" x-on:click.outside="open=false" x-on:keydown.escape.window="open=false" class="flex justify-center relative z-20">
-
-                    <button @click="open = !open" class="p-2 text-gray-400 hover:text-gray-500">
-                        <x-heroicon-c-funnel class="h-5 w-5" />
-                    </button>
-                
-                    <x-ui::table.filters
-                        {{-- :form="$getFiltersForm()" --}}
-                        :filters="$filters"
-                        :tableName="$tableName"
-                        x-cloak
-                        x-show="open"
-                        class="absolute top-full left-0 w-72 bg-white p-4 border rounded-lg shadow-md"/>
-                </div>
-                @endif
                 </div>
 
             </div>
