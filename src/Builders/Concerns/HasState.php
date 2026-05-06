@@ -124,28 +124,29 @@ trait HasState
         return $state;
     }
 
+    /**
+     * Hydrate Livewire state for this builder’s {@see getStatePath()} (for example the form’s `data.{form-name}` bucket).
+     *
+     * On {@see Form}, call after {@see Form::resolve()} so the instance is bound to the host component:
+     * `$form->fill([ 'field' => $value, ... ])`.
+     *
+     * Passing a non-null array replaces the entire subtree at that path. Pass `[]` to clear the form bucket.
+     */
     public function fill(?array $state = null): static
     {
-        $defaultState = null;
-
         if ($state === null) {
-            $defaultState = [];
-        } else {
-
-            $livewire = $this->getLivewire();
-
-            if ($statePath = $this->getStatePath()) {
-                data_set($livewire, $statePath, $state);
-            } else {
-                foreach ($state as $key => $value) {
-                    data_set($livewire, $key, $value);
-                }
-            }
+            return $this;
         }
 
-        // $this->hydrateState($defaultState);
+        $livewire = $this->getLivewire();
 
-        // $this->fillStateWithNull();
+        if ($this->getStatePath()) {
+            data_set($livewire, $this->getStatePath(), $state);
+        } else {
+            foreach ($state as $key => $value) {
+                data_set($livewire, $key, $value);
+            }
+        }
 
         return $this;
     }
@@ -171,6 +172,11 @@ trait HasState
         return $this;
     }
 
+    /**
+     * Validated form/component state (runs field validation rules).
+     *
+     * Prefer this when reading user input for persistence or DTO mapping — same path submit handlers use.
+     */
     public function getState(bool $shouldCallHooksBefore = true): array
     {
         $state = $this->validate();
@@ -185,6 +191,12 @@ trait HasState
         return $state;
     }
 
+    /**
+     * Livewire-bound values at {@see getStatePath()} without validation.
+     *
+     * Use only when validation must not run (for example inspecting UI state before submit, merge helpers, or
+     * debugging). For submit workflows and DTO input, use {@see getState()} instead.
+     */
     public function getRawState(): array
     {
         return data_get($this->getLivewire(), $this->getStatePath()) ?? [];

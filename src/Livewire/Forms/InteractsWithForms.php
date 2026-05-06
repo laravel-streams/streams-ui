@@ -6,6 +6,14 @@ use Streams\Ui\Builders\Forms\Form;
 use Streams\Ui\Support\Facades\Forms;
 use Streams\Ui\Notifications\Notification;
 
+/**
+ * Registers/caches forms and dispatches {@see handleForm()} to the resolved {@see Form}.
+ *
+ * Hydration uses {@see Form} + {@see \Streams\Ui\Builders\Concerns\HasState} ({@see Form::fill()}).
+ * When reading values for submit/DTOs, prefer {@see HasState::getState()} (validated); use {@see HasState::getRawState()}
+ * only when skipping validation is intentional.
+ * {@see \Streams\Ui\Builders\Actions\Concerns\HasForm::getFormData()} is separate: mounted actions receive payload via action wiring.
+ */
 trait InteractsWithForms
 {
     protected ?array $cachedForms = null;
@@ -53,8 +61,9 @@ trait InteractsWithForms
         return $this->cachedForms;
     }
 
-    public function getForm(string $name): Form
+    public function getForm(?string $name = null): Form
     {
+        $name = $this->resolveFormName($name);
         $cachedForms = $this->getCachedForms();
 
         $form = $cachedForms[$name] ?? null;
@@ -68,7 +77,7 @@ trait InteractsWithForms
         return $form;
     }
 
-    public function handleForm(string $name, string $method = 'handle', array $payload = []): mixed
+    public function handleForm(?string $name = null, string $method = 'handle', array $payload = []): mixed
     {
         $form = $this->getForm($name);
 
@@ -93,5 +102,24 @@ trait InteractsWithForms
 
             return null;
         }
+    }
+
+    protected function resolveFormName(?string $name): string
+    {
+        if (is_string($name) && $name !== '') {
+            return $name;
+        }
+
+        $cachedForms = $this->getCachedForms();
+
+        if (isset($cachedForms['default'])) {
+            return 'default';
+        }
+
+        if (count($cachedForms) === 1) {
+            return (string) array_key_first($cachedForms);
+        }
+
+        return 'default';
     }
 }
