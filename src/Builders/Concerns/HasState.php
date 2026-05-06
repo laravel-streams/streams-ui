@@ -8,6 +8,12 @@ trait HasState
 {
     protected ?string $statePath = null;
 
+    /**
+     * When set (typically by {@see \Streams\Ui\Builders\Forms\Form} for inputs), {@see getStatePath()} becomes
+     * `{prefix}.{relative}` where relative comes from {@see getDefaultStatePath()} instead of defaulting to `data.{relative}`.
+     */
+    protected ?string $statePathPrefix = null;
+
     protected string $cachedFullStatePath;
 
     public function callAfterStateHydrated(): void
@@ -169,6 +175,25 @@ trait HasState
     {
         $this->statePath = $path;
 
+        if ($path !== null) {
+            $this->statePathPrefix = null;
+        }
+
+        $this->flushCachedStatePath();
+
+        return $this;
+    }
+
+    /**
+     * Base Livewire path under which this component’s state is stored (before the relative segment from {@see getDefaultStatePath()}).
+     *
+     * Forms pass their resolved {@see getStatePath()} so fields resolve to `{form path}.{field name}` instead of `data.{field name}`.
+     */
+    public function statePathPrefix(?string $prefix): static
+    {
+        $this->statePathPrefix = $prefix;
+        $this->flushCachedStatePath();
+
         return $this;
     }
 
@@ -208,26 +233,24 @@ trait HasState
             return $this->cachedFullStatePath;
         }
 
-        $pathComponents = [];
-
         if (($statePath = $this->statePath) !== null) {
-            $pathComponents[] = $statePath;
+            return $this->cachedFullStatePath = $statePath;
         }
 
-        if (! $pathComponents) {
-            $pathComponents = [
-                'data',
-                $this->getDefaultStatePath(),
-            ];
+        if (($prefix = $this->statePathPrefix) !== null) {
+            return $this->cachedFullStatePath = $prefix.'.'.$this->getDefaultStatePath();
         }
 
-        return $this->cachedFullStatePath = implode('.', $pathComponents);
+        return $this->cachedFullStatePath = implode('.', [
+            'data',
+            $this->getDefaultStatePath(),
+        ]);
     }
 
     protected function getDefaultStatePath(): string
     {
-        if (method_exists(static::class, 'getName')) {
-            return static::getName();
+        if (method_exists($this, 'getName')) {
+            return $this->getName();
         }
 
         $parts = explode('\\', static::class);
