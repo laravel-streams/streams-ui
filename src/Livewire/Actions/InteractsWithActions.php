@@ -302,7 +302,16 @@ trait InteractsWithActions
             return null;
         }
 
-        return $this->getAction(end($this->mountedActions));
+        $action = $this->getAction(end($this->mountedActions));
+        $arguments = (array) Arr::last($this->mountedActionsArguments);
+
+        $action->arguments($arguments);
+
+        if (array_key_exists('entry', $arguments)) {
+            $action->entry($arguments['entry']);
+        }
+
+        return $action;
     }
 
     public function getMountedActionForm(): ?Form
