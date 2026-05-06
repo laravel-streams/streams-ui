@@ -79,11 +79,10 @@ class Form extends ViewBuilder
 
     public function getComponents(bool $withHidden = false): array
     {
-        $components = array_map(function ($component) {
+        $host = $this->getLivewire();
 
-            if ($component instanceof Common\BelongsToLivewire) {
-                $component->livewire($this->getLivewire());
-            }
+        $components = array_map(function ($component) use ($host) {
+            $this->assignLivewireToComponentTree($component, $host);
 
             return $component;
         }, $this->evaluate($this->components));
@@ -93,5 +92,21 @@ class Form extends ViewBuilder
         }
 
         return $components;
+    }
+
+    /**
+     * Ensure every field under containers (e.g. Grid) shares the form’s Livewire host.
+     */
+    protected function assignLivewireToComponentTree(mixed $component, Component $host): void
+    {
+        if ($component instanceof Common\BelongsToLivewire) {
+            $component->livewire($host);
+        }
+
+        if (is_object($component) && method_exists($component, 'getComponents')) {
+            foreach ($component->getComponents() as $child) {
+                $this->assignLivewireToComponentTree($child, $host);
+            }
+        }
     }
 }
