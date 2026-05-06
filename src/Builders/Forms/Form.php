@@ -12,8 +12,8 @@ class Form extends ViewBuilder
 {
     use Common\BelongsToParent;
     use Common\BelongsToLivewire;
+    
     use Common\HasName;
-
     use Common\HasState;
     use Common\HasStream;
     use Common\HasActions;
