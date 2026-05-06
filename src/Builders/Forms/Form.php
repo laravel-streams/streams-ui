@@ -11,16 +11,19 @@ use Streams\Ui\Builders\Concerns as Common;
 
 class Form extends ViewBuilder
 {
-    use Common\BelongsToLivewire;
-    use Common\BelongsToParent;
+    use Common\HasName;
+    use Common\HasState;
+    use Common\HasEntry;
+    use Common\HasStream;
+    use Common\HasHeading;
     use Common\HasActions;
     use Common\HasComponents;
     use Common\HasDescription;
-    use Common\HasHeading;
     use Common\HasHtmlAttributes;
-    use Common\HasName;
-    use Common\HasState;
-    use Common\HasStream;
+    
+    use Common\BelongsToParent;
+    use Common\BelongsToLivewire;
+
     use Concerns\HandlesValidation;
 
     protected string $view = 'ui::builders.form';
