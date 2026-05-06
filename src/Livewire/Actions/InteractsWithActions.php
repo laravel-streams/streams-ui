@@ -296,6 +296,12 @@ trait InteractsWithActions
 
     protected function configureAction(Action $action): void {}
 
+    /**
+     * Resolve the currently mounted action and rehydrate transient context from Livewire state.
+     *
+     * This keeps modal-open arguments (especially `entry`) available during form submit paths
+     * that call `handleForm(...)` directly instead of `callMountedAction(...)`.
+     */
     public function getMountedAction(): ?MountableAction
     {
         if (! count($this->mountedActions ?? [])) {
