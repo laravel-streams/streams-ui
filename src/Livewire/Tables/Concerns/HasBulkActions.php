@@ -82,6 +82,7 @@ trait HasBulkActions
             // noop, reserved for form mounting
         } catch (\Throwable $exception) {
             $this->resetMountedTableBulkActionProperties($table);
+
             return null;
         }
 

@@ -4,18 +4,17 @@ namespace Streams\Ui\Builders\Inputs;
 
 class TextInput extends Input
 {
-    use Concerns\HasMask;
-    use Concerns\HasStep;
-    use Concerns\HasType;
-    use Concerns\HasPrefix;
-    use Concerns\HasSuffix;
+    use Concerns\CanBeAutocompleted;
+    use Concerns\CanBeLengthConstrained;
+    use Concerns\CanBeValueConstrained;
     use Concerns\HasDatalist;
     use Concerns\HasInputMode;
+    use Concerns\HasMask;
     use Concerns\HasPlaceholder;
-
-    use Concerns\CanBeAutocompleted;
-    use Concerns\CanBeValueConstrained;
-    use Concerns\CanBeLengthConstrained;
+    use Concerns\HasPrefix;
+    use Concerns\HasStep;
+    use Concerns\HasSuffix;
+    use Concerns\HasType;
 
     protected string $view = 'ui::builders.inputs.text';
 

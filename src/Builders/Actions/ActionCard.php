@@ -8,12 +8,12 @@ use Streams\Ui\Builders\ViewBuilder;
 
 class ActionCard extends ViewBuilder
 {
-    use Concerns\HasId;
-    use Concerns\HasIcon;
-    use Concerns\HasLabel;
     use Concerns\HasAction;
     use Concerns\HasDescription;
     use Concerns\HasHtmlAttributes;
+    use Concerns\HasIcon;
+    use Concerns\HasId;
+    use Concerns\HasLabel;
 
     protected string $view = 'ui::builders.action-card';
 

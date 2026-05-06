@@ -8,11 +8,11 @@ use Streams\Ui\Builders\Concerns as Common;
 
 class ProgressBar extends ViewBuilder
 {
+    use Common\HasDescription;
+    use Common\HasHeading;
+    use Common\HasHtmlAttributes;
     use Common\HasId;
     use Common\HasLabel;
-    use Common\HasHeading;
-    use Common\HasDescription;
-    use Common\HasHtmlAttributes;
 
     protected string $viewIdentifier = 'progressBar';
 
@@ -30,7 +30,7 @@ class ProgressBar extends ViewBuilder
     public static function make(?string $id = null): static
     {
         $instance = App::make(static::class, [
-            'id' => $id ?: 'progress-bar-' . uniqid(),
+            'id' => $id ?: 'progress-bar-'.uniqid(),
         ]);
 
         $instance->configure();

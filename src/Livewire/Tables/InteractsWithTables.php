@@ -9,18 +9,18 @@ use Streams\Core\Support\Traits\FiresCallbacks;
 
 trait InteractsWithTables
 {
+    use Concerns\CanPaginateEntries;
+    use Concerns\CanSearchEntries;
+    use Concerns\CanSortEntries;
+    use Concerns\HasActions;
+    use Concerns\HasBulkActions;
+    use Concerns\HasEntries;
+    use Concerns\HasFilters;
+    use Concerns\HasViews;
     use FiresCallbacks;
     use WithPagination {
         WithPagination::resetPage as resetLivewirePage;
     }
-    use Concerns\HasActions;
-    use Concerns\HasEntries;
-    use Concerns\HasFilters;
-    use Concerns\HasViews;
-    use Concerns\HasBulkActions;
-    use Concerns\CanSortEntries;
-    use Concerns\CanSearchEntries;
-    use Concerns\CanPaginateEntries;
 
     protected array $cachedTables = [];
 
@@ -73,7 +73,7 @@ trait InteractsWithTables
         $tables = $this->getTables();
 
         foreach ($tables + $registered as $key => $table) {
-            
+
             if ($table instanceof \Closure) {
                 $table = $table();
             }
@@ -125,7 +125,7 @@ trait InteractsWithTables
         $tables = $this->getCachedTables();
 
         if (! isset($tables[$name])) {
-            
+
             $resolved = Tables::resolve($name);
 
             if (! $resolved instanceof Table) {

@@ -2,9 +2,9 @@
 
 namespace Streams\Ui\Builders\Tables\Views;
 
-use Streams\Ui\Builders\Concerns\HasComponents;
-use Streams\Ui\Builders\Tables\Actions\Action;
 use Streams\Ui\Builders\Tables\Table;
+use Streams\Ui\Builders\Tables\Actions\Action;
+use Streams\Ui\Builders\Concerns\HasComponents;
 
 class ViewAction extends Action
 {

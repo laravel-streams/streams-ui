@@ -2,8 +2,8 @@
 
 namespace Streams\Ui\Builders\Breadcrumbs;
 
-use Streams\Ui\Builders\Actions\Action;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Builders\Actions\Action;
 use Streams\Ui\Builders\Concerns as Common;
 
 class Breadcrumbs extends ViewBuilder

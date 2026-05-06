@@ -3,7 +3,6 @@
 namespace Streams\Ui\Builders\Navigation;
 
 use Streams\Ui\Builders\Builder;
-use Streams\Ui\Builders\Navigation;
 use Streams\Ui\Builders\Concerns as Common;
 
 class NavigationItem extends Builder
@@ -16,9 +15,9 @@ class NavigationItem extends Builder
     use Common\HasLabel;
     use Common\HasSortOrder;
     use Common\HasUrl;
-    use Navigation\Traits\CanBeActive;
-    use Navigation\Traits\HasActiveIcon;
-    use Navigation\Traits\HasGroup;
+    use Traits\CanBeActive;
+    use Traits\HasActiveIcon;
+    use Traits\HasGroup;
 
     final public function __construct(string|\Closure|null $label = null)
     {

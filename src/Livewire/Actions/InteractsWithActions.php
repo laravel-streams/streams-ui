@@ -9,6 +9,7 @@ use Streams\Ui\Builders\Forms\Form;
 use Streams\Ui\Builders\Actions\Action;
 use Streams\Ui\Support\Facades\Actions;
 use Streams\Ui\Notifications\Notification;
+use Streams\Ui\Exceptions\ValidationException;
 use Streams\Ui\Builders\Actions\MountableAction;
 
 trait InteractsWithActions
@@ -34,7 +35,7 @@ trait InteractsWithActions
         }
 
         if (! method_exists($action, $method)) {
-            throw new \InvalidArgumentException("No mounted action method [{$method}] found on action [" . $action->getName() . '].');
+            throw new \InvalidArgumentException("No mounted action method [{$method}] found on action [".$action->getName().'].');
         }
 
         $action->arguments([
@@ -54,11 +55,11 @@ trait InteractsWithActions
                 'livewire' => $this,
                 'arguments' => (array) $arguments,
             ]);
-        } catch (\Streams\Ui\Exceptions\Halt $exception) {
+        } catch (Halt $exception) {
             return null;
-        } catch (\Streams\Ui\Exceptions\Cancel $exception) {
+        } catch (Cancel $exception) {
             return null;
-        } catch (\Streams\Ui\Exceptions\ValidationException) {
+        } catch (ValidationException) {
             return null;
         } catch (\Exception $exception) {
             Notification::make()
@@ -113,11 +114,11 @@ trait InteractsWithActions
             ]);
 
             $action->fire('after_call');
-        } catch (\Streams\Ui\Exceptions\Halt $exception) {
+        } catch (Halt $exception) {
             return null;
-        } catch (\Streams\Ui\Exceptions\Cancel $exception) {
+        } catch (Cancel $exception) {
             return null;
-        } catch (\Streams\Ui\Exceptions\ValidationException) {
+        } catch (ValidationException) {
             return null;
         } catch (\Exception $exception) {
 
@@ -364,7 +365,7 @@ trait InteractsWithActions
         $action = $cachedActions[$name] ?? null;
 
         if (! $action) {
-            throw new \InvalidArgumentException("No action named [{$name}] found in the Livewire component [" . get_class($this) . '].');
+            throw new \InvalidArgumentException("No action named [{$name}] found in the Livewire component [".get_class($this).'].');
         }
 
         return $action;

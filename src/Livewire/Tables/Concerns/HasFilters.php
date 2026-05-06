@@ -5,6 +5,7 @@ namespace Streams\Ui\Livewire\Tables\Concerns;
 use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Builders\Forms\Form;
 use Streams\Ui\Builders\Tables\Filters\Filter;
+use Streams\Ui\Builders\Forms\Components\Group;
 use Illuminate\Contracts\Database\Query\Builder;
 
 trait HasFilters
@@ -137,7 +138,7 @@ trait HasFilters
         $schema = [];
 
         foreach ($this->getTable($table)->getFilters() as $filter) {
-            $schema[$filter->getName()] = \Streams\Ui\Builders\Forms\Components\Group::make()
+            $schema[$filter->getName()] = Group::make()
                 ->schema($filter->getFormSchema())
                 ->statePath($filter->getName())
                 ->columnSpan($filter->getColumnSpan())
@@ -147,5 +148,4 @@ trait HasFilters
 
         return $schema;
     }
-
 }

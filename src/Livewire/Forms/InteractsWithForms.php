@@ -5,6 +5,8 @@ namespace Streams\Ui\Livewire\Forms;
 use Streams\Ui\Builders\Forms\Form;
 use Streams\Ui\Support\Facades\Forms;
 use Streams\Ui\Notifications\Notification;
+use Illuminate\Validation\ValidationException;
+use Streams\Ui\Builders\Actions\Concerns\HasForm;
 
 /**
  * Registers/caches forms and dispatches {@see handleForm()} to the resolved {@see Form}.
@@ -12,7 +14,7 @@ use Streams\Ui\Notifications\Notification;
  * Hydration uses {@see Form} + {@see \Streams\Ui\Builders\Concerns\HasState} ({@see Form::fill()}).
  * When reading values for submit/DTOs, prefer {@see HasState::getState()} (validated); use {@see HasState::getRawState()}
  * only when skipping validation is intentional.
- * {@see \Streams\Ui\Builders\Actions\Concerns\HasForm::getFormData()} is separate: mounted actions receive payload via action wiring.
+ * {@see HasForm::getFormData()} is separate: mounted actions receive payload via action wiring.
  */
 trait InteractsWithForms
 {
@@ -91,7 +93,7 @@ trait InteractsWithForms
 
         try {
             return $form->{$method}($payload);
-        } catch (\Illuminate\Validation\ValidationException $exception) {
+        } catch (ValidationException $exception) {
             throw $exception;
         } catch (\Throwable $exception) {
             Notification::make()

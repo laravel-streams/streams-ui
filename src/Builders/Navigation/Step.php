@@ -8,12 +8,11 @@ use Streams\Ui\Builders\Concerns;
 
 class Step extends Builder
 {
-    use Concerns\HasId;
-    use Concerns\HasUrl;
-    use Concerns\HasLabel;
-    use Concerns\HasComponents;
-
     use Concerns\CanBeActive;
+    use Concerns\HasComponents;
+    use Concerns\HasId;
+    use Concerns\HasLabel;
+    use Concerns\HasUrl;
 
     public function __construct(string $label)
     {

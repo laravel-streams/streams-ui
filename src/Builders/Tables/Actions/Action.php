@@ -3,8 +3,9 @@
 namespace Streams\Ui\Builders\Tables\Actions;
 
 use Streams\Ui\Builders\Concerns as Common;
+use Streams\Ui\Builders\Actions\MountableAction;
 
-class Action extends \Streams\Ui\Builders\Actions\MountableAction
+class Action extends MountableAction
 {
     use Common\HasEntry;
 

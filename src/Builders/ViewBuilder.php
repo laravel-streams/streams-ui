@@ -38,7 +38,7 @@ class ViewBuilder extends Builder implements Htmlable
             return $this->view;
         }
 
-        throw new \Exception('Class [' . static::class . '] does not have a [protected string $view] property defined.');
+        throw new \Exception('Class ['.static::class.'] does not have a [protected string $view] property defined.');
     }
 
     public function viewData(array $data): static
@@ -69,12 +69,12 @@ class ViewBuilder extends Builder implements Htmlable
 
     protected function extractPublicMethods(): array
     {
-        $methods = $this->once(static::class . __FUNCTION__, function () {
+        $methods = $this->once(static::class.__FUNCTION__, function () {
 
             $reflection = new \ReflectionClass($this);
 
             return array_map(
-                fn(\ReflectionMethod $method): string => $method->getName(),
+                fn (\ReflectionMethod $method): string => $method->getName(),
                 $reflection->getMethods(\ReflectionMethod::IS_PUBLIC),
             );
         });

@@ -19,17 +19,17 @@ trait HandlesValidation
     public function validate(array $rules = [], array $messages = [], array $attributes = [])
     {
         $fieldRules = $this->resolveInputRules($this->getComponents());
-           
+
         $rules = array_merge($fieldRules, $this->validationRules, $rules);
 
         $data = $this->getDataForValidation($rules);
 
         // $data = $this->unwrapDataForValidation($data);
-        
+
         $validator = Validator::make($data, $rules, $messages, $attributes);
 
         $validatedData = $validator->validate();
-        
+
         return $validatedData;
     }
 
@@ -41,7 +41,7 @@ trait HandlesValidation
 
             if ($component instanceof Input) {
                 $rules = array_merge($rules, [
-                    $component->getStatePath() => $component->getValidationRules()
+                    $component->getStatePath() => $component->getValidationRules(),
                 ]);
             }
 

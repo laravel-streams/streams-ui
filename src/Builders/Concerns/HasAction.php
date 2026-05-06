@@ -15,7 +15,7 @@ trait HasAction
         return $this;
     }
 
-    public function getAction(): Action|null
+    public function getAction(): ?Action
     {
         return $this->evaluate($this->action);
     }

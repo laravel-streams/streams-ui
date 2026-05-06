@@ -11,12 +11,10 @@ class Container extends ViewBuilder
 {
     use Support\BelongsToLivewire;
     use Support\BelongsToParent;
-    
-    use Support\HasId;
+    use Support\CanSpanColumns;
     use Support\HasComponents;
     use Support\HasHtmlAttributes;
-
-    use Support\CanSpanColumns;
+    use Support\HasId;
 
     protected string $viewIdentifier = 'container';
 

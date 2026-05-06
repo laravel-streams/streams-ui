@@ -7,8 +7,8 @@ use Streams\Ui\Builders\Concerns as Common;
 
 class TimeLine extends ViewBuilder
 {
-    use Common\HasId;
     use Common\HasHtmlAttributes;
+    use Common\HasId;
 
     protected string $viewIdentifier = 'timeLine';
 
@@ -18,10 +18,9 @@ class TimeLine extends ViewBuilder
 
     protected string|\Closure $mainTitle = '';
 
-
     public static function make(): static
     {
-        return new static();
+        return new static;
     }
 
     /**

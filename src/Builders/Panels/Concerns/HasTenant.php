@@ -5,6 +5,7 @@ namespace Streams\Ui\Builders\Panels\Concerns;
 trait HasTenant
 {
     protected $tenant = null;
+
     protected $cachedTenant = null;
 
     public function tenant($tenant): static

@@ -19,10 +19,9 @@ abstract class Page extends Component
     use Concerns\HasNavigationGroups;
     use Concerns\HasResource;
     use Concerns\HasRoutes;
-
-    use WithFileUploads;
     use FiresCallbacks;
     use HasMemory;
+    use WithFileUploads;
 
     // use Common\HasTitle;
     protected static ?string $title = null;
@@ -36,17 +35,15 @@ abstract class Page extends Component
     }
 
     use Common\EvaluatesClosures;
-    
     use Common\HasActions;
     use Common\HasDescription;
     use Common\HasHtmlAttributes;
-    
     use InteractsWithActions;
-    use InteractsWithTables;
     use InteractsWithForms;
+    use InteractsWithTables;
 
     public ?array $data = [];
-    
+
     public ?array $notifications = [];
 
     public function removeNotification(string $id): void

@@ -3,7 +3,6 @@
 namespace Streams\Ui\Builders\Inputs;
 
 use Livewire\Component;
-use Streams\Ui\Builders\Inputs;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Builders\Concerns as Common;
 
@@ -18,16 +17,14 @@ abstract class Input extends ViewBuilder
     use Common\HasLabel;
     use Common\HasName;
     use Common\HasState;
-    
-    use Inputs\Concerns\HasKey;
-    use Inputs\Concerns\HasHint;
-    use Inputs\Concerns\HasFieldWrapper;
-
-    use Inputs\Concerns\CanBeHidden;
-    use Inputs\Concerns\CanBeDisabled;
-    use Inputs\Concerns\CanBeReadonly;
-    use Inputs\Concerns\CanBeValidated;
-    use Inputs\Concerns\CanBeAutofocused;
+    use Concerns\CanBeAutofocused;
+    use Concerns\CanBeDisabled;
+    use Concerns\CanBeHidden;
+    use Concerns\CanBeReadonly;
+    use Concerns\CanBeValidated;
+    use Concerns\HasFieldWrapper;
+    use Concerns\HasHint;
+    use Concerns\HasKey;
 
     protected string $viewIdentifier = 'field';
 

@@ -6,53 +6,49 @@ use Livewire\Component;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
-use Streams\Ui\Builders\ViewBuilder;
 use Streams\Core\Criteria\Criteria;
+use Streams\Ui\Builders\ViewBuilder;
+use Illuminate\Database\Query\Builder;
 use Streams\Ui\Support\Facades\Tables;
 use Streams\Ui\Builders\Concerns as Common;
-use Illuminate\Database\Query\Builder;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Pagination\Paginator;
 use Streams\Ui\Builders\Tables\Columns\Column;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Streams\Ui\Builders\Actions\Contracts\HasActions;
 
 class Table extends ViewBuilder implements HasActions
 {
-    use Common\CanBeSorted;
-    
     use Common\BelongsToLivewire;
-    
+    use Common\CanBeSorted;
+    use Common\HasDescription;
+    use Common\HasHeading;
     use Common\HasName;
     use Common\HasQuery;
     use Common\HasState;
-    use Common\HasHeading;
-    use Common\HasDescription;
-
     use Concerns\CanBePaginated;
     use Concerns\CanBeReordered;
-
     use Concerns\HasActions;
-    use Concerns\HasColumns;
-    use Concerns\HasFilters;
-    use Concerns\HasViews;
-    use Concerns\HasEntryUrl;
-    use Concerns\HasEmptyState;
     use Concerns\HasBulkActions;
+    use Concerns\HasColumns;
+    use Concerns\HasEmptyState;
     use Concerns\HasEntryClasses;
+    use Concerns\HasEntryUrl;
+    use Concerns\HasFilters;
     use Concerns\HasHeaderActions;
+    use Concerns\HasViews;
 
     protected string $view = 'ui::builders.table';
 
     protected string $viewIdentifier = 'table';
 
     protected string|\Closure|null $queryStringIdentifier = 'table';
-    
+
     protected Collection|Paginator|null $entries = null;
 
     public function __construct($livewire, ?string $name = null)
     {
         $this->name($name ?? static::getDefaultName());
-        
+
         $this->livewire($livewire);
     }
 

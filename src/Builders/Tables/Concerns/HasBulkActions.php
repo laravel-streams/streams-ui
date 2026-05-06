@@ -34,7 +34,7 @@ trait HasBulkActions
         foreach (Arr::wrap(array_filter($actions)) as $action) {
 
             $action->table($this);
-            
+
             if ($action instanceof ActionGroup) {
 
                 $flatActions = $action->getFlatActions();

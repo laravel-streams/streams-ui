@@ -4,7 +4,6 @@ namespace Streams\Ui\Builders\Actions;
 
 use Livewire\Component;
 use Streams\Ui\Exceptions;
-use Streams\Ui\Builders\Concerns as Common;
 
 class MountableAction extends Action
 {

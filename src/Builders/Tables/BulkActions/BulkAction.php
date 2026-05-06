@@ -2,9 +2,10 @@
 
 namespace Streams\Ui\Builders\Tables\BulkActions;
 
+use Streams\Ui\Builders\Actions\MountableAction;
 use Streams\Ui\Builders\Tables\Concerns\BelongsToTable;
 
-class BulkAction extends \Streams\Ui\Builders\Actions\MountableAction
+class BulkAction extends MountableAction
 {
     use BelongsToTable;
     use Concerns\InteractsWithRecords;

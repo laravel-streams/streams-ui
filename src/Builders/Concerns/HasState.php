@@ -214,7 +214,7 @@ trait HasState
             $pathComponents[] = $statePath;
         }
 
-        if (!$pathComponents) {
+        if (! $pathComponents) {
             $pathComponents = [
                 'data',
                 $this->getDefaultStatePath(),

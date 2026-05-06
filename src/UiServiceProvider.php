@@ -4,22 +4,36 @@ namespace Streams\Ui;
 
 use Livewire\Livewire;
 use Illuminate\Routing\Router;
+use Streams\Ui\Builders\Builder;
+use Streams\Ui\Support\Facades\UI;
+use Streams\Ui\Colors\ColorManager;
 use Illuminate\Support\Facades\Lang;
 use Streams\Core\Support\Integrator;
+use Streams\Ui\Builders\Panels\Panel;
+use Streams\Ui\Support\Facades\Forms;
+use Streams\Ui\Support\Facades\Colors;
+use Streams\Ui\Support\Facades\Tables;
 use Illuminate\Support\ServiceProvider;
+use Streams\Ui\Support\Facades\Actions;
 use Streams\Core\Support\Facades\Assets;
 use Streams\Core\Support\Facades\Images;
+use Streams\Ui\Support\EntrySynthesizer;
+use Streams\Ui\Builders\Forms\FormManager;
 use Streams\Ui\Http\Middleware\SetUpPanel;
+use Streams\Ui\Builders\Tables\TableManager;
+use Streams\Ui\Support\Facades\Notifications;
+use Streams\Ui\Builders\Actions\ActionManager;
+use Streams\Ui\Notifications\NotificationsManager;
 
 class UiServiceProvider extends ServiceProvider
 {
     public function provides(): array
     {
         return [
-            \Streams\Ui\Builders\Builder::class,
-            \Streams\Ui\Support\Facades\UI::class,
-            \Streams\Ui\Builders\Panels\Panel::class,
-            \Streams\Ui\Support\Facades\Colors::class,
+            Builder::class,
+            UI::class,
+            Panel::class,
+            Colors::class,
         ];
     }
 
@@ -30,18 +44,18 @@ class UiServiceProvider extends ServiceProvider
             'streams.ui'
         );
 
-        $this->app->singleton(\Streams\Ui\UiManager::class);
-        $this->app->singleton(\Streams\Ui\Support\Facades\Notifications::class);
+        $this->app->singleton(UiManager::class);
+        $this->app->singleton(Notifications::class);
 
-        $this->app->singleton('colors', \Streams\Ui\Colors\ColorManager::class);
-        $this->app->singleton('forms', \Streams\Ui\Builders\Forms\FormManager::class);
-        $this->app->singleton('tables', \Streams\Ui\Builders\Tables\TableManager::class);
-        $this->app->singleton('actions', \Streams\Ui\Builders\Actions\ActionManager::class);
-        $this->app->singleton('notifications', \Streams\Ui\Notifications\NotificationsManager::class);
+        $this->app->singleton('colors', ColorManager::class);
+        $this->app->singleton('forms', FormManager::class);
+        $this->app->singleton('tables', TableManager::class);
+        $this->app->singleton('actions', ActionManager::class);
+        $this->app->singleton('notifications', NotificationsManager::class);
 
-        $this->app->alias(\Streams\Ui\UiManager::class, 'ui');
-        $this->app->alias(\Streams\Ui\Colors\ColorManager::class, 'colors');
-        $this->app->alias(\Streams\Ui\Notifications\NotificationsManager::class, 'notifications');
+        $this->app->alias(UiManager::class, 'ui');
+        $this->app->alias(ColorManager::class, 'colors');
+        $this->app->alias(NotificationsManager::class, 'notifications');
     }
 
     public function boot()
@@ -49,11 +63,11 @@ class UiServiceProvider extends ServiceProvider
         app(Router::class)->aliasMiddleware('panel', SetUpPanel::class);
 
         Integrator::aliases([
-            'UI' => \Streams\Ui\Support\Facades\UI::class,
-            'Forms' => \Streams\Ui\Support\Facades\Forms::class,
-            'Tables' => \Streams\Ui\Support\Facades\Tables::class,
-            'Actions' => \Streams\Ui\Support\Facades\Actions::class,
-            'Notifications' => \Streams\Ui\Support\Facades\Notifications::class,
+            'UI' => UI::class,
+            'Forms' => Forms::class,
+            'Tables' => Tables::class,
+            'Actions' => Actions::class,
+            'Notifications' => Notifications::class,
         ]);
 
         $this->publishes([
@@ -76,10 +90,10 @@ class UiServiceProvider extends ServiceProvider
         Lang::addNamespace('ui', realpath(base_path('vendor/streams/ui/resources/lang')));
 
         Livewire::setPersistentMiddleware([
-            \Streams\Ui\Http\Middleware\SetUpPanel::class,
+            SetUpPanel::class,
         ]);
 
-        Livewire::propertySynthesizer(\Streams\Ui\Support\EntrySynthesizer::class);
+        Livewire::propertySynthesizer(EntrySynthesizer::class);
 
         $this->app->booted(function () {
             $this->loadRoutesFrom(__DIR__.'/../resources/routes/web.php');
