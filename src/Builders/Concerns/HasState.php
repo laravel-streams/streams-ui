@@ -209,9 +209,9 @@ trait HasState
         // $this->dehydrateState($state);
         // $this->mutateDehydratedState($state);
 
-        // if ($statePath = $this->getStatePath()) {
-        //     return data_get($state, $statePath) ?? [];
-        // }
+        if ($statePath = $this->getStatePath()) {
+            return data_get($state, $statePath) ?? [];
+        }
 
         return $state;
     }
