@@ -46,7 +46,7 @@ trait InteractsWithActions
         try {
             if ($this->mountedActionHasForm()) {
                 $form = $this->getMountedActionForm();
-                $action->formData((array) $form->getState()['data']);
+                $action->formData((array) $form->getState());
             }
 
             return app()->call([$action, $method], [
@@ -97,7 +97,7 @@ trait InteractsWithActions
 
                 $form = $this->getMountedActionForm();
 
-                $action->formData((array) $form->getState()['data']);
+                $action->formData((array) $form->getState());
             }
 
             $action->fire('before_call', [

@@ -26,8 +26,9 @@ trait InteractsWithTables
 
     public function bootedInteractsWithTables(): void
     {
-        $this->cacheTables();
-        $this->initializeTableState();
+        // @todo this may be worthless. Remove if so.
+        // $this->cacheTables();
+        // $this->initializeTableState();
     }
 
     protected function initializeTableState(): void

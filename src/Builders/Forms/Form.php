@@ -60,14 +60,14 @@ class Form extends ViewBuilder
 
     public static function register(Component $livewire, ?string $name = null): void
     {
-        $name = $name ?? self::getDefaultName();
+        $name = $name ?? static::getDefaultName();
 
         Forms::register($name, fn () => static::for($livewire, $name));
     }
 
     public static function resolve(?string $name = null): ?static
     {
-        $name = $name ?? self::getDefaultName();
+        $name = $name ?? static::getDefaultName();
 
         return Forms::resolve($name);
     }
