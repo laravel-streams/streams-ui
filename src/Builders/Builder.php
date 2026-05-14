@@ -10,10 +10,8 @@ abstract class Builder
     use Concerns\CanBeAuthorized;
     use Concerns\CanBeConfigured;
     use Concerns\EvaluatesClosures;
-    
-    use Laravel\Tappable;
     use Laravel\Conditionable;
-
-    use Streams\HasMemory;
+    use Laravel\Tappable;
     use Streams\FiresCallbacks;
+    use Streams\HasMemory;
 }

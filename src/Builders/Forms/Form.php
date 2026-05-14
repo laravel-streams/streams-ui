@@ -4,27 +4,24 @@ namespace Streams\Ui\Builders\Forms;
 
 use Livewire\Component;
 use Illuminate\Support\Str;
-use Streams\Ui\Builders\Inputs\Input;
-use Streams\Ui\Builders\Lists\ListBuilder;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Builders\Inputs\Input;
 use Streams\Ui\Support\Facades\Forms;
 use Streams\Ui\Builders\Concerns as Common;
 
 class Form extends ViewBuilder
 {
-    use Common\HasName;
-    use Common\HasState;
-    use Common\HasEntry;
-    use Common\HasStream;
-    use Common\HasHeading;
+    use Common\BelongsToLivewire;
+    use Common\BelongsToParent;
     use Common\HasActions;
     use Common\HasComponents;
     use Common\HasDescription;
+    use Common\HasEntry;
+    use Common\HasHeading;
     use Common\HasHtmlAttributes;
-    
-    use Common\BelongsToParent;
-    use Common\BelongsToLivewire;
-
+    use Common\HasName;
+    use Common\HasState;
+    use Common\HasStream;
     use Concerns\HandlesValidation;
 
     protected string $view = 'ui::builders.form';
