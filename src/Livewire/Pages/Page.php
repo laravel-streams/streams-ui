@@ -3,7 +3,6 @@
 namespace Streams\Ui\Livewire\Pages;
 
 use Livewire\Component;
-use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\View;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Ui\Builders\Concerns as Common;
@@ -11,6 +10,7 @@ use Streams\Core\Support\Traits\FiresCallbacks;
 use Streams\Ui\Livewire\Forms\InteractsWithForms;
 use Streams\Ui\Livewire\Tables\InteractsWithTables;
 use Streams\Ui\Livewire\Actions\InteractsWithActions;
+use Livewire\Features\SupportFileUploads\WithFileUploads;
 
 abstract class Page extends Component
 {
