@@ -5,6 +5,7 @@ namespace Streams\Ui\Builders\Forms;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Streams\Ui\Builders\Inputs\Input;
+use Streams\Ui\Builders\Lists\ListBuilder;
 use Streams\Ui\Builders\ViewBuilder;
 use Streams\Ui\Support\Facades\Forms;
 use Streams\Ui\Builders\Concerns as Common;
@@ -107,6 +108,12 @@ class Form extends ViewBuilder
 
         if ($component instanceof Input) {
             $component->statePathPrefix($this->getStatePath());
+        }
+
+        if (is_object($component) && method_exists($component, 'getItems')) {
+            foreach ($component->getItems() as $item) {
+                $this->assignLivewireToComponentTree($item, $host);
+            }
         }
 
         if (is_object($component) && method_exists($component, 'getComponents')) {
