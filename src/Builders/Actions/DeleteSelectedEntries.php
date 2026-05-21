@@ -28,11 +28,6 @@ class DeleteSelectedEntries extends BulkAction
                     ->duration(5)
                     ->success()
                     ->send();
-            })
-            ->mergeHtmlAttributes(function () {
-                return [
-                    'wire:click' => 'mountTableBulkAction(\''.$this->getName().'\')',
-                ];
             });
     }
 }

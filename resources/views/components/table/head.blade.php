@@ -41,20 +41,16 @@
                         Select/deselect all items for bulk actions.
                     </span>
                 </label>
-                <div class="ml-2 relative" x-data="{ open: false }">
-                    <button type="button" class="p-1 text-gray-700 rounded-md disabled:border-transparent disabled:bg-none disabled:opacity-50" :class="selectedEntries.length > 0 ? 'bg-gray-200 hover:bg-gray-300 text-black' : null" x-on:click="open = !open" aria-haspopup="true" :aria-expanded="open.toString()" x-bind:disabled="selectedEntries.length == 0">
+                <div class="ml-2 relative">
+                    <button type="button" class="p-1 text-gray-700 rounded-md disabled:border-transparent disabled:bg-none disabled:opacity-50" :class="selectedEntries.length > 0 ? 'bg-gray-200 hover:bg-gray-300 text-black' : null" x-on:click="bulkMenuOpen = !bulkMenuOpen" aria-haspopup="true" :aria-expanded="bulkMenuOpen.toString()" x-bind:disabled="selectedEntries.length == 0">
                         <x-ui::icon icon="heroicon-o-ellipsis-vertical" class="h-5 w-5 text-gray-400 hover:text-gray-500"/>
                     </button>
-                    <div x-show="open" x-cloak x-on:click.outside="open = false" x-on:keydown.escape.window="open = false" class="absolute bg-white border rounded-lg shadow-lg overflow-hidden left-0 w-48 z-10">
+                    <div x-show="bulkMenuOpen" x-cloak x-on:click.outside="bulkMenuOpen = false" x-on:keydown.escape.window="bulkMenuOpen = false" class="absolute bg-white border rounded-lg shadow-lg overflow-hidden left-0 w-48 z-10">
                         {{-- Bulk Actions --}}
                         @foreach ($bulkActions as $action)
-                            @php
-                                $bulkActionClick = "mountTableBulkAction('".$action->getName()."', null, '".$tableName."')";
-                            @endphp
                             {!! $action
                                 ->mergeHtmlAttributes([
                                     'class' => 'w-full',
-                                    'wire:click' => $bulkActionClick,
                                 ])
                                 ->borderRadius('none')
                                 ->render() !!}

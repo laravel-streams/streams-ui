@@ -14,8 +14,10 @@ class BulkAction extends MountableAction
     {
         parent::setUp();
 
-        $this->htmlAttributes([
-            // 'x-bind:disabled' => '! selectedRecords.length',
+        $name = $this->getName();
+
+        $this->mergeHtmlAttributes([
+            'x-on:click.stop' => "mountBulkAction('{$name}')",
         ]);
     }
 
@@ -47,6 +49,7 @@ class BulkAction extends MountableAction
     {
         return match ($parameterName) {
             'records' => [$this->getRecords()],
+            'selectedEntries' => [$this->getLivewire()->getSelectedTableEntries($this->getTable()->getName())],
             'table' => [$this->getTable()],
             default => parent::resolveDefaultClosureDependency($parameterName),
         };

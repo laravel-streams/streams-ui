@@ -15,9 +15,10 @@ function table(tableName = 'default', initialSelectedEntries = [], selectedState
 
         shouldCheckUniqueSelection: true,
 
+        bulkMenuOpen: false,
+
         init: function () {
 
-            
             if (typeof Sortable !== 'undefined') {
                 
                 const sortable = new Sortable(this.$refs.table.querySelector('table.min-w-full tbody'), {
@@ -44,9 +45,9 @@ function table(tableName = 'default', initialSelectedEntries = [], selectedState
             );
 
             this.$watch('selectedEntries', () => {
-                
+
                 if (!this.shouldCheckUniqueSelection) {
-                
+
                     this.shouldCheckUniqueSelection = true
 
                     return
@@ -56,7 +57,7 @@ function table(tableName = 'default', initialSelectedEntries = [], selectedState
                 this.syncSelectedEntries();
 
                 this.shouldCheckUniqueSelection = false
-            });
+            }, { deep: true });
         },
 
         getSelectedStatePath: function () {
@@ -64,11 +65,21 @@ function table(tableName = 'default', initialSelectedEntries = [], selectedState
         },
 
         syncSelectedEntries: function () {
-            this.$wire.set(this.getSelectedStatePath(), this.selectedEntries, false);
+            this.$wire.set(
+                this.getSelectedStatePath(),
+                [...this.selectedEntries],
+                true,
+            );
         },
 
         mountBulkAction: function (name) {
-            this.$wire.mountTableBulkAction(name, this.selectedEntries, this.tableName)
+            this.syncSelectedEntries();
+
+            this.$wire.mountTableBulkAction(
+                name,
+                [...this.selectedEntries],
+                this.tableName,
+            );
         },
 
         /**
@@ -103,27 +114,24 @@ function table(tableName = 'default', initialSelectedEntries = [], selectedState
         },
 
         selectEntries: function (keys) {
+            let selected = [...this.selectedEntries]
+
             for (let key of keys) {
-                
-                if (this.isEntrySelected(key)) {
+
+                if (selected.includes(key)) {
                     continue
                 }
 
-                this.selectedEntries.push(key)
+                selected.push(key)
             }
+
+            this.selectedEntries = selected
         },
 
         deselectEntries: function (keys) {
-            for (let key of keys) {
-                
-                let index = this.selectedEntries.indexOf(key)
-
-                if (index === -1) {
-                    continue
-                }
-
-                this.selectedEntries.splice(index, 1)
-            }
+            this.selectedEntries = this.selectedEntries.filter(
+                (key) => ! keys.includes(key),
+            )
         },
 
         selectAllEntries: async function () {

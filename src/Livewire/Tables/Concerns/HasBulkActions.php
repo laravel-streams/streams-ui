@@ -62,9 +62,13 @@ trait HasBulkActions
         ?array $selectedRecords = null,
         string $table = 'default'
     ): mixed {
+        $table = $this->resolveTableForBulkAction($name, $table);
+
         $this->setMountedTableBulkActionName($name, $table);
 
         if ($selectedRecords !== null) {
+            $this->setSelectedTableEntries($selectedRecords, $table);
+        } elseif ($selectedRecords = $this->getSelectedTableEntries($table)) {
             $this->setSelectedTableEntries($selectedRecords, $table);
         }
 
@@ -233,5 +237,26 @@ trait HasBulkActions
     protected function setMountedTableBulkActionName(?string $name, string $table = 'default'): void
     {
         $this->getTable($table)->setState('mounted_bulk_action', $name);
+    }
+
+    protected function resolveTableForBulkAction(string $name, string $table): string
+    {
+        if ($table !== 'default') {
+            return $table;
+        }
+
+        foreach ($this->getCachedTables() as $tableName => $tableInstance) {
+            if (array_key_exists($name, $tableInstance->getFlatBulkActions())) {
+                return $tableName;
+            }
+        }
+
+        $resolved = Actions::resolve($name);
+
+        if ($resolved instanceof BulkAction) {
+            return $resolved->getTable()->getName();
+        }
+
+        return $table;
     }
 }
