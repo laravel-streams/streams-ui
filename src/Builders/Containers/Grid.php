@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Builders\Containers;
 
+use Illuminate\Support\Str;
 use Streams\Ui\Builders\Concerns as Common;
 
 class Grid extends Container
@@ -23,7 +24,7 @@ class Grid extends Container
 
     public static function make(?string $id = null): static
     {
-        $static = app(static::class, ['id' => $id]);
+        $static = app(static::class, ['id' => $id ?: Str::random(10)]);
 
         $static->configure();
 
