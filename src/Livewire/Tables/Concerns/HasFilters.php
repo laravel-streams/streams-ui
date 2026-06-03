@@ -36,25 +36,12 @@ trait HasFilters
         string $table = 'default'
     ): void {
         $tableInstance = $this->getTable($table);
-        $filter = $tableInstance->getFilter($filterName);
-        $filterResetState = $filter->getResetState();
 
-        $filterFormGroup = $this->getTableFiltersForm($table)->getComponents()[$filterName] ?? null;
-        $filterFields = $filterFormGroup?->getChildComponentContainer()->getFlatFields();
-
-        if (filled($field) && array_key_exists($field, $filterFields)) {
-            $filterFields = [$field => $filterFields[$field]];
+        if (! $tableInstance->getFilter($filterName)) {
+            return;
         }
 
-        foreach ($filterFields as $fieldName => $field) {
-            $state = $field->getState();
-
-            $field->state($filterResetState[$fieldName] ?? match (true) {
-                is_array($state) => [],
-                is_bool($state) => false,
-                default => null,
-            });
-        }
+        $tableInstance->resetFilter($filterName);
 
         if (! $shouldTriggerUpdatedFiltersHook) {
             return;
@@ -81,7 +68,16 @@ trait HasFilters
 
     public function resetTableFilters(string $table = 'default'): void
     {
-        $this->getTable($table)->setState('filters', []);
+        $tableInstance = $this->getTable($table);
+        $filters = [];
+
+        foreach ($tableInstance->getFilters() as $filter) {
+            $filters[$filter->getName()] = $filter->getResetState();
+        }
+
+        $tableInstance->setState('filters', $filters);
+
+        $this->updatedTableFilters($table);
     }
 
     public function resetTableFiltersForm(string $table = 'default'): void
@@ -117,7 +113,28 @@ trait HasFilters
 
     public function getTableFilterState(string $name, string $table = 'default'): ?array
     {
-        return $this->getTableFiltersForm($table)->getRawState()[$this->parseTableFilterName($name)] ?? null;
+        $name = $this->parseTableFilterName($name);
+
+        $filter = $this->getTable($table)->getFilter($name);
+
+        if (! $filter) {
+            return null;
+        }
+
+        return $filter->getState();
+    }
+
+    public function getTableFilterValue(string $name, string $table = 'default'): mixed
+    {
+        return $this->getTableFilterState($name, $table)['value'] ?? null;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function getTableActiveFilterValues(string $table = 'default'): array
+    {
+        return $this->getTable($table)->getActiveFilterValues();
     }
 
     public function parseTableFilterName(string $name): string

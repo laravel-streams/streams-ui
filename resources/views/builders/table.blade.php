@@ -7,7 +7,7 @@ $views = $table->getTableViews();
 $bulkActions = $table->getBulkActions();
 $tableName = $table->getName();
 
-$filtersState = $table->getFiltersStateValues();
+$hasActiveFilters = $table->hasActiveFilters();
 
 // Visible columns only.
 $columns = collect($columns)->filter(fn ($column) => $column->isVisible());
@@ -40,7 +40,7 @@ $selectedStatePath = $table->getStatePath() . '.selected';
     @endif --}}
     {{-- ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('table', 'filament/tables') }}" --}}>
 
-    @if ($paginator->count() > 0 || $filtersState)
+    @if ($paginator->count() > 0 || $hasActiveFilters)
     <x-ui::table.container>
 
         @if ($heading || $description || $headerActions)
@@ -79,7 +79,7 @@ $selectedStatePath = $table->getStatePath() . '.selected';
             
         </div>
         <div>
-            <x-ui::table.indicators :indicators="$table->getFiltersState()"/>
+            <x-ui::table.indicators :table="$table"/>
         </div>
         @endif
 
