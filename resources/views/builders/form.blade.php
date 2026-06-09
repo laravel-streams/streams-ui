@@ -23,7 +23,7 @@
             
         @endforeach
 
-        <div>
+        <div class="flex">
             @foreach ($form->getActions() as $action)
             {!! $action->render() !!}
             @endforeach
