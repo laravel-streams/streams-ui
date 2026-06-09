@@ -16,6 +16,16 @@
         return "span {$span} / span {$span}";
     };
 
+    $spacingClasses = match ($container->getSpacing() ?? 's') {
+        'xs' => 'space-y-2',
+        's' => 'space-y-4',
+        'm' => 'space-y-6',
+        'l' => 'space-y-8',
+        'xl' => 'space-y-10',
+        '2xl' => 'space-y-12',
+        default => 'space-y-4',
+    };
+
     $classes = Arr::toCssClasses([
         '',
         // match ($color) {
@@ -28,7 +38,8 @@
 <div {!!
     $attributes
         ->class([
-            'flex flex-col space-y-4',
+            'flex flex-col',
+            $spacingClasses,
             'col-[--col-span-default]' => $columnSpan['default'] ?? null,
             'sm:col-[--col-span-sm]' => $columnSpan['sm'] ?? null,
             'md:col-[--col-span-md]' => $columnSpan['md'] ?? null,

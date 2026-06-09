@@ -3,6 +3,7 @@
 namespace Streams\Ui\Builders\Tables\Filters\Concerns;
 
 use Illuminate\Support\Arr;
+use Streams\Ui\Builders\ViewBuilder;
 
 trait HasFilterState
 {
@@ -44,7 +45,7 @@ trait HasFilterState
     }
 
     /**
-     * @return array<int, \Streams\Ui\Builders\ViewBuilder>
+     * @return array<int, ViewBuilder>
      */
     public function getFormSchema(): array
     {

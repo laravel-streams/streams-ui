@@ -15,6 +15,7 @@ class Container extends ViewBuilder
     use Support\HasComponents;
     use Support\HasHtmlAttributes;
     use Support\HasId;
+    use Support\HasSpacing;
 
     protected string $viewIdentifier = 'container';
 

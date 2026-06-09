@@ -2,7 +2,9 @@
 
 namespace Streams\Ui\Criteria\Adapter;
 
+use OpenSearch\Client;
 use Illuminate\Support\Arr;
+use OpenSearch\ClientBuilder;
 use Streams\Core\Stream\Stream;
 use Illuminate\Support\Facades\Config;
 use Streams\Core\Criteria\Adapter\AbstractAdapter;
@@ -23,9 +25,9 @@ class OpenSearchAdapter extends AbstractAdapter
         $this->query = $this->buildClient();
     }
 
-    protected function buildClient(): \OpenSearch\Client
+    protected function buildClient(): Client
     {
-        if (! class_exists(\OpenSearch\ClientBuilder::class)) {
+        if (! class_exists(ClientBuilder::class)) {
             throw new \RuntimeException(
                 'The opensearch-project/opensearch-php package is required to use the OpenSearch adapter.'
             );
@@ -36,7 +38,7 @@ class OpenSearchAdapter extends AbstractAdapter
 
         $config = Config::get("streams.opensearch.connections.{$connection}", []);
 
-        $builder = \OpenSearch\ClientBuilder::create()
+        $builder = ClientBuilder::create()
             ->setHosts(Arr::get($config, 'hosts', ['https://localhost:9200']));
 
         $username = Arr::get($config, 'username');

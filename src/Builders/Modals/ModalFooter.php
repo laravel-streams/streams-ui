@@ -2,8 +2,8 @@
 
 namespace Streams\Ui\Builders\Modals;
 
-use Streams\Ui\Builders\Concerns as Common;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Builders\Concerns as Common;
 
 class ModalFooter extends ViewBuilder
 {
