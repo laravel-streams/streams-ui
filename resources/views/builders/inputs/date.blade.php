@@ -51,7 +51,7 @@
                             'min' => $getMinDate() ?: null,
                             'placeholder' => $getPlaceholder(),
                             'readonly' => $isReadonly(),
-                            'required' => $isRequired() && (! $isConcealed),
+                            'required' => $isRequired(),
                             'step' => $getStep(),
                             'type' => 'date',
                             'wire:model' => $statePath,

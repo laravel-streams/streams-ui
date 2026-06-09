@@ -50,7 +50,7 @@
                             'min' => $getMinTime() ?: null,
                             'placeholder' => $getPlaceholder(),
                             'readonly' => $isReadonly(),
-                            'required' => $isRequired() && (! $isConcealed),
+                            'required' => $isRequired(),
                             'step' => $getStep(),
                             'type' => 'time',
                             'wire:model' => $statePath,
