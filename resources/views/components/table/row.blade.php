@@ -12,14 +12,16 @@
     // 'striped' => false,
 ])
 
-<tr @class([
-        'relative h-full transition duration-75',
-        // 'hover:bg-gray-50' => ($entryUrl || $entryAction),
-        'hover:bg-gray-50',
-        ...($table?->getRowClasses($entry) ?? []),
-    ])
-    data-key="{{ $entry->id ?? null }}"
->
+@php
+    $rowAttributes = ($table?->getRowAttributeBag($entry) ?? new \Illuminate\View\ComponentAttributeBag)
+        ->merge(['data-key' => $entry->id ?? null], escape: false)
+        ->class([
+            'relative h-full transition duration-75',
+            'hover:bg-gray-50',
+            ...($table?->getRowClasses($entry) ?? []),
+        ]);
+@endphp
+<tr {{ $rowAttributes }}>
 
     @if ($bulkActions)
     <td class="p-0 w-px">

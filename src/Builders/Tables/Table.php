@@ -33,6 +33,7 @@ class Table extends ViewBuilder implements HasActions
     use Concerns\HasEmptyState;
     use Concerns\HasEntryClasses;
     use Concerns\HasEntryUrl;
+    use Concerns\HasRowAttributes;
     use Concerns\HasFilters;
     use Concerns\HasHeaderActions;
     use Concerns\HasViews;
