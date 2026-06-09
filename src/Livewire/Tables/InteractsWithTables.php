@@ -26,9 +26,8 @@ trait InteractsWithTables
 
     public function bootedInteractsWithTables(): void
     {
-        // @todo this may be worthless. Remove if so.
-        // $this->cacheTables();
-        // $this->initializeTableState();
+        $this->cacheTables();
+        $this->initializeTableState();
     }
 
     protected function initializeTableState(): void
@@ -90,6 +89,8 @@ trait InteractsWithTables
             $table->livewire($this);
 
             $this->cachedTables[$name] = $this->table($table);
+
+            $this->initializeSingleTableState($this->cachedTables[$name]);
         }
 
         if (! isset($this->cachedTables['default'])) {

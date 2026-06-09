@@ -1,12 +1,13 @@
 @props([
-    'indicators' => [],
+    'table',
 ])
 
 @php
-    $indications = array_filter($indicators, fn ($item) => $item['value'] ?? null);
+    $activeFilters = collect($table->getFilters())->filter(fn ($filter) => $filter->isActive());
+    $tableName = $table->getName();
 @endphp
 
-@if ($indications)
+@if ($activeFilters->isNotEmpty())
 <div
     {{ $attributes->class(['fi-ta-filter-indicators flex items-start justify-between gap-x-3 bg-gray-50 px-3 py-1.5 sm:px-6']) }}
 >
@@ -15,58 +16,38 @@
             class="whitespace-nowrap text-sm font-medium leading-6 text-gray-600"
         >Active filters:</span>
 
-        <div class="flex flex-wrap">
-            @foreach ($indications as $label => $indicator)
-                {{-- <x-ui::badge :color="$indicator->getColor()">
-                    {{ $indicator->getLabel() }}
+        <div class="flex flex-wrap gap-2">
+            @foreach ($activeFilters as $filter)
+                <span class="inline-flex items-center gap-1">
+                    <x-ui::badge color="primary">
+                        {{ $filter->getIndicatorLabel() }}: {{ $filter->getIndicatorValue() }}
+                    </x-ui::badge>
 
-                    @if ($indicator->isRemovable())
-                        <x-slot
-                            name="deleteButton"
-                            :label="__('ui::table.filters.actions.remove.label')"
-                            wire:click="{{ $indicator->getRemoveLivewireClickHandler() }}"
-                            wire:loading.attr="disabled"
-                            wire:target="removeTableFilter"
-                        ></x-slot>
-                    @endif
-                </x-ui::badge> --}}
-                <x-ui::badge color="primary">
-                    {{ Str::title(Str::humanize($label)) }}: {{ $indicator['value'] }}
-
-                    {{-- Uncomment if you want to add a delete button --}}
-                    {{-- @if ($indicator->isRemovable())
-                        <x-slot
-                            name="deleteButton"
-                            :label="__('ui::table.filters.actions.remove.label')"
-                            wire:click="{{ $indicator->getRemoveLivewireClickHandler() }}"
-                            wire:loading.attr="disabled"
-                            wire:target="removeTableFilter"
-                        ></x-slot>
-                    {{-- {{ $this->tableFilters }} --}}
-
-                    {{-- @if ($indicator->isRemovable())
-                        <x-slot
-                            name="deleteButton"
-                            :label="__('ui::table.filters.actions.remove.label')"
-                            wire:click="{{ $indicator->getRemoveLivewireClickHandler() }}"
-                            wire:loading.attr="disabled"
-                            wire:target="removeTableFilter"
-                        ></x-slot>
-                    @endif --}}
-                </x-ui::badge>
+                    <button
+                        type="button"
+                        class="text-gray-400 hover:text-gray-600"
+                        wire:click="removeTableFilter('{{ $filter->getName() }}', null, true, '{{ $tableName }}')"
+                        wire:loading.attr="disabled"
+                        wire:target="removeTableFilter"
+                        aria-label="Remove {{ $filter->getIndicatorLabel() }} filter"
+                    >
+                        <x-heroicon-m-x-mark class="h-4 w-4" />
+                    </button>
+                </span>
             @endforeach
         </div>
     </div>
 
     <div class="mt-0.5">
-        {{-- <x-ui::action
-            color="gray"
-            icon="heroicon-m-x-mark"
-            size="sm"
-            :tooltip="__('filament-tables::table.filters.actions.remove_all.tooltip')"
-            wire:click="removeTableFilters"
-            wire:target="removeTableFilters,removeTableFilter"
-        /> --}}
+        <button
+            type="button"
+            class="text-sm font-medium text-gray-600 hover:text-gray-900"
+            wire:click="resetTableFilters('{{ $tableName }}')"
+            wire:loading.attr="disabled"
+            wire:target="resetTableFilters,removeTableFilter"
+        >
+            Clear all
+        </button>
     </div>
 </div>
 @endif

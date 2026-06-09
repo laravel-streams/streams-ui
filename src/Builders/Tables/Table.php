@@ -33,6 +33,7 @@ class Table extends ViewBuilder implements HasActions
     use Concerns\HasEmptyState;
     use Concerns\HasEntryClasses;
     use Concerns\HasEntryUrl;
+    use Concerns\HasRowAttributes;
     use Concerns\HasFilters;
     use Concerns\HasHeaderActions;
     use Concerns\HasViews;
@@ -250,17 +251,88 @@ class Table extends ViewBuilder implements HasActions
         return $this->getState('filters', []);
     }
 
-    public function getFiltersStateValues(): array
+    /**
+     * @return array<string, mixed>
+     */
+    public function getFilterState(string $name): array
     {
-        $state = $this->getState('filters', []);
+        $filter = $this->getFilter($name);
+        $state = $this->getFiltersState()[$name] ?? [];
 
-        $values = [];
-
-        foreach ($state as $filter => $value) {
-            $values[$filter] = $value['value'];
+        if (! is_array($state)) {
+            $state = [];
         }
 
-        return array_filter($values);
+        if ($filter) {
+            return array_merge($filter->getResetState(), $state);
+        }
+
+        return $state;
+    }
+
+    public function getFilterValue(string $name): mixed
+    {
+        return Arr::get($this->getFilterState($name), 'value');
+    }
+
+    public function setFilterState(string $name, array $state): void
+    {
+        $filters = $this->getFiltersState();
+        $filters[$name] = $state;
+        $this->setState('filters', $filters);
+    }
+
+    public function setFilterValue(string $name, mixed $value): void
+    {
+        $this->setFilterState($name, array_merge($this->getFilterState($name), ['value' => $value]));
+    }
+
+    public function resetFilter(string $name): void
+    {
+        $filter = $this->getFilter($name);
+
+        if (! $filter) {
+            return;
+        }
+
+        $this->setFilterState($name, $filter->getResetState());
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function getActiveFilterValues(): array
+    {
+        $values = [];
+
+        foreach ($this->getFilters() as $filter) {
+            if ($filter->isActive()) {
+                $values[$filter->getName()] = $filter->getValue();
+            }
+        }
+
+        return $values;
+    }
+
+    public function hasActiveFilters(): bool
+    {
+        foreach ($this->getFilters() as $filter) {
+            if ($filter->isActive()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @return array<string, mixed>
+     *
+     * @deprecated Use {@see getActiveFilterValues()} instead.
+     */
+    public function getFiltersStateValues(): array
+    {
+        return $this->getActiveFilterValues();
     }
 
     public function getSortColumn(): ?string
@@ -292,11 +364,9 @@ class Table extends ViewBuilder implements HasActions
 
     public function applyFiltersToQuery(Criteria|Builder $query): Criteria|Builder
     {
-        $data = $this->getFiltersState();
-
         foreach ($this->getFilters() as $filter) {
-            if ($state = Arr::get($data, $filter->getName().'.value')) {
-                $filter->apply($query, $this, $state);
+            if ($filter->isActive()) {
+                $filter->apply($query, $this, $filter->getValue());
             }
         }
 

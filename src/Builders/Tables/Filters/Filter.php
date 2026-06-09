@@ -9,11 +9,13 @@ use Streams\Ui\Builders\Concerns as Support;
 use Illuminate\Contracts\Database\Query\Builder;
 use Streams\Ui\Builders\Tables\Concerns\BelongsToTable;
 use Streams\Ui\Builders\Inputs\Concerns\CanBeAutofocused;
+use Streams\Ui\Builders\Tables\Filters\Concerns\HasFilterState;
 
 class Filter extends ViewBuilder
 {
     use BelongsToTable;
     use CanBeAutofocused;
+    use HasFilterState;
 
     // use Support\HasColumns;
     use Support\CanBeHidden;
