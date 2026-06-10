@@ -465,6 +465,11 @@ trait CanBeValidated
             $rules = explode('|', $rules);
         }
 
+        if (($match = array_search('required', $rules)) !== false) {
+            unset($rules[$match]);
+            $this->required(true);
+        }
+
         $this->rules = [
             ...$this->rules,
             ...array_map(static fn (string|object $rule): array => [$rule, $condition], $rules),
