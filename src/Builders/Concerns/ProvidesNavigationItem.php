@@ -48,9 +48,9 @@ trait ProvidesNavigationItem
         ];
     }
 
-    protected static function getNavigationLabel(): string
+    protected static function getNavigationLabel(): ?string
     {
-        return static::$navigationLabel ?: static::getTitle();
+        return static::$navigationLabel;
     }
 
     protected static function getNavigationIcon(): ?string
