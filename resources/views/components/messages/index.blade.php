@@ -1,6 +1,7 @@
 <?php
 
     use Streams\Ui\Notifications\Notification;
+    use Streams\Ui\Support\Facades\Colors;
     use Streams\Ui\Support\Facades\Notifications;
 ?>
 <div aria-live="assertive" class="z-50 pointer-events-none fixed inset-0 flex items-start px-4 py-6 sm:items-start sm:p-6">
@@ -18,6 +19,7 @@
 
         @php
         $notification = Notification::fromArray($data);
+        $contextColor = $notification->getIconColor() ?? $notification->getColor();
         @endphp
 
         {{-- Simple --}}
@@ -52,13 +54,28 @@
                 }
             }"
             x-on:keydown.escape.window="close()"
+            @style([
+                Colors::colorVariables(
+                    $contextColor,
+                    shades: [400, 500, 600],
+                ) => filled($contextColor) && $contextColor !== 'gray',
+            ])
             class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 relative">
 
             <div class="p-4">
                 <div class="flex items-start">
 
                     @if ($icon = $notification->getIcon())
-                    <x-ui::icon :icon="$icon" class="w-7 h-7" />
+                    <x-ui::icon
+                        :icon="$icon"
+                        @class([
+                            'w-7 h-7 flex-shrink-0',
+                            match ($contextColor) {
+                                null, 'gray' => 'text-gray-400',
+                                default => 'text-custom-500',
+                            },
+                        ])
+                    />
                     @endif
 
                     <div class="ml-3 w-0 flex-1 pt-0.5">
