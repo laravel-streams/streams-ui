@@ -10,7 +10,7 @@
             :tag="$action->getTag()"
             :href="$action->getUrl()"
             :icon="$action->getIcon()"
-            :size="$action->getSize()"
+            :size="$action->getSize() ?? 'md'"
             :color="$action->getColor()"
             :style="$action->getStyle()"
             :tooltip="$action->getTooltip()"
