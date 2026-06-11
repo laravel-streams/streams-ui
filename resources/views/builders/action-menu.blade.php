@@ -11,6 +11,7 @@
             :href="$action->getUrl()"
             :icon="$action->getIcon()"
             :size="$action->getSize()"
+            icon-size="h-6 w-6"
             :color="$action->getColor()"
             :style="$action->getStyle()"
             :tooltip="$action->getTooltip()"

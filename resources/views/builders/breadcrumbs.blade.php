@@ -2,7 +2,7 @@
     $items = $breadcrumbs->getItems();
 @endphp
 
-<div {{ $attributes->class('-mx-4 mb-4 -mt-4 opacity-70') }}>
+<div {{ $attributes->class('-mx-2 mb-4 -mt-4 opacity-70') }}>
     @foreach ($items as $item)
     @if ($item->isVisible())
         {!! $item->render() !!}
