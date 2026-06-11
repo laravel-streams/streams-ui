@@ -21,8 +21,8 @@ use Streams\Ui\Support\Facades\UI;
         {{-- Brand --}}
         <div class="ui-brand flex h-16 lg:hidden shrink-0 items-center font-bold">
             <a href="{{ UI::getHomeUrl() }}" class="text-xl" title="Go to panel homepage.">
-                @if ($logo = UI::currentPanel()->getFavicon())
-                    <img src="{{ $logo }}" class="h-8" alt="{{ __(UI::getPanel()->getBrandName()) }} Logo">
+                @if ($logo = UI::currentPanel()->getBrandLogo())
+                    <img src="{{ $logo }}" class="h-auto w-10" alt="{{ __(UI::getPanel()->getBrandName()) }} Logo">
                 @else
                     {{ __(UI::getPanel()->getBrandName()) }}
                 @endif
