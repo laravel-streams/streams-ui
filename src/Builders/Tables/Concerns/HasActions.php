@@ -104,6 +104,8 @@ trait HasActions
         }
 
         $mountedRecord = $this->getLivewire()->getMountedTableActionRecord();
+        $recordKey = $this->getLivewire()->getMountedTableActionRecordKey();
+        $entry = $mountedRecord ?? (filled($recordKey) ? $recordKey : null);
 
         // $action = $this->getFlatActions()[$name] ?? null;
         $action = Arr::first($this->getActions(), fn ($action) => $action->getName() == $name);
@@ -113,7 +115,7 @@ trait HasActions
         }
 
         return $this->getMountableModalActionFromAction(
-            $action->entry($mountedRecord),
+            $action->entry($entry),
             modalActionNames: $ActionNames ?? [],
             parentActionName: $name,
             mountedRecord: $mountedRecord,
