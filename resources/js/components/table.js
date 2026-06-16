@@ -1,23 +1,63 @@
 // import Sortable from 'sortablejs';
 
-function table(tableName = 'default', initialSelectedEntries = [], selectedStatePath = null) {
+function table(tableName = 'default', selectedStatePath = null) {
     return {
         
         isLoading: false,
 
         tableName,
-        selectedEntries: initialSelectedEntries,
+        selectedEntries: [],
         selectedStatePath,
 
         isDraggable: true,
         draggedIndex: null,
         droppedIndex: null,
 
-        shouldCheckUniqueSelection: true,
-
         bulkMenuOpen: false,
+        allEntriesSelected: false,
+
+        normalizeEntryKey: function (key) {
+            return String(key)
+        },
 
         init: function () {
+            this.$watch('selectedEntries', () => {
+                this.syncSelectedEntries()
+                this.$nextTick(() => this.updateAllEntriesSelectedState())
+            }, { deep: true })
+
+            this.$el.addEventListener('click', (event) => {
+                if (event.target.closest('[data-bulk-menu-trigger]')) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    this.bulkMenuOpen = !this.bulkMenuOpen
+
+                    return
+                }
+
+                if (event.target.closest('[data-select-all-trigger]')) {
+                    event.preventDefault()
+                    this.toggleSelectAllEntries()
+                }
+            })
+
+            document.addEventListener('click', (event) => {
+                if (!this.bulkMenuOpen) {
+                    return
+                }
+
+                if (event.target.closest('[data-bulk-menu]')) {
+                    return
+                }
+
+                this.bulkMenuOpen = false
+            })
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && this.bulkMenuOpen) {
+                    this.bulkMenuOpen = false
+                }
+            })
 
             if (typeof Sortable !== 'undefined') {
                 
@@ -44,20 +84,36 @@ function table(tableName = 'default', initialSelectedEntries = [], selectedState
                 this.deselectAllEntries(),
             );
 
-            this.$watch('selectedEntries', () => {
+            if (typeof Livewire !== 'undefined') {
+                Livewire.hook('commit', ({ component, succeed }) => {
+                    if (component !== this.$wire) {
+                        return
+                    }
 
-                if (!this.shouldCheckUniqueSelection) {
+                    succeed(() => {
+                        this.$nextTick(() => this.updateAllEntriesSelectedState())
+                    })
+                })
+            }
 
-                    this.shouldCheckUniqueSelection = true
+            this.updateAllEntriesSelectedState()
+        },
 
-                    return
-                }
+        syncSelectAllCheckbox: function (selected) {
+            const checkbox = this.$el.querySelector('[data-select-all-checkbox]')
 
-                this.selectedEntries = [...new Set(this.selectedEntries)]
-                this.syncSelectedEntries();
+            if (! checkbox) {
+                return
+            }
 
-                this.shouldCheckUniqueSelection = false
-            }, { deep: true });
+            checkbox.checked = selected
+        },
+
+        updateAllEntriesSelectedState: function () {
+            const selected = this.isAllEntriesSelected()
+
+            this.allEntriesSelected = selected
+            this.syncSelectAllCheckbox(selected)
         },
 
         getSelectedStatePath: function () {
@@ -72,9 +128,17 @@ function table(tableName = 'default', initialSelectedEntries = [], selectedState
             );
         },
 
-        mountBulkAction: function (name) {
-            this.syncSelectedEntries();
+        isAllEntriesSelected: function () {
+            const keys = this.getAllEntries()
 
+            if (keys.length === 0) {
+                return false
+            }
+
+            return keys.every((key) => this.isEntrySelected(key))
+        },
+
+        mountBulkAction: function (name) {
             this.$wire.mountTableBulkAction(
                 name,
                 [...this.selectedEntries],
@@ -86,82 +150,75 @@ function table(tableName = 'default', initialSelectedEntries = [], selectedState
          * Selection
          */
         toggleSelectAllEntries: function () {
-            
             const keys = this.getAllEntries()
 
-            if (this.areEntriesSelected(keys)) {
-                
-                this.deselectEntries(keys)
-
+            if (keys.length === 0) {
                 return
             }
 
-            this.selectEntries(keys)
+            if (this.areEntriesSelected(keys)) {
+                this.deselectEntries(keys)
+            } else {
+                this.selectEntries(keys)
+            }
 
+            this.updateAllEntriesSelectedState()
         },
 
         getAllEntries: function () {
-            
-            const keys = []
-
-            for (let checkbox of this.$root.getElementsByClassName(
-                'ui-table-entry-checkbox',
-            )) {
-                keys.push(checkbox.value)
-            }
-
-            return keys
+            return Array.from(
+                this.$el.querySelectorAll('.ui-table-entry-checkbox'),
+                (checkbox) => checkbox.value,
+            )
         },
 
         selectEntries: function (keys) {
-            let selected = [...this.selectedEntries]
-
             for (let key of keys) {
+                const normalizedKey = this.normalizeEntryKey(key)
 
-                if (selected.includes(key)) {
+                if (this.isEntrySelected(normalizedKey)) {
                     continue
                 }
 
-                selected.push(key)
+                this.selectedEntries.push(normalizedKey)
             }
-
-            this.selectedEntries = selected
         },
 
         deselectEntries: function (keys) {
-            this.selectedEntries = this.selectedEntries.filter(
-                (key) => ! keys.includes(key),
-            )
+            const normalizedKeys = new Set(keys.map((key) => this.normalizeEntryKey(key)))
+
+            for (let index = this.selectedEntries.length - 1; index >= 0; index--) {
+                if (normalizedKeys.has(this.normalizeEntryKey(this.selectedEntries[index]))) {
+                    this.selectedEntries.splice(index, 1)
+                }
+            }
         },
 
         selectAllEntries: async function () {
             this.isLoading = true
 
-            this.selectedEntries =
-                await this.$wire.getAllSelectableTableEntryKeys()
+            this.selectedEntries.splice(0, this.selectedEntries.length)
+
+            for (let key of await this.$wire.getAllSelectableTableEntryKeys()) {
+                this.selectedEntries.push(this.normalizeEntryKey(key))
+            }
 
             this.isLoading = false
         },
 
         deselectAllEntries: function () {
-            this.selectedEntries = []
+            this.selectedEntries.splice(0, this.selectedEntries.length)
         },
 
         isEntrySelected: function (key) {
-            return this.selectedEntries.includes(key)
-        },
-
-        toggleEntry: function (key) {
-            if (this.isEntrySelected(key)) {
-                this.deselectEntries([key])
-            } else {
-                this.selectEntries([key])
-            }
-            
-            this.syncSelectedEntries();
+            return this.selectedEntries.includes(this.normalizeEntryKey(key))
         },
 
         areEntriesSelected: function (keys) {
+            if (keys.length === 0) {
+                return false
+            }
+
             return keys.every((key) => this.isEntrySelected(key))
         }
         

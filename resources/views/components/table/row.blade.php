@@ -28,11 +28,9 @@
         <div class="px-3 py-4">
             <label>
                 <input type="checkbox"
-                    {{-- x-model="selectedEntries" --}}
-                    :checked="isEntrySelected('{{ $entry->id }}')"
-                    @change="toggleEntry('{{ $entry->id }}')"
-                    class="ui-table-entry-checkbox rounded border-none bg-white shadow-sm ring-1 transition duration-75 checked:ring-0 focus:ring-2 focus:ring-offset-0 disabled:pointer-events-none disabled:bg-gray-50 disabled:text-gray-50 disabled:checked:bg-current disabled:checked:text-gray-400 text-primary-600 ring-gray-950/10 focus:ring-primary-600 checked:focus:ring-primary-500/50"
-                    value="{{ $entry->id }}">
+                    x-model="selectedEntries"
+                    value="{{ $entry->id }}"
+                    class="ui-table-entry-checkbox rounded border-none bg-white shadow-sm ring-1 transition duration-75 checked:ring-0 focus:ring-2 focus:ring-offset-0 disabled:pointer-events-none disabled:bg-gray-50 disabled:text-gray-50 disabled:checked:bg-current disabled:checked:text-gray-400 text-primary-600 ring-gray-950/10 focus:ring-primary-600 checked:focus:ring-primary-500/50">
 
                 <span class="sr-only">
                     Select/deselect item {{ $entry->id }} for bulk actions.

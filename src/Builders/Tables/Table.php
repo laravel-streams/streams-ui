@@ -59,7 +59,10 @@ class Table extends ViewBuilder implements HasActions
 
         $instance->configure();
 
-        Tables::register($instance->getName(), fn () => $instance);
+        Tables::register(
+            $instance->getName(),
+            fn () => static::for($livewire, $instance->getName()),
+        );
 
         return $instance;
     }

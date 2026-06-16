@@ -1,11 +1,11 @@
 @php
     $action = $this->getMountedAction();
 
-    if (!$action && isset($this->table)) {
+    if (! $action && method_exists($this, 'getMountedTableAction')) {
         $action = $this->getMountedTableAction();
     }
 
-    if (!$action && isset($this->table)) {
+    if (! $action && method_exists($this, 'getMountedTableBulkAction')) {
         $action = $this->getMountedTableBulkAction();
     }
 @endphp
