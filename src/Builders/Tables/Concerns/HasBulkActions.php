@@ -98,7 +98,7 @@ trait HasBulkActions
 
     public function getBulkAction(string $name): ?BulkAction
     {
-        $action = $this->getBulkActions()[$name] ?? null;
+        $action = $this->getFlatBulkActions()[$name] ?? null;
 
         $action?->records($this->getLivewire()->getSelectedTableRecords(...));
 

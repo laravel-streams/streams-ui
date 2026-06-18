@@ -21,7 +21,6 @@ $headerActions = [];//$table->getHeaderActions();
 $isPaginated = $table->isPaginated();
 $paginationOptions = $table->getPaginationOptions();
 
-$selectedRecords = $table->getSelectedEntryKeys();
 $selectedStatePath = $table->getStatePath() . '.selected';
 
 @endphp
@@ -29,7 +28,7 @@ $selectedStatePath = $table->getStatePath() . '.selected';
 {!! Assets::inline(base_path('/vendor/streams/ui/resources/js/components/table.js')) !!}
 
 <div
-    x-data="table('{{ $tableName }}', @js($selectedRecords), @js($selectedStatePath))"
+    x-data="table('{{ $tableName }}', @js($selectedStatePath))"
     {{-- @if (! $isLoaded)
         wire:init="loadTable"
     @endif --}}

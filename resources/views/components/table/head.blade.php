@@ -15,37 +15,23 @@
 
         @if ($bulkActions)
         <th scope="col" class="p-0 w-0" width="10px">
-            <div class="px-3 flex items-center">
-                <label class="flex">
+            <div class="px-3 flex items-center" data-select-all-trigger>
+                <label class="flex cursor-pointer">
                     <input type="checkbox"
+                        wire:ignore.self
+                        data-select-all-checkbox
                         class="rounded border-none bg-white shadow-sm ring-1 transition duration-75 checked:ring-0 focus:ring-2 focus:ring-offset-0 disabled:pointer-events-none disabled:bg-gray-50 disabled:text-gray-50 disabled:checked:bg-current disabled:checked:text-gray-400 text-primary-600 ring-gray-950/10 focus:ring-primary-600 checked:focus:ring-primary-500/50"
-                        value="all"
-                        x-bind:checked="
-                            
-                            const entries = getAllEntries()
-
-                            if (entries.length && areEntriesSelected(entries)) {
-                                
-                                $el.checked = true
-
-                                return 'checked'
-                            }
-
-                            $el.checked = false
-
-                            return null
-                        "
-                        x-on:click="toggleSelectAllEntries">
+                        value="all">
 
                     <span class="sr-only">
                         Select/deselect all items for bulk actions.
                     </span>
                 </label>
-                <div class="ml-2 relative">
-                    <button type="button" class="p-1 text-gray-700 rounded-md disabled:border-transparent disabled:bg-none disabled:opacity-50" :class="selectedEntries.length > 0 ? 'bg-gray-200 hover:bg-gray-300 text-black' : null" x-on:click="bulkMenuOpen = !bulkMenuOpen" aria-haspopup="true" :aria-expanded="bulkMenuOpen.toString()" x-bind:disabled="selectedEntries.length == 0">
+                <div class="ml-2 relative" data-bulk-menu>
+                    <button type="button" data-bulk-menu-trigger class="p-1 text-gray-700 rounded-md disabled:border-transparent disabled:bg-none disabled:opacity-50" :class="selectedEntries.length > 0 ? 'bg-gray-200 hover:bg-gray-300 text-black' : null" aria-haspopup="true" :aria-expanded="bulkMenuOpen.toString()" x-bind:disabled="selectedEntries.length == 0">
                         <x-ui::icon icon="heroicon-o-ellipsis-vertical" class="h-5 w-5 text-gray-400 hover:text-gray-500"/>
                     </button>
-                    <div x-show="bulkMenuOpen" x-cloak x-on:click.outside="bulkMenuOpen = false" x-on:keydown.escape.window="bulkMenuOpen = false" class="absolute bg-white border rounded-lg shadow-lg overflow-hidden left-0 w-48 z-10">
+                    <div x-show="bulkMenuOpen" x-cloak class="absolute bg-white border rounded-lg shadow-lg overflow-hidden left-0 w-48 z-10">
                         {{-- Bulk Actions --}}
                         @foreach ($bulkActions as $action)
                             {!! $action

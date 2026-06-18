@@ -111,7 +111,7 @@ trait HasActions
         $this->setMountedTableActions($mountedActions, $table);
         $this->setMountedTableActionData($mountedData, $table);
 
-        if (count($mountedActions) === 1) {
+        if (filled($entry)) {
             $this->mountedTableActionRecord($entry, $table);
         }
 
@@ -185,7 +185,8 @@ trait HasActions
             return false;
         }
 
-        return $action->getModalDescription() ||
+        return $action->getModalHeading() ||
+            $action->getModalDescription() ||
             $action->getModalContent() ||
             $action->getModalContentFooter(); // ||
         // $action->getInfolist() ||
@@ -305,8 +306,7 @@ trait HasActions
             // $this->closeTableActionModal($action);
 
             $action?->entry(null);
-            // @todo
-            // $this->mountedTableActionRecord(null);
+            $this->mountedTableActionRecord(null, $table);
 
             return;
         }

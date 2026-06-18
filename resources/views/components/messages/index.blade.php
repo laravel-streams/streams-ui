@@ -97,7 +97,7 @@
             </div>
 
             <div x-show="timeout" class="absolute inset-bottom mb-6 h-px -mt-px w-full">
-                <div class="h-3 bg-black transition-all ease-linear" :style="`width: ${width}%;`"></div>
+                <div class="h-3 bg-black opacity-25 transition-all ease-linear" :style="`width: ${width}%;`"></div>
             </div>
         </div>
         @endforeach
