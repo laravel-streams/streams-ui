@@ -22,9 +22,9 @@ use Streams\Ui\Support\Facades\UI;
         <div class="ui-brand flex h-16 lg:hidden shrink-0 items-center font-bold">
             <a href="{{ UI::getHomeUrl() }}" class="text-xl" title="Go to panel homepage.">
                 @if ($logo = UI::currentPanel()->getBrandLogo())
-                    <img src="{{ $logo }}" class="h-auto w-10" alt="{{ __(UI::getPanel()->getBrandName()) }} Logo">
+                <img src="{{ $logo }}" class="h-auto w-10" alt="{{ __(UI::getPanel()->getBrandName()) }} Logo">
                 @else
-                    {{ __(UI::getPanel()->getBrandName()) }}
+                {{ __(UI::getPanel()->getBrandName()) }}
                 @endif
             </a>
         </div>
@@ -43,9 +43,9 @@ use Streams\Ui\Support\Facades\UI;
             <div class="flex h-16 shrink-0 items-center font-bold mr-12">
                 <a href="{{ UI::getHomeUrl() }}" class="text-xl" title="Go to panel homepage.">
                     @if ($logo = UI::currentPanel()->getBrandLogo())
-                        <img src="{{ $logo }}" alt="{{ __(UI::getPanel()->getBrandName()) }} Logo">
+                    <img src="{{ $logo }}" alt="{{ __(UI::getPanel()->getBrandName()) }} Logo">
                     @else
-                        {{ __(UI::getPanel()->getBrandName()) }}
+                    {{ __(UI::getPanel()->getBrandName()) }}
                     @endif
                 </a>
             </div>
@@ -55,14 +55,14 @@ use Streams\Ui\Support\Facades\UI;
             @include('ui::layouts.partials.navigation-top')
             @endif
         </div>
-        
+
         <div class="flex items-center gap-x-2">
 
             @foreach (UI::currentPanel()->getActions() as $action)
             @if ($action->isVisible())
             {!! $action
-                ->style('icon')
-                ->toHtml() !!}
+            ->style('icon')
+            ->toHtml() !!}
             @endif
             @endforeach
 
@@ -76,16 +76,21 @@ use Streams\Ui\Support\Facades\UI;
                 <button x-on:click="open=!open" x-on:click.outside="open=false" x-on:keydown.escape.window="open=false" type="button"
                     class="-m-1.5 flex items-center p-1.5" id="user-menu-button" aria-expanded="false"
                     aria-haspopup="true">
-                    <span class="sr-only">Open user menu</span>
+                    <div class="sr-only">Open user menu</div>
                     @if ($avatar = UI::currentPanel()->getUserAvatar())
                     <img src="{{ $avatar }}" class="h-10 w-10 rounded-full bg-gray-50">
                     @endif
-                    <span class="flex items-center">
-                        @if ($userName = UI::currentPanel()->getUserName())
-                        <span class="ml-4 font-semibold leading-6 text-gray-900" aria-hidden="true">{{ $userName }}</span>
-                        @endif
+                    <div class="flex items-center">
+                        <div class="flex flex-col items-start">
+                            @if ($userName = UI::currentPanel()->getUserName())
+                            <span class="ml-4 font-semibold leading-6 text-gray-900" aria-hidden="true">{{ $userName }}</span>
+                            @endif
+                            @if ($userDescription = UI::currentPanel()->getUserDescription())
+                            <span class="ml-4 text-sm text-gray-500" aria-hidden="true">{{ Str::limit($userDescription, 25) }}</span>
+                            @endif
+                        </div>
                         @svg('heroicon-o-chevron-down', 'ml-2 h-4 w-4 text-gray-400')
-                    </span>
+                    </div>
                 </button>
 
                 <div x-cloak x-show="open" x-transition:enter="transition ease-out duration-100"
@@ -98,9 +103,9 @@ use Streams\Ui\Support\Facades\UI;
                     role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                     @foreach (UI::currentPanel()->getUserMenu() as $item)
                     @php
-                        $url = url($item->getUrl());
-                        $target = $item->shouldOpenInNewTab() ? '_blank' : '_self';
-                        $navigate = $spaEnabled && $target == '_self' && Str::startsWith($url, URL::to('/'));
+                    $url = url($item->getUrl());
+                    $target = $item->shouldOpenInNewTab() ? '_blank' : '_self';
+                    $navigate = $spaEnabled && $target == '_self' && Str::startsWith($url, URL::to('/'));
                     @endphp
                     <a href="{{ $url }}"
                         {{-- {{ $navigate ? 'wire:navigate' : '' }} --}}

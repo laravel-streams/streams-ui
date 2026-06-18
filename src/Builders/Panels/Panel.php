@@ -30,6 +30,7 @@ class Panel extends ViewBuilder
     use Concerns\HasUserAvatar;
     use Concerns\HasUserMenu;
     use Concerns\HasUserName;
+    use Concerns\HasUserDescription;
 
     public function __construct(?string $id = null)
     {
