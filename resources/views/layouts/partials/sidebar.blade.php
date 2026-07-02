@@ -92,18 +92,13 @@ class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
     <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
 
         {{-- Brand --}}
-        <div x-show="!sidebar_collapsed" class="ui-brand flex h-16 shrink-0 items-center font-bold">
-            <a href="{{ UI::getHomeUrl() }}" class="text-xl flex gap-4" title="Go to panel homepage.">
+        <div class="ui-brand flex h-16 shrink-0 items-center font-bold -ml-2">
+            <a href="{{ UI::getHomeUrl() }}" class="text-xl flex items-center gap-4" title="Go to panel homepage.">
                 @if ($logo = UI::currentPanel()->getBrandLogo())
-                    <img src="{{ $logo }}" class="w-10 h-auto" alt="{{ __(UI::getPanel()->getBrandName()) }} Logo">
+                    <img src="{{ $logo }}" class="w-10 h-auto shrink-0" alt="{{ __(UI::getPanel()->getBrandName()) }} Logo">
                 @else
-                    {{ __(UI::getPanel()->getBrandName()) }}
+                    <span x-show="!sidebar_collapsed" x-cloak>{{ __(UI::getPanel()->getBrandName()) }}</span>
                 @endif
-            </a>
-        </div>
-        <div x-show="sidebar_collapsed" class="ui-brand flex h-16 shrink-0 items-center justify-center font-bold -mx-4">
-            <a href="{{ UI::getHomeUrl() }}" class="text-xl flex w-10 gap-4" title="Go to panel homepage.">
-                <img src="{{ UI::getPanel()->getBrandLogo() }}" alt="{{ __(UI::getPanel()->getBrandName()) }} Logo">
             </a>
         </div>
         {{-- EOF Brand --}}

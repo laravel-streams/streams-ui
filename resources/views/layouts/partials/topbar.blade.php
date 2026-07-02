@@ -33,10 +33,10 @@ use Streams\Ui\Support\Facades\UI;
         <div class="relative flex flex-1">
             <button type="button" @click.prevent="$dispatch('toggle-sidebar');" class="-ml-4 hidden lg:inline-block">
                 <span x-show="!sidebar_collapsed">
-                    @svg('heroicon-o-arrow-left-on-rectangle', 'h-6 w-6')
+                    @svg('lucide-sidebar', 'h-6 w-6')
                 </span>
                 <span x-show="sidebar_collapsed">
-                    @svg('heroicon-o-arrow-right-on-rectangle', 'h-6 w-6')
+                    @svg('lucide-sidebar', 'h-6 w-6')
                 </span>
             </button>
             @if ($topNavigation)
