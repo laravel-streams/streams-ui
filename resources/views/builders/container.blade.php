@@ -34,12 +34,17 @@
         // },
     ]);
 
+    $backgroundStyles = array_fill_keys($container->getBackgroundStyles(), true);
+
+    $borderRadiusClass = $container->getBorderRadiusClass();
+
 @endphp
 <div {!!
     $attributes
         ->class([
             'flex flex-col',
             $spacingClasses,
+            $borderRadiusClass,
             'col-[--col-span-default]' => $columnSpan['default'] ?? null,
             'sm:col-[--col-span-sm]' => $columnSpan['sm'] ?? null,
             'md:col-[--col-span-md]' => $columnSpan['md'] ?? null,
@@ -55,6 +60,7 @@
             "--col-span-lg: {$getSpanValue($columnSpan['lg'])}" => $columnSpan['lg'] ?? null,
             "--col-span-xl: {$getSpanValue($columnSpan['xl'])}" => $columnSpan['xl'] ?? null,
             "--col-span-2xl: {$getSpanValue($columnSpan['2xl'])}" => $columnSpan['2xl'] ?? null,
+            ...$backgroundStyles,
         ])
         ->merge($container->getHtmlAttributes())
 !!}>

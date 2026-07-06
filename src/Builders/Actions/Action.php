@@ -14,6 +14,7 @@ class Action extends ViewBuilder
     use Common\CanBeDisabled;
     use Common\CanBeHidden;
     use Common\HasBadge;
+    use Common\HasBorderRadius;
     use Common\HasColor;
     use Common\HasEntry;
     use Common\HasHtmlAttributes;
@@ -26,7 +27,6 @@ class Action extends ViewBuilder
     use Common\HasTooltip;
     use Common\HasUrl;
     use Concerns\HasArguments;
-    use Concerns\HasBorderRadius;
     use Concerns\HasForm;
     use Concerns\HasKeyBindings;
     use Concerns\HasStyle;

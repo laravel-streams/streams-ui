@@ -73,9 +73,10 @@ use Streams\Ui\Support\Facades\UI;
             @if (UI::currentPanel()->getUserMenu())
             <div class="relative" x-data="{open: false}">
 
-                <button x-on:click="open=!open" x-on:click.outside="open=false" x-on:keydown.escape.window="open=false" type="button"
-                    class="-m-1.5 flex items-center p-1.5" id="user-menu-button" aria-expanded="false"
+                <x-ui::action x-on:click="open=!open" x-on:click.outside="open=false" x-on:keydown.escape.window="open=false" type="button"
+                    class="-m-1.5" id="user-menu-button" aria-expanded="false"
                     aria-haspopup="true">
+                    <div class="flex items-center">
                     <div class="sr-only">Open user menu</div>
                     @if ($avatar = UI::currentPanel()->getUserAvatar())
                     <img src="{{ $avatar }}" class="h-10 w-10 rounded-full bg-gray-50">
@@ -91,7 +92,8 @@ use Streams\Ui\Support\Facades\UI;
                         </div>
                         @svg('heroicon-o-chevron-down', 'ml-2 h-4 w-4 text-gray-400')
                     </div>
-                </button>
+                    </div>
+                </x-ui::action>
 
                 <div x-cloak x-show="open" x-transition:enter="transition ease-out duration-100"
                     x-transition:enter-start="transform opacity-0 scale-95"
