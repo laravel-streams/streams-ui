@@ -14,6 +14,7 @@
     // $suffixIcon = $getSuffixIcon();
     $suffixLabel = $getSuffix();
     $statePath = $getStatePath();
+    $borderRadius = $getBorderRadius() ?? 'md';
 @endphp
 
 <x-dynamic-component :component="$getFieldWrapperView()" :field="$field" class="flex">
@@ -45,6 +46,7 @@
             :attributes="new \Illuminate\View\ComponentAttributeBag([
                 //'autocapitalize' => $getAutocapitalize(),
                 'autocomplete' => $getAutocomplete(),
+                'borderRadius' => $borderRadius,
                 'autofocus' => $isAutofocused(),
                 'disabled' => $isDisabled,
                 'id' => $id,

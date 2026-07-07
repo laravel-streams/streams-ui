@@ -1,6 +1,7 @@
 @php
 
     $columnSpan = $getColumnSpan();
+    $borderRadius = $card->getBorderRadius() ?? 'lg';
 
     if (! is_array($columnSpan)) {
         $columnSpan = [
@@ -27,6 +28,9 @@
         //     'gray' => 'text-white',
         //     default => null,
         // },
+        match ($borderRadius) {
+            default => "rounded-{$borderRadius}",
+        },
     ]);
 
     $heading = $card->getHeading();
@@ -37,7 +41,7 @@
     $attributes
         ->merge($card->getHtmlAttributes())
         ->class([
-            'flex flex-col rounded-lg shadow-md bg-white',
+            'flex flex-col shadow-md bg-white',
             'col-[--col-span-default]' => $columnSpan['default'] ?? null,
             'sm:col-[--col-span-sm]' => $columnSpan['sm'] ?? null,
             'md:col-[--col-span-md]' => $columnSpan['md'] ?? null,

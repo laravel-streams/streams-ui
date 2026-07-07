@@ -13,6 +13,7 @@ abstract class Input extends ViewBuilder
     use Common\HasHtmlAttributes;
     // use BelongsToContainer;
 
+    use Common\HasBorderRadius;
     use Common\HasId;
     use Common\HasLabel;
     use Common\HasName;

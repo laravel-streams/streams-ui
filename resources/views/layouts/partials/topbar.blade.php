@@ -22,7 +22,7 @@ use Streams\Ui\Support\Facades\UI;
         <div class="ui-brand flex h-16 lg:hidden shrink-0 items-center font-bold">
             <a href="{{ UI::getHomeUrl() }}" class="text-xl" title="Go to panel homepage.">
                 @if ($logo = UI::currentPanel()->getBrandLogo())
-                <img src="{{ $logo }}" class="h-auto w-10" alt="{{ __(UI::getPanel()->getBrandName()) }} Logo">
+                <img src="{{ $logo }}" class="h-auto w-8" alt="{{ __(UI::getPanel()->getBrandName()) }} Logo">
                 @else
                 {{ __(UI::getPanel()->getBrandName()) }}
                 @endif
@@ -82,7 +82,7 @@ use Streams\Ui\Support\Facades\UI;
                     <img src="{{ $avatar }}" class="h-10 w-10 rounded-full bg-gray-50">
                     @endif
                     <div class="flex items-center">
-                        <div class="flex flex-col items-start">
+                        <div class="hidden lg:flex flex-col items-start">
                             @if ($userName = UI::currentPanel()->getUserName())
                             <span class="ml-4 font-semibold leading-6 text-gray-900" aria-hidden="true">{{ $userName }}</span>
                             @endif

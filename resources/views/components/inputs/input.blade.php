@@ -1,6 +1,7 @@
 @props([
     'inlinePrefix' => false,
     'inlineSuffix' => false,
+    'borderRadius' => 'md',
 ])
 
 @php
@@ -12,7 +13,7 @@
         $attributes->class([
             'block',
             'w-full',
-            'rounded-md',
+            "rounded-{$borderRadius}",
             'px-3 py-2',
             'ps-0' => $inlinePrefix,
             'ps-3' => ! $inlinePrefix,
