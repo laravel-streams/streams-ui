@@ -12,14 +12,14 @@ trait HasEntries
     protected array $entries = [];
 
     // @deprecated
-    public function entries($entries): static
+    public function entries($entries, string $table = 'default'): static
     {
-        return $this->tableEntries($entries);
+        return $this->tableEntries($entries, $table);
     }
 
-    public function tableEntries($entries): static
+    public function tableEntries($entries, string $table = 'default'): static
     {
-        $this->entries = $entries;
+        $this->entries[$table] = $entries;
 
         return $this;
     }
