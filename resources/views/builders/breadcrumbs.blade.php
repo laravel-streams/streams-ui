@@ -2,7 +2,7 @@
     $items = $breadcrumbs->getItems();
 @endphp
 
-<div {{ $attributes->class('-mx-2 mb-4 -mt-4 opacity-70') }}>
+<div {{ $attributes->class('-mx-5 mb-4 -mt-4 opacity-70') }}>
     @foreach ($items as $item)
     @if ($item->isVisible())
         {!! $item->render() !!}
@@ -12,7 +12,7 @@
             <span class="opacity-50">{{ $item['title'] }}</span>
         @endif --}}
         {{-- @if (!$loop->last || count($breadcrumbsItems) == 1) --}}
-        <span class="opacity-50 text-lg">&rsaquo;</span>
+        <span class="opacity-50 text-lg -mx-4">&rsaquo;</span>
         {{-- @endif --}}
     @endif
     @endforeach

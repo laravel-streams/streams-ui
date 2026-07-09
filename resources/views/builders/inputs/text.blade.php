@@ -67,7 +67,7 @@
                 // 'required' => $isRequired() && (! $isConcealed),
                 'required' => $isRequired(),
                 'step' => $getStep(),
-                'type' => blank($mask) ? $getType() : 'text',
+                'type' => $getType(),
                 //$applyStateBindingModifiers('wire:model') => $statePath,
                 'wire:model' => $statePath,
                 // 'x-data' => (count($extraAlpineAttributes) || filled($mask)) ? '{}' : null,

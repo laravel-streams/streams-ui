@@ -3,8 +3,8 @@
     'label' => null,
 ])
 
-<label for="{{ $field->getId() }}" class="inline-flex items-center space-x-2 cursor-pointer">
-    <input type="checkbox" id="{{ $field->getId() }}" name="{{ $field->getName() }}" wire:model="{{ $field->getStatePath() }}"
+<label for="{{ $field->getId() }}" class="inline-flex items-center space-x-2 cursor-pointer" {{ $field->getHtmlAttributeBag() }}>
+    <input type="checkbox" name="{{ $field->getName() }}" x-ref="{{ $field->getId() }}" id="{{ $field->getId() }}" wire:model="{{ $field->getStatePath() }}"
         {{
             $attributes
                 ->class([

@@ -18,7 +18,7 @@ trait HasType
 
     protected ?string $type = null;
 
-    public function getType(): string
+    public function getType(): ?string
     {
         if ($this->type) {
             return $this->type;
@@ -36,7 +36,7 @@ trait HasType
             return $this->type = 'url';
         }
 
-        return $this->type = 'text';
+        return $this->type;
     }
 
     public function url(bool|\Closure $condition = true): static

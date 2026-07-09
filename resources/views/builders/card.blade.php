@@ -74,7 +74,7 @@
                 @endif
             @endif
             @if ($description)
-                <p class="">{{ __($description) }}</p>
+                <p>{!! __($description) !!}</p>
             @endif
         </div>
         
