@@ -5,7 +5,7 @@
     
     $heading = $progressBar->getHeading() ?: 'h3';
 @endphp
-<div class="w-full">
+<div {{ $progressBar->getHtmlAttributeBag()->merge(['class' => 'w-full']) }}>
 
     @if ($label)
     <{{ $heading }} class="text-xl font-bold">
