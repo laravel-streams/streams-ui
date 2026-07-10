@@ -101,4 +101,25 @@ class SelectInputTest extends UiTestCase
 
         $this->assertFalse($input->isMultiple());
     }
+
+    /** @test */
+    public function it_can_set_and_get_border_radius()
+    {
+        $input = $this->getTestInput();
+
+        $result = $input->borderRadius('2xl');
+
+        $this->assertSame($input, $result);
+        $this->assertEquals('2xl', $input->getBorderRadius());
+    }
+
+    /** @test */
+    public function it_evaluates_closure_border_radius()
+    {
+        $input = $this->getTestInput();
+
+        $input->borderRadius(fn () => 'lg');
+
+        $this->assertEquals('lg', $input->getBorderRadius());
+    }
 }

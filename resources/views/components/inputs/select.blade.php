@@ -10,6 +10,7 @@
     // $suffixIcon = $getSuffixIcon();
     // $suffixLabel = $getSuffixLabel();
     $statePath = $getStatePath();
+    $borderRadius = $getBorderRadius() ?? 'md';
 @endphp
 
 <x-dynamic-component :component="$getFieldWrapperView()" :field="$field" class="flex">
@@ -32,6 +33,7 @@
         {{-- @if ((! ($isSearchable() || $isMultiple()) && $isNative())) --}}
             <x-ui::inputs.native-select
                 {{-- :autofocus="$isAutofocused()" --}}
+                :borderRadius="$borderRadius"
                 :disabled="$isDisabled"
                 :id="$getId()"
                 {{-- :inline-prefix="$isPrefixInline && (count($prefixActions) || $prefixIcon || filled($prefixLabel))" --}}
@@ -87,7 +89,7 @@
                         </option>
                     @endif
                 @endforeach
-            </x-ui::input.select>
+            </x-ui::inputs.native-select>
 
         {{-- @endif --}}
     {{-- </x-ui::inputs.wrapper> --}}

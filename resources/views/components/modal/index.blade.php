@@ -55,7 +55,7 @@
             @else
                 x-on:click="close()"
             @endif
-            class="cursor-pointer fixed inset-0 bg-gray-950/50 backdrop-blur"
+            class="cursor-pointer fixed inset-0 bg-primary-500/50 backdrop-blur-sm"
             style="will-change: transform"
         ></div>
 
@@ -76,7 +76,7 @@
                 x-transition:enter="duration-300"
                 x-transition:leave="duration-300"
                 @class([
-                    'pointer-events-auto relative flex w-full cursor-default flex-col bg-white shadow-xl ring-1 ring-gray-950/5',
+                    'pointer-events-auto relative flex w-full cursor-default flex-col bg-white shadow-xl shadow-black/10 ring-1 ring-gray-950/5',
                     'h-screen' => $width === 'screen',
                     'mx-auto rounded-2xl' => true,//$width !== 'screen',
                     'hidden' => ! $visible,

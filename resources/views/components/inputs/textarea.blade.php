@@ -2,6 +2,7 @@
     // $isConcealed = $isConcealed();
     $rows = $getRows();
     $statePath = $getStatePath();
+    $borderRadius = $getBorderRadius() ?? 'md';
     // $shouldAutosize = $shouldAutosize();
 
     $initialHeight = (($rows ?? 2) * 1.5) + 0.75;
@@ -42,7 +43,8 @@
                 ->merge($getHtmlAttributes(), escape: false)
                 // ->merge($getExtraInputAttributes(), escape: false)
                 ->class([
-                    'block w-full rounded-md px-3 py-2',
+                    'block w-full px-3 py-2',
+                    "rounded-{$borderRadius}",
                     // 'resize-none' => $shouldAutosize,
                     'ring-gray-950/10 focus-visible:ring-primary-600' => ! $errors->has($statePath),
                     'ring-danger-600 focus-visible:ring-danger-600 dark:ring-danger-500 dark:focus-visible:ring-danger-500' => $errors->has($statePath),

@@ -86,11 +86,11 @@
         
         // Size classes
         match ($size) {
-            'xs' => '_gap-1 px-3 py-1.5',
-            'sm' => '_gap-1 px-4 py-1.5',
-            'md' => '_gap-1.5 px-6 py-2',
-            'lg' => '_gap-1.5 px-6 py-2.5',
-            'xl' => '_gap-1.5 px-7 py-3',
+            'xs' => 'gap-1 px-3 py-1.5',
+            'sm' => 'gap-1 px-4 py-1.5',
+            'md' => 'gap-1.5 px-6 py-2',
+            'lg' => 'gap-1.5 px-6 py-2.5',
+            'xl' => 'gap-1.5 px-7 py-3',
             default => $size,
         },
         
@@ -121,6 +121,11 @@
             shades: [400, 500, 600],
         ),
     ]);
+
+    $iconGapClasses = match ($size) {
+        'xs', 'sm' => 'gap-1',
+        default => 'gap-1.5',
+    };
 
     $iconClasses = Arr::toCssClasses([
         '',
@@ -216,7 +221,10 @@
                 wire:loading.delay.class="invisible"
             @endif
         @endif
-        class="flex items-center"
+        class="{{ Arr::toCssClasses([
+            'flex items-center',
+            $icon && ! $slot->isEmpty() ? $iconGapClasses : null,
+        ]) }}"
     >
         @if ($icon && $iconPosition === 'before')
         <x-ui::icon
