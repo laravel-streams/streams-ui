@@ -28,6 +28,26 @@
 @php
     $tag = $tag ?: ($href ? 'a' : 'button');
 
+    $hasVisibleLabel = ! $slot->isEmpty() && ! $labelSrOnly;
+
+    $yPaddingClasses = match ($size) {
+        'xs' => 'py-1.5',
+        'sm' => 'py-1.5',
+        'md' => 'py-2',
+        'lg' => 'py-2.5',
+        'xl' => 'py-3',
+        default => null,
+    };
+
+    $xPaddingClasses = match ($size) {
+        'xs' => $hasVisibleLabel ? 'px-3' : 'px-1.5',
+        'sm' => $hasVisibleLabel ? 'px-4' : 'px-1.5',
+        'md' => $hasVisibleLabel ? 'px-6' : 'px-2',
+        'lg' => $hasVisibleLabel ? 'px-6' : 'px-2.5',
+        'xl' => $hasVisibleLabel ? 'px-7' : 'px-3',
+        default => null,
+    };
+
     $classes = Arr::toCssClasses([
         // Base classes
         'relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75',
@@ -86,13 +106,15 @@
         
         // Size classes
         match ($size) {
-            'xs' => 'gap-1 px-3 py-1.5',
-            'sm' => 'gap-1 px-4 py-1.5',
-            'md' => 'gap-1.5 px-6 py-2',
-            'lg' => 'gap-1.5 px-6 py-2.5',
-            'xl' => 'gap-1.5 px-7 py-3',
+            'xs' => 'gap-1',
+            'sm' => 'gap-1',
+            'md' => 'gap-1.5',
+            'lg' => 'gap-1.5',
+            'xl' => 'gap-1.5',
             default => $size,
         },
+        $yPaddingClasses,
+        is_string($size) ? $xPaddingClasses : null,
         
         // Responsive visibility
         'hidden' => $labeledFrom,
@@ -223,7 +245,7 @@
         @endif
         class="{{ Arr::toCssClasses([
             'flex items-center',
-            $icon && ! $slot->isEmpty() ? $iconGapClasses : null,
+            $icon && $hasVisibleLabel ? $iconGapClasses : null,
         ]) }}"
     >
         @if ($icon && $iconPosition === 'before')
