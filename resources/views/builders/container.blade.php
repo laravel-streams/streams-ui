@@ -40,6 +40,8 @@
 
     $borderRadiusClass = $container->getBorderRadiusClass();
 
+    $insetClass = $container->getInsetClass();
+
 @endphp
 <div {!!
     $attributes
@@ -47,6 +49,7 @@
             'flex',
             $container->isColumnDirection() ? 'flex-col' : 'flex-row',
             $spacingClasses,
+            $insetClass,
             $borderRadiusClass,
             'col-[--col-span-default]' => $columnSpan['default'] ?? null,
             'sm:col-[--col-span-sm]' => $columnSpan['sm'] ?? null,

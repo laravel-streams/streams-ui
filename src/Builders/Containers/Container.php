@@ -18,6 +18,7 @@ class Container extends ViewBuilder
     use Support\HasId;
     use Support\HasSpacing;
     use Support\HasDirection;
+    use Support\HasInset;
     use Support\HasBorderRadius;
 
     protected string $viewIdentifier = 'container';

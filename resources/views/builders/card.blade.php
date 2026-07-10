@@ -46,6 +46,10 @@
     $heading = $card->getHeading();
     $actions = $card->getActions();
     $description = $card->getDescription();
+
+    $headingInsetXClass = $card->getInsetPaddingClass('px', 'px-6');
+    $headingInsetYClass = $card->getInsetPaddingClass('py', 'py-4');
+    $contentInsetClass = $card->getInsetPaddingClass(default: 'p-6');
 @endphp
 <div {{
     $attributes
@@ -65,7 +69,7 @@
 
     {{-- Card Heading --}}
     @if ($heading || $description || $actions)
-    <div class="flex items-center justify-between heading py-4 px-6 border-b border-black/10">
+    <div @class(['flex items-center justify-between heading border-b border-black/10', $headingInsetXClass, $headingInsetYClass])>
         <div class="flex flex-col">
             @if ($heading)
                 @if ($url = $card->getUrl())
@@ -96,7 +100,7 @@
 
     {{-- Components --}}
     @if ($components = $card->getComponents())    
-    <div class="p-6 overflow-auto">
+    <div @class(['overflow-auto', $contentInsetClass])>
     @foreach ($components as $component)
     {{ $component }}
     @endforeach

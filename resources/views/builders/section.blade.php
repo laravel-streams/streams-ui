@@ -11,6 +11,8 @@
         //     default => null,
         // },
     ]);
+
+    $contentInsetClass = $section->getInsetPaddingClass(default: 'p-6');
 @endphp
 <div {{ $attributes->merge($section->getHtmlAttributes())->class([
     'flex flex-col',
@@ -46,7 +48,7 @@
 
     {{-- Components --}}
     @if ($components = $section->getComponents())
-    <div class="p-6 overflow-auto">
+    <div @class(['overflow-auto', $contentInsetClass])>
     @foreach ($components as $component)
     {{ $component }}
     @endforeach
