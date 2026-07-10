@@ -6,6 +6,7 @@ use Streams\Ui\Builders\Builder;
 use Streams\Ui\Tests\UiTestCase;
 use Illuminate\Contracts\View\View;
 use Streams\Ui\Builders\ViewBuilder;
+use Illuminate\Support\Facades\Blade;
 use Streams\Ui\Builders\Actions\Action;
 use Illuminate\Contracts\Support\Htmlable;
 
@@ -757,5 +758,28 @@ class ActionTest extends UiTestCase
         $this->assertStringContainsString('Custom', $html);
         $this->assertStringContainsString('data-custom', $html);
         $this->assertStringContainsString('value', $html);
+    }
+
+    /** @test */
+    public function it_renders_icon_only_action_with_square_padding()
+    {
+        $html = Blade::render(
+            '<x-ui::action icon="heroicon-o-x-mark" color="black" borderRadius="full" class="ui-modal-close-btn" />'
+        );
+
+        $this->assertStringContainsString('py-2', $html);
+        $this->assertStringContainsString('px-2', $html);
+        $this->assertStringNotContainsString('px-6', $html);
+    }
+
+    /** @test */
+    public function it_renders_labeled_action_with_wider_horizontal_padding()
+    {
+        $html = Blade::render(
+            '<x-ui::action>Save</x-ui::action>'
+        );
+
+        $this->assertStringContainsString('py-2', $html);
+        $this->assertStringContainsString('px-6', $html);
     }
 }
