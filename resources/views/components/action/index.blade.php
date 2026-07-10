@@ -110,7 +110,7 @@
             'ring-1',
             match ($color) {
                 'gray' => 'text-gray-950 ring-gray-300 hover:bg-gray-400/10 focus-visible:ring-gray-400/40',
-                default => 'text-gray-600 ring-gray-600 hover:bg-gray-400/10',
+                default => 'text-gray-600 ring-gray-600 hover:bg-gray-400/10 focus:ring-primary-400/40',
             },
         ] : []),
     ]);

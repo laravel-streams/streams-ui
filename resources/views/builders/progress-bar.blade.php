@@ -14,7 +14,7 @@
     @endif
     
     @if ($description)
-    <p class="pb-6">{{ $description }}</p>
+    <p class="pb-4">{{ $description }}</p>
     @endif
 
     <div aria-hidden="true">

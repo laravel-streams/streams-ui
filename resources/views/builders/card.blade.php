@@ -33,6 +33,16 @@
         },
     ]);
 
+    $spacingClasses = match ($card->getSpacing() ?? 's') {
+        'xs' => 'space-y-2',
+        's' => 'space-y-4',
+        'm' => 'space-y-6',
+        'l' => 'space-y-8',
+        'xl' => 'space-y-10',
+        '2xl' => 'space-y-12',
+        default => 'space-y-4',
+    };
+
     $heading = $card->getHeading();
     $actions = $card->getActions();
     $description = $card->getDescription();
@@ -48,15 +58,8 @@
             'lg:col-[--col-span-lg]' => $columnSpan['lg'] ?? null,
             'xl:col-[--col-span-xl]' => $columnSpan['xl'] ?? null,
             '2xl:col-[--col-span-2xl]' => $columnSpan['2xl'] ?? null,
+            $spacingClasses,
             $classes,
-        ])
-        ->style([
-            "--col-span-default: {$getSpanValue($columnSpan['default'])}" => $columnSpan['default'] ?? null,
-            "--col-span-sm: {$getSpanValue($columnSpan['sm'])}" => $columnSpan['sm'] ?? null,
-            "--col-span-md: {$getSpanValue($columnSpan['md'])}" => $columnSpan['md'] ?? null,
-            "--col-span-lg: {$getSpanValue($columnSpan['lg'])}" => $columnSpan['lg'] ?? null,
-            "--col-span-xl: {$getSpanValue($columnSpan['xl'])}" => $columnSpan['xl'] ?? null,
-            "--col-span-2xl: {$getSpanValue($columnSpan['2xl'])}" => $columnSpan['2xl'] ?? null,
         ])
 }}>
 
