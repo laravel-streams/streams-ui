@@ -245,7 +245,7 @@
         @endif
         class="{{ Arr::toCssClasses([
             'flex items-center',
-            $icon && $hasVisibleLabel ? $iconGapClasses : null,
+            $icon && ! $slot->isEmpty() ? $iconGapClasses : null,
         ]) }}"
     >
         @if ($icon && $iconPosition === 'before')

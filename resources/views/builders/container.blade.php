@@ -16,14 +16,16 @@
         return "span {$span} / span {$span}";
     };
 
+    $spacingAxis = $container->isColumnDirection() ? 'space-y' : 'space-x';
+
     $spacingClasses = match ($container->getSpacing() ?? 's') {
-        'xs' => 'space-y-2',
-        's' => 'space-y-4',
-        'm' => 'space-y-6',
-        'l' => 'space-y-8',
-        'xl' => 'space-y-10',
-        '2xl' => 'space-y-12',
-        default => 'space-y-4',
+        'xs' => "{$spacingAxis}-2",
+        's' => "{$spacingAxis}-4",
+        'm' => "{$spacingAxis}-6",
+        'l' => "{$spacingAxis}-8",
+        'xl' => "{$spacingAxis}-10",
+        '2xl' => "{$spacingAxis}-12",
+        default => "{$spacingAxis}-4",
     };
 
     $classes = Arr::toCssClasses([
@@ -42,7 +44,8 @@
 <div {!!
     $attributes
         ->class([
-            'flex flex-col',
+            'flex',
+            $container->isColumnDirection() ? 'flex-col' : 'flex-row',
             $spacingClasses,
             $borderRadiusClass,
             'col-[--col-span-default]' => $columnSpan['default'] ?? null,

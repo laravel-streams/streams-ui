@@ -20,7 +20,7 @@ class ContainerSpacingTest extends UiTestCase
     }
 
     /** @test */
-    public function it_maps_spacing_tokens_to_tailwind_classes_in_markup(): void
+    public function it_maps_column_spacing_tokens_to_vertical_tailwind_classes_in_markup(): void
     {
         $cases = [
             'xs' => 'space-y-2',
@@ -33,6 +33,29 @@ class ContainerSpacingTest extends UiTestCase
 
         foreach ($cases as $token => $expectedClass) {
             $html = Container::make('test')
+                ->direction('col')
+                ->spacing($token)
+                ->toHtml();
+
+            $this->assertStringContainsString($expectedClass, $html);
+        }
+    }
+
+    /** @test */
+    public function it_maps_row_spacing_tokens_to_horizontal_tailwind_classes_in_markup(): void
+    {
+        $cases = [
+            'xs' => 'space-x-2',
+            's' => 'space-x-4',
+            'm' => 'space-x-6',
+            'l' => 'space-x-8',
+            'xl' => 'space-x-10',
+            '2xl' => 'space-x-12',
+        ];
+
+        foreach ($cases as $token => $expectedClass) {
+            $html = Container::make('test')
+                ->direction('row')
                 ->spacing($token)
                 ->toHtml();
 
@@ -44,6 +67,7 @@ class ContainerSpacingTest extends UiTestCase
     public function it_renders_spacing_classes_in_markup(): void
     {
         $html = Container::make('test')
+            ->direction('col')
             ->spacing('xl')
             ->toHtml();
 
