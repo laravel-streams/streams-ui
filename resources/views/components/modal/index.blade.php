@@ -55,8 +55,8 @@
             @else
                 x-on:click="close()"
             @endif
-            class="cursor-pointer fixed inset-0 bg-primary-500/50 backdrop-blur-sm"
-            style="will-change: transform"
+            class="cursor-pointer fixed inset-0 backdrop-blur-sm"
+            style="background-color: rgba(var(--primary-500), 0.5); will-change: transform"
         ></div>
 
         <div
