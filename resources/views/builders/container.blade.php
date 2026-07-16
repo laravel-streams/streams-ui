@@ -18,11 +18,12 @@
 
     $spacingAxis = $container->isColumnDirection() ? 'space-y' : 'space-x';
 
-    $spacingClasses = match ($container->getSpacing() ?? 's') {
+    $spacingClasses = match ($container->getSpacing() ?? 'sm') {
+        'none' => '',
         'xs' => "{$spacingAxis}-2",
-        's' => "{$spacingAxis}-4",
-        'm' => "{$spacingAxis}-6",
-        'l' => "{$spacingAxis}-8",
+        'sm' => "{$spacingAxis}-4",
+        'md' => "{$spacingAxis}-6",
+        'lg' => "{$spacingAxis}-8",
         'xl' => "{$spacingAxis}-10",
         '2xl' => "{$spacingAxis}-12",
         default => "{$spacingAxis}-4",

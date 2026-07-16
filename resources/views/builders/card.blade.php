@@ -33,11 +33,12 @@
         },
     ]);
 
-    $spacingClasses = match ($card->getSpacing() ?? 's') {
+    $spacingClasses = match ($card->getSpacing() ?? 'sm') {
+        'none' => '',
         'xs' => 'space-y-2',
-        's' => 'space-y-4',
-        'm' => 'space-y-6',
-        'l' => 'space-y-8',
+        'sm' => 'space-y-4',
+        'md' => 'space-y-6',
+        'lg' => 'space-y-8',
         'xl' => 'space-y-10',
         '2xl' => 'space-y-12',
         default => 'space-y-4',
@@ -47,9 +48,17 @@
     $actions = $card->getActions();
     $description = $card->getDescription();
 
-    $headingInsetXClass = $card->getInsetPaddingClass('px', 'px-6');
-    $headingInsetYClass = $card->getInsetPaddingClass('py', 'py-4');
+    // inset(false) flushes content only; heading keeps the default inset.
+    $inset = $card->getInset();
     $contentInsetClass = $card->getInsetPaddingClass(default: 'p-6');
+
+    if ($inset === false || $inset === 'none') {
+        $headingInsetXClass = 'px-6';
+        $headingInsetYClass = 'py-4';
+    } else {
+        $headingInsetXClass = $card->getInsetPaddingClass('px', 'px-6');
+        $headingInsetYClass = $card->getInsetPaddingClass('py', 'py-4');
+    }
 @endphp
 <div {{
     $attributes

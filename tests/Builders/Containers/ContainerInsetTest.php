@@ -120,4 +120,21 @@ class ContainerInsetTest extends UiTestCase
         $this->assertStringContainsString('p-4', $html);
         $this->assertStringNotContainsString('p-6', $html);
     }
+
+    /** @test */
+    public function it_keeps_default_heading_inset_when_content_inset_is_disabled(): void
+    {
+        $html = Card::make('test')
+            ->heading('Card')
+            ->description('Desc')
+            ->inset(false)
+            ->components([
+                Container::make('inner'),
+            ])
+            ->toHtml();
+
+        $this->assertStringContainsString('px-6', $html);
+        $this->assertStringContainsString('py-4', $html);
+        $this->assertStringContainsString('p-0', $html);
+    }
 }

@@ -4,7 +4,7 @@ namespace Streams\Ui\Builders\Concerns;
 
 trait HasSpacing
 {
-    protected string|\Closure|null $spacing = 's';
+    protected string|\Closure|null $spacing = 'sm';
 
     public function spacing(string|\Closure|null $spacing): static
     {
