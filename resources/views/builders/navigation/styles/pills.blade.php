@@ -3,7 +3,7 @@
     $navClasses = Arr::toCssClasses([
         'inline-flex items-center gap-x-1 p-1',
         $radiusClass,
-        'border border-gray-200 bg-white' => $isOutlined,
+        'bg-white shadow-md' => $isOutlined,
     ]);
 @endphp
 <nav aria-label="Tabs" @class([$navClasses])>
