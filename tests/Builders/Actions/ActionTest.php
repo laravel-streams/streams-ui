@@ -782,4 +782,46 @@ class ActionTest extends UiTestCase
         $this->assertStringContainsString('py-2', $html);
         $this->assertStringContainsString('px-6', $html);
     }
+
+    /** @test */
+    public function it_renders_keyboard_focus_visible_ring_without_inaccessible_suppression()
+    {
+        $html = Action::make('add-group')
+            ->label('Add Group')
+            ->color('primary')
+            ->toHtml();
+
+        $this->assertStringContainsString('focus-visible:z-10', $html);
+        $this->assertStringContainsString('focus-visible:ring-2', $html);
+        $this->assertStringContainsString('focus-visible:ring-custom-500', $html);
+        $this->assertStringContainsString('outline-none', $html);
+        $this->assertStringNotContainsString('focus:ring-', $html);
+        $this->assertStringNotContainsString('focus:outline-none', $html);
+    }
+
+    /** @test */
+    public function it_renders_focus_visible_ring_for_link_actions()
+    {
+        $html = Action::make('view-details')
+            ->label('View')
+            ->link('/details')
+            ->color('primary')
+            ->toHtml();
+
+        $this->assertStringContainsString('focus-visible:ring-2', $html);
+        $this->assertStringContainsString('focus-visible:ring-custom-500', $html);
+        $this->assertStringContainsString('outline-none', $html);
+    }
+
+    /** @test */
+    public function it_renders_variant_specific_focus_visible_ring_for_black_actions()
+    {
+        $html = Blade::render(
+            '<x-ui::action color="black">Black</x-ui::action>'
+        );
+
+        $this->assertStringContainsString('focus-visible:ring-2', $html);
+        $this->assertStringContainsString('focus-visible:ring-gray-700', $html);
+        $this->assertStringContainsString('outline-none', $html);
+    }
 }

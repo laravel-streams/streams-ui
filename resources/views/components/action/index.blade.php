@@ -49,9 +49,11 @@
     };
 
     $classes = Arr::toCssClasses([
-        // Base classes
+        // Base classes — outline-none removes the browser default; focus-visible:* restores
+        // an accessible keyboard-only ring (no persistent mouse-click focus ring).
         'relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75',
-        
+        'focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-custom-500',
+
         // Style-specific classes
         ...match ($style) {
             'button' => [
@@ -69,13 +71,13 @@
                 },
                 ...match ($color) {
                     'black' => [
-                        'bg-black text-white hover:bg-gray-700',
+                        'bg-black text-white hover:bg-gray-700 focus-visible:ring-gray-700',
                     ],
                     'light' => [
-                        'bg-gray-200 text-gray-700 hover:bg-gray-300',
+                        'bg-gray-200 text-gray-700 hover:bg-gray-300 focus-visible:ring-gray-400',
                     ],
                     'secondary' => [
-                        'border border-black bg-white hover:bg-black hover:text-white',
+                        'border border-black bg-white hover:bg-black hover:text-white focus-visible:ring-gray-700',
                     ],
                     default => [
                         'bg-custom-500 text-white hover:bg-custom-600',
@@ -92,18 +94,18 @@
             ],
             default => [],
         },
-        
+
         // State classes
         'pointer-events-none opacity-70' => $disabled,
         'flex-1' => $grouped,
-        
+
         // Color classes
         match ($color) {
             'gray' => '',
             default => '',
         },
         is_string($color) ? "{$color}" : null,
-        
+
         // Size classes
         match ($size) {
             'xs' => 'gap-1',
@@ -115,7 +117,7 @@
         },
         $yPaddingClasses,
         is_string($size) ? $xPaddingClasses : null,
-        
+
         // Responsive visibility
         'hidden' => $labeledFrom,
         match ($labeledFrom) {
@@ -126,13 +128,13 @@
             '2xl' => '2xl:inline-grid',
             default => 'inline-grid',
         },
-        
+
         // Outlined styles
         ...($outlined ? [
             'ring-1',
             match ($color) {
                 'gray' => 'text-gray-950 ring-gray-300 hover:bg-gray-400/10 focus-visible:ring-gray-400/40',
-                default => 'text-gray-600 ring-gray-600 hover:bg-gray-400/10 focus:ring-primary-400/40',
+                default => 'text-gray-600 ring-gray-600 hover:bg-gray-400/10 focus-visible:ring-custom-500',
             },
         ] : []),
     ]);
