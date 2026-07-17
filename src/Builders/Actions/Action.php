@@ -94,15 +94,17 @@ class Action extends ViewBuilder
     public function href(
         string|\Closure|null $url = null,
         bool|\Closure $openInNewTab = false
-    ) {
+    ): static {
         $this->tag('a');
         $this->url($url, $openInNewTab);
+
+        return $this;
     }
 
     public function link(
         string|\Closure|null $url = null,
         bool|\Closure $openInNewTab = false
-    ) {
+    ): static {
         $this->style(__FUNCTION__);
 
         $this->tag('a');
