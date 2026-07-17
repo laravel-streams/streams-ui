@@ -3,6 +3,7 @@
 namespace Streams\Ui\Tests\Builders\Navigation;
 
 use Streams\Ui\Tests\UiTestCase;
+use Streams\Ui\Builders\Navigation\Vertical;
 use Streams\Ui\Builders\Navigation\Navigation;
 use Streams\Ui\Builders\Navigation\NavigationItem;
 
@@ -114,6 +115,31 @@ class NavigationStyleTest extends UiTestCase
             '/Members[\s\S]*src="\/img\/users\.svg"/',
             $html
         );
+    }
+
+    /** @test */
+    public function it_renders_vertical_navigation_with_icons_badges_and_primary_active_color(): void
+    {
+        $html = Vertical::make('sidebar')
+            ->items([
+                NavigationItem::make('Dashboard')
+                    ->url('/dashboard')
+                    ->icon('/img/home.svg')
+                    ->badge('5')
+                    ->isActiveWhen(fn () => true),
+                NavigationItem::make('Team')
+                    ->url('/team')
+                    ->icon('heroicon-o-users'),
+            ])
+            ->toHtml();
+
+        $this->assertSame('vertical', Vertical::make()->getStyle());
+        $this->assertStringContainsString('space-y-1', $html);
+        $this->assertStringContainsString('bg-gray-50 text-primary-600', $html);
+        $this->assertStringContainsString('src="/img/home.svg"', $html);
+        $this->assertStringContainsString('Dashboard', $html);
+        $this->assertStringContainsString('5', $html);
+        $this->assertStringNotContainsString('aria-label="Select a tab"', $html);
     }
 
     /** @test */
