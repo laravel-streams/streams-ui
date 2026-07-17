@@ -50,4 +50,26 @@ class ColorInputTest extends UiTestCase
 
         $this->assertEquals('Primary Color', $input->getLabel());
     }
+
+    /** @test */
+    public function it_renders_a_native_color_input_with_wire_model_binding()
+    {
+        $this->app['view']->share('errors', new \Illuminate\Support\ViewErrorBag);
+
+        $html = $this->getTestInput()
+            ->label('Primary Color')
+            ->required()
+            ->livewire(new class extends \Livewire\Component
+            {
+                public function render()
+                {
+                    return '<div></div>';
+                }
+            })
+            ->toHtml();
+
+        $this->assertStringContainsString('type="color"', $html);
+        $this->assertStringContainsString('wire:model=', $html);
+        $this->assertStringContainsString('required', $html);
+    }
 }

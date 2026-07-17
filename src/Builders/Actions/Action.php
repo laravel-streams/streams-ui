@@ -91,6 +91,14 @@ class Action extends ViewBuilder
         return Actions::resolve($name);
     }
 
+    public function href(
+        string|\Closure|null $url = null,
+        bool|\Closure $openInNewTab = false
+    ) {
+        $this->tag('a');
+        $this->url($url, $openInNewTab);
+    }
+
     public function link(
         string|\Closure|null $url = null,
         bool|\Closure $openInNewTab = false
