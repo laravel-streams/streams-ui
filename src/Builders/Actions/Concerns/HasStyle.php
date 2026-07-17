@@ -2,19 +2,14 @@
 
 namespace Streams\Ui\Builders\Actions\Concerns;
 
+use Streams\Ui\Builders\Concerns\HasStyle as HasStyleConcern;
+
 trait HasStyle
 {
-    protected string|\Closure|null $style = 'button';
-
-    public function style(string|\Closure|null $style): static
-    {
-        $this->style = $style;
-
-        return $this;
-    }
+    use HasStyleConcern;
 
     public function getStyle(): ?string
     {
-        return $this->evaluate($this->style);
+        return $this->evaluate($this->style) ?? 'button';
     }
 }

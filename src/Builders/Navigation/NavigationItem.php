@@ -12,6 +12,7 @@ class NavigationItem extends Builder
     use Common\HasBadge;
     use Common\HasHtmlAttributes;
     use Common\HasIcon;
+    use Common\HasIconPosition;
     use Common\HasLabel;
     use Common\HasSortOrder;
     use Common\HasUrl;
