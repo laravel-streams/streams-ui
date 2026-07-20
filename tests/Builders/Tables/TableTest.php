@@ -502,4 +502,19 @@ class TableTest extends UiTestCase
 
         $this->assertEquals('R5-D4', $entries->first()->name);
     }
+
+    /** @test */
+    public function it_supports_border_radius()
+    {
+        $table = $this->getTestTable();
+
+        $result = $table->borderRadius('2xl');
+
+        $this->assertSame($table, $result);
+        $this->assertEquals('2xl', $table->getBorderRadius());
+        $this->assertEquals('rounded-2xl', $table->getBorderRadiusClass());
+        $this->assertEquals('rounded-tl-2xl', $table->getBorderRadiusClass('tl'));
+        $this->assertEquals('1rem', $table->getBorderRadiusCssValue());
+    }
+
 }

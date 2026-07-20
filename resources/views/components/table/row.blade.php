@@ -9,6 +9,9 @@
     'entry' => null,
     'table' => null,
     'tableName' => 'default',
+    'isLast' => false,
+    'bottomLeftRadiusStyle' => null,
+    'bottomRightRadiusStyle' => null,
     // 'striped' => false,
 ])
 
@@ -24,7 +27,7 @@
 <tr {{ $rowAttributes }}>
 
     @if ($bulkActions)
-    <td class="p-0 w-px">
+    <td @class(['p-0 w-px']) style="{{ $isLast ? $bottomLeftRadiusStyle : null }}">
         <div class="px-3 py-4">
             <label>
                 <input type="checkbox"
@@ -68,6 +71,8 @@
                 $color,
                 shades: [400, 500, 600],
             ),
+            ($isLast && ! $bulkActions && $loop->first) ? $bottomLeftRadiusStyle : null,
+            ($isLast && ! $actions && $loop->last) ? $bottomRightRadiusStyle : null,
         ]);
 
         $attributes = $column->getHtmlAttributeBag()
@@ -91,7 +96,7 @@
     </td>
     @endforeach
     @if ($actions)
-    <td class="py-4 pr-4 pl-3 text-sm font-medium text-gray-900 sm:pl-6">
+    <td @class(['py-4 pr-4 pl-3 text-sm font-medium text-gray-900 sm:pl-6']) style="{{ $isLast ? $bottomRightRadiusStyle : null }}">
         <x-ui::table.actions
             :actions="$actions"
             {{-- :alignment="(!$contentGrid) ? 'start md:end' : 'start'" --}}

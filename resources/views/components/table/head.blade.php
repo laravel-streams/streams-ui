@@ -4,17 +4,19 @@
     'actions' => [],
     'bulkActions' => [],
     'tableName' => 'default',
+    'topLeftRadiusStyle' => null,
+    'topRightRadiusStyle' => null,
 ])
 
 <thead {{
     $attributes->except(['table', 'columns', 'actions', 'bulkActions'])->merge([
-        'class' => $attributes->get('class', 'bg-gray-50'),
+        'class' => $attributes->get('class', ''),
     ])
 }}>
     <tr>
 
         @if ($bulkActions)
-        <th scope="col" class="p-0 w-0" width="10px">
+        <th scope="col" @class(['p-0 w-0 bg-gray-50 border-b border-gray-200']) style="{{ $topLeftRadiusStyle }}" width="10px">
             <div class="px-3 flex items-center" data-select-all-trigger>
                 <label class="flex cursor-pointer">
                     <input type="checkbox"
@@ -58,7 +60,17 @@
             }
         @endphp
         
-        <th scope="col" class="py-2.5 {{ ($bulkActions && $loop->first) ? 'pl-0' : 'pr-4 sm:pl-6' }} text-left font-semibold text-gray-900">
+        <th
+            scope="col"
+            @class([
+                'py-2.5 bg-gray-50 text-left font-semibold text-gray-900 border-b border-gray-200',
+                ($bulkActions && $loop->first) ? 'pl-0' : 'pr-4 sm:pl-6',
+            ])
+            style="{{ trim(implode('; ', array_filter([
+                (! $bulkActions && $loop->first) ? $topLeftRadiusStyle : null,
+                (! $actions && $loop->last) ? $topRightRadiusStyle : null,
+            ]))) }}"
+        >
             <{{ $column->isSortable() ? 'button' : 'span' }}
             @if ($column->isSortable())
             type="button"
@@ -115,7 +127,7 @@
         @endforeach
 
         @if ($actions)
-        <th scope="col" class="relative w-full py-2.5 pl-3 pr-4 sm:pr-6">
+        <th scope="col" @class(['relative w-full bg-gray-50 py-2.5 pl-3 pr-4 sm:pr-6 border-b border-gray-200']) style="{{ $topRightRadiusStyle }}">
             <span class="sr-only">Row Actions</span>
         </th>
         @endif

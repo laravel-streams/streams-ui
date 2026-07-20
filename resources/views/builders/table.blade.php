@@ -23,6 +23,16 @@ $paginationOptions = $table->getPaginationOptions();
 
 $selectedStatePath = $table->getStatePath() . '.selected';
 
+$borderRadiusClass = $table->getBorderRadiusClass();
+$borderRadiusCss = $table->getBorderRadiusCssValue();
+$hasHeaderChrome = filled($heading) || filled($description) || filled($headerActions);
+$hasToolbarChrome = filled($bulkActions) || filled($filters) || filled($views);
+$roundTopCorners = ! $hasHeaderChrome && ! $hasToolbarChrome;
+$topLeftRadiusStyle = ($roundTopCorners && $borderRadiusCss) ? "border-top-left-radius: {$borderRadiusCss}" : null;
+$topRightRadiusStyle = ($roundTopCorners && $borderRadiusCss) ? "border-top-right-radius: {$borderRadiusCss}" : null;
+$bottomLeftRadiusStyle = $borderRadiusCss ? "border-bottom-left-radius: {$borderRadiusCss}" : null;
+$bottomRightRadiusStyle = $borderRadiusCss ? "border-bottom-right-radius: {$borderRadiusCss}" : null;
+
 @endphp
 
 {!! Assets::inline(base_path('/vendor/streams/ui/resources/js/components/table.js')) !!}
@@ -40,7 +50,7 @@ $selectedStatePath = $table->getStatePath() . '.selected';
     {{-- ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('table', 'filament/tables') }}" --}}>
 
     @if ($paginator->count() > 0 || $hasActiveFilters)
-    <x-ui::table.container>
+    <x-ui::table.container :border-radius-class="$borderRadiusClass">
 
         @if ($heading || $description || $headerActions)
         <x-ui::table.header :heading="$heading" :description="$description" :actions="$headerActions" />
@@ -82,24 +92,50 @@ $selectedStatePath = $table->getStatePath() . '.selected';
         </div>
         @endif
 
-        <table class="min-w-full divide-y divide-gray-200">
+        <table class="min-w-full border-separate border-spacing-0 divide-y divide-gray-200">
 
-            <x-ui::table.head :table="$table" :tableName="$tableName" :columns="$columns" :actions="$actions" :bulkActions="$bulkActions" />
+            <x-ui::table.head
+                :table="$table"
+                :tableName="$tableName"
+                :columns="$columns"
+                :actions="$actions"
+                :bulkActions="$bulkActions"
+                :top-left-radius-style="$topLeftRadiusStyle"
+                :top-right-radius-style="$topRightRadiusStyle"
+            />
 
-            <tbody class="divide-y divide-gray-200 bg-white">
+            <tbody class="divide-y divide-gray-200">
 
                 @foreach ($paginator as $entry)
                 @php
                     $entryUrl = $getEntryUrl($entry);
+                    $isLastBodyRow = ! $isPaginated && $loop->last;
                 @endphp
-                <x-ui::table.row :table="$table" :tableName="$tableName" :entry="$entry" :columns="$columns" :actions="$actions"
-                    :bulkActions="$bulkActions" :entryUrl="$entryUrl" />
+                <x-ui::table.row
+                    :table="$table"
+                    :tableName="$tableName"
+                    :entry="$entry"
+                    :columns="$columns"
+                    :actions="$actions"
+                    :bulkActions="$bulkActions"
+                    :entryUrl="$entryUrl"
+                    :is-last="$isLastBodyRow"
+                    :bottom-left-radius-style="$bottomLeftRadiusStyle"
+                    :bottom-right-radius-style="$bottomRightRadiusStyle"
+                />
                 @endforeach
 
             </tbody>
 
-            @if ($isPaginated)    
-            <x-ui::table.foot :table="$table" :tableName="$tableName" :paginator="$paginator" :paginationOptions="$paginationOptions"/>
+            @if ($isPaginated)
+            <x-ui::table.foot
+                :table="$table"
+                :tableName="$tableName"
+                :paginator="$paginator"
+                :paginationOptions="$paginationOptions"
+                :bottom-left-radius-style="$bottomLeftRadiusStyle"
+                :bottom-right-radius-style="$bottomRightRadiusStyle"
+            />
             @endif
 
         </table>

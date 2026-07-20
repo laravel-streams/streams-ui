@@ -287,11 +287,11 @@
         </span>
     @endif --}}
 
-    {{-- @if (filled($badge))
+    @if (filled($badge))
         <div class="{{ $badgeContainerClasses }}">
             <x-ui::badge :color="$badgeColor" size="xs">
                 {{ $badge }}
             </x-ui::badge>
         </div>
-    @endif --}}
+    @endif
 </{{ $tag }}>

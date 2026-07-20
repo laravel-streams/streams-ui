@@ -11,9 +11,9 @@
         @else
             <span class="opacity-50">{{ $item['title'] }}</span>
         @endif --}}
-        {{-- @if (!$loop->last || count($breadcrumbsItems) == 1) --}}
+        @if (!$loop->last)
         <span class="opacity-50 text-lg -mx-4">&rsaquo;</span>
-        {{-- @endif --}}
+        @endif
     @endif
     @endforeach
 </div>

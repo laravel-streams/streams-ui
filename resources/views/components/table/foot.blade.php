@@ -7,11 +7,17 @@
     'paginator',
     'paginationOptions' => [],
     'tableName' => 'default',
+    'bottomLeftRadiusStyle' => null,
+    'bottomRightRadiusStyle' => null,
 ])
 
 <tfoot>
     <tr>
-        <td colspan="100%">
+        <td
+            colspan="100%"
+            @class(['border-t border-gray-200'])
+            style="{{ trim(implode('; ', array_filter([$bottomLeftRadiusStyle, $bottomRightRadiusStyle]))) }}"
+        >
             <div class="text-left px-6 py-4 flex w-full justify-between items-center">
 
                 @if ($paginator instanceof LengthAwarePaginator)

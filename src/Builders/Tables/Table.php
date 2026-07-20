@@ -27,6 +27,7 @@ class Table extends ViewBuilder implements HasActions
     use Common\HasState;
     use Concerns\CanBePaginated;
     use Concerns\CanBeReordered;
+    use Common\HasBorderRadius;
     use Concerns\HasActions;
     use Concerns\HasBulkActions;
     use Concerns\HasColumns;

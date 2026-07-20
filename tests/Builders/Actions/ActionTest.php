@@ -348,6 +348,17 @@ class ActionTest extends UiTestCase
     }
 
     /** @test */
+    public function it_renders_badge()
+    {
+        $html = $this->getTestAction()
+            ->badge('5', 'info')
+            ->toHtml();
+
+        $this->assertStringContainsString('min-w-[theme(spacing.4)]', $html);
+        $this->assertMatchesRegularExpression('/>\s*5\s*</', $html);
+    }
+
+    /** @test */
     public function it_can_set_and_get_color()
     {
         $action = $this->getTestAction();

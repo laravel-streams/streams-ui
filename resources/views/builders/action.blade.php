@@ -6,6 +6,8 @@
     :color="$action->getColor()"
     :style="$action->getStyle()"
     :tooltip="$action->getTooltip()"
+    :badge="$action->getBadge()"
+    :badgeColor="$action->getBadgeColor()"
     :disabled="$action->isDisabled()"
     :keyBindings="$action->getKeyBindings()"
     :borderRadius="$action->getBorderRadius()"

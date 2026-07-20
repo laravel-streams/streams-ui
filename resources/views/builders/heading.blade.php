@@ -54,7 +54,7 @@
         <div>
             <{{ $priority }} {{ $heading->getHtmlAttributeBag()->class([$classes . ' font-bold text-gray-900']) }}>{{ $heading->getTitle() }}</{!! $priority !!}>
             @if ($description = $heading->getDescription())
-            <p class="text-gray-500 mt-2">{!! $description !!}</p>
+            <p class="opacity-90 mt-2">{!! $description !!}</p>
             @endif
         </div>
     </div>
