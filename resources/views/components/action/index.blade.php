@@ -28,7 +28,13 @@
 @php
     $tag = $tag ?: ($href ? 'a' : 'button');
 
-    $hasVisibleLabel = ! $slot->isEmpty() && ! $labelSrOnly;
+    $hasSlotLabel = filled(Str::squish((string) $slot));
+    $hasVisibleLabel = $hasSlotLabel && ! $labelSrOnly;
+    
+    $isIconOnly = filled($icon) && ! $hasVisibleLabel;
+    $ariaLabel = $labelSrOnly && $hasSlotLabel
+        ? Str::squish(strip_tags((string) $slot))
+        : null;
 
     $yPaddingClasses = match ($size) {
         'xs' => 'py-1.5',
@@ -39,19 +45,34 @@
         default => null,
     };
 
-    $xPaddingClasses = match ($size) {
-        'xs' => $hasVisibleLabel ? 'px-3' : 'px-1.5',
-        'sm' => $hasVisibleLabel ? 'px-4' : 'px-1.5',
-        'md' => $hasVisibleLabel ? 'px-6' : 'px-2',
-        'lg' => $hasVisibleLabel ? 'px-6' : 'px-2.5',
-        'xl' => $hasVisibleLabel ? 'px-7' : 'px-3',
+    // Horizontal padding and icon/label gap only when a visible label string exists.
+    // Size only chooses the amount; icon-only uses symmetric `p-*` instead.
+    $xPaddingClasses = $hasVisibleLabel ? match ($size) {
+        'xs' => 'px-3',
+        'sm' => 'px-4',
+        'md' => 'px-6',
+        'lg' => 'px-6',
+        'xl' => 'px-7',
+        default => null,
+    } : null;
+
+    $iconOnlyPaddingClasses = match ($size) {
+        'xs' => 'p-1.5',
+        'sm' => 'p-1.5',
+        'md' => 'p-2',
+        'lg' => 'p-2.5',
+        'xl' => 'p-3',
         default => null,
     };
 
     $classes = Arr::toCssClasses([
         // Base classes — outline-none removes the browser default; focus-visible:* restores
         // an accessible keyboard-only ring (no persistent mouse-click focus ring).
-        'relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75',
+        // Avoid grid-flow-col on icon-only: blade whitespace text nodes become extra
+        // columns and read as left-side blank space before the icon.
+        $isIconOnly
+            ? 'relative inline-flex items-center justify-center font-semibold leading-none outline-none transition duration-75'
+            : 'relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75',
         'focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-custom-500',
 
         // Style-specific classes
@@ -106,27 +127,21 @@
         },
         is_string($color) ? "{$color}" : null,
 
-        // Size classes
-        match ($size) {
-            'xs' => 'gap-1',
-            'sm' => 'gap-1',
-            'md' => 'gap-1.5',
-            'lg' => 'gap-1.5',
-            'xl' => 'gap-1.5',
-            default => $size,
-        },
-        $yPaddingClasses,
-        is_string($size) ? $xPaddingClasses : null,
+        // Gap only when a visible label string is present (not size-driven).
+        $hasVisibleLabel ? 'gap-1.5' : null,
+        $isIconOnly ? $iconOnlyPaddingClasses : $yPaddingClasses,
+        (! $isIconOnly) ? $xPaddingClasses : null,
 
         // Responsive visibility
         'hidden' => $labeledFrom,
         match ($labeledFrom) {
-            'sm' => 'sm:inline-grid',
-            'md' => 'md:inline-grid',
-            'lg' => 'lg:inline-grid',
-            'xl' => 'xl:inline-grid',
-            '2xl' => '2xl:inline-grid',
-            default => 'inline-grid',
+            'sm' => $isIconOnly ? 'sm:inline-flex' : 'sm:inline-grid',
+            'md' => $isIconOnly ? 'md:inline-flex' : 'md:inline-grid',
+            'lg' => $isIconOnly ? 'lg:inline-flex' : 'lg:inline-grid',
+            'xl' => $isIconOnly ? 'xl:inline-flex' : 'xl:inline-grid',
+            '2xl' => $isIconOnly ? '2xl:inline-flex' : '2xl:inline-grid',
+            // Base display is already set above for icon-only (inline-flex) vs labeled (via inline-grid here).
+            default => $isIconOnly ? null : 'inline-grid',
         },
 
         // Outlined styles
@@ -200,12 +215,21 @@
             'disabled' => $disabled,
             'wire:loading.attr' => 'disabled',
             'type' => $tag == 'button' ? $type : false,
+            'aria-label' => $ariaLabel,
         ], escape: false)
         ->class([$classes])
         ->style([$actionStyles]) !!}
->
+>{{--
+--}}@if ($isIconOnly && ! $hasLoadingUi)<x-ui::icon
+        :attributes="
+            new \Illuminate\View\ComponentAttributeBag([
+                'icon' => $icon,
+                'class' => $iconClasses,
+            ])
+        "
+    />{{--
+--}}@else
     @if ($hasLoadingUi)
-        {{-- Loading layer: icon only, text only, or icon + text --}}
         <span
             class="absolute inset-0 flex items-center justify-center gap-2 invisible"
             @if ($wireTarget)
@@ -234,8 +258,6 @@
             @endif
         </span>
     @endif
-
-    {{-- Default label (hidden while loading when any loading UI is active) --}}
     <span
         @if ($hasLoadingUi)
             @if ($wireTarget)
@@ -247,46 +269,34 @@
         @endif
         class="{{ Arr::toCssClasses([
             'flex items-center',
-            $icon && ! $slot->isEmpty() ? $iconGapClasses : null,
+            $icon && $hasVisibleLabel ? $iconGapClasses : null,
         ]) }}"
-    >
-        @if ($icon && $iconPosition === 'before')
-        <x-ui::icon
-            :attributes="
-                new \Illuminate\View\ComponentAttributeBag([
-                    'icon' => $icon,
-                    'class' => $iconClasses,
-                ])
-            "
-        />
+    >{{--
+--}}@if ($icon && ($iconPosition === 'before' || ! $hasVisibleLabel))
+            <x-ui::icon
+                :attributes="
+                    new \Illuminate\View\ComponentAttributeBag([
+                        'icon' => $icon,
+                        'class' => $iconClasses,
+                    ])
+                "
+            />
         @endif
-
-        @if (!$slot->isEmpty())
-        <span class="{{ Arr::toCssClasses([
-            'sr-only' => $labelSrOnly,
-        ]) }}">
-            {!! $slot !!}
-        </span>
+        @if ($hasVisibleLabel)
+            <span>{!! $slot !!}</span>
         @endif
-
-        @if ($icon && $iconPosition === 'after')
-        <x-ui::icon
-            :attributes="
-                new \Illuminate\View\ComponentAttributeBag([
-                    'icon' => $icon,
-                    'class' => $iconClasses,
-                ])
-            "
-        />
-        @endif
-    </span>
-
-    {{-- @if ($hasFileUploadLoadingIndicator)
-        <span x-show="isUploadingFile" x-cloak>
-            {{ __('ui::components/button.messages.uploading_file') }}
-        </span>
-    @endif --}}
-
+        @if ($icon && $iconPosition === 'after' && $hasVisibleLabel)
+            <x-ui::icon
+                :attributes="
+                    new \Illuminate\View\ComponentAttributeBag([
+                        'icon' => $icon,
+                        'class' => $iconClasses,
+                    ])
+                "
+            />
+        @endif{{--
+--}}</span>
+@endif
     @if (filled($badge))
         <div class="{{ $badgeContainerClasses }}">
             <x-ui::badge :color="$badgeColor" size="xs">

@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Streams\Ui\Builders\ViewBuilder;
 use Illuminate\Support\Facades\Blade;
 use Streams\Ui\Builders\Actions\Action;
+use Streams\Ui\Builders\Actions\ActionMenu;
 use Illuminate\Contracts\Support\Htmlable;
 
 class ActionTest extends UiTestCase
@@ -509,6 +510,22 @@ class ActionTest extends UiTestCase
     }
 
     /** @test */
+    public function it_generates_label_when_label_is_null()
+    {
+        $action = Action::make('save-record')->label(null);
+
+        $this->assertEquals('Save Record', $action->getLabel());
+    }
+
+    /** @test */
+    public function it_hides_label_when_label_is_false()
+    {
+        $action = Action::make('save-record')->label(false);
+
+        $this->assertFalse($action->getLabel());
+    }
+
+    /** @test */
     public function it_can_configure_as_link()
     {
         $action = $this->getTestAction();
@@ -778,9 +795,124 @@ class ActionTest extends UiTestCase
             '<x-ui::action icon="heroicon-o-x-mark" color="black" borderRadius="full" class="ui-modal-close-btn" />'
         );
 
-        $this->assertStringContainsString('py-2', $html);
-        $this->assertStringContainsString('px-2', $html);
-        $this->assertStringNotContainsString('px-6', $html);
+        preg_match('/class="([^"]+)"/', $html, $matches);
+        $classes = $matches[1] ?? '';
+
+        $this->assertStringContainsString('p-2', $classes);
+        $this->assertStringNotContainsString('px-6', $classes);
+        $this->assertStringNotContainsString('px-2', $classes);
+        $this->assertStringNotContainsString('gap-1.5', $classes);
+        $this->assertStringNotContainsString('gap-1', $classes);
+        $this->assertStringNotContainsString('grid-flow-col', $classes);
+        $this->assertStringContainsString('inline-flex', $classes);
+        $this->assertStringContainsString('leading-none', $classes);
+        $this->assertStringNotContainsString('inline-grid', $classes);
+        $this->assertStringNotContainsString('flex items-center gap-', $html);
+        $this->assertTrue($this->iconOnlyButtonStartsWithIcon($html));
+    }
+
+    /** @test */
+    public function it_renders_false_label_action_without_label_gap_classes()
+    {
+        $html = Action::make('edit-record')
+            ->label(false)
+            ->icon('heroicon-o-pencil')
+            ->toHtml();
+
+        preg_match('/class="([^"]+)"/', $html, $matches);
+        $classes = $matches[1] ?? '';
+
+        $this->assertStringContainsString('p-2', $classes);
+        $this->assertStringNotContainsString('px-6', $classes);
+        $this->assertStringNotContainsString('gap-1.5', $classes);
+        $this->assertStringNotContainsString('grid-flow-col', $classes);
+        $this->assertStringContainsString('inline-flex', $classes);
+        $this->assertStringNotContainsString('flex items-center gap-', $html);
+    }
+
+    /** @test */
+    public function it_renders_whitespace_only_slot_without_label_gap_classes()
+    {
+        $html = Blade::render(
+            '<x-ui::action icon="heroicon-o-pencil">   </x-ui::action>'
+        );
+
+        preg_match('/class="([^"]+)"/', $html, $matches);
+        $classes = $matches[1] ?? '';
+
+        $this->assertStringContainsString('p-2', $classes);
+        $this->assertStringNotContainsString('px-6', $classes);
+        $this->assertStringNotContainsString('gap-1.5', $classes);
+        $this->assertStringContainsString('inline-flex', $classes);
+        $this->assertStringNotContainsString('flex items-center gap-', $html);
+    }
+
+    /** @test */
+    public function it_renders_icon_only_action_menu_trigger_without_label_gap_classes()
+    {
+        $html = ActionMenu::make('actions')
+            ->label(false)
+            ->icon('heroicon-o-ellipsis-vertical')
+            ->color('secondary')
+            ->actions([
+                Action::make('edit')->label('Edit'),
+            ])
+            ->toHtml();
+
+        preg_match('/class="([^"]*inline-flex[^"]*)"/', $html, $matches);
+
+        $this->assertNotEmpty($matches[1] ?? null);
+        $this->assertStringContainsString('p-2', $matches[1]);
+        $this->assertStringNotContainsString('px-6', $matches[1]);
+        $this->assertStringNotContainsString('gap-1.5', $matches[1]);
+        $this->assertStringNotContainsString('grid-flow-col', $matches[1]);
+        $this->assertStringContainsString('inline-flex', $matches[1]);
+    }
+
+    /** @test */
+    public function it_renders_edit_group_type_pencil_without_left_side_label_space()
+    {
+        // Mirrors App\Domains\Groups\Panel\Actions\EditGroupTypeModal setUp().
+        $html = Action::make('edit-group-type-modal')
+            ->label(false)
+            ->icon('heroicon-o-pencil')
+            ->color('light')
+            ->borderRadius('full')
+            ->toHtml();
+
+        preg_match('/class="([^"]+)"/', $html, $matches);
+        $classes = $matches[1] ?? '';
+
+        $this->assertStringContainsString('p-2', $classes);
+        $this->assertStringContainsString('inline-flex', $classes);
+        $this->assertStringContainsString('leading-none', $classes);
+        $this->assertStringNotContainsString('px-6', $classes);
+        $this->assertStringNotContainsString('gap-1.5', $classes);
+        $this->assertStringNotContainsString('grid-flow-col', $classes);
+        $this->assertStringNotContainsString('inline-grid', $classes);
+        $this->assertStringNotContainsString('flex items-center gap-', $html);
+        $this->assertStringNotContainsString('Edit Group Type Modal', $html);
+        $this->assertTrue($this->iconOnlyButtonStartsWithIcon($html));
+        $this->assertFalse($this->iconOnlyButtonStartsWithSpan($html));
+    }
+
+    /** @test */
+    public function it_renders_empty_string_label_as_icon_only_without_left_space()
+    {
+        $html = Action::make('edit')
+            ->label('')
+            ->icon('heroicon-o-pencil')
+            ->color('light')
+            ->toHtml();
+
+        preg_match('/class="([^"]+)"/', $html, $matches);
+        $classes = $matches[1] ?? '';
+
+        $this->assertStringContainsString('p-2', $classes);
+        $this->assertStringNotContainsString('px-6', $classes);
+        $this->assertStringNotContainsString('gap-1.5', $classes);
+        $this->assertStringContainsString('inline-flex', $classes);
+        $this->assertTrue($this->iconOnlyButtonStartsWithIcon($html));
     }
 
     /** @test */
@@ -792,6 +924,9 @@ class ActionTest extends UiTestCase
 
         $this->assertStringContainsString('py-2', $html);
         $this->assertStringContainsString('px-6', $html);
+        $this->assertStringContainsString('gap-1.5', $html);
+        $this->assertStringContainsString('inline-grid', $html);
+        $this->assertStringContainsString('grid-flow-col', $html);
     }
 
     /** @test */
@@ -834,5 +969,61 @@ class ActionTest extends UiTestCase
         $this->assertStringContainsString('focus-visible:ring-2', $html);
         $this->assertStringContainsString('focus-visible:ring-gray-700', $html);
         $this->assertStringContainsString('outline-none', $html);
+    }
+
+    protected function iconOnlyButtonStartsWithIcon(string $html): bool
+    {
+        $button = $this->firstActionButton($html);
+
+        if ($button === null) {
+            return false;
+        }
+
+        foreach ($button->childNodes as $child) {
+            if ($child->nodeType === XML_TEXT_NODE && trim($child->textContent) === '') {
+                continue;
+            }
+
+            return $child->nodeType === XML_ELEMENT_NODE
+                && in_array(strtolower($child->nodeName), ['svg', 'img', 'div'], true);
+        }
+
+        return false;
+    }
+
+    protected function iconOnlyButtonStartsWithSpan(string $html): bool
+    {
+        $button = $this->firstActionButton($html);
+
+        if ($button === null) {
+            return false;
+        }
+
+        foreach ($button->childNodes as $child) {
+            if ($child->nodeType === XML_TEXT_NODE && trim($child->textContent) === '') {
+                continue;
+            }
+
+            return $child->nodeType === XML_ELEMENT_NODE
+                && strtolower($child->nodeName) === 'span';
+        }
+
+        return false;
+    }
+
+    protected function firstActionButton(string $html): ?\DOMElement
+    {
+        $dom = new \DOMDocument;
+        @$dom->loadHTML('<?xml encoding="utf-8" ?>'.$html);
+
+        foreach (['button', 'a'] as $tag) {
+            $node = $dom->getElementsByTagName($tag)->item(0);
+
+            if ($node instanceof \DOMElement) {
+                return $node;
+            }
+        }
+
+        return null;
     }
 }

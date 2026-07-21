@@ -16,6 +16,6 @@
     :openInNewTab="$action->shouldOpenInNewTab()"
     :loadingIndicator="$action->getLoadingIndicator()"
     :loadingText="$action->getLoadingText()"
-    >
-    {{ $action->getLabel() }}
+    :labelSrOnly="$action->getLabel() ? false : true"
+    >@if ($label = $action->getLabel()){{ $label }}@endif
 </x-ui::action>

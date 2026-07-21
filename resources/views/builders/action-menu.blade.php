@@ -21,8 +21,7 @@
             :attributes="$action->getHtmlAttributeBag()"
             :openInNewTab="$action->shouldOpenInNewTab()"
             :loadingIndicator="$action->getLoadingIndicator()"
-            >
-            {{ $action->getLabel() }}
+            >@if (filled($label = $action->getLabel())){{ $label }}@endif
         </x-ui::action>
     </div>
 
@@ -90,7 +89,9 @@
                     ->class([$classes])
                     // ->style([$actionStyles])
                 !!}>
-                {{ $menuAction->getLabel() }}
+                @if ($menuLabel = $menuAction->getLabel())
+                    {{ $menuLabel }}
+                @endif
             </{{ $tag }}>
             @endforeach
         </div>

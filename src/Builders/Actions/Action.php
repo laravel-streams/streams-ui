@@ -113,18 +113,23 @@ class Action extends ViewBuilder
         return $this;
     }
 
-    public function getLabel(): ?string
+    public function getLabel(): string|false
     {
-        return $this->evaluate($this->label);
-        
-        $label = $this->evaluate($this->label)
-            ?? (string) str($this->getName())
-                ->beforeLast('.')
-                ->afterLast('.')
-                ->replace(['-', '_'], ' ')
-                ->title();
+        $label = $this->evaluate($this->label);
 
-        return $label;
+        if ($label === false) {
+            return false;
+        }
+
+        if ($label !== null) {
+            return $label;
+        }
+
+        return (string) str($this->getName())
+            ->beforeLast('.')
+            ->afterLast('.')
+            ->replace(['-', '_'], ' ')
+            ->title();
     }
 
     protected function resolveDefaultClosureDependency(string $parameter): array
