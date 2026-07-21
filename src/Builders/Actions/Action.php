@@ -113,8 +113,10 @@ class Action extends ViewBuilder
         return $this;
     }
 
-    public function getLabel(): string
+    public function getLabel(): ?string
     {
+        return $this->evaluate($this->label);
+        
         $label = $this->evaluate($this->label)
             ?? (string) str($this->getName())
                 ->beforeLast('.')
