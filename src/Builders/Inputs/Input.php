@@ -77,6 +77,19 @@ abstract class Input extends ViewBuilder
         return $this->evaluate($this->helpText);
     }
 
+    /**
+     * Inputs store a scalar/array at their state path — not a validated form bag.
+     * {@see \Streams\Ui\Builders\Concerns\HasState::getState()} is form-oriented and calls validate().
+     */
+    public function getState(bool $shouldCallHooksBefore = true): mixed
+    {
+        if (! isset($this->livewire)) {
+            return null;
+        }
+
+        return data_get($this->getLivewire(), $this->getStatePath());
+    }
+
     protected function resolveDefaultClosureDependency(string $parameter): array
     {
         return match ($parameter) {
