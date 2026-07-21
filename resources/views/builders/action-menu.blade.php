@@ -21,6 +21,7 @@
             :attributes="$action->getHtmlAttributeBag()"
             :openInNewTab="$action->shouldOpenInNewTab()"
             :loadingIndicator="$action->getLoadingIndicator()"
+            :labelSrOnly="$action->getLabel() ? false : true"
             >@if (filled($label = $action->getLabel())){{ $label }}@endif
         </x-ui::action>
     </div>
