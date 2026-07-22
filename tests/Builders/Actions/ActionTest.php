@@ -789,6 +789,26 @@ class ActionTest extends UiTestCase
     }
 
     /** @test */
+    public function it_renders_labeled_action_with_inline_flex_and_nowrap()
+    {
+        $html = Action::make('tag-chip')
+            ->label('Master Record')
+            ->icon('heroicon-o-x-mark')
+            ->size('xs')
+            ->toHtml();
+
+        preg_match('/class="([^"]+)"/', $html, $matches);
+        $classes = $matches[1] ?? '';
+
+        $this->assertStringContainsString('inline-flex', $classes);
+        $this->assertStringContainsString('whitespace-nowrap', $classes);
+        $this->assertStringNotContainsString('grid-flow-col', $classes);
+        $this->assertStringNotContainsString('inline-grid', $classes);
+        $this->assertStringContainsString('Master Record', $html);
+        $this->assertStringContainsString('gap-1', $html);
+    }
+
+    /** @test */
     public function it_renders_icon_only_action_with_square_padding()
     {
         $html = Blade::render(
@@ -810,6 +830,7 @@ class ActionTest extends UiTestCase
         $this->assertStringNotContainsString('flex items-center gap-', $html);
         $this->assertTrue($this->iconOnlyButtonStartsWithIcon($html));
     }
+
 
     /** @test */
     public function it_renders_false_label_action_without_label_gap_classes()
@@ -925,8 +946,10 @@ class ActionTest extends UiTestCase
         $this->assertStringContainsString('py-2', $html);
         $this->assertStringContainsString('px-6', $html);
         $this->assertStringContainsString('gap-1.5', $html);
-        $this->assertStringContainsString('inline-grid', $html);
-        $this->assertStringContainsString('grid-flow-col', $html);
+        $this->assertStringContainsString('inline-flex', $html);
+        $this->assertStringContainsString('whitespace-nowrap', $html);
+        $this->assertStringNotContainsString('inline-grid', $html);
+        $this->assertStringNotContainsString('grid-flow-col', $html);
     }
 
     /** @test */

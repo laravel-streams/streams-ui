@@ -68,11 +68,11 @@
     $classes = Arr::toCssClasses([
         // Base classes — outline-none removes the browser default; focus-visible:* restores
         // an accessible keyboard-only ring (no persistent mouse-click focus ring).
-        // Avoid grid-flow-col on icon-only: blade whitespace text nodes become extra
-        // columns and read as left-side blank space before the icon.
+        // Always use inline-flex (not inline-grid): blade whitespace text nodes become
+        // extra grid columns and squeeze labels into wrapping (e.g. tag chips).
         $isIconOnly
             ? 'relative inline-flex items-center justify-center font-semibold leading-none outline-none transition duration-75'
-            : 'relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75',
+            : 'relative inline-flex items-center justify-center font-semibold whitespace-nowrap outline-none transition duration-75',
         'focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-custom-500',
 
         // Style-specific classes
@@ -132,16 +132,15 @@
         $isIconOnly ? $iconOnlyPaddingClasses : $yPaddingClasses,
         (! $isIconOnly) ? $xPaddingClasses : null,
 
-        // Responsive visibility
+        // Responsive visibility — base display is already inline-flex above.
         'hidden' => $labeledFrom,
         match ($labeledFrom) {
-            'sm' => $isIconOnly ? 'sm:inline-flex' : 'sm:inline-grid',
-            'md' => $isIconOnly ? 'md:inline-flex' : 'md:inline-grid',
-            'lg' => $isIconOnly ? 'lg:inline-flex' : 'lg:inline-grid',
-            'xl' => $isIconOnly ? 'xl:inline-flex' : 'xl:inline-grid',
-            '2xl' => $isIconOnly ? '2xl:inline-flex' : '2xl:inline-grid',
-            // Base display is already set above for icon-only (inline-flex) vs labeled (via inline-grid here).
-            default => $isIconOnly ? null : 'inline-grid',
+            'sm' => 'sm:inline-flex',
+            'md' => 'md:inline-flex',
+            'lg' => 'lg:inline-flex',
+            'xl' => 'xl:inline-flex',
+            '2xl' => '2xl:inline-flex',
+            default => null,
         },
 
         // Outlined styles
@@ -167,12 +166,14 @@
     };
 
     $iconClasses = Arr::toCssClasses([
-        '',
+        'shrink-0',
         match ($iconSize ?: $size) {
+            'xs' => 'h-3.5 w-3.5',
             'sm' => 'h-5 w-5',
             'md' => 'h-6 w-6',
             'lg' => 'h-7 w-7',
-            default => $iconSize,
+            'xl' => 'h-8 w-8',
+            default => $iconSize ?: 'h-6 w-6',
         },
         match ($color) {
             'gray' => 'text-white',

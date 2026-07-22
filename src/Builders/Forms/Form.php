@@ -16,6 +16,7 @@ class Form extends ViewBuilder
     use Common\HasActions;
     use Common\HasComponents;
     use Common\HasDescription;
+    use Common\HasDirection;
     use Common\HasEntry;
     use Common\HasHeading;
     use Common\HasHtmlAttributes;
