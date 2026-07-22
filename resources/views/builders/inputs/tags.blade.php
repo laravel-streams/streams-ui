@@ -67,7 +67,7 @@
             },
         }"
         @class([
-            'flex w-full flex-wrap items-center gap-2 border border-gray-300 bg-white px-2 py-1.5',
+            'flex w-full flex-wrap items-center gap-2 border border-gray-500 bg-white px-2 py-1.5',
             "rounded-{$borderRadius}",
             'opacity-70 pointer-events-none' => $isDisabled,
         ])
