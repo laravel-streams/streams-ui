@@ -46,8 +46,6 @@
                     'block w-full px-3 py-2',
                     "rounded-{$borderRadius}",
                     // 'resize-none' => $shouldAutosize,
-                    'ring-gray-950/10 focus-visible:ring-primary-600' => ! $errors->has($statePath),
-                    'ring-danger-600 focus-visible:ring-danger-600 dark:ring-danger-500 dark:focus-visible:ring-danger-500' => $errors->has($statePath),
                 ])
         }}
     ></textarea>
