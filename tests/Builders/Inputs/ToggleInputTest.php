@@ -27,7 +27,7 @@ class ToggleInputTest extends UiTestCase
     {
         $input = $this->getTestInput();
 
-        $this->assertEquals('ui::components.inputs.toggle', $input->getView());
+        $this->assertEquals('ui::builders.inputs.toggle', $input->getView());
     }
 
     /** @test */

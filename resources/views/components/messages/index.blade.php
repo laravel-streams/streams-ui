@@ -4,10 +4,10 @@
     use Streams\Ui\Support\Facades\Colors;
     use Streams\Ui\Support\Facades\Notifications;
 ?>
-{{-- Teleport out of page stacking contexts (e.g. main.z-10) so toasts appear above topbar. --}}
+{{-- Teleport out of page stacking contexts (e.g. main.z-10). z-[60] sits above modal z-50. --}}
 <div x-data>
     <template x-teleport="body">
-        <div aria-live="assertive" class="z-50 pointer-events-none fixed inset-0 flex items-start px-4 py-6 sm:items-start sm:p-6">
+        <div aria-live="assertive" class="z-[60] pointer-events-none fixed inset-0 flex items-start px-4 py-6 sm:items-start sm:p-6">
             <div class="flex w-full flex-col items-center space-y-4 sm:items-center">
 
                 @php

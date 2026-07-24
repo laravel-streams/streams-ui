@@ -4,5 +4,5 @@ namespace Streams\Ui\Builders\Inputs;
 
 class ToggleInput extends Input
 {
-    protected string $view = 'ui::components.inputs.toggle';
+    protected string $view = 'ui::builders.inputs.toggle';
 }

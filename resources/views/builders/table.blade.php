@@ -16,7 +16,7 @@ $paginator = $table->getEntries();
 
 $heading = $table->getHeading();
 $description = $table->getDescription();
-$headerActions = [];//$table->getHeaderActions();
+$headerActions = $table->getHeaderActions();
 
 $isPaginated = $table->isPaginated();
 $paginationOptions = $table->getPaginationOptions();

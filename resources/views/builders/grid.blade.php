@@ -26,7 +26,7 @@
     }
 
     $classes = Arr::toCssClasses([
-        'grid gap-4 w-full',
+        'grid items-start gap-4 w-full',
         match ($grid->isDisabled()) {
             true => 'opacity-40 pointer-events-none',
             default => '',
@@ -124,25 +124,32 @@
     ]);
 @endphp
 
+@php
+    // Only apply column-span vars when explicitly configured. A layout Grid
+    // defaults to span 1; emitting --col-span-* would inherit to children and
+    // override cards/containers that reference col-[--col-span-*] without a local var.
+    $applyColumnSpan = $grid->hasColumnSpan();
+@endphp
+
 <div {{
     $attributes
         ->merge($grid->getHtmlAttributes())
         ->class([
             $classes,
-            'col-[--col-span-default]' => $columnSpan['default'] ?? null,
-            'sm:col-[--col-span-sm]' => $columnSpan['sm'] ?? null,
-            'md:col-[--col-span-md]' => $columnSpan['md'] ?? null,
-            'lg:col-[--col-span-lg]' => $columnSpan['lg'] ?? null,
-            'xl:col-[--col-span-xl]' => $columnSpan['xl'] ?? null,
-            '2xl:col-[--col-span-2xl]' => $columnSpan['2xl'] ?? null,
+            'col-[--col-span-default]' => $applyColumnSpan && ($columnSpan['default'] ?? null),
+            'sm:col-[--col-span-sm]' => $applyColumnSpan && ($columnSpan['sm'] ?? null),
+            'md:col-[--col-span-md]' => $applyColumnSpan && ($columnSpan['md'] ?? null),
+            'lg:col-[--col-span-lg]' => $applyColumnSpan && ($columnSpan['lg'] ?? null),
+            'xl:col-[--col-span-xl]' => $applyColumnSpan && ($columnSpan['xl'] ?? null),
+            '2xl:col-[--col-span-2xl]' => $applyColumnSpan && ($columnSpan['2xl'] ?? null),
         ])
         ->style([
-            "--col-span-default: {$getSpanValue($columnSpan['default'])}" => $columnSpan['default'] ?? null,
-            "--col-span-sm: {$getSpanValue($columnSpan['sm'])}" => $columnSpan['sm'] ?? null,
-            "--col-span-md: {$getSpanValue($columnSpan['md'])}" => $columnSpan['md'] ?? null,
-            "--col-span-lg: {$getSpanValue($columnSpan['lg'])}" => $columnSpan['lg'] ?? null,
-            "--col-span-xl: {$getSpanValue($columnSpan['xl'])}" => $columnSpan['xl'] ?? null,
-            "--col-span-2xl: {$getSpanValue($columnSpan['2xl'])}" => $columnSpan['2xl'] ?? null,
+            "--col-span-default: {$getSpanValue($columnSpan['default'])}" => $applyColumnSpan && ($columnSpan['default'] ?? null),
+            "--col-span-sm: {$getSpanValue($columnSpan['sm'])}" => $applyColumnSpan && ($columnSpan['sm'] ?? null),
+            "--col-span-md: {$getSpanValue($columnSpan['md'])}" => $applyColumnSpan && ($columnSpan['md'] ?? null),
+            "--col-span-lg: {$getSpanValue($columnSpan['lg'])}" => $applyColumnSpan && ($columnSpan['lg'] ?? null),
+            "--col-span-xl: {$getSpanValue($columnSpan['xl'])}" => $applyColumnSpan && ($columnSpan['xl'] ?? null),
+            "--col-span-2xl: {$getSpanValue($columnSpan['2xl'])}" => $applyColumnSpan && ($columnSpan['2xl'] ?? null),
         ])
 }}>
 

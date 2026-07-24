@@ -22,6 +22,8 @@ trait CanSpanColumns
         '2xl' => null,
     ];
 
+    protected bool $hasColumnSpan = false;
+
     public function columnSpan(array|int|string|\Closure|null $span): static
     {
         if (! is_array($span)) {
@@ -29,6 +31,8 @@ trait CanSpanColumns
                 'default' => $span,
             ];
         }
+
+        $this->hasColumnSpan = true;
 
         $this->columnSpan = [
             ...$this->columnSpan,
@@ -43,6 +47,11 @@ trait CanSpanColumns
         $this->columnSpan('full');
 
         return $this;
+    }
+
+    public function hasColumnSpan(): bool
+    {
+        return $this->hasColumnSpan;
     }
 
     public function columnStart(
