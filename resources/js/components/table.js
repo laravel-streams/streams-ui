@@ -15,6 +15,12 @@ function table(tableName = 'default', selectedStatePath = null) {
 
         allEntriesSelected: false,
 
+        // When the server clears selection (e.g. after a bulk action), skip the
+        // selectedEntries → $wire.set sync. That extra Livewire round-trip remorphs
+        // the page and tears down notification toasts that only exist via View::share
+        // from the action response.
+        suppressSelectedSync: false,
+
         normalizeEntryKey: function (key) {
             return String(key)
         },
@@ -54,7 +60,7 @@ function table(tableName = 'default', selectedStatePath = null) {
             }
 
             this.$wire.$on('deselectAllTableEntries', () =>
-                this.deselectAllEntries(),
+                this.deselectAllEntries({ sync: false }),
             );
 
             if (typeof Livewire !== 'undefined') {
@@ -94,6 +100,10 @@ function table(tableName = 'default', selectedStatePath = null) {
         },
 
         syncSelectedEntries: function () {
+            if (this.suppressSelectedSync) {
+                return
+            }
+
             this.$wire.set(
                 this.getSelectedStatePath(),
                 [...this.selectedEntries],
@@ -179,8 +189,20 @@ function table(tableName = 'default', selectedStatePath = null) {
             this.isLoading = false
         },
 
-        deselectAllEntries: function () {
+        deselectAllEntries: function (options = {}) {
+            const sync = options.sync !== false
+
+            if (! sync) {
+                this.suppressSelectedSync = true
+            }
+
             this.selectedEntries.splice(0, this.selectedEntries.length)
+
+            if (! sync) {
+                this.$nextTick(() => {
+                    this.suppressSelectedSync = false
+                })
+            }
         },
 
         isEntrySelected: function (key) {
