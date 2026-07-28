@@ -39,6 +39,7 @@ $bottomRightRadiusStyle = $borderRadiusCss ? "border-bottom-right-radius: {$bord
 
 <div
     x-data="table('{{ $tableName }}', @js($selectedStatePath))"
+    class="relative"
     {{-- @if (! $isLoaded)
         wire:init="loadTable"
     @endif --}}
@@ -141,6 +142,9 @@ $bottomRightRadiusStyle = $borderRadiusCss ? "border-bottom-right-radius: {$bord
         </table>
 
     </x-ui::table.container>
+
+    <x-ui::table.bulk-toolbar :bulk-actions="$bulkActions" />
+
     @elseif ($emptyState = $getEmptyState())
     {{ $emptyState }}
     @else

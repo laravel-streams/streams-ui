@@ -52,6 +52,7 @@ trait HasBulkActions
 
         $action->resetArguments();
         $this->unmountTableBulkAction($table);
+        $this->deselectAllTableRecords();
         unset($this->entries[$table]);
 
         return $result;

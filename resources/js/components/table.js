@@ -13,7 +13,6 @@ function table(tableName = 'default', selectedStatePath = null) {
         draggedIndex: null,
         droppedIndex: null,
 
-        bulkMenuOpen: false,
         allEntriesSelected: false,
 
         normalizeEntryKey: function (key) {
@@ -27,35 +26,9 @@ function table(tableName = 'default', selectedStatePath = null) {
             }, { deep: true })
 
             this.$el.addEventListener('click', (event) => {
-                if (event.target.closest('[data-bulk-menu-trigger]')) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                    this.bulkMenuOpen = !this.bulkMenuOpen
-
-                    return
-                }
-
                 if (event.target.closest('[data-select-all-trigger]')) {
                     event.preventDefault()
                     this.toggleSelectAllEntries()
-                }
-            })
-
-            document.addEventListener('click', (event) => {
-                if (!this.bulkMenuOpen) {
-                    return
-                }
-
-                if (event.target.closest('[data-bulk-menu]')) {
-                    return
-                }
-
-                this.bulkMenuOpen = false
-            })
-
-            document.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape' && this.bulkMenuOpen) {
-                    this.bulkMenuOpen = false
                 }
             })
 
