@@ -8,7 +8,7 @@ use Streams\Ui\Builders\Navigation\NavigationItem;
 
 trait HasNavigation
 {
-    protected static bool $registerNavigation = true;
+    protected static bool $registerNavigation = false;
 
     protected static ?string $navigationLabel = null;
 
@@ -90,6 +90,10 @@ trait HasNavigation
 
     public static function getRouteName(?string $panel = null): string
     {
+        if (static::hasResource()) {
+            return static::getResource()::getRouteBaseName($panel).'.'.static::getResourcePageName();
+        }
+
         $panel ??= UI::currentPanel()->getId();
 
         return (string) str(static::getSlug())

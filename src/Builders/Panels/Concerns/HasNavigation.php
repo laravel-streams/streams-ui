@@ -44,6 +44,10 @@ trait HasNavigation
 
         foreach ($this->getResources() as $resource) {
             $resource::registerNavigationItems($this);
+
+            foreach ($resource::getPages() as $pageRouter) {
+                $pageRouter->getPage()::registerNavigationItems($this);
+            }
         }
 
         $this->navigationMounted = true;

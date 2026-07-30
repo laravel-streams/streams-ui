@@ -93,6 +93,15 @@ abstract class Page extends Component
         bool $isAbsolute = true,
         ?string $panel = null
     ): string {
+        if (static::hasResource()) {
+            return static::getResource()::getUrl(
+                static::getResourcePageName(),
+                $parameters,
+                $isAbsolute,
+                $panel,
+            );
+        }
+
         return route(static::getRouteName($panel), $parameters, $isAbsolute);
     }
 }

@@ -42,7 +42,7 @@ trait ProvidesNavigationItem
                 ->icon(static::getNavigationIcon())
                 ->activeIcon(static::getActiveNavigationIcon())
                 ->isActiveWhen(fn (): bool => request()->routeIs(static::getRouteName()))
-                ->sortOrder(static::getNavigationSortOrder())
+                ->sortOrder(static::getNavigationSort())
                 ->badge(static::getNavigationBadge(), color: static::getNavigationBadgeColor())
                 ->url(static::getNavigationUrl()),
         ];

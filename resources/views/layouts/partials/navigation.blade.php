@@ -11,18 +11,19 @@
                 <li x-data="{collapsed: $persist(true).as('Sidebar{{ $key }}navGroup_collapsed')}">
                     @if ($label = $group->getLabel())
                     <div @click="collapsed=!collapsed"
+                        x-tooltip.placement.right="sidebar_collapsed ? {{ \Illuminate\Support\Js::from($label) }} : ''"
                         class="flex items-center gap-x-3 px-2 py-2 cursor-pointer">
                         @if ($icon = $group->getIcon())
                         @svg($icon, 'h-6 w-6 shrink-0')
                         @endif
-                        <span class="flex-1 font-bold text-black">{{ $label
-                            }}</span>
+                        <span class="flex-1 font-semibold text-black" x-show="!sidebar_collapsed" x-cloak>{{ $label }}</span>
                         <button @click="collapsed=!collapsed" title="{{ $label }}"
+                            x-show="!sidebar_collapsed" x-cloak
                             x-bind:aria-expanded="!collapsed" x-bind:class="{ '-rotate-180': collapsed }">
                             @svg('heroicon-o-chevron-up', 'h-4 w-4 text-gray-400')
                         </button>
                     </div>
-                    <ul x-show="!collapsed" role="list">
+                    <ul x-show="!collapsed && !sidebar_collapsed" role="list" class="pl-2">
                         @foreach ($group->getItems() as $item)
                         @php
                             $url = $item->getUrl();
@@ -34,19 +35,19 @@
                                 {!! $item->getHtmlAttributeBag() !!}
                                 {{ $navigate ? 'wire:navigate' : null }}
                                 target="{{ $target }}"
-                                class="{{ $item->isActive() ? 'bg-gray-50 text-primary-600' : 'text-gray-700 hover:bg-gray-50' }} {{ $item->isDisabled() ? 'opacity-50' : '' }} group flex w-full items-center gap-x-3 rounded-md p-2 leading-6 font-semibold">
+                                class="{{ $item->isActive() ? 'bg-gray-50 text-primary-600' : 'text-gray-700 hover:bg-gray-50' }} {{ $item->isDisabled() ? 'opacity-50' : '' }} group flex w-full items-center gap-x-3 rounded-md p-2 leading-6 font-medium">
                                 @if ($label)
-                                <div class="relative ml-1.5 h-3 w-3 flex items-center justify-center">
-            
+                                <div class="relative ml-1.5 h-6 w-3 flex items-center justify-center">
+
                                     {{-- <div class="absolute -bottom-1/2 top-1/2 w-px bg-gray-300"></div> --}}
-                                        
-                                    <div class="relative h-1.5 w-1.5 rounded-full {{ $item->isActive() ? 'bg-current' : 'bg-gray-400' }}"></div>
+
+                                    <div class="relative -translate-x-2 w-1.5 rounded-full transition-[height] duration-200 group-hover:h-6 {{ $item->isActive() ? 'h-6 bg-current' : 'h-1.5 bg-gray-400' }}"></div>
                                 </div>
                                 @endif
                                 @if ($icon = $item->getIcon())
                                 @svg($icon, 'h-6 w-6 shrink-0')
                                 @endif
-                                {{ __($item->getLabel()) }}
+                                <span x-show="!sidebar_collapsed" x-cloak>{{ __($item->getLabel()) }}</span>
                             </a>
                         </li>
                         @endforeach
