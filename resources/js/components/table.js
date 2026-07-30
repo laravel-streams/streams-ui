@@ -63,6 +63,9 @@ function table(tableName = 'default', selectedStatePath = null) {
                 this.deselectAllEntries({ sync: false }),
             );
 
+            this._onEscapeKey = (event) => this.handleEscapeKey(event)
+            window.addEventListener('keydown', this._onEscapeKey)
+
             if (typeof Livewire !== 'undefined') {
                 Livewire.hook('commit', ({ component, succeed }) => {
                     if (component !== this.$wire) {
@@ -76,6 +79,77 @@ function table(tableName = 'default', selectedStatePath = null) {
             }
 
             this.updateAllEntriesSelectedState()
+        },
+
+        destroy: function () {
+            if (this._onEscapeKey) {
+                window.removeEventListener('keydown', this._onEscapeKey)
+            }
+        },
+
+        handleEscapeKey: function (event) {
+            if (event.key !== 'Escape') {
+                return
+            }
+
+            if (this.selectedEntries.length === 0) {
+                return
+            }
+
+            // Let open modals / dropdowns consume Escape first.
+            if (this.hasOpenOverlay()) {
+                return
+            }
+
+            this.deselectAllEntries()
+        },
+
+        hasOpenOverlay: function () {
+            if (document.querySelector('dialog[open]')) {
+                return true
+            }
+
+            // Streams UI modals teleport a fixed overlay to body while open.
+            for (const el of document.querySelectorAll('body > div.fixed.inset-0')) {
+                if (! this.isElementVisible(el)) {
+                    continue
+                }
+
+                if (
+                    el.querySelector('.ui-modal-content') ||
+                    el.querySelector('.ui-modal-close-btn') ||
+                    el.querySelector('[x-ref="modalContainer"]')
+                ) {
+                    return true
+                }
+            }
+
+            // Filters, action menus, user menu, etc. use Alpine `open` + x-show.
+            for (const el of document.querySelectorAll('[x-show="open"]')) {
+                if (this.isElementVisible(el)) {
+                    return true
+                }
+            }
+
+            return false
+        },
+
+        isElementVisible: function (el) {
+            if (! (el instanceof Element)) {
+                return false
+            }
+
+            if (el.hasAttribute('hidden') || el.getAttribute('aria-hidden') === 'true') {
+                return false
+            }
+
+            const style = window.getComputedStyle(el)
+
+            if (style.display === 'none' || style.visibility === 'hidden') {
+                return false
+            }
+
+            return el.getClientRects().length > 0
         },
 
         syncSelectAllCheckbox: function (selected) {
@@ -96,7 +170,13 @@ function table(tableName = 'default', selectedStatePath = null) {
         },
 
         getSelectedStatePath: function () {
-            return this.selectedStatePath ?? `data.tables.${this.tableName}.selected`
+            // Empty string must not win over the fallback (`??` only treats null/undefined).
+            // A blank or leading-dot path makes Livewire try to set public property [$].
+            if (typeof this.selectedStatePath === 'string' && this.selectedStatePath !== '' && ! this.selectedStatePath.startsWith('.')) {
+                return this.selectedStatePath
+            }
+
+            return `data.tables.${this.tableName}.selected`
         },
 
         syncSelectedEntries: function () {
@@ -104,8 +184,14 @@ function table(tableName = 'default', selectedStatePath = null) {
                 return
             }
 
+            const path = this.getSelectedStatePath()
+
+            if (! path || path === '' || path.startsWith('.')) {
+                return
+            }
+
             this.$wire.set(
-                this.getSelectedStatePath(),
+                path,
                 [...this.selectedEntries],
                 true,
             );

@@ -21,7 +21,10 @@ $headerActions = $table->getHeaderActions();
 $isPaginated = $table->isPaginated();
 $paginationOptions = $table->getPaginationOptions();
 
-$selectedStatePath = $table->getStatePath() . '.selected';
+$tableStatePath = $table->getStatePath();
+$selectedStatePath = filled($tableStatePath)
+    ? $tableStatePath.'.selected'
+    : 'data.tables.'.$tableName.'.selected';
 
 $borderRadiusClass = $table->getBorderRadiusClass();
 $borderRadiusCss = $table->getBorderRadiusCssValue();
