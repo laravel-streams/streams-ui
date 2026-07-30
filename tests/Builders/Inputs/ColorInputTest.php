@@ -52,7 +52,7 @@ class ColorInputTest extends UiTestCase
     }
 
     /** @test */
-    public function it_renders_a_native_color_input_with_wire_model_binding()
+    public function it_renders_a_swatch_and_hex_input_with_wire_model_binding()
     {
         $this->app['view']->share('errors', new \Illuminate\Support\ViewErrorBag);
 
@@ -69,7 +69,9 @@ class ColorInputTest extends UiTestCase
             ->toHtml();
 
         $this->assertStringContainsString('type="color"', $html);
-        $this->assertStringContainsString('wire:model=', $html);
+        $this->assertStringContainsString('type="text"', $html);
+        $this->assertStringContainsString('placeholder="#000000"', $html);
+        $this->assertSame(2, substr_count($html, 'wire:model='));
         $this->assertStringContainsString('required', $html);
     }
 }

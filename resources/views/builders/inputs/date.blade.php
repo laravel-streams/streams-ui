@@ -12,6 +12,7 @@
     // $suffixIcon = $getSuffixIcon();
     // $suffixLabel = $getSuffixLabel();
     $statePath = $getStatePath();
+    $borderRadius = $getBorderRadius() ?? 'md';
 @endphp
 
 <x-dynamic-component :component="$getFieldWrapperView()" :field="$field">
@@ -41,6 +42,7 @@
                             // 'autofocus' => $isAutofocused(),
                             'disabled' => $isDisabled,
                             'autocomplete' => $getAutocomplete(),
+                            'borderRadius' => $borderRadius,
                             'id' => $id,
                             // 'inlinePrefix' => $isPrefixInline && (count($prefixActions) || $prefixIcon || filled($prefixLabel)),
                             // 'inlineSuffix' => $isSuffixInline && (count($suffixActions) || $suffixIcon || filled($suffixLabel)),

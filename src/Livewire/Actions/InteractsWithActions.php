@@ -113,7 +113,12 @@ trait InteractsWithActions
                 'arguments' => (array) $arguments,
             ]);
 
-            $action->fire('after_call');
+            $action->fire('after_call', [
+                'action' => $action,
+                'component' => $this,
+                'livewire' => $this,
+                'arguments' => (array) $arguments,
+            ]);
         } catch (Halt $exception) {
             return null;
         } catch (Cancel $exception) {
