@@ -1,6 +1,7 @@
 @props(['filters', 'tableName' => 'default'])
 
-<form {{ $attributes->class(['grid gap-y-4']) }} wire:submit="resetPage(null, '{{ $tableName }}')">
+{{-- Filters apply via live wire:model; prevent Enter from submitting. --}}
+<form {{ $attributes->class(['grid gap-y-4']) }} @submit.prevent>
 
     <div class="flex justify-between">
         <h4 class="font-semibold">

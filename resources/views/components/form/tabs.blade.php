@@ -48,8 +48,8 @@
         value="{{
             // collect($getChildComponentContainer()->getComponents())
             collect($getComponents())
-                // ->filter(static fn (\Streams\Ui\Builders\Forms\Layouts\Tab $tab): bool => $tab->isVisible())
-                ->map(static fn (\Streams\Ui\Builders\Forms\Layouts\Tab $tab) => $tab->getId())
+                // ->filter(static fn (\Streams\Ui\Builders\Navigation\Tab $tab): bool => $tab->isVisible())
+                ->map(static fn (\Streams\Ui\Builders\Navigation\Tab $tab) => $tab->getId())
                 ->values()
                 ->toJson()
         }}"

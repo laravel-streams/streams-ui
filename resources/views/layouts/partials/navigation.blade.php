@@ -17,7 +17,7 @@
                         @svg($icon, 'h-6 w-6 shrink-0')
                         @endif
                         <span class="flex-1 font-semibold text-black" x-show="!sidebar_collapsed" x-cloak>{{ $label }}</span>
-                        <button @click="collapsed=!collapsed" title="{{ $label }}"
+                        <button type="button" @click.stop="collapsed=!collapsed" title="{{ $label }}"
                             x-show="!sidebar_collapsed" x-cloak
                             x-bind:aria-expanded="!collapsed" x-bind:class="{ '-rotate-180': collapsed }">
                             @svg('heroicon-o-chevron-up', 'h-4 w-4 text-gray-400')
