@@ -31,14 +31,21 @@ use Streams\Ui\Support\Facades\UI;
         {{-- EOF Brand --}}
 
         <div class="relative flex flex-1">
-            <button type="button" @click.prevent="$dispatch('toggle-sidebar');" class="-ml-4 hidden lg:inline-block">
-                <span x-show="!sidebar_collapsed">
-                    @svg('lucide-sidebar', 'h-6 w-6')
-                </span>
-                <span x-show="sidebar_collapsed">
-                    @svg('lucide-sidebar', 'h-6 w-6')
-                </span>
-            </button>
+            <div class="-ml-4 hidden items-center gap-1.5 lg:inline-flex">
+                <button type="button" @click.prevent="$dispatch('toggle-sidebar');" x-mousetrap.shift-b
+                    class="inline-flex" title="Toggle sidebar (Shift+B)">
+                    <span class="sr-only">Toggle sidebar</span>
+                    <span x-show="!sidebar_collapsed">
+                        @svg('lucide-sidebar', 'h-6 w-6')
+                    </span>
+                    <span x-show="sidebar_collapsed">
+                        @svg('lucide-sidebar', 'h-6 w-6')
+                    </span>
+                </button>
+                <kbd class="rounded border border-gray-200 bg-gray-50 px-1 py-0.5 font-mono text-[10px] font-medium text-gray-400" aria-hidden="true">
+                    Shift + B
+                </kbd>
+            </div>
             @if ($topNavigation)
             <div class="flex h-16 shrink-0 items-center font-bold mr-12">
                 <a href="{{ UI::getHomeUrl() }}" class="text-xl" title="Go to panel homepage.">

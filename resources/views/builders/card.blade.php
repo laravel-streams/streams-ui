@@ -89,13 +89,16 @@
     <div @class(['flex items-center justify-between heading border-b border-black/10', $headingInsetXClass, $headingInsetYClass])>
         <div class="flex flex-col">
             @if ($heading)
-                @if ($url = $card->getUrl())
-                    <h2 class="text-xl font-semibold">
+                <h2 class="flex items-center gap-2 text-xl font-semibold">
+                    @if ($url = $card->getUrl())
                         <a href="{{ $url }}" class="underline">{{ __($heading) }}</a>
-                    </h2>
-                @else
-                    <h2 class="text-xl font-semibold">{{ __($heading) }}</h2>
-                @endif
+                    @else
+                        {{ __($heading) }}
+                    @endif
+                    @if ($badge = $card->getBadge())
+                        <x-ui::badge :color="$card->getBadgeColor()" size="sm">{{ $badge }}</x-ui::badge>
+                    @endif
+                </h2>
             @endif
             @if ($description)
                 <p>{!! __($description) !!}</p>

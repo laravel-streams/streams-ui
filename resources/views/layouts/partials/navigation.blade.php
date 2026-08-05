@@ -10,7 +10,7 @@
                 @foreach(UI::currentPanel()->getNavigation() as $key => $group)
                 <li x-data="{collapsed: $persist(true).as('Sidebar{{ $key }}navGroup_collapsed')}">
                     @if ($label = $group->getLabel())
-                    <div @click="collapsed=!collapsed"
+                    <div @click="sidebar_collapsed ? ($dispatch('toggle-sidebar'), collapsed = false) : (collapsed = !collapsed)"
                         x-tooltip.placement.right="sidebar_collapsed ? {{ \Illuminate\Support\Js::from($label) }} : ''"
                         class="flex items-center gap-x-3 px-2 py-2 cursor-pointer">
                         @if ($icon = $group->getIcon())

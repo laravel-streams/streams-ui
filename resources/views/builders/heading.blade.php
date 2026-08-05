@@ -11,6 +11,7 @@
     $priority = $heading->getPriority() ?? $priority;
     
     $classes = Arr::toCssClasses([
+        'inline-flex items-center gap-2',
         match ($priority) {
             'h1' => 'text-3xl',
             'h2' => 'text-2xl',
@@ -52,7 +53,12 @@
         />
         @endif
         <div>
-            <{{ $priority }} {{ $heading->getHtmlAttributeBag()->class([$classes . ' font-bold text-gray-900']) }}>{{ $heading->getTitle() }}</{!! $priority !!}>
+            <{{ $priority }} {{ $heading->getHtmlAttributeBag()->class([$classes . ' font-bold text-gray-900']) }}>
+                {{ $heading->getTitle() }}
+                @if ($badge = $heading->getBadge())
+                    <x-ui::badge :color="$heading->getBadgeColor()" size="sm">{{ $badge }}</x-ui::badge>
+                @endif
+            </{!! $priority !!}>
             @if ($description = $heading->getDescription())
             <p class="opacity-90 mt-2">{!! $description !!}</p>
             @endif
