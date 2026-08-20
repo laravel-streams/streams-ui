@@ -11,6 +11,7 @@ class Modal extends Builder
     use Common\HasDescription;
     use Common\HasHeading;
     use Common\HasName;
+    use Concerns\HasCloseAction;
 
     final public function __construct(string|\Closure|null $name = null)
     {

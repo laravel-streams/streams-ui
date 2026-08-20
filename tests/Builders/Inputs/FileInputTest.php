@@ -47,4 +47,65 @@ class FileInputTest extends UiTestCase
 
         $this->assertEquals('Upload Document', $input->getLabel());
     }
+
+    /** @test */
+    public function it_resolves_explicit_preview_url_for_images(): void
+    {
+        $input = FileInput::make('avatar')
+            ->image()
+            ->previewUrl('https://cdn.example.com/avatars/me.jpg');
+
+        $this->assertSame('https://cdn.example.com/avatars/me.jpg', $input->getPreviewUrl());
+        $this->assertTrue($input->shouldShowImagePreview());
+        $this->assertSame('image/*', $input->getAccept());
+    }
+
+    /** @test */
+    public function it_shows_filename_for_non_image_paths_without_image_preview(): void
+    {
+        $livewire = new class extends \Livewire\Component
+        {
+            public array $data = [
+                'file_field' => 'docs/handbook.pdf',
+            ];
+
+            public function render()
+            {
+                return '<div></div>';
+            }
+        };
+
+        $input = FileInput::make('file_field')
+            ->livewire($livewire)
+            ->statePath('data.file_field');
+
+        $this->assertSame('handbook.pdf', $input->getCurrentFileName());
+        $this->assertFalse($input->shouldShowImagePreview());
+        $this->assertStringContainsString('handbook.pdf', $input->getPreviewUrl() ?? '');
+    }
+
+    /** @test */
+    public function it_shows_image_preview_for_stored_image_paths(): void
+    {
+        $livewire = new class extends \Livewire\Component
+        {
+            public array $data = [
+                'avatar' => 'avatars/ryan.png',
+            ];
+
+            public function render()
+            {
+                return '<div></div>';
+            }
+        };
+
+        $input = FileInput::make('avatar')
+            ->disk('public')
+            ->livewire($livewire)
+            ->statePath('data.avatar');
+
+        $this->assertSame('ryan.png', $input->getCurrentFileName());
+        $this->assertTrue($input->shouldShowImagePreview());
+        $this->assertNotNull($input->getPreviewUrl());
+    }
 }

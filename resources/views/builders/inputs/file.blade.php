@@ -1,74 +1,50 @@
 @php
-    //$extraAlpineAttributes = $getExtraAlpineAttributes();
     $id = $getId();
-    //$isConcealed = $isConcealed();
     $isDisabled = $isDisabled();
-    // $isPrefixInline = $isPrefixInline();
-    // $isSuffixInline = $isSuffixInline();
-    // $prefixActions = $getPrefixActions();
-    // $prefixIcon = $getPrefixIcon();
-    // $prefixLabel = $getPrefix();
-    // $suffixActions = $getSuffixActions();
-    // $suffixIcon = $getSuffixIcon();
-    // $suffixLabel = $getSuffix();
     $statePath = $getStatePath();
+    $previewUrl = $getPreviewUrl();
+    $fileName = $getCurrentFileName();
+    $showImagePreview = $shouldShowImagePreview();
+    $accept = $getAccept();
+    $multiple = $isMultiple();
 @endphp
 
 <x-dynamic-component :component="$getFieldWrapperView()" :field="$field" class="flex">
-    {{-- <x-ui::inputs.wrapper
-        :disabled="$isDisabled"
-        :inline-prefix="$isPrefixInline"
-        :inline-suffix="$isSuffixInline"
-        :prefix="$prefixLabel"
-        :prefix-actions="$prefixActions"
-        :prefix-icon="$prefixIcon"
-        :prefix-icon-color="$getPrefixIconColor()"
-        :suffix="$suffixLabel"
-        :suffix-actions="$suffixActions"
-        :suffix-icon="$suffixIcon"
-        :suffix-icon-color="$getSuffixIconColor()"
-        :valid="! $errors->has($statePath)"
-        class=""
-        :attributes="
-            \Filament\Support\prepare_inherited_attributes($getExtraAttributeBag())
-                ->class(['overflow-hidden'])
-        "
-    > --}}
-    @props([
-    'inlinePrefix' => false,
-    'inlineSuffix' => false,
-])
+    <div class="grid w-full gap-y-3">
+        @if ($showImagePreview && filled($previewUrl))
+            <div class="flex items-center gap-3">
+                <img
+                    src="{{ $previewUrl }}"
+                    alt="{{ $fileName ?? '' }}"
+                    class="h-16 w-16 shrink-0 rounded-xl object-cover ring-1 ring-black/5"
+                />
+                @if (filled($fileName))
+                    <div class="min-w-0">
+                        <p class="text-sm font-medium text-gray-900 truncate">{{ $fileName }}</p>
+                        <p class="text-xs text-gray-500">Current file — choose a new one to replace</p>
+                    </div>
+                @endif
+            </div>
+        @elseif (filled($fileName))
+            <div class="rounded-xl bg-gray-50 px-3 py-2 ring-1 ring-gray-200">
+                <p class="text-sm text-gray-700">
+                    <span class="font-medium text-gray-900">Current:</span>
+                    <span class="truncate">{{ $fileName }}</span>
+                </p>
+                <p class="text-xs text-gray-500">Choose a new file to replace</p>
+            </div>
+        @endif
 
         <x-ui::inputs.file
             :attributes="new \Illuminate\View\ComponentAttributeBag([
-                //'autocapitalize' => $getAutocapitalize(),
-                // 'autocomplete' => $getAutocomplete(),
-                // 'autofocus' => $isAutofocused(),
                 'disabled' => $isDisabled,
                 'id' => $id,
-                // 'inlinePrefix' => $isPrefixInline && (count($prefixActions) || $prefixIcon || filled($prefixLabel)),
-                // 'inlineSuffix' => $isSuffixInline && (count($suffixActions) || $suffixIcon || filled($suffixLabel)),
-                // 'inputmode' => $getInputMode(),
-                // 'max' => $getMaxSize(),
-                // 'max' => (! $isConcealed) ? $getMaxValue() : null,
-                // 'maxlength' => $getMaxLength(),
-                // 'maxlength' => (! $isConcealed) ? $getMaxLength() : null,
-                // 'min' => $getMinValue(),
-                // 'min' => (! $isConcealed) ? $getMinValue() : null,
-                // 'minlength' => $getMinLength(),
-                // 'minlength' => (! $isConcealed) ? $getMinLength() : null,
-                // 'placeholder' => $getPlaceholder(),
                 'readonly' => $isReadonly(),
-                // 'required' => $isRequired() && (! $isConcealed),
                 'required' => $isRequired(),
-                // 'step' => $getStep(),
-                //$applyStateBindingModifiers('wire:model') => $statePath,
+                'accept' => $accept,
+                'multiple' => $multiple,
                 'wire:model' => $statePath,
-                // 'x-data' => (count($extraAlpineAttributes) || filled($mask)) ? '{}' : null,
-                // 'x-data' => (filled($mask)) ? '{}' : null,
-                // 'x-mask' . ($mask instanceof \Filament\Support\RawJs ? ':dynamic' : '') => filled($mask) ? $mask : null,
             ])->merge($getHtmlAttributes())"
         />
-    {{-- </x-ui::inputs.wrapper> --}}
-
+    </div>
 </x-dynamic-component>

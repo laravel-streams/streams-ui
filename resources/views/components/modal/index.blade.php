@@ -9,6 +9,8 @@
     'visible' => false,
     'open' => false,
     'width' => 'sm',
+    'closeButton' => true,
+    'closeAction' => null,
 ])
 
 <div
@@ -99,26 +101,18 @@
                         },
                     ])
                 >
-                
+                    @if ($closeButton && $closeAction)
+                        <div class="absolute end-4 top-4 z-10">
+                            {!! $closeAction->render() !!}
+                        </div>
+                    @endif
+
                     @if ($heading)
                         <div
                             @class([
                                 'flex px-6 pt-6 mb-6',
                             ])
                         >
-                            <div class="absolute end-4 top-4">
-                                <x-ui::action
-                                    color="black"
-                                    icon="heroicon-o-x-mark"
-                                    icon-size="sm"
-                                    tabindex="-1"
-                                    borderRadius="full"
-                                    :x-on:click="filled($id) ? '$dispatch(' . \Illuminate\Support\Js::from($closeEventName) . ', { id: ' . \Illuminate\Support\Js::from($id) . ' })' : 'close()'"
-                                    x-on:click="close()"
-                                    class="ui-modal-close-btn"
-                                />
-                            </div>
-
                             <div>
                                 <h2 class="text-2xl font-semibold leading-6 text-gray-950">
                                     {{ $heading }}

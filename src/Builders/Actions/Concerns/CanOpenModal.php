@@ -6,9 +6,12 @@ use Illuminate\View\View;
 use Streams\Ui\Builders\Actions\Action;
 use Illuminate\Contracts\Support\Htmlable;
 use Streams\Ui\Builders\Actions\MountableAction;
+use Streams\Ui\Builders\Modals\Concerns\HasCloseAction;
 
 trait CanOpenModal
 {
+    use HasCloseAction;
+
     protected array|\Closure $extraModalFooterActions = [];
 
     protected bool|\Closure|null $isModalFooterSticky = null;
@@ -74,6 +77,24 @@ trait CanOpenModal
         $this->hasModalCloseButton = $condition;
 
         return $this;
+    }
+
+    /**
+     * Customize or hide the header close (X) action.
+     * Mirrors modalCancelAction / modalSubmitAction; default is {@see \Streams\Ui\Builders\Modals\CloseAction}.
+     */
+    public function modalCloseAction(Action|bool|\Closure|null $action = null): static
+    {
+        return $this->closeAction($action);
+    }
+
+    public function getModalCloseAction(): ?Action
+    {
+        if (! $this->hasModalCloseButton()) {
+            return null;
+        }
+
+        return $this->getCloseAction();
     }
 
     public function modalIcon(string|\Closure|null $icon = null): static

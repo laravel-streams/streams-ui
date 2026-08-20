@@ -22,6 +22,7 @@
         :action="$action"
         :alignment="$action?->getModalAlignment()"
         :close-button="$action?->hasModalCloseButton()"
+        :close-action="$action?->getModalCloseAction()"
         :close-by-clicking-away="$action?->isModalClosedByClickingAway()"
         :description="$action?->getModalDescription()"
         {{-- display-classes="block" --}}
