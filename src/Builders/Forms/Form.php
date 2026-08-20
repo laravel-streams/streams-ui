@@ -100,7 +100,9 @@ class Form extends ViewBuilder
      */
     protected function assignLivewireToComponentTree(mixed $component, Component $host): void
     {
-        if ($component instanceof Common\BelongsToLivewire) {
+        // BelongsToLivewire is a trait — `instanceof` on trait names is always false.
+        // Bind via the livewire() method so inputs can read form state (e.g. FileInput previews).
+        if (is_object($component) && method_exists($component, 'livewire')) {
             $component->livewire($host);
         }
 

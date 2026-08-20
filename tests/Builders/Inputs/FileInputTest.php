@@ -108,4 +108,70 @@ class FileInputTest extends UiTestCase
         $this->assertTrue($input->shouldShowImagePreview());
         $this->assertNotNull($input->getPreviewUrl());
     }
+
+    /** @test */
+    public function form_assigns_livewire_so_file_inputs_can_read_state(): void
+    {
+        $livewire = new class extends \Livewire\Component
+        {
+            public array $data = [
+                'profile' => [
+                    'avatar' => 'avatars/ryan.png',
+                ],
+            ];
+
+            public function render()
+            {
+                return '<div></div>';
+            }
+        };
+
+        $form = \Streams\Ui\Builders\Forms\Form::for($livewire, 'profile')
+            ->components([
+                FileInput::make('avatar')->disk('public')->image(),
+            ]);
+
+        $form->fill([
+            'avatar' => 'avatars/ryan.png',
+        ]);
+
+        $input = $form->getComponents()[0];
+
+        $this->assertInstanceOf(FileInput::class, $input);
+        $this->assertSame($livewire, $input->getLivewire());
+        $this->assertSame('avatars/ryan.png', $input->getState());
+        $this->assertTrue($input->shouldShowImagePreview());
+        $this->assertSame('ryan.png', $input->getCurrentFileName());
+    }
+
+    /** @test */
+    public function removable_file_input_can_clear_current_file(): void
+    {
+        $livewire = new class extends \Livewire\Component
+        {
+            public array $data = [
+                'avatar' => 'avatars/ryan.png',
+            ];
+
+            public function render()
+            {
+                return '<div></div>';
+            }
+        };
+
+        $input = FileInput::make('avatar')
+            ->disk('public')
+            ->image()
+            ->removable()
+            ->livewire($livewire)
+            ->statePath('data.avatar');
+
+        $this->assertTrue($input->isRemovable());
+        $this->assertTrue($input->canRemoveCurrentFile());
+
+        $livewire->data['avatar'] = null;
+
+        $this->assertFalse($input->canRemoveCurrentFile());
+        $this->assertNull($input->getPreviewUrl());
+    }
 }

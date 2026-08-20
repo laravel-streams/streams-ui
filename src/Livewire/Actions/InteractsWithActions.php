@@ -361,8 +361,24 @@ trait InteractsWithActions
                 return $component;
             }
 
+            if (is_object($component) && method_exists($component, 'getSteps')) {
+                foreach ($component->getSteps() as $step) {
+                    if (is_object($step) && method_exists($step, 'getComponents')) {
+                        $found = $this->extractFormFromActionComponents($step->getComponents());
+
+                        if ($found instanceof Form) {
+                            return $found;
+                        }
+                    }
+                }
+            }
+
             if (method_exists($component, 'getComponents')) {
-                return $this->extractFormFromActionComponents($component->getComponents());
+                $found = $this->extractFormFromActionComponents($component->getComponents());
+
+                if ($found instanceof Form) {
+                    return $found;
+                }
             }
         }
 

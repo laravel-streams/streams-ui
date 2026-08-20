@@ -20,6 +20,8 @@ class FileInput extends Input
 
     protected bool|\Closure $previewImages = true;
 
+    protected bool|\Closure $removable = false;
+
     public function disk(string|\Closure|null $disk): static
     {
         $this->disk = $disk;
@@ -76,6 +78,36 @@ class FileInput extends Input
     public function shouldPreviewImages(): bool
     {
         return (bool) $this->evaluate($this->previewImages);
+    }
+
+    /**
+     * Show a control to clear the current file from form state.
+     */
+    public function removable(bool|\Closure $condition = true): static
+    {
+        $this->removable = $condition;
+
+        return $this;
+    }
+
+    public function isRemovable(): bool
+    {
+        return (bool) $this->evaluate($this->removable);
+    }
+
+    public function canRemoveCurrentFile(): bool
+    {
+        if (! $this->isRemovable() || $this->isDisabled()) {
+            return false;
+        }
+
+        $state = $this->getState();
+
+        if ($state instanceof TemporaryUploadedFile) {
+            return true;
+        }
+
+        return is_string($state) && trim($state) !== '';
     }
 
     /**
