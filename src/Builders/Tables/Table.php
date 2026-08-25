@@ -386,16 +386,82 @@ class Table extends ViewBuilder implements HasActions
         }
 
         foreach ($this->extractSearchWords($search) as $searchWord) {
-            foreach ($this->getColumns() as $index => $column) {
-                if (! $column->isSearchable()) {
-                    continue;
-                }
-
-                $column->applySearch($query, $searchWord, $index === 0);
-            }
+            $this->constrainQueryToSearchWord($query, $searchWord);
         }
 
         return $query;
+    }
+
+    /**
+     * Apply one search word as a grouped OR across searchable columns so the
+     * group remains ANDed with existing filters (status, tenant scope, etc.).
+     *
+     * Using top-level orWhere for non-first columns lets SQL precedence escape
+     * prior AND filters — e.g. `status = active AND name LIKE x OR other LIKE x`.
+     */
+    protected function constrainQueryToSearchWord(Criteria|Builder $query, string $searchWord): void
+    {
+        $searchableColumns = [];
+
+        foreach ($this->getColumns() as $column) {
+            if ($column->isSearchable()) {
+                $searchableColumns[] = $column;
+            }
+        }
+
+        if ($searchableColumns === []) {
+            return;
+        }
+
+        if ($this->isLaravelQueryBuilder($query)) {
+            $query->where(function ($nested) use ($searchableColumns, $searchWord): void {
+                $isFirst = true;
+
+                foreach ($searchableColumns as $column) {
+                    $column->applySearch($nested, $searchWord, $isFirst);
+                    $isFirst = false;
+                }
+            });
+
+            return;
+        }
+
+        // Streams Criteria has no where(Closure) nesting. Default column searches
+        // become a single whereRaw OR-group; custom searchQuery callbacks still
+        // run on the Criteria (callers should AND into the query themselves).
+        $likeSql = [];
+        $bindings = [];
+        $customColumns = [];
+
+        foreach ($searchableColumns as $column) {
+            if ($column->hasSearchQuery()) {
+                $customColumns[] = $column;
+
+                continue;
+            }
+
+            foreach ($column->getSearchColumns() as $searchColumn) {
+                $likeSql[] = $searchColumn.' LIKE ?';
+                $bindings[] = '%'.$searchWord.'%';
+            }
+        }
+
+        if ($likeSql !== []) {
+            $query->whereRaw('('.implode(' OR ', $likeSql).')', $bindings);
+        }
+
+        $isFirstCustom = $likeSql === [];
+
+        foreach ($customColumns as $column) {
+            $column->applySearch($query, $searchWord, $isFirstCustom);
+            $isFirstCustom = false;
+        }
+    }
+
+    protected function isLaravelQueryBuilder(mixed $query): bool
+    {
+        return $query instanceof Builder
+            || $query instanceof \Illuminate\Database\Eloquent\Builder;
     }
 
     public function applySortingToQuery(Criteria|Builder $query): Criteria|Builder

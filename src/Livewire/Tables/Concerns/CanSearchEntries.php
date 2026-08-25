@@ -10,6 +10,7 @@ trait CanSearchEntries
     public function setTableSearch(string $table, ?string $search = null): void
     {
         $this->getTable($table)->setState('search', strval($search));
+        unset($this->entries[$table]);
         $this->resetPage(table: $table);
     }
 

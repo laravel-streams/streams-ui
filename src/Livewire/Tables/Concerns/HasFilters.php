@@ -26,6 +26,7 @@ trait HasFilters
 
     public function updatedTableFilters(string $table = 'default'): void
     {
+        unset($this->entries[$table]);
         $this->resetPage(table: $table);
     }
 

@@ -50,6 +50,11 @@ trait IsSearchable
         return $this->searchable;
     }
 
+    public function hasSearchQuery(): bool
+    {
+        return $this->searchQuery instanceof \Closure;
+    }
+
     // public function isGloballySearchable(): bool
     // {
     //     return $this->isSearchable() && $this->isGloballySearchable;

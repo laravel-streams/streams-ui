@@ -8,10 +8,10 @@ use Illuminate\Database\Query\Builder;
 trait InteractsWithQuery
 {
     public function applySearch(
-        Criteria $query,
+        mixed $query,
         string $search,
         bool $isFirst
-    ): Criteria {
+    ): mixed {
 
         if ($this->searchQuery) {
 
