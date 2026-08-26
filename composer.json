@@ -17,9 +17,6 @@
         "blade-ui-kit/blade-heroicons": "^2.0",
         "spatie/color": "^1.5"
     },
-    "suggest": {
-        "opensearch-project/opensearch-php": "Required to use the OpenSearch source adapter (source.type: opensearch)."
-    },
     "require-dev": {
         "streams/testing": "^1.0.x-dev",
         "laravel/pint": "^1.25"
