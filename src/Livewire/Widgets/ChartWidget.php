@@ -46,4 +46,59 @@ class ChartWidget extends Widget
     {
         return static::$functions;
     }
+
+    /**
+     * Accessible name for the canvas (`role="img"`). Defaults to the heading.
+     */
+    public function getAriaLabel(): ?string
+    {
+        return $this->getHeading();
+    }
+
+    /**
+     * Label for the first dataset (table column header / legend).
+     */
+    public function getDatasetLabel(): ?string
+    {
+        $label = $this->getData()['datasets'][0]['label'] ?? null;
+
+        return $label !== null ? (string) $label : null;
+    }
+
+    /**
+     * Tabular equivalent of chart points for screen readers.
+     *
+     * @return list<array{label: string, value: mixed}>
+     */
+    public function getAccessibleRows(): array
+    {
+        $data = $this->getData();
+        $labels = $data['labels'] ?? [];
+        $values = $data['datasets'][0]['data'] ?? [];
+
+        if (! is_array($labels) || $labels === []) {
+            return [];
+        }
+
+        $rows = [];
+
+        foreach (array_values($labels) as $index => $label) {
+            $rows[] = [
+                'label' => (string) $label,
+                'value' => is_array($values) ? ($values[$index] ?? null) : null,
+            ];
+        }
+
+        return $rows;
+    }
+
+    public function hasChartData(): bool
+    {
+        return $this->getAccessibleRows() !== [];
+    }
+
+    public function getEmptyMessage(): string
+    {
+        return (string) __('ui::messages.chart_empty');
+    }
 }

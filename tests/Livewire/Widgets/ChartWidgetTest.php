@@ -93,6 +93,46 @@ class ChartWidgetTest extends UiTestCase
     }
 
     /** @test */
+    public function it_derives_accessible_rows_from_chart_data()
+    {
+        $widget = $this->getTestChartWidget();
+
+        $rows = $widget->getAccessibleRows();
+
+        $this->assertSame([
+            ['label' => 'Jan', 'value' => 100],
+            ['label' => 'Feb', 'value' => 200],
+            ['label' => 'Mar', 'value' => 300],
+        ], $rows);
+        $this->assertTrue($widget->hasChartData());
+        $this->assertSame('Sales', $widget->getDatasetLabel());
+    }
+
+    /** @test */
+    public function it_reports_empty_when_there_is_no_chart_data()
+    {
+        $widget = new class extends ChartWidget {};
+
+        $this->assertSame([], $widget->getAccessibleRows());
+        $this->assertFalse($widget->hasChartData());
+        $this->assertNull($widget->getDatasetLabel());
+    }
+
+    /** @test */
+    public function it_defaults_aria_label_to_heading()
+    {
+        $widget = new class extends ChartWidget
+        {
+            public function getHeading(): ?string
+            {
+                return 'Monthly sales';
+            }
+        };
+
+        $this->assertSame('Monthly sales', $widget->getAriaLabel());
+    }
+
+    /** @test */
     public function it_returns_empty_array_for_default_data()
     {
         $widget = new class extends ChartWidget {};

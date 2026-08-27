@@ -1,111 +1,137 @@
 @php
-$heading = $this->getHeading();
-$description = $this->getDescription();
-// $filters = $this->getFilters();
+    $heading = $this->getHeading();
+    $description = $this->getDescription();
+    $ariaLabel = $this->getAriaLabel() ?: $heading;
+    $accessibleRows = $this->getAccessibleRows();
+    $datasetLabel = $this->getDatasetLabel() ?: __('ui::labels.value');
+    $emptyMessage = $this->getEmptyMessage();
+    $headingId = 'chart-heading-'.$this->getId();
+    $descId = 'chart-desc-'.$this->getId();
+    $tableId = 'chart-table-'.$this->getId();
 @endphp
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+{{-- Single root required by Livewire. --}}
+<div class="w-full">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 
-<x-ui::widget>
-    
-    <x-ui::section :description="$description" :heading="$heading">
-
-        {{-- @if ($filters)
-        <x-slot name="headerEnd">
-            <x-ui::input.wrapper inline-prefix wire:target="filter" class="-my-2">
-                <x-ui::input.select inline-prefix wire:model.live="filter">
-                    @foreach ($filters as $value => $label)
-                    <option value="{{ $value }}">
-                        {{ $label }}
-                    </option>
-                    @endforeach
-                </x-ui::input.select>
-            </x-ui::input.wrapper>
-        </x-slot>
-        @endif --}}
-
-        @foreach($this->getFunctions() as $functionName => $functionBody)
+    @foreach ($this->getFunctions() as $functionName => $functionBody)
         <script>
-            const {{$functionName}} = {!!$functionBody!!}
+            const {{ $functionName }} = {!! $functionBody !!}
         </script>
-        @endforeach
+    @endforeach
 
-        <div @if ($pollingInterval=$this->getPollingInterval())
-            wire:poll.{{ $pollingInterval }}="updateChartData"
-            @endif
+    <figure
+        class="w-full rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-950/5"
+        @if ($heading) aria-labelledby="{{ $headingId }}" @endif
+        @if ($description) aria-describedby="{{ $descId }}" @endif
+    >
+        @if ($heading || $description)
+            <figcaption class="mb-4">
+                @if ($heading)
+                    <h2 id="{{ $headingId }}" class="text-base font-semibold leading-6 text-gray-950">
+                        {{ $heading }}
+                    </h2>
+                @endif
+                @if ($description)
+                    <p id="{{ $descId }}" class="mt-1 text-sm text-gray-500">
+                        {{ $description }}
+                    </p>
+                @endif
+            </figcaption>
+        @endif
+
+        @if (! $this->hasChartData())
+            <p class="text-sm text-gray-500" role="status">
+                {{ $emptyMessage }}
+            </p>
+        @else
+            <div
+                @if ($pollingInterval = $this->getPollingInterval())
+                    wire:poll.{{ $pollingInterval }}="updateChartData"
+                @endif
             >
+                <div
+                    x-data="{
+                        data: @js($this->getData()),
+                        options: @js($this->getOptions()),
+                        callbacks: @js($this->getCallbacks()),
+                        init() {
+                            const ctx = this.$refs.canvas.getContext('2d');
 
-            <div x-data="{
-                data: @js($this->getData()),
-                options: @js($this->getOptions()),
-                callbacks: @js($this->getCallbacks()),
-                init() {
-
-                    let ctx = this.$refs.canvas.getContext('2d');
-
-                    let chart = new Chart(ctx, {
-                        type: @js($this->getType()),
-                        data: {
-                            labels: this.data.labels,
-                            datasets: this.data.datasets,
-                        },
-                        options: this.options
-                    })
-
-                    this.options.plugins.tooltip.callbacks = {};
-
-                    if (typeof this.callbacks.tooltip !== undefined) {
-                        for (const [key, value] of Object.entries(this.callbacks.tooltip)) {
-                            if (typeof this.callbacks.tooltip[key] !== undefined) {
-                                this.options.plugins.tooltip.callbacks[key] = eval('(' + this.callbacks.tooltip[key] + ')');
+                            if (! this.options) {
+                                this.options = {};
                             }
+
+                            if (! this.options.plugins) {
+                                this.options.plugins = {};
+                            }
+
+                            if (! this.options.plugins.tooltip) {
+                                this.options.plugins.tooltip = {};
+                            }
+
+                            this.options.plugins.tooltip.callbacks = this.options.plugins.tooltip.callbacks || {};
+
+                            if (this.callbacks && this.callbacks.tooltip) {
+                                for (const [key, value] of Object.entries(this.callbacks.tooltip)) {
+                                    this.options.plugins.tooltip.callbacks[key] = eval('(' + value + ')');
+                                }
+                            }
+
+                            const chart = new Chart(ctx, {
+                                type: @js($this->getType()),
+                                data: {
+                                    labels: this.data.labels,
+                                    datasets: this.data.datasets,
+                                },
+                                options: this.options,
+                            });
+
+                            if (this.options.onClick) {
+                                chart.options.onClick = eval(this.options.onClick);
+                            }
+
+                            this.$watch('data', () => {
+                                chart.data.labels = this.data.labels;
+                                chart.data.datasets = this.data.datasets;
+                                chart.update();
+                            });
                         }
-                    }
-
-                    if (typeof this.options.onClick !== undefined) {
-                        chart.options.onClick = eval(this.options.onClick);
-                    }
-         
-                    this.$watch('data', () => {
-                        chart.data.labels = this.data.labels;
-                        chart.data.datasets = this.data.datasets;
-                        chart.update();
-                    })
-
-                    {{-- Livewire.on('$refresh', () => {
-                    
-                        this.data = @js($this->getData());
-                        chart.destroy();
-                        alert(this.data.domain);
-                        chart.data.labels = this.data.labels;
-                        chart.data.datasets = this.data.datasets;
-                    }) --}}
-                }
-            }" class="w-full max-h-96">
-
-                <canvas x-ref="canvas" {{-- @if ($maxHeight=$this->getMaxHeight())
-                    style="max-height: {{ $maxHeight }}"
-                    @endif --}}
+                    }"
+                    class="relative h-72 w-full max-h-96"
+                >
+                    <canvas
+                        x-ref="canvas"
+                        role="img"
+                        @if ($ariaLabel) aria-label="{{ $ariaLabel }}" @endif
+                        aria-describedby="{{ $tableId }}"
                     ></canvas>
-
-                {{-- <span x-ref="backgroundColorElement" @class([ match ($color) { 'gray'=> 'text-gray-100
-                    dark:text-gray-800',
-                    default => 'text-custom-50 dark:text-custom-400/10',
-                    },
-                    ])
-                    ></span>
-
-                <span x-ref="borderColorElement" @class([ match ($color) { 'gray'=> 'text-gray-400',
-                    default => 'text-custom-500 dark:text-custom-400',
-                    },
-                    ])
-                    ></span> --}}
-
-                {{-- <span x-ref="gridColorElement" class="text-gray-200 dark:text-gray-800"></span>
-
-                <span x-ref="textColorElement" class="text-gray-500 dark:text-gray-400"></span> --}}
+                </div>
             </div>
-        </div>
-    </x-ui::section>
-</x-ui::widget>
+
+            {{-- Textual equivalent for screen readers and when Chart.js is unavailable --}}
+            <div class="sr-only">
+                <table id="{{ $tableId }}">
+                    @if ($ariaLabel)
+                        <caption>{{ $ariaLabel }}</caption>
+                    @endif
+                    <thead>
+                        <tr>
+                            <th scope="col">{{ __('ui::labels.label') }}</th>
+                            <th scope="col">{{ $datasetLabel }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($accessibleRows as $row)
+                            <tr>
+                                <td>{{ $row['label'] }}</td>
+                                <td>{{ $row['value'] }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endif
+    </figure>
+</div>
