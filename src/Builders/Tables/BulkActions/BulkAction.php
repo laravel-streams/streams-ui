@@ -47,9 +47,26 @@ class BulkAction extends MountableAction
 
     protected function resolveDefaultClosureDependency(string $parameterName): array
     {
+        $tableName = $this->getTable()->getName();
+        $livewire = $this->getLivewire();
+
         return match ($parameterName) {
             'records' => [$this->getRecords()],
-            'selectedEntries' => [$this->getLivewire()->getSelectedTableEntries($this->getTable()->getName())],
+            'selectedEntries' => [
+                method_exists($livewire, 'isSelectAllMatchingTable') && $livewire->isSelectAllMatchingTable($tableName)
+                    ? []
+                    : $livewire->getSelectedTableEntries($tableName),
+            ],
+            'selectAllMatching' => [
+                method_exists($livewire, 'isSelectAllMatchingTable')
+                    ? $livewire->isSelectAllMatchingTable($tableName)
+                    : false,
+            ],
+            'query' => [
+                method_exists($livewire, 'getFilteredSortedQuery')
+                    ? $livewire->getFilteredSortedQuery($tableName)
+                    : $this->getTable()->getQuery(),
+            ],
             'table' => [$this->getTable()],
             default => parent::resolveDefaultClosureDependency($parameterName),
         };

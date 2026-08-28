@@ -15,6 +15,10 @@ function table(tableName = 'default', selectedStatePath = null) {
 
         allEntriesSelected: false,
 
+        // Select every row matching current filters/search (not just this page).
+        selectAllMatching: false,
+        matchingTotalCount: 0,
+
         // When the server clears selection (e.g. after a bulk action), skip the
         // selectedEntries → $wire.set sync. That extra Livewire round-trip remorphs
         // the page and tears down notification toasts that only exist via View::share
@@ -26,10 +30,15 @@ function table(tableName = 'default', selectedStatePath = null) {
         },
 
         init: function () {
+            this.readMatchingTotalFromDom()
+
             this.$watch('selectedEntries', () => {
                 this.syncSelectedEntries()
                 this.$nextTick(() => this.updateAllEntriesSelectedState())
             }, { deep: true })
+
+            // Do not live-sync selectAllMatching — that remorphs the table and
+            // wipes Alpine selection / matching totals. Flag is passed on mountBulkAction.
 
             this.$el.addEventListener('click', (event) => {
                 if (event.target.closest('[data-select-all-trigger]')) {
@@ -73,7 +82,19 @@ function table(tableName = 'default', selectedStatePath = null) {
                     }
 
                     succeed(() => {
-                        this.$nextTick(() => this.updateAllEntriesSelectedState())
+                        // While matching mode is on, keep the locked filtered total —
+                        // remorph DOM totals can briefly be wrong or empty (→ 0).
+                        if (! this.selectAllMatching) {
+                            this.readMatchingTotalFromDom()
+                        }
+
+                        this.$nextTick(() => {
+                            if (this.selectAllMatching) {
+                                this.selectEntries(this.getAllEntries())
+                            }
+
+                            this.updateAllEntriesSelectedState()
+                        })
                     })
                 })
             }
@@ -87,12 +108,86 @@ function table(tableName = 'default', selectedStatePath = null) {
             }
         },
 
+        readMatchingTotalFromDom: function () {
+            const raw = this.$el?.dataset?.matchingTotal
+            const total = Number(raw)
+
+            if (! Number.isFinite(total) || total < 0) {
+                return
+            }
+
+            // Never clobber a known matching-mode total with a transient 0.
+            if (this.selectAllMatching && total === 0 && this.matchingTotalCount > 0) {
+                return
+            }
+
+            this.matchingTotalCount = total
+        },
+
+        selectedCount: function () {
+            if (this.selectAllMatching) {
+                return this.matchingTotalCount > 0
+                    ? this.matchingTotalCount
+                    : this.selectedEntries.length
+            }
+
+            return this.selectedEntries.length
+        },
+
+        canSelectAllMatching: function () {
+            return ! this.selectAllMatching
+                && this.allEntriesSelected
+                && this.matchingTotalCount > this.selectedEntries.length
+                && this.selectedEntries.length > 0
+        },
+
+        enableSelectAllMatching: async function () {
+            if (this.selectAllMatching) {
+                return
+            }
+
+            if (! this.allEntriesSelected || this.matchingTotalCount <= this.selectedEntries.length) {
+                return
+            }
+
+            const fallbackTotal = this.matchingTotalCount
+
+            this.selectAllMatching = true
+            this.isLoading = true
+
+            try {
+                if (typeof this.$wire.getFilteredTableRecordsCount === 'function') {
+                    const total = Number(await this.$wire.getFilteredTableRecordsCount(this.tableName))
+
+                    if (Number.isFinite(total) && total > 0) {
+                        this.matchingTotalCount = total
+                    } else if (fallbackTotal > 0) {
+                        this.matchingTotalCount = fallbackTotal
+                    }
+                }
+            } catch (error) {
+                if (fallbackTotal > 0) {
+                    this.matchingTotalCount = fallbackTotal
+                }
+            } finally {
+                this.isLoading = false
+            }
+        },
+
+        clearSelectAllMatching: function () {
+            if (! this.selectAllMatching) {
+                return
+            }
+
+            this.selectAllMatching = false
+        },
+
         handleEscapeKey: function (event) {
             if (event.key !== 'Escape') {
                 return
             }
 
-            if (this.selectedEntries.length === 0) {
+            if (this.selectedEntries.length === 0 && ! this.selectAllMatching) {
                 return
             }
 
@@ -159,13 +254,21 @@ function table(tableName = 'default', selectedStatePath = null) {
                 return
             }
 
-            checkbox.checked = selected
+            if (this.selectAllMatching || selected) {
+                checkbox.checked = true
+                checkbox.indeterminate = false
+
+                return
+            }
+
+            checkbox.checked = false
+            checkbox.indeterminate = this.selectedEntries.length > 0
         },
 
         updateAllEntriesSelectedState: function () {
             const selected = this.isAllEntriesSelected()
 
-            this.allEntriesSelected = selected
+            this.allEntriesSelected = selected || this.selectAllMatching
             this.syncSelectAllCheckbox(selected)
         },
 
@@ -177,6 +280,16 @@ function table(tableName = 'default', selectedStatePath = null) {
             }
 
             return `data.tables.${this.tableName}.selected`
+        },
+
+        getSelectAllMatchingStatePath: function () {
+            const selectedPath = this.getSelectedStatePath()
+
+            if (selectedPath.endsWith('.selected')) {
+                return selectedPath.slice(0, -'.selected'.length) + '.select_all_matching'
+            }
+
+            return `data.tables.${this.tableName}.select_all_matching`
         },
 
         syncSelectedEntries: function () {
@@ -197,6 +310,11 @@ function table(tableName = 'default', selectedStatePath = null) {
             );
         },
 
+        syncSelectAllMatching: function () {
+            // Intentionally no-op for live sync. Matching mode is Alpine-local until
+            // mountBulkAction passes selectAllMatching to Livewire.
+        },
+
         isAllEntriesSelected: function () {
             const keys = this.getAllEntries()
 
@@ -212,6 +330,7 @@ function table(tableName = 'default', selectedStatePath = null) {
                 name,
                 [...this.selectedEntries],
                 this.tableName,
+                this.selectAllMatching,
             );
         },
 
@@ -226,6 +345,7 @@ function table(tableName = 'default', selectedStatePath = null) {
             }
 
             if (this.areEntriesSelected(keys)) {
+                this.clearSelectAllMatching()
                 this.deselectEntries(keys)
             } else {
                 this.selectEntries(keys)
@@ -254,6 +374,10 @@ function table(tableName = 'default', selectedStatePath = null) {
         },
 
         deselectEntries: function (keys) {
+            if (this.selectAllMatching) {
+                this.clearSelectAllMatching()
+            }
+
             const normalizedKeys = new Set(keys.map((key) => this.normalizeEntryKey(key)))
 
             for (let index = this.selectedEntries.length - 1; index >= 0; index--) {
@@ -282,6 +406,7 @@ function table(tableName = 'default', selectedStatePath = null) {
                 this.suppressSelectedSync = true
             }
 
+            this.selectAllMatching = false
             this.selectedEntries.splice(0, this.selectedEntries.length)
 
             if (! sync) {
@@ -292,7 +417,11 @@ function table(tableName = 'default', selectedStatePath = null) {
         },
 
         isEntrySelected: function (key) {
-            return this.selectedEntries.includes(this.normalizeEntryKey(key))
+            const normalizedKey = this.normalizeEntryKey(key)
+
+            return this.selectedEntries.some(
+                (entry) => this.normalizeEntryKey(entry) === normalizedKey,
+            )
         },
 
         areEntriesSelected: function (keys) {

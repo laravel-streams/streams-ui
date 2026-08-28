@@ -33,11 +33,15 @@
             @foreach ($action->getActions() as $menuAction)
             
             @php
+                // Prefer the full entry instance so nested closures can read attributes
+                // (status, etc.). getEntry() returns only the id for EntryInterface.
+                $menuAction->entry($action->getEntryInstance());
+            @endphp
+
+            @continue(! $menuAction->isVisible())
+
+            @php
                 $disabled = $menuAction->isDisabled();
-
-                $entry = $action->getEntry();
-
-                $menuAction->entry($entry);
 
                 $href = $menuAction->getUrl();
                 $tag = $menuAction->getTag() ?: ($href ? 'a' : 'button');

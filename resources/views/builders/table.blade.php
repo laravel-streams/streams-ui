@@ -14,6 +14,10 @@ $columns = collect($columns)->filter(fn ($column) => $column->isVisible());
 
 $paginator = $table->getEntries();
 
+$matchingTotalCount = method_exists($paginator, 'total')
+    ? (int) $paginator->total()
+    : (int) (method_exists($paginator, 'count') ? $paginator->count() : 0);
+
 $heading = $table->getHeading();
 $description = $table->getDescription();
 $headerActions = $table->getHeaderActions();
@@ -41,7 +45,8 @@ $bottomRightRadiusStyle = $borderRadiusCss ? "border-bottom-right-radius: {$bord
 {!! Assets::inline(base_path('/vendor/streams/ui/resources/js/components/table.js')) !!}
 
 <div
-    x-data="table('{{ $tableName }}', @js($selectedStatePath))"
+    x-data="(() => { const state = table('{{ $tableName }}', @js($selectedStatePath)); state.matchingTotalCount = {{ (int) $matchingTotalCount }}; return state; })()"
+    data-matching-total="{{ (int) $matchingTotalCount }}"
     class="relative"
     {{-- @if (! $isLoaded)
         wire:init="loadTable"

@@ -58,6 +58,7 @@ trait InteractsWithTables
         $table->setState('search', strval($table->getState('search', '')));
         $table->setState('records_per_page', $table->getState('records_per_page', $table->getPerPage()));
         $table->setState('selected', $table->getState('selected', []));
+        $table->setState('select_all_matching', (bool) $table->getState('select_all_matching', false));
         $table->setState('mounted_bulk_action', $table->getState('mounted_bulk_action'));
         $table->setState('mounted_bulk_action_data', $table->getState('mounted_bulk_action_data', []));
         $table->setState('mounted_actions', $table->getState('mounted_actions', []));
