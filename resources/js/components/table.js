@@ -25,12 +25,20 @@ function table(tableName = 'default', selectedStatePath = null) {
         // from the action response.
         suppressSelectedSync: false,
 
+        // Set when Escape (or programmatic dismiss) clears bulk selection so a
+        // pending Livewire commit does not re-select rows in matching mode.
+        _dismissedSelection: false,
+
         normalizeEntryKey: function (key) {
             return String(key)
         },
 
         init: function () {
-            this.readMatchingTotalFromDom()
+            // Hydrate from Livewire public state / server-rendered attrs BEFORE
+            // watching — Alpine selectedEntries is not durable across remorphs
+            // when x-data reinits (e.g. filter changes used to rewrite x-data).
+            this.hydrateSelectionFromPublicState()
+            this.syncMatchingTotalFromPublicState()
 
             this.$watch('selectedEntries', () => {
                 this.syncSelectedEntries()
@@ -40,11 +48,34 @@ function table(tableName = 'default', selectedStatePath = null) {
             // Do not live-sync selectAllMatching — that remorphs the table and
             // wipes Alpine selection / matching totals. Flag is passed on mountBulkAction.
 
-            this.$el.addEventListener('click', (event) => {
-                if (event.target.closest('[data-select-all-trigger]')) {
-                    event.preventDefault()
-                    this.toggleSelectAllEntries()
+            // Capture-phase: stop the native checkbox toggle before it flips the
+            // header control. Bubble-phase preventDefault is too late for inputs
+            // and can leave checked inverted vs selectedEntries.
+            this._onSelectAllClick = (event) => {
+                if (! event.target.closest('[data-select-all-trigger]')) {
+                    return
                 }
+
+                event.preventDefault()
+                event.stopPropagation()
+                this.toggleSelectAllEntries()
+            }
+            this.$el.addEventListener('click', this._onSelectAllClick, true)
+
+            // Fail-safe: if anything still flips the header checkbox natively
+            // (label activation, morph, etc.), snap it back to selection state.
+            this._onSelectAllChange = (event) => {
+                if (! event.target?.matches?.('[data-select-all-checkbox]')) {
+                    return
+                }
+
+                event.preventDefault()
+                this.syncSelectAllCheckbox()
+            }
+            this.$el.addEventListener('change', this._onSelectAllChange, true)
+
+            this.$watch('selectAllMatching', () => {
+                this.$nextTick(() => this.updateAllEntriesSelectedState())
             })
 
             if (typeof Sortable !== 'undefined') {
@@ -82,13 +113,28 @@ function table(tableName = 'default', selectedStatePath = null) {
                     }
 
                     succeed(() => {
+                        if (this._dismissedSelection) {
+                            this._dismissedSelection = false
+                            this.syncMatchingTotalFromPublicState()
+
+                            this.$nextTick(() => {
+                                this.updateAllEntriesSelectedState()
+                            })
+
+                            return
+                        }
+
                         // While matching mode is on, keep the locked filtered total —
                         // remorph DOM totals can briefly be wrong or empty (→ 0).
                         if (! this.selectAllMatching) {
-                            this.readMatchingTotalFromDom()
+                            this.syncMatchingTotalFromPublicState()
                         }
 
                         this.$nextTick(() => {
+                            // Filter/search remorphs can reinit Alpine or leave row
+                            // checkboxes stale; re-read public selection when empty.
+                            this.hydrateSelectionFromPublicState({ onlyIfEmpty: true })
+
                             if (this.selectAllMatching) {
                                 this.selectEntries(this.getAllEntries())
                             }
@@ -106,6 +152,14 @@ function table(tableName = 'default', selectedStatePath = null) {
             if (this._onEscapeKey) {
                 window.removeEventListener('keydown', this._onEscapeKey)
             }
+
+            if (this._onSelectAllClick) {
+                this.$el.removeEventListener('click', this._onSelectAllClick, true)
+            }
+
+            if (this._onSelectAllChange) {
+                this.$el.removeEventListener('change', this._onSelectAllChange, true)
+            }
         },
 
         readMatchingTotalFromDom: function () {
@@ -113,15 +167,185 @@ function table(tableName = 'default', selectedStatePath = null) {
             const total = Number(raw)
 
             if (! Number.isFinite(total) || total < 0) {
-                return
+                return false
             }
 
             // Never clobber a known matching-mode total with a transient 0.
             if (this.selectAllMatching && total === 0 && this.matchingTotalCount > 0) {
-                return
+                return true
             }
 
             this.matchingTotalCount = total
+
+            return true
+        },
+
+        getMatchingTotalStatePath: function () {
+            const selectedPath = this.getSelectedStatePath()
+
+            if (selectedPath.endsWith('.selected')) {
+                return selectedPath.slice(0, -'.selected'.length) + '.matching_total'
+            }
+
+            return `data.tables.${this.tableName}.matching_total`
+        },
+
+        /**
+         * Prefer Livewire's filtered matching_total (same request as the table
+         * rows). Fall back to data-matching-total when wire state is unavailable.
+         */
+        syncMatchingTotalFromPublicState: function () {
+            const path = this.getMatchingTotalStatePath()
+
+            if (path && this.$wire) {
+                try {
+                    let value = null
+
+                    if (typeof this.$wire.get === 'function') {
+                        value = this.$wire.get(path)
+                    } else if (typeof this.$wire.$get === 'function') {
+                        value = this.$wire.$get(path)
+                    }
+
+                    const total = Number(value)
+
+                    if (Number.isFinite(total) && total >= 0) {
+                        if (this.selectAllMatching && total === 0 && this.matchingTotalCount > 0) {
+                            return
+                        }
+
+                        this.matchingTotalCount = total
+
+                        return
+                    }
+                } catch (error) {
+                    // fall through to DOM
+                }
+            }
+
+            this.readMatchingTotalFromDom()
+        },
+
+        /**
+         * Restore Alpine selection from Livewire public state (and server-rendered
+         * data-* attrs). Selection must survive filter/search remorphs.
+         */
+        hydrateSelectionFromPublicState: function (options = {}) {
+            const onlyIfEmpty = options.onlyIfEmpty === true
+            const publicKeys = this.readSelectedKeysFromPublicState()
+            const publicMatching = this.readSelectAllMatchingFromPublicState()
+
+            if (publicMatching) {
+                this.selectAllMatching = true
+            } else if (! onlyIfEmpty && this.selectedEntries.length === 0) {
+                this.selectAllMatching = false
+            }
+
+            if (publicKeys.length === 0) {
+                return
+            }
+
+            if (onlyIfEmpty && this.selectedEntries.length > 0) {
+                return
+            }
+
+            this.suppressSelectedSync = true
+            this.selectedEntries.splice(
+                0,
+                this.selectedEntries.length,
+                ...publicKeys.map((key) => this.normalizeEntryKey(key)),
+            )
+            this.$nextTick(() => {
+                this.suppressSelectedSync = false
+            })
+        },
+
+        readSelectedKeysFromPublicState: function () {
+            const fromWire = this.readSelectedKeysFromLivewire()
+
+            if (fromWire.length > 0) {
+                return fromWire
+            }
+
+            return this.readSelectedKeysFromDomAttribute()
+        },
+
+        readSelectedKeysFromLivewire: function () {
+            const path = this.getSelectedStatePath()
+
+            if (! path || ! this.$wire) {
+                return []
+            }
+
+            let value = null
+
+            try {
+                if (typeof this.$wire.get === 'function') {
+                    value = this.$wire.get(path)
+                } else if (typeof this.$wire.$get === 'function') {
+                    value = this.$wire.$get(path)
+                }
+            } catch (error) {
+                value = null
+            }
+
+            if (! Array.isArray(value)) {
+                return []
+            }
+
+            return value
+                .map((key) => this.normalizeEntryKey(key))
+                .filter((key) => key !== '')
+        },
+
+        readSelectedKeysFromDomAttribute: function () {
+            const raw = this.$el?.dataset?.selectedKeys
+
+            if (! raw) {
+                return []
+            }
+
+            try {
+                const parsed = JSON.parse(raw)
+
+                if (! Array.isArray(parsed)) {
+                    return []
+                }
+
+                return parsed
+                    .map((key) => this.normalizeEntryKey(key))
+                    .filter((key) => key !== '')
+            } catch (error) {
+                return []
+            }
+        },
+
+        readSelectAllMatchingFromPublicState: function () {
+            const path = this.getSelectAllMatchingStatePath()
+
+            if (path && this.$wire) {
+                try {
+                    let value = null
+
+                    if (typeof this.$wire.get === 'function') {
+                        value = this.$wire.get(path)
+                    } else if (typeof this.$wire.$get === 'function') {
+                        value = this.$wire.$get(path)
+                    }
+
+                    if (value === true || value === 1 || value === '1') {
+                        return true
+                    }
+
+                    if (value === false || value === 0 || value === '0') {
+                        return false
+                    }
+                } catch (error) {
+                    // fall through to DOM attribute
+                }
+            }
+
+            return this.$el?.dataset?.selectAllMatching === '1'
         },
 
         selectedCount: function () {
@@ -164,6 +388,8 @@ function table(tableName = 'default', selectedStatePath = null) {
                     } else if (fallbackTotal > 0) {
                         this.matchingTotalCount = fallbackTotal
                     }
+                } else {
+                    this.syncMatchingTotalFromPublicState()
                 }
             } catch (error) {
                 if (fallbackTotal > 0) {
@@ -196,7 +422,18 @@ function table(tableName = 'default', selectedStatePath = null) {
                 return
             }
 
-            this.deselectAllEntries()
+            this.dismissBulkSelection()
+        },
+
+        dismissBulkSelection: function () {
+            this._dismissedSelection = true
+            this.clearSelectAllMatching()
+            this.deselectAllEntries({ sync: false })
+            this.updateAllEntriesSelectedState()
+
+            if (typeof this.$wire?.deselectAllTableRecords === 'function') {
+                this.$wire.deselectAllTableRecords()
+            }
         },
 
         hasOpenOverlay: function () {
@@ -247,29 +484,42 @@ function table(tableName = 'default', selectedStatePath = null) {
             return el.getClientRects().length > 0
         },
 
-        syncSelectAllCheckbox: function (selected) {
+        /**
+         * Header select-all is fully controlled from Alpine selection state.
+         * Never trust the native checked flag — wire:ignore.self can preserve a
+         * stale DOM value across Livewire morphs and invert the control.
+         */
+        syncSelectAllCheckbox: function () {
             const checkbox = this.$el.querySelector('[data-select-all-checkbox]')
 
             if (! checkbox) {
                 return
             }
 
-            if (this.selectAllMatching || selected) {
-                checkbox.checked = true
-                checkbox.indeterminate = false
+            const pageKeys = this.getAllEntries()
+            const allSelected = pageKeys.length > 0 && this.areEntriesSelected(pageKeys)
+            const anySelected = this.selectedEntries.length > 0
+            const checked = this.selectAllMatching || allSelected
+            const indeterminate = ! checked && anySelected
 
-                return
+            checkbox.checked = checked
+            checkbox.indeterminate = indeterminate
+
+            if (checked) {
+                checkbox.setAttribute('checked', 'checked')
+            } else {
+                checkbox.removeAttribute('checked')
             }
 
-            checkbox.checked = false
-            checkbox.indeterminate = this.selectedEntries.length > 0
+            checkbox.setAttribute('aria-checked', indeterminate ? 'mixed' : (checked ? 'true' : 'false'))
         },
 
         updateAllEntriesSelectedState: function () {
-            const selected = this.isAllEntriesSelected()
+            const pageKeys = this.getAllEntries()
+            const allSelected = pageKeys.length > 0 && this.areEntriesSelected(pageKeys)
 
-            this.allEntriesSelected = selected || this.selectAllMatching
-            this.syncSelectAllCheckbox(selected)
+            this.allEntriesSelected = allSelected || this.selectAllMatching
+            this.syncSelectAllCheckbox()
         },
 
         getSelectedStatePath: function () {
@@ -306,7 +556,7 @@ function table(tableName = 'default', selectedStatePath = null) {
             this.$wire.set(
                 path,
                 [...this.selectedEntries],
-                true,
+                false,
             );
         },
 
@@ -339,15 +589,17 @@ function table(tableName = 'default', selectedStatePath = null) {
          */
         toggleSelectAllEntries: function () {
             const keys = this.getAllEntries()
+            const allSelected = keys.length > 0 && this.areEntriesSelected(keys)
+            const anySelected = this.selectedEntries.length > 0 || this.selectAllMatching
 
-            if (keys.length === 0) {
-                return
-            }
-
-            if (this.areEntriesSelected(keys)) {
+            // Decide from selection state only — never from checkbox.checked.
+            // Indeterminate (some selected) clears instead of selecting the rest:
+            // after filters expand the page, the header looks "off" while rows
+            // remain checked; clicking must dismiss, not silently select more.
+            if (allSelected || this.selectAllMatching || anySelected) {
                 this.clearSelectAllMatching()
-                this.deselectEntries(keys)
-            } else {
+                this.deselectAllEntries()
+            } else if (keys.length > 0) {
                 this.selectEntries(keys)
             }
 
@@ -412,8 +664,13 @@ function table(tableName = 'default', selectedStatePath = null) {
             if (! sync) {
                 this.$nextTick(() => {
                     this.suppressSelectedSync = false
+                    this.updateAllEntriesSelectedState()
                 })
+
+                return
             }
+
+            this.updateAllEntriesSelectedState()
         },
 
         isEntrySelected: function (key) {

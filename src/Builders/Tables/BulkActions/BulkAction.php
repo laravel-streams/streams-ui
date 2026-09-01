@@ -53,19 +53,9 @@ class BulkAction extends MountableAction
         return match ($parameterName) {
             'records' => [$this->getRecords()],
             'selectedEntries' => [
-                method_exists($livewire, 'isSelectAllMatchingTable') && $livewire->isSelectAllMatchingTable($tableName)
-                    ? []
-                    : $livewire->getSelectedTableEntries($tableName),
-            ],
-            'selectAllMatching' => [
-                method_exists($livewire, 'isSelectAllMatchingTable')
-                    ? $livewire->isSelectAllMatchingTable($tableName)
-                    : false,
-            ],
-            'query' => [
-                method_exists($livewire, 'getFilteredSortedQuery')
-                    ? $livewire->getFilteredSortedQuery($tableName)
-                    : $this->getTable()->getQuery(),
+                method_exists($livewire, 'getSelectedTableEntries')
+                    ? $livewire->getSelectedTableEntries($tableName)
+                    : [],
             ],
             'table' => [$this->getTable()],
             default => parent::resolveDefaultClosureDependency($parameterName),

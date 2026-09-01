@@ -31,17 +31,17 @@ trait HasBulkActions
 
             $action->fire('before_call');
 
-            $selectAllMatching = $this->isSelectAllMatchingTable($table);
-
-            $result = $action->call([
-                'component' => $this,
-                'livewire' => $this,
-                'table' => $this->getTable($table),
-                'selectedEntries' => $selectAllMatching ? [] : $this->getSelectedTableEntries($table),
-                'selectAllMatching' => $selectAllMatching,
-                'query' => $this->getFilteredSortedQuery($table),
-                'arguments' => $arguments,
-            ]);
+            // Select-all-matching is resolved here into paged ID lists so bulk
+            // action closures only ever receive selectedEntries (no query branch).
+            foreach ($this->getBulkActionSelectedEntryPages($table) as $selectedEntries) {
+                $result = $action->call([
+                    'component' => $this,
+                    'livewire' => $this,
+                    'table' => $this->getTable($table),
+                    'selectedEntries' => $selectedEntries,
+                    'arguments' => $arguments,
+                ]);
+            }
 
             $action->fire('after_call');
 
@@ -242,9 +242,20 @@ trait HasBulkActions
 
     /**
      * Filtered/search result size for select-all-matching (not the current page).
+     * Uses the same entry set as the rendered table so the count respects filters.
      */
     public function getFilteredTableRecordsCount(string $table = 'default'): int
     {
+        $entries = $this->getTableEntries($table);
+
+        if (method_exists($entries, 'total')) {
+            return (int) $entries->total();
+        }
+
+        if ($entries instanceof Collection) {
+            return $entries->count();
+        }
+
         $query = $this->getFilteredQuery($table);
 
         if (method_exists($query, 'count')) {
@@ -275,6 +286,24 @@ trait HasBulkActions
     }
 
     /**
+     * Resolve the entry IDs the mounted bulk action should process, chunked into
+     * pages. Matching mode expands the filtered query; otherwise the checkbox
+     * selection is used. Actions always receive a simple selectedEntries list.
+     *
+     * @return list<list<string>>
+     */
+    public function getBulkActionSelectedEntryPages(string $table = 'default'): array
+    {
+        $keys = $this->resolveBulkActionEntryKeys($table);
+
+        if ($keys === []) {
+            return [];
+        }
+
+        return array_values(array_chunk($keys, $this->resolveBulkActionChunkSize($table)));
+    }
+
+    /**
      * @return list<int|string>
      */
     public function resolveBulkActionEntryKeys(string $table = 'default'): array
@@ -292,6 +321,13 @@ trait HasBulkActions
             static fn ($key): string => (string) $key,
             $this->getSelectedTableEntries($table),
         );
+    }
+
+    protected function resolveBulkActionChunkSize(string $table = 'default'): int
+    {
+        $perPage = (int) ($this->getTableRecordsPerPage($table) ?: 0);
+
+        return max(1, $perPage > 0 ? $perPage : 100);
     }
 
     protected function getMountedTableBulkActionName(string $table = 'default'): ?string

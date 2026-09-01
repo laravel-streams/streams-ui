@@ -94,6 +94,20 @@ class Table extends ViewBuilder implements HasActions
         return Tables::resolve($resolvedName);
     }
 
+    public function getQuery(): Criteria|Builder
+    {
+        $query = $this->evaluate($this->query);
+
+        // Tables often store a Criteria/Builder instance from setUp(). Cloning
+        // prevents filter/search/paginate leftovers (limit, where) from leaking
+        // across getEntries() / count() calls and ignoring the current filters.
+        if ($query instanceof Criteria || $query instanceof Builder) {
+            return clone $query;
+        }
+
+        return $query;
+    }
+
     public function getEntries(): Collection|Paginator
     {
         if ($this->entries) {
@@ -106,10 +120,15 @@ class Table extends ViewBuilder implements HasActions
             /** @var Collection $entries */
             $entries = $query->get();
 
-            return $this->entries = $entries;
+            $this->entries = $entries;
+            $this->syncMatchingTotalState();
+
+            return $this->entries;
         }
 
         $this->entries = $this->paginate($query);
+
+        $this->syncMatchingTotalState();
 
         $this->fire('entries_loaded', [
             'livewire' => $this->getLivewire(),
@@ -117,6 +136,29 @@ class Table extends ViewBuilder implements HasActions
         ]);
 
         return $this->entries;
+    }
+
+    /**
+     * Publish the filtered result total for Alpine select-all-matching UI.
+     * Avoids setState() so we do not flush the entries cache mid-render.
+     */
+    protected function syncMatchingTotalState(): void
+    {
+        if ($this->entries === null) {
+            return;
+        }
+
+        $total = method_exists($this->entries, 'total')
+            ? (int) $this->entries->total()
+            : (int) $this->entries->count();
+
+        $livewire = $this->getLivewire();
+
+        data_set(
+            $livewire,
+            $this->getStatePath().'.matching_total',
+            $total,
+        );
     }
 
     public function flushEntries(): void

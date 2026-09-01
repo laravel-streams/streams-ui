@@ -37,13 +37,22 @@
                     {{ __('matching') }}
                 </button>
 
-                <span
+                <div
                     x-show="selectAllMatching"
                     x-cloak
-                    class="mt-1 text-xs font-medium text-white/70"
+                    class="mt-1 flex flex-col gap-1"
                 >
-                    {{ __('All matching results') }}
-                </span>
+                    <span class="text-xs font-medium text-white/70">
+                        {{ __('All matching results') }}
+                    </span>
+                    <button
+                        type="button"
+                        class="pointer-events-auto w-fit text-left text-xs font-medium text-white/80 hover:text-white underline underline-offset-2"
+                        x-on:click.stop="clearSelectAllMatching(); updateAllEntriesSelectedState()"
+                    >
+                        {{ __('Back to page selection') }}
+                    </button>
+                </div>
             </div>
 
             <div class="flex items-center gap-2 overflow-x-auto">

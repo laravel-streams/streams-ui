@@ -30,6 +30,12 @@ $selectedStatePath = filled($tableStatePath)
     ? $tableStatePath.'.selected'
     : 'data.tables.'.$tableName.'.selected';
 
+$selectedEntryKeys = array_values(array_map(
+    static fn (mixed $key): string => (string) $key,
+    $table->getSelectedEntryKeys(),
+));
+$selectAllMatchingState = (bool) $table->getState('select_all_matching', false);
+
 $borderRadiusClass = $table->getBorderRadiusClass();
 $borderRadiusCss = $table->getBorderRadiusCssValue();
 $hasHeaderChrome = filled($heading) || filled($description) || filled($headerActions);
@@ -45,8 +51,10 @@ $bottomRightRadiusStyle = $borderRadiusCss ? "border-bottom-right-radius: {$bord
 {!! Assets::inline(base_path('/vendor/streams/ui/resources/js/components/table.js')) !!}
 
 <div
-    x-data="(() => { const state = table('{{ $tableName }}', @js($selectedStatePath)); state.matchingTotalCount = {{ (int) $matchingTotalCount }}; return state; })()"
+    x-data="table('{{ $tableName }}', @js($selectedStatePath))"
     data-matching-total="{{ (int) $matchingTotalCount }}"
+    data-selected-keys="{{ e(json_encode($selectedEntryKeys)) }}"
+    data-select-all-matching="{{ $selectAllMatchingState ? '1' : '0' }}"
     class="relative"
     {{-- @if (! $isLoaded)
         wire:init="loadTable"
