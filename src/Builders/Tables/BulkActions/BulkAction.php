@@ -23,15 +23,7 @@ class BulkAction extends MountableAction
 
     public function call(array $parameters = []): mixed
     {
-        try {
-            // return $this->evaluate($this->getActionFunction(), $parameters);
-            return $this->evaluate($this->getAction(), $parameters);
-        } catch (\Exception $e) {
-            dump($e->getMessage());
-            // if ($this->shouldDeselectRecordsAfterCompletion()) {
-            //     $this->getLivewire()->deselectAllTableRecords();
-            // }
-        }
+        return $this->evaluate($this->getAction(), $parameters);
     }
 
     public function getAction(): ?\Closure
@@ -47,16 +39,11 @@ class BulkAction extends MountableAction
 
     protected function resolveDefaultClosureDependency(string $parameterName): array
     {
-        $tableName = $this->getTable()->getName();
-        $livewire = $this->getLivewire();
-
         return match ($parameterName) {
             'records' => [$this->getRecords()],
-            'selectedEntries' => [
-                method_exists($livewire, 'getSelectedTableEntries')
-                    ? $livewire->getSelectedTableEntries($tableName)
-                    : [],
-            ],
+            // selectedEntries must be injected by HasBulkActions::callMountedTableBulkAction
+            // (paged matching snapshots). Do not re-read Livewire page checkboxes here.
+            'selectedEntries' => [[]],
             'table' => [$this->getTable()],
             default => parent::resolveDefaultClosureDependency($parameterName),
         };

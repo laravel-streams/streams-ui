@@ -20,7 +20,13 @@ trait CanPaginateEntries
         $table = $parts[1] ?? 'default';
         $field = implode('.', array_slice($parts, 2));
 
-        if (in_array($field, ['search', 'filters', 'records_per_page', 'sort.column', 'sort.direction'], true)) {
+        // Filter inputs bind to filters.{name}.value — not the bare "filters" key.
+        $filtersChanged = $field === 'filters' || str_starts_with($field, 'filters.');
+
+        if (
+            $filtersChanged
+            || in_array($field, ['search', 'records_per_page', 'sort.column', 'sort.direction'], true)
+        ) {
             $this->resetPage(table: $table);
         }
     }

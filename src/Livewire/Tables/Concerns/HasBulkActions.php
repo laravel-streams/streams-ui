@@ -3,10 +3,12 @@
 namespace Streams\Ui\Livewire\Tables\Concerns;
 
 use Illuminate\Support\Collection;
+use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Builders\Forms\Form;
 use Streams\Ui\Support\Facades\Actions;
 use Streams\Ui\Notifications\Notification;
 use Streams\Ui\Builders\Tables\BulkActions\BulkAction;
+use Illuminate\Contracts\Database\Query\Builder;
 
 trait HasBulkActions
 {
@@ -33,13 +35,20 @@ trait HasBulkActions
 
             // Select-all-matching is resolved here into paged ID lists so bulk
             // action closures only ever receive selectedEntries (no query branch).
-            foreach ($this->getBulkActionSelectedEntryPages($table) as $selectedEntries) {
+            // IDs are snapshotted before handlers run so mutations cannot skip pages.
+            $pages = $this->getBulkActionSelectedEntryPages($table);
+            $pageCount = count($pages);
+
+            foreach ($pages as $index => $selectedEntries) {
                 $result = $action->call([
                     'component' => $this,
                     'livewire' => $this,
                     'table' => $this->getTable($table),
                     'selectedEntries' => $selectedEntries,
-                    'arguments' => $arguments,
+                    'arguments' => array_merge($arguments, [
+                        'bulk_page' => $index + 1,
+                        'bulk_pages' => $pageCount,
+                    ]),
                 ]);
             }
 
@@ -73,18 +82,26 @@ trait HasBulkActions
 
         $this->setMountedTableBulkActionName($name, $table);
 
-        if ($selectedRecords !== null) {
-            $this->setSelectedTableEntries($selectedRecords, $table);
-        } elseif ($selectedRecords = $this->getSelectedTableEntries($table)) {
-            $this->setSelectedTableEntries($selectedRecords, $table);
-        }
-
-        // Alpine may pass the flag; wire:click-only mounts rely on synced Livewire state.
+        // Resolve matching mode before touching selection. Alpine may pass false
+        // after a remorph even when Livewire still has select_all_matching=true
+        // (persisted when the user clicked "Select all N matching").
         if (! $selectAllMatching) {
             $selectAllMatching = $this->isSelectAllMatchingTable($table);
         }
 
         $this->setSelectAllMatchingTable($selectAllMatching, $table);
+
+        if ($selectAllMatching) {
+            // Snapshot ignores checkbox keys; do not let an empty Alpine payload
+            // wipe Livewire selection state mid-mount.
+            if (is_array($selectedRecords) && $selectedRecords !== []) {
+                $this->setSelectedTableEntries($selectedRecords, $table);
+            }
+        } elseif ($selectedRecords !== null) {
+            $this->setSelectedTableEntries($selectedRecords, $table);
+        } elseif ($selectedRecords = $this->getSelectedTableEntries($table)) {
+            $this->setSelectedTableEntries($selectedRecords, $table);
+        }
 
         $action = $this->getMountedTableBulkAction($table);
 
@@ -287,8 +304,10 @@ trait HasBulkActions
 
     /**
      * Resolve the entry IDs the mounted bulk action should process, chunked into
-     * pages. Matching mode expands the filtered query; otherwise the checkbox
-     * selection is used. Actions always receive a simple selectedEntries list.
+     * pages. Matching mode snapshots the full filtered ID list first (so later
+     * pages stay correct even when handlers mutate rows out of the filter), then
+     * yields page-sized selectedEntries arrays. Non-matching uses checkbox keys.
+     * Actions always receive a simple selectedEntries list — never a query.
      *
      * @return list<list<string>>
      */
@@ -300,34 +319,112 @@ trait HasBulkActions
             return [];
         }
 
-        return array_values(array_chunk($keys, $this->resolveBulkActionChunkSize($table)));
+        $chunkSize = $this->resolveBulkActionChunkSize($table);
+
+        /** @var list<list<string>> $pages */
+        $pages = array_values(array_chunk($keys, $chunkSize));
+
+        return $pages;
     }
 
     /**
-     * @return list<int|string>
+     * Snapshot every entry ID the mounted bulk action should process.
+     *
+     * Matching mode reads the full filtered/sorted query once (not the current
+     * page). Loading IDs up front avoids offset pagination skipping rows after
+     * handlers mutate the filtered set (e.g. archive → status leaves "active").
+     *
+     * @return list<string>
      */
     public function resolveBulkActionEntryKeys(string $table = 'default'): array
     {
         if ($this->isSelectAllMatchingTable($table)) {
-            return $this->getFilteredSortedQuery($table)
-                ->get()
-                ->pluck('id')
-                ->map(static fn ($id): string => (string) $id)
-                ->values()
-                ->all();
+            return $this->snapshotFilteredSortedEntryKeys($table);
         }
 
-        return array_map(
+        return array_values(array_map(
             static fn ($key): string => (string) $key,
             $this->getSelectedTableEntries($table),
-        );
+        ));
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function snapshotFilteredSortedEntryKeys(string $table = 'default'): array
+    {
+        $chunkSize = $this->resolveBulkActionChunkSize($table);
+        $keys = [];
+        $page = 1;
+
+        do {
+            $query = $this->getFilteredSortedQuery($table);
+            $pageKeys = [];
+            $lastPage = $page;
+
+            if ($query instanceof Criteria) {
+                $paginator = $query->paginate([
+                    'per_page' => $chunkSize,
+                    'page' => $page,
+                    'page_name' => '__bulk_matching_snapshot',
+                ]);
+                $pageKeys = $this->entryKeysFromItems(collect($paginator->items()));
+                $lastPage = method_exists($paginator, 'lastPage')
+                    ? max(1, (int) $paginator->lastPage())
+                    : $page;
+            } elseif ($query instanceof Builder) {
+                $total = (int) (clone $query)->count();
+                $lastPage = max(1, (int) ceil($total / $chunkSize));
+                $pageKeys = $this->entryKeysFromItems(
+                    (clone $query)->forPage($page, $chunkSize)->get()
+                );
+            } else {
+                $pageKeys = $this->entryKeysFromItems(collect($query->get()));
+                $lastPage = $page;
+            }
+
+            if ($pageKeys === []) {
+                break;
+            }
+
+            foreach ($pageKeys as $key) {
+                $keys[] = $key;
+            }
+
+            $page++;
+        } while ($page <= $lastPage);
+
+        return array_values(array_unique($keys));
+    }
+
+    /**
+     * @param  Collection<int, mixed>  $items
+     * @return list<string>
+     */
+    protected function entryKeysFromItems(Collection $items): array
+    {
+        return $items
+            ->map(static function (mixed $entry): string {
+                if (is_object($entry)) {
+                    return (string) ($entry->id ?? '');
+                }
+
+                if (is_array($entry)) {
+                    return (string) ($entry['id'] ?? '');
+                }
+
+                return '';
+            })
+            ->filter(static fn (string $id): bool => $id !== '')
+            ->values()
+            ->all();
     }
 
     protected function resolveBulkActionChunkSize(string $table = 'default'): int
     {
-        $perPage = (int) ($this->getTableRecordsPerPage($table) ?: 0);
-
-        return max(1, $perPage > 0 ? $perPage : 100);
+        // Snapshot/process in stable chunks — do not mirror UI per-page (users
+        // often set per-page to 1 while selecting all matching results).
+        return 100;
     }
 
     protected function getMountedTableBulkActionName(string $table = 'default'): ?string

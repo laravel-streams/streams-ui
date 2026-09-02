@@ -4,11 +4,12 @@ namespace Streams\Ui\Builders\Inputs;
 
 class TimeInput extends Input
 {
+    use Concerns\CanBeAutocompleted;
     use Concerns\HasDatalist;
     use Concerns\HasPlaceholder;
     use Concerns\HasStep;
 
-    protected string $view = 'ui::components.inputs.time';
+    protected string $view = 'ui::builders.inputs.time';
 
     protected \DateTime|string|\Closure|null $maxTime = null;
 

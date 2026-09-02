@@ -107,8 +107,12 @@ function table(tableName = 'default', selectedStatePath = null) {
             window.addEventListener('keydown', this._onEscapeKey)
 
             if (typeof Livewire !== 'undefined') {
+                // Livewire.hook('commit') receives the Component instance.
+                // Alpine's this.$wire is a Proxy — compare via __instance, not === $wire.
                 Livewire.hook('commit', ({ component, succeed }) => {
-                    if (component !== this.$wire) {
+                    const wireComponent = this.$wire?.__instance ?? this.$wire
+
+                    if (component !== wireComponent && component?.id !== wireComponent?.id) {
                         return
                     }
 
@@ -191,10 +195,21 @@ function table(tableName = 'default', selectedStatePath = null) {
         },
 
         /**
-         * Prefer Livewire's filtered matching_total (same request as the table
-         * rows). Fall back to data-matching-total when wire state is unavailable.
+         * Sync Alpine matchingTotalCount from the filtered table total.
+         *
+         * Outside matching-mode, prefer data-matching-total: it is rendered with
+         * the same paginator as the visible rows. Livewire matching_total can lag
+         * after filter/search remorphs when nested $data was last written during a
+         * prior render, which left "Select all N matching" showing an unfiltered N.
+         *
+         * In matching-mode, prefer Livewire / the locked count and ignore transient
+         * DOM zeros during remorph.
          */
         syncMatchingTotalFromPublicState: function () {
+            if (! this.selectAllMatching && this.readMatchingTotalFromDom()) {
+                return
+            }
+
             const path = this.getMatchingTotalStatePath()
 
             if (path && this.$wire) {
@@ -377,6 +392,15 @@ function table(tableName = 'default', selectedStatePath = null) {
             const fallbackTotal = this.matchingTotalCount
 
             this.selectAllMatching = true
+            this.persistSelectAllMatching(true)
+
+            // Prefer the already-synced filtered total (DOM / prior commit). A
+            // Livewire count round-trip remorphs the table and can wipe Alpine
+            // matching mode before Archive runs.
+            if (fallbackTotal > this.selectedEntries.length) {
+                return
+            }
+
             this.isLoading = true
 
             try {
@@ -406,6 +430,22 @@ function table(tableName = 'default', selectedStatePath = null) {
             }
 
             this.selectAllMatching = false
+            this.persistSelectAllMatching(false)
+        },
+
+        persistSelectAllMatching: function (value) {
+            const path = this.getSelectAllMatchingStatePath()
+
+            if (! path || ! this.$wire || typeof this.$wire.set !== 'function') {
+                return
+            }
+
+            // live=false updates public state without a remorph.
+            try {
+                this.$wire.set(path, !! value, false)
+            } catch (error) {
+                // non-fatal — mountBulkAction still passes the Alpine flag
+            }
         },
 
         handleEscapeKey: function (event) {
@@ -576,11 +616,13 @@ function table(tableName = 'default', selectedStatePath = null) {
         },
 
         mountBulkAction: function (name) {
+            const matching = !! this.selectAllMatching
+
             this.$wire.mountTableBulkAction(
                 name,
                 [...this.selectedEntries],
                 this.tableName,
-                this.selectAllMatching,
+                matching,
             );
         },
 

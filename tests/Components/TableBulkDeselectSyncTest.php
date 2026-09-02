@@ -143,11 +143,15 @@ class TableBulkDeselectSyncTest extends UiTestCase
 
         $this->assertStringContainsString('getBulkActionSelectedEntryPages', $bulkActions);
         $this->assertStringContainsString('resolveBulkActionChunkSize', $bulkActions);
-        $this->assertStringContainsString('foreach ($this->getBulkActionSelectedEntryPages($table) as $selectedEntries)', $bulkActions);
+        $this->assertStringContainsString('return 100;', $bulkActions);
+        $this->assertStringContainsString('snapshotFilteredSortedEntryKeys', $bulkActions);
+        $this->assertStringContainsString('foreach ($pages as $index => $selectedEntries)', $bulkActions);
+        $this->assertStringContainsString("'bulk_page' => \$index + 1", $bulkActions);
         $this->assertStringNotContainsString("'selectAllMatching' => \$selectAllMatching", $bulkActions);
         $this->assertStringNotContainsString("'query' => \$this->getFilteredSortedQuery", $bulkActions);
         $this->assertStringNotContainsString("'selectAllMatching' =>", $bulkAction);
-        $this->assertStringNotContainsString("'query' =>", $bulkAction);
+        $this->assertStringContainsString('Do not re-read Livewire page checkboxes', $bulkAction);
+        $this->assertStringNotContainsString('getSelectedTableEntries($tableName)', $bulkAction);
     }
 
     /** @test */
@@ -159,6 +163,9 @@ class TableBulkDeselectSyncTest extends UiTestCase
         $bulkActions = file_get_contents(
             dirname(__DIR__, 2).'/src/Livewire/Tables/Concerns/HasBulkActions.php'
         );
+        $paginate = file_get_contents(
+            dirname(__DIR__, 2).'/src/Livewire/Tables/Concerns/CanPaginateEntries.php'
+        );
         $tableJs = file_get_contents(
             dirname(__DIR__, 2).'/resources/js/components/table.js'
         );
@@ -166,8 +173,13 @@ class TableBulkDeselectSyncTest extends UiTestCase
         $this->assertStringContainsString('return clone $query;', $tablePhp);
         $this->assertStringContainsString('syncMatchingTotalState', $tablePhp);
         $this->assertStringContainsString("getStatePath().'.matching_total'", $tablePhp);
+        $this->assertStringContainsString('$livewire->data = $livewire->data;', $tablePhp);
         $this->assertStringContainsString('method_exists($entries, \'total\')', $bulkActions);
         $this->assertStringContainsString('syncMatchingTotalFromPublicState', $tableJs);
         $this->assertStringContainsString('getMatchingTotalStatePath', $tableJs);
+        $this->assertStringContainsString('! this.selectAllMatching && this.readMatchingTotalFromDom()', $tableJs);
+        $this->assertStringContainsString('$wire?.__instance', $tableJs);
+        $this->assertStringContainsString('persistSelectAllMatching', $tableJs);
+        $this->assertStringContainsString("str_starts_with(\$field, 'filters.')", $paginate);
     }
 }

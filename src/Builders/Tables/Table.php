@@ -153,12 +153,15 @@ class Table extends ViewBuilder implements HasActions
             : (int) $this->entries->count();
 
         $livewire = $this->getLivewire();
+        $path = $this->getStatePath().'.matching_total';
 
-        data_set(
-            $livewire,
-            $this->getStatePath().'.matching_total',
-            $total,
-        );
+        data_set($livewire, $path, $total);
+
+        // Nested mutations on public $data via data_set are not always picked up
+        // for Livewire dehydration; reassign so Alpine $wire.get sees the filtered total.
+        if (property_exists($livewire, 'data') && is_array($livewire->data)) {
+            $livewire->data = $livewire->data;
+        }
     }
 
     public function flushEntries(): void
