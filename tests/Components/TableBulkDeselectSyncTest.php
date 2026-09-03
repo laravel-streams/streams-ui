@@ -178,6 +178,9 @@ class TableBulkDeselectSyncTest extends UiTestCase
         $this->assertStringContainsString('syncMatchingTotalFromPublicState', $tableJs);
         $this->assertStringContainsString('getMatchingTotalStatePath', $tableJs);
         $this->assertStringContainsString('! this.selectAllMatching && this.readMatchingTotalFromDom()', $tableJs);
+        $this->assertStringContainsString('_matchingTotalObserver', $tableJs);
+        $this->assertStringContainsString("attributeFilter: ['data-matching-total']", $tableJs);
+        $this->assertStringContainsString("this.\$wire.\$hook('commit'", $tableJs);
         $this->assertStringContainsString('$wire?.__instance', $tableJs);
         $this->assertStringContainsString('persistSelectAllMatching', $tableJs);
         $this->assertStringContainsString("str_starts_with(\$field, 'filters.')", $paginate);

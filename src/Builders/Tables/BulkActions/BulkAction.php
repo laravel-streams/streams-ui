@@ -21,6 +21,27 @@ class BulkAction extends MountableAction
         ]);
     }
 
+    /**
+     * Alpine confirm-then-mount expression safe for HTML attribute serialization.
+     *
+     * ComponentAttributeBag only backslash-escapes quotes (`\"`), which HTML still
+     * treats as attribute terminators. Pre-encode confirm() JSON as HTML entities
+     * (`&quot;`) so the attribute value stays one intact string.
+     */
+    public function confirmThenMountExpression(string $message): string
+    {
+        $confirm = htmlspecialchars(
+            json_encode($message, JSON_THROW_ON_ERROR),
+            ENT_QUOTES,
+            'UTF-8',
+            double_encode: false,
+        );
+
+        $name = $this->getName();
+
+        return "if (confirm({$confirm})) mountBulkAction('{$name}')";
+    }
+
     public function call(array $parameters = []): mixed
     {
         return $this->evaluate($this->getAction(), $parameters);

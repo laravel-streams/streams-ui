@@ -106,9 +106,54 @@ function table(tableName = 'default', selectedStatePath = null) {
             this._onEscapeKey = (event) => this.handleEscapeKey(event)
             window.addEventListener('keydown', this._onEscapeKey)
 
-            if (typeof Livewire !== 'undefined') {
-                // Livewire.hook('commit') receives the Component instance.
-                // Alpine's this.$wire is a Proxy — compare via __instance, not === $wire.
+            // Livewire remorphs update data-matching-total on this root; Alpine
+            // state does not follow the attribute unless we re-read it.
+            this._matchingTotalObserver = new MutationObserver(() => {
+                if (! this.selectAllMatching) {
+                    this.readMatchingTotalFromDom()
+                    this.$nextTick(() => this.updateAllEntriesSelectedState())
+                }
+            })
+            this._matchingTotalObserver.observe(this.$el, {
+                attributes: true,
+                attributeFilter: ['data-matching-total'],
+            })
+
+            const afterCommit = () => {
+                if (this._dismissedSelection) {
+                    this._dismissedSelection = false
+                    this.syncMatchingTotalFromPublicState()
+                    this.$nextTick(() => this.updateAllEntriesSelectedState())
+
+                    return
+                }
+
+                // While matching mode is on, keep the locked filtered total —
+                // remorph DOM totals can briefly be wrong or empty (→ 0).
+                if (! this.selectAllMatching) {
+                    this.syncMatchingTotalFromPublicState()
+                }
+
+                this.$nextTick(() => {
+                    // Filter/search remorphs can reinit Alpine or leave row
+                    // checkboxes stale; re-read public selection when empty.
+                    this.hydrateSelectionFromPublicState({ onlyIfEmpty: true })
+
+                    if (this.selectAllMatching) {
+                        this.selectEntries(this.getAllEntries())
+                    }
+
+                    this.updateAllEntriesSelectedState()
+                })
+            }
+
+            // Prefer component-scoped $wire.$hook (auto id-match + cleanup) over
+            // global Livewire.hook + fragile Proxy/$wire identity compares.
+            if (typeof this.$wire?.$hook === 'function') {
+                this.$wire.$hook('commit', ({ succeed }) => {
+                    succeed(afterCommit)
+                })
+            } else if (typeof Livewire !== 'undefined') {
                 Livewire.hook('commit', ({ component, succeed }) => {
                     const wireComponent = this.$wire?.__instance ?? this.$wire
 
@@ -116,36 +161,7 @@ function table(tableName = 'default', selectedStatePath = null) {
                         return
                     }
 
-                    succeed(() => {
-                        if (this._dismissedSelection) {
-                            this._dismissedSelection = false
-                            this.syncMatchingTotalFromPublicState()
-
-                            this.$nextTick(() => {
-                                this.updateAllEntriesSelectedState()
-                            })
-
-                            return
-                        }
-
-                        // While matching mode is on, keep the locked filtered total —
-                        // remorph DOM totals can briefly be wrong or empty (→ 0).
-                        if (! this.selectAllMatching) {
-                            this.syncMatchingTotalFromPublicState()
-                        }
-
-                        this.$nextTick(() => {
-                            // Filter/search remorphs can reinit Alpine or leave row
-                            // checkboxes stale; re-read public selection when empty.
-                            this.hydrateSelectionFromPublicState({ onlyIfEmpty: true })
-
-                            if (this.selectAllMatching) {
-                                this.selectEntries(this.getAllEntries())
-                            }
-
-                            this.updateAllEntriesSelectedState()
-                        })
-                    })
+                    succeed(afterCommit)
                 })
             }
 
@@ -163,6 +179,11 @@ function table(tableName = 'default', selectedStatePath = null) {
 
             if (this._onSelectAllChange) {
                 this.$el.removeEventListener('change', this._onSelectAllChange, true)
+            }
+
+            if (this._matchingTotalObserver) {
+                this._matchingTotalObserver.disconnect()
+                this._matchingTotalObserver = null
             }
         },
 
