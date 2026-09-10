@@ -35,9 +35,7 @@
         @if (true)
             <x-ui::inputs.input
                 :attributes="
-                    // \Filament\Support\prepare_inherited_attributes($getExtraInputAttributeBag())
                     (new \Illuminate\View\ComponentAttributeBag)
-                        // ->merge($extraAlpineAttributes, escape: false)
                         ->merge([
                             // 'autofocus' => $isAutofocused(),
                             'disabled' => $isDisabled,
@@ -47,8 +45,6 @@
                             // 'inlinePrefix' => $isPrefixInline && (count($prefixActions) || $prefixIcon || filled($prefixLabel)),
                             // 'inlineSuffix' => $isSuffixInline && (count($suffixActions) || $suffixIcon || filled($suffixLabel)),
                             'list' => $datalistOptions ? $id . '-list' : null,
-                            // 'max' => (! $isConcealed) ? $getMaxDate() : null,
-                            // 'min' => (! $isConcealed) ? $getMinDate() : null,
                             'max' => $getMaxDate() ?: null,
                             'min' => $getMinDate() ?: null,
                             'placeholder' => $getPlaceholder(),
@@ -59,6 +55,7 @@
                             'wire:model' => $statePath,
                             // 'x-data' => count($extraAlpineAttributes) ? '{}' : null,
                         ], escape: false)
+                        ->merge($getHtmlAttributes())
                 "
             />
         @else

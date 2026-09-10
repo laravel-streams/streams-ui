@@ -35,9 +35,7 @@
         @if (true)
             <x-ui::inputs.input
                 :attributes="
-                    // \Filament\Support\prepare_inherited_attributes($getExtraInputAttributeBag())
                     (new \Illuminate\View\ComponentAttributeBag)
-                        // ->merge($extraAlpineAttributes, escape: false)
                         ->merge([
                             // 'autofocus' => $isAutofocused(),
                             'disabled' => $isDisabled,
@@ -48,8 +46,6 @@
                             'list' => $datalistOptions ? $id . '-list' : null,
                             'max' => $getMaxDate() ?: null,
                             'min' => $getMinDate() ?: null,
-                            'max' => $getMaxDate() ?: null,
-                            'min' => $getMinDate() ?: null,
                             'placeholder' => $getPlaceholder(),
                             'readonly' => $isReadonly(),
                             'required' => $isRequired(),
@@ -58,6 +54,7 @@
                             'wire:model' => $statePath,
                             // 'x-data' => count($extraAlpineAttributes) ? '{}' : null,
                         ], escape: false)
+                        ->merge($getHtmlAttributes())
                 "
             />
         @else
