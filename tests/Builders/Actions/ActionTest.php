@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Blade;
 use Streams\Ui\Builders\Actions\Action;
 use Illuminate\Contracts\Support\Htmlable;
 use Streams\Ui\Builders\Actions\ActionMenu;
+use Streams\Ui\Builders\Actions\MountableAction;
 
 class ActionTest extends UiTestCase
 {
@@ -129,7 +130,7 @@ class ActionTest extends UiTestCase
     /** @test */
     public function it_can_set_action()
     {
-        $action = $this->getTestAction();
+        $action = MountableAction::make('test-action');
         $closure = fn () => 'executed';
 
         $result = $action->action($closure);
@@ -141,7 +142,7 @@ class ActionTest extends UiTestCase
     /** @test */
     public function it_returns_null_for_non_closure_action()
     {
-        $action = $this->getTestAction();
+        $action = MountableAction::make('test-action');
 
         $action->action('string-action');
 
@@ -151,7 +152,7 @@ class ActionTest extends UiTestCase
     /** @test */
     public function it_can_call_action()
     {
-        $action = $this->getTestAction();
+        $action = MountableAction::make('test-action');
         $executed = false;
 
         $action->action(function () use (&$executed) {
@@ -169,7 +170,7 @@ class ActionTest extends UiTestCase
     /** @test */
     public function it_can_call_action_with_payload()
     {
-        $action = $this->getTestAction();
+        $action = MountableAction::make('test-action');
 
         $action->action(function ($value) {
             return $value;
@@ -829,7 +830,7 @@ class ActionTest extends UiTestCase
         $this->assertStringContainsString('leading-none', $classes);
         $this->assertStringNotContainsString('inline-grid', $classes);
         $this->assertStringNotContainsString('flex items-center gap-', $html);
-        $this->assertTrue($this->iconOnlyButtonStartsWithIcon($html));
+        $this->assertTrue($this->iconOnlyButtonStartsWithIcon($html), $html);
     }
 
     /** @test */
