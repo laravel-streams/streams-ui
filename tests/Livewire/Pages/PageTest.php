@@ -208,8 +208,8 @@ class PageTest extends UiTestCase
         $methods = $method->invoke($page);
 
         $this->assertIsArray($methods);
-        $this->assertArrayHasKey('testPublicMethod', $methods);
-        $this->assertInstanceOf(\Closure::class, $methods['testPublicMethod']);
+        $this->assertArrayHasKey('test_public_method', $methods);
+        $this->assertInstanceOf(\Closure::class, $methods['test_public_method']);
     }
 
     /** @test */
@@ -250,7 +250,7 @@ class PageTest extends UiTestCase
     }
 
     /** @test */
-    public function it_should_register_navigation_by_default()
+    public function it_does_not_register_navigation_by_default()
     {
         $page = $this->getTestPage();
 
@@ -258,7 +258,7 @@ class PageTest extends UiTestCase
         $method = $reflection->getMethod('shouldRegisterNavigation');
         $method->setAccessible(true);
 
-        $this->assertTrue($method->invoke($page));
+        $this->assertFalse($method->invoke($page));
     }
 
     /** @test */

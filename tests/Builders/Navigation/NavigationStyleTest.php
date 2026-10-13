@@ -68,7 +68,7 @@ class NavigationStyleTest extends UiTestCase
             ->toHtml();
 
         $this->assertStringContainsString('rounded-full', $html);
-        $this->assertStringContainsString('border border-gray-200', $html);
+        $this->assertStringContainsString('border-b border-black/10', $html);
         $this->assertStringContainsString('bg-primary-600', $html);
         $this->assertStringContainsString('text-white', $html);
     }

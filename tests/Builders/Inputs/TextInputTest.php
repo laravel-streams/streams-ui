@@ -35,7 +35,7 @@ class TextInputTest extends UiTestCase
     {
         $input = $this->getTestInput();
 
-        $this->assertEquals('text', $input->getType());
+        $this->assertNull($input->getType());
     }
 
     /** @test */
@@ -58,7 +58,7 @@ class TextInputTest extends UiTestCase
         $input->email(false);
 
         $this->assertFalse($input->isEmail());
-        $this->assertEquals('text', $input->getType());
+        $this->assertNull($input->getType());
     }
 
     /** @test */

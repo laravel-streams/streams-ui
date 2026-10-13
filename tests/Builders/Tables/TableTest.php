@@ -93,6 +93,8 @@ class TableTest extends UiTestCase
     public function it_can_get_entries()
     {
         $table = $this->getTestTable();
+        $query = entries('people')->limit(2);
+        $table->query($query)->paginated(false);
 
         $entries = $table->getEntries();
 
@@ -310,7 +312,7 @@ class TableTest extends UiTestCase
 
         $options = $table->getPaginationOptions();
 
-        $this->assertEquals([5, 10, 25, 50, 100, 'all'], $options);
+        $this->assertEquals([1, 5, 10, 25, 50, 100, 'all'], $options);
     }
 
     /** @test */
@@ -516,5 +518,4 @@ class TableTest extends UiTestCase
         $this->assertEquals('rounded-tl-2xl', $table->getBorderRadiusClass('tl'));
         $this->assertEquals('1rem', $table->getBorderRadiusCssValue());
     }
-
 }

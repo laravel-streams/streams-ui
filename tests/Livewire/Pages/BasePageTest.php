@@ -190,8 +190,8 @@ class BasePageTest extends UiTestCase
         $methods = $method->invoke($page);
 
         $this->assertIsArray($methods);
-        $this->assertArrayHasKey('testPublicMethod', $methods);
-        $this->assertInstanceOf(\Closure::class, $methods['testPublicMethod']);
+        $this->assertArrayHasKey('test_public_method', $methods);
+        $this->assertInstanceOf(\Closure::class, $methods['test_public_method']);
     }
 
     /** @test */
@@ -205,7 +205,7 @@ class BasePageTest extends UiTestCase
 
         $methods = $method->invoke($page);
 
-        $this->assertArrayNotHasKey('testProtectedMethod', $methods);
+        $this->assertArrayNotHasKey('test_protected_method', $methods);
     }
 
     /** @test */

@@ -10,6 +10,13 @@ use Illuminate\Contracts\Support\Htmlable;
 
 class ViewBuilderTest extends UiTestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        view()->addNamespace('ui', __DIR__.'/../views');
+    }
+
     protected function getTestViewBuilder(): TestViewBuilder
     {
         return new TestViewBuilder;

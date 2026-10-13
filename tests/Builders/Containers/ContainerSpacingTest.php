@@ -8,11 +8,11 @@ use Streams\Ui\Builders\Containers\Container;
 class ContainerSpacingTest extends UiTestCase
 {
     /** @test */
-    public function it_defaults_to_s_spacing(): void
+    public function it_defaults_to_sm_spacing(): void
     {
         $container = Container::make('test');
 
-        $this->assertSame('s', $container->getSpacing());
+        $this->assertSame('sm', $container->getSpacing());
 
         $html = $container->toHtml();
 
@@ -24,9 +24,9 @@ class ContainerSpacingTest extends UiTestCase
     {
         $cases = [
             'xs' => 'space-y-2',
-            's' => 'space-y-4',
-            'm' => 'space-y-6',
-            'l' => 'space-y-8',
+            'sm' => 'space-y-4',
+            'md' => 'space-y-6',
+            'lg' => 'space-y-8',
             'xl' => 'space-y-10',
             '2xl' => 'space-y-12',
         ];
@@ -46,9 +46,9 @@ class ContainerSpacingTest extends UiTestCase
     {
         $cases = [
             'xs' => 'space-x-2',
-            's' => 'space-x-4',
-            'm' => 'space-x-6',
-            'l' => 'space-x-8',
+            'sm' => 'space-x-4',
+            'md' => 'space-x-6',
+            'lg' => 'space-x-8',
             'xl' => 'space-x-10',
             '2xl' => 'space-x-12',
         ];

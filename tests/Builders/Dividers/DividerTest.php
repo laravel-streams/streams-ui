@@ -13,7 +13,7 @@ class DividerTest extends UiTestCase
         $html = Divider::make()->toHtml();
 
         $this->assertStringContainsString('role="separator"', $html);
-        $this->assertStringContainsString('bg-gray-900/15', $html);
+        $this->assertStringContainsString('bg-black/15', $html);
         $this->assertStringContainsString('h-px', $html);
     }
 
