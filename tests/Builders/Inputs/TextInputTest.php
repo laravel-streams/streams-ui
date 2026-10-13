@@ -31,7 +31,7 @@ class TextInputTest extends UiTestCase
     }
 
     /** @test */
-    public function it_has_default_text_type()
+    public function it_leaves_type_unset_by_default()
     {
         $input = $this->getTestInput();
 
