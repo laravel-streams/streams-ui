@@ -8,8 +8,8 @@ use Illuminate\Contracts\View\View;
 use Streams\Ui\Builders\ViewBuilder;
 use Illuminate\Support\Facades\Blade;
 use Streams\Ui\Builders\Actions\Action;
-use Streams\Ui\Builders\Actions\ActionMenu;
 use Illuminate\Contracts\Support\Htmlable;
+use Streams\Ui\Builders\Actions\ActionMenu;
 
 class ActionTest extends UiTestCase
 {
@@ -51,7 +51,8 @@ class ActionTest extends UiTestCase
     {
         $action = $this->getTestAction();
 
-        $this->assertEquals('ui::action', $action->getView());
+        $this->assertEquals('ui::builders.action', $action->getView());
+        $this->assertTrue(view()->exists($action->getView()));
     }
 
     /** @test */
@@ -830,7 +831,6 @@ class ActionTest extends UiTestCase
         $this->assertStringNotContainsString('flex items-center gap-', $html);
         $this->assertTrue($this->iconOnlyButtonStartsWithIcon($html));
     }
-
 
     /** @test */
     public function it_renders_false_label_action_without_label_gap_classes()
