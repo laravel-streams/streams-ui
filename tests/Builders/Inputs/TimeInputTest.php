@@ -27,7 +27,7 @@ class TimeInputTest extends UiTestCase
     {
         $input = $this->getTestInput();
 
-        $this->assertEquals('ui::components.inputs.time', $input->getView());
+        $this->assertEquals('ui::builders.inputs.time', $input->getView());
     }
 
     /** @test */

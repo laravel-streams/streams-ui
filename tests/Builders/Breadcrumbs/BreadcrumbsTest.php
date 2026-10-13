@@ -5,6 +5,7 @@ namespace Streams\Ui\Tests\Builders\Breadcrumbs;
 use Streams\Ui\Builders\Builder;
 use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Builders\ViewBuilder;
+use Streams\Ui\Builders\Actions\Action;
 use Illuminate\Contracts\Support\Htmlable;
 use Streams\Ui\Builders\Breadcrumbs\Breadcrumbs;
 
@@ -25,13 +26,13 @@ class BreadcrumbsTest extends UiTestCase
     public function it_can_be_instantiated_with_items()
     {
         $items = [
-            ['title' => 'Home', 'href' => '/'],
-            ['title' => 'About', 'href' => '/about'],
+            Action::make('home')->label('Home')->href('/'),
+            Action::make('about')->label('About')->href('/about'),
         ];
 
         $breadcrumbs = new Breadcrumbs($items);
 
-        $this->assertEquals($items, $breadcrumbs->getItems());
+        $this->assertSame($items, $breadcrumbs->getItems());
     }
 
     /** @test */
@@ -54,13 +55,13 @@ class BreadcrumbsTest extends UiTestCase
     public function it_can_be_made_with_items()
     {
         $items = [
-            ['title' => 'Home', 'href' => '/'],
-            ['title' => 'Products', 'href' => '/products'],
+            Action::make('home')->label('Home')->href('/'),
+            Action::make('products')->label('Products')->href('/products'),
         ];
 
         $breadcrumbs = Breadcrumbs::make($items);
 
-        $this->assertEquals($items, $breadcrumbs->getItems());
+        $this->assertSame($items, $breadcrumbs->getItems());
     }
 
     /** @test */
@@ -89,26 +90,26 @@ class BreadcrumbsTest extends UiTestCase
         $breadcrumbs = Breadcrumbs::make();
 
         $items = [
-            ['title' => 'Dashboard', 'href' => '/dashboard'],
-            ['title' => 'Settings', 'href' => '/settings'],
+            Action::make('dashboard')->label('Dashboard')->href('/dashboard'),
+            Action::make('settings')->label('Settings')->href('/settings'),
         ];
 
         $result = $breadcrumbs->items($items);
 
         $this->assertSame($breadcrumbs, $result);
-        $this->assertEquals($items, $breadcrumbs->getItems());
+        $this->assertSame($items, $breadcrumbs->getItems());
     }
 
     /** @test */
     public function it_can_get_items()
     {
         $items = [
-            ['title' => 'Home', 'href' => '/'],
+            Action::make('home')->label('Home')->href('/'),
         ];
 
         $breadcrumbs = Breadcrumbs::make($items);
 
-        $this->assertEquals($items, $breadcrumbs->getItems());
+        $this->assertSame($items, $breadcrumbs->getItems());
     }
 
     /** @test */
@@ -124,12 +125,11 @@ class BreadcrumbsTest extends UiTestCase
     {
         $breadcrumbs = Breadcrumbs::make();
 
-        $result = $breadcrumbs->addItem('Home', '/');
+        $home = Action::make('home')->label('Home')->href('/');
+        $result = $breadcrumbs->addItem($home);
 
         $this->assertSame($breadcrumbs, $result);
-        $this->assertEquals([
-            ['title' => 'Home', 'href' => '/'],
-        ], $breadcrumbs->getItems());
+        $this->assertSame([$home], $breadcrumbs->getItems());
     }
 
     /** @test */
@@ -140,7 +140,7 @@ class BreadcrumbsTest extends UiTestCase
         $breadcrumbs->addItem('Current Page');
 
         $this->assertEquals([
-            ['title' => 'Current Page', 'href' => null],
+            'Current Page',
         ], $breadcrumbs->getItems());
     }
 
@@ -149,26 +149,25 @@ class BreadcrumbsTest extends UiTestCase
     {
         $breadcrumbs = Breadcrumbs::make();
 
-        $breadcrumbs
-            ->addItem('Home', '/')
-            ->addItem('Products', '/products')
-            ->addItem('Widget', '/products/widget');
-
         $expected = [
-            ['title' => 'Home', 'href' => '/'],
-            ['title' => 'Products', 'href' => '/products'],
-            ['title' => 'Widget', 'href' => '/products/widget'],
+            Action::make('home')->label('Home')->href('/'),
+            Action::make('products')->label('Products')->href('/products'),
+            Action::make('widget')->label('Widget')->href('/products/widget'),
         ];
 
-        $this->assertEquals($expected, $breadcrumbs->getItems());
+        foreach ($expected as $item) {
+            $breadcrumbs->addItem($item);
+        }
+
+        $this->assertSame($expected, $breadcrumbs->getItems());
     }
 
     /** @test */
     public function it_can_chain_add_item_calls()
     {
         $breadcrumbs = Breadcrumbs::make()
-            ->addItem('Home', '/')
-            ->addItem('About', '/about');
+            ->addItem(Action::make('home')->label('Home')->href('/'))
+            ->addItem(Action::make('about')->label('About')->href('/about'));
 
         $this->assertInstanceOf(Breadcrumbs::class, $breadcrumbs);
         $this->assertCount(2, $breadcrumbs->getItems());
@@ -178,28 +177,28 @@ class BreadcrumbsTest extends UiTestCase
     public function it_appends_items_when_adding()
     {
         $breadcrumbs = Breadcrumbs::make([
-            ['title' => 'Home', 'href' => '/'],
+            Action::make('home')->label('Home')->href('/'),
         ]);
 
-        $breadcrumbs->addItem('About', '/about');
+        $breadcrumbs->addItem(Action::make('about')->label('About')->href('/about'));
 
         $this->assertCount(2, $breadcrumbs->getItems());
-        $this->assertEquals('About', $breadcrumbs->getItems()[1]['title']);
+        $this->assertEquals('About', $breadcrumbs->getItems()[1]->getLabel());
     }
 
     /** @test */
     public function it_can_replace_items_with_items_method()
     {
         $breadcrumbs = Breadcrumbs::make([
-            ['title' => 'Home', 'href' => '/'],
+            Action::make('home')->label('Home')->href('/'),
         ]);
 
         $breadcrumbs->items([
-            ['title' => 'Dashboard', 'href' => '/dashboard'],
+            Action::make('dashboard')->label('Dashboard')->href('/dashboard'),
         ]);
 
         $this->assertCount(1, $breadcrumbs->getItems());
-        $this->assertEquals('Dashboard', $breadcrumbs->getItems()[0]['title']);
+        $this->assertEquals('Dashboard', $breadcrumbs->getItems()[0]->getLabel());
     }
 
     /** @test */
@@ -252,8 +251,8 @@ class BreadcrumbsTest extends UiTestCase
     public function it_supports_fluent_interface()
     {
         $breadcrumbs = Breadcrumbs::make()
-            ->items([['title' => 'Test', 'href' => '/test']])
-            ->addItem('Another', '/another')
+            ->items([Action::make('test')->label('Test')->href('/test')])
+            ->addItem(Action::make('another')->label('Another')->href('/another'))
             ->configure();
 
         $this->assertInstanceOf(Breadcrumbs::class, $breadcrumbs);
@@ -261,22 +260,21 @@ class BreadcrumbsTest extends UiTestCase
     }
 
     /** @test */
-    public function it_preserves_item_structure()
+    public function it_preserves_action_label_and_url()
     {
         $breadcrumbs = Breadcrumbs::make();
 
-        $breadcrumbs->addItem('Test Title', '/test-url');
+        $breadcrumbs->addItem(Action::make('test-title')->label('Test Title')->href('/test-url'));
 
         $items = $breadcrumbs->getItems();
 
-        $this->assertArrayHasKey('title', $items[0]);
-        $this->assertArrayHasKey('href', $items[0]);
-        $this->assertEquals('Test Title', $items[0]['title']);
-        $this->assertEquals('/test-url', $items[0]['href']);
+        $this->assertInstanceOf(Action::class, $items[0]);
+        $this->assertEquals('Test Title', $items[0]->getLabel());
+        $this->assertEquals('/test-url', $items[0]->getUrl());
     }
 
     /** @test */
-    public function it_handles_null_href_in_items()
+    public function it_preserves_plain_string_items()
     {
         $breadcrumbs = Breadcrumbs::make();
 
@@ -284,21 +282,18 @@ class BreadcrumbsTest extends UiTestCase
 
         $items = $breadcrumbs->getItems();
 
-        $this->assertNull($items[0]['href']);
+        $this->assertSame('No Link', $items[0]);
     }
 
     /** @test */
     public function it_can_mix_items_and_add_item()
     {
-        $breadcrumbs = Breadcrumbs::make([
-            ['title' => 'Home', 'href' => '/'],
-        ]);
+        $home = Action::make('home')->label('Home')->href('/');
+        $about = Action::make('about')->label('About')->href('/about');
+        $breadcrumbs = Breadcrumbs::make([$home]);
 
-        $breadcrumbs->addItem('About', '/about');
+        $breadcrumbs->addItem($about);
 
-        $this->assertEquals([
-            ['title' => 'Home', 'href' => '/'],
-            ['title' => 'About', 'href' => '/about'],
-        ], $breadcrumbs->getItems());
+        $this->assertSame([$home, $about], $breadcrumbs->getItems());
     }
 }
