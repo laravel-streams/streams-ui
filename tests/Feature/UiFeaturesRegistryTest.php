@@ -15,7 +15,6 @@ use Streams\Ui\Builders\Actions\Action;
 use Streams\Ui\Livewire\Pages\EditEntry;
 use Streams\Ui\Livewire\Pages\CreateEntry;
 use Streams\Ui\Livewire\Pages\ListEntries;
-use Streams\Ui\Routing\RegisterPanelRoutes;
 use Streams\Ui\Builders\Navigation\NavigationItem;
 use Streams\Core\Criteria\Contract\AdapterInterface;
 use Streams\Ui\Builders\Tables\Filters\CriteriaFilter;
@@ -36,6 +35,13 @@ class PostResource extends Resource
 
 class UiFeaturesRegistryTest extends UiTestCase
 {
+    protected function registerPanelRoutes(): void
+    {
+        require dirname(__DIR__, 2).'/resources/routes/web.php';
+
+        Route::getRoutes()->refreshNameLookups();
+    }
+
     public function test_generic_pages_resolve_the_current_route_before_a_cached_resource(): void
     {
         $posts = Route::get('/posts', fn () => 'posts')->defaults('uiResource', PostResource::class);
@@ -127,7 +133,7 @@ class UiFeaturesRegistryTest extends UiTestCase
                 ->resources([PostResource::class])
         );
 
-        RegisterPanelRoutes::register();
+        $this->registerPanelRoutes();
 
         $this->assertSame('posts', PostResource::getSlug());
 
@@ -147,7 +153,7 @@ class UiFeaturesRegistryTest extends UiTestCase
                 ->resources([PostResource::class])
         );
 
-        RegisterPanelRoutes::register();
+        $this->registerPanelRoutes();
 
         $domains = collect(Route::getRoutes()->getRoutes())
             ->filter(fn ($route) => $route->uri() === 'admin/posts')
@@ -174,7 +180,7 @@ class UiFeaturesRegistryTest extends UiTestCase
                 ->resources([PostResource::class])
         );
 
-        RegisterPanelRoutes::register();
+        $this->registerPanelRoutes();
 
         $index = Route::getRoutes()->getByName('streams.ui.admin.posts.index');
         $create = Route::getRoutes()->getByName('streams.ui.admin.posts.create');
@@ -212,7 +218,7 @@ class UiFeaturesRegistryTest extends UiTestCase
                 })
         );
 
-        RegisterPanelRoutes::register();
+        $this->registerPanelRoutes();
 
         $route = Route::getRoutes()->getByName('streams.ui.admin.settings');
 
