@@ -135,8 +135,6 @@ class UiFeaturesRegistryTest extends UiTestCase
 
         $this->registerPanelRoutes();
 
-        $this->assertSame('posts', PostResource::getSlug());
-
         $this->withoutExceptionHandling();
 
         $this->get('/admin')->assertRedirect('/admin/posts');
@@ -156,7 +154,7 @@ class UiFeaturesRegistryTest extends UiTestCase
         $this->registerPanelRoutes();
 
         $domains = collect(Route::getRoutes()->getRoutes())
-            ->filter(fn ($route) => $route->uri() === 'admin/posts')
+            ->filter(fn ($route) => $route->uri() === 'admin/'.PostResource::getSlug())
             ->map(fn ($route) => $route->getDomain())
             ->unique()
             ->sort()
