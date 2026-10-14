@@ -43,7 +43,7 @@ trait HasResource
             return static::$resource;
         }
 
-        $bound = static::$resolvedResources[static::class] ?? static::resourceFromRoute();
+        $bound = static::resourceFromRoute() ?? static::$resolvedResources[static::class] ?? null;
 
         if (is_string($bound)) {
             static::$resolvedResources[static::class] = $bound;

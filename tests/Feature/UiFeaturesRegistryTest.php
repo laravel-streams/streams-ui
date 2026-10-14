@@ -36,6 +36,22 @@ class PostResource extends Resource
 
 class UiFeaturesRegistryTest extends UiTestCase
 {
+    public function test_generic_pages_resolve_the_current_route_before_a_cached_resource(): void
+    {
+        $posts = Route::get('/posts', fn () => 'posts')->defaults('uiResource', PostResource::class);
+        $otherResource = new class extends Resource {};
+        $other = Route::get('/other', fn () => 'other')->defaults('uiResource', $otherResource::class);
+
+        request()->setRouteResolver(fn () => $posts);
+        $this->assertSame(PostResource::class, ListEntries::getResource());
+
+        request()->setRouteResolver(fn () => $other);
+        $this->assertSame($otherResource::class, ListEntries::getResource());
+
+        request()->setRouteResolver(fn () => $posts);
+        $this->assertSame(PostResource::class, ListEntries::getResource());
+    }
+
     /** @test */
     public function test_base_action_executes_closure_from_action_method(): void
     {
