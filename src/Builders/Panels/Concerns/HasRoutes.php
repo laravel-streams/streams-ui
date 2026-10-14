@@ -40,6 +40,11 @@ trait HasRoutes
         return $this;
     }
 
+    public function getDomains(): array
+    {
+        return $this->domains;
+    }
+
     public function routes(?\Closure $routes): static
     {
         $this->routes = $routes;
