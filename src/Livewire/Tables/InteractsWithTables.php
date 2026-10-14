@@ -24,6 +24,8 @@ trait InteractsWithTables
 
     protected array $cachedTables = [];
 
+    // Request-local like cachedTables: rebuild after hydration, but only once
+    // when Livewire discovers both the singular and plural trait boot hooks.
     protected bool $tablesInteractionBooted = false;
 
     public function bootedInteractsWithTables(): void

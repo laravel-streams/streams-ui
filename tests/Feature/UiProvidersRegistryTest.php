@@ -23,10 +23,17 @@ class UiProvidersRegistryTest extends UiTestCase
     {
         Livewire::test(DocumentedProvidersComponent::class)
             ->assertSet('tableConfigurations', 1)
+            ->assertSee('Request configurations: 1')
             ->call('mountAction', 'save', ['value' => 'saved'])
             ->assertSet('savedValue', 'saved')
             ->assertSet('mountedActions', [])
-            ->assertSet('tableConfigurations', 2);
+            ->assertSet('tableConfigurations', 2)
+            ->assertSee('Request configurations: 1')
+            ->call('mountAction', 'save', ['value' => 'saved again'])
+            ->assertSet('savedValue', 'saved again')
+            ->assertSet('mountedActions', [])
+            ->assertSet('tableConfigurations', 3)
+            ->assertSee('Request configurations: 1');
     }
 
     /** @test */
@@ -81,9 +88,12 @@ class DocumentedProvidersComponent extends Component
 
     public ?string $savedValue = null;
 
+    protected int $requestTableConfigurations = 0;
+
     public function table(Table $table): Table
     {
         $this->tableConfigurations++;
+        $this->requestTableConfigurations++;
 
         return $table;
     }
@@ -99,6 +109,6 @@ class DocumentedProvidersComponent extends Component
 
     public function render(): string
     {
-        return '<div>Providers</div>';
+        return '<div>Request configurations: '.$this->requestTableConfigurations.'</div>';
     }
 }
