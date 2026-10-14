@@ -24,8 +24,16 @@ trait InteractsWithTables
 
     protected array $cachedTables = [];
 
+    protected bool $tablesInteractionBooted = false;
+
     public function bootedInteractsWithTables(): void
     {
+        if ($this->tablesInteractionBooted) {
+            return;
+        }
+
+        $this->tablesInteractionBooted = true;
+
         $this->cacheTables();
         $this->initializeTableState();
     }
