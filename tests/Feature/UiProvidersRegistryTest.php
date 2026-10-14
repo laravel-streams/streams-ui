@@ -12,11 +12,23 @@ use Streams\Ui\Livewire\Pages\EditEntry;
 use Streams\Ui\Http\Middleware\SetUpPanel;
 use Streams\Ui\Livewire\Pages\CreateEntry;
 use Streams\Ui\Livewire\Pages\ListEntries;
+use Streams\Ui\Builders\Actions\MountableAction;
 use Streams\Ui\Livewire\Forms\InteractsWithForms;
 use Streams\Ui\Livewire\Tables\InteractsWithTable;
 
 class UiProvidersRegistryTest extends UiTestCase
 {
+    /** @test */
+    public function test_documented_traits_work_through_livewire_mount_and_update(): void
+    {
+        Livewire::test(DocumentedProvidersComponent::class)
+            ->assertSet('tableConfigurations', 1)
+            ->call('mountAction', 'save', ['value' => 'saved'])
+            ->assertSet('savedValue', 'saved')
+            ->assertSet('mountedActions', [])
+            ->assertSet('tableConfigurations', 2);
+    }
+
     /** @test */
     public function test_page_uses_documented_table_and_action_traits(): void
     {
@@ -57,5 +69,36 @@ class UiProvidersRegistryTest extends UiTestCase
 
         $this->assertInstanceOf(Table::class, $component->getTable());
         $this->assertSame('save', $component->getAction('save')->getName());
+    }
+}
+
+class DocumentedProvidersComponent extends Component
+{
+    use InteractsWithTable;
+    use \Streams\Ui\Builders\Actions\Contracts\InteractsWithActions;
+
+    public int $tableConfigurations = 0;
+
+    public ?string $savedValue = null;
+
+    public function table(Table $table): Table
+    {
+        $this->tableConfigurations++;
+
+        return $table;
+    }
+
+    public function getActions(): array
+    {
+        return [
+            MountableAction::make('save')->action(function (MountableAction $action): void {
+                $this->savedValue = $action->getArguments()['value'];
+            }),
+        ];
+    }
+
+    public function render(): string
+    {
+        return '<div>Providers</div>';
     }
 }
