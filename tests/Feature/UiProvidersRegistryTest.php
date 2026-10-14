@@ -1,0 +1,114 @@
+<?php
+
+namespace Streams\Ui\Tests\Feature;
+
+use Livewire\Livewire;
+use Livewire\Component;
+use Streams\Ui\Tests\UiTestCase;
+use Streams\Ui\Livewire\Pages\Page;
+use Streams\Ui\Builders\Tables\Table;
+use Streams\Ui\Builders\Actions\Action;
+use Streams\Ui\Livewire\Pages\EditEntry;
+use Streams\Ui\Http\Middleware\SetUpPanel;
+use Streams\Ui\Livewire\Pages\CreateEntry;
+use Streams\Ui\Livewire\Pages\ListEntries;
+use Streams\Ui\Builders\Actions\MountableAction;
+use Streams\Ui\Livewire\Forms\InteractsWithForms;
+use Streams\Ui\Livewire\Tables\InteractsWithTable;
+
+class UiProvidersRegistryTest extends UiTestCase
+{
+    /** @test */
+    public function test_documented_traits_work_through_livewire_mount_and_update(): void
+    {
+        Livewire::test(DocumentedProvidersComponent::class)
+            ->assertSet('tableConfigurations', 1)
+            ->assertSee('Request configurations: 1')
+            ->call('mountAction', 'save', ['value' => 'saved'])
+            ->assertSet('savedValue', 'saved')
+            ->assertSet('mountedActions', [])
+            ->assertSet('tableConfigurations', 2)
+            ->assertSee('Request configurations: 1')
+            ->call('mountAction', 'save', ['value' => 'saved again'])
+            ->assertSet('savedValue', 'saved again')
+            ->assertSet('mountedActions', [])
+            ->assertSet('tableConfigurations', 3)
+            ->assertSee('Request configurations: 1');
+    }
+
+    /** @test */
+    public function test_page_uses_documented_table_and_action_traits(): void
+    {
+        $actionTrait = 'Streams\\Ui\\Builders\\Actions\\Contracts\\InteractsWithActions';
+
+        $this->assertTrue(trait_exists($actionTrait), 'Documented action trait namespace is missing.');
+
+        $pageTraits = class_uses(Page::class);
+
+        $this->assertContains(InteractsWithTable::class, $pageTraits);
+        $this->assertContains($actionTrait, $pageTraits);
+        $this->assertContains(InteractsWithTable::class, class_uses(ListEntries::class));
+        $this->assertContains(InteractsWithForms::class, class_uses(CreateEntry::class));
+        $this->assertContains(InteractsWithForms::class, class_uses(EditEntry::class));
+
+        $this->assertContains(SetUpPanel::class, Livewire::getPersistentMiddleware());
+        $this->assertSame(SetUpPanel::class, app('router')->getMiddleware()['panel'] ?? null);
+
+        $component = new class extends Component
+        {
+            use InteractsWithTable;
+            use \Streams\Ui\Builders\Actions\Contracts\InteractsWithActions;
+
+            public function table(Table $table): Table
+            {
+                return $table;
+            }
+
+            public function getActions(): array
+            {
+                return [
+                    Action::make('save'),
+                ];
+            }
+        };
+
+        $component->bootedInteractsWithTable();
+
+        $this->assertInstanceOf(Table::class, $component->getTable());
+        $this->assertSame('save', $component->getAction('save')->getName());
+    }
+}
+
+class DocumentedProvidersComponent extends Component
+{
+    use InteractsWithTable;
+    use \Streams\Ui\Builders\Actions\Contracts\InteractsWithActions;
+
+    public int $tableConfigurations = 0;
+
+    public ?string $savedValue = null;
+
+    protected int $requestTableConfigurations = 0;
+
+    public function table(Table $table): Table
+    {
+        $this->tableConfigurations++;
+        $this->requestTableConfigurations++;
+
+        return $table;
+    }
+
+    public function getActions(): array
+    {
+        return [
+            MountableAction::make('save')->action(function (MountableAction $action): void {
+                $this->savedValue = $action->getArguments()['value'];
+            }),
+        ];
+    }
+
+    public function render(): string
+    {
+        return '<div>Request configurations: '.$this->requestTableConfigurations.'</div>';
+    }
+}
