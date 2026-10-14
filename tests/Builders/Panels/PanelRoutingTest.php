@@ -7,6 +7,7 @@ use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Support\Facades\UI;
 use Illuminate\Support\Facades\Route;
 use Streams\Ui\Builders\Panels\Panel;
+use Streams\Ui\Builders\Navigation\NavigationItem;
 
 class PanelRoutingTest extends UiTestCase
 {
@@ -58,5 +59,39 @@ class PanelRoutingTest extends UiTestCase
 
         $this->get('/admin')->assertRedirect('/admin/dashboard');
         $this->assertSame($admin, UI::currentPanel());
+    }
+
+    public function test_panel_root_redirects_to_first_visible_navigation_item(): void
+    {
+        UI::panel(Panel::make('admin')->default()->path('admin')->navigationItems([
+            NavigationItem::make('Hidden')->url('/admin/hidden')->hidden(),
+            NavigationItem::make('Dashboard')->url('/admin/dashboard'),
+        ]));
+
+        require __DIR__.'/../../../resources/routes/web.php';
+
+        $this->get('/admin')->assertRedirect('/admin/dashboard');
+    }
+
+    public function test_empty_panel_root_returns_not_found(): void
+    {
+        UI::panel(Panel::make('admin')->default()->path('admin'));
+
+        require __DIR__.'/../../../resources/routes/web.php';
+
+        $route = Route::getRoutes()->match(Request::create('/admin'));
+        $this->assertSame('streams.ui.admin.home', $route->getName());
+        $this->get('/admin')->assertNotFound();
+    }
+
+    public function test_custom_root_route_can_replace_the_default_redirect(): void
+    {
+        UI::panel(Panel::make('admin')->default()->path('admin')->routes(function (): void {
+            Route::get('/', fn () => 'Panel landing')->name('landing');
+        }));
+
+        require __DIR__.'/../../../resources/routes/web.php';
+
+        $this->get('/admin')->assertOk()->assertSee('Panel landing');
     }
 }
