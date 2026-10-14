@@ -9,7 +9,6 @@ class MountableAction extends Action
 {
     use Concerns\CanOpenModal;
     use Concerns\CanRedirect;
-    use Concerns\HasAction;
     use Concerns\HasForm;
 
     // use Concerns\CanBeMounted; // #configured like builders kinda
@@ -19,11 +18,6 @@ class MountableAction extends Action
     // use Concerns\HasInfolist;
     // use Concerns\HasLifecycleHooks;
     // use Concerns\HasWizard;
-
-    public function call(array $parameters = []): mixed
-    {
-        return $this->evaluate($this->action, $parameters);
-    }
 
     public static function for(Component $livewire, ?string $name = null): static
     {

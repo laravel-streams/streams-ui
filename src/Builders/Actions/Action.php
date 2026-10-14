@@ -26,6 +26,7 @@ class Action extends ViewBuilder
     use Common\HasSize;
     use Common\HasTooltip;
     use Common\HasUrl;
+    use Concerns\HasAction;
     use Concerns\HasArguments;
     use Concerns\HasForm;
     use Concerns\HasKeyBindings;
@@ -111,6 +112,11 @@ class Action extends ViewBuilder
         $this->url($url, $openInNewTab);
 
         return $this;
+    }
+
+    public function call(array $parameters = []): mixed
+    {
+        return $this->evaluate($this->action, $parameters);
     }
 
     public function getLabel(): string|false
