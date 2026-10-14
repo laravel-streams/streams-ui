@@ -2,11 +2,12 @@
 
 namespace Streams\Ui\Builders\Tables\Filters;
 
-use Streams\Ui\Builders;
-use Streams\Ui\Builders\Inputs;
-
-class SelectFilter extends Filter
+class CriteriaFilter extends Filter
 {
-    use Builders\Concerns\HasLabel;
-    use Inputs\Concerns\HasOptions;
+    protected string $view = 'ui::builders.filters.filter';
+
+    public function criteria(\Closure $criteria): static
+    {
+        return $this->query($criteria);
+    }
 }

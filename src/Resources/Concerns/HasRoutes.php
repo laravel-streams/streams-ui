@@ -28,7 +28,9 @@ trait HasRoutes
             ->withoutMiddleware(static::getWithoutRouteMiddleware($panel))
             ->group(function () use ($panel) {
                 foreach (static::getPages() as $name => $page) {
-                    $page->registerRoute($panel)?->name($name);
+                    $page->registerRoute($panel)
+                        ?->name($name)
+                        ?->defaults('uiResource', static::class);
                 }
             });
     }
@@ -44,9 +46,22 @@ trait HasRoutes
 
     public static function getSlug(): string
     {
-        return static::$slug ?? (string) str(class_basename(static::class))
-            ->kebab()
-            ->slug();
+        if (filled(static::$slug)) {
+            return static::$slug;
+        }
+
+        $class = static::class;
+        $base = class_basename($class);
+
+        if (str_contains($class, '@anonymous') || str_contains($class, "\0")) {
+            return (string) str($base)->kebab()->slug();
+        }
+
+        if (str_ends_with($base, 'Resource')) {
+            $base = substr($base, 0, -strlen('Resource'));
+        }
+
+        return (string) str($base)->kebab()->slug()->plural();
     }
 
     public static function getRouteMiddleware(Panel $panel): string|array

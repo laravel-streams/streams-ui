@@ -13,6 +13,11 @@ trait HasSortOrder
         return $this;
     }
 
+    public function sort(int|\Closure|null $sort): static
+    {
+        return $this->sortOrder($sort);
+    }
+
     public function getSortOrder(): int
     {
         return $this->evaluate($this->sortOrder) ?? -1;
