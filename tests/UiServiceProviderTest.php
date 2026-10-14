@@ -47,9 +47,15 @@ class UiServiceProviderTest extends UiTestCase
         $this->artisan('vendor:publish', ['--tag' => 'lang'])
             ->assertExitCode(0);
 
-        foreach (['buttons.php', 'labels.php', 'messages.php'] as $file) {
-            $this->assertFileExists($destination.'/en/'.$file);
-            $this->assertFileEquals($source.'/en/'.$file, $destination.'/en/'.$file);
+        $files = (new Filesystem)->allFiles($source);
+
+        $this->assertNotEmpty($files);
+
+        foreach ($files as $file) {
+            $published = $destination.'/'.$file->getRelativePathname();
+
+            $this->assertFileExists($published);
+            $this->assertFileEquals($file->getPathname(), $published);
         }
     }
 }
