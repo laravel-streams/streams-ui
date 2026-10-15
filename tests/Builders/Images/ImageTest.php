@@ -11,12 +11,12 @@ class ImageTest extends UiTestCase
     public function it_renders_a_basic_image_with_alt_text(): void
     {
         $html = Image::make('/img/logo.svg')
-            ->alt('GroupVitals')
+            ->alt('Company logo')
             ->mergeHtmlAttributes(['class' => 'h-8 w-auto'])
             ->toHtml();
 
         $this->assertStringContainsString('src="/img/logo.svg"', $html);
-        $this->assertStringContainsString('alt="GroupVitals"', $html);
+        $this->assertStringContainsString('alt="Company logo"', $html);
         $this->assertStringContainsString('class="h-8 w-auto"', $html);
     }
 
@@ -24,7 +24,7 @@ class ImageTest extends UiTestCase
     public function it_renders_a_linked_image_with_wrapper_attributes(): void
     {
         $html = Image::make('/img/logo.svg')
-            ->alt('GroupVitals')
+            ->alt('Company logo')
             ->url('/')
             ->linkAriaLabel('Go home')
             ->mergeHtmlAttributes(['class' => 'h-8 w-auto'])
@@ -41,7 +41,7 @@ class ImageTest extends UiTestCase
     public function it_renders_lazy_loading_when_enabled(): void
     {
         $html = Image::make('/img/logo.svg')
-            ->alt('GroupVitals')
+            ->alt('Company logo')
             ->lazy()
             ->toHtml();
 
@@ -52,7 +52,7 @@ class ImageTest extends UiTestCase
     public function it_renders_nothing_when_hidden(): void
     {
         $html = Image::make('/img/logo.svg')
-            ->alt('GroupVitals')
+            ->alt('Company logo')
             ->hidden()
             ->toHtml();
 
