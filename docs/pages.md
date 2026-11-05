@@ -40,7 +40,7 @@ Extend `Streams\Ui\Livewire\Pages\PanelPage` for standalone screens:
 ```php
 class DashboardPage extends PanelPage
 {
-    protected static string $view = 'ui::pages.dashboard';
+    protected static string $view = 'ui::livewire.pages.dashboard';
     protected static ?string $navigationLabel = 'Dashboard';
 }
 ```

@@ -87,4 +87,13 @@ class UiManager
 
         return $panel->getHomeUrl() ?? $panel->getUrl();
     }
+
+    /**
+     * Absolute path to a file in this package's resources directory.
+     * Works whether the package is installed, symlinked, or under test.
+     */
+    public function resourcePath(string $path = ''): string
+    {
+        return realpath(__DIR__.'/../resources').($path !== '' ? '/'.ltrim($path, '/') : '');
+    }
 }

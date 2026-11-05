@@ -1,12 +1,20 @@
-@php
-    $action = $this->getMountedAction();
+@props(['livewire' => null])
 
-    if (! $action && method_exists($this, 'getMountedTableAction')) {
-        $action = $this->getMountedTableAction();
+@php
+    $livewire ??= isset($this) ? $this : null;
+
+    if (! $livewire) {
+        return;
     }
 
-    if (! $action && method_exists($this, 'getMountedTableBulkAction')) {
-        $action = $this->getMountedTableBulkAction();
+    $action = $livewire->getMountedAction();
+
+    if (! $action && method_exists($livewire, 'getMountedTableAction')) {
+        $action = $livewire->getMountedTableAction();
+    }
+
+    if (! $action && method_exists($livewire, 'getMountedTableBulkAction')) {
+        $action = $livewire->getMountedTableBulkAction();
     }
 
     // Page actions dispatch open-modal with getId(); older markup appended "-action"
@@ -40,7 +48,7 @@
         :visible="$shouldOpen"
         :open="$shouldOpen"
         :width="$action?->getModalWidth()"
-        :wire:key="$action ? $this->getId() . '.actions.' . $action->getName() . '.modal' : null"
+        :wire:key="$action ? $livewire->getId() . '.actions.' . $action->getName() . '.modal' : null"
         x-on:modal-closed.stop="$wire.unmountAction(false);">
         @if ($action)
             {{ $action->getModalContent() }}

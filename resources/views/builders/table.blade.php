@@ -48,7 +48,7 @@ $bottomRightRadiusStyle = $borderRadiusCss ? "border-bottom-right-radius: {$bord
 
 @endphp
 
-{!! Assets::inline(base_path('/vendor/streams/ui/resources/js/components/table.js')) !!}
+{!! Assets::script(null, [], file_get_contents(\Streams\Ui\Support\Facades\UI::resourcePath('js/components/table.js'))) !!}
 
 <div
     x-data="table('{{ $tableName }}', @js($selectedStatePath))"

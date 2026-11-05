@@ -6,7 +6,7 @@
 
     <div class="flex flex-col gap-y-6 p-4">
         
-        {{ $this->table }}
+        {{ $this->getTable() }}
 
     </div>
 

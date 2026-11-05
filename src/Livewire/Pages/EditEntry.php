@@ -2,84 +2,76 @@
 
 namespace Streams\Ui\Livewire\Pages;
 
-use Streams\Core\Entry\Entry;
+use Streams\Ui\Exceptions\Halt;
 use Streams\Ui\Builders\Forms\Form;
 use Streams\Ui\Builders\Concerns\HasEntry;
-use Streams\Ui\Livewire\Forms\InteractsWithForms;
+use Streams\Ui\Notifications\Notification;
+use Streams\Core\Entry\Contract\EntryInterface;
 
 class EditEntry extends PanelPage
 {
     use HasEntry;
-    use InteractsWithForms;
 
     public ?array $data = [];
 
     public ?string $previousUrl = null;
 
-    protected ?string $statePath = 'data';
+    protected static string $view = 'ui::livewire.pages.edit-entry';
 
-    protected static string $view = 'ui::pages.edit-entry';
-
-    public function form(Form $table): Form
+    public function form(Form $form): Form
     {
-        return static::getResource()::form($table);
+        return static::getResource()::form($form);
+    }
+
+    protected function getForms(): array
+    {
+        return [
+            'default' => fn (): Form => $this->form(
+                Form::make('default')
+                    ->statePath('data')
+                    ->stream(static::getResource()::getStream())
+                    ->htmlAttributes(['wire:submit' => 'save'])
+            ),
+        ];
     }
 
     public function mount(int|string $entry): void
     {
-        $this->entry = $this->resolveEntry($entry);
-
-        // $this->authorizeAccess();
+        $this->entry($this->resolveEntry($entry)->getIdAttribute());
 
         $this->fillForm();
 
         $this->previousUrl = url()->previous();
     }
 
-    protected function resolveEntry(int|string $key): Entry
+    /**
+     * Only the key is kept on the component so Livewire can round-trip it.
+     */
+    public function getEntryInstance(): EntryInterface
+    {
+        return $this->resolveEntry($this->getEntry());
+    }
+
+    protected function resolveEntry(int|string $key): EntryInterface
     {
         $entry = static::getResource()::resolveEntryRouteBinding($key);
 
         if ($entry === null) {
-            throw (new \Exception("Entry [$key] not found"));
+            abort(404, "Entry [{$key}] not found.");
         }
 
         return $entry;
     }
 
-    protected function authorizeAccess(): void
-    {
-        static::authorizeResourceAccess();
-
-        abort_unless(static::getResource()::canEdit($this->getRecord()), 403);
-    }
-
     protected function fillForm(): void
-    {
-        $data = $this->getEntryInstance()->toArray();
-
-        $this->fillFormData($data);
-    }
-
-    protected function fillFormData(array $data): void
     {
         $this->fire('beforeFill');
 
-        $data = $this->mutateFormDataBeforeFill($data);
+        $data = $this->mutateFormDataBeforeFill($this->getEntryInstance()->toArray());
 
-        $this->form->fill($data);
-
-        $this->data = $this->form->getLivewire()->data;
+        $this->getForm()->fill($data);
 
         $this->fire('afterFill');
-    }
-
-    protected function refreshFormData(array $attributes): void
-    {
-        $this->data = [
-            ...$this->data,
-            ...$this->getEntryInstance()->only($attributes),
-        ];
     }
 
     protected function mutateFormDataBeforeFill(array $data): array
@@ -89,97 +81,54 @@ class EditEntry extends PanelPage
 
     public function save(bool $shouldRedirect = true): void
     {
-        $this->authorizeAccess();
-
         try {
-            /** @internal Read the DocBlock above the following method. */
-            $this->validateFormAndUpdateRecordAndCallHooks();
-        } catch (Halt $exception) {
+            $this->fire('beforeValidate');
+
+            $data = $this->getForm()->getState();
+
+            $this->fire('afterValidate');
+
+            $data = $this->mutateFormDataBeforeSave($data);
+
+            $this->fire('beforeSave');
+
+            $this->handleEntryUpdate($this->getEntryInstance(), $data);
+
+            $this->fire('afterSave');
+        } catch (Halt) {
             return;
         }
 
-        /** @internal Read the DocBlock above the following method. */
-        $this->sendSavedNotificationAndRedirect(shouldRedirect: $shouldRedirect);
-    }
+        $this->getSavedNotification()?->push($this);
 
-    /**
-     * @internal Never override or call this method. If you completely override `save()`, copy the contents of this method into your override.
-     */
-    protected function validateFormAndUpdateRecordAndCallHooks(): void
-    {
-        $this->callHook('beforeValidate');
-
-        $data = $this->form->getState();
-
-        $this->callHook('afterValidate');
-
-        $data = $this->mutateFormDataBeforeSave($data);
-
-        $this->callHook('beforeSave');
-
-        $this->handleRecordUpdate($this->getRecord(), $data);
-
-        $this->callHook('afterSave');
-    }
-
-    /**
-     * @internal Never override or call this method. If you completely override `save()`, copy the contents of this method into your override.
-     */
-    protected function sendSavedNotificationAndRedirect(bool $shouldRedirect = true): void
-    {
-        $this->getSavedNotification()?->send();
-
-        if ($shouldRedirect && ($redirectUrl = $this->getRedirectUrl())) {
-            if (FilamentView::hasSpaMode()) {
-                $this->redirect($redirectUrl, navigate: is_app_url($redirectUrl));
-            } else {
-                $this->redirect($redirectUrl);
-            }
+        if ($shouldRedirect) {
+            $this->redirect($this->getRedirectUrl());
         }
+    }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        return $data;
+    }
+
+    protected function handleEntryUpdate(EntryInterface $entry, array $data): EntryInterface
+    {
+        foreach ($data as $key => $value) {
+            $entry->{$key} = $value;
+        }
+
+        $entry->save();
+
+        return $entry;
     }
 
     protected function getSavedNotification(): ?Notification
     {
-        $title = $this->getSavedNotificationTitle();
-
-        if (blank($title)) {
-            return null;
-        }
-
-        return Notification::make()
-            ->success()
-            ->title($this->getSavedNotificationTitle());
+        return Notification::make()->title('Saved')->success();
     }
 
-    protected function getSavedNotificationTitle(): ?string
+    protected function getRedirectUrl(): string
     {
-        return $this->getSavedNotificationMessage() ?? __('filament-panels::resources/pages/edit-record.notifications.saved.title');
-    }
-
-    /**
-     * @deprecated Use `getSavedNotificationTitle()` instead.
-     */
-    protected function getSavedNotificationMessage(): ?string
-    {
-        return null;
-    }
-
-    /**
-     * @param  array<string, mixed>  $data
-     */
-    protected function handleRecordUpdate(Model $record, array $data): Model
-    {
-        $record->update($data);
-
-        return $record;
-    }
-
-    /**
-     * @param  array<string, mixed>  $data
-     * @return array<string, mixed>
-     */
-    protected function mutateFormDataBeforeSave(array $data): array
-    {
-        return $data;
+        return $this->previousUrl ?: static::getResource()::getUrl('index');
     }
 }

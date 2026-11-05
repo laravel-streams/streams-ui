@@ -40,5 +40,21 @@
                 "Streams\\Ui\\UiServiceProvider"
             ]
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../streams-core",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "../streams-testing",
+            "options": {
+                "symlink": true
+            }
+        }
+    ]
 }
