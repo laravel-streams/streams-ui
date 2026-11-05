@@ -10,6 +10,8 @@ abstract class UiTestCase extends TestCase
     {
         return [
             \Livewire\LivewireServiceProvider::class,
+            \BladeUI\Icons\BladeIconsServiceProvider::class,
+            \BladeUI\Heroicons\BladeHeroiconsServiceProvider::class,
             \Streams\Ui\UiServiceProvider::class,
         ];
     }

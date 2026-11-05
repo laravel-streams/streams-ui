@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Lang;
 use Streams\Core\Support\Integrator;
 use Streams\Ui\Builders\Panels\Panel;
 use Streams\Ui\Support\Facades\Forms;
+use Illuminate\Foundation\AliasLoader;
 use Streams\Ui\Support\Facades\Colors;
 use Streams\Ui\Support\Facades\Tables;
 use Illuminate\Support\ServiceProvider;
@@ -39,6 +40,8 @@ class UiServiceProvider extends ServiceProvider
 
     public function register(): void
     {
+        AliasLoader::getInstance(['UI' => UI::class])->register();
+
         $this->mergeConfigFrom(
             __DIR__.'/../resources/config/ui.php',
             'streams.ui'
@@ -82,12 +85,16 @@ class UiServiceProvider extends ServiceProvider
             __DIR__.'/../resources/views/' => resource_path('views/vendor/ui'),
         ], 'ui');
 
+        $this->publishes([
+            __DIR__.'/../resources/lang' => $this->app->langPath('vendor/ui'),
+        ], 'lang');
+
         Assets::addPath('ui', 'vendor/streams/ui/resources');
         Images::addPath('ui', 'vendor/streams/ui/resources');
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'ui');
 
-        Lang::addNamespace('ui', realpath(base_path('vendor/streams/ui/resources/lang')));
+        Lang::addNamespace('ui', __DIR__.'/../resources/lang');
 
         Livewire::setPersistentMiddleware([
             SetUpPanel::class,

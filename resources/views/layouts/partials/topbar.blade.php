@@ -36,10 +36,10 @@ use Streams\Ui\Support\Facades\UI;
                     class="inline-flex" title="Toggle sidebar (Shift+B)">
                     <span class="sr-only">Toggle sidebar</span>
                     <span x-show="!sidebar_collapsed">
-                        @svg('lucide-sidebar', 'h-6 w-6')
+                        @svg('heroicon-o-bars-3-bottom-left', 'h-6 w-6')
                     </span>
                     <span x-show="sidebar_collapsed">
-                        @svg('lucide-sidebar', 'h-6 w-6')
+                        @svg('heroicon-o-bars-3-bottom-left', 'h-6 w-6')
                     </span>
                 </button>
                 <kbd class="rounded border border-gray-200 bg-gray-50 px-1 py-0.5 font-mono text-[10px] font-medium text-gray-400" aria-hidden="true">

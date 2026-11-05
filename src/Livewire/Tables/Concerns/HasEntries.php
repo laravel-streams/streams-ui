@@ -39,7 +39,7 @@ trait HasEntries
 
         $this->entries[$table] = $this->paginateQuery($query, $table);
 
-        // @todo this is tied to PinClicks Rank Tracking data
+        // @todo this is tied to rank-tracking data
         // Need to flesh out proper callbacks and clean up.
         $tableInstance->fire('entries_loaded', [
             'livewire' => $this,

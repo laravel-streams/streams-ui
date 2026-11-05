@@ -6,7 +6,7 @@
 >
     <div class="flex flex-col gap-y-6">
         
-        {{ $this->form }}
+        {{ $this->getForm() }}
 
     </div>
 </x-ui::page>
