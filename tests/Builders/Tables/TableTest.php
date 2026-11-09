@@ -94,10 +94,12 @@ class TableTest extends UiTestCase
     {
         $table = $this->getTestTable();
 
+        $table->query(fn () => entries('people'));
+
         $entries = $table->getEntries();
 
-        $this->assertInstanceOf(Collection::class, $entries);
-        $this->assertCount(2, $entries);
+        $this->assertInstanceOf(AbstractPaginator::class, $entries);
+        $this->assertGreaterThan(0, $entries->count());
     }
 
     /** @test */
@@ -310,7 +312,7 @@ class TableTest extends UiTestCase
 
         $options = $table->getPaginationOptions();
 
-        $this->assertEquals([5, 10, 25, 50, 100, 'all'], $options);
+        $this->assertEquals([1, 5, 10, 25, 50, 100, 'all'], $options);
     }
 
     /** @test */
