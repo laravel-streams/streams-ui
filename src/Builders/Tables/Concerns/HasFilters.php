@@ -42,6 +42,31 @@ trait HasFilters
         return $this;
     }
 
+    /**
+     * @var array<string, mixed>
+     */
+    protected array $defaultFilters = [];
+
+    /**
+     * Seed filter values on first load. Reset clears them.
+     *
+     * @param  array<string, mixed>  $values
+     */
+    public function defaultFilters(array $values): static
+    {
+        $this->defaultFilters = $values;
+
+        return $this;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function getDefaultFilters(): array
+    {
+        return $this->defaultFilters;
+    }
+
     public function pushFilters(array $filters): static
     {
         foreach ($filters as $filter) {

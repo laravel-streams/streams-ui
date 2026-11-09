@@ -16,6 +16,29 @@ trait HasFilterState
         return $this;
     }
 
+    protected mixed $initialValue = null;
+
+    /**
+     * Value the filter starts with on first load. Reset clears it.
+     */
+    public function default(mixed $value): static
+    {
+        $this->initialValue = $value;
+
+        return $this;
+    }
+
+    public function getInitialState(): array
+    {
+        $fromTable = $this->getTable()?->getDefaultFilters() ?? [];
+
+        $value = array_key_exists($this->getName(), $fromTable)
+            ? $fromTable[$this->getName()]
+            : $this->evaluate($this->initialValue);
+
+        return $value === null ? $this->getResetState() : ['value' => $value];
+    }
+
     public function getDefaultState(): array
     {
         return $this->evaluate($this->defaultState) ?? ['value' => null];

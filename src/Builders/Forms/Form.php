@@ -34,6 +34,32 @@ class Form extends ViewBuilder
         $this->name($name ?? static::getDefaultName());
     }
 
+    protected bool $submitsMountedAction = false;
+
+    public function submitsMountedAction(bool $condition = true): static
+    {
+        $this->submitsMountedAction = $condition;
+
+        return $this;
+    }
+
+    /**
+     * Default submit handler: validate, then run the mounted action (which closes the modal).
+     * Subclasses may override; existing overrides keep working.
+     */
+    public function handle(array $payload = [])
+    {
+        $this->validate();
+
+        $livewire = $this->getLivewire();
+
+        if (method_exists($livewire, 'callMountedAction')) {
+            return $livewire->callMountedAction($payload);
+        }
+
+        return null;
+    }
+
     public static function make(?string $name = null): static
     {
         $resolvedName = $name ?? static::getDefaultName();
