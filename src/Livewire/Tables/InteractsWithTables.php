@@ -43,7 +43,7 @@ trait InteractsWithTables
 
         foreach ($table->getFilters() as $filter) {
             if (! isset($filters[$filter->getName()])) {
-                $filters[$filter->getName()] = ['value' => null];
+                $filters[$filter->getName()] = $filter->getInitialState();
             }
         }
 

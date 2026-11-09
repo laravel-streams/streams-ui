@@ -28,6 +28,19 @@ trait HasForm
         return $this;
     }
 
+    /**
+     * Attach a form to the modal. Submitting it (Enter or button) calls
+     * the mounted action via Form::handle().
+     */
+    public function modalForm(array|\Closure|Form $form): static
+    {
+        if ($form instanceof Form) {
+            $form->submitsMountedAction();
+        }
+
+        return $this->form($form);
+    }
+
     public function getForm(): ?Form
     {
         $modifiedForm = $this->evaluate($this->form);
