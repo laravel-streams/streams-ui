@@ -8,12 +8,12 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Builders\ViewBuilder;
-use Illuminate\Database\Query\Builder;
 use Streams\Ui\Support\Facades\Tables;
 use Streams\Ui\Builders\Concerns as Common;
 use Illuminate\Contracts\Pagination\Paginator;
 use Streams\Ui\Builders\Tables\Columns\Column;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Database\Query\Builder;
 use Streams\Ui\Builders\Actions\Contracts\HasActions;
 
 class Table extends ViewBuilder implements HasActions
@@ -21,6 +21,7 @@ class Table extends ViewBuilder implements HasActions
     use Common\BelongsToLivewire;
     use Common\CanBeSorted;
     use Common\CanRefreshOn;
+    use Common\HasBorderRadius;
     use Common\HasDescription;
     use Common\HasHeading;
     use Common\HasName;
@@ -28,7 +29,6 @@ class Table extends ViewBuilder implements HasActions
     use Common\HasState;
     use Concerns\CanBePaginated;
     use Concerns\CanBeReordered;
-    use Common\HasBorderRadius;
     use Concerns\HasActions;
     use Concerns\HasBulkActions;
     use Concerns\HasColumns;

@@ -3,7 +3,6 @@
 namespace Streams\Ui\Builders\Tables\Concerns;
 
 use Illuminate\Support\Arr;
-use Streams\Core\Entry\Entry;
 use Streams\Ui\Builders\Actions\ActionGroup;
 use Streams\Ui\Builders\Tables\BulkActions\BulkAction;
 use Streams\Ui\Builders\Tables\BulkActions\BulkActionGroup;
@@ -105,7 +104,7 @@ trait HasBulkActions
         return $action;
     }
 
-    public function isRecordSelectable(Entry $record): bool
+    public function isRecordSelectable(object $record): bool
     {
         return (bool) ($this->evaluate(
             $this->checkIfRecordIsSelectableUsing,
@@ -113,7 +112,6 @@ trait HasBulkActions
                 'record' => $record,
             ],
             typedInjections: [
-                Entry::class => $record,
                 $record::class => $record,
             ],
         ) ?? true);

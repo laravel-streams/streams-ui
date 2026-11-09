@@ -3,7 +3,6 @@
 namespace Streams\Ui\Builders\Tables\Filters;
 
 use Streams\Ui\Builders;
-use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Builders\Tables\Table;
 
 class SelectFilter extends Filter
@@ -16,7 +15,7 @@ class SelectFilter extends Filter
 
     protected function setUp(): void
     {
-        $this->query(function (Criteria $query, Table $table, $state) {
+        $this->query(function ($query, Table $table, $state) {
             return $query->where($this->getName(), $state);
         });
     }

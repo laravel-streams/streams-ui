@@ -2,7 +2,6 @@
 
 namespace Streams\Ui\Builders\Tables\Filters;
 
-use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Builders\Tables\Table;
 use Streams\Ui\Builders\Inputs\Concerns\HasPlaceholder;
 
@@ -14,7 +13,7 @@ class SearchFilter extends Filter
 
     protected function setUp(): void
     {
-        $this->query(function (Criteria $query, Table $table, $state): Criteria {
+        $this->query(function ($query, Table $table, $state) {
 
             $search = $state.'%';
 

@@ -5,7 +5,6 @@ namespace Streams\Ui\Builders\Tables\Concerns;
 use Illuminate\Support\Arr;
 use Streams\Ui\Builders\Actions\Action;
 use Streams\Ui\Builders\Actions\ActionGroup;
-use Streams\Core\Entry\Contract\EntryInterface;
 
 trait HasActions
 {
@@ -131,7 +130,7 @@ trait HasActions
         Action $action,
         array $modalActionNames,
         string $parentActionName,
-        ?EntryInterface $mountedRecord = null
+        ?object $mountedRecord = null
     ): ?Action {
 
         foreach ($modalActionNames as $modalActionName) {
