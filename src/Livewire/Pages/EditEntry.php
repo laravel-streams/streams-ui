@@ -51,7 +51,7 @@ class EditEntry extends PanelPage
     {
         static::authorizeResourceAccess();
 
-        abort_unless(static::getResource()::canEdit($this->getRecord()), 403);
+        abort_unless(static::getResource()::canEdit($this->getEntryInstance()), 403);
     }
 
     protected function fillForm(): void
@@ -117,7 +117,7 @@ class EditEntry extends PanelPage
 
         $this->callHook('beforeSave');
 
-        $this->handleRecordUpdate($this->getRecord(), $data);
+        $this->handleRecordUpdate($this->getEntryInstance(), $data);
 
         $this->callHook('afterSave');
     }
@@ -167,7 +167,7 @@ class EditEntry extends PanelPage
     /**
      * @param  array<string, mixed>  $data
      */
-    protected function handleRecordUpdate(Model $record, array $data): Model
+    protected function handleRecordUpdate(object $record, array $data): object
     {
         $record->update($data);
 

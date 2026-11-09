@@ -130,8 +130,13 @@ class EloquentTableTest extends UiTestCase
         $this->assertSame(1, $card->getEntry());
         $this->assertSame($widget, $card->getEntryInstance());
 
-        $widget->update(['name' => 'Renamed']);
+        $page = new \Streams\Ui\Livewire\Pages\EditEntry();
+        $page->entry($card->getEntryInstance());
 
-        $this->assertSame('Renamed', $card->getEntryInstance()->fresh()->name);
+        $method = new \ReflectionMethod($page, 'handleRecordUpdate');
+        $method->setAccessible(true);
+        $method->invoke($page, $page->getEntryInstance(), ['name' => 'Renamed']);
+
+        $this->assertSame('Renamed', AcmeWidget::find(1)->name);
     }
 }
