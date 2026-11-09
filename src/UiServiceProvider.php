@@ -82,6 +82,10 @@ class UiServiceProvider extends ServiceProvider
             __DIR__.'/../resources/views/' => resource_path('views/vendor/ui'),
         ], 'ui');
 
+        $this->publishes([
+            __DIR__.'/../resources/lang' => $this->app->langPath('vendor/ui'),
+        ], 'lang');
+
         Assets::addPath('ui', 'vendor/streams/ui/resources');
         Images::addPath('ui', 'vendor/streams/ui/resources');
 

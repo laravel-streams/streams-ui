@@ -11,17 +11,25 @@ Route::name('streams.ui.')
             $id = $panel->getId();
             $path = $panel->getPath();
 
-            foreach ([null] as $domain) {
-
-                if ($routes = $panel->getRoutes()) {
-                    $routes($panel);
-                }
+            foreach ($panel->getDomains() ?: [null] as $domain) {
 
                 Route::domain($domain)
                     ->middleware($panel->getMiddleware())
                     ->name($id.'.')
                     ->prefix($path)
                     ->group(function () use ($panel) {
+
+                        Route::get('/', function () use ($panel) {
+                            $url = $panel->getHomeUrl() ?? $panel->getUrl();
+
+                            abort_if($url === null, 404);
+
+                            return redirect($url);
+                        })->name('home');
+
+                        if ($routes = $panel->getRoutes()) {
+                            $routes($panel);
+                        }
 
                         foreach ($panel->getPages() as $page) {
                             $page::routes($panel);
