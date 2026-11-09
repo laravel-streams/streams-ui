@@ -11,6 +11,7 @@ class Container extends ViewBuilder
 {
     use Support\BelongsToLivewire;
     use Support\BelongsToParent;
+    use Support\CanRefreshOn;
     use Support\CanSpanColumns;
     use Support\HasBackground;
     use Support\HasComponents;
