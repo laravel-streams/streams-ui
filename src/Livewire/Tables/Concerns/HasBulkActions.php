@@ -7,8 +7,8 @@ use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Builders\Forms\Form;
 use Streams\Ui\Support\Facades\Actions;
 use Streams\Ui\Notifications\Notification;
-use Illuminate\Contracts\Database\Query\Builder;
 use Streams\Ui\Builders\Tables\BulkActions\BulkAction;
+use Illuminate\Contracts\Database\Query\Builder;
 
 trait HasBulkActions
 {
@@ -243,15 +243,8 @@ trait HasBulkActions
 
     public function getSelectedTableRecords(string $table = 'default'): Collection
     {
-        $query = $this->getTable($table)->getQuery();
-
-        if ($query instanceof \Illuminate\Database\Eloquent\Builder) {
-            return $query
-                ->whereIn($query->getModel()->getQualifiedKeyName(), $this->getSelectedTableEntries($table))
-                ->get();
-        }
-
-        return $query
+        return $this->getTable($table)
+            ->getQuery()
             ->where('id', 'IN', $this->getSelectedTableEntries($table))
             ->get();
     }
@@ -413,10 +406,6 @@ trait HasBulkActions
         return $items
             ->map(static function (mixed $entry): string {
                 if (is_object($entry)) {
-                    if ($entry instanceof \Illuminate\Database\Eloquent\Model) {
-                        return (string) $entry->getKey();
-                    }
-
                     return (string) ($entry->id ?? '');
                 }
 

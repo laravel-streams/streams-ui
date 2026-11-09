@@ -2,6 +2,7 @@
 
 namespace Streams\Ui\Livewire\Pages;
 
+use Streams\Core\Entry\Entry;
 use Streams\Ui\Builders\Forms\Form;
 use Streams\Ui\Builders\Concerns\HasEntry;
 use Streams\Ui\Livewire\Forms\InteractsWithForms;
@@ -35,9 +36,9 @@ class EditEntry extends PanelPage
         $this->previousUrl = url()->previous();
     }
 
-    protected function resolveEntry(int|string $key): object
+    protected function resolveEntry(int|string $key): Entry
     {
-        $entry = static::getResource()::resolveRecord($key);
+        $entry = static::getResource()::resolveEntryRouteBinding($key);
 
         if ($entry === null) {
             throw (new \Exception("Entry [$key] not found"));
@@ -50,7 +51,7 @@ class EditEntry extends PanelPage
     {
         static::authorizeResourceAccess();
 
-        abort_unless(static::getResource()::canEdit($this->getEntryInstance()), 403);
+        abort_unless(static::getResource()::canEdit($this->getRecord()), 403);
     }
 
     protected function fillForm(): void
@@ -116,7 +117,7 @@ class EditEntry extends PanelPage
 
         $this->callHook('beforeSave');
 
-        $this->handleRecordUpdate($this->getEntryInstance(), $data);
+        $this->handleRecordUpdate($this->getRecord(), $data);
 
         $this->callHook('afterSave');
     }
@@ -166,7 +167,7 @@ class EditEntry extends PanelPage
     /**
      * @param  array<string, mixed>  $data
      */
-    protected function handleRecordUpdate(object $record, array $data): object
+    protected function handleRecordUpdate(Model $record, array $data): Model
     {
         $record->update($data);
 

@@ -2,13 +2,15 @@
 
 namespace Streams\Ui\Livewire\Tables\Concerns;
 
+use Streams\Core\Entry\Entry;
 use Streams\Ui\Exceptions\Cancel;
 use Streams\Ui\Builders\Actions\Action;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Streams\Core\Entry\Contract\EntryInterface;
 
 trait HasActions
 {
-    protected ?object $cachedMountedTableActionRecord = null;
+    protected ?Entry $cachedMountedTableActionRecord = null;
 
     protected int|string|null $cachedMountedTableActionRecordKey = null;
 
@@ -235,7 +237,7 @@ trait HasActions
         return $this->getTable($table)->getState('mounted_action_record');
     }
 
-    public function getMountedTableActionRecord(string $table = 'default'): ?object
+    public function getMountedTableActionRecord(string $table = 'default'): ?EntryInterface
     {
         $recordKey = $this->getMountedTableActionRecordKey($table);
 
@@ -246,7 +248,7 @@ trait HasActions
         $this->cachedMountedTableActionRecordKey = $recordKey;
 
         if (($entries = $this->getTableEntries($table)) instanceof LengthAwarePaginator) {
-            $entry = $entries->first(fn ($entry) => ($entry instanceof \Illuminate\Database\Eloquent\Model ? $entry->getKey() : $entry->id) == $recordKey);
+            $entry = $entries->first(fn ($entry) => $entry->id == $recordKey);
         } else {
             $entry = $entries->get($recordKey);
         }

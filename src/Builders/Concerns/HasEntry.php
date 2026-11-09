@@ -47,10 +47,6 @@ trait HasEntry
             return $entry->getIdAttribute();
         }
 
-        if ($entry instanceof \Illuminate\Database\Eloquent\Model) {
-            return $entry->getKey();
-        }
-
         if (filled($entry)) {
             return $entry;
         }
@@ -63,7 +59,7 @@ trait HasEntry
     {
         $entry = $this->entry;
 
-        if ($entry instanceof EntryInterface || $entry instanceof \Illuminate\Database\Eloquent\Model) {
+        if ($entry instanceof EntryInterface) {
             return $entry;
         }
 

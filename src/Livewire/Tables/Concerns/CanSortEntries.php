@@ -3,7 +3,7 @@
 namespace Streams\Ui\Livewire\Tables\Concerns;
 
 use Streams\Core\Criteria\Criteria;
-use Illuminate\Contracts\Database\Query\Builder;
+use Illuminate\Database\Query\Builder;
 
 trait CanSortEntries
 {
