@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Fixed
+
+- Icon-only actions render real SVGs in tests again: `UiTestCase` registers `BladeIconsServiceProvider` and `BladeHeroiconsServiceProvider` so the `@svg` directive in `x-ui::icon` compiles (without them the markup showed raw `@svg(`).
+
 ### Added
 
 - `Table::defaultFilters(array $values)` and `Filter::default($value)` seed filter values on first load. Resetting filters clears them.
