@@ -56,3 +56,12 @@ Panel::make('admin')->pages([DashboardPage::class]);
 - [Resources](/docs/ui/resources)
 - [Routing](/docs/ui/routing)
 - [Livewire integration](/docs/ui/livewire)
+
+## Read-only Display
+
+```php
+Display::make([Entry::make('name'), Entry::make('email', 'Contact')])
+    ->heading('Profile')->actions([...])->fill($entry);
+```
+
+Renders labels and values only; never emits input elements.
