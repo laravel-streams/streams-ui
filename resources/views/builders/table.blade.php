@@ -56,6 +56,9 @@ $bottomRightRadiusStyle = $borderRadiusCss ? "border-bottom-right-radius: {$bord
     data-selected-keys="{{ e(json_encode($selectedEntryKeys)) }}"
     data-select-all-matching="{{ $selectAllMatchingState ? '1' : '0' }}"
     class="relative"
+    @foreach ($table->getRefreshOnAttributes() as $refreshName => $refreshValue)
+        {{ $refreshName }}="{{ $refreshValue }}"
+    @endforeach
     {{-- @if (! $isLoaded)
         wire:init="loadTable"
     @endif --}}
