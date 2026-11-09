@@ -6,8 +6,8 @@ use Livewire\Component;
 use Streams\Ui\Tests\UiTestCase;
 use Streams\Ui\Resources\Resource;
 use Streams\Ui\Builders\Tables\Table;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Eloquent\Model;
 use Streams\Ui\Builders\Tables\Columns\LinkColumn;
 use Streams\Ui\Builders\Tables\Columns\TextColumn;
 use Streams\Ui\Builders\Tables\Filters\TextFilter;
@@ -130,7 +130,7 @@ class EloquentTableTest extends UiTestCase
         $this->assertSame(1, $card->getEntry());
         $this->assertSame($widget, $card->getEntryInstance());
 
-        $page = new \Streams\Ui\Livewire\Pages\EditEntry();
+        $page = new \Streams\Ui\Livewire\Pages\EditEntry;
         $page->entry($card->getEntryInstance());
 
         $method = new \ReflectionMethod($page, 'handleRecordUpdate');

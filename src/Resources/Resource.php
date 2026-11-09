@@ -6,8 +6,8 @@ use Streams\Core\Entry\Entry;
 use Streams\Core\Support\Facades\Streams;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Ui\Builders\Concerns as Common;
-use Streams\Ui\Builders\Navigation\NavigationItem;
 use Streams\Ui\Builders\Breadcrumbs\Breadcrumbs;
+use Streams\Ui\Builders\Navigation\NavigationItem;
 
 abstract class Resource
 {

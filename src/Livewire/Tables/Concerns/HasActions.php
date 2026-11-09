@@ -2,11 +2,9 @@
 
 namespace Streams\Ui\Livewire\Tables\Concerns;
 
-use Streams\Core\Entry\Entry;
 use Streams\Ui\Exceptions\Cancel;
 use Streams\Ui\Builders\Actions\Action;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Streams\Core\Entry\Contract\EntryInterface;
 
 trait HasActions
 {

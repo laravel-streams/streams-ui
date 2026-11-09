@@ -2,7 +2,6 @@
 
 namespace Streams\Ui\Builders\Tables\Filters;
 
-use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Builders\Tables\Table;
 use Streams\Ui\Builders\Inputs\Concerns\HasPlaceholder;
 

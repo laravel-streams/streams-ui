@@ -7,8 +7,8 @@ use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Builders\Forms\Form;
 use Streams\Ui\Support\Facades\Actions;
 use Streams\Ui\Notifications\Notification;
-use Streams\Ui\Builders\Tables\BulkActions\BulkAction;
 use Illuminate\Contracts\Database\Query\Builder;
+use Streams\Ui\Builders\Tables\BulkActions\BulkAction;
 
 trait HasBulkActions
 {

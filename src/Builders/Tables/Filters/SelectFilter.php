@@ -3,7 +3,6 @@
 namespace Streams\Ui\Builders\Tables\Filters;
 
 use Streams\Ui\Builders;
-use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Builders\Tables\Table;
 
 class SelectFilter extends Filter
