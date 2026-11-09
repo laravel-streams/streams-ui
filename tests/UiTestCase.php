@@ -9,6 +9,8 @@ abstract class UiTestCase extends TestCase
     protected function getPackageProviders($app)
     {
         return [
+            \BladeUI\Icons\BladeIconsServiceProvider::class,
+            \BladeUI\Heroicons\BladeHeroiconsServiceProvider::class,
             \Livewire\LivewireServiceProvider::class,
             \Streams\Ui\UiServiceProvider::class,
         ];

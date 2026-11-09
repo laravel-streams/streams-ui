@@ -834,7 +834,7 @@ class ActionTest extends UiTestCase
         $this->assertStringContainsString('leading-none', $classes);
         $this->assertStringNotContainsString('inline-grid', $classes);
         $this->assertStringNotContainsString('flex items-center gap-', $html);
-        $this->assertTrue($this->iconOnlyButtonStartsWithIcon($html));
+        $this->assertTrue($this->iconOnlyButtonStartsWithIcon($html), $html);
     }
 
 
