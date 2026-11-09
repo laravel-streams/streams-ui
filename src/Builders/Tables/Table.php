@@ -20,6 +20,7 @@ class Table extends ViewBuilder implements HasActions
 {
     use Common\BelongsToLivewire;
     use Common\CanBeSorted;
+    use Common\CanRefreshOn;
     use Common\HasDescription;
     use Common\HasHeading;
     use Common\HasName;

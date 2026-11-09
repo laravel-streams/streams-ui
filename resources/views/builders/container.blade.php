@@ -70,6 +70,7 @@
             ...$backgroundStyles,
         ])
         ->merge($container->getHtmlAttributes())
+        ->merge($container->getRefreshOnAttributes())
 !!}>
 
     @foreach ($container->getComponents() as $component)
