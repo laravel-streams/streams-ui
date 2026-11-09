@@ -72,3 +72,11 @@ PostResource::getUrl('edit', ['entry' => $id]);
 - [Pages](/docs/ui/pages)
 - [Forms](/docs/ui/forms)
 - [Tables](/docs/ui/tables)
+
+## Tabs and breadcrumbs
+
+```php
+protected static array $tabs = ['index' => 'All', 'edit' => 'Edit'];
+```
+
+`Resource::getTabs($params)` returns name, label, url and an `active` flag derived from the current route. `Resource::getBreadcrumbs($page)` returns a `Breadcrumbs` builder: resource index, then the page.

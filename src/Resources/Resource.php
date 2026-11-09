@@ -7,6 +7,7 @@ use Streams\Core\Support\Facades\Streams;
 use Streams\Core\Support\Traits\HasMemory;
 use Streams\Ui\Builders\Concerns as Common;
 use Streams\Ui\Builders\Navigation\NavigationItem;
+use Streams\Ui\Builders\Breadcrumbs\Breadcrumbs;
 
 abstract class Resource
 {
@@ -49,6 +50,45 @@ abstract class Resource
                 )
                 ->url(static::getNavigationUrl()),
         ];
+    }
+
+    /**
+     * Declarative tabs: page name => label.
+     */
+    protected static array $tabs = [];
+
+    public static function tabs(): array
+    {
+        return static::$tabs;
+    }
+
+    /**
+     * Tabs resolved with url and route-derived active state.
+     */
+    public static function getTabs(array $parameters = []): array
+    {
+        $base = static::getRouteBaseName();
+
+        return collect(static::tabs())->map(fn (string $label, string $name) => [
+            'name' => $name,
+            'label' => $label,
+            'url' => static::getUrl($name, $parameters),
+            'active' => request()->routeIs("$base.$name"),
+        ])->values()->all();
+    }
+
+    /**
+     * Breadcrumb chain: resource index, then the current page label.
+     */
+    public static function getBreadcrumbs(?string $page = null, array $parameters = []): Breadcrumbs
+    {
+        $items = [static::getNavigationLabel() => static::getUrl('index')];
+
+        if ($page && $page !== 'index') {
+            $items[static::tabs()[$page] ?? str($page)->headline()->toString()] = static::getUrl($page, $parameters);
+        }
+
+        return Breadcrumbs::make($items);
     }
 
     public static function getPages(): array
