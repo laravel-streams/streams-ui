@@ -10,6 +10,14 @@ use Illuminate\Contracts\Support\Htmlable;
 
 class ViewBuilderTest extends UiTestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Fixture views for the `ui::test-view` view used throughout this test.
+        view()->getFinder()->addNamespace('ui', __DIR__.'/../Fixtures/views');
+    }
+
     protected function getTestViewBuilder(): TestViewBuilder
     {
         return new TestViewBuilder;
