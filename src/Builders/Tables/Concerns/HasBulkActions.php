@@ -105,7 +105,7 @@ trait HasBulkActions
         return $action;
     }
 
-    public function isRecordSelectable(Entry $record): bool
+    public function isRecordSelectable(object $record): bool
     {
         return (bool) ($this->evaluate(
             $this->checkIfRecordIsSelectableUsing,
@@ -113,7 +113,6 @@ trait HasBulkActions
                 'record' => $record,
             ],
             typedInjections: [
-                Entry::class => $record,
                 $record::class => $record,
             ],
         ) ?? true);

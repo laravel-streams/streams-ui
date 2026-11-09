@@ -10,7 +10,7 @@ use Streams\Core\Entry\Contract\EntryInterface;
 
 trait HasActions
 {
-    protected ?Entry $cachedMountedTableActionRecord = null;
+    protected ?object $cachedMountedTableActionRecord = null;
 
     protected int|string|null $cachedMountedTableActionRecordKey = null;
 
@@ -237,7 +237,7 @@ trait HasActions
         return $this->getTable($table)->getState('mounted_action_record');
     }
 
-    public function getMountedTableActionRecord(string $table = 'default'): ?EntryInterface
+    public function getMountedTableActionRecord(string $table = 'default'): ?object
     {
         $recordKey = $this->getMountedTableActionRecordKey($table);
 
@@ -248,7 +248,7 @@ trait HasActions
         $this->cachedMountedTableActionRecordKey = $recordKey;
 
         if (($entries = $this->getTableEntries($table)) instanceof LengthAwarePaginator) {
-            $entry = $entries->first(fn ($entry) => $entry->id == $recordKey);
+            $entry = $entries->first(fn ($entry) => ($entry instanceof \Illuminate\Database\Eloquent\Model ? $entry->getKey() : $entry->id) == $recordKey);
         } else {
             $entry = $entries->get($recordKey);
         }

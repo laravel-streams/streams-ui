@@ -101,6 +101,43 @@ abstract class Resource
         return [];
     }
 
+    /**
+     * Eloquent model class backing this resource (null = Streams entries).
+     */
+    protected static ?string $model = null;
+
+    public static function getModel(): ?string
+    {
+        return static::$model;
+    }
+
+    /**
+     * Records query: an Eloquent Builder when a model is declared,
+     * otherwise the stream's Criteria.
+     */
+    public static function scopedQuery(): \Streams\Core\Criteria\Criteria|\Illuminate\Database\Eloquent\Builder
+    {
+        if ($model = static::getModel()) {
+            return $model::query();
+        }
+
+        return static::streamEntries();
+    }
+
+    public static function resolveModelRouteBinding(int|string $key): ?\Illuminate\Database\Eloquent\Model
+    {
+        $query = static::scopedQuery();
+
+        return $query->where($query->getModel()->getRouteKeyName(), $key)->first();
+    }
+
+    public static function resolveRecord(int|string $key): ?object
+    {
+        return static::getModel()
+            ? static::resolveModelRouteBinding($key)
+            : static::resolveEntryRouteBinding($key);
+    }
+
     public static function resolveEntryRouteBinding(int|string $key): ?Entry
     {
         $stream = Streams::make(static::getStream());

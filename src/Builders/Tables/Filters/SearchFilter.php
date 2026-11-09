@@ -14,7 +14,7 @@ class SearchFilter extends Filter
 
     protected function setUp(): void
     {
-        $this->query(function (Criteria $query, Table $table, $state): Criteria {
+        $this->query(function ($query, Table $table, $state) {
 
             $search = $state.'%';
 

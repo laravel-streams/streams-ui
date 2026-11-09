@@ -16,7 +16,7 @@ class SelectFilter extends Filter
 
     protected function setUp(): void
     {
-        $this->query(function (Criteria $query, Table $table, $state) {
+        $this->query(function ($query, Table $table, $state) {
             return $query->where($this->getName(), $state);
         });
     }

@@ -131,7 +131,7 @@ trait HasActions
         Action $action,
         array $modalActionNames,
         string $parentActionName,
-        ?EntryInterface $mountedRecord = null
+        ?object $mountedRecord = null
     ): ?Action {
 
         foreach ($modalActionNames as $modalActionName) {

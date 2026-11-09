@@ -36,9 +36,9 @@ class EditEntry extends PanelPage
         $this->previousUrl = url()->previous();
     }
 
-    protected function resolveEntry(int|string $key): Entry
+    protected function resolveEntry(int|string $key): object
     {
-        $entry = static::getResource()::resolveEntryRouteBinding($key);
+        $entry = static::getResource()::resolveRecord($key);
 
         if ($entry === null) {
             throw (new \Exception("Entry [$key] not found"));

@@ -26,7 +26,7 @@ class TextFilter extends Filter
 
     protected function setUp(): void
     {
-        $this->query(function (Criteria $query, Table $table, $state) {
+        $this->query(function ($query, Table $table, $state) {
 
             if ($this->isAbsolute()) {
                 return $query->where($this->getName(), $state);

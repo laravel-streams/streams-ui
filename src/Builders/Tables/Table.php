@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Streams\Core\Criteria\Criteria;
 use Streams\Ui\Builders\ViewBuilder;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Contracts\Database\Query\Builder;
 use Streams\Ui\Support\Facades\Tables;
 use Streams\Ui\Builders\Concerns as Common;
 use Illuminate\Contracts\Pagination\Paginator;
