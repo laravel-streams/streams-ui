@@ -62,3 +62,11 @@ Built-in concerns handle pagination, column sorting, and filter state. See [Colu
 - [Columns](/docs/ui/columns)
 - [Filters](/docs/ui/filters)
 - [Resources](/docs/ui/resources)
+
+## Tables in a Card
+
+```php
+Card::make('members')->table($table, [MountableAction::make('view')]);
+```
+
+Row actions mount against the table's component with the row entry; no `UiActions::register` call is needed.

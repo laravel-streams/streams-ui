@@ -22,4 +22,10 @@
 
 </script>
 
+{{-- Optional live-update helpers. Guarded: no-ops when Echo or Alpine are absent. --}}
+<script>
+{!! file_get_contents(__DIR__.'/../../../js/refresh-on.js') !!}
+{!! file_get_contents(__DIR__.'/../../../js/log-tail.js') !!}
+</script>
+
 {!! Includes::render('assets') !!}
