@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Streams\Ui\Builders\ViewBuilder;
 use Illuminate\Support\Facades\Blade;
 use Streams\Ui\Builders\Actions\Action;
+use Streams\Ui\Builders\Actions\MountableAction;
 use Streams\Ui\Builders\Actions\ActionMenu;
 use Illuminate\Contracts\Support\Htmlable;
 
@@ -16,6 +17,11 @@ class ActionTest extends UiTestCase
     protected function getTestAction(): Action
     {
         return new Action('test-action');
+    }
+
+    protected function getTestMountableAction(): MountableAction
+    {
+        return new MountableAction('test-action');
     }
 
     /** @test */
@@ -128,7 +134,7 @@ class ActionTest extends UiTestCase
     /** @test */
     public function it_can_set_action()
     {
-        $action = $this->getTestAction();
+        $action = $this->getTestMountableAction();
         $closure = fn () => 'executed';
 
         $result = $action->action($closure);
@@ -140,7 +146,7 @@ class ActionTest extends UiTestCase
     /** @test */
     public function it_returns_null_for_non_closure_action()
     {
-        $action = $this->getTestAction();
+        $action = $this->getTestMountableAction();
 
         $action->action('string-action');
 
@@ -150,7 +156,7 @@ class ActionTest extends UiTestCase
     /** @test */
     public function it_can_call_action()
     {
-        $action = $this->getTestAction();
+        $action = $this->getTestMountableAction();
         $executed = false;
 
         $action->action(function () use (&$executed) {
@@ -168,7 +174,7 @@ class ActionTest extends UiTestCase
     /** @test */
     public function it_can_call_action_with_payload()
     {
-        $action = $this->getTestAction();
+        $action = $this->getTestMountableAction();
 
         $action->action(function ($value) {
             return $value;
@@ -828,7 +834,7 @@ class ActionTest extends UiTestCase
         $this->assertStringContainsString('leading-none', $classes);
         $this->assertStringNotContainsString('inline-grid', $classes);
         $this->assertStringNotContainsString('flex items-center gap-', $html);
-        $this->assertTrue($this->iconOnlyButtonStartsWithIcon($html));
+        $this->assertTrue($this->iconOnlyButtonStartsWithIcon($html), $html);
     }
 
 

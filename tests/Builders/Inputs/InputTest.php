@@ -67,7 +67,7 @@ class InputTest extends UiTestCase
     {
         $input = TextInput::make('email');
 
-        $this->assertEquals('email', $input->getStatePath());
+        $this->assertEquals('data.email', $input->getStatePath());
     }
 
     /** @test */
@@ -346,7 +346,7 @@ class InputTest extends UiTestCase
     {
         $input = TextInput::make('email');
 
-        $this->assertEquals('email', $input->getId());
+        $this->assertEquals('data.email', $input->getId());
     }
 
     /** @test */
@@ -363,7 +363,7 @@ class InputTest extends UiTestCase
     {
         $input = TextInput::make('email');
 
-        $this->assertEquals('email', $input->getKey());
+        $this->assertEquals('data.email', $input->getKey());
     }
 
     /** @test */
