@@ -139,4 +139,35 @@ class EloquentTableTest extends UiTestCase
 
         $this->assertSame('Renamed', AcmeWidget::find(1)->name);
     }
+
+    /** @test */
+    public function form_handle_saves_a_model_attribute()
+    {
+        $form = new class('widget') extends \Streams\Ui\Builders\Forms\Form
+        {
+            public function handle(array $payload = [])
+            {
+                $this->getEntryInstance()->update($payload);
+            }
+        };
+        $form->entry(AcmeWidget::find(2));
+
+        $form->handle(['name' => 'FormSaved']);
+
+        $this->assertSame('FormSaved', AcmeWidget::find(2)->name);
+    }
+
+    /** @test */
+    public function card_section_saves_a_model_attribute()
+    {
+        $form = \Streams\Ui\Builders\Forms\Form::make('widget')->entry(AcmeWidget::find(3));
+        $card = \Streams\Ui\Builders\Containers\Card::make('widget')->components([$form]);
+
+        $hosted = $card->getComponents()[0];
+        $this->assertInstanceOf(AcmeWidget::class, $hosted->getEntryInstance());
+
+        $hosted->getEntryInstance()->update(['name' => 'CardSaved']);
+
+        $this->assertSame('CardSaved', AcmeWidget::find(3)->name);
+    }
 }
