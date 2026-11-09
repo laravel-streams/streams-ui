@@ -51,7 +51,7 @@ class ActionTest extends UiTestCase
     {
         $action = $this->getTestAction();
 
-        $this->assertEquals('ui::action', $action->getView());
+        $this->assertEquals('ui::builders.action', $action->getView());
     }
 
     /** @test */
