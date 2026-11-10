@@ -18,23 +18,135 @@
     role="dialog"
     x-data="{
         isOpen: {{ json_encode($open) }},
+        showDirtyGuard: false,
+        formSnapshot: null,
+        openedWithHistory: false,
+        closingProgrammatically: false,
+        modalHistoryKey: 'ui-modal-{{ filled($id) ? $id : 'default' }}',
 
-        close: function () {
-            this.isOpen = false;
-            this.$wire.unmountAction();
+        init: function () {
+            window.addEventListener('popstate', () => this.handlePopstate())
+
+            if (this.isOpen) {
+                this.$nextTick(() => this.afterOpen())
+            }
+        },
+
+        captureFormSnapshot: function () {
+            const root = this.$refs.modalPanel
+
+            if (! root) {
+                return ''
+            }
+
+            const fields = root.querySelectorAll('input, textarea, select')
+
+            return Array.from(fields)
+                .filter((field) => ! ['hidden', 'submit', 'button', 'reset'].includes(field.type))
+                .map((field) => {
+                    if (field.type === 'checkbox' || field.type === 'radio') {
+                        return field.name + ':' + field.type + ':' + (field.checked ? '1' : '0')
+                    }
+
+                    return field.name + ':' + field.type + ':' + field.value
+                })
+                .join('|')
+        },
+
+        isDirty: function () {
+            if (this.formSnapshot === null) {
+                return false
+            }
+
+            return this.captureFormSnapshot() !== this.formSnapshot
+        },
+
+        pushHistoryEntry: function () {
+            const state = { ...(history.state ?? {}), [this.modalHistoryKey]: true }
+
+            history.pushState(state, document.title, window.location.href)
+            this.openedWithHistory = true
+        },
+
+        afterOpen: function () {
+            this.formSnapshot = this.captureFormSnapshot()
+
+            if (! this.openedWithHistory) {
+                this.pushHistoryEntry()
+            }
+        },
+
+        requestClose: function () {
+            if (this.isDirty()) {
+                this.showDirtyGuard = true
+
+                return
+            }
+
+            this.close()
+        },
+
+        keepEditing: function () {
+            this.showDirtyGuard = false
+        },
+
+        discardChanges: function () {
+            this.showDirtyGuard = false
+            this.close()
+        },
+
+        handlePopstate: function () {
+            if (this.closingProgrammatically) {
+                this.closingProgrammatically = false
+
+                return
+            }
+
+            if (! this.isOpen) {
+                return
+            }
+
+            if (this.isDirty()) {
+                this.pushHistoryEntry()
+                this.showDirtyGuard = true
+
+                return
+            }
+
+            this.openedWithHistory = false
+            this.doClose()
+        },
+
+        doClose: function () {
+            this.isOpen = false
+            this.showDirtyGuard = false
+            this.formSnapshot = null
+            this.$wire?.unmountAction?.()
             this.$refs.modalContainer?.dispatchEvent(
                 new CustomEvent('modal-closed', { detail: { id: '{{ $id }}' } }),
-            );
+            )
+        },
+
+        close: function () {
+            if (this.isOpen && this.openedWithHistory) {
+                this.openedWithHistory = false
+                this.closingProgrammatically = true
+                history.back()
+            }
+
+            this.doClose()
         },
 
         open: function () {
-            this.isOpen = true;
+            this.isOpen = true
             this.$refs.modalContainer?.dispatchEvent(
                 new CustomEvent('modal-opened', { detail: { id: '{{ $id }}' } }),
-            );
+            )
+
+            this.$nextTick(() => this.afterOpen())
         },
     }"
-    x-on:{{ $closeEventName }}.window="if ($event.detail?.id === undefined || $event.detail?.id === '{{ $id }}') close()"
+    x-on:{{ $closeEventName }}.window="if ($event.detail?.id === undefined || $event.detail?.id === '{{ $id }}') requestClose()"
     x-on:{{ $openEventName }}.window="if ($event.detail?.id === undefined || $event.detail?.id === '{{ $id }}') open()"
     
     {{-- x-trap.noscroll="isOpen" --}}
@@ -44,6 +156,7 @@
     {{-- Teleport out of page stacking contexts (e.g. main.z-10) so backdrop covers topbar. --}}
     <template x-teleport="body">
         <div
+            data-ui-modal-root
             x-cloak
             x-show="isOpen"
             x-transition.duration.300ms.opacity
@@ -53,15 +166,52 @@
             ])
         >
             <div
+                data-ui-modal-backdrop
                 aria-hidden="true"
                 @if (filled($id))
                     x-on:click="$dispatch('{{ $closeEventName }}', { id: '{{ $id }}' })"
                 @else
-                    x-on:click="close()"
+                    x-on:click="requestClose()"
                 @endif
                 class="cursor-pointer fixed inset-0 backdrop-blur-sm"
                 style="background-color: rgba(var(--primary-500), 0.5); will-change: transform"
             ></div>
+
+            <div
+                x-show="showDirtyGuard"
+                x-cloak
+                data-ui-modal-dirty-guard
+                class="pointer-events-auto absolute inset-0 z-10 flex items-center justify-center p-4"
+                style="background-color: rgba(0, 0, 0, 0.45)"
+            >
+                <div
+                    class="w-full max-w-sm rounded-2xl bg-white p-6 shadow-xl shadow-black/10 ring-1 ring-gray-950/5"
+                    role="alertdialog"
+                    aria-labelledby="ui-modal-dirty-guard-heading"
+                >
+                    <p id="ui-modal-dirty-guard-heading" class="text-base font-medium text-gray-950">
+                        Discard unsaved changes?
+                    </p>
+                    <div class="mt-6 flex flex-row-reverse flex-wrap gap-3">
+                        <button
+                            type="button"
+                            data-ui-modal-dirty-discard
+                            x-on:click="discardChanges()"
+                            class="rounded-lg bg-gray-950 px-4 py-2 text-sm font-semibold text-white"
+                        >
+                            Discard
+                        </button>
+                        <button
+                            type="button"
+                            data-ui-modal-dirty-keep-editing
+                            x-on:click="keepEditing()"
+                            class="rounded-lg px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-gray-300"
+                        >
+                            Keep editing
+                        </button>
+                    </div>
+                </div>
+            </div>
 
             <div
                 x-cloak
@@ -71,10 +221,11 @@
                 
                 <div
                     x-cloak
+                    x-ref="modalPanel"
                     @if (filled($id))
                         x-on:keydown.window.escape="$dispatch('{{ $closeEventName }}', { id: '{{ $id }}' })"
                     @else
-                        x-on:keydown.window.escape="close()"
+                        x-on:keydown.window.escape="requestClose()"
                     @endif
                     x-show="isOpen"
                     x-transition:enter="duration-300"
