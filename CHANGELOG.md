@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+- Modal root and backdrop hooks (`data-ui-modal-root`, `data-ui-modal-backdrop`), unsaved-change guard with Keep editing / Discard, and history: opening pushes one entry and Back closes the dialog without leaving the page.
+
 ### Fixed
 
 - Icon-only actions render real SVGs in tests again: `UiTestCase` registers `BladeIconsServiceProvider` and `BladeHeroiconsServiceProvider` so the `@svg` directive in `x-ui::icon` compiles (without them the markup showed raw `@svg(`).
